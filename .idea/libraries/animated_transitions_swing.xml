@@ -1,0 +1,11 @@
+<component name="libraryTable">
+  <library name="animated-transitions-swing">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/libs/animated-transitions-swing.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$PROJECT_DIR$/libs/animated-transitions-swing.jar!/" />
+    </SOURCES>
+  </library>
+</component>

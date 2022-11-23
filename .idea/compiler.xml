@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <annotationProcessing>
+      <profile name="Maven default annotation processors profile" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <module name="ElementUI2" />
+      </profile>
+    </annotationProcessing>
+  </component>
+  <component name="JavacSettings">
+    <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="ElementUI2" options="--add-exports java.desktop/sun.awt.shell=ALL-UNNAMED --add-exports java.desktop/sun.swing=ALL-UNNAMED --add-exports java.base/com.sun=ALL-UNNAMED --add-exports java.desktop/com.sun.java.swing.plaf.windows=ALL-UNNAMED --add-exports java.desktop/sun.awt=ALL-UNNAMED --add-exports java.base/sun.security.action=ALL-UNNAMED --add-exports java.desktop/sun.awt.windows=ALL-UNNAMED --add-exports java.desktop/sun.awt.image=ALL-UNNAMED" />
+    </option>
+  </component>
+</project>
