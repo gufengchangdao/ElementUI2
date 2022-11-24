@@ -6,7 +6,7 @@ import com.element.plaf.basic.ThemePainter;
 import com.element.ui.icons.JideIconsFactory;
 import com.element.ui.layout.JideBoxLayout;
 import com.element.util.JideSwingUtilities;
-import com.element.util.SwingTestUtil;
+import com.sun.java.swing.plaf.windows.WindowsLookAndFeel;
 import demo.AbstractDemo;
 
 import javax.swing.*;
@@ -23,15 +23,6 @@ public class JideOptionPaneTest extends AbstractDemo {
 		return "JideOptionPaneDemo";
 	}
 
-	public String getProduct() {
-		return PRODUCT_NAME_DIALOGS;
-	}
-
-	@Override
-	public int getAttributes() {
-		return ATTRIBUTE_BETA;
-	}
-
 	@Override
 	public String getDescription() {
 		return """
@@ -42,7 +33,6 @@ public class JideOptionPaneTest extends AbstractDemo {
 				Demoed classes:
 				com.jidesoft.dialog.JideOptionPane""";
 	}
-
 
 	public Component getDemoPanel() {
 		LookAndFeelFactory.UIDefaultsCustomizer uiDefaultsCustomizer = defaults -> {
@@ -297,7 +287,8 @@ public class JideOptionPaneTest extends AbstractDemo {
 
 	public static void main(String[] args) {
 		SwingUtilities.invokeLater(() -> {
-			SwingTestUtil.loadSkin();
+			// SwingTestUtil.loadSkin();
+			LookAndFeelFactory.installJideExtension();
 			showAsFrame(new JideOptionPaneTest());
 		});
 	}

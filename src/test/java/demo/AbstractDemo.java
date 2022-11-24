@@ -1,15 +1,14 @@
 package demo;
 
-import com.element.ui.label.MultilineLabel;
-import com.element.ui.layout.JideBoxLayout;
-import com.element.ui.tabs.JideTabbedPane;
-import com.element.ui.others.collapse.AccordionPanel;
+import com.element.plaf.UIDefaultsLookup;
 import com.element.ui.dialog.ButtonPanel;
 import com.element.ui.dialog.StandardDialog;
-import com.element.plaf.UIDefaultsLookup;
+import com.element.ui.label.MultilineLabel;
+import com.element.ui.layout.JideBoxLayout;
+import com.element.ui.others.collapse.AccordionPanel;
+import com.element.ui.tabs.JideTabbedPane;
 import com.element.util.JideSwingUtilities;
 import com.element.util.SearchableUtils;
-import com.element.util.ProductNames;
 
 import javax.swing.*;
 import java.awt.*;
@@ -27,7 +26,7 @@ import java.util.Locale;
 /**
  * A template to create additional demo module.
  */
-abstract public class AbstractDemo implements Demo, ProductNames {
+abstract public class AbstractDemo implements Demo {
 	public AbstractDemo() {
 	}
 
@@ -63,7 +62,7 @@ abstract public class AbstractDemo implements Demo, ProductNames {
 	 * @return frame
 	 */
 	public static JFrame showAsFrame(final Demo demo) {
-		final JFrame frame = new JFrame("组件通用测试");
+		final JFrame frame = new JFrame(demo.getName());
 		// 关闭窗口时停止动画
 		frame.addWindowListener(new WindowAdapter() {
 			@Override
@@ -74,7 +73,6 @@ abstract public class AbstractDemo implements Demo, ProductNames {
 				demo.dispose();
 			}
 		});
-		// frame.setIconImage(JideIconsFactory.getImageIcon(JideIconsFactory.JIDE32).getImage());
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
 		Component demoPanel = demo.getDemoPanel();
@@ -175,7 +173,7 @@ abstract public class AbstractDemo implements Demo, ProductNames {
 			}
 
 			if (list.size() >= 1) {
-				// 展开第一个
+				// 展开第一个，但是手风琴暂时没有展开功能
 			} else {
 				return null;
 			}
@@ -235,10 +233,6 @@ abstract public class AbstractDemo implements Demo, ProductNames {
 
 	public String getDemoFolder() {
 		return "";
-	}
-
-	public int getAttributes() {
-		return ATTRIBUTE_NONE;
 	}
 
 	public static JButton createBrowseSourceCodeButton(final JFrame frame, final Demo demo) {

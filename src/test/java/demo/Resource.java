@@ -7,7 +7,7 @@ import java.util.ResourceBundle;
  * 测试资源
  */
 public class Resource {
-	static final String BASENAME = "com.component.jidesoft.demo.demo";
+	static final String BASENAME = "demo.demo";
 
 	static final ResourceBundle RB = ResourceBundle.getBundle(BASENAME);
 
