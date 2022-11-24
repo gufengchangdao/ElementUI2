@@ -7,17 +7,18 @@ package com.element.grouper;
 
 import com.element.grouper.date.DateMonthGrouper;
 import com.element.grouper.date.DateYearGrouper;
-import com.element.util.CacheMap;
-import com.element.util.RegistrationListener;
+import com.element.event.CacheMap;
+import com.element.event.RegistrationListener;
 
 import java.util.Calendar;
 import java.util.Date;
 
 /**
- * A global object that can register Object Grouper with a type and a GrouperContext.
+ * 可以使用类型和 GrouperContext 注册 Object Grouper 的全局对象。
+ *
+ * @deprecated 暂时没有使用的理由
  */
 public class ObjectGrouperManager {
-
 	private static CacheMap<ObjectGrouper, GrouperContext> _cache = new CacheMap<>(GrouperContext.DEFAULT_CONTEXT);
 
 	private static ObjectGrouper _defaultGrouper = null;

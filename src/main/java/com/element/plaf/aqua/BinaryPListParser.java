@@ -14,14 +14,15 @@
 
 package com.element.plaf.aqua;
 
-import com.element.util.Base64;
 import com.element.util.SecurityUtils;
+import org.apache.batik.util.Base64EncoderStream;
 
 import java.io.*;
 import java.nio.charset.StandardCharsets;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Base64;
 import java.util.Date;
 import java.util.HashMap;
 
@@ -351,7 +352,8 @@ class BinaryPListParser {
 			elem.setContent(object.toString());
 		} else if (object instanceof byte[]) {
 			elem.setName("data");
-			elem.setContent(Base64.encodeBytes((byte[]) object));
+			// elem.setContent(Base64.encodeBytes((byte[]) object)); //以前的代码
+			elem.setContent(Base64.getEncoder().encodeToString((byte[]) object));
 		} else if (object instanceof Date) {
 			elem.setName("date");
 			DateFormat format = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'");

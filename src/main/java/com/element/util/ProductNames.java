@@ -1,31 +1,31 @@
 /*
  * @(#)ProductNames.java
  *
- * Copyright 2002 - 2005 JIDE Software Inc. All rights reserved.
+ * Copyright 2002 - 2005 Software Inc. All rights reserved.
  */
 package com.element.util;
 
 /**
- * JIDE Software 的产品名称列表
+ * 组件名称列表
  */
 public interface ProductNames {
-	String PRODUCT_NAME_COMMON = "JIDE Common Layer";
-	String PRODUCT_NAME_DOCK = "JIDE Docking Framework";
-	String PRODUCT_NAME_COMPONENTS = "JIDE Components";
-	String PRODUCT_NAME_GRIDS = "JIDE Grids";
-	String PRODUCT_NAME_DIALOGS = "JIDE Dialogs";
-	String PRODUCT_NAME_ACTION = "JIDE Action Framework";
-	String PRODUCT_NAME_SHORTCUT = "JIDE Shortcut Editor";
-	String PRODUCT_NAME_PIVOT = "JIDE Pivot Grid";
-	String PRODUCT_NAME_CODE_EDITOR = "JIDE Code Editor";
-	String PRODUCT_NAME_FEEDREADER = "JIDE Feed Reader";
-	String PRODUCT_NAME_DASHBOARD = "JIDE Dashboard";
-	String PRODUCT_NAME_DATAGRIDS = "JIDE Data Grids";
-	String PRODUCT_NAME_CHARTS = "JIDE Charts";
-	String PRODUCT_NAME_GANTT_CHART = "JIDE Gantt Chart";
-	String PRODUCT_NAME_DIFF = "JIDE Diff";
-	String PRODUCT_NAME_TREEMAP = "JIDE TreeMap";
-	String PRODUCT_NAME_JDAF = "JIDE Desktop Application Framework";
+	String PRODUCT_NAME_COMMON = "Common Layer";
+	String PRODUCT_NAME_DOCK = "Docking Framework";
+	String PRODUCT_NAME_COMPONENTS = "Components";
+	String PRODUCT_NAME_GRIDS = "Grids";
+	String PRODUCT_NAME_DIALOGS = "Dialogs";
+	String PRODUCT_NAME_ACTION = "Action Framework";
+	String PRODUCT_NAME_SHORTCUT = "Shortcut Editor";
+	String PRODUCT_NAME_PIVOT = "Pivot Grid";
+	String PRODUCT_NAME_CODE_EDITOR = "Code Editor";
+	String PRODUCT_NAME_FEEDREADER = "Feed Reader";
+	String PRODUCT_NAME_DASHBOARD = "Dashboard";
+	String PRODUCT_NAME_DATAGRIDS = "Data Grids";
+	String PRODUCT_NAME_CHARTS = "Charts";
+	String PRODUCT_NAME_GANTT_CHART = "Gantt Chart";
+	String PRODUCT_NAME_DIFF = "Diff";
+	String PRODUCT_NAME_TREEMAP = "TreeMap";
+	String PRODUCT_NAME_JDAF = "Desktop Application Framework";
 
 	String COMPONENT_PRODUCTS = PRODUCT_NAME_DOCK + ", " +
 			PRODUCT_NAME_ACTION + ", " +

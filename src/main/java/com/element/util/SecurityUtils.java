@@ -36,22 +36,12 @@ public class SecurityUtils {
 	public static final String BOLD_ITALIC = "Bold Italic";
 
 	private static String createFontStrings(String font, int style) {
-		String fontString;
-		switch (style) {
-			case Font.BOLD:
-				fontString = font + " " + BOLD;
-				break;
-			case Font.ITALIC:
-				fontString = font + " " + ITALIC;
-				break;
-			case Font.BOLD | Font.ITALIC:
-				fontString = font + " " + BOLD_ITALIC;
-				break;
-			case Font.PLAIN:
-			default:
-				fontString = font;
-				break;
-		}
+		String fontString = switch (style) {
+			case Font.BOLD -> font + " " + BOLD;
+			case Font.ITALIC -> font + " " + ITALIC;
+			case Font.BOLD | Font.ITALIC -> font + " " + BOLD_ITALIC;
+			default -> font;
+		};
 		return fontString.replace(' ', '_');
 	}
 

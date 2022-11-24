@@ -13,7 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * A class that keeps all 1.4/1.3 different stuff.
+ * 保留所有 1.4/1.3 不同内容的类。
  */
 @SuppressWarnings({"UnusedDeclaration"})
 public class PortingUtils {

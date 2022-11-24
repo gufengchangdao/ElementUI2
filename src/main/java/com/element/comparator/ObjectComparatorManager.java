@@ -5,8 +5,8 @@
  */
 package com.element.comparator;
 
-import com.element.util.CacheMap;
-import com.element.util.RegistrationListener;
+import com.element.event.CacheMap;
+import com.element.event.RegistrationListener;
 
 import java.text.Collator;
 import java.util.Calendar;
@@ -15,6 +15,7 @@ import java.util.Date;
 
 /**
  * A global object that can register comparator with a type and a ComparatorContext.
+ * @deprecated 暂时没有使用的理由
  */
 public class ObjectComparatorManager {
 

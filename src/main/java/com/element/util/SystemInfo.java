@@ -121,32 +121,32 @@ final public class SystemInfo {
 		if (os.contains("Windows XP") || os.contains("Windows NT") || os.contains("Windows 2000")) {
 			_isWindowsNTor2000 = true;
 		}
-		if (os.indexOf("Windows XP") != -1) {
+		if (os.contains("Windows XP")) {
 			_isWindowsXP = true;
 		}
-		if (os.indexOf("Windows Vista") != -1) {
+		if (os.contains("Windows Vista")) {
 			_isWindowsVista = true;
 		}
-		if (os.indexOf("Windows 7") != -1) {
+		if (os.contains("Windows 7")) {
 			_isWindows7 = true;
 		}
-		if (os.indexOf("Windows 8") != -1) {
+		if (os.contains("Windows 8")) {
 			_isWindows8 = true;
 		}
-		if (os.indexOf("Windows 2003") != -1) {
+		if (os.contains("Windows 2003")) {
 			_isWindows2003 = true;
 			_isWindowsXP = true;
 		}
-		if (os.indexOf("Windows 95") != -1) {
+		if (os.contains("Windows 95")) {
 			_isWindows95 = true;
 		}
-		if (os.indexOf("Windows 98") != -1) {
+		if (os.contains("Windows 98")) {
 			_isWindows98 = true;
 		}
 		if (_isWindows) _supportsTray = true;
-		_isSolaris = (os.indexOf("Solaris") != -1) || (os.indexOf("SunOS") != -1);
+		_isSolaris = (os.contains("Solaris")) || (os.contains("SunOS"));
 		_isBSD = os.endsWith("BSD");
-		_isLinux = os.indexOf("Linux") != -1;
+		_isLinux = os.contains("Linux");
 		if (os.startsWith("Mac OS")) {
 			if (os.endsWith("X")) {
 				_isMacOSX = true;
@@ -632,8 +632,8 @@ final public class SystemInfo {
 		/**
 		 * For example: 1.6.0_12: Group 1 = major version (1.6) Group 3 = minor version (0) Group 5 = build number (12)
 		 */
-		private static Pattern SUN_JAVA_VERSION = Pattern.compile("(\\d+(?:\\.\\d+)?)(\\.(\\d+))?(_([^-]+))?(.*)");
-		private static Pattern SUN_JAVA_VERSION_SIMPLE = Pattern.compile("(\\d+(?:\\.\\d+)?)(\\.(\\d+))?(.*)");
+		private static final Pattern SUN_JAVA_VERSION = Pattern.compile("(\\d+(?:\\.\\d+)?)(\\.(\\d+))?(_([^-]+))?(.*)");
+		private static final Pattern SUN_JAVA_VERSION_SIMPLE = Pattern.compile("(\\d+(?:\\.\\d+)?)(\\.(\\d+))?(.*)");
 
 		private double _majorVersion;
 		private int _minorVersion;
@@ -730,9 +730,8 @@ final public class SystemInfo {
 	 * @since 3.7.2
 	 */
 	public static boolean isMnemonicHidden() {
-		boolean isMnemonicHidden = !UIManager.getBoolean("Button.showMnemonics");
 		// Do not hide mnemonics if the UI defaults do not support this
-		return isMnemonicHidden;
+		return !UIManager.getBoolean("Button.showMnemonics");
 	}
 
 }

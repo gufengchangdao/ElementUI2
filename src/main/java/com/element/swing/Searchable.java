@@ -10,10 +10,10 @@ import com.element.plaf.UIDefaultsLookup;
 import com.element.ui.popup.JidePopup;
 import com.element.event.SearchableEvent;
 import com.element.event.SearchableListener;
-import com.element.util.DefaultWildcardSupport;
+import com.element.wildcard.DefaultWildcardSupport;
 import com.element.util.JideSwingUtilities;
 import com.element.util.SearchableUtils;
-import com.element.util.WildcardSupport;
+import com.element.wildcard.WildcardSupport;
 import com.element.ui.tabs.TableSearchable;
 import com.element.ui.tree.TreeSearchable;
 

@@ -45,7 +45,6 @@ import java.util.List;
  * methods. Basically, you set L&F using UIManager first just like before, then call installJideExtension. See code
  * below for an example.
  * <code><pre>
- * UIManager.setLookAndFeel(WindowsLookAndFeel.class.getName()); // you need to catch the exceptions on this call.
  * LookAndFeelFactory.installJideExtension();
  * </pre></code>
  * LookAndFeelFactory.installJideExtension() method will check what kind of L&F you set and what operating system you

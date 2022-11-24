@@ -4,6 +4,9 @@ import javax.accessibility.Accessible;
 import javax.swing.*;
 import javax.swing.plaf.basic.ComboPopup;
 
+/**
+ * 重绘的工具类，避免组件的全部重绘，尽量进行局部重绘
+ */
 public class RepaintUtil {
 	/**
 	 * 重绘 JComboBox 指定行，如果该行已选中，则按钮也会被重绘

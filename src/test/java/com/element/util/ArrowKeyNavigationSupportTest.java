@@ -1,5 +1,7 @@
 package com.element.util;
 
+import com.element.plaf.LookAndFeelFactory;
+import com.element.swing.ArrowKeyNavigationSupport;
 import com.element.ui.dialog.ButtonPanel;
 import demo.AbstractDemo;
 
@@ -33,6 +35,7 @@ public class ArrowKeyNavigationSupportTest extends AbstractDemo {
 	public static void main(String[] args) {
 		SwingUtilities.invokeLater(() -> {
 			SwingTestUtil.loadSkin();
+			LookAndFeelFactory.installJideExtension();
 			showAsFrame(new ArrowKeyNavigationSupportTest());
 		});
 	}

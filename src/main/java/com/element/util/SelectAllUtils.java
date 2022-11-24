@@ -42,7 +42,7 @@ public class SelectAllUtils {
 	 */
 	public static final String CLIENT_PROPERTY_ONLYONCE = "SelectAll.onlyOnce";
 
-	private static FocusListener SELECT_ALL = new FocusAdapter() {
+	private static final FocusListener SELECT_ALL = new FocusAdapter() {
 		@Override
 		public void focusGained(final FocusEvent e) {
 			SwingUtilities.invokeLater(() -> {

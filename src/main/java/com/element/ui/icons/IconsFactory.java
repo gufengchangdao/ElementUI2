@@ -538,24 +538,25 @@ public class IconsFactory {
 	private static ImageIcon createImageIcon(final Class<?> baseClass, final String file) {
 		try {
 			return createImageIconWithException(baseClass, file);
-		} catch (IOException e) {
-			System.err.println(e.getLocalizedMessage());
+		} catch (IOException e) { //图片加载失败
+			System.err.println("Can't find the resource: " + e.getLocalizedMessage());
 			return null;
 		}
 	}
 
+	/** 读取本地图片 */
 	private static ImageIcon createImageIconWithException(final Class<?> baseClass, final String file) throws IOException {
-		InputStream resource = baseClass.getResourceAsStream(file);
-		if (resource == null) {
-			throw new FileNotFoundException(file);
-		} else {
+		try (InputStream resource = baseClass.getResourceAsStream(file)) {
+			if (resource == null) {
+				throw new FileNotFoundException(file);
+			}
+
 			Image image;
 			if ("true".equals(SecurityUtils.getProperty("jide.useImageIO", "true"))) {
 				image = ImageIO.read(resource);
 			} else {
 				image = readImageIcon(baseClass, file, resource);
 			}
-			resource.close();
 			return new ImageIcon(image);
 		}
 	}
@@ -563,18 +564,18 @@ public class IconsFactory {
 
 	private static Image readImageIcon(Class clazz, String file, InputStream resource) throws IOException {
 		final byte[][] buffer = new byte[1][];
-			BufferedInputStream in = new BufferedInputStream(resource);
-			ByteArrayOutputStream out = new ByteArrayOutputStream(1024);
+		BufferedInputStream in = new BufferedInputStream(resource);
+		ByteArrayOutputStream out = new ByteArrayOutputStream(1024);
 
-			buffer[0] = new byte[1024];
-			int n;
-			while ((n = in.read(buffer[0])) > 0) {
+		buffer[0] = new byte[1024];
+		int n;
+		while ((n = in.read(buffer[0])) > 0) {
 
-				out.write(buffer[0], 0, n);
-			}
-			in.close();
-			out.flush();
-			buffer[0] = out.toByteArray();
+			out.write(buffer[0], 0, n);
+		}
+		in.close();
+		out.flush();
+		buffer[0] = out.toByteArray();
 
 		if (buffer[0] == null || buffer[0].length == 0) {
 			Package pkg = clazz.getPackage();

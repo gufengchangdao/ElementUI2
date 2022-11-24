@@ -7,7 +7,7 @@ package com.element.ui.dialog;
 
 import com.element.plaf.LookAndFeelFactory;
 import com.element.plaf.UIDefaultsLookup;
-import com.element.util.ArrowKeyNavigationSupport;
+import com.element.swing.ArrowKeyNavigationSupport;
 
 import javax.swing.*;
 import java.awt.*;
