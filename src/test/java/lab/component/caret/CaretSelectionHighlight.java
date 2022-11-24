@@ -1,6 +1,6 @@
 package lab.component.caret;
 
-import com.component.util.SwingTestUtil;
+import com.element.util.SwingTestUtil;
 
 import javax.swing.*;
 import javax.swing.text.Caret;

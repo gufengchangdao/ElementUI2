@@ -1,6 +1,6 @@
 package lab.component.border;
 
-import com.component.util.SwingTestUtil;
+import com.element.util.SwingTestUtil;
 import net.miginfocom.swing.MigLayout;
 
 import javax.imageio.ImageIO;

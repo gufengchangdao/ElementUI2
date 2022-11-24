@@ -1,7 +1,7 @@
 package lab.animator;
 
-import com.component.util.GraphicsUtil;
-import com.component.util.SwingTestUtil;
+import com.element.util.GraphicsUtil;
+import com.element.util.SwingTestUtil;
 import net.miginfocom.swing.MigLayout;
 
 import javax.imageio.ImageIO;

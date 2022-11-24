@@ -34,7 +34,7 @@
         <dependency>
             <groupId>com.miglayout</groupId>
             <artifactId>miglayout-swing</artifactId>
-            <version>5.3</version>
+            <version>11.0</version>
         </dependency>
     </dependencies>
 </project>

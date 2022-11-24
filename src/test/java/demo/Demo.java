@@ -1,0 +1,76 @@
+package demo;
+
+/*
+ * @(#)Demo.java 2/11/2005
+ *
+ * Copyright 2002 - 2005 JIDE Software Inc. All rights reserved.
+ */
+
+import java.awt.*;
+import java.io.Serializable;
+
+/**
+ * 演示组件使用的接口
+ */
+public interface Demo extends Serializable {
+
+	int ATTRIBUTE_NONE = 0;
+	int ATTRIBUTE_NEW = 1;
+	int ATTRIBUTE_BETA = 2;
+	int ATTRIBUTE_UPDATED = 4;
+
+	/**
+	 * 获取此演示的名称。
+	 */
+	String getName();
+
+	/**
+	 * 获取此演示的说明。
+	 */
+	String getDescription();
+
+	/**
+	 * 获取本次演示主要演示的产品名称。
+	 */
+	String getProduct();
+
+	/**
+	 * 获取主演示面板。
+	 */
+	Component getDemoPanel();
+
+	/**
+	 * 获取演示的源代码。
+	 */
+	String[] getDemoSource();
+
+	/**
+	 * 获取演示源代码的文件夹。
+	 */
+	String getDemoFolder();
+
+	/**
+	 * 处理演示。演示关闭时将调用它。
+	 */
+	void dispose();
+
+	/**
+	 * 获取面板，用户可以在其中设置演示组件的选项。
+	 */
+	Component getOptionsPanel();
+
+	/**
+	 * 获取新的、更新的、测试版等属性。
+	 *
+	 * @return 属性
+	 */
+	int getAttributes();
+
+	/**
+	 * 检查公共选项面板是否可见。常用选项是设置语言环境或切换从左到右或从右到左，这些对所有组件都是通用的。
+	 *
+	 * @return true or false.
+	 */
+	boolean isCommonOptionsPaneVisible();
+}
+

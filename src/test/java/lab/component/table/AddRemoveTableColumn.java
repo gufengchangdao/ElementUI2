@@ -2,7 +2,7 @@ package lab.component.table;// -*- mode:java; encoding:utf-8 -*-
 // vim:set fileencoding=utf-8:
 // @homepage@
 
-import com.component.util.SwingTestUtil;
+import com.element.util.SwingTestUtil;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;

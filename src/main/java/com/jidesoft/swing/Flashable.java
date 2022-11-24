@@ -12,11 +12,11 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 /**
- * <code>Flashable</code> is a basic interface to enable flashing in any component. Internally it uses {@link Animator}
- * to create the flashing effect.
- * <p/>
- * Whenever a Flashable is installed to a JComponent, you can always use {@link #isFlashableInstalled(JComponent)}
- * to check if it is installed.
+ * Flashable是在任何组件中启用闪烁的基本接口。它在内部使用{@link Animator}来创建闪烁效果。
+ * <p>
+ * 每当将 Flashable 安装到 JComponent 时，您始终可以使用 {@link #isFlashableInstalled(JComponent)} 检查它是否已安装。
+ *
+ * @deprecated 不要再依赖 {@link Animator} 了
  */
 public abstract class Flashable {
 	public static final String CLIENT_PROPERTY_FLASHABLE = "jide.flashable";

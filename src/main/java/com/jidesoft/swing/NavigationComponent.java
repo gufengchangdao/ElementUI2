@@ -9,6 +9,8 @@ package com.jidesoft.swing;
 /**
  * A markup interface to indicate a component is for the navigation. All navigation components have
  * a consistent rollover and selection style.
+ *
+ * @deprecated 没有类使用
  */
 public interface NavigationComponent {
 }

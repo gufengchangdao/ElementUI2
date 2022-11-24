@@ -3,14 +3,14 @@ package lab.component.listener;
 // @homepage@
 
 
-import com.component.util.SwingTestUtil;
+import com.element.util.SwingTestUtil;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 
 /**
- * Á½ÖÖ·½·¨ÊµÏÖÊÓÍ¼ËæÊó±êÍÏ×§¶ø¸Ä±ä
+ * ï¿½ï¿½ï¿½Ö·ï¿½ï¿½ï¿½Êµï¿½ï¿½ï¿½ï¿½Í¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½×§ï¿½ï¿½ï¿½Ä±ï¿½
  */
 public final class AutoScroll extends JPanel {
 	private AutoScroll() {

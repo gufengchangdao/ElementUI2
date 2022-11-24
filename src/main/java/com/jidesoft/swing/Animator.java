@@ -13,8 +13,10 @@ import java.awt.event.ActionListener;
 
 /**
  * An <code>ActionListener</code> with a timer. It is used to simplify the animation of all kind of sliding windows.
+ *
+ * @deprecated 应该使用jar包中的Animator
  */
-
+@Deprecated
 public class Animator implements ActionListener {
 
 	private final Component _source;
