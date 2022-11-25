@@ -9,9 +9,9 @@ import javax.swing.*;
 import java.awt.*;
 
 /**
- * An interface which defines a list of methods that are used to paint the UI.
- * <p/>
- * Please note, this interface is still in development mode. Future version might break your build if you use it now.
+ * 定义用于绘制 UI 的方法列表的接口。
+ *
+ * 请注意，此接口仍处于开发模式。如果您现在使用它，未来的版本可能会破坏您的构建。
  */
 public interface ThemePainter {
 	int STATE_DEFAULT = 0;
@@ -21,7 +21,8 @@ public interface ThemePainter {
 	int STATE_DISABLE = 4;
 	int STATE_DISABLE_SELECTED = 5;
 	int STATE_DISABLE_ROLLOVER = 6;
-	int STATE_INACTIVE_ROLLOVER = 7; // this is only used by JideSplitButton. When the button part is rollover, the drop down part will be inactive rollover. And vice versa.
+	// this is only used by JideSplitButton. When the button part is rollover, the drop down part will be inactive rollover. And vice versa.
+	int STATE_INACTIVE_ROLLOVER = 7;
 
 	void paintSelectedMenu(JComponent c, Graphics g, Rectangle rect, int orientation, int state);
 

@@ -105,7 +105,7 @@ abstract public class AbstractDemo implements Demo {
 			((AnimatedDemo) demo).startAnimation();
 		}
 
-		JideSwingUtilities.globalCenterWindow(frame);
+		frame.setLocationRelativeTo(null);
 		frame.setVisible(true);
 		frame.toFront();
 		return frame;

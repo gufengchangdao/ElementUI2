@@ -214,11 +214,11 @@ public class JideToggleButton extends JideButton implements Accessible {
 	// to support SELECTED_KEY
 
 	static boolean hasSelectedKey(Action a) {
-		return SystemInfo.isJdk6Above() && (a != null && a.getValue(Action.SELECTED_KEY) != null);
+		return a != null && a.getValue(Action.SELECTED_KEY) != null;
 	}
 
 	static boolean isSelected(Action a) {
-		return SystemInfo.isJdk6Above() && Boolean.TRUE.equals(a.getValue(Action.SELECTED_KEY));
+		return Boolean.TRUE.equals(a.getValue(Action.SELECTED_KEY));
 	}
 
 	/**
@@ -240,7 +240,7 @@ public class JideToggleButton extends JideButton implements Accessible {
 			if (!selected && isSelected()) {
 				if (getModel() instanceof DefaultButtonModel) {
 					ButtonGroup group = getModel().getGroup();
-					if (group != null && SystemInfo.isJdk6Above()) {
+					if (group != null) {
 						group.clearSelection();
 					}
 				}
@@ -250,11 +250,9 @@ public class JideToggleButton extends JideButton implements Accessible {
 
 	@Override
 	protected void actionPropertyChanged(Action action, String propertyName) {
-		if (SystemInfo.isJdk6Above()) {
-			super.actionPropertyChanged(action, propertyName);
-			if (Action.SELECTED_KEY.equals(propertyName) && hasSelectedKey(action)) {
-				setSelectedFromAction(action);
-			}
+		super.actionPropertyChanged(action, propertyName);
+		if (Action.SELECTED_KEY.equals(propertyName) && hasSelectedKey(action)) {
+			setSelectedFromAction(action);
 		}
 	}
 
@@ -275,7 +273,7 @@ public class JideToggleButton extends JideButton implements Accessible {
 				if (action != null && hasSelectedKey(action)) {
 					boolean selected = isSelected();
 					boolean isActionSelected = isSelected(action);
-					if (isActionSelected != selected && SystemInfo.isJdk6Above()) {
+					if (isActionSelected != selected) {
 						action.putValue(Action.SELECTED_KEY, selected);
 					}
 				}

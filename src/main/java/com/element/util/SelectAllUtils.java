@@ -6,7 +6,7 @@
 
 package com.element.util;
 
-import com.element.util.JideSwingUtilities;
+import com.element.util.handle.Handler;
 
 import javax.swing.*;
 import javax.swing.text.JTextComponent;
@@ -54,7 +54,7 @@ public class SelectAllUtils {
 						((JTextComponent) object).removeFocusListener(SELECT_ALL);
 					}
 				} else if (object instanceof Component) {
-					JideSwingUtilities.setRecursively((Component) object, new JideSwingUtilities.Handler() {
+					JideSwingUtilities.setRecursively((Component) object, new Handler() {
 						public boolean condition(Component c) {
 							return c instanceof JTextComponent;
 						}
@@ -104,7 +104,7 @@ public class SelectAllUtils {
 			}
 			component.addFocusListener(SELECT_ALL);
 		} else {
-			JideSwingUtilities.setRecursively(component, new JideSwingUtilities.Handler() {
+			JideSwingUtilities.setRecursively(component, new Handler() {
 				public boolean condition(Component c) {
 					return c instanceof JTextComponent;
 				}
@@ -131,7 +131,7 @@ public class SelectAllUtils {
 		if (component instanceof JTextComponent) {
 			component.removeFocusListener(SELECT_ALL);
 		} else {
-			JideSwingUtilities.setRecursively(component, new JideSwingUtilities.Handler() {
+			JideSwingUtilities.setRecursively(component, new Handler() {
 				public boolean condition(Component c) {
 					return c instanceof JTextComponent;
 				}

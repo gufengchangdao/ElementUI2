@@ -5,25 +5,28 @@
  */
 package com.element.util;
 
-import com.element.ui.button.JideSplitButton;
-import com.element.ui.layout.JideBorderLayout;
-import com.element.ui.nullc.NullPanel;
-import com.element.ui.pane.JideScrollPane;
-import com.element.ui.dialog.ButtonPanel;
-import com.element.ui.dialog.ButtonResources;
 import com.element.plaf.UIDefaultsLookup;
 import com.element.plaf.WindowsDesktopProperty;
 import com.element.plaf.basic.ThemePainter;
 import com.element.swing.Alignable;
 import com.element.swing.FastGradientPainter;
 import com.element.swing.ShadowFactory;
+import com.element.ui.button.JideSplitButton;
 import com.element.ui.button.SplitButtonModel;
+import com.element.ui.dialog.ButtonPanel;
+import com.element.ui.dialog.ButtonResources;
+import com.element.ui.layout.JideBorderLayout;
+import com.element.ui.nullc.NullPanel;
+import com.element.ui.pane.JideScrollPane;
+import com.element.util.handle.ConditionHandler;
+import com.element.util.handle.GetHandler;
+import com.element.util.handle.Handler;
+import org.apache.batik.ext.awt.geom.Polygon2D;
 
 import javax.swing.*;
 import javax.swing.border.Border;
 import javax.swing.border.CompoundBorder;
 import javax.swing.border.EmptyBorder;
-import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 import javax.swing.event.EventListenerList;
 import javax.swing.event.TableModelListener;
@@ -34,7 +37,6 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableCellRenderer;
 import javax.swing.table.TableModel;
 import javax.swing.text.JTextComponent;
-import javax.swing.text.View;
 import javax.swing.tree.TreeCellRenderer;
 import java.awt.*;
 import java.awt.event.*;
@@ -43,39 +45,37 @@ import java.awt.image.BufferedImage;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.lang.reflect.*;
-import java.security.AccessControlException;
 import java.util.List;
 import java.util.*;
-import java.util.logging.Logger;
 
 /**
- * A utilities class for Swing.
+ * Swing 的实用程序类。
  */
 public class JideSwingUtilities implements SwingConstants {
-
-	private static final Logger LOGGER_FOCUS = Logger.getLogger(JideSwingUtilities.class.getName() + ".focus");
-
 	/**
-	 * Whether or not text is drawn anti-aliased.  This is only used if <code>AA_TEXT_DEFINED</code> is true.
+	 * 文本是否被抗锯齿绘制。这仅在AA_TEXT_DEFINED为真时使用。
 	 */
 	private static final boolean AA_TEXT;
 
 	/**
-	 * Whether or not the system property 'swing.aatext' is defined.
+	 * 是否定义了系统属性“swing.aatext”。
 	 */
 	private static final boolean AA_TEXT_DEFINED;
 
 	/**
-	 * Key used in client properties to indicate whether or not the component should use aa text.
+	 * 客户端属性中用于指示组件是否应使用文本的键。
 	 */
-	public static final Object AA_TEXT_PROPERTY_KEY =
-			new StringBuffer("AATextPropertyKey");
+	public static final Object AA_TEXT_PROPERTY_KEY = new StringBuilder("AATextPropertyKey");
 
 	static {
-		Object aa = SecurityUtils.getProperty("swing.aatext", "false");
+		String aa = SecurityUtils.getProperty("swing.aatext");
 		AA_TEXT_DEFINED = (aa != null);
 		AA_TEXT = "true".equals(aa);
 	}
+
+	// ---------------------------------------------------------------------
+	// 包装组件
+	// ---------------------------------------------------------------------
 
 	/**
 	 * Create a Panel around a component so that component aligns to left.
@@ -86,7 +86,7 @@ public class JideSwingUtilities implements SwingConstants {
 	public static JPanel createLeftPanel(Component object) {
 		JPanel ret = new NullPanel(new BorderLayout());
 		ret.setOpaque(false);
-		ret.add(object, BorderLayout.BEFORE_LINE_BEGINS);
+		ret.add(object, BorderLayout.LINE_START);
 		return ret;
 	}
 
@@ -99,7 +99,7 @@ public class JideSwingUtilities implements SwingConstants {
 	public static JPanel createRightPanel(Component object) {
 		JPanel ret = new NullPanel(new BorderLayout());
 		ret.setOpaque(false);
-		ret.add(object, BorderLayout.AFTER_LINE_ENDS);
+		ret.add(object, BorderLayout.LINE_END);
 		return ret;
 	}
 
@@ -112,7 +112,7 @@ public class JideSwingUtilities implements SwingConstants {
 	public static JPanel createTopPanel(Component object) {
 		JPanel ret = new NullPanel(new BorderLayout());
 		ret.setOpaque(false);
-		ret.add(object, BorderLayout.BEFORE_FIRST_LINE);
+		ret.add(object, BorderLayout.PAGE_START);
 		return ret;
 	}
 
@@ -125,7 +125,7 @@ public class JideSwingUtilities implements SwingConstants {
 	public static JPanel createBottomPanel(Component object) {
 		JPanel ret = new NullPanel(new BorderLayout());
 		ret.setOpaque(false);
-		ret.add(object, BorderLayout.AFTER_LAST_LINE);
+		ret.add(object, BorderLayout.PAGE_END);
 		return ret;
 	}
 
@@ -167,36 +167,14 @@ public class JideSwingUtilities implements SwingConstants {
 	 */
 	public static void centerWindow(Window childToCenter) {
 		childToCenter.setLocationRelativeTo(childToCenter.getParent());
-//        Container parentWindow = childToCenter.getParent();
-//
-//        int width = (parentWindow.getWidth() - childToCenter.getWidth()) >> 1;
-//        int height = (parentWindow.getHeight() - childToCenter.getHeight()) >> 1;
-//
-//        // according to javadoc of setLocation, it's relevant to parent window. but it's not the case.
-//        Point location = parentWindow.getLocation();
-//        width += location.x;
-//        height += location.y;
-//        childToCenter.setLocation(width, height);
 	}
 
-	/**
-	 * 使窗口居中于整个屏幕。
-	 *
-	 * @param childToCenter 父窗口
-	 */
-	public static void globalCenterWindow(Window childToCenter) {
-		childToCenter.setLocationRelativeTo(null);
-//        Dimension screenDim = Toolkit.getDefaultToolkit().getScreenSize();
-//
-//        // Get the bounds of the splash window
-//        Rectangle frameDim = childToCenter.getBounds();
-//
-//        // Compute the location of the window
-//        childToCenter.setLocation((screenDim.width - frameDim.width) >> 1, (screenDim.height - frameDim.height) >> 1);
-	}
+	// ---------------------------------------------------------------------
+	// 图形绘制
+	// ---------------------------------------------------------------------
 
 	/**
-	 * Paints an arrow shape.
+	 * 绘制箭头形状，是一个等腰直角三角形，只有朝下和朝右两个方向
 	 *
 	 * @param g           the graphics instance
 	 * @param color       color
@@ -206,23 +184,27 @@ public class JideSwingUtilities implements SwingConstants {
 	 * @param orientation horizontal or vertical
 	 */
 	public static void paintArrow(Graphics g, Color color, int startX, int startY, int width, int orientation) {
-		Color oldColor = g.getColor();
-		g.setColor(color);
-		width = width / 2 * 2 + 1; // make sure it's odd
-		if (orientation == HORIZONTAL) {
-			for (int i = 0; i < (width + 1) / 2; i++) {
-				g.drawLine(startX + i, startY + i, startX + width - i - 1, startY + i);
-			}
-		} else if (orientation == VERTICAL) {
-			for (int i = 0; i < (width + 1) / 2; i++) {
-				g.drawLine(startX + i, startY + i, startX + i, startY + width - i - 1);
-			}
+		Graphics2D g2 = (Graphics2D) g;
+		Color oldColor = g2.getColor();
+		g2.setColor(color);
+		if (orientation == HORIZONTAL) { //朝下
+			g2.fill(new Polygon2D(
+					new float[]{startX, startX + width, (startX * 2 + width) / 2f},
+					new float[]{startY, startY, startY + (width + 1) / 2f},
+					3
+			));
+		} else if (orientation == VERTICAL) { //朝右边
+			g2.fill(new Polygon2D(
+					new float[]{startX, startX, startX + width / 2f},
+					new float[]{startY, startY + width, startY + width / 2f},
+					3
+			));
 		}
-		g.setColor(oldColor);
+		g2.setColor(oldColor);
 	}
 
 	/**
-	 * Paints an arrow shape.
+	 * 绘制箭头形状，如果组件是从右到左。绘制的三角形将朝向左边。支持方向：下左右
 	 *
 	 * @param c           the component
 	 * @param g           the graphics instance
@@ -235,60 +217,23 @@ public class JideSwingUtilities implements SwingConstants {
 	public static void paintArrow(JComponent c, Graphics g, Color color, int startX, int startY, int width, int orientation) {
 		if (!c.getComponentOrientation().isLeftToRight()) {
 			Color oldColor = g.getColor();
-			g.setColor(color);
-			width = width / 2 * 2 + 1; // make sure it's odd
-			for (int i = 0; i < (width + 1) / 2; i++) {
-				g.drawLine(startX + width - i, startY + i, startX + width - i, startY + width - i - 1);
-			}
-			g.setColor(oldColor);
+			Graphics2D g2 = (Graphics2D) g;
+			g2.setColor(color);
+			g2.fill(new Polygon2D(
+					new float[]{startX + width, startX + width, startX + width / 2f},
+					new float[]{startY, startY + width, startY + width / 2f},
+					3
+			));
+			g2.setColor(oldColor);
 			return;
 		}
 
 		paintArrow(g, color, startX, startY, width, orientation);
 	}
 
-	/**
-	 * Paints a cross shape.
-	 *
-	 * @param g       the graphics instance
-	 * @param color   color
-	 * @param centerX center X
-	 * @param centerY center Y
-	 * @param size    size
-	 * @param width   width
-	 */
-	public static void paintCross(Graphics g, Color color, int centerX, int centerY, int size, int width) {
-		g.setColor(color);
-		size = size / 2; // make sure it's odd
-		for (int i = 0; i < width; i++) {
-			g.drawLine(centerX - size, centerY - size, centerX + size, centerY + size);
-			g.drawLine(centerX + size, centerY - size, centerX - size, centerY + size);
-			centerX++;
-		}
-	}
-
-	/**
-	 * Gets the top level Frame of the component.
-	 *
-	 * @param component the component
-	 * @return the top level Frame. Null if we didn't find an ancestor which is instance of Frame.
-	 */
-	public static Frame getFrame(Component component) {
-		if (component == null) return null;
-
-		if (component instanceof Frame) return (Frame) component;
-
-		// Find frame
-		Container p = component.getParent();
-		while (p != null) {
-			if (p instanceof Frame) {
-				return (Frame) p;
-			}
-			p = p.getParent();
-		}
-		return null;
-	}
-
+	// ---------------------------------------------------------------------
+	// 其他设置
+	// ---------------------------------------------------------------------
 
 	/**
 	 * Toggles between RTL and LTR.
@@ -305,54 +250,53 @@ public class JideSwingUtilities implements SwingConstants {
 	}
 
 	/**
-	 * Synchronizes the two viewports. The view position changes in the master view, the slave view's view position will
-	 * change too. Generally speaking, if you want the two viewports to synchronize vertically, they should have the
-	 * same height. If horizontally, the same width.
-	 * <p/>
-	 * It's OK if you call this method with the same master viewport and slave viewport duplicate times. It won't cause
-	 * multiple events fired.
+	 * 同步两个视口。主视口的视口位置发生变化，从视口的视口位置也会发生变化。
+	 * 一般来说，如果你想让两个视口在垂直方向上同步，它们应该有相同的高度。如果水平就应该宽度相同。
+	 * <p>
+	 * 如果您使用相同的主视口和从视口重复调用此方法，则可以。它不会导致触发多个事件。
 	 *
-	 * @param masterViewport the master viewport
-	 * @param slaveViewport  the slave viewport
-	 * @param orientation    the orientation. It could be either SwingConstants.HORIZONTAL or SwingConstants.VERTICAL.
+	 * @param masterViewport 主视口
+	 * @param slaveViewport  从视口
+	 * @param orientation    它可以是 {@link SwingConstants#HORIZONTAL} 或 {@link SwingConstants#VERTICAL}
 	 */
 	public static void synchronizeView(final JViewport masterViewport, final JViewport slaveViewport, final int orientation) {
 		if (masterViewport == null || slaveViewport == null) {
 			return;
 		}
 		ChangeListener[] changeListeners = masterViewport.getChangeListeners();
+		// 添加视口改变监听器，但如果已经添加了就不再添加
 		int i = 0;
 		for (; i < changeListeners.length; i++) {
-			if (changeListeners[i] == getViewportSynchronizationChangeListener()) {
-				break;
-			}
+			if (changeListeners[i] == getViewportSynchronizationChangeListener()) break;
 		}
 		if (i >= changeListeners.length) {
 			masterViewport.addChangeListener(getViewportSynchronizationChangeListener());
 		}
 
+		// 将从视口添加到客户端属性中
 		Object property = masterViewport.getClientProperty(JideScrollPane.CLIENT_PROPERTY_SLAVE_VIEWPORT);
 		if (!(property instanceof Map)) {
 			property = new HashMap<JViewport, Integer>();
 		}
-		Map slaveViewportMap = (Map) property;
+		Map<JViewport, Integer> slaveViewportMap = (Map) property;
 		slaveViewportMap.put(slaveViewport, orientation);
 		masterViewport.putClientProperty(JideScrollPane.CLIENT_PROPERTY_SLAVE_VIEWPORT, slaveViewportMap);
 
+		// 将主视口添加到客户端属性中
 		property = slaveViewport.getClientProperty(JideScrollPane.CLIENT_PROPERTY_MASTER_VIEWPORT);
 		if (!(property instanceof Map)) {
 			property = new HashMap<JViewport, Integer>();
 		}
-		Map masterViewportMap = (Map) property;
+		Map<JViewport, Integer> masterViewportMap = (Map) property;
 		masterViewportMap.put(masterViewport, orientation);
 		slaveViewport.putClientProperty(JideScrollPane.CLIENT_PROPERTY_MASTER_VIEWPORT, masterViewportMap);
 	}
 
 	/**
-	 * Un-synchronizes the two viewport.
+	 * 取消同步两个视口
 	 *
-	 * @param masterViewport the master viewport
-	 * @param slaveViewport  the slave viewport
+	 * @param masterViewport 主视口
+	 * @param slaveViewport  从视口
 	 */
 	public static void unsynchronizeView(final JViewport masterViewport, final JViewport slaveViewport) {
 		if (masterViewport == null || slaveViewport == null) {
@@ -378,38 +322,34 @@ public class JideSwingUtilities implements SwingConstants {
 		}
 	}
 
+	/**
+	 * 获取按钮此时状态，返回值为 {@link ThemePainter} 内的常量
+	 *
+	 * @param b 按钮
+	 * @return {@link ThemePainter} 内的常量，表示按钮此时的状态
+	 */
 	public static int getButtonState(AbstractButton b) {
 		ButtonModel model = b.getModel();
 		if (!model.isEnabled()) {
-			if (model.isSelected()) {
-				return ThemePainter.STATE_DISABLE_SELECTED;
-			} else {
-				return ThemePainter.STATE_DISABLE;
-			}
+			if (model.isSelected()) return ThemePainter.STATE_DISABLE_SELECTED;
+			else return ThemePainter.STATE_DISABLE;
 		} else if (model.isPressed() && model.isArmed()) {
-			if (model.isRollover()) {
-				return ThemePainter.STATE_PRESSED;
-			} else if (model.isSelected()) {
-				return ThemePainter.STATE_SELECTED;
-			}
+			if (model.isRollover()) return ThemePainter.STATE_PRESSED;
+			else if (model.isSelected()) return ThemePainter.STATE_SELECTED;
 		} else if (b.isRolloverEnabled() && model.isRollover()) {
-			if (model.isSelected()) {
-				return ThemePainter.STATE_PRESSED; // should be rollover selected
-			} else {
-				return ThemePainter.STATE_ROLLOVER;
-			}
-		} else if (model.isSelected()) {
-			return ThemePainter.STATE_SELECTED;
-		} else if (b.hasFocus() && b.isFocusPainted()) {
-			if (model.isSelected()) {
-				return ThemePainter.STATE_PRESSED;
-			} else {
-				return ThemePainter.STATE_ROLLOVER;
-			}
+			if (model.isSelected()) return ThemePainter.STATE_PRESSED; // should be rollover selected
+			else return ThemePainter.STATE_ROLLOVER;
+		} else if (model.isSelected()) return ThemePainter.STATE_SELECTED;
+		else if (b.hasFocus() && b.isFocusPainted()) {
+			if (model.isSelected()) return ThemePainter.STATE_PRESSED;
+			else return ThemePainter.STATE_ROLLOVER;
 		}
 		return ThemePainter.STATE_DEFAULT;
 	}
 
+	/**
+	 * 返回按钮此时的状态数组
+	 */
 	public static int[] getButtonState(JideSplitButton b) {
 		int[] states = new int[2];
 		SplitButtonModel model = (SplitButtonModel) b.getModel();
@@ -473,6 +413,10 @@ public class JideSwingUtilities implements SwingConstants {
 		return states;
 	}
 
+	// ---------------------------------------------------------------------
+	// 比较
+	// ---------------------------------------------------------------------
+
 	/**
 	 * Checks if the two objects equal. If both are null, they are equal. If o1 and o2 both are Comparable, we will use
 	 * compareTo method to see if it equals 0. At last, we will use <code>o1.equals(o2)</code> to compare. If none of
@@ -530,13 +474,13 @@ public class JideSwingUtilities implements SwingConstants {
 		} else if (o1 instanceof Comparable && o2 instanceof Comparable && o2.getClass().isAssignableFrom(o1.getClass())) {
 			return ((Comparable) o2).compareTo(o1) == 0;
 		} else if (considerArrayOrList && o1 instanceof List && o2 instanceof List) {
-			int length1 = ((List) o1).size();
-			int length2 = ((List) o2).size();
+			int length1 = ((List<?>) o1).size();
+			int length2 = ((List<?>) o2).size();
 			if (length1 != length2) {
 				return false;
 			}
 			for (int i = 0; i < length1; i++) {
-				if (!equals(((List) o1).get(i), ((List) o2).get(i), true)) {
+				if (!equals(((List<?>) o1).get(i), ((List<?>) o2).get(i), true)) {
 					return false;
 				}
 			}
@@ -583,345 +527,15 @@ public class JideSwingUtilities implements SwingConstants {
 	}
 
 	public static boolean charsEqualIgnoreCase(char a, char b) {
-		return a == b || toUpperCase(a) == toUpperCase(b) || toLowerCase(a) == toLowerCase(b);
+		return a == b || Character.toLowerCase(a) == Character.toLowerCase(b);
 	}
 
-	public static char toUpperCase(char a) {
-		if (a < 'a') {
-			return a;
-		}
-		if (a >= 'a' && a <= 'z') {
-			return (char) (a + ('A' - 'a'));
-		}
-		return Character.toUpperCase(a);
-	}
-
-	public static char toLowerCase(final char a) {
-		if (a < 'A' || a >= 'a' && a <= 'z') {
-			return a;
-		}
-
-		if (a >= 'A' && a <= 'Z') {
-			return (char) (a + ('a' - 'A'));
-		}
-
-		return Character.toLowerCase(a);
-	}
+	// ---------------------------------------------------------------------
+	// 递归处理组件
+	// ---------------------------------------------------------------------
 
 	/**
-	 * Convenience method that returns a scaled instance of the provided BufferedImage.
-	 *
-	 * @param img                 the original image to be scaled
-	 * @param targetWidth         the desired width of the scaled instance, in pixels
-	 * @param targetHeight        the desired height of the scaled instance, in pixels
-	 * @param hint                one of the rendering hints that corresponds to RenderingHints.KEY_INTERPOLATION (e.g.
-	 *                            RenderingHints.VALUE_INTERPOLATION_NEAREST_NEIGHBOR, RenderingHints.VALUE_INTERPOLATION_BILINEAR,
-	 *                            RenderingHints.VALUE_INTERPOLATION_BICUBIC)
-	 * @param progressiveBilinear if true, this method will use a multi-step scaling technique that provides higher
-	 *                            quality than the usual one-step technique (only useful in down-scaling cases, where
-	 *                            targetWidth or targetHeight is smaller than the original dimensions)
-	 * @return a scaled version of the original BufferedImage
-	 */
-	public static BufferedImage getFasterScaledInstance(BufferedImage img,
-	                                                    int targetWidth, int targetHeight, Object hint,
-	                                                    boolean progressiveBilinear) {
-		int type = (img.getTransparency() == Transparency.OPAQUE) ?
-				BufferedImage.TYPE_INT_RGB : BufferedImage.TYPE_INT_ARGB;
-		BufferedImage ret = img;
-		BufferedImage scratchImage = null;
-		Graphics2D g2 = null;
-		int w, h;
-		int prevW = ret.getWidth();
-		int prevH = ret.getHeight();
-		boolean isTranslucent = img.getTransparency() != Transparency.OPAQUE;
-
-		if (progressiveBilinear) {
-			// Use multi-step technique: start with original size, then
-			// scale down in multiple passes with drawImage()
-			// until the target size is reached
-			w = img.getWidth();
-			h = img.getHeight();
-		} else {
-			// Use one-step technique: scale directly from original
-			// size to target size with a single drawImage() call
-			w = targetWidth;
-			h = targetHeight;
-		}
-
-		do {
-			if (progressiveBilinear && w > targetWidth) {
-				w /= 2;
-				if (w < targetWidth) {
-					w = targetWidth;
-				}
-			}
-
-			if (progressiveBilinear && h > targetHeight) {
-				h /= 2;
-				if (h < targetHeight) {
-					h = targetHeight;
-				}
-			}
-
-			if (scratchImage == null || isTranslucent) {
-				// Use a single scratch buffer for all iterations
-				// and then copy to the final, correctly-sized image
-				// before returning
-				scratchImage = new BufferedImage(w, h, type);
-				g2 = scratchImage.createGraphics();
-			}
-
-			if (g2 != null) {
-				g2.setRenderingHint(RenderingHints.KEY_INTERPOLATION, hint);
-				g2.drawImage(ret, 0, 0, w, h, 0, 0, prevW, prevH, null);
-			}
-
-			prevW = w;
-			prevH = h;
-
-			ret = scratchImage;
-		}
-		while (w != targetWidth || h != targetHeight);
-
-		if (g2 != null) {
-			g2.dispose();
-		}
-
-		// If we used a scratch buffer that is larger than our target size,
-		// create an image of the right size and copy the results into it
-		if (targetWidth != ret.getWidth() || targetHeight != ret.getHeight()) {
-			scratchImage = new BufferedImage(targetWidth, targetHeight, type);
-			g2 = scratchImage.createGraphics();
-			g2.drawImage(ret, 0, 0, null);
-			g2.dispose();
-			ret = scratchImage;
-		}
-
-		return ret;
-	}
-
-	public static int getFocusAcceleratorKeyMask() {
-//        Toolkit tk = Toolkit.getDefaultToolkit();
-//        if (tk instanceof SunToolkit) {
-//            return ((SunToolkit)tk).getFocusAcceleratorKeyMask();
-//        }
-		return ActionEvent.ALT_MASK;
-	}
-
-	private static class GetPropertyAction
-			implements java.security.PrivilegedAction {
-		private String theProp;
-		private String defaultVal;
-
-		/**
-		 * Constructor that takes the name of the system property whose string value needs to be determined.
-		 *
-		 * @param theProp the name of the system property.
-		 */
-		public GetPropertyAction(String theProp) {
-			this.theProp = theProp;
-		}
-
-		/**
-		 * Constructor that takes the name of the system property and the default value of that property.
-		 *
-		 * @param theProp    the name of the system property.
-		 * @param defaultVal the default value.
-		 */
-		public GetPropertyAction(String theProp, String defaultVal) {
-			this.theProp = theProp;
-			this.defaultVal = defaultVal;
-		}
-
-		/**
-		 * Determines the string value of the system property whose name was specified in the constructor.
-		 *
-		 * @return the string value of the system property, or the default value if there is no property with that key.
-		 */
-		public Object run() {
-			String value = System.getProperty(theProp);
-			return (value == null) ? defaultVal : value;
-		}
-	}
-
-	/**
-	 * In JDK1.4, it uses a wrong font for Swing component in Windows L&F which is actually one big reason for people to
-	 * think Swing application ugly. To address this issue, we changed the code to force to use Tahoma font for all the
-	 * fonts in L&F instead of using the system font.
-	 * <p/>
-	 * However this is a downside to this. Tahoma cannot display Unicode characters such as Chinese, Japanese and
-	 * Korean. So if the locale is CJK ({@link SystemInfo#isCJKLocale()}, we shouldn't use Tahoma. If you are on JDK 1.5
-	 * and above, you shouldn't force to use Tahoma either because JDK fixed it in 1.5 and above.
-	 * <p/>
-	 * There are also a few system properties you can set to control if system font should be used.
-	 * "swing.useSystemFontSettings" is the one for all Swing applications. "Application.useSystemFontSettings" is the
-	 * one for a particular Swing application.
-	 * <p/>
-	 * This method considers all the cases above. If JDK is 1.5 and above, this method will return true. If you are on
-	 * Chinese, Japanese or Korean locale, it will return true. If "swing.useSystemFontSettings" property us true, it
-	 * will return true. If "Application.useSystemFontSettings" property is true, it will return true. Otherwise, it
-	 * will return false. All JIDE L&F considered the returned value and decide if Tahoma font should be used or not.
-	 * <p/>
-	 * Last but the least, we also add system property "jide.useSystemfont" which has the highest priority. If you set
-	 * it to "true" or "false", this method will just check that value and return true or false respectively without
-	 * looking at any other settings.
-	 *
-	 * @return true if the L&F should use system font.
-	 */
-	@SuppressWarnings("removal")
-	public static boolean shouldUseSystemFont() {
-		String property = SecurityUtils.getProperty("jide.useSystemfont", "");
-		if ("false".equals(property)) {
-			return false;
-		} else if ("true".equals(property)) {
-			return true;
-		}
-
-		if (SystemInfo.isJdk15Above() || SystemInfo.isCJKLocale()) {
-			return true;
-		}
-
-		String systemFonts = null;
-		try {
-			systemFonts = (String) java.security.AccessController.doPrivileged(new GetPropertyAction("swing.useSystemFontSettings"));
-		} catch (AccessControlException e) {
-			// ignore
-		}
-
-		boolean useSystemFontSettings = (systemFonts != null &&
-				Boolean.parseBoolean(systemFonts));
-
-		if (useSystemFontSettings) {
-			Object value = UIDefaultsLookup.get("Application.useSystemFontSettings");
-
-			useSystemFontSettings = (value != null ||
-					Boolean.TRUE.equals(value));
-		}
-
-		return "true".equals(SecurityUtils.getProperty("defaultFont", "false")) || useSystemFontSettings;
-	}
-
-	public static void printUIDefaults() {
-		Enumeration e = UIManager.getDefaults().keys();
-		List<String> list = new ArrayList<>();
-
-		System.out.println("Non-string keys ---");
-		while (e.hasMoreElements()) {
-			Object key = e.nextElement();
-			if (key instanceof String) {
-				list.add((String) key);
-			} else {
-				System.out.println(key + " => " + UIDefaultsLookup.get(key));
-			}
-		}
-
-		System.out.println();
-
-		Collections.sort(list);
-		System.out.println("String keys ---");
-		for (Object key : list) {
-			System.out.println(key + " => " + UIDefaultsLookup.get(key));
-		}
-	}
-
-	/**
-	 * A simple handler used by setRecursively.
-	 * <pre>
-	 *  if ( condition() ) {
-	 *      action();
-	 *  }
-	 *  postAction();
-	 * </pre>.
-	 */
-	public interface Handler {
-		/**
-		 * If true, it will call {@link #action(Component)} on this component.
-		 *
-		 * @param c the component
-		 * @return true or false.
-		 */
-		boolean condition(Component c);
-
-		/**
-		 * The action you want to perform on this component. This method will only be called if {@link
-		 * #condition(Component)} returns true.
-		 *
-		 * @param c the component
-		 */
-		void action(Component c);
-
-		/**
-		 * The action you want to perform to any components. If action(c) is called, this action is after it.
-		 *
-		 * @param c the component.
-		 */
-		void postAction(Component c);
-
-	}
-
-	/**
-	 * A simple handler used by setRecursively.
-	 * <pre>
-	 *  if ( condition() ) {
-	 *      action();
-	 *  }
-	 *  postAction();
-	 * </pre>.
-	 */
-	public interface ConditionHandler extends Handler {
-		/**
-		 * If this method returns true, the recursive call will stop at the component and will not call to its
-		 * children.
-		 *
-		 * @param c the component
-		 * @return true or false.
-		 */
-		boolean stopCondition(Component c);
-	}
-
-	/**
-	 * A simple handler used by getRecursively.
-	 * <code><pre>
-	 *  if ( condition() ) {
-	 *      return action();
-	 *  }
-	 * </pre></code>.
-	 * Here is an example to get the first child of the specified type.
-	 * <code><pre>
-	 * public static Component getFirstChildOf(final Class clazz, Component c) {
-	 *     return getRecursively(c, new GetHandler() {
-	 *         public boolean condition(Component c) {
-	 *             return clazz.isAssignableFrom(c.getClass());
-	 *         }
-	 *         public Component action(Component c) {
-	 *             return c;
-	 *         }
-	 *     });
-	 * }
-	 * </pre></code>
-	 */
-	public interface GetHandler {
-		/**
-		 * If true, it will call {@link #action(Component)} on this component.
-		 *
-		 * @param c the component
-		 * @return true or false.
-		 */
-		boolean condition(Component c);
-
-		/**
-		 * The action you want to perform on this component. This method will only be called if {@link
-		 * #condition(Component)} returns true.
-		 *
-		 * @param c the component
-		 * @return the component that will be returned from {@link JideSwingUtilities#getRecursively(Component,
-		 * GetHandler)}.
-		 */
-		Component action(Component c);
-	}
-
-	/**
-	 * Calls the handler recursively on a component.
+	 * 在组件上递归调用处理程序。
 	 *
 	 * @param c       component
 	 * @param handler handler to be called
@@ -957,6 +571,41 @@ public class JideSwingUtilities implements SwingConstants {
 				setRecursively0(child, handler);
 			}
 		}
+	}
+
+	/**
+	 * Gets to a child of a component recursively based on certain condition.
+	 *
+	 * @param c       component
+	 * @param handler handler to be called
+	 * @return the component that matches the condition specified in GetHandler.
+	 */
+	public static Component getRecursively(final Component c, final GetHandler handler) {
+		return getRecursively0(c, handler);
+	}
+
+	private static Component getRecursively0(final Component c, final GetHandler handler) {
+		if (handler.condition(c)) {
+			return handler.action(c);
+		}
+
+		Component[] children = null;
+
+		if (c instanceof JMenu) {
+			children = ((JMenu) c).getMenuComponents();
+		} else if (c instanceof Container) {
+			children = ((Container) c).getComponents();
+		}
+
+		if (children != null) {
+			for (Component child : children) {
+				Component result = getRecursively0(child, handler);
+				if (result != null) {
+					return result;
+				}
+			}
+		}
+		return null;
 	}
 
 	/**
@@ -1007,41 +656,6 @@ public class JideSwingUtilities implements SwingConstants {
 		} else {
 			return null;
 		}
-	}
-
-	/**
-	 * Gets to a child of a component recursively based on certain condition.
-	 *
-	 * @param c       component
-	 * @param handler handler to be called
-	 * @return the component that matches the condition specified in GetHandler.
-	 */
-	public static Component getRecursively(final Component c, final GetHandler handler) {
-		return getRecursively0(c, handler);
-	}
-
-	private static Component getRecursively0(final Component c, final GetHandler handler) {
-		if (handler.condition(c)) {
-			return handler.action(c);
-		}
-
-		Component[] children = null;
-
-		if (c instanceof JMenu) {
-			children = ((JMenu) c).getMenuComponents();
-		} else if (c instanceof Container) {
-			children = ((Container) c).getComponents();
-		}
-
-		if (children != null) {
-			for (Component child : children) {
-				Component result = getRecursively0(child, handler);
-				if (result != null) {
-					return result;
-				}
-			}
-		}
-		return null;
 	}
 
 	/**
@@ -1123,10 +737,13 @@ public class JideSwingUtilities implements SwingConstants {
 	public static final String SET_OPAQUE_RECURSIVELY_EXCLUDED = "setOpaqueRecursively.excluded";
 
 	/**
-	 * Calls setOpaque method recursively on each component except for JButton, JComboBox and JTextComponent.
-	 * <code>Component</code> c is usually a <code>Container</code>. If you would like certain child component not
-	 * affected by this call, you can call jcomponent.putClientProperty(SET_OPAQUE_RECURSIVELY_EXCLUDED, Boolean.TRUE)
-	 * before calling this method.
+	 * 在除 JButton、JComboBox 和 JTextComponent 之外的每个组件上递归调用 setOpaque 方法。 Component c 通常是一个Container。该方
+	 * 法添加的监听器监听opaque属性改变的时候会把值改回来，也就是用该方法设置了opaque就不会因外界调用setOpaque而改变了。
+	 * <p>
+	 * 如果您希望某个子组件不受此调用的影响，您可以在调用此方法之前调用
+	 * <pre>
+	 *     jcomponent.putClientProperty(SET_OPAQUE_RECURSIVELY_EXCLUDED, Boolean.TRUE)。
+	 * </pre>
 	 *
 	 * @param c      component
 	 * @param opaque true if setOpaque to true; false otherwise
@@ -1134,59 +751,60 @@ public class JideSwingUtilities implements SwingConstants {
 	public static void setOpaqueRecursively(final Component c, final boolean opaque) {
 		setRecursively(c, new Handler() {
 			public boolean condition(Component c) {
-				return !(c instanceof JComboBox || c instanceof JButton || c instanceof JTextComponent ||
-						c instanceof ListCellRenderer || c instanceof TreeCellRenderer || c instanceof TableCellRenderer || c instanceof CellEditor);
+				if (c instanceof JComboBox || c instanceof JButton || c instanceof JTextComponent ||
+						c instanceof ListCellRenderer || c instanceof TreeCellRenderer || c instanceof TableCellRenderer || c instanceof CellEditor)
+					return false;
+
+				if (!(c instanceof JComponent jc)) return false;
+				if (Boolean.TRUE.equals(jc.getClientProperty(SET_OPAQUE_RECURSIVELY_EXCLUDED))) return false;
+
+				return true;
 			}
 
 			public void action(Component c) {
-				if (c instanceof JComponent jc) {
-					if (Boolean.TRUE.equals(jc.getClientProperty(SET_OPAQUE_RECURSIVELY_EXCLUDED))) {
-						return;
-					}
+				JComponent jc = (JComponent) c;
 
-					Object clientProperty = jc.getClientProperty(OPAQUE_LISTENER);
-					if (clientProperty != null) {
-						jc.removePropertyChangeListener("opaque", (PropertyChangeListener) clientProperty);
-						jc.putClientProperty(OPAQUE_LISTENER, null);
-					}
-					jc.setOpaque(opaque);
-					if (jc.getClientProperty(OPAQUE_LISTENER) == null) {
-						if (opaque) {
-							if (_setOpaqueTrueListener == null) {
-								_setOpaqueTrueListener = new PropertyChangeListener() {
-									public void propertyChange(PropertyChangeEvent evt) {
-										if (evt.getSource() instanceof JComponent) {
-											Component component = ((Component) evt.getSource());
-											component.removePropertyChangeListener("opaque", this);
-											if (component instanceof JComponent)
-												((JComponent) component).setOpaque(true);
-											component.addPropertyChangeListener("opaque", this);
-										}
-									}
-								};
+				Object clientProperty = jc.getClientProperty(OPAQUE_LISTENER);
+				if (clientProperty != null) {
+					jc.removePropertyChangeListener("opaque", (PropertyChangeListener) clientProperty);
+					jc.putClientProperty(OPAQUE_LISTENER, null);
+				}
+				jc.setOpaque(opaque);
+
+				if (opaque) {
+					if (_setOpaqueTrueListener == null) {
+						_setOpaqueTrueListener = new PropertyChangeListener() {
+							public void propertyChange(PropertyChangeEvent evt) {
+								// opaque修改后会再改回true
+								if (evt.getSource() instanceof JComponent) {
+									Component component = (Component) evt.getSource();
+									component.removePropertyChangeListener("opaque", this);
+									if (component instanceof JComponent)
+										((JComponent) component).setOpaque(true);
+									component.addPropertyChangeListener("opaque", this);
+								}
 							}
-							jc.addPropertyChangeListener("opaque", _setOpaqueTrueListener);
-							jc.putClientProperty(OPAQUE_LISTENER, _setOpaqueTrueListener);
-						} else {
-							if (_setOpaqueFalseListener == null) {
-								_setOpaqueFalseListener = new PropertyChangeListener() {
-									public void propertyChange(PropertyChangeEvent evt) {
-										if (evt.getSource() instanceof JComponent) {
-											if (evt.getSource() instanceof JComponent) {
-												Component component = ((Component) evt.getSource());
-												component.removePropertyChangeListener("opaque", this);
-												if (component instanceof JComponent)
-													((JComponent) component).setOpaque(false);
-												component.addPropertyChangeListener("opaque", this);
-											}
-										}
-									}
-								};
-							}
-							jc.addPropertyChangeListener("opaque", _setOpaqueFalseListener);
-							jc.putClientProperty(OPAQUE_LISTENER, _setOpaqueFalseListener);
-						}
+						};
 					}
+					jc.addPropertyChangeListener("opaque", _setOpaqueTrueListener);
+					jc.putClientProperty(OPAQUE_LISTENER, _setOpaqueTrueListener);
+				} else {
+					if (_setOpaqueFalseListener == null) {
+						_setOpaqueFalseListener = new PropertyChangeListener() {
+							public void propertyChange(PropertyChangeEvent evt) {
+								// opaque修改后会再改回false
+								if (evt.getSource() instanceof JComponent) {
+									Component component = (Component) evt.getSource();
+									component.removePropertyChangeListener("opaque", this);
+									if (component instanceof JComponent)
+										((JComponent) component).setOpaque(false);
+									component.addPropertyChangeListener("opaque", this);
+								}
+							}
+						};
+					}
+					jc.addPropertyChangeListener("opaque", _setOpaqueFalseListener);
+					jc.putClientProperty(OPAQUE_LISTENER, _setOpaqueFalseListener);
 				}
 			}
 
@@ -1195,7 +813,8 @@ public class JideSwingUtilities implements SwingConstants {
 		});
 	}
 
-	public static Dimension getPreferredButtonSize(AbstractButton b, int textIconGap, boolean isHorizontal) {
+
+	public static Dimension getPreferredButtonSize(AbstractButton b, int textIconGap) {
 		if (b.getComponentCount() > 0) {
 			return null;
 		}
@@ -1210,11 +829,10 @@ public class JideSwingUtilities implements SwingConstants {
 		Rectangle textR = new Rectangle();
 		Rectangle viewR = new Rectangle(Short.MAX_VALUE, Short.MAX_VALUE);
 
-		layoutCompoundLabel(b, fm, text, icon, isHorizontal,
+		SwingUtilities.layoutCompoundLabel(b, fm, text, icon,
 				b.getVerticalAlignment(), b.getHorizontalAlignment(),
 				b.getVerticalTextPosition(), b.getHorizontalTextPosition(),
 				viewR, iconR, textR, (text == null ? 0 : textIconGap));
-
 		/* The preferred size of the button is the size of
 		 * the text and icon rectangles plus the buttons insets.
 		 */
@@ -1228,542 +846,6 @@ public class JideSwingUtilities implements SwingConstants {
 		return r.getSize();
 	}
 
-	/**
-	 * Compute and return the location of the icons origin, the location of origin of the text baseline, and a possibly
-	 * clipped version of the compound labels string.  Locations are computed relative to the viewR rectangle. The
-	 * JComponents orientation (LEADING/TRAILING) will also be taken into account and translated into LEFT/RIGHT values
-	 * accordingly.
-	 *
-	 * @param c                      the component
-	 * @param fm                     the font metrics
-	 * @param text                   the text
-	 * @param icon                   the icon
-	 * @param isHorizontal           the flag indicating horizontal or vertical
-	 * @param verticalAlignment      vertical alignment model
-	 * @param horizontalAlignment    horizontal alignment model
-	 * @param verticalTextPosition   vertical text position
-	 * @param horizontalTextPosition horizontal text position
-	 * @param viewR                  view rectangle
-	 * @param iconR                  icon rectangle
-	 * @param textR                  text rectangle
-	 * @param textIconGap            the gap between the text and the gap
-	 * @return the string after layout.
-	 */
-	public static String layoutCompoundLabel(JComponent c,
-	                                         FontMetrics fm,
-	                                         String text,
-	                                         Icon icon,
-	                                         boolean isHorizontal,
-	                                         int verticalAlignment,
-	                                         int horizontalAlignment,
-	                                         int verticalTextPosition,
-	                                         int horizontalTextPosition,
-	                                         Rectangle viewR,
-	                                         Rectangle iconR,
-	                                         Rectangle textR,
-	                                         int textIconGap) {
-		boolean orientationIsLeftToRight = true;
-		int hAlign = horizontalAlignment;
-		int hTextPos = horizontalTextPosition;
-
-		if (c != null) {
-			if (!(c.getComponentOrientation().isLeftToRight())) {
-				orientationIsLeftToRight = false;
-			}
-		}
-
-		// Translate LEADING/TRAILING values in horizontalAlignment
-		// to LEFT/RIGHT values depending on the components orientation
-		switch (horizontalAlignment) {
-			case LEADING:
-				hAlign = (orientationIsLeftToRight) ? LEFT : RIGHT;
-				break;
-			case TRAILING:
-				hAlign = (orientationIsLeftToRight) ? RIGHT : LEFT;
-				break;
-		}
-
-		// Translate LEADING/TRAILING values in horizontalTextPosition
-		// to LEFT/RIGHT values depending on the components orientation
-		switch (horizontalTextPosition) {
-			case LEADING:
-				hTextPos = (orientationIsLeftToRight) ? LEFT : RIGHT;
-				break;
-			case TRAILING:
-				hTextPos = (orientationIsLeftToRight) ? RIGHT : LEFT;
-				break;
-		}
-
-		return layoutCompoundLabelImpl(c,
-				fm,
-				text,
-				icon,
-				isHorizontal,
-				verticalAlignment,
-				hAlign,
-				verticalTextPosition,
-				hTextPos,
-				viewR,
-				iconR,
-				textR,
-				textIconGap);
-	}
-
-	/**
-	 * Compute and return the location of the icons origin, the location of origin of the text baseline, and a possibly
-	 * clipped version of the compound labels string.  Locations are computed relative to the viewR rectangle. This
-	 * layoutCompoundLabel() does not know how to handle LEADING/TRAILING values in horizontalTextPosition (they will
-	 * default to RIGHT) and in horizontalAlignment (they will default to CENTER). Use the other version of
-	 * layoutCompoundLabel() instead.
-	 *
-	 * @param fm                     the font metrics
-	 * @param text                   the text to layout
-	 * @param icon                   the icon to layout
-	 * @param isHorizontal           if the layout is horizontal
-	 * @param verticalAlignment      the vertical alignment
-	 * @param horizontalAlignment    the horizontal alignment
-	 * @param verticalTextPosition   the vertical text position
-	 * @param horizontalTextPosition the horizontal text position
-	 * @param viewR                  the view rectangle
-	 * @param iconR                  the icon rectangle
-	 * @param textR                  the text rectangle
-	 * @param textIconGap            the gap between the text and the icon
-	 * @return the string after layout.
-	 */
-	public static String layoutCompoundLabel(FontMetrics fm,
-	                                         String text,
-	                                         Icon icon,
-	                                         boolean isHorizontal,
-	                                         int verticalAlignment,
-	                                         int horizontalAlignment,
-	                                         int verticalTextPosition,
-	                                         int horizontalTextPosition,
-	                                         Rectangle viewR,
-	                                         Rectangle iconR,
-	                                         Rectangle textR,
-	                                         int textIconGap) {
-		return layoutCompoundLabelImpl(null, fm, text, icon,
-				isHorizontal,
-				verticalAlignment,
-				horizontalAlignment,
-				verticalTextPosition,
-				horizontalTextPosition,
-				viewR, iconR, textR, textIconGap);
-	}
-
-	/*
-	 * Compute and return the location of the icons origin, the location of origin of the text baseline, and a possibly
-	 * clipped version of the compound labels string.  Locations are computed relative to the viewR rectangle. This
-	 * layoutCompoundLabel() does not know how to handle LEADING/TRAILING values in horizontalTextPosition (they will
-	 * default to RIGHT) and in horizontalAlignment (they will default to CENTER). Use the other version of
-	 * layoutCompoundLabel() instead.
-	 */
-
-	private static String layoutCompoundLabelImpl(JComponent c,
-	                                              FontMetrics fm,
-	                                              String text,
-	                                              Icon icon,
-	                                              boolean isHorizontal,
-	                                              int verticalAlignment,
-	                                              int horizontalAlignment,
-	                                              int verticalTextPosition,
-	                                              int horizontalTextPosition,
-	                                              Rectangle viewR,
-	                                              Rectangle iconR,
-	                                              Rectangle textR,
-	                                              int textIconGap) {
-		/* Initialize the icon bounds rectangle iconR.
-		 */
-		if (isHorizontal)
-			return layoutCompoundLabelImplHorizontal(c,
-					fm,
-					text,
-					icon,
-					verticalAlignment,
-					horizontalAlignment,
-					verticalTextPosition,
-					horizontalTextPosition,
-					viewR,
-					iconR,
-					textR,
-					textIconGap);
-		else
-			return layoutCompoundLabelImplVertical(c,
-					fm,
-					text,
-					icon,
-					verticalAlignment,
-					horizontalAlignment,
-					verticalTextPosition,
-					horizontalTextPosition,
-					viewR,
-					iconR,
-					textR,
-					textIconGap);
-
-	}
-
-
-	private static String getMaxLengthWord(String text) {
-		if (text.indexOf(' ') == -1) {
-			return text;
-		} else {
-			int minDiff = text.length();
-			int minPos = -1;
-			int mid = text.length() / 2;
-
-			int pos = -1;
-			while (true) {
-				pos = text.indexOf(' ', pos + 1);
-				if (pos == -1) {
-					break;
-				}
-				int diff = Math.abs(pos - mid);
-				if (diff < minDiff) {
-					minDiff = diff;
-					minPos = pos;
-				}
-			}
-			return minPos >= mid ? text.substring(0, minPos) : text.substring(minPos + 1);
-		}
-	}
-
-	private static String layoutCompoundLabelImplHorizontal(JComponent c,
-	                                                        FontMetrics fm,
-	                                                        String text,
-	                                                        Icon icon,
-	                                                        int verticalAlignment,
-	                                                        int horizontalAlignment,
-	                                                        int verticalTextPosition,
-	                                                        int horizontalTextPosition,
-	                                                        Rectangle viewR,
-	                                                        Rectangle iconR,
-	                                                        Rectangle textR,
-	                                                        int textIconGap) {
-		/* Initialize the icon bounds rectangle iconR.
-		 */
-
-		if (icon != null) {
-			iconR.width = icon.getIconWidth();
-			iconR.height = icon.getIconHeight();
-		} else {
-			iconR.width = iconR.height = 0;
-		}
-
-		/* Initialize the text bounds rectangle textR.  If a null
-		 * or and empty String was specified we substitute "" here
-		 * and use 0,0,0,0 for textR.
-		 */
-
-		boolean textIsEmpty = (text == null) || text.equals("");
-
-		View v = null;
-		if (textIsEmpty) {
-			textR.width = textR.height = 0;
-			text = "";
-		} else {
-			v = (c != null) ? (View) c.getClientProperty("html") : null;
-			if (v != null) {
-				textR.width = (int) v.getPreferredSpan(View.X_AXIS);
-				textR.height = (int) v.getPreferredSpan(View.Y_AXIS);
-			} else {
-				if (false) { // TODO: debug switch
-					boolean wrapText = verticalTextPosition == BOTTOM && horizontalTextPosition == CENTER;
-					// in this case, we will wrap the text into two lines
-
-					if (wrapText) {
-						textR.width = SwingUtilities.computeStringWidth(fm, getMaxLengthWord(text));
-						textR.height = fm.getHeight() + fm.getAscent() + 2; // gap between the two lines is 2.
-					} else {
-						textR.width = SwingUtilities.computeStringWidth(fm, text) + 1; // add an extra pixel at the end of the text
-						textR.height = fm.getHeight();
-					}
-				} else {
-					textR.width = SwingUtilities.computeStringWidth(fm, text); // add an extra pixel at the end of the text
-					textR.height = fm.getHeight();
-				}
-			}
-		}
-
-		/* Unless both text and icon are non-null, we effectively ignore
-		 * the value of textIconGap.  The code that follows uses the
-		 * value of gap instead of textIconGap.
-		 */
-
-		int gap = (textIsEmpty || (icon == null)) ? 0 : textIconGap;
-
-		if (!textIsEmpty) {
-
-			/* If the label text string is too wide to fit within the available
-			 * space "..." and as many characters as will fit will be
-			 * displayed instead.
-			 */
-
-			int availTextWidth;
-
-			if (horizontalTextPosition == CENTER) {
-				availTextWidth = viewR.width;
-			} else {
-				availTextWidth = viewR.width - (iconR.width + gap);
-			}
-
-
-			if (textR.width > availTextWidth) {
-				if (v != null) {
-					textR.width = availTextWidth;
-				} else {
-					String clipString = "...";
-					int totalWidth = SwingUtilities.computeStringWidth(fm, clipString);
-					int nChars;
-					for (nChars = 0; nChars < text.length(); nChars++) {
-						totalWidth += fm.charWidth(text.charAt(nChars));
-						if (totalWidth > availTextWidth) {
-							break;
-						}
-					}
-					text = text.substring(0, nChars) + clipString;
-					textR.width = SwingUtilities.computeStringWidth(fm, text);
-				}
-			}
-		}
-
-		/* Compute textR.x,y given the verticalTextPosition and
-		 * horizontalTextPosition properties
-		 */
-
-		if (verticalTextPosition == TOP) {
-			if (horizontalTextPosition != CENTER) {
-				textR.y = 0;
-			} else {
-				textR.y = -(textR.height + gap);
-			}
-		} else if (verticalTextPosition == CENTER) {
-			textR.y = (iconR.height >> 1) - (textR.height >> 1);
-		} else { // (verticalTextPosition == BOTTOM)
-			if (horizontalTextPosition != CENTER) {
-				textR.y = iconR.height - textR.height;
-			} else {
-				textR.y = (iconR.height + gap);
-			}
-		}
-
-		if (horizontalTextPosition == LEFT) {
-			textR.x = -(textR.width + gap);
-		} else if (horizontalTextPosition == CENTER) {
-			textR.x = (iconR.width >> 1) - (textR.width >> 1);
-		} else { // (horizontalTextPosition == RIGHT)
-			textR.x = (iconR.width + gap);
-		}
-
-		/* labelR is the rectangle that contains iconR and textR.
-		 * Move it to its proper position given the labelAlignment
-		 * properties.
-		 *
-		 * To avoid actually allocating a Rectangle, Rectangle.union
-		 * has been inlined below.
-		 */
-		int labelR_x = Math.min(iconR.x, textR.x);
-		int labelR_width = Math.max(iconR.x + iconR.width,
-				textR.x + textR.width) - labelR_x;
-		int labelR_y = Math.min(iconR.y, textR.y);
-		int labelR_height = Math.max(iconR.y + iconR.height,
-				textR.y + textR.height) - labelR_y;
-
-		int dx, dy;
-
-		if (verticalAlignment == TOP) {
-			dy = viewR.y - labelR_y;
-		} else if (verticalAlignment == CENTER) {
-			dy = (viewR.y + (viewR.height >> 1)) - (labelR_y + (labelR_height >> 1));
-		} else { // (verticalAlignment == BOTTOM)
-			dy = (viewR.y + viewR.height) - (labelR_y + labelR_height);
-		}
-
-		if (horizontalAlignment == LEFT) {
-			dx = viewR.x - labelR_x;
-		} else if (horizontalAlignment == RIGHT) {
-			dx = (viewR.x + viewR.width) - (labelR_x + labelR_width);
-		} else { // (horizontalAlignment == CENTER)
-			dx = (viewR.x + (viewR.width >> 1)) -
-					(labelR_x + (labelR_width >> 1));
-		}
-
-		/* Translate textR and glypyR by dx,dy.
-		 */
-
-		textR.x += dx;
-		textR.y += dy;
-
-		iconR.x += dx;
-		iconR.y += dy;
-
-		return text;
-	}
-
-	private static String layoutCompoundLabelImplVertical(JComponent c,
-	                                                      FontMetrics fm,
-	                                                      String text,
-	                                                      Icon icon,
-	                                                      int verticalAlignment,
-	                                                      int horizontalAlignment,
-	                                                      int verticalTextPosition,
-	                                                      int horizontalTextPosition,
-	                                                      Rectangle viewR,
-	                                                      Rectangle iconR,
-	                                                      Rectangle textR,
-	                                                      int textIconGap) {
-		/* Initialize the icon bounds rectangle iconR.
-		 */
-
-		if (icon != null) {
-			iconR.width = icon.getIconWidth();
-			iconR.height = icon.getIconHeight();
-		} else {
-			iconR.width = iconR.height = 0;
-		}
-
-		/* Initialize the text bounds rectangle textR.  If a null
-		 * or and empty String was specified we substitute "" here
-		 * and use 0,0,0,0 for textR.
-		 */
-
-		boolean textIsEmpty = (text == null) || text.equals("");
-
-		View v = null;
-		if (textIsEmpty) {
-			textR.width = textR.height = 0;
-			text = "";
-		} else {
-			v = (c != null) ? (View) c.getClientProperty("html") : null;
-			if (v != null) {
-				textR.height = (int) v.getPreferredSpan(View.X_AXIS);
-				textR.width = (int) v.getPreferredSpan(View.Y_AXIS);
-			} else {
-				textR.height = SwingUtilities.computeStringWidth(fm, text);
-				textR.width = fm.getHeight();
-			}
-		}
-
-		/* Unless both text and icon are non-null, we effectively ignore
-		 * the value of textIconGap.  The code that follows uses the
-		 * value of gap instead of textIconGap.
-		 */
-
-		int gap = (textIsEmpty || (icon == null)) ? 0 : textIconGap;
-
-		if (!textIsEmpty) {
-
-			/* If the label text string is too wide to fit within the available
-			 * space "..." and as many characters as will fit will be
-			 * displayed instead.
-			 */
-
-			int availTextHeight;
-
-			if (horizontalTextPosition == CENTER) {
-				availTextHeight = viewR.height;
-			} else {
-				availTextHeight = viewR.height - (iconR.height + gap);
-			}
-
-
-			if (textR.height > availTextHeight) {
-				if (v != null) {
-					textR.height = availTextHeight;
-				} else {
-					String clipString = "...";
-					int totalHeight = SwingUtilities.computeStringWidth(fm, clipString);
-					int nChars;
-					for (nChars = 0; nChars < text.length(); nChars++) {
-						totalHeight += fm.charWidth(text.charAt(nChars));
-						if (totalHeight > availTextHeight) {
-							break;
-						}
-					}
-					text = text.substring(0, nChars) + clipString;
-					textR.height = SwingUtilities.computeStringWidth(fm, text);
-				}
-			}
-		}
-
-		/* Compute textR.x,y given the verticalTextPosition and
-		 * horizontalTextPosition properties
-		 */
-
-		if (verticalTextPosition == TOP) {
-			if (horizontalTextPosition != CENTER) {
-				textR.x = 0;
-			} else {
-				textR.x = -(textR.width + gap);
-			}
-		} else if (verticalTextPosition == CENTER) {
-			textR.y = (iconR.width >> 1) - (textR.width >> 1);
-		} else { // (verticalTextPosition == BOTTOM)
-			if (horizontalTextPosition != CENTER) {
-				textR.x = iconR.width - textR.width;
-			} else {
-				textR.x = (iconR.width + gap);
-			}
-		}
-
-		if (horizontalTextPosition == LEFT) {
-			textR.y = -(textR.height + gap);
-		} else if (horizontalTextPosition == CENTER) {
-			textR.y = (iconR.height >> 1) - (textR.height >> 1);
-		} else { // (horizontalTextPosition == RIGHT)
-			textR.y = (iconR.height + gap);
-		}
-
-		/* labelR is the rectangle that contains iconR and textR.
-		 * Move it to its proper position given the labelAlignment
-		 * properties.
-		 *
-		 * To avoid actually allocating a Rectangle, Rectangle.union
-		 * has been inlined below.
-		 */
-		int labelR_x = Math.min(iconR.y, textR.y);
-		int labelR_width = Math.max(iconR.y + iconR.height,
-				textR.y + textR.height) - labelR_x;
-		int labelR_y = Math.min(iconR.x, textR.x);
-		int labelR_height = Math.max(iconR.x + iconR.width,
-				textR.x + textR.width) - labelR_y;
-
-		int dx, dy;
-		int dIcony; // because we will rotate icon, so the position will
-		// be different from text. However after transform, they will be same
-
-		if (verticalAlignment == TOP) {
-			dy = viewR.x - labelR_y;
-			dIcony = (viewR.x + viewR.width) - (labelR_y + labelR_height);
-		} else if (verticalAlignment == CENTER) {
-			dy = (viewR.x + (viewR.width >> 1)) - (labelR_y + (labelR_height >> 1));
-			dIcony = dy;
-		} else { // (verticalAlignment == BOTTOM)
-			dy = (viewR.x + viewR.width) - (labelR_y + labelR_height);
-			dIcony = viewR.x - labelR_y;
-		}
-
-		if (horizontalAlignment == LEFT) {
-			dx = viewR.y - labelR_x;
-		} else if (horizontalAlignment == RIGHT) {
-			dx = (viewR.y + viewR.height) - (labelR_x + labelR_width);
-		} else { // (horizontalAlignment == CENTER)
-			dx = (viewR.y + (viewR.height >> 1)) -
-					(labelR_x + (labelR_width >> 1));
-		}
-
-		/* Translate textR and iconR by dx,dy.
-		 */
-
-		textR.y += dx;
-		textR.x += dy;
-
-		iconR.y += dx;
-		iconR.x += dIcony;
-
-		return text;
-	}
-
 	public static int getOrientationOf(Component component) {
 		if (component instanceof Alignable) {
 			return ((Alignable) component).getOrientation();
@@ -1775,6 +857,12 @@ public class JideSwingUtilities implements SwingConstants {
 		return HORIZONTAL;
 	}
 
+	/**
+	 * 设置组件的 orientation 属性，如果组件实现{@link Alignable}接口则直接调用方法，否则以客户端属性的方式记录orientation属性值
+	 *
+	 * @param component   组件
+	 * @param orientation 方向
+	 */
 	public static void setOrientationOf(Component component, int orientation) {
 		int old = getOrientationOf(component);
 		if (orientation != old) {
@@ -1794,17 +882,16 @@ public class JideSwingUtilities implements SwingConstants {
 	}
 
 	/**
-	 * Disables the double buffered flag of the component and its children. The return map contains the components that
-	 * were double buffered. After this call, you can then restore the double buffered flag using {@link
-	 * #restoreDoubleBuffered(Component, Map)} using the map that is returned from this method.
+	 * 禁用组件及其子组件的双缓冲标志。返回映射包含双缓冲的组件。在此调用之后，您可以使用从该方法返回的映射使用
+	 * {@link #restoreDoubleBuffered(Component, Map)}恢复双缓冲标志。
 	 *
-	 * @param c the parent container.
-	 * @return the map that contains all components that were double buffered.
+	 * @param c 父容器
+	 * @return 包含所有双缓冲组件的映射，键为组件及子组件，值为是否使用了双缓冲
 	 */
 	public static Map<Component, Boolean> disableDoubleBuffered(final Component c) {
 		final Map<Component, Boolean> map = new HashMap<>();
 		if (c instanceof JComponent) {
-			JideSwingUtilities.setRecursively(c, new Handler() {
+			setRecursively(c, new Handler() {
 				public boolean condition(Component c) {
 					return c instanceof JComponent && c.isDoubleBuffered();
 				}
@@ -1815,7 +902,6 @@ public class JideSwingUtilities implements SwingConstants {
 				}
 
 				public void postAction(Component c) {
-
 				}
 			});
 		}
@@ -1833,7 +919,7 @@ public class JideSwingUtilities implements SwingConstants {
 	public static Map<Component, Boolean> enableDoubleBuffered(final Component c) {
 		final Map<Component, Boolean> map = new HashMap<>();
 		if (c instanceof JComponent) {
-			JideSwingUtilities.setRecursively(c, new Handler() {
+			setRecursively(c, new Handler() {
 				public boolean condition(Component c) {
 					return c instanceof JComponent && !c.isDoubleBuffered();
 				}
@@ -1860,7 +946,7 @@ public class JideSwingUtilities implements SwingConstants {
 	 *            buffered bore. Otherwise, not double buffered.
 	 */
 	public static void restoreDoubleBuffered(final Component c, final Map<Component, Boolean> map) {
-		JideSwingUtilities.setRecursively(c, new Handler() {
+		setRecursively(c, new Handler() {
 			public boolean condition(Component c) {
 				return c instanceof JComponent;
 			}
@@ -1877,6 +963,14 @@ public class JideSwingUtilities implements SwingConstants {
 		});
 	}
 
+	/**
+	 * 绘制矩形背景及边框
+	 *
+	 * @param g      绘制上下文
+	 * @param rect   绘制区域，一般为组件大小
+	 * @param border 边框色
+	 * @param bk     背景色
+	 */
 	public static void paintBackground(Graphics g, Rectangle rect, Color border, Color bk) {
 		Color old = g.getColor();
 		g.setColor(bk);
@@ -1886,6 +980,14 @@ public class JideSwingUtilities implements SwingConstants {
 		g.setColor(old);
 	}
 
+	/**
+	 * 绘制矩形背景及边框
+	 *
+	 * @param g2d    绘制上下文
+	 * @param rect   绘制区域，一般为组件大小
+	 * @param border 边框色
+	 * @param paint  背景色，为Paint类型，也就是说可以设置渐变色
+	 */
 	public static void paintBackground(Graphics2D g2d, Rectangle rect, Color border, Paint paint) {
 		Color old = g2d.getColor();
 		g2d.setPaint(paint);
@@ -1901,7 +1003,7 @@ public class JideSwingUtilities implements SwingConstants {
 	 * @param c JComponent to test.
 	 * @return Whether or not text should be drawn anti-aliased for the specified component.
 	 */
-	private static boolean drawTextAntialiased(Component c) {
+	private static boolean drawTextAntiAliased(Component c) {
 		if (!AA_TEXT_DEFINED) {
 			if (c != null) {
 				// Check if the component wants aa text
@@ -1920,12 +1022,12 @@ public class JideSwingUtilities implements SwingConstants {
 	}
 
 	/**
-	 * Returns whether or not text should be drawn anti-aliased.
+	 * 返回文本是否应该被抗锯齿绘制。
 	 *
-	 * @param aaText Whether or not aa text has been turned on for the component.
-	 * @return Whether or not text should be drawn anti-aliased.
+	 * @param aaText 没有定义系统属性“swing.aatext”时返回的默认值
+	 * @return 返回文本是否应该被抗锯齿绘制
 	 */
-	public static boolean drawTextAntialiased(boolean aaText) {
+	public static boolean drawTextAntiAliased(boolean aaText) {
 		if (!AA_TEXT_DEFINED) {
 			// 'swing.aatext' wasn't defined, use the components aa text value.
 			return aaText;
@@ -1949,10 +1051,9 @@ public class JideSwingUtilities implements SwingConstants {
 		}
 	}
 
-	static Map renderingHints = null;
+	static Map<Object, Object> renderingHints = null;
 
 	static {
-		if (SystemInfo.isJdk6Above()) {
 			Toolkit tk = Toolkit.getDefaultToolkit();
 			renderingHints = (Map) (tk.getDesktopProperty("awt.font.desktophints"));
 			tk.addPropertyChangeListener("awt.font.desktophints", evt -> {
@@ -1960,7 +1061,6 @@ public class JideSwingUtilities implements SwingConstants {
 					renderingHints = (RenderingHints) evt.getNewValue();
 				}
 			});
-		}
 	}
 
 	/**
@@ -1993,7 +1093,6 @@ public class JideSwingUtilities implements SwingConstants {
 	}
 
 	public static void drawString(JComponent c, Graphics g, String text, int x, int y) {
-		if (SystemInfo.isJdk6Above()) {
 			Graphics2D g2d = (Graphics2D) g;
 			Map oldHints = null;
 			if (renderingHints != null) {
@@ -2004,17 +1103,6 @@ public class JideSwingUtilities implements SwingConstants {
 			if (oldHints != null) {
 				g2d.addRenderingHints(oldHints);
 			}
-		} else {
-			// If we get here we're not printing
-			if (drawTextAntialiased(c) && (g instanceof Graphics2D g2)) {
-				Object oldAAValue = g2.getRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING);
-				g2.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
-				g2.drawString(text, x, y);
-				g2.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, oldAAValue);
-			} else {
-				g.drawString(text, x, y);
-			}
-		}
 	}
 
 	/**
@@ -2032,17 +1120,10 @@ public class JideSwingUtilities implements SwingConstants {
 	public static Object setupAntialiasing(Component c, Graphics g) {
 		Graphics2D g2d = (Graphics2D) g;
 		Object oldHints;
-		if (SystemInfo.isJdk6Above()) {
 			oldHints = getRenderingHints(g2d, renderingHints, null);
 			if (renderingHints != null) {
 				g2d.addRenderingHints(renderingHints);
 			}
-		} else {
-			oldHints = g2d.getRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING);
-			if (drawTextAntialiased(c)) {
-				g2d.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
-			}
-		}
 		return oldHints;
 	}
 
@@ -2055,12 +1136,8 @@ public class JideSwingUtilities implements SwingConstants {
 	 */
 	public static void restoreAntialiasing(Component c, Graphics g, Object oldHints) {
 		Graphics2D g2d = (Graphics2D) g;
-		if (SystemInfo.isJdk6Above()) {
-			if (oldHints instanceof RenderingHints) {
-				g2d.addRenderingHints((RenderingHints) oldHints);
-			}
-		} else {
-			g2d.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, oldHints);
+		if (oldHints instanceof RenderingHints) {
+			g2d.addRenderingHints((RenderingHints) oldHints);
 		}
 	}
 
@@ -2218,11 +1295,7 @@ public class JideSwingUtilities implements SwingConstants {
 	public static Paint getRadialGradientPaint(Point2D point, float radius, float[] fractions, Color[] colors) {
 		Class<?> radialGradientPaintClass = null;
 		try {
-			if (SystemInfo.isJdk6Above()) {
-				radialGradientPaintClass = Class.forName("java.awt.RadialGradientPaint");
-			} else {
-				radialGradientPaintClass = Class.forName("org.apache.batik.ext.awt.RadialGradientPaint");
-			}
+			radialGradientPaintClass = Class.forName("java.awt.RadialGradientPaint");
 		} catch (ClassNotFoundException e1) {
 			// ignore
 		}
@@ -2251,11 +1324,7 @@ public class JideSwingUtilities implements SwingConstants {
 	public static Paint getRadialGradientPaint(float cx, float cy, float radius, float[] fractions, Color[] colors) {
 		if (_radialGradientPaintClass == null) {
 			try {
-				if (SystemInfo.isJdk6Above()) {
-					_radialGradientPaintClass = Class.forName("java.awt.RadialGradientPaint");
-				} else {
-					_radialGradientPaintClass = Class.forName("org.apache.batik.ext.awt.RadialGradientPaint");
-				}
+				_radialGradientPaintClass = Class.forName("java.awt.RadialGradientPaint");
 			} catch (ClassNotFoundException e1) {
 				// ignore
 			}
@@ -2289,11 +1358,7 @@ public class JideSwingUtilities implements SwingConstants {
 	public static Paint getLinearGradientPaint(float startX, float startY, float endX, float endY, float[] fractions, Color[] colors) {
 		if (_linearGradientPaintClass == null) {
 			try {
-				if (SystemInfo.isJdk6Above()) {
-					_linearGradientPaintClass = Class.forName("java.awt.LinearGradientPaint");
-				} else {
-					_linearGradientPaintClass = Class.forName("org.apache.batik.ext.awt.LinearGradientPaint");
-				}
+				_linearGradientPaintClass = Class.forName("java.awt.LinearGradientPaint");
 			} catch (ClassNotFoundException e1) {
 				// ignore
 			}
@@ -2748,19 +1813,10 @@ public class JideSwingUtilities implements SwingConstants {
 		// read the font size from system property.
 		float defaultFontSize = getDefaultFontSize();
 
-		if (JideSwingUtilities.shouldUseSystemFont()) {
-			if (defaultFontSize == -1/* || SystemInfo.isCJKLocale()*/) {
-				menuFont = table.getFont("ToolBar.font");
-			} else {
-				menuFont = new WindowsDesktopProperty("win.menu.font", table.getFont("ToolBar.font"), toolkit, defaultFontSize);
-			}
+		if (defaultFontSize == -1/* || SystemInfo.isCJKLocale()*/) {
+			menuFont = table.getFont("ToolBar.font");
 		} else {
-			Font font = table.getFont("ToolBar.font");
-			if (font == null) {
-				menuFont = SecurityUtils.createFontUIResource("Tahoma", Font.PLAIN, defaultFontSize != -1f ? (int) defaultFontSize : 11);
-			} else {
-				menuFont = SecurityUtils.createFontUIResource(font.getFontName(), Font.PLAIN, defaultFontSize != -1f ? (int) defaultFontSize : font.getSize());
-			}
+			menuFont = new WindowsDesktopProperty("win.menu.font", table.getFont("ToolBar.font"), toolkit, defaultFontSize);
 		}
 
 		if (menuFont == null) {
@@ -2775,23 +1831,14 @@ public class JideSwingUtilities implements SwingConstants {
 		// read the font size from system property.
 		float defaultFontSize = getDefaultFontSize();
 
-		if (JideSwingUtilities.shouldUseSystemFont()) {
-			Font font = table.getFont(defaultUIDefault);
-			if (font == null) {
-				font = new Font("Tahoma", Font.PLAIN, 12); // use default font
-			}
-			if (defaultFontSize == -1/* || SystemInfo.isCJKLocale()*/) {
-				controlFont = font;
-			} else {
-				controlFont = new WindowsDesktopProperty("win.defaultGUI.font", font, toolkit, defaultFontSize);
-			}
+		Font font = table.getFont(defaultUIDefault);
+		if (font == null) {
+			font = new Font("Tahoma", Font.PLAIN, 12); // use default font
+		}
+		if (defaultFontSize == -1/* || SystemInfo.isCJKLocale()*/) {
+			controlFont = font;
 		} else {
-			Font font = table.getFont(defaultUIDefault);
-			if (font == null) {
-				controlFont = SecurityUtils.createFontUIResource("Tahoma", Font.PLAIN, defaultFontSize != -1f ? (int) defaultFontSize : 11);
-			} else {
-				controlFont = defaultFontSize == -1f ? font : new WindowsDesktopProperty("win.defaultGUI.font", font, toolkit, defaultFontSize);
-			}
+			controlFont = new WindowsDesktopProperty("win.defaultGUI.font", font, toolkit, defaultFontSize);
 		}
 
 		return controlFont;
@@ -2809,23 +1856,14 @@ public class JideSwingUtilities implements SwingConstants {
 			// read the font size from system property.
 			float defaultFontSize = getDefaultFontSize();
 
-			if (JideSwingUtilities.shouldUseSystemFont()) {
-				Font font = table.getFont("Label.font");
-				if (font == null) {
-					font = new Font("Tahoma", Font.PLAIN, 12); // use default font
-				}
-				if (defaultFontSize == -1) {
-					boldFont = new FontUIResource(font.deriveFont(Font.BOLD));
-				} else {
-					boldFont = new WindowsDesktopProperty("win.defaultGUI.font", font, toolkit, defaultFontSize, Font.BOLD);
-				}
+			Font font = table.getFont("Label.font");
+			if (font == null) {
+				font = new Font("Tahoma", Font.PLAIN, 12); // use default font
+			}
+			if (defaultFontSize == -1) {
+				boldFont = new FontUIResource(font.deriveFont(Font.BOLD));
 			} else {
-				Font font = table.getFont("Label.font");
-				if (font == null) {
-					boldFont = SecurityUtils.createFontUIResource("Tahoma", Font.BOLD, defaultFontSize != -1f ? (int) defaultFontSize : 11);
-				} else {
-					boldFont = SecurityUtils.createFontUIResource(font.getFontName(), Font.BOLD, defaultFontSize != -1f ? (int) defaultFontSize : font.getSize());
-				}
+				boldFont = new WindowsDesktopProperty("win.defaultGUI.font", font, toolkit, defaultFontSize, Font.BOLD);
 			}
 			return boldFont;
 		}
@@ -2943,24 +1981,17 @@ public class JideSwingUtilities implements SwingConstants {
 	 * @return if request focus is success or not.
 	 */
 	public static boolean compositeRequestFocus(Component component) {
-		LOGGER_FOCUS.fine("compositeRequestFocus " + component);
 		if (component instanceof Container container) {
-			LOGGER_FOCUS.fine("compositeRequestFocus " + "is container.");
 			if (container.isFocusCycleRoot()) {
-				LOGGER_FOCUS.fine("compositeRequestFocus " + "is focuscycleroot.");
 				FocusTraversalPolicy policy = container.getFocusTraversalPolicy();
 				Component comp = policy.getDefaultComponent(container);
-				LOGGER_FOCUS.fine("compositeRequestFocus " + "default component = " + comp);
 
 				if ((comp != null) && comp.isShowing() && container.getComponentCount() > 0) {
-					LOGGER_FOCUS.fine("compositeRequestFocus " + "default component passesFocusabilityTest =" + passesFocusabilityTest(comp));
-					LOGGER_FOCUS.fine("compositeRequestFocus " + "requestFocus for " + comp);
 					return comp.requestFocusInWindow();
 				}
 			}
 			Container rootAncestor = container.getFocusCycleRootAncestor();
 			if (rootAncestor != null) {
-				LOGGER_FOCUS.fine("compositeRequestFocus " + "using rootAncestor =" + rootAncestor);
 				FocusTraversalPolicy policy = rootAncestor.getFocusTraversalPolicy();
 				Component comp = null;
 				try {
@@ -2970,20 +2001,15 @@ public class JideSwingUtilities implements SwingConstants {
 					// http://jidesoft.com/forum/viewtopic.php?p=32569
 				}
 
-				LOGGER_FOCUS.fine("compositeRequestFocus " + "getComponentAfter =" + comp);
 				if (comp != null && SwingUtilities.isDescendingFrom(comp, container)) {
-					LOGGER_FOCUS.fine("compositeRequestFocus " + "getComponentAfter passesFocusabilityTest =" + passesFocusabilityTest(comp));
-					LOGGER_FOCUS.fine("compositeRequestFocus " + "requestFocus for " + comp);
 					return comp.requestFocusInWindow();
 				}
 			}
 		}
 		if (!passesFocusabilityTest(component)) {
-			LOGGER_FOCUS.fine("compositeRequestFocus " + "returingfalse because !passesFocusabilityTest" + component);
 			return false;
 		}
 
-		LOGGER_FOCUS.fine("compositeRequestFocus " + "component=" + component);
 		return component.requestFocusInWindow();
 	}
 
@@ -3530,7 +2556,7 @@ public class JideSwingUtilities implements SwingConstants {
 	 * @param locale the new locales.
 	 */
 	public static void setLocaleRecursively(final Component c, final Locale locale) {
-		JideSwingUtilities.setRecursively(c, new Handler() {
+		setRecursively(c, new Handler() {
 			public boolean condition(Component c) {
 				return true;
 			}
@@ -3591,7 +2617,7 @@ public class JideSwingUtilities implements SwingConstants {
 	 */
 	public static void invalidateRecursively(final Component c) {
 		if (c instanceof JComponent) {
-			JideSwingUtilities.setRecursively(c, new Handler() {
+			setRecursively(c, new Handler() {
 				public boolean condition(Component c) {
 					return true;
 				}
@@ -3686,13 +2712,7 @@ public class JideSwingUtilities implements SwingConstants {
 				}
 			}
 		}
-		if (SystemInfo.isJdk15Above()) {
-			return defaultViewportSize;
-		} else {
-			// in JDK1.4.2, the vertical scroll bar is shown because of the wrong size is calculated.
-			defaultViewportSize.height++;
-			return defaultViewportSize;
-		}
+		return defaultViewportSize;
 	}
 
 	/**
@@ -3915,70 +2935,14 @@ public class JideSwingUtilities implements SwingConstants {
 
 	private static ChangeListener _viewportSyncListener;
 
+	/** 获取视口同步更改侦听器 */
 	public static ChangeListener getViewportSynchronizationChangeListener() {
 		if (_viewportSyncListener == null) {
-			_viewportSyncListener = new viewportSynchronizationChangeListener();
+			_viewportSyncListener = new ViewportSynchronizationChangeListener();
 		}
 		return _viewportSyncListener;
 	}
 
-	private static class viewportSynchronizationChangeListener implements ChangeListener {
-		public void stateChanged(ChangeEvent e) {
-			if (!(e.getSource() instanceof JViewport masterViewport)) {
-				return;
-			}
-			Object property = masterViewport.getClientProperty(JideScrollPane.CLIENT_PROPERTY_SLAVE_VIEWPORT);
-			if (!(property instanceof Map)) {
-				return;
-			}
-
-			Dimension size = masterViewport.getSize();
-			if (size.width == 0 || size.height == 0) {
-				return;
-			}
-			Map<JViewport, Integer> slaveViewportMap = (Map) property;
-			Map<JViewport, Integer> allViewportToSync = new HashMap<>(slaveViewportMap);
-			do {
-				Map<JViewport, Integer> viewportToAdd = new HashMap<>();
-				for (JViewport slaveViewport : allViewportToSync.keySet()) {
-					Object slaveProperty = slaveViewport.getClientProperty(JideScrollPane.CLIENT_PROPERTY_SLAVE_VIEWPORT);
-					if (!(slaveProperty instanceof Map)) {
-						continue;
-					}
-					int orientation = allViewportToSync.get(slaveViewport);
-					Map<JViewport, Integer> viewportMap = (Map) slaveProperty;
-					for (JViewport viewport : viewportMap.keySet()) {
-						if (viewport != masterViewport && !allViewportToSync.containsKey(viewport) && viewportMap.get(viewport) == orientation) {
-							viewportToAdd.put(viewport, viewportMap.get(viewport));
-						}
-					}
-				}
-				if (viewportToAdd.isEmpty()) {
-					break;
-				}
-				allViewportToSync.putAll(viewportToAdd);
-			}
-			while (true);
-			for (JViewport slaveViewport : allViewportToSync.keySet()) {
-				slaveViewport.removeChangeListener(getViewportSynchronizationChangeListener());
-				int orientation = allViewportToSync.get(slaveViewport);
-				if (orientation == HORIZONTAL) {
-					Point v1 = masterViewport.getViewPosition();
-					Point v2 = slaveViewport.getViewPosition();
-					if (v1.x != v2.x) {
-						slaveViewport.setViewPosition(new Point(v1.x, v2.y));
-					}
-				} else if (orientation == VERTICAL) {
-					Point v1 = masterViewport.getViewPosition();
-					Point v2 = slaveViewport.getViewPosition();
-					if (v1.y != v2.y) {
-						slaveViewport.setViewPosition(new Point(v2.x, v1.y));
-					}
-				}
-				slaveViewport.addChangeListener(getViewportSynchronizationChangeListener());
-			}
-		}
-	}
 
 	/**
 	 * Sets the Window opaque using AWTUtilities.setWindowOpaque on JDK6u10 and later.

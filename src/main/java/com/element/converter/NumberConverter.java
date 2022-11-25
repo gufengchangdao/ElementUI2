@@ -5,8 +5,6 @@
  */
 package com.element.converter;
 
-import com.element.util.SystemInfo;
-
 import java.math.RoundingMode;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
@@ -207,10 +205,8 @@ abstract public class NumberConverter implements ObjectConverter {
 	 * @param mode rounding mode
 	 */
 	public void setRoundingMode(RoundingMode mode) {
-		if (SystemInfo.isJdk6Above()) {
-			NumberFormat numberFormat = getNumberFormat();
-			numberFormat.setRoundingMode(mode);
-		}
+		NumberFormat numberFormat = getNumberFormat();
+		numberFormat.setRoundingMode(mode);
 	}
 
 	/**

@@ -546,17 +546,6 @@ public class PortingUtils {
 	 * exit.
 	 */
 	public static void prerequisiteChecking() {
-		if (!SystemInfo.isJdk14Above()) {
-			PortingUtils.notifyUser();
-			JOptionPane.showMessageDialog(null, "J2SE 1.4 or above is required for this demo.", "JIDE Software, Inc.", JOptionPane.WARNING_MESSAGE);
-			System.exit(0);
-		}
-
-		if (!SystemInfo.isJdk142Above()) {
-			PortingUtils.notifyUser();
-			JOptionPane.showMessageDialog(null, "J2SE 1.4.2 or above is recommended for this demo for the best experience of seamless integration with Windows XP.", "JIDE Software, Inc.", JOptionPane.WARNING_MESSAGE);
-		}
-
 		if (SystemInfo.isMacOSX()) { // set special properties for Mac OS X
 			System.setProperty("apple.laf.useScreenMenuBar", "true");
 			System.setProperty("apple.awt.brushMetalLook", "true");
@@ -573,12 +562,7 @@ public class PortingUtils {
 	 * @param size      the preferred size.
 	 */
 	public static void setPreferredSize(Component component, Dimension size) {
-		if (SystemInfo.isJdk15Above()) {
-			component.setPreferredSize(size);
-		} else if (component instanceof JComponent) {
-			//noinspection RedundantCast
-			((JComponent) component).setPreferredSize(size);
-		}
+		component.setPreferredSize(size);
 	}
 
 	/**
@@ -590,11 +574,6 @@ public class PortingUtils {
 	 * @param size      the preferred size.
 	 */
 	public static void setMinimumSize(Component component, Dimension size) {
-		if (SystemInfo.isJdk15Above()) {
-			component.setMinimumSize(size);
-		} else if (component instanceof JComponent) {
-			//noinspection RedundantCast
-			((JComponent) component).setMinimumSize(size);
-		}
+		component.setMinimumSize(size);
 	}
 }

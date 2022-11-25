@@ -6,11 +6,11 @@
 
 package com.element.plaf.basic;
 
-import com.element.ui.icons.IconsFactory;
 import com.element.plaf.JideButtonUI;
 import com.element.plaf.LookAndFeelFactory;
 import com.element.plaf.UIDefaultsLookup;
 import com.element.ui.button.JideButton;
+import com.element.ui.icons.IconsFactory;
 import com.element.util.JideSwingUtilities;
 import com.element.util.SecurityUtils;
 
@@ -274,14 +274,21 @@ public class BasicJideButtonUI extends JideButtonUI {
 		g.setFont(f);
 
 		// layout the text and icon
-		String text = JideSwingUtilities.layoutCompoundLabel(c, fm, b.getText(), b.getIcon(),
-				isHorizontal,
+		String text = SwingUtilities.layoutCompoundLabel(c, fm, b.getText(), b.getIcon(),
 				b.getVerticalAlignment(), b.getHorizontalAlignment(),
 				b.getVerticalTextPosition(), b.getHorizontalTextPosition(),
 				viewRect, iconRect, textRect,
 				// JDK PORTING HINT
 				// JDK1.3: getIconTextGap, use defaultTextIconGap
-				b.getText() == null ? 0 : b.getIconTextGap()); // use the bigger one of both gaps. Not really the best way.
+				b.getText() == null ? 0 : b.getIconTextGap());
+		// String text = JideSwingUtilities.layoutCompoundLabel(c, fm, b.getText(), b.getIcon(),
+		// 		isHorizontal,
+		// 		b.getVerticalAlignment(), b.getHorizontalAlignment(),
+		// 		b.getVerticalTextPosition(), b.getHorizontalTextPosition(),
+		// 		viewRect, iconRect, textRect,
+		// 		// JDK PORTING HINT
+		// 		// JDK1.3: getIconTextGap, use defaultTextIconGap
+		// 		b.getText() == null ? 0 : b.getIconTextGap()); // use the bigger one of both gaps. Not really the best way.
 
 		clearTextShiftOffset();
 

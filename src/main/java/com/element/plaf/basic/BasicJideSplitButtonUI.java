@@ -837,7 +837,7 @@ public class BasicJideSplitButtonUI extends VsnetMenuUI {
 		boolean isHorizontal = JideSwingUtilities.getOrientationOf(c) == SwingConstants.HORIZONTAL;
 
 		// TODO: we should use isHorizontal when JideSwingUtilities.getPreferredButtonSize supports it
-		Dimension d = JideSwingUtilities.getPreferredButtonSize(b, defaultTextIconGap, true);
+		Dimension d = JideSwingUtilities.getPreferredButtonSize(b, defaultTextIconGap);
 
 		if (BasicJideButtonUI.shouldWrapText(c)) {
 			if (c instanceof JideSplitButton) {

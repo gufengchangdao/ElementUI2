@@ -10,7 +10,6 @@ import com.element.ui.font.FontFilesResource;
 import javax.swing.plaf.FontUIResource;
 import java.awt.*;
 import java.io.IOException;
-import java.security.AccessControlException;
 import java.util.Locale;
 import java.util.MissingResourceException;
 
@@ -56,12 +55,10 @@ public class SecurityUtils {
 	 * @param size  the font size.
 	 * @return the font.
 	 */
-	@SuppressWarnings("removal")
 	public static Font createFont(String name, int style, int size) {
 		try {
-//            System.out.println("new Font");
 			return new Font(name, style, size);
-		} catch (AccessControlException e) {
+		} catch (Exception e) {
 //            System.out.println("new Font failed " + createFontStrings(name, style));
 			ClassLoader cl = SecurityUtils.class.getClassLoader();
 			try {
@@ -101,13 +98,12 @@ public class SecurityUtils {
 	 * @param defaultValue the default value for the property.
 	 * @return the system property.
 	 */
-	@SuppressWarnings("removal")
 	public static String getProperty(String key, String defaultValue) {
-		try {
-			return System.getProperty(key, defaultValue);
-		} catch (AccessControlException e) {
-			return defaultValue;
-		}
+		return System.getProperty(key, defaultValue);
+	}
+
+	public static String getProperty(String key) {
+		return System.getProperty(key);
 	}
 
 	private static boolean _AWTEventListenerDisabled = false;
@@ -133,7 +129,7 @@ public class SecurityUtils {
 		_AWTEventListenerDisabled = AWTEventListenerDisabled;
 	}
 
-	private static boolean _translucentWindowFeatureDisabled = !SystemInfo.isJdk6u10Above() || !SystemInfo.isWindows();
+	private static boolean _translucentWindowFeatureDisabled = !SystemInfo.isWindows();
 
 	/**
 	 * Checks if the translucent window feature is disabled. It is disabled by default if the JDK version is less than

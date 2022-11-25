@@ -103,6 +103,7 @@ public class BaseComponent extends JComponent {
 
 	@Override
 	protected void paintComponent(Graphics gr) {
+		super.paintComponent(gr);
 
 		Graphics2D g2 = (Graphics2D) gr;
 		// 背景

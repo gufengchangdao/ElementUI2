@@ -629,26 +629,6 @@ public class XertoWindowsUtils extends Office2003WindowsUtils {
 			table.putDefaults(uiDefaults);
 		}
 
-		if (!JideSwingUtilities.shouldUseSystemFont()) {
-			Object[] uiDefaultsFont = {
-					"TabbedPane.font", controlFont,
-					"TitledBorder.font", boldFont,
-					"TableHeader.font", controlFont,
-					"Table.font", controlFont,
-					"List.font", controlFont,
-					"Tree.font", controlFont,
-					"ToolTip.font", controlFont,
-					"CheckBox.font", controlFont,
-					"RadioButton.font", controlFont,
-					"Label.font", controlFont,
-					"Panel.font", controlFont,
-					"TextField.font", controlFont,
-					"ComboBox.font", controlFont,
-					"Button.font", controlFont
-			};
-			table.putDefaults(uiDefaultsFont);
-		}
-
 		UIDefaultsLookup.put(table, "Theme.painter", XertoPainter.getInstance());
 	}
 }

@@ -12,7 +12,7 @@ import java.awt.event.FocusListener;
  * 仅供内部使用
  *
  * <p>名称:       JideFocusTracker</p>
- * <p>说明: 此类用于管理焦点。它将为 highestComponent 及其任何子组件注册焦点侦听器。这允许将 focusListeners 绑定到此适配器，然后所有焦点事件都可以通过它进行路由。</p>
+ * <p>说明: 此类用于管理焦点。它将<b>为 highestComponent 及其任何子组件注册焦点侦听器</b>。这允许将 focusListeners 绑定到此适配器，然后所有焦点事件都可以通过它进行路由。</p>
  */
 public class JideFocusTracker {
 	protected Component compHighest;
@@ -21,12 +21,9 @@ public class JideFocusTracker {
 	protected transient FocusListener multiCastListener;
 	protected boolean repeat;
 
-	// TODO 这个属性好像一直都是null，没有赋过其他值，是否可以删除
-	@Deprecated
-	protected transient Component lastFocus;
+	// protected transient Component lastFocus;
 
 	public JideFocusTracker() {
-		lastFocus = null;
 		repeat = true;
 		focusListener = new MainFocusListener();
 		containerListener = new MainContainerListener();
@@ -140,14 +137,12 @@ public class JideFocusTracker {
 	class MainFocusListener implements FocusListener {
 		public void focusGained(FocusEvent e) {
 			if (multiCastListener != null)
-				if ((e.getSource() != lastFocus) || (isRepeating()))
-					multiCastListener.focusGained(e);
+				if (isRepeating()) multiCastListener.focusGained(e);
 		}
 
 		public void focusLost(FocusEvent e) {
 			if (multiCastListener != null)
-				if ((e.getSource() != lastFocus) || (isRepeating()))
-					multiCastListener.focusLost(e);
+				if (isRepeating()) multiCastListener.focusLost(e);
 		}
 	}
 }

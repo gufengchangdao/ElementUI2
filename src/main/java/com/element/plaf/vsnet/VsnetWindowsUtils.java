@@ -518,26 +518,6 @@ public class VsnetWindowsUtils extends VsnetLookAndFeelExtension {
 			table.putDefaults(uiDefaults);
 		}
 
-		if (!JideSwingUtilities.shouldUseSystemFont()) {
-			Object[] uiDefaultsFont = {
-					"TabbedPane.font", controlFont,
-					"TitledBorder.font", boldFont,
-					"TableHeader.font", controlFont,
-					"Table.font", controlFont,
-					"List.font", controlFont,
-					"Tree.font", controlFont,
-					"ToolTip.font", controlFont,
-					"CheckBox.font", controlFont,
-					"RadioButton.font", controlFont,
-					"Label.font", controlFont,
-					"Panel.font", controlFont,
-					"TextField.font", controlFont,
-					"ComboBox.font", controlFont,
-					"Button.font", controlFont
-			};
-			table.putDefaults(uiDefaultsFont);
-		}
-
 		// make the spinner has the same font as text field
 		table.put("Spinner.font", UIDefaultsLookup.get("TextField.font"));
 		table.put("FormattedTextField.font", UIDefaultsLookup.get("TextField.font"));

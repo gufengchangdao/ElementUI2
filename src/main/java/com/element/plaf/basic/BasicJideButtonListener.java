@@ -9,6 +9,7 @@ import javax.swing.plaf.ComponentInputMapUIResource;
 import javax.swing.plaf.ComponentUI;
 import javax.swing.plaf.basic.BasicButtonListener;
 import java.awt.event.ActionEvent;
+import java.awt.event.InputEvent;
 import java.awt.event.MouseEvent;
 import java.beans.PropertyChangeEvent;
 
@@ -133,9 +134,9 @@ public class BasicJideButtonListener extends BasicButtonListener {
 						JComponent.WHEN_IN_FOCUSED_WINDOW, map);
 			}
 			map.clear();
-			map.put(KeyStroke.getKeyStroke(m, JideSwingUtilities.getFocusAcceleratorKeyMask(), false),
+			map.put(KeyStroke.getKeyStroke(m, InputEvent.ALT_DOWN_MASK, false),
 					"pressed");
-			map.put(KeyStroke.getKeyStroke(m, JideSwingUtilities.getFocusAcceleratorKeyMask(), true),
+			map.put(KeyStroke.getKeyStroke(m, InputEvent.ALT_DOWN_MASK, true),
 					"released");
 			map.put(KeyStroke.getKeyStroke(m, 0, true), "released");
 		} else {

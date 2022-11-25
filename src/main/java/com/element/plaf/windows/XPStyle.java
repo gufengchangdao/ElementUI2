@@ -8,11 +8,9 @@ import com.element.plaf.windows.TMSchema.Prop;
 import com.element.plaf.windows.TMSchema.State;
 import com.element.plaf.windows.TMSchema.TypeEnum;
 import com.element.util.ReflectionUtils;
-import com.element.util.SystemInfo;
 import com.sun.java.swing.plaf.windows.WindowsClassicLookAndFeel;
 import com.sun.java.swing.plaf.windows.WindowsComboBoxUI;
 import sun.awt.image.SunWritableRaster;
-import sun.awt.image.SurfaceManager;
 import sun.awt.windows.ThemeReader;
 import sun.security.action.GetPropertyAction;
 import sun.swing.CachedPainter;
@@ -91,10 +89,8 @@ public class XPStyle {
 				GetPropertyAction propertyAction =
 						new GetPropertyAction("swing.noxp");
 
-				if (AccessController.doPrivileged(propertyAction) == null &&
-						ThemeReader.isThemed() &&
-						!(UIManager.getLookAndFeel()
-								instanceof WindowsClassicLookAndFeel)) {
+				if (AccessController.doPrivileged(propertyAction) == null && ThemeReader.isThemed()
+						&& !(UIManager.getLookAndFeel() instanceof WindowsClassicLookAndFeel)) {
 
 					xp = new XPStyle();
 				}
@@ -561,8 +557,7 @@ public class XPStyle {
 		 * @param state which state to paint
 		 */
 		public void paintSkin(Graphics g, int dx, int dy, int dw, int dh, State state) {
-			if (SystemInfo.isJdk6Above() //&& ThemeReader.isGetThemeTransitionDurationDefined()
-					&& component instanceof JComponent
+			if (component instanceof JComponent
 					&& SwingUtilities.getAncestorOfClass(CellRendererPane.class,
 					component) == null) {
 				AnimationController.paintSkin((JComponent) component, this,
@@ -620,80 +615,36 @@ public class XPStyle {
 
 		protected void paintToImage(Component c, Image image, Graphics g,
 		                            int w, int h, Object[] args) {
-			if (!SystemInfo.isJdk7Above()) {
-				boolean accEnabled = false;
-				Skin skin = (Skin) args[0];
-				Part part = skin.part;
-				State state = (State) args[1];
-				if (state == null) {
-					state = skin.state;
-				}
-				if (c == null) {
-					c = skin.component;
-				}
-				BufferedImage bi = (BufferedImage) image;
+			// copied from JDK7 XPStyle. To make the code compilable under JDk6, we use RefectionUtils
+			boolean accEnabled = false;
+			Skin skin = (Skin) args[0];
+			Part part = skin.part;
+			State state = (State) args[1];
+			if (state == null) {
+				state = skin.state;
+			}
+			if (c == null) {
+				c = skin.component;
+			}
+			BufferedImage bi = (BufferedImage) image;
 
-				// Getting the DataBuffer for an image (as it's done below) defeats
-				// possible future acceleration.
-				// Calling setLocalAccelerationEnabled on that image's surface
-				// manager re-enables it.
-				SurfaceManager sm = SurfaceManager.getManager(bi);
-				if (sm.getClass().getName().equals("sun.awt.image.CachingSurfaceManager")) {
-					try {
-						accEnabled = (Boolean) ReflectionUtils.callGet(sm, "isLocalAccelerationEnabled");
-					} catch (Exception e) {
-						// ignore
-					}
-				}
-
-				WritableRaster raster = bi.getRaster();
-				DataBufferInt buffer = (DataBufferInt) raster.getDataBuffer();
-				ThemeReader.paintBackground(buffer.getData(),
+			WritableRaster raster = bi.getRaster();
+			DataBufferInt dbi = (DataBufferInt) raster.getDataBuffer();
+			// Note that stealData() requires a markDirty() afterwards
+			// since we modify the data in it.
+			try {
+				ThemeReader.paintBackground(
+						(int[]) ReflectionUtils.callStatic(SunWritableRaster.class, "stealData", new Class[]{DataBufferInt.class, int.class}, new Object[]{dbi, 0}),
+						/*SunWritableRaster.stealData(dbi, 0),*/
 						part.getControlName(c), part.getValue(),
 						State.getValue(part, state),
 						0, 0, w, h, w);
-
-				if (sm.getClass().getName().equals("sun.awt.image.CachingSurfaceManager")) {
-					try {
-						boolean oldAccEnabled = (Boolean) ReflectionUtils.callGet(sm, "isLocalAccelerationEnabled");
-						if (accEnabled != oldAccEnabled) {
-							ReflectionUtils.callSet(sm, "setLocalAccelerationEnabled", accEnabled);
-							ReflectionUtils.call(sm, "rasterChanged");
-						}
-					} catch (Exception e) {
-						// ignore
-					}
-				}
-			} else {  // copied from JDK7 XPStyle. To make the code compilable under JDk6, we use RefectionUtils
-				boolean accEnabled = false;
-				Skin skin = (Skin) args[0];
-				Part part = skin.part;
-				State state = (State) args[1];
-				if (state == null) {
-					state = skin.state;
-				}
-				if (c == null) {
-					c = skin.component;
-				}
-				BufferedImage bi = (BufferedImage) image;
-
-				WritableRaster raster = bi.getRaster();
-				DataBufferInt dbi = (DataBufferInt) raster.getDataBuffer();
-				// Note that stealData() requires a markDirty() afterwards
-				// since we modify the data in it.
-				try {
-					ThemeReader.paintBackground(
-							(int[]) ReflectionUtils.callStatic(SunWritableRaster.class, "stealData", new Class[]{DataBufferInt.class, int.class}, new Object[]{dbi, 0}),
-							/*SunWritableRaster.stealData(dbi, 0),*/
-							part.getControlName(c), part.getValue(),
-							State.getValue(part, state),
-							0, 0, w, h, w);
-					ReflectionUtils.callStatic(SunWritableRaster.class, "markDirty", new Class[]{DataBuffer.class}, new Object[]{dbi});
+				ReflectionUtils.callStatic(SunWritableRaster.class, "markDirty", new Class[]{DataBuffer.class}, new Object[]{dbi});
 //                    SunWritableRaster.markDirty(dbi);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
+			} catch (Exception e) {
+				e.printStackTrace();
 			}
+
 		}
 
 		protected Image createImage(Component c, int w, int h,

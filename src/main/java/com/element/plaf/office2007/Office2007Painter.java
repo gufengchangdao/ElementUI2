@@ -205,10 +205,6 @@ public class Office2007Painter extends BasicPainter {
 			return;
 		}
 
-		if (!SystemInfo.isJdk6Above()) {
-			getDefaultPainter().paintButtonBackground(c, g, rect, orientation, state, showBorder);
-			return;
-		}
 		Color background = null;
 		switch (state) {
 			case STATE_DEFAULT:
@@ -470,10 +466,6 @@ public class Office2007Painter extends BasicPainter {
 			return;
 		}
 
-		if (!SystemInfo.isJdk6Above()) {
-			getDefaultPainter().paintCommandBarBackground(c, g, rect, orientation, state);
-			return;
-		}
 		int x = rect.x;
 		int y = rect.y;
 		int width = rect.width;
@@ -492,17 +484,13 @@ public class Office2007Painter extends BasicPainter {
 		}
 		g2d.fillRect(x + 1, y + 1, width - 2, height - 2);
 		AlphaComposite alphaComposite = AlphaComposite.getInstance(AlphaComposite.SRC_ATOP);
-		g2d.setComposite(SystemInfo.isJdk6Above() ? alphaComposite.derive(0.1f) : AlphaComposite.getInstance(alphaComposite.getRule(), 0.1f));
+		g2d.setComposite(alphaComposite.derive(0.1f));
 		paintButtonBorder(c, g2d, rect, state);
 		g2d.dispose();
 	}
 
 	@Override
 	public void paintFloatingCommandBarBackground(JComponent c, Graphics g, Rectangle rect, int orientation, int state) {
-		if (!SystemInfo.isJdk6Above()) {
-			getDefaultPainter().paintFloatingCommandBarBackground(c, g, rect, orientation, state);
-			return;
-		}
 		int x = rect.x;
 		int y = rect.y;
 		int width = rect.width;
@@ -571,10 +559,6 @@ public class Office2007Painter extends BasicPainter {
 			return;
 		}
 
-		if (!SystemInfo.isJdk6Above()) {
-			getDefaultPainter().paintDockableFrameTitlePane(c, g, rect, orientation, state);
-			return;
-		}
 		int x = rect.x;
 		int y = rect.y;
 		int w = rect.width;
@@ -610,10 +594,6 @@ public class Office2007Painter extends BasicPainter {
 			super.paintCollapsiblePaneTitlePaneBackground(c, g, rect, orientation, state);
 			return;
 		}
-		if (!SystemInfo.isJdk6Above()) {
-			getDefaultPainter().paintCollapsiblePaneTitlePaneBackground(c, g, rect, orientation, state);
-			return;
-		}
 		paintCollapsiblePaneTitlePane(c, g, rect, COLLAPSIBLE_PANE_TITLE_BAR_BG, orientation, state);
 	}
 
@@ -622,10 +602,6 @@ public class Office2007Painter extends BasicPainter {
 		boolean highContrast = UIManager.getBoolean("Theme.highContrast");
 		if (highContrast) {
 			super.paintCollapsiblePaneTitlePaneBackgroundEmphasized(c, g, rect, orientation, state);
-			return;
-		}
-		if (!SystemInfo.isJdk6Above()) {
-			getDefaultPainter().paintCollapsiblePaneTitlePaneBackgroundEmphasized(c, g, rect, orientation, state);
 			return;
 		}
 		paintCollapsiblePaneTitlePane(c, g, rect, EMPHASIZED_COLLAPSIBLE_PANE_TITLE_BAR_BG, orientation, state);
@@ -638,10 +614,6 @@ public class Office2007Painter extends BasicPainter {
 			super.paintCollapsiblePaneTitlePaneBackgroundSeparatorEmphasized(c, g, rect, orientation, state);
 			return;
 		}
-		if (!SystemInfo.isJdk6Above()) {
-			getDefaultPainter().paintCollapsiblePaneTitlePaneBackgroundSeparatorEmphasized(c, g, rect, orientation, state);
-			return;
-		}
 		paintCollapsiblePaneTitlePaneSeparator(c, g, rect, EMPHASIZED_COLLAPSIBLE_PANE_TITLE_BAR_SEPARATOR_BG, state);
 	}
 
@@ -650,10 +622,6 @@ public class Office2007Painter extends BasicPainter {
 		boolean highContrast = UIManager.getBoolean("Theme.highContrast");
 		if (highContrast) {
 			super.paintCollapsiblePaneTitlePaneBackgroundSeparator(c, g, rect, orientation, state);
-			return;
-		}
-		if (!SystemInfo.isJdk6Above()) {
-			getDefaultPainter().paintCollapsiblePaneTitlePaneBackgroundSeparator(c, g, rect, orientation, state);
 			return;
 		}
 		paintCollapsiblePaneTitlePaneSeparator(c, g, rect, COLLAPSIBLE_PANE_TITLE_BAR_SEPARATOR_BG, state);

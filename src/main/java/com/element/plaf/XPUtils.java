@@ -33,12 +33,8 @@ public class XPUtils {
 	 * @throws UnsupportedOperationException if jdk version is not 1.4.2 or above.
 	 */
 	public static boolean isXPStyleOn() throws UnsupportedOperationException {
-		if (SystemInfo.isJdk142Above()) {
-			Toolkit toolkit = Toolkit.getDefaultToolkit();
-			return Boolean.TRUE.equals(toolkit.getDesktopProperty(PROPERTY_THEMEACTIVE));
-		} else {
-			throw new UnsupportedOperationException("JDK 1.4.2 and up is required to support this method call.");
-		}
+		Toolkit toolkit = Toolkit.getDefaultToolkit();
+		return Boolean.TRUE.equals(toolkit.getDesktopProperty(PROPERTY_THEMEACTIVE));
 	}
 
 	/**
@@ -52,12 +48,8 @@ public class XPUtils {
 	 * @throws UnsupportedOperationException if jdk version is not 1.4.2 or above.
 	 */
 	public static String getColorName() throws UnsupportedOperationException {
-		if (SystemInfo.isJdk142Above()) {
-			Toolkit toolkit = Toolkit.getDefaultToolkit();
-			return (String) toolkit.getDesktopProperty(PROPERTY_COLORNAME);
-		} else {
-			throw new UnsupportedOperationException("JDK 1.4.2 and up is required to support this method call.");
-		}
+		Toolkit toolkit = Toolkit.getDefaultToolkit();
+		return (String) toolkit.getDesktopProperty(PROPERTY_COLORNAME);
 	}
 
 	private static String getXPStyleDll() {

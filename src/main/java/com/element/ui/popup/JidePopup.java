@@ -6,6 +6,7 @@
 
 package com.element.ui.popup;
 
+import com.element.util.handle.Handler;
 import com.element.swing.ResizableSupport;
 import com.element.ui.pane.JideScrollPane;
 import com.element.ui.panel.ResizablePanel;
@@ -63,7 +64,6 @@ public class JidePopup extends JComponent implements Accessible, WindowConstants
 
 	/**
 	 * @see #getUIClassID
-	 * @see #readObject
 	 */
 	private static final String uiClassID = "JidePopupUI";
 
@@ -838,7 +838,7 @@ public class JidePopup extends JComponent implements Accessible, WindowConstants
 			case Resizable.UPPER_RIGHT:
 				if (_resizableSupport != null) {
 					_resizableSupport.getResizable().setResizableCorners(Resizable.UPPER_RIGHT);
-					JideSwingUtilities.setRecursively(this, new JideSwingUtilities.Handler() {
+					JideSwingUtilities.setRecursively(this, new Handler() {
 						public boolean condition(Component c) {
 							return c instanceof JideScrollPane;
 						}
@@ -860,7 +860,7 @@ public class JidePopup extends JComponent implements Accessible, WindowConstants
 			case Resizable.LOWER_RIGHT:
 				if (_resizableSupport != null) {
 					_resizableSupport.getResizable().setResizableCorners(Resizable.LOWER_RIGHT);
-					JideSwingUtilities.setRecursively(this, new JideSwingUtilities.Handler() {
+					JideSwingUtilities.setRecursively(this, new Handler() {
 						public boolean condition(Component c) {
 							return c instanceof JideScrollPane;
 						}
@@ -1112,9 +1112,7 @@ public class JidePopup extends JComponent implements Accessible, WindowConstants
 			Point p = new Point(x, y);
 			SwingUtilities.convertPointFromScreen(p, layeredPane);
 			layeredPane.add(_panel, JLayeredPane.PALETTE_LAYER);
-			if (SystemInfo.isJdk15Above()) {
 				layeredPane.setComponentZOrder(_panel, 0);
-			}
 
 			_panel.setLocation(p.x, p.y);
 		} else if (_popupType == HEAVY_WEIGHT_POPUP) {
@@ -1765,12 +1763,10 @@ public class JidePopup extends JComponent implements Accessible, WindowConstants
 			if (_popupType == LIGHT_WEIGHT_POPUP) {
 				startingBounds = _panel.getBounds();
 				Container parent = _panel.getParent();
-				if (SystemInfo.isJdk15Above()) {
 					if (isClickOnPopup(e) && parent.getComponentZOrder(_panel) != 0) {
 						parent.setComponentZOrder(_panel, 0);
 						parent.repaint();
 					}
-				}
 			} else if (_popupType == HEAVY_WEIGHT_POPUP) {
 				final Window sourceWindow = SwingUtilities.getWindowAncestor(component);
 				if (sourceWindow == _window) {

@@ -154,7 +154,6 @@ public class JideTabbedPane extends JTabbedPane {
 
 	/**
 	 * @see #getUIClassID
-	 * @see #readObject
 	 */
 	private static final String uiClassID = "JideTabbedPaneUI";
 
@@ -627,12 +626,6 @@ public class JideTabbedPane extends JTabbedPane {
 				}
 			}
 
-			if (!SystemInfo.isJdk15Above()) {
-				// a workaround for Swing bug
-				if (tabIndex == getTabCount() - 2) {
-					setSelectedIndex(getTabCount() - 1);
-				}
-			}
 
 			setAutoRequestFocus(old);
 			setSelectedIndex(tabIndex);
@@ -1057,14 +1050,7 @@ public class JideTabbedPane extends JTabbedPane {
 
 	@Override
 	public void removeTabAt(int index) {
-		int tabCount = getTabCount();
-		int selected = getSelectedIndex();
 		boolean enforce = false;
-		if (selected == index && selected < tabCount - 1) {
-			// since JDK5 fixed this, we only need to enforce the event when it is not JDK5 and above.
-			// http://bugs.sun.com/bugdatabase/view_bug.do?bug_id=6368047
-			enforce = !SystemInfo.isJdk15Above();
-		}
 
 		Component c = getComponentAt(index);
 		boolean contains = _closableSet.contains(c);
@@ -1186,18 +1172,6 @@ public class JideTabbedPane extends JTabbedPane {
 	protected void clearVisComp() {
 		// this is done so that the super removetab and fireselection do not attempt to manage focus
 		// A very dirty hack to access a private variable is jtabpane. Note - this only works on 1.6
-		if (SystemInfo.isJdk6Above()) {
-			return;
-		}
-		try {
-			java.lang.reflect.Field field = JTabbedPane.class.getDeclaredField("visComp");
-			// set accessible true
-			field.setAccessible(true);
-			field.set(this, null);
-//			superVisComp = (Component) field.get(this);
-		} catch (Exception e) {
-			// null
-		}
 	}
 
 	/**
@@ -2240,25 +2214,6 @@ public class JideTabbedPane extends JTabbedPane {
 			} else {
 				setSelectedIndex(tabIndex);
 				final Component comp = getComponentAt(tabIndex);
-				if (isAutoFocusOnTabHideClose() && !comp.isVisible() && SystemInfo.isJdk15Above() && !SystemInfo.isJdk6Above()) {
-					comp.addComponentListener(new ComponentAdapter() {
-						@Override
-						public void componentShown(ComponentEvent e) {
-							// remove the listener
-							comp.removeComponentListener(this);
-
-							final Component lastFocused = getLastFocusedComponent(comp);
-							Runnable runnable = () -> {
-								if (lastFocused != null) {
-									lastFocused.requestFocus();
-								} else if (isRequestFocusEnabled()) {
-									requestFocus();
-								}
-							};
-							SwingUtilities.invokeLater(runnable);
-						}
-					});
-				} else {
 					final Component lastFocused = getLastFocusedComponent(comp);
 					if (lastFocused != null) {
 						Runnable runnable = lastFocused::requestFocus;
@@ -2289,7 +2244,7 @@ public class JideTabbedPane extends JTabbedPane {
 							SwingUtilities.invokeLater(runnable);
 						}
 					}
-				}
+
 			}
 			if (getUI() instanceof BasicJideTabbedPaneUI) {
 				((BasicJideTabbedPaneUI) getUI()).ensureActiveTabIsVisible(false);

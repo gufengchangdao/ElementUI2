@@ -461,7 +461,6 @@ public class LabeledTextField extends JPanel {
 	}
 
 	public int getBaseline(int width, int height) {
-		if (SystemInfo.isJdk6Above()) {
 			try {
 				Method method = Component.class.getMethod("getBaseline", int.class, int.class);
 				Object value = method.invoke(_textField, width, height);
@@ -471,7 +470,6 @@ public class LabeledTextField extends JPanel {
 			} catch (NoSuchMethodException | IllegalAccessException | InvocationTargetException e) {
 				// ignore
 			}
-		}
 		return -1;
 	}
 

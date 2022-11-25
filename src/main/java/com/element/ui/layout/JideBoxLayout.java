@@ -367,7 +367,7 @@ public class JideBoxLayout implements LayoutManager2, Serializable {
 	}
 
 	private void setComponentSizeByGap(int index, int gap) {
-		if (SystemInfo.isJdk15Above() && _target.getComponent(index).isMinimumSizeSet()) {
+		if (_target.getComponent(index).isMinimumSizeSet()) {
 			setComponentSize(index, Math.max(_componentSizes[index] + gap, getSizeForPrimaryAxis(_target.getComponent(index).getMinimumSize())));
 		} else {
 			setComponentSize(index, _componentSizes[index] + gap);

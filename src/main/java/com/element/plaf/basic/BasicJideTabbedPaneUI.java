@@ -7,10 +7,10 @@ package com.element.plaf.basic;
 
 import com.element.plaf.JideTabbedPaneUI;
 import com.element.plaf.UIDefaultsLookup;
-import com.element.util.JideSwingUtilities;
-import com.element.ui.tabs.JideTabbedPane;
 import com.element.ui.border.PartialLineBorder;
+import com.element.ui.tabs.JideTabbedPane;
 import com.element.ui.tabs.TabColorProvider;
+import com.element.util.JideSwingUtilities;
 import com.element.util.SecurityUtils;
 import com.element.util.SystemInfo;
 
@@ -416,7 +416,7 @@ public class BasicJideTabbedPaneUI extends JideTabbedPaneUI implements SwingCons
 
 	private void installTabContainer() {
 		for (int i = 0; i < _tabPane.getTabCount(); i++) {
-			Component tabComponent = SystemInfo.isJdk6Above() ? _tabPane.getTabComponentAt(i) : null;
+			Component tabComponent = _tabPane.getTabComponentAt(i);
 			if (tabComponent != null) {
 				if (_tabContainer == null) {
 					_tabContainer = new TabContainer();
@@ -1076,10 +1076,10 @@ public class BasicJideTabbedPaneUI extends JideTabbedPaneUI implements SwingCons
 		layoutLabel(tabPlacement, metrics, tabIndex, title, icon,
 				tempTabRect, iconRect, textRect, isSelected);
 
-		if ((!_isEditing || (!isSelected)) && (!SystemInfo.isJdk6Above() || _tabPane.getTabComponentAt(tabIndex) == null))
+		if ((!_isEditing || (!isSelected)) && (_tabPane.getTabComponentAt(tabIndex) == null))
 			paintText(g, tabPlacement, font, metrics, tabIndex, title, textRect, isSelected);
 
-		if (!SystemInfo.isJdk6Above() || _tabPane.getTabComponentAt(tabIndex) == null) {
+		if (_tabPane.getTabComponentAt(tabIndex) == null) {
 			paintIcon(g, tabPlacement, tabIndex, icon, iconRect, isSelected);
 		}
 
@@ -4653,7 +4653,7 @@ public class BasicJideTabbedPaneUI extends JideTabbedPaneUI implements SwingCons
 
 	protected int calculateTabHeight(int tabPlacement, int tabIndex, FontMetrics metrics) {
 		int height = 0;
-		Component c = SystemInfo.isJdk6Above() ? _tabPane.getTabComponentAt(tabIndex) : null;
+		Component c = _tabPane.getTabComponentAt(tabIndex);
 		if (c != null) {
 			height = c.getPreferredSize().height;
 			return height;
@@ -4728,7 +4728,7 @@ public class BasicJideTabbedPaneUI extends JideTabbedPaneUI implements SwingCons
 			Icon icon = _tabPane.getIconForTab(tabIndex);
 			Insets tabInsets = getTabInsets(tabPlacement, tabIndex);
 			width = tabInsets.left + tabInsets.right + 3 + getTabGap();
-			Component tabComponent = SystemInfo.isJdk6Above() ? _tabPane.getTabComponentAt(tabIndex) : null;
+			Component tabComponent = _tabPane.getTabComponentAt(tabIndex);
 			if (tabComponent != null) {
 				width += tabComponent.getPreferredSize().width;
 				return width;
@@ -4766,7 +4766,7 @@ public class BasicJideTabbedPaneUI extends JideTabbedPaneUI implements SwingCons
 
 //            width += _tabRectPadding;
 		} else {
-			Component tabComponent = SystemInfo.isJdk6Above() ? _tabPane.getTabComponentAt(tabIndex) : null;
+			Component tabComponent = _tabPane.getTabComponentAt(tabIndex);
 			if (tabComponent != null) {
 				Insets tabInsets = getTabInsets(tabPlacement, tabIndex);
 				width = tabComponent.getPreferredSize().width + tabInsets.left + tabInsets.right + 3;
@@ -5807,7 +5807,7 @@ public class BasicJideTabbedPaneUI extends JideTabbedPaneUI implements SwingCons
 				translatePointToTabPanel(0, 0, delta);
 			}
 			for (int i = 0; i < _tabPane.getTabCount(); i++) {
-				Component c = SystemInfo.isJdk6Above() ? _tabPane.getTabComponentAt(i) : null;
+				Component c = _tabPane.getTabComponentAt(i);
 				if (c == null) {
 					continue;
 				}
@@ -7582,10 +7582,8 @@ public class BasicJideTabbedPaneUI extends JideTabbedPaneUI implements SwingCons
 				}
 			}
 
-			if (SystemInfo.isJdk15Above()) {
-				_tabPane.setComponentZOrder(_tabScroller.scrollForwardButton, 0);
-				_tabPane.setComponentZOrder(_tabScroller.scrollBackwardButton, 0);
-			}
+			_tabPane.setComponentZOrder(_tabScroller.scrollForwardButton, 0);
+			_tabPane.setComponentZOrder(_tabScroller.scrollBackwardButton, 0);
 			_tabScroller.scrollForwardButton.repaint();
 			_tabScroller.scrollBackwardButton.repaint();
 
@@ -8109,7 +8107,7 @@ public class BasicJideTabbedPaneUI extends JideTabbedPaneUI implements SwingCons
 				if (_tabContainer != null) {
 					_tabContainer.removeUnusedTabComponents();
 				}
-				Component c = SystemInfo.isJdk6Above() ? _tabPane.getTabComponentAt((Integer) e.getNewValue()) : null;
+				Component c = _tabPane.getTabComponentAt((Integer) e.getNewValue());
 				if (c != null) {
 					if (_tabContainer == null) {
 						installTabContainer();
@@ -8280,41 +8278,21 @@ public class BasicJideTabbedPaneUI extends JideTabbedPaneUI implements SwingCons
 						}
 						_tabPane.processMouseSelection(tabIndex, e);
 						final Component comp = _tabPane.getComponentAt(tabIndex);
-						if (_tabPane.isAutoFocusOnTabHideClose() && comp != null && !comp.isVisible() && SystemInfo.isJdk15Above() && !SystemInfo.isJdk6Above()) {
-							comp.addComponentListener(new ComponentAdapter() {
-								@Override
-								public void componentShown(ComponentEvent e) {
-									// remove the listener
-									comp.removeComponentListener(this);
 
-									Component lastFocused = _tabPane.getLastFocusedComponent(comp);
-									if (lastFocused != null) {
-										// this code works in JDK6 but on JDK5
-//                                        if (!lastFocused.requestFocusInWindow()) {
-										lastFocused.requestFocus();
-//                                        }
-									} else if (_tabPane.isRequestFocusEnabled()) {
-//                                        if (!_tabPane.requestFocusInWindow()) {
-										_tabPane.requestFocus();
-//                                        }
-									}
-								}
-							});
-						} else {
-							Component lastFocused = _tabPane.getLastFocusedComponent(comp);
-							if (lastFocused != null) {
-								// this code works in JDK6 but on JDK5
+						Component lastFocused = _tabPane.getLastFocusedComponent(comp);
+						if (lastFocused != null) {
+							// this code works in JDK6 but on JDK5
 //                                if (!lastFocused.requestFocusInWindow()) {
-								lastFocused.requestFocus();
+							lastFocused.requestFocus();
 //                                }
-							} else {
-								// first try to find a default component.
-								boolean foundInTab = JideSwingUtilities.compositeRequestFocus(comp);
-								if (!foundInTab) { // && !_tabPane.requestFocusInWindow()) {
-									_tabPane.requestFocus();
-								}
+						} else {
+							// first try to find a default component.
+							boolean foundInTab = JideSwingUtilities.compositeRequestFocus(comp);
+							if (!foundInTab) { // && !_tabPane.requestFocusInWindow()) {
+								_tabPane.requestFocus();
 							}
 						}
+
 					}
 				}
 			}

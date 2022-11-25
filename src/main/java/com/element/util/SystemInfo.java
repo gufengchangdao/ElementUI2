@@ -410,174 +410,6 @@ final public class SystemInfo {
 		return _isLinux || _isSolaris || _isBSD;
 	}
 
-	private static void checkJdkVersion() {
-		if (_currentVersion == null) {
-			_currentVersion = new JavaVersion(getJavaVersion());
-		}
-	}
-
-	/**
-	 * Returns whether or no the JDK version is 1.3 and above.
-	 *
-	 * @return <tt>true</tt> if the application is running on JDK 1.3 and above, <tt>false</tt> otherwise.
-	 */
-	public static boolean isJdk13Above() {
-		checkJdkVersion();
-		return _currentVersion.compareVersion(1.3, 0, 0) >= 0;
-	}
-
-	/**
-	 * Returns whether or no the JDK version is 1.4.2 and above.
-	 *
-	 * @return <tt>true</tt> if the application is running on JDK 1.4.2 and above, <tt>false</tt> otherwise.
-	 */
-	public static boolean isJdk142Above() {
-		checkJdkVersion();
-		return _currentVersion.compareVersion(1.4, 2, 0) >= 0;
-	}
-
-	/**
-	 * Returns whether or no the JDK version is 1.4 and above.
-	 *
-	 * @return <tt>true</tt> if the application is running on JDK 1.4 and above, <tt>false</tt> otherwise.
-	 */
-	public static boolean isJdk14Above() {
-		checkJdkVersion();
-		return _currentVersion.compareVersion(1.4, 0, 0) >= 0;
-	}
-
-	/**
-	 * Returns whether or no the JDK version is 1.5 and above.
-	 *
-	 * @return <tt>true</tt> if the application is running on JDK 1.5 and above, <tt>false</tt> otherwise.
-	 */
-	public static boolean isJdk15Above() {
-		checkJdkVersion();
-		return _currentVersion.compareVersion(1.5, 0, 0) >= 0;
-	}
-
-	/**
-	 * Returns whether or no the JDK version is 6 and above.
-	 *
-	 * @return <tt>true</tt> if the application is running on JDK 6 and above, <tt>false</tt> otherwise.
-	 */
-	public static boolean isJdk6Above() {
-		checkJdkVersion();
-		return _currentVersion.compareVersion(1.6, 0, 0) >= 0;
-	}
-
-	/**
-	 * Returns whether or no the JDK version is 6u10 and above.
-	 *
-	 * @return <tt>true</tt> if the application is running on JDK 6u10 and above, <tt>false</tt> otherwise.
-	 */
-	public static boolean isJdk6u10Above() {
-		checkJdkVersion();
-		return _currentVersion.compareVersion(1.6, 0, 10) >= 0;
-	}
-
-	/**
-	 * Returns whether or no the JDK version is 6u14 and above. There are some heavyweight component and lightweight
-	 * component mixing changes in JDK6u14.
-	 *
-	 * @return <tt>true</tt> if the application is running on JDK 6u14 and above, <tt>false</tt> otherwise.
-	 */
-	public static boolean isJdk6u14Above() {
-		checkJdkVersion();
-		return _currentVersion.compareVersion(1.6, 0, 14) >= 0;
-	}
-
-	/**
-	 * Returns whether or no the JDK version is 6u25 and above. Event firing for JComboBox changes in JDK6u25.
-	 *
-	 * @return <tt>true</tt> if the application is running on JDK 6u25 and above, <tt>false</tt> otherwise.
-	 */
-	public static boolean isJdk6u25Above() {
-		checkJdkVersion();
-		return _currentVersion.compareVersion(1.6, 0, 25) >= 0;
-	}
-
-	/**
-	 * Returns whether or no the JDK version is 1.7 and above.
-	 *
-	 * @return <tt>true</tt> if the application is running on JDK 1.7 and above, <tt>false</tt> otherwise.
-	 */
-	public static boolean isJdk7Above() {
-		checkJdkVersion();
-		return _currentVersion.compareVersion(1.7, 0, 0) >= 0;
-	}
-
-	/**
-	 * Returns whether or no the JDK version is 1.7u40 and above.
-	 *
-	 * @return <tt>true</tt> if the application is running on JDK 1.7u40 and above, <tt>false</tt> otherwise.
-	 */
-	public static boolean isJdk7u40Above() {
-		checkJdkVersion();
-		return _currentVersion.compareVersion(1.7, 0, 40) >= 0;
-	}
-
-	/**
-	 * Returns whether or no the JDK version is 1.8 and above.
-	 *
-	 * @return <tt>true</tt> if the application is running on JDK 1.8 and above, <tt>false</tt> otherwise.
-	 * @since 3.4.9
-	 */
-	public static boolean isJdk8Above() {
-		checkJdkVersion();
-		return _currentVersion.compareVersion(1.8, 0, 0) >= 0;
-	}
-
-	/**
-	 * Returns whether or no the JDK version is 1.9 and above.
-	 *
-	 * @return <tt>true</tt> if the application is running on JDK 1.9 and above, <tt>false</tt> otherwise.
-	 * @since 4.0
-	 */
-	public static boolean isJdk9Above() {
-		checkJdkVersion();
-		return _currentVersion.compareVersion(9, 0, 0) >= 0;
-	}
-
-	/**
-	 * Returns whether or not the JDK version is exactly the version you are expecting
-	 *
-	 * @param majorVersion your intended major version for JDK6u10, it should be 1.6
-	 * @param minorVersion your intended major version for JDK6u10, it should be 0
-	 * @param build        your intended major version for JDK6u10, it should be 10
-	 * @return <tt>true</tt> if the application is running on the input version, <tt>false</tt> otherwise.
-	 */
-	public static boolean isJdkVersion(double majorVersion, int minorVersion, int build) {
-		checkJdkVersion();
-		return _currentVersion.compareVersion(majorVersion, minorVersion, build) == 0;
-	}
-
-	/**
-	 * Returns whether or not the JDK version is above the version, including the version, you are expecting
-	 *
-	 * @param majorVersion your intended major version for JDK6u10, it should be 1.6
-	 * @param minorVersion your intended major version for JDK6u10, it should be 0
-	 * @param build        your intended major version for JDK6u10, it should be 10
-	 * @return <tt>true</tt> if the application is running on the input version, <tt>false</tt> otherwise.
-	 */
-	public static boolean isJdkVersionAbove(double majorVersion, int minorVersion, int build) {
-		checkJdkVersion();
-		return _currentVersion.compareVersion(majorVersion, minorVersion, build) >= 0;
-	}
-
-	/**
-	 * Returns whether or not the JDK version is below the version, including the version, you are expecting
-	 *
-	 * @param majorVersion your intended major version for JDK6u10, it should be 1.6
-	 * @param minorVersion your intended major version for JDK6u10, it should be 0
-	 * @param build        your intended major version for JDK6u10, it should be 10
-	 * @return <tt>true</tt> if the application is running on the input version, <tt>false</tt> otherwise.
-	 */
-	public static boolean isJdkVersionBelow(double majorVersion, int minorVersion, int build) {
-		checkJdkVersion();
-		return _currentVersion.compareVersion(majorVersion, minorVersion, build) <= 0;
-	}
-
 	/**
 	 * Returns whether the default locale is one of the three language - Chinese, Japanese or Korean - also known as
 	 * CJK.
@@ -610,20 +442,18 @@ final public class SystemInfo {
 			return 1;
 		}
 
-		if (isJdk7u40Above()) {
-			GraphicsEnvironment graphicsEnvironment = GraphicsEnvironment.getLocalGraphicsEnvironment();
-			GraphicsDevice device = graphicsEnvironment.getDefaultScreenDevice();
-			try {
-				Field field = device.getClass().getDeclaredField("scale");
-				if (field != null) {
-					field.setAccessible(true);
-					Object scale = field.get(device);
-					if (scale instanceof Integer) {
-						return (Integer) scale;
-					}
+		GraphicsEnvironment graphicsEnvironment = GraphicsEnvironment.getLocalGraphicsEnvironment();
+		GraphicsDevice device = graphicsEnvironment.getDefaultScreenDevice();
+		try {
+			Field field = device.getClass().getDeclaredField("scale");
+			if (field != null) {
+				field.setAccessible(true);
+				Object scale = field.get(device);
+				if (scale instanceof Integer) {
+					return (Integer) scale;
 				}
-			} catch (Exception ignore) {
 			}
+		} catch (Exception ignore) {
 		}
 		return 1;
 	}
