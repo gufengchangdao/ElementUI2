@@ -6,9 +6,9 @@
 
 package com.element.plaf.office2003;
 
+import com.element.color.ColorUtil;
 import com.element.ui.icons.IconsFactory;
 import com.element.plaf.LookAndFeelFactory;
-import com.element.util.ColorUtils;
 
 import javax.swing.*;
 import javax.swing.plaf.ColorUIResource;
@@ -43,44 +43,44 @@ public class BasicOffice2003Theme extends Office2003Theme {
 		Color selectionColor = Color.getHSBColor(hsb[0], (hsb[1] > 0.01) ? 0.45f : hsb[0], 0.90f);
 
 		Object[] uiDefaults = {
-				"control", ColorUtils.getDerivedColor(color, 0.9f),
-				"controlLt", ColorUtils.getDerivedColor(color, 0.95f),
-				"controlDk", ColorUtils.getDerivedColor(color, 0.8f),
-				"controlShadow", ColorUtils.getDerivedColor(color, 0.4f),
+				"control", ColorUtil.getDerivedColor(color, 0.9f),
+				"controlLt", ColorUtil.getDerivedColor(color, 0.95f),
+				"controlDk", ColorUtil.getDerivedColor(color, 0.8f),
+				"controlShadow", ColorUtil.getDerivedColor(color, 0.4f),
 
-				"TabbedPane.selectDk", ColorUtils.getDerivedColor(selectionColor, 0.40f),
-				"TabbedPane.selectLt", ColorUtils.getDerivedColor(selectionColor, 0.55f),
+				"TabbedPane.selectDk", ColorUtil.getDerivedColor(selectionColor, 0.40f),
+				"TabbedPane.selectLt", ColorUtil.getDerivedColor(selectionColor, 0.55f),
 
-				"OptionPane.bannerLt", ColorUtils.getDerivedColor(color, 0.5f),
-				"OptionPane.bannerDk", ColorUtils.getDerivedColor(color, 0.3f),
+				"OptionPane.bannerLt", ColorUtil.getDerivedColor(color, 0.5f),
+				"OptionPane.bannerDk", ColorUtil.getDerivedColor(color, 0.3f),
 				"OptionPane.bannerForeground", new ColorUIResource(255, 255, 255),
 
-				"Separator.foreground", ColorUtils.getDerivedColor(color, 0.4f),
-				"Separator.foregroundLt", ColorUtils.getDerivedColor(color, 1.0f),
+				"Separator.foreground", ColorUtil.getDerivedColor(color, 0.4f),
+				"Separator.foregroundLt", ColorUtil.getDerivedColor(color, 1.0f),
 
-				"Gripper.foreground", ColorUtils.getDerivedColor(color, 0.6f),
-				"Gripper.foregroundLt", ColorUtils.getDerivedColor(color, 0.92f),
+				"Gripper.foreground", ColorUtil.getDerivedColor(color, 0.6f),
+				"Gripper.foregroundLt", ColorUtil.getDerivedColor(color, 0.92f),
 
-				"Chevron.backgroundLt", ColorUtils.getDerivedColor(color, 0.85f),
-				"Chevron.backgroundDk", ColorUtils.getDerivedColor(color, 0.75f),
+				"Chevron.backgroundLt", ColorUtil.getDerivedColor(color, 0.85f),
+				"Chevron.backgroundDk", ColorUtil.getDerivedColor(color, 0.75f),
 
-				"Divider.backgroundLt", ColorUtils.getDerivedColor(color, 0.9f),
-				"Divider.backgroundDk", ColorUtils.getDerivedColor(color, 0.97f),
+				"Divider.backgroundLt", ColorUtil.getDerivedColor(color, 0.9f),
+				"Divider.backgroundDk", ColorUtil.getDerivedColor(color, 0.97f),
 
-				"backgroundLt", ColorUtils.getDerivedColor(color, 0.95f),
-				"backgroundDk", ColorUtils.getDerivedColor(color, 0.9f),
+				"backgroundLt", ColorUtil.getDerivedColor(color, 0.95f),
+				"backgroundDk", ColorUtil.getDerivedColor(color, 0.9f),
 
-				"CommandBar.titleBarBackground", ColorUtils.getDerivedColor(color, 0.6f),
-				"MenuItem.background", ColorUtils.getDerivedColor(color, 0.95f),
+				"CommandBar.titleBarBackground", ColorUtil.getDerivedColor(color, 0.6f),
+				"MenuItem.background", ColorUtil.getDerivedColor(color, 0.95f),
 
-				"DockableFrameTitlePane.backgroundLt", ColorUtils.getDerivedColor(color, 0.92f),
-				"DockableFrameTitlePane.backgroundDk", ColorUtils.getDerivedColor(color, 0.85f),
+				"DockableFrameTitlePane.backgroundLt", ColorUtil.getDerivedColor(color, 0.92f),
+				"DockableFrameTitlePane.backgroundDk", ColorUtil.getDerivedColor(color, 0.85f),
 				"DockableFrameTitlePane.activeForeground", new ColorUIResource(0, 0, 0),
 				"DockableFrameTitlePane.inactiveForeground", new ColorUIResource(0, 0, 0),
-				"DockableFrame.backgroundLt", ColorUtils.getDerivedColor(color, 0.92f),
-				"DockableFrame.backgroundDk", ColorUtils.getDerivedColor(color, 0.89f),
+				"DockableFrame.backgroundLt", ColorUtil.getDerivedColor(color, 0.92f),
+				"DockableFrame.backgroundDk", ColorUtil.getDerivedColor(color, 0.89f),
 
-				"selection.border", ColorUtils.getDerivedColor(color, 0.5f)
+				"selection.border", ColorUtil.getDerivedColor(color, 0.5f)
 		};
 
 		putDefaults(uiDefaults);
@@ -96,15 +96,15 @@ public class BasicOffice2003Theme extends Office2003Theme {
 			ImageIcon downMark = IconsFactory.getIcon(null, collapsiblePaneMask, 0, 0, MASK_SIZE, MASK_SIZE);
 			ImageIcon upMark = IconsFactory.getIcon(null, collapsiblePaneMask, 0, MASK_SIZE, MASK_SIZE, MASK_SIZE);
 			uiDefaults = new Object[]{
-					"CollapsiblePane.contentBackground", ColorUtils.getDerivedColor(color, 0.98f),
-					"CollapsiblePanes.backgroundLt", ColorUtils.getDerivedColor(color, 0.82f),
-					"CollapsiblePanes.backgroundDk", ColorUtils.getDerivedColor(color, 0.78f),
-					"CollapsiblePaneTitlePane.backgroundLt", ColorUtils.getDerivedColor(color, 0.98f),
-					"CollapsiblePaneTitlePane.backgroundDk", ColorUtils.getDerivedColor(color, 0.93f),
+					"CollapsiblePane.contentBackground", ColorUtil.getDerivedColor(color, 0.98f),
+					"CollapsiblePanes.backgroundLt", ColorUtil.getDerivedColor(color, 0.82f),
+					"CollapsiblePanes.backgroundDk", ColorUtil.getDerivedColor(color, 0.78f),
+					"CollapsiblePaneTitlePane.backgroundLt", ColorUtil.getDerivedColor(color, 0.98f),
+					"CollapsiblePaneTitlePane.backgroundDk", ColorUtil.getDerivedColor(color, 0.93f),
 					"CollapsiblePaneTitlePane.foreground", new ColorUIResource(63, 61, 61),
 					"CollapsiblePaneTitlePane.foreground.focus", new ColorUIResource(126, 124, 124),
-					"CollapsiblePaneTitlePane.backgroundLt.emphasized", ColorUtils.getDerivedColor(color, 0.7f),
-					"CollapsiblePaneTitlePane.backgroundDk.emphasized", ColorUtils.getDerivedColor(color, 0.72f),
+					"CollapsiblePaneTitlePane.backgroundLt.emphasized", ColorUtil.getDerivedColor(color, 0.7f),
+					"CollapsiblePaneTitlePane.backgroundDk.emphasized", ColorUtil.getDerivedColor(color, 0.72f),
 					"CollapsiblePaneTitlePane.foreground.emphasized", new ColorUIResource(255, 255, 255),
 					"CollapsiblePaneTitlePane.foreground.focus.emphasized", new ColorUIResource(230, 230, 230),
 
@@ -123,16 +123,16 @@ public class BasicOffice2003Theme extends Office2003Theme {
 		if (derivedSelectionColor) {
 			Object[] uiDefaultsSelection = new Object[]{
 					"selection.Rollover", selectionColor,
-					"selection.RolloverLt", ColorUtils.getDerivedColor(selectionColor, 0.55f),
-					"selection.RolloverDk", ColorUtils.getDerivedColor(selectionColor, 0.45f),
+					"selection.RolloverLt", ColorUtil.getDerivedColor(selectionColor, 0.55f),
+					"selection.RolloverDk", ColorUtil.getDerivedColor(selectionColor, 0.45f),
 
-					"selection.Selected", ColorUtils.getDerivedColor(selectionColor, 0.45f),
-					"selection.SelectedLt", ColorUtils.getDerivedColor(selectionColor, 0.55f),
-					"selection.SelectedDk", ColorUtils.getDerivedColor(selectionColor, 0.50f),
+					"selection.Selected", ColorUtil.getDerivedColor(selectionColor, 0.45f),
+					"selection.SelectedLt", ColorUtil.getDerivedColor(selectionColor, 0.55f),
+					"selection.SelectedDk", ColorUtil.getDerivedColor(selectionColor, 0.50f),
 
-					"selection.Pressed", ColorUtils.getDerivedColor(selectionColor, 0.4f), // focused and selected;
-					"selection.PressedLt", ColorUtils.getDerivedColor(selectionColor, 0.45f),
-					"selection.PressedDk", ColorUtils.getDerivedColor(selectionColor, 0.35f)
+					"selection.Pressed", ColorUtil.getDerivedColor(selectionColor, 0.4f), // focused and selected;
+					"selection.PressedLt", ColorUtil.getDerivedColor(selectionColor, 0.45f),
+					"selection.PressedDk", ColorUtil.getDerivedColor(selectionColor, 0.35f)
 			};
 			putDefaults(uiDefaultsSelection);
 		}

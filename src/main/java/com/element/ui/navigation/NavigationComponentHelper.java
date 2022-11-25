@@ -6,7 +6,7 @@
 
 package com.element.ui.navigation;
 
-import com.element.util.ColorUtils;
+import com.element.color.ColorUtil;
 import com.element.util.JideSwingUtilities;
 
 import javax.swing.*;
@@ -117,7 +117,7 @@ abstract public class NavigationComponentHelper {
 			selectedColor = UIManager.getColor("Tree.selectionBackground");
 		}
 		if (!c.hasFocus()) {
-			selectedColor = ColorUtils.toGrayscale(selectedColor).brighter();
+			selectedColor = ColorUtil.toGrayscale(selectedColor).brighter();
 			if (Color.WHITE.equals(selectedColor)) {
 				selectedColor = new Color(202, 202, 202);
 			}

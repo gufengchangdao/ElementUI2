@@ -1,5 +1,6 @@
 package com.element.plaf.basic;
 
+import com.element.color.ColorUtil;
 import com.element.ui.button.HeaderBox;
 import com.element.ui.button.JideButton;
 import com.element.ui.tabs.JideTabbedPane;
@@ -8,7 +9,6 @@ import com.element.plaf.XPUtils;
 import com.element.plaf.LookAndFeelFactory;
 import com.element.plaf.UIDefaultsLookup;
 import com.element.util.JideSwingUtilities;
-import com.element.util.ColorUtils;
 import com.element.util.SecurityUtils;
 import com.element.util.SystemInfo;
 
@@ -290,7 +290,7 @@ public class BasicPainter implements SwingConstants, ThemePainter {
 				if (background == null || background instanceof UIResource) {
 					background = _bk2;
 				}
-				paintBackground(c, g, rect, showBorder ? ColorUtils.toGrayscale(_borderColor) : null, ColorUtils.toGrayscale(background), orientation);
+				paintBackground(c, g, rect, showBorder ? ColorUtil.toGrayscale(_borderColor) : null, ColorUtil.toGrayscale(background), orientation);
 				break;
 			case STATE_PRESSED:
 				if (c instanceof ComponentStateSupport) {
@@ -696,7 +696,7 @@ public class BasicPainter implements SwingConstants, ThemePainter {
 			}
 		}
 		if (state == STATE_PRESSED || state == STATE_SELECTED || state == STATE_ROLLOVER) {
-			Color color = ColorUtils.getDerivedColor(baseColor, 0.48f);
+			Color color = ColorUtil.getDerivedColor(baseColor, 0.48f);
 			if (isCellEditor) {
 				g.setColor(color);
 				g.fillRect(rect.x, rect.y, rect.width, rect.height);
@@ -704,17 +704,17 @@ public class BasicPainter implements SwingConstants, ThemePainter {
 				g.setColor(color);
 				g.fillRoundRect(rect.x, rect.y, rect.width - 1, rect.height - 1, 4, 4);
 
-				g.setColor(ColorUtils.getDerivedColor(baseColor, 0.40f));
+				g.setColor(ColorUtil.getDerivedColor(baseColor, 0.40f));
 				g.drawRoundRect(rect.x, rect.y, rect.width - 1, rect.height - 1, 6, 6);
 			}
 
-			g.setColor(ColorUtils.getDerivedColor(baseColor, 0.45f));
+			g.setColor(ColorUtil.getDerivedColor(baseColor, 0.45f));
 			g.drawLine(rect.x + 1, rect.y + rect.height - 3, rect.x + rect.width - 2, rect.y + rect.height - 3);
 
-			g.setColor(ColorUtils.getDerivedColor(baseColor, 0.43f));
+			g.setColor(ColorUtil.getDerivedColor(baseColor, 0.43f));
 			g.drawLine(rect.x + 2, rect.y + rect.height - 2, rect.x + rect.width - 3, rect.y + rect.height - 2);
 
-			g.setColor(ColorUtils.getDerivedColor(baseColor, 0.40f));
+			g.setColor(ColorUtil.getDerivedColor(baseColor, 0.40f));
 			g.drawLine(rect.x + 3, rect.y + rect.height - 1, rect.x + rect.width - 4, rect.y + rect.height - 1);
 		} else {
 			if (isCellEditor) {
@@ -724,13 +724,13 @@ public class BasicPainter implements SwingConstants, ThemePainter {
 				g.setColor(baseColor);
 				g.fillRoundRect(rect.x, rect.y, rect.width - 1, rect.height - 1, 2, 2);
 
-				g.setColor(ColorUtils.getDerivedColor(baseColor, .42f));
+				g.setColor(ColorUtil.getDerivedColor(baseColor, .42f));
 				g.drawRoundRect(rect.x, rect.y, rect.width - 1, rect.height - 1, 2, 4);
 			}
 
-			g.setColor(ColorUtils.getDerivedColor(baseColor, .48f));
+			g.setColor(ColorUtil.getDerivedColor(baseColor, .48f));
 			g.drawLine(rect.x + 1, rect.y + rect.height - 3, rect.x + rect.width - 2, rect.y + rect.height - 3);
-			g.setColor(ColorUtils.getDerivedColor(baseColor, .47f));
+			g.setColor(ColorUtil.getDerivedColor(baseColor, .47f));
 			g.drawLine(rect.x + 1, rect.y + rect.height - 2, rect.x + rect.width - 2, rect.y + rect.height - 2);
 
 			if (isCellEditor) {

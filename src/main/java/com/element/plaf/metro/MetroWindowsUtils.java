@@ -6,6 +6,7 @@
 
 package com.element.plaf.metro;
 
+import com.element.color.ColorUtil;
 import com.element.ui.icons.IconsFactory;
 import com.element.ui.icons.MenuCheckIcon;
 import com.element.plaf.office2003.Office2003WindowsUtils;
@@ -20,7 +21,6 @@ import com.element.plaf.basic.Painter;
 import com.element.plaf.basic.ThemePainter;
 import com.element.util.JideSwingUtilities;
 import com.element.ui.tabs.JideTabbedPane;
-import com.element.util.ColorUtils;
 
 import javax.swing.*;
 import javax.swing.plaf.BorderUIResource;
@@ -169,10 +169,10 @@ public class MetroWindowsUtils extends VsnetWindowsUtils {
 					"DockableFrameTitlePane.maximizeIcon", IconsFactory.getIcon(null, titleButtonImage, 0, 6 * titleButtonSize, titleButtonSize, titleButtonSize),
 					"DockableFrameTitlePane.restoreIcon", IconsFactory.getIcon(null, titleButtonImage, 0, 7 * titleButtonSize, titleButtonSize, titleButtonSize),
 
-					"DockableFrameTitlePane.backgroundLt", new ColorUIResource(ColorUtils.getDerivedColor(new Color(0xBFDBFF), .55f)),
-					"DockableFrameTitlePane.backgroundDk", new ColorUIResource(ColorUtils.getDerivedColor(new Color(0xBFDBFF), .45f)),
-					"DockableFrameTitlePane.activeBackgroundLt", new ColorUIResource(ColorUtils.getDerivedColor(new Color(0xFAD8A0), .55f)),
-					"DockableFrameTitlePane.activeBackgroundDk", new ColorUIResource(ColorUtils.getDerivedColor(new Color(0xFAD8A0), .45f)),
+					"DockableFrameTitlePane.backgroundLt", new ColorUIResource(ColorUtil.getDerivedColor(new Color(0xBFDBFF), .55f)),
+					"DockableFrameTitlePane.backgroundDk", new ColorUIResource(ColorUtil.getDerivedColor(new Color(0xBFDBFF), .45f)),
+					"DockableFrameTitlePane.activeBackgroundLt", new ColorUIResource(ColorUtil.getDerivedColor(new Color(0xFAD8A0), .55f)),
+					"DockableFrameTitlePane.activeBackgroundDk", new ColorUIResource(ColorUtil.getDerivedColor(new Color(0xFAD8A0), .45f)),
 
 					"DockableFrameTitlePane.margin", new InsetsUIResource(1, 6, 0, 6), // gap
 

@@ -5,13 +5,13 @@
  */
 package com.element.ui.button;
 
+import com.element.color.ColorUtil;
 import com.element.plaf.basic.ComponentStateSupport;
 import com.element.plaf.LookAndFeelFactory;
 import com.element.plaf.UIDefaultsLookup;
 import com.element.plaf.basic.ThemePainter;
 import com.element.swing.Alignable;
 import com.element.swing.AlignmentSupport;
-import com.element.util.ColorUtils;
 
 import javax.swing.*;
 import java.awt.*;
@@ -329,7 +329,7 @@ public class JideButton extends JButton implements Alignable, ButtonStyle, Compo
 				return getSelectedBackground();
 			case ThemePainter.STATE_DISABLE_SELECTED:
 				Color background = getSelectedBackground();
-				return background != null ? ColorUtils.toGrayscale(background) : background;
+				return background != null ? ColorUtil.toGrayscale(background) : background;
 			case ThemePainter.STATE_PRESSED:
 				return getPressedBackground();
 		}

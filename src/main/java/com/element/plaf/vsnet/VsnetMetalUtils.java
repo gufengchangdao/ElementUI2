@@ -5,6 +5,7 @@
  */
 package com.element.plaf.vsnet;
 
+import com.element.color.ColorUtil;
 import com.element.ui.icons.IconsFactory;
 import com.element.ui.icons.JideIconsFactory;
 import com.element.plaf.metal.MetalIconFactory;
@@ -16,7 +17,6 @@ import com.element.plaf.basic.ThemePainter;
 import com.element.ui.button.JideButton;
 import com.element.util.JideSwingUtilities;
 import com.element.ui.tabs.JideTabbedPane;
-import com.element.util.ColorUtils;
 
 import javax.swing.*;
 import javax.swing.plaf.BorderUIResource;
@@ -388,7 +388,7 @@ public class VsnetMetalUtils extends VsnetLookAndFeelExtension {
 					"CollapsiblePanes.border", new BorderUIResource(BorderFactory.createEmptyBorder(12, 12, 12, 12)),
 					"CollapsiblePanes.gap", 15,
 
-					"CollapsiblePane.background", defaultBackgroundColor instanceof Color ? (ColorUtils.getDerivedColor((Color) defaultBackgroundColor, 0.45f)) : defaultBackgroundColor,
+					"CollapsiblePane.background", defaultBackgroundColor instanceof Color ? (ColorUtil.getDerivedColor((Color) defaultBackgroundColor, 0.45f)) : defaultBackgroundColor,
 					"CollapsiblePane.contentBackground", defaultHighlightColor,
 					"CollapsiblePane.foreground", defaultTextColor,
 					"CollapsiblePane.emphasizedBackground", activeTitleBackgroundColor,

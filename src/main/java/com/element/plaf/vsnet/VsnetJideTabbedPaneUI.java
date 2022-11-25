@@ -6,12 +6,12 @@
 
 package com.element.plaf.vsnet;
 
+import com.element.color.ColorUtil;
 import com.element.plaf.UIDefaultsLookup;
 import com.element.plaf.basic.BasicJideTabbedPaneUI;
 import com.element.plaf.basic.ThemePainter;
 import com.element.ui.tabs.JideTabbedPane;
 import com.element.ui.tabs.TabColorProvider;
-import com.element.util.ColorUtils;
 
 import javax.swing.*;
 import javax.swing.plaf.ComponentUI;
@@ -1075,7 +1075,7 @@ public class VsnetJideTabbedPaneUI extends BasicJideTabbedPaneUI {
 				if (colorProvider instanceof JideTabbedPane.GradientColorProvider) {
 					backgroundStart = ((JideTabbedPane.GradientColorProvider) colorProvider).getTopBackgroundAt(tabIndex);
 				} else {
-					backgroundStart = backgroundEnd != null ? ColorUtils.getDerivedColor(backgroundEnd, colorProvider.getGradientRatio(tabIndex)) : null;
+					backgroundStart = backgroundEnd != null ? ColorUtil.getDerivedColor(backgroundEnd, colorProvider.getGradientRatio(tabIndex)) : null;
 				}
 			} else {
 				if (color == null) {
@@ -1086,7 +1086,7 @@ public class VsnetJideTabbedPaneUI extends BasicJideTabbedPaneUI {
 				if (!(color instanceof UIResource) && color != _tabPane.getBackground()) {
 					backgroundEnd = color;
 					if (getColorTheme() == JideTabbedPane.COLOR_THEME_OFFICE2003) {
-						backgroundStart = ColorUtils.getDerivedColor(color, 0.8f);
+						backgroundStart = ColorUtil.getDerivedColor(color, 0.8f);
 					} else {
 						backgroundStart = color;
 					}
@@ -1111,10 +1111,10 @@ public class VsnetJideTabbedPaneUI extends BasicJideTabbedPaneUI {
 						}
 					} else {
 						if (backgroundEnd == null) {
-							backgroundEnd = ColorUtils.getDerivedColor(_backgroundUnselectedColorEnd, 0.7f);
+							backgroundEnd = ColorUtil.getDerivedColor(_backgroundUnselectedColorEnd, 0.7f);
 						}
 						if (backgroundStart == null) {
-							backgroundStart = ColorUtils.getDerivedColor(_backgroundUnselectedColorStart, 0.8f);
+							backgroundStart = ColorUtil.getDerivedColor(_backgroundUnselectedColorStart, 0.8f);
 						}
 					}
 				}

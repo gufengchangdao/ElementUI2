@@ -5,7 +5,7 @@
  */
 package com.element.plaf.vsnet;
 
-import com.element.util.ColorUtils;
+import com.element.color.ColorUtil;
 
 import javax.swing.plaf.ColorUIResource;
 import java.awt.*;
@@ -21,7 +21,7 @@ class VsnetUtils {
 		} else if (Color.WHITE.equals(color)) {
 			return color;
 		}
-		return ColorUtils.getDerivedColor(color, 0.93f);
+		return ColorUtil.getDerivedColor(color, 0.93f);
 	}
 
 	static final Color DARK_GREEN = new Color(0, 128, 0);
@@ -31,7 +31,7 @@ class VsnetUtils {
 		if (DARK_GREEN.equals(color) || DARK_MAGENTA.equals(color)) {
 			return color;
 		}
-		return ColorUtils.getDerivedColor(color, 0.8555f);
+		return ColorUtil.getDerivedColor(color, 0.8555f);
 	}
 
 	static Color getMenuBackgroundColor(Color color) {
@@ -44,7 +44,7 @@ class VsnetUtils {
 		} else if (Color.WHITE.equals(color)) {
 			return color;
 		}
-		return ColorUtils.getDerivedColor(color, 0.645f);
+		return ColorUtil.getDerivedColor(color, 0.645f);
 	}
 
 	static Color getGripperForegroundColor(Color color) {
@@ -117,7 +117,7 @@ class VsnetUtils {
 		if (DARK_GREEN.equals(color) || DARK_MAGENTA.equals(color)) {
 			return color;
 		}
-		return ColorUtils.getDerivedColor(color, ratio);
+		return ColorUtil.getDerivedColor(color, ratio);
 	}
 
 	static Color getSelectedAndRolloverButtonColor(Color color) {

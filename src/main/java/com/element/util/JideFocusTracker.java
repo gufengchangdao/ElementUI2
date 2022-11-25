@@ -9,34 +9,31 @@ import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
 
 /**
- * For internal usage only.
+ * 仅供内部使用
  *
- * <p>Title:       JideFocusTracker</p>
- * <p>Description: This class is used to manage focus. It will register focus
- * listeners for the highestComponent and any of its children.
- * This allows for focusListeners to be tied to this adapter,
- * and then all focus events can be routed through this.</p>
+ * <p>名称:       JideFocusTracker</p>
+ * <p>说明: 此类用于管理焦点。它将为 highestComponent 及其任何子组件注册焦点侦听器。这允许将 focusListeners 绑定到此适配器，然后所有焦点事件都可以通过它进行路由。</p>
  */
 public class JideFocusTracker {
-
 	protected Component compHighest;
-	protected FocusListener listenerFocus = null;
-	protected ContainerListener listenerContainer = null;
-	protected transient FocusListener listenerMultiCast;
+	protected FocusListener focusListener;
+	protected ContainerListener containerListener;
+	protected transient FocusListener multiCastListener;
 	protected boolean repeat;
 
+	// TODO 这个属性好像一直都是null，没有赋过其他值，是否可以删除
+	@Deprecated
 	protected transient Component lastFocus;
 
 	public JideFocusTracker() {
 		lastFocus = null;
-		setRepeating(true);
-		listenerFocus = new MainFocusListener();
-		listenerContainer = new MainContainerListener();
+		repeat = true;
+		focusListener = new MainFocusListener();
+		containerListener = new MainContainerListener();
 	}
 
 	public JideFocusTracker(Component compHighest) {
 		this();
-		//System.out.println("constructing focus tracker for comp " + compHighest);
 		setHighestComponent(compHighest);
 	}
 
@@ -44,12 +41,13 @@ public class JideFocusTracker {
 // Public Methods
 ////////////////////////////////////////////////////////////////////////////////
 
+	/** 为给定组件添加监听器，该操作也会移除原有组件的监听器 */
 	public void setHighestComponent(Component compHighest) {
-		Component OldValue = this.compHighest;
+		Component oldValue = this.compHighest;
 
-		if (OldValue != null) {
-			synchronized (OldValue.getTreeLock()) {
-				removeInternalListeners(OldValue);
+		if (oldValue != null) {
+			synchronized (oldValue.getTreeLock()) {
+				removeInternalListeners(oldValue);
 			}
 		}
 
@@ -84,22 +82,23 @@ public class JideFocusTracker {
 	}
 
 	public synchronized void addFocusListener(FocusListener l) {
-		listenerMultiCast = AWTEventMulticaster.add(listenerMultiCast, l);
+		multiCastListener = AWTEventMulticaster.add(multiCastListener, l);
 	}
 
 	public synchronized void removeFocusListener(FocusListener l) {
-		listenerMultiCast = AWTEventMulticaster.remove(listenerMultiCast, l);
+		multiCastListener = AWTEventMulticaster.remove(multiCastListener, l);
 	}
 
 ////////////////////////////////////////////////////////////////////////////////
 // Protected Methods
 ////////////////////////////////////////////////////////////////////////////////
 
+	//递归地为该组件及子组件添加listenerFocus 和 listenerContainer
 	protected void addInternalListeners(Component component) {
 		if (!isExcludedComponent(component)) {
-			component.addFocusListener(listenerFocus);
+			component.addFocusListener(focusListener);
 			if (component instanceof Container container) {
-				container.addContainerListener(listenerContainer);
+				container.addContainerListener(containerListener);
 				for (int i = 0; i < container.getComponentCount(); i++) {
 					addInternalListeners(container.getComponent(i));
 				}
@@ -113,9 +112,9 @@ public class JideFocusTracker {
 
 	protected void removeInternalListeners(Component component) {
 		if (!isExcludedComponent(component)) {
-			component.removeFocusListener(listenerFocus);
+			component.removeFocusListener(focusListener);
 			if (component instanceof Container container) {
-				container.removeContainerListener(listenerContainer);
+				container.removeContainerListener(containerListener);
 				for (int i = 0; i < container.getComponentCount(); i++) {
 					removeInternalListeners(container.getComponent(i));
 				}
@@ -123,16 +122,15 @@ public class JideFocusTracker {
 		}
 	}
 
+	/** 当容器添加和移除组件时，添加或移除该组件的监听器 */
 	class MainContainerListener implements ContainerListener {
 		public void componentAdded(ContainerEvent e) {
-			//System.out.println(e.getChild().getClass().getName() + " add to container = " + e.getContainer().getClass().getName());
 			synchronized (e.getChild().getTreeLock()) {
 				addInternalListeners(e.getChild());
 			}
 		}
 
 		public void componentRemoved(ContainerEvent e) {
-			//System.out.println(e.getChild().getClass().getName() + " removed from container = " + e.getContainer().getClass().getName());
 			synchronized (e.getChild().getTreeLock()) {
 				removeInternalListeners(e.getChild());
 			}
@@ -141,17 +139,15 @@ public class JideFocusTracker {
 
 	class MainFocusListener implements FocusListener {
 		public void focusGained(FocusEvent e) {
-//      System.out.println("focusGained " + e.getSource());
-			if (listenerMultiCast != null)
+			if (multiCastListener != null)
 				if ((e.getSource() != lastFocus) || (isRepeating()))
-					listenerMultiCast.focusGained(e);
+					multiCastListener.focusGained(e);
 		}
 
 		public void focusLost(FocusEvent e) {
-//      System.out.println(this  + " is firing");
-			if (listenerMultiCast != null)
+			if (multiCastListener != null)
 				if ((e.getSource() != lastFocus) || (isRepeating()))
-					listenerMultiCast.focusLost(e);
+					multiCastListener.focusLost(e);
 		}
 	}
 }

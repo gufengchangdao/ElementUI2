@@ -3,13 +3,13 @@
  *
  * Copyright 2002 - 2004 JIDE Software Inc. All rights reserved.
  */
-package com.element.util;
+package com.element.ui.font;
 
 import java.util.Locale;
 import java.util.ResourceBundle;
 
-class FontFilesResource {
-	static final String BASENAME = "fonts.fontfiles";
+public class FontFilesResource {
+	static final String BASENAME = "fontfiles";
 
 	static final ResourceBundle RB = ResourceBundle.getBundle(BASENAME);
 

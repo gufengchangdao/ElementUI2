@@ -12,7 +12,7 @@ public class HtmlUtil {
 	public static final String HTML_LINE_BREAK = "<br>";
 
 	/**
-	 * 格式化html文本，主要操作有
+	 * 格式化html文本，主要操作有：
 	 *
 	 * <ul>
 	 *     <li>移除字符串两端的html标签</li>

@@ -1,5 +1,6 @@
 package com.element.plaf.office2003;
 
+import com.element.color.ColorUtil;
 import com.element.ui.icons.IconsFactory;
 import com.element.plaf.LookAndFeelFactory;
 import com.element.plaf.UIDefaultsLookup;
@@ -10,7 +11,6 @@ import com.element.plaf.basic.ComponentStateSupport;
 import com.element.ui.button.JideButton;
 import com.element.util.JideSwingUtilities;
 import com.element.ui.tabs.JideTabbedPane;
-import com.element.util.ColorUtils;
 import com.element.util.SystemInfo;
 
 import javax.swing.*;
@@ -470,8 +470,8 @@ public class Office2003Painter extends BasicPainter {
 			case STATE_DEFAULT:
 				background = c.getBackground();
 				if (!(background instanceof UIResource)) {
-					startColor = ColorUtils.getDerivedColor(background, 0.6f);
-					endColor = ColorUtils.getDerivedColor(background, 0.4f);
+					startColor = ColorUtil.getDerivedColor(background, 0.6f);
+					endColor = ColorUtil.getDerivedColor(background, 0.4f);
 					showBorder = false;
 				} else {
 					startColor = getCurrentTheme().getColor("controlLt");
@@ -484,8 +484,8 @@ public class Office2003Painter extends BasicPainter {
 					background = ((ComponentStateSupport) c).getBackgroundOfState(state);
 				}
 				if (background != null && !(background instanceof UIResource)) {
-					startColor = ColorUtils.getDerivedColor(background, 0.6f);
-					endColor = ColorUtils.getDerivedColor(background, 0.4f);
+					startColor = ColorUtil.getDerivedColor(background, 0.6f);
+					endColor = ColorUtil.getDerivedColor(background, 0.4f);
 				} else {
 					startColor = getCurrentTheme().getColor("selection.RolloverLt");
 					endColor = getCurrentTheme().getColor("selection.RolloverDk");
@@ -496,8 +496,8 @@ public class Office2003Painter extends BasicPainter {
 					background = ((ComponentStateSupport) c).getBackgroundOfState(state);
 				}
 				if (background != null && !(background instanceof UIResource)) {
-					startColor = ColorUtils.getDerivedColor(background, 0.6f);
-					endColor = ColorUtils.getDerivedColor(background, 0.4f);
+					startColor = ColorUtil.getDerivedColor(background, 0.6f);
+					endColor = ColorUtil.getDerivedColor(background, 0.4f);
 				} else {
 					startColor = getCurrentTheme().getColor("selection.SelectedLt");
 					endColor = getCurrentTheme().getColor("selection.SelectedDk");
@@ -508,11 +508,11 @@ public class Office2003Painter extends BasicPainter {
 					background = ((ComponentStateSupport) c).getBackgroundOfState(state);
 				}
 				if (background != null && !(background instanceof UIResource)) {
-					startColor = ColorUtils.toGrayscale(ColorUtils.getDerivedColor(background, 0.6f));
-					endColor = ColorUtils.toGrayscale(ColorUtils.getDerivedColor(background, 0.4f));
+					startColor = ColorUtil.toGrayscale(ColorUtil.getDerivedColor(background, 0.6f));
+					endColor = ColorUtil.toGrayscale(ColorUtil.getDerivedColor(background, 0.4f));
 				} else {
-					startColor = ColorUtils.toGrayscale(getCurrentTheme().getColor("selection.SelectedLt"));
-					endColor = ColorUtils.toGrayscale(getCurrentTheme().getColor("selection.SelectedDk"));
+					startColor = ColorUtil.toGrayscale(getCurrentTheme().getColor("selection.SelectedLt"));
+					endColor = ColorUtil.toGrayscale(getCurrentTheme().getColor("selection.SelectedDk"));
 				}
 				break;
 			case STATE_PRESSED:
@@ -520,8 +520,8 @@ public class Office2003Painter extends BasicPainter {
 					background = ((ComponentStateSupport) c).getBackgroundOfState(state);
 				}
 				if (background != null && !(background instanceof UIResource)) {
-					startColor = ColorUtils.getDerivedColor(background, 0.4f);
-					endColor = ColorUtils.getDerivedColor(background, 0.6f);
+					startColor = ColorUtil.getDerivedColor(background, 0.4f);
+					endColor = ColorUtil.getDerivedColor(background, 0.6f);
 				} else {
 					startColor = getCurrentTheme().getColor("selection.PressedDk");
 					endColor = getCurrentTheme().getColor("selection.PressedLt");
@@ -1091,8 +1091,8 @@ public class Office2003Painter extends BasicPainter {
 		Color colorLt;
 		Color colorDk;
 		if (!(background instanceof UIResource)) {
-			colorLt = ColorUtils.getDerivedColor(background, 0.6f);
-			colorDk = ColorUtils.getDerivedColor(background, 0.5f);
+			colorLt = ColorUtil.getDerivedColor(background, 0.6f);
+			colorDk = ColorUtil.getDerivedColor(background, 0.5f);
 		} else {
 			colorLt = getCurrentTheme().getColor("CollapsiblePaneTitlePane.backgroundLt");
 			colorDk = getCurrentTheme().getColor("CollapsiblePaneTitlePane.backgroundDk");
@@ -1113,8 +1113,8 @@ public class Office2003Painter extends BasicPainter {
 		Color colorLt;
 		Color colorDk;
 		if (!(background instanceof UIResource)) {
-			colorLt = ColorUtils.getDerivedColor(background, 0.5f);
-			colorDk = ColorUtils.getDerivedColor(background, 0.4f);
+			colorLt = ColorUtil.getDerivedColor(background, 0.5f);
+			colorDk = ColorUtil.getDerivedColor(background, 0.4f);
 		} else {
 			colorLt = getCurrentTheme().getColor("CollapsiblePaneTitlePane.backgroundLt.emphasized");
 			colorDk = getCurrentTheme().getColor("CollapsiblePaneTitlePane.backgroundDk.emphasized");
@@ -1136,7 +1136,7 @@ public class Office2003Painter extends BasicPainter {
 		if (!(c.getBackground() instanceof UIResource)) {
 			JideSwingUtilities.fillGradient(g2d,
 					new Rectangle(rect.x, rect.y, rect.width, rect.height),
-					ColorUtils.getDerivedColor(c.getBackground(), 0.6f),
+					ColorUtil.getDerivedColor(c.getBackground(), 0.6f),
 					c.getBackground(),
 					orientation == SwingConstants.HORIZONTAL);
 		} else {
@@ -1280,11 +1280,11 @@ public class Office2003Painter extends BasicPainter {
 	public void paintHeaderBoxBackground(JComponent c, Graphics g, Rectangle rect, int orientation, int state) {
 		super.paintHeaderBoxBackground(c, g, rect, orientation, state);
 		if (state == STATE_ROLLOVER) {
-			g.setColor(ColorUtils.getDerivedColor(getCurrentTheme().getColor("selection.Rollover"), 0.30f));
+			g.setColor(ColorUtil.getDerivedColor(getCurrentTheme().getColor("selection.Rollover"), 0.30f));
 			g.drawLine(rect.x + 1, rect.y + rect.height - 3, rect.x + rect.width - 2, rect.y + rect.height - 3);
-			g.setColor(ColorUtils.getDerivedColor(getCurrentTheme().getColor("selection.Rollover"), 0.35f));
+			g.setColor(ColorUtil.getDerivedColor(getCurrentTheme().getColor("selection.Rollover"), 0.35f));
 			g.drawLine(rect.x + 2, rect.y + rect.height - 2, rect.x + rect.width - 3, rect.y + rect.height - 2);
-			g.setColor(ColorUtils.getDerivedColor(getCurrentTheme().getColor("selection.Rollover"), 0.40f));
+			g.setColor(ColorUtil.getDerivedColor(getCurrentTheme().getColor("selection.Rollover"), 0.40f));
 			g.drawLine(rect.x + 3, rect.y + rect.height - 1, rect.x + rect.width - 4, rect.y + rect.height - 1);
 		}
 	}
@@ -1364,10 +1364,10 @@ public class Office2003Painter extends BasicPainter {
 	public void fillBackground(JComponent c, Graphics g, Rectangle rect, int orientation, int state, Color color) {
 		Graphics2D g2d = (Graphics2D) g.create();
 		if (orientation == SwingConstants.HORIZONTAL) {
-			JideSwingUtilities.fillGradient(g2d, new Rectangle(rect.x, rect.y, rect.width, rect.height), ColorUtils.getDerivedColor(color, 0.60f),
-					ColorUtils.getDerivedColor(color, 0.40f), true);
+			JideSwingUtilities.fillGradient(g2d, new Rectangle(rect.x, rect.y, rect.width, rect.height), ColorUtil.getDerivedColor(color, 0.60f),
+					ColorUtil.getDerivedColor(color, 0.40f), true);
 		} else {
-			JideSwingUtilities.fillGradient(g2d, new Rectangle(rect.x, rect.y, rect.width, rect.height), ColorUtils.getDerivedColor(color, 0.55f),
+			JideSwingUtilities.fillGradient(g2d, new Rectangle(rect.x, rect.y, rect.width, rect.height), ColorUtil.getDerivedColor(color, 0.55f),
 					color, false);
 		}
 		g2d.dispose();

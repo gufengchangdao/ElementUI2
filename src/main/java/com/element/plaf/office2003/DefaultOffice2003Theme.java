@@ -5,9 +5,9 @@
  */
 package com.element.plaf.office2003;
 
+import com.element.color.ColorUtil;
 import com.element.ui.icons.IconsFactory;
 import com.element.plaf.*;
-import com.element.util.ColorUtils;
 
 import javax.swing.*;
 import javax.swing.plaf.ColorUIResource;
@@ -41,7 +41,7 @@ public class DefaultOffice2003Theme extends Office2003Theme {
 		} else if (Color.WHITE.equals(color)) {
 			return color;
 		}
-		return ColorUtils.getDerivedColor(color, 0.93f);
+		return ColorUtil.getDerivedColor(color, 0.93f);
 	}
 
 	public DefaultOffice2003Theme() {

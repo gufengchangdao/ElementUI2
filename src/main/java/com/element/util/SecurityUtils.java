@@ -5,6 +5,8 @@
  */
 package com.element.util;
 
+import com.element.ui.font.FontFilesResource;
+
 import javax.swing.plaf.FontUIResource;
 import java.awt.*;
 import java.io.IOException;

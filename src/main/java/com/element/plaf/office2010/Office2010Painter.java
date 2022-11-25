@@ -6,6 +6,7 @@
 
 package com.element.plaf.office2010;
 
+import com.element.color.ColorUtil;
 import com.element.ui.icons.IconsFactory;
 import com.element.plaf.UIDefaultsLookup;
 import com.element.plaf.basic.BasicJideButtonUI;
@@ -15,7 +16,6 @@ import com.element.plaf.basic.ComponentStateSupport;
 import com.element.ui.button.JideButton;
 import com.element.ui.button.JideSplitButton;
 import com.element.util.JideSwingUtilities;
-import com.element.util.ColorUtils;
 import com.element.util.SystemInfo;
 
 import javax.swing.*;
@@ -264,10 +264,10 @@ public class Office2010Painter extends BasicPainter {
 			Color[] baseColors = {new Color(0xF3CFA5), new Color(0xF0B159), new Color(0xF1B151), new Color(0xFBC860)};
 			Color[] innerBackgroundColors = {new Color(0xFDCD98), new Color(0xF8B35B), new Color(0xFBD582)};
 			for (int i = 0, length = baseColors.length; i < length; i++) {
-				baseColors[i] = ColorUtils.toGrayscale(baseColors[i]);
+				baseColors[i] = ColorUtil.toGrayscale(baseColors[i]);
 			}
 			for (int i = 0, length = innerBackgroundColors.length; i < length; i++) {
-				innerBackgroundColors[i] = ColorUtils.toGrayscale(innerBackgroundColors[i]);
+				innerBackgroundColors[i] = ColorUtil.toGrayscale(innerBackgroundColors[i]);
 			}
 			paintShadowedButtonBackground(g2d, rect, baseColors, innerBackgroundColors);
 		} else if (state == STATE_DEFAULT) {
@@ -447,7 +447,7 @@ public class Office2010Painter extends BasicPainter {
 		Color[] colors = {new Color(0xe8f1fc), new Color(0xe8f1fc), new Color(0xd2e1f4), new Color(0xebf3fd)};
 		for (int i = 0; i < colors.length; i++) {
 			Color color = colors[i];
-			colors[i] = ColorUtils.getDerivedColor(color, .48f);
+			colors[i] = ColorUtil.getDerivedColor(color, .48f);
 		}
 		if (height != 0) {
 			g2d.setPaint(JideSwingUtilities.getLinearGradientPaint(x, y, x, y + height,
@@ -615,7 +615,7 @@ public class Office2010Painter extends BasicPainter {
 						Color[] newColors = new Color[colors.length];
 						for (int i = 0; i < colors.length; i++) {
 							Color color = colors[i];
-							newColors[i] = ColorUtils.getDerivedColor(color, 0.60f);
+							newColors[i] = ColorUtil.getDerivedColor(color, 0.60f);
 						}
 						paint = JideSwingUtilities.getLinearGradientPaint(x, y, x + w, y, new float[]{0f, .333f, .334f, 1f}, newColors);
 					} else {
@@ -627,7 +627,7 @@ public class Office2010Painter extends BasicPainter {
 						Color[] newColors = new Color[colors.length];
 						for (int i = 0; i < colors.length; i++) {
 							Color color = colors[i];
-							newColors[i] = ColorUtils.getDerivedColor(color, 0.60f);
+							newColors[i] = ColorUtil.getDerivedColor(color, 0.60f);
 						}
 						paint = JideSwingUtilities.getLinearGradientPaint(x + w, y, x, y, new float[]{0f, .333f, .334f, 1f}, newColors);
 					} else {
@@ -639,7 +639,7 @@ public class Office2010Painter extends BasicPainter {
 						Color[] newColors = new Color[colors.length];
 						for (int i = 0; i < colors.length; i++) {
 							Color color = colors[i];
-							newColors[i] = ColorUtils.getDerivedColor(color, 0.60f);
+							newColors[i] = ColorUtil.getDerivedColor(color, 0.60f);
 						}
 						paint = JideSwingUtilities.getLinearGradientPaint(x, y + h, x, y, new float[]{0f, .333f, .334f, 1f}, newColors);
 					} else {
@@ -651,7 +651,7 @@ public class Office2010Painter extends BasicPainter {
 						Color[] newColors = new Color[colors.length];
 						for (int i = 0; i < colors.length; i++) {
 							Color color = colors[i];
-							newColors[i] = ColorUtils.getDerivedColor(color, 0.60f);
+							newColors[i] = ColorUtil.getDerivedColor(color, 0.60f);
 						}
 						paint = JideSwingUtilities.getLinearGradientPaint(x, y, x, y + h, new float[]{0f, .333f, .334f, 1f}, newColors);
 					} else {
@@ -683,7 +683,7 @@ public class Office2010Painter extends BasicPainter {
 				Color[] newColors = new Color[colors.length];
 				for (int i = 0; i < colors.length; i++) {
 					Color color = colors[i];
-					newColors[i] = ColorUtils.getDerivedColor(color, 0.60f);
+					newColors[i] = ColorUtil.getDerivedColor(color, 0.60f);
 				}
 				g2d.setPaint(JideSwingUtilities.getLinearGradientPaint(x, y, x + w, y, new float[]{0f, .5f, 1f}, newColors));
 			} else {
@@ -709,7 +709,7 @@ public class Office2010Painter extends BasicPainter {
 			JideSwingUtilities.fillGradient(g2d,
 					new Rectangle(rect.x, rect.y, rect.width, rect.height),
 					c.getBackground(),
-					ColorUtils.getDerivedColor(c.getBackground(), 0.6f),
+					ColorUtil.getDerivedColor(c.getBackground(), 0.6f),
 					orientation == SwingConstants.HORIZONTAL);
 		} else {
 			JideSwingUtilities.fillGradient(g2d,
@@ -783,7 +783,7 @@ public class Office2010Painter extends BasicPainter {
 			g.fillRect(x + 1, y + 1, 2, 2);
 			g.setColor(getGripperForeground());
 			g.fillRect(x, y, 2, 2);
-			g.setColor(ColorUtils.getDerivedColor(getGripperForeground(), 0.55f));
+			g.setColor(ColorUtil.getDerivedColor(getGripperForeground(), 0.55f));
 			g.fillRect(x + 1, y + 1, 1, 1);
 			if (orientation == SwingConstants.HORIZONTAL) {
 				y += 4;
@@ -819,16 +819,16 @@ public class Office2010Painter extends BasicPainter {
 		Graphics2D g2d = (Graphics2D) g.create();
 		if (orientation == SwingConstants.HORIZONTAL) {
 			int topHeight = rect.height / 3;
-			JideSwingUtilities.fillGradient((Graphics2D) g, new Rectangle(rect.x, rect.y, rect.width, topHeight), ColorUtils.getDerivedColor(color, 0.74f),
-					ColorUtils.getDerivedColor(color, 0.64f), true);
+			JideSwingUtilities.fillGradient((Graphics2D) g, new Rectangle(rect.x, rect.y, rect.width, topHeight), ColorUtil.getDerivedColor(color, 0.74f),
+					ColorUtil.getDerivedColor(color, 0.64f), true);
 			JideSwingUtilities.fillGradient((Graphics2D) g, new Rectangle(rect.x, rect.y + topHeight, rect.width, rect.height - topHeight), color,
-					ColorUtils.getDerivedColor(color, 0.64f), true);
+					ColorUtil.getDerivedColor(color, 0.64f), true);
 		} else {
 			int leftWidth = rect.width / 3;
-			JideSwingUtilities.fillGradient((Graphics2D) g, new Rectangle(rect.x, rect.y, leftWidth, rect.height), ColorUtils.getDerivedColor(color, 0.74f),
-					ColorUtils.getDerivedColor(color, 0.64f), false);
+			JideSwingUtilities.fillGradient((Graphics2D) g, new Rectangle(rect.x, rect.y, leftWidth, rect.height), ColorUtil.getDerivedColor(color, 0.74f),
+					ColorUtil.getDerivedColor(color, 0.64f), false);
 			JideSwingUtilities.fillGradient((Graphics2D) g, new Rectangle(rect.x + leftWidth, rect.y, rect.width - leftWidth, rect.height), color,
-					ColorUtils.getDerivedColor(color, 0.64f), false);
+					ColorUtil.getDerivedColor(color, 0.64f), false);
 		}
 		g2d.dispose();
 	}
