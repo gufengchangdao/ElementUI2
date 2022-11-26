@@ -8,7 +8,6 @@ package com.element.ui.window;
 import com.element.swing.Resizable;
 import com.element.swing.ResizableSupport;
 import com.element.ui.panel.ResizablePanel;
-import com.element.util.PortingUtils;
 
 import javax.swing.*;
 import javax.swing.border.Border;
@@ -62,7 +61,7 @@ public class ResizableWindow extends JWindow implements ResizableSupport {
 					@Override
 					public void resizing(int resizeDir, int newX, int newY, int newW, int newH) {
 						Container container = ResizableWindow.this.getContentPane();
-						PortingUtils.setPreferredSize(container, new Dimension(newW, newH));
+						container.setPreferredSize(new Dimension(newW, newH));
 						ResizableWindow.this.setBounds(newX, newY, newW, newH);
 						ResizableWindow.this.resizing();
 					}

@@ -561,37 +561,30 @@ public class IconsFactory {
 		}
 	}
 
-
-	private static Image readImageIcon(Class clazz, String file, InputStream resource) throws IOException {
-		final byte[][] buffer = new byte[1][];
-		BufferedInputStream in = new BufferedInputStream(resource);
-		ByteArrayOutputStream out = new ByteArrayOutputStream(1024);
-
-		buffer[0] = new byte[1024];
-		int n;
-		while ((n = in.read(buffer[0])) > 0) {
-
-			out.write(buffer[0], 0, n);
-		}
-		in.close();
-		out.flush();
-		buffer[0] = out.toByteArray();
-
-		if (buffer[0] == null || buffer[0].length == 0) {
-			Package pkg = clazz.getPackage();
-			String pkgName = "";
-			if (pkg != null) {
-				pkgName = pkg.getName().replace('.', '/');
+	/**
+	 * 读取图像数据，这里使用{@link Toolkit#getDefaultToolkit()}实现，相对于{@link ImageIcon#getImage()}的优点在于在低版本jdk中
+	 * ImageIcon读取的JPEG图片可能会出现红色背景(jdk8有该问题，更高版本不会)
+	 */
+	private static Image readImageIcon(Class<?> clazz, String file, InputStream resource) throws IOException {
+		try (BufferedInputStream in = new BufferedInputStream(resource);
+		     ByteArrayOutputStream out = new ByteArrayOutputStream(1024)) {
+			int n;
+			byte[] buffer = new byte[1024];
+			while ((n = in.read(buffer)) > 0) {
+				out.write(buffer, 0, n);
 			}
-			if (buffer[0] == null) {
-				throw new IOException("Warning: Resource " + pkgName + "/" + file + " not found.");
-			}
-			if (buffer[0].length == 0) {
+			out.flush();
+
+			if (out.size() == 0) { //没有读取成功
+				Package pkg = clazz.getPackage();
+				String pkgName = "";
+				if (pkg != null) {
+					pkgName = pkg.getName().replace('.', '/');
+				}
 				throw new IOException("Warning: Resource " + pkgName + "/" + file + " is zero-length");
 			}
+			return Toolkit.getDefaultToolkit().createImage(out.toByteArray());
 		}
-
-		return Toolkit.getDefaultToolkit().createImage(buffer[0]);
 	}
 
 	/**

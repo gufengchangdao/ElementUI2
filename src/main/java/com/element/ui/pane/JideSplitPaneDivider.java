@@ -11,7 +11,6 @@ import com.element.plaf.UIDefaultsLookup;
 import com.element.plaf.basic.Painter;
 import com.element.swing.JideCursors;
 import com.element.ui.layout.JideBoxLayout;
-import com.element.util.PortingUtils;
 import com.element.util.UIUtil;
 
 import javax.swing.*;
@@ -789,12 +788,12 @@ public class JideSplitPaneDivider extends JPanel
 		if (_jideSplitPane.isOneTouchExpandable()) {
 			for (int i = 0; i < paneCount; i++) {
 				Component component = _jideSplitPane.getPaneAt(i);
-				PortingUtils.setMinimumSize(component, new Dimension(0, 0));
+				component.setMinimumSize( new Dimension(0, 0));
 			}
 		} else {
 			for (int i = 0; i < paneCount; i++) {
 				Component component = _jideSplitPane.getPaneAt(i);
-				PortingUtils.setMinimumSize(component, null);
+				component.setMinimumSize(null);
 			}
 		}
 	}

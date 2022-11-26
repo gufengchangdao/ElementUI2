@@ -2,7 +2,6 @@ package com.element.util;
 
 import com.element.swing.Overlayable;
 import com.element.ui.base.DefaultOverlayable;
-import com.element.ui.icons.OverlayableIconsFactory;
 
 import javax.swing.*;
 import java.awt.*;
@@ -10,9 +9,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * This util class has several methods related to <code>Overlayable</code>.
+ * This util class has several methods related to {@link Overlayable}.
  */
-public class OverlayableUtils {
+public class OverlayableUtil {
 	/**
 	 * Gets the overlayable associated with this component and its parents. This method will find the first overlayable
 	 * that contains the component or its parents.
@@ -22,31 +21,26 @@ public class OverlayableUtils {
 	 */
 	public static Overlayable getOverlayable(JComponent component) {
 		Container parent = component;
-		while (true) {
+		do {
 			Object o = ((JComponent) parent).getClientProperty(DefaultOverlayable.CLIENT_PROPERTY_OVERLAYABLE);
-			if (o instanceof Overlayable) {
-				return (Overlayable) o;
-			}
+			if (o instanceof Overlayable) return (Overlayable) o;
 			parent = parent.getParent();
-			if (!(parent instanceof JComponent)) {
-				break;
-			}
-		}
+		} while (parent instanceof JComponent);
 		return null;
 	}
 
 	/**
-	 * Gets all overlayables associated with this component and its parents. Different from {@link
-	 * #getOverlayable(JComponent)}, this method will find the all overlayables that contain the component
+	 * Gets all overlayables associated with this component and its parents. Different from
+	 * {@link #getOverlayable(JComponent)}, this method will find the all overlayables that contain the component
 	 * or its parents.
 	 *
 	 * @param component the component
 	 * @return all the overlayables.
 	 */
-	public static Overlayable[] getAllOverlayables(JComponent component) {
+	public static List<Overlayable> getAllOverlayables(JComponent component) {
 		List<Overlayable> list = new ArrayList<>();
 		Container parent = component;
-		while (true) {
+		do {
 			Object o = ((JComponent) parent).getClientProperty(DefaultOverlayable.CLIENT_PROPERTY_OVERLAYABLE);
 			if (o instanceof Overlayable) {
 				if (!list.contains(o)) {
@@ -54,11 +48,8 @@ public class OverlayableUtils {
 				}
 			}
 			parent = parent.getParent();
-			if (parent == null) {
-				break;
-			}
-		}
-		return list.toArray(new Overlayable[0]);
+		} while (parent != null);
+		return list;
 	}
 
 	/**
@@ -93,24 +84,11 @@ public class OverlayableUtils {
 	 * @param component the component.
 	 */
 	public static void repaintAllOverlayables(JComponent component) {
-		Overlayable[] overlayables = getAllOverlayables(component);
+		List<Overlayable> overlayables = getAllOverlayables(component);
 		for (Overlayable overlayable : overlayables) {
 			if (overlayable instanceof Component) {
 				((Component) overlayable).repaint();
 			}
 		}
-	}
-
-	/**
-	 * Gets the predefined icon that can be used as the overlay icon for the Swing component. Available icon names are
-	 * <ul> <li>{@link OverlayableIconsFactory#CORRECT} <li>{@link OverlayableIconsFactory#ERROR} <li>{@link
-	 * OverlayableIconsFactory#ATTENTION} <li>{@link OverlayableIconsFactory#INFO} <li>{@link
-	 * OverlayableIconsFactory#QUESTION} </ul>
-	 *
-	 * @param name name defined in {@link OverlayableIconsFactory}.
-	 * @return the icon
-	 */
-	public static Icon getPredefinedOverlayIcon(String name) {
-		return OverlayableIconsFactory.getImageIcon(name);
 	}
 }

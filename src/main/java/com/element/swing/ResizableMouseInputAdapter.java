@@ -5,7 +5,7 @@
  */
 package com.element.swing;
 
-import com.element.util.PortingUtils;
+import com.element.util.PortingUtil;
 
 import javax.swing.*;
 import javax.swing.event.MouseInputAdapter;
@@ -540,7 +540,7 @@ public class ResizableMouseInputAdapter extends MouseInputAdapter {
 				return;
 		}
 
-		Rectangle screenBounds = PortingUtils.getScreenBounds(_resizable.getComponent());
+		Rectangle screenBounds = PortingUtil.getScreenBounds(false);
 		newX = Math.max(newX, screenBounds.x);
 		newY = Math.max(newY, screenBounds.y);
 		if (newX + newW > screenBounds.width) {

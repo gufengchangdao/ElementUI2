@@ -6,7 +6,7 @@
 
 package com.element.ui.button;
 
-import com.element.util.OverlayableUtils;
+import com.element.util.OverlayableUtil;
 
 import javax.swing.*;
 
@@ -46,6 +46,6 @@ public class OverlayRadioButton extends JRadioButton {
 	@Override
 	public void repaint(long tm, int x, int y, int width, int height) {
 		super.repaint(tm, x, y, width, height);
-		OverlayableUtils.repaintOverlayable(this);
+		OverlayableUtil.repaintOverlayable(this);
 	}
 }

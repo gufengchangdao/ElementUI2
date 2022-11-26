@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>图标列表</title>
+    <style>
+        body {font-family: "Trebuchet MS", Verdana, Arial, Helvetica, sans-serif;background: #E6EAE9;}
+
+        .mytable {margin: 10px;border-spacing: 0;border-collapse: collapse;}
+
+        tr {background: #fff;color: #4f6b72;}
+
+        th {font: bold 18px "Trebuchet MS", Verdana, Arial, Helvetica, sans-serif;color: #fff;
+            border-right: 1px solid #C1DAD7;border-bottom: 1px solid #C1DAD7;border-top: 1px solid #C1DAD7;
+            letter-spacing: 2px;text-align: left;padding: 6px 6px 6px 12px;background: #0098a2 no-repeat;}
+
+        td {border-right: 1px solid #C1DAD7;border-bottom: 1px solid #C1DAD7;font-size: 16px;padding: 6px 6px 6px 12px;}
+
+        .tr1 {background-color: #269fa7;color: white;}
+
+        .tr2 {background-color: white;}
+    </style>
+</head>
+<body>
+<h1>图标定义在 com.element.ui.icons.OverlayableIconsFactory</h1>
+<ol>
+<li>如果您无法查看此页面中的图像，请确保该文件位于正确的资源目录下</li>
+<li>要在代码中获取特定图标，请调用 <b>JideIconsFactory.getImageIcon(FULL_CONSTANT_NAME)</b>。将 FULL_CONSTANT_NAME 替换为下表中的实际完整常量名称</li>
+</ol>
+<p><b>OverlayableIconsFactory</b></p>
+<table class="mytable">
+<tr>
+<th>Name</th>
+<th>Image</th>
+<th>File Name</th>
+<th>Full Constant Name</th>
+</tr>
+<tr>
+<td>ATTENTION</td>
+<td><img src="icons/overlay_attention.png"></td>
+<td>icons/overlay_attention.png</td>
+<td>OverlayableIconsFactory.ATTENTION</td>
+</tr>
+<tr>
+<td>CORRECT</td>
+<td><img src="icons/overlay_correct.png"></td>
+<td>icons/overlay_correct.png</td>
+<td>OverlayableIconsFactory.CORRECT</td>
+</tr>
+<tr>
+<td>ERROR</td>
+<td><img src="icons/overlay_error.png"></td>
+<td>icons/overlay_error.png</td>
+<td>OverlayableIconsFactory.ERROR</td>
+</tr>
+<tr>
+<td>INFO</td>
+<td><img src="icons/overlay_info.png"></td>
+<td>icons/overlay_info.png</td>
+<td>OverlayableIconsFactory.INFO</td>
+</tr>
+<tr>
+<td>QUESTION</td>
+<td><img src="icons/overlay_question.png"></td>
+<td>icons/overlay_question.png</td>
+<td>OverlayableIconsFactory.QUESTION</td>
+</tr>
+</table><br>
+<script>
+    let aTr = document.getElementsByTagName("tr");
+    for (let i = 1; i < aTr.length; i++) {
+        aTr[i].onmouseover = function () {
+            aTr[i].className = "tr1";
+        }
+        aTr[i].onmouseout = function () {
+            aTr[i].className = "tr2";
+        }
+    }
+</script>
+</body>
+</html>

@@ -27,10 +27,18 @@ public interface Overlayable extends SwingConstants {
 	void addOverlayComponent(JComponent component);
 
 	/**
-	 * Adds an overlay component at the specified location. The location could be one of the following values. <ul>
-	 * <li>{@link SwingConstants#CENTER} <li>{@link SwingConstants#SOUTH} <li>{@link SwingConstants#NORTH} <li>{@link
-	 * SwingConstants#WEST} <li>{@link SwingConstants#EAST} <li>{@link SwingConstants#NORTH_EAST} <li>{@link
-	 * SwingConstants#NORTH_WEST} <li>{@link SwingConstants#SOUTH_EAST} <li>{@link SwingConstants#SOUTH_WEST} </ul>
+	 * Adds an overlay component at the specified location. The location could be one of the following values.
+	 * <ul>
+	 *     <li>{@link SwingConstants#CENTER}
+	 *     <li>{@link SwingConstants#SOUTH}
+	 *     <li>{@link SwingConstants#NORTH}
+	 *     <li>{@link SwingConstants#WEST}
+	 *     <li>{@link SwingConstants#EAST}
+	 *     <li>{@link SwingConstants#NORTH_EAST}
+	 *     <li>{@link SwingConstants#NORTH_WEST}
+	 *     <li>{@link SwingConstants#SOUTH_EAST}
+	 *     <li>{@link SwingConstants#SOUTH_WEST}
+	 * </ul>
 	 *
 	 * @param component the overlay component.
 	 * @param location  the overlay location.
@@ -38,10 +46,18 @@ public interface Overlayable extends SwingConstants {
 	void addOverlayComponent(JComponent component, int location);
 
 	/**
-	 * Adds an overlay component at the specified location. The location could be one of the following values. <ul>
-	 * <li>{@link SwingConstants#CENTER} <li>{@link SwingConstants#SOUTH} <li>{@link SwingConstants#NORTH} <li>{@link
-	 * SwingConstants#WEST} <li>{@link SwingConstants#EAST} <li>{@link SwingConstants#NORTH_EAST} <li>{@link
-	 * SwingConstants#NORTH_WEST} <li>{@link SwingConstants#SOUTH_EAST} <li>{@link SwingConstants#SOUTH_WEST} </ul>
+	 * Adds an overlay component at the specified location. The location could be one of the following values.
+	 * <ul>
+	 *     <li>{@link SwingConstants#CENTER}
+	 *     <li>{@link SwingConstants#SOUTH}
+	 *     <li>{@link SwingConstants#NORTH}
+	 *     <li>{@link SwingConstants#WEST}
+	 *     <li>{@link SwingConstants#EAST}
+	 *     <li>{@link SwingConstants#NORTH_EAST}
+	 *     <li>{@link SwingConstants#NORTH_WEST}
+	 *     <li>{@link SwingConstants#SOUTH_EAST}
+	 *     <li>{@link SwingConstants#SOUTH_WEST}
+	 * </ul>
 	 *
 	 * @param component the overlay component.
 	 * @param location  the overlay location.
@@ -64,10 +80,18 @@ public interface Overlayable extends SwingConstants {
 	JComponent[] getOverlayComponents();
 
 	/**
-	 * Sets the overlay component location. The valid values are defined in SwingConstants. They are <ul> <li>{@link
-	 * SwingConstants#CENTER} <li>{@link SwingConstants#SOUTH} <li>{@link SwingConstants#NORTH} <li>{@link
-	 * SwingConstants#WEST} <li>{@link SwingConstants#EAST} <li>{@link SwingConstants#NORTH_EAST} <li>{@link
-	 * SwingConstants#NORTH_WEST} <li>{@link SwingConstants#SOUTH_EAST} <li>{@link SwingConstants#SOUTH_WEST} </ul>
+	 * Sets the overlay component location. The valid values are defined in SwingConstants. They are
+	 * <ul>
+	 *     <li>{@link SwingConstants#CENTER}
+	 *     <li>{@link SwingConstants#SOUTH}
+	 *     <li>{@link SwingConstants#NORTH}
+	 *     <li>{@link SwingConstants#WEST}
+	 *     <li>{@link SwingConstants#EAST}
+	 *     <li>{@link SwingConstants#NORTH_EAST}
+	 *     <li>{@link SwingConstants#NORTH_WEST}
+	 *     <li>{@link SwingConstants#SOUTH_EAST}
+	 *     <li>{@link SwingConstants#SOUTH_WEST}
+	 * </ul>
 	 *
 	 * @param location the overlay component location.
 	 */

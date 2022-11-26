@@ -1,3 +1,6 @@
+import java.io.ByteArrayOutputStream;
+import java.util.Arrays;
+
 import static com.element.util.UIUtil.MAC_USE_QUARTZ;
 
 public class Main {
@@ -19,6 +22,6 @@ public class Main {
 		//
 		// 	SwingTestUtil.test();
 		// });
-		System.out.println(MAC_USE_QUARTZ);
+		System.out.println(Arrays.toString(new ByteArrayOutputStream(1024).toByteArray()));
 	}
 }

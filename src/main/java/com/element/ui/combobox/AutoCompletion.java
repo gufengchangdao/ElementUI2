@@ -7,7 +7,7 @@ package com.element.ui.combobox;
 
 import com.element.swing.DelegateAction;
 import com.element.swing.Searchable;
-import com.element.util.PortingUtils;
+import com.element.util.PortingUtil;
 import com.element.util.UIUtil;
 
 import javax.swing.*;
@@ -302,7 +302,7 @@ public class AutoCompletion {
 							if (isStrict()) {
 								getTextComponent().setText(_saveText);
 								e.consume();
-								PortingUtils.notifyUser(_textComponent);
+								PortingUtil.notifyUser(_textComponent);
 							}
 						}
 					}
@@ -380,7 +380,7 @@ public class AutoCompletion {
 					if (_hitBackspaceOnSelection) offs--;
 				} else {
 					// User hit backspace with the cursor positioned on the start => beep
-					PortingUtils.notifyUser(_textComponent);
+					PortingUtil.notifyUser(_textComponent);
 				}
 				highlightCompletedText(offs);
 			} else {
@@ -437,7 +437,7 @@ public class AutoCompletion {
 										item = getSearchable().getElementAt(index);
 										offs = offs - str.length();
 										// imitate no insert (later on offs will be incremented by str.length(): selection won't move forward)
-										PortingUtils.notifyUser(_textComponent);
+										PortingUtil.notifyUser(_textComponent);
 										setText(getSearchable().convertElementToString(item));
 										// select the completed part
 										highlightCompletedText(offs + str.length());
@@ -458,7 +458,7 @@ public class AutoCompletion {
 							item = getSearchable().getElementAt(index);
 							offs = offs - str.length();
 							// imitate no insert (later on offs will be incremented by str.length(): selection won't move forward)
-							PortingUtils.notifyUser(_textComponent);
+							PortingUtil.notifyUser(_textComponent);
 							setText(getSearchable().convertElementToString(item));
 							// select the completed part
 							highlightCompletedText(offs + str.length());

@@ -6,7 +6,7 @@
 
 package com.element.ui.area;
 
-import com.element.util.OverlayableUtils;
+import com.element.util.OverlayableUtil;
 
 import javax.swing.*;
 import javax.swing.text.Document;
@@ -38,6 +38,6 @@ public class OverlayTextArea extends JTextArea {
 	@Override
 	public void repaint(long tm, int x, int y, int width, int height) {
 		super.repaint(tm, x, y, width, height);
-		OverlayableUtils.repaintOverlayable(this);
+		OverlayableUtil.repaintOverlayable(this);
 	}
 }

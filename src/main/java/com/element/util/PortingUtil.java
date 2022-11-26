@@ -7,88 +7,15 @@ package com.element.util;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.MouseEvent;
 import java.awt.geom.Area;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Arrays;
 
 /**
  * 保留所有 1.4/1.3 不同内容的类。
  */
-@SuppressWarnings({"UnusedDeclaration"})
-public class PortingUtils {
-	/**
-	 * Gets current focused components. If 1.3, just uses event's source; 1.4, used keyboard focus manager to get the
-	 * correct focused component.
-	 *
-	 * @param event the AWT event
-	 * @return current focused component
-	 */
-	public static Component getCurrentFocusComponent(AWTEvent event) {
-		return KeyboardFocusManager.getCurrentKeyboardFocusManager().getFocusOwner();
-	}
-
-	/**
-	 * Gets frame's state. In 1.3, used getState; in 1.4, uses getExtendedState.
-	 *
-	 * @param frame the frame
-	 * @return frame's state
-	 */
-	public static int getFrameState(Frame frame) {
-		return frame.getExtendedState();
-	}
-
-	/**
-	 * Sets frame's state. In 1.3, uses sets frame's state; in 1.4, uses gets frame's state.
-	 *
-	 * @param frame the frame
-	 * @param state the state
-	 */
-	public static void setFrameState(Frame frame, int state) {
-		frame.setExtendedState(state);
-	}
-
-	/**
-	 * Gets mouse modifiers. If 1.3, uses getModifiers; 1.4, getModifiersEx.
-	 *
-	 * @param e the mouse event
-	 * @return mouse modifiers
-	 */
-	public static int getMouseModifiers(MouseEvent e) {
-		return e.getModifiersEx();
-	}
-
-	/**
-	 * Makes sure the component won't receive the focus.
-	 *
-	 * @param component the component
-	 */
-	public static void removeFocus(JComponent component) {
-		component.setRequestFocusEnabled(false);
-		component.setFocusable(false);
-	}
-
-	/**
-	 * Removes the button border.
-	 *
-	 * @param button the button
-	 */
-	public static void removeButtonBorder(AbstractButton button) {
-		button.setContentAreaFilled(false);
-		button.setMargin(new Insets(0, 0, 0, 0));
-		button.setBorder(BorderFactory.createEmptyBorder());
-	}
-
-	/**
-	 * To make sure the rectangle is within the screen bounds.
-	 *
-	 * @param invoker the invoker component
-	 * @param rect    the rectangle
-	 * @return the rectangle that is in the screen bounds.
-	 */
-	public static Rectangle containsInScreenBounds(Component invoker, Rectangle rect) {
-		return containsInScreenBounds(invoker, rect, false);
-	}
+public class PortingUtil {
+	private static final GraphicsEnvironment GRAPHICS_ENVIRONMENT =
+			GraphicsEnvironment.getLocalGraphicsEnvironment();
 
 	/**
 	 * To make sure the rectangle is within the screen bounds.
@@ -172,7 +99,7 @@ public class PortingUtils {
 //      ensureScreenBounds();
 
 		// jdk1.4 only
-		if (invoker != null && invoker.getGraphicsConfiguration() != null) {
+		if (invoker != null && !(invoker instanceof JApplet) && invoker.getGraphicsConfiguration() != null) {
 			// to handle multi-display case
 			GraphicsConfiguration gc = invoker.getGraphicsConfiguration();
 			Rectangle bounds = gc.getBounds();
@@ -196,9 +123,10 @@ public class PortingUtils {
 	 */
 	public static Rectangle getScreenBounds(Component invoker, boolean useInvokerDevice) {
 		// to handle multi-display case
-		Rectangle bounds = (!useInvokerDevice || invoker == null || invoker.getGraphicsConfiguration() == null) ? (Rectangle) getScreenBounds().clone() : invoker.getGraphicsConfiguration().getBounds();
+		Rectangle bounds = (!useInvokerDevice || invoker == null || invoker.getGraphicsConfiguration() == null)
+				? new Rectangle(getScreenBounds())
+				: invoker.getGraphicsConfiguration().getBounds();
 
-		// TODO
 		// jdk1.4 only
 		if (invoker != null && invoker.getGraphicsConfiguration() != null) {
 			Insets insets = Toolkit.getDefaultToolkit().getScreenInsets(invoker.getGraphicsConfiguration());
@@ -237,8 +165,7 @@ public class PortingUtils {
 			// a "Window must not be zero" if there are 3 monitors
 			// on Linux with some newer Java versions, see
 			// https://github.com/lbalazscs/Pixelitor/issues/15
-			bounds = GraphicsEnvironment.getLocalGraphicsEnvironment()
-					.getMaximumWindowBounds();
+			bounds = GRAPHICS_ENVIRONMENT.getMaximumWindowBounds();
 		} catch (Exception e) {
 			return new Rectangle(new Point(0, 0), Toolkit.getDefaultToolkit().getScreenSize());
 		}
@@ -248,89 +175,12 @@ public class PortingUtils {
 
 	private static Rectangle getScreenBounds() {
 		Rectangle SCREEN_BOUNDS = new Rectangle();
-		GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
-		GraphicsDevice[] gs = ge.getScreenDevices();
+		GraphicsDevice[] gs = GRAPHICS_ENVIRONMENT.getScreenDevices();
 		for (GraphicsDevice gd : gs) {
 			GraphicsConfiguration gc = gd.getDefaultConfiguration();
 			SCREEN_BOUNDS = SCREEN_BOUNDS.union(gc.getBounds());
 		}
 		return SCREEN_BOUNDS;
-	}
-
-	/**
-	 * If you use methods such as {@link #ensureOnScreen(Rectangle)}, {@link
-	 * #getContainingScreenBounds(Rectangle, boolean)} or {@link #getScreenArea()} for the first time, it will
-	 * take up to a few seconds to run because it needs to get device information. To avoid any slowness, you can call
-	 * call this method in the class where you will use those three methods. This method will spawn a thread to retrieve
-	 * device information thus it will return immediately. Hopefully, when you use the three methods, the thread is done
-	 * so user will not notice any slowness.
-	 *
-	 * @deprecated Call GraphicsEnvironment.getLocalGraphicsEnvironment().getScreenDevices()
-	 */
-	@Deprecated
-	synchronized public static void initializeScreenArea() {
-		initializeScreenArea(Thread.NORM_PRIORITY);
-	}
-
-	/**
-	 * Invalidate the screen area so that initializeScreenArea will discard the cache and recalculate the screen bounds. Only call this when
-	 * you detect the screen display setting changed on the system.
-	 *
-	 * @deprecated Cache no longer used.
-	 */
-	@Deprecated
-	synchronized public static void invalidateScreenArea() {
-	}
-
-	/**
-	 * If you use methods such as {@link #ensureOnScreen(Rectangle)}, {@link
-	 * #getContainingScreenBounds(Rectangle, boolean)} or {@link #getScreenArea()} for the first time, it will
-	 * take up to a couple of seconds to run because it needs to get device information. To avoid any slowness, you can
-	 * call {@link #initializeScreenArea()} method in the class where you will use those three methods. This method will
-	 * spawn a thread to retrieve device information thus it will return immediately. Hopefully, when you use the three
-	 * methods, the thread is done so user will not notice any slowness.
-	 *
-	 * @param priority as we will use a thread to calculate the screen area, you can use this parameter to control the
-	 *                 priority of the thread. If you are waiting for the result before the next step, you should use
-	 *                 normal priority (which is 5). If you just want to calculate when app starts, you can use a lower
-	 *                 priority (such as 3). For example, AbstractComboBox needs screen size so that the popup doesn't
-	 *                 go beyond the screen. So when AbstractComboBox is used, we will kick off the thread at priority
-	 *                 3. If user clicks on the drop down after the thread finished, there will be no time delay.
-	 * @deprecated Call GraphicsEnvironment.getLocalGraphicsEnvironment().getScreenDevices()
-	 */
-	@Deprecated
-	synchronized public static void initializeScreenArea(int priority) {
-		final Thread _initializationThread = new Thread(() -> GraphicsEnvironment.getLocalGraphicsEnvironment().getScreenDevices());
-
-		_initializationThread.setPriority(priority);
-		if (INITIALIZE_SCREEN_AREA_USING_THREAD) {
-			_initializationThread.start();
-		} else {
-			_initializationThread.run();
-		}
-	}
-
-	/**
-	 * @deprecated No longer used.
-	 */
-	@Deprecated
-	public static boolean INITIALIZE_SCREEN_AREA_USING_THREAD = true;
-
-	/**
-	 * @deprecated No longer used.
-	 */
-	@Deprecated
-	public static boolean isInitializationThreadAlive() {
-		return false;
-	}
-
-	/**
-	 * @deprecated No longer used.
-	 */
-	@Deprecated
-	public static boolean isInitializationThreadStarted() {
-		return false;
-
 	}
 
 	/**
@@ -341,9 +191,10 @@ public class PortingUtils {
 	 * @return the modified bounds.
 	 */
 	public static Rectangle ensureVisible(Component invoker, Rectangle bounds) {
-		Rectangle mainScreenBounds = PortingUtils.getLocalScreenBounds(); // this is fast. Only if it is outside this bounds, we try the more expensive one.
+		// this is fast. Only if it is outside this bounds, we try the more expensive one.
+		Rectangle mainScreenBounds = PortingUtil.getLocalScreenBounds();
 		if (!mainScreenBounds.contains(bounds.getLocation())) {
-			Rectangle screenBounds = PortingUtils.getScreenBounds(invoker, false);
+			Rectangle screenBounds = PortingUtil.getScreenBounds(invoker, false);
 			if (bounds.x > screenBounds.x + screenBounds.width || bounds.x < screenBounds.x) {
 				bounds.x = screenBounds.x;
 			}
@@ -485,40 +336,29 @@ public class PortingUtils {
 	 * @return Union of all screens
 	 */
 	public static Area getScreenArea() {
-		Area SCREEN_AREA = new Area();
-		GraphicsEnvironment environment = GraphicsEnvironment.getLocalGraphicsEnvironment();
-		GraphicsDevice[] screenDevices = environment.getScreenDevices();
-		for (GraphicsDevice device : screenDevices) {
-			GraphicsConfiguration configuration = device.getDefaultConfiguration();
-			Rectangle screenBounds = configuration.getBounds();
-			SCREEN_AREA.add(new Area(screenBounds));
-		}
-		return SCREEN_AREA;
+		return Arrays.stream(GRAPHICS_ENVIRONMENT.getScreenDevices()).reduce(new Area(), (area, device) -> {
+					GraphicsConfiguration configuration = device.getDefaultConfiguration();
+					Rectangle screenBounds = configuration.getBounds();
+					return new Area(screenBounds);
+				}, (area, area2) -> {
+					area.add(area2);
+					return area;
+				}
+		);
 	}
 
 	private static Rectangle[] getScreens() {
-		GraphicsEnvironment environment = GraphicsEnvironment.getLocalGraphicsEnvironment();
-		List<Rectangle> screensList = new ArrayList<>();
-		GraphicsDevice[] screenDevices = environment.getScreenDevices();
-		for (GraphicsDevice device : screenDevices) {
+		return Arrays.stream(GRAPHICS_ENVIRONMENT.getScreenDevices()).map(device -> {
 			GraphicsConfiguration configuration = device.getDefaultConfiguration();
-			Rectangle screenBounds = configuration.getBounds();
-			screensList.add(screenBounds);
-		}
-		return screensList.toArray(new Rectangle[0]);
+			return configuration.getBounds();
+		}).toArray(Rectangle[]::new);
 	}
 
 	private static Insets[] getInsets() {
-		GraphicsEnvironment environment = GraphicsEnvironment.getLocalGraphicsEnvironment();
-		List<Insets> insetsList = new ArrayList<>();
-		GraphicsDevice[] screenDevices = environment.getScreenDevices();
-		for (GraphicsDevice device : screenDevices) {
+		return Arrays.stream(GRAPHICS_ENVIRONMENT.getScreenDevices()).map(device -> {
 			GraphicsConfiguration configuration = device.getDefaultConfiguration();
-			Rectangle screenBounds = configuration.getBounds();
-			Insets insets = Toolkit.getDefaultToolkit().getScreenInsets(configuration);
-			insetsList.add(insets);
-		}
-		return insetsList.toArray(new Insets[0]);
+			return Toolkit.getDefaultToolkit().getScreenInsets(configuration);
+		}).toArray(Insets[]::new);
 	}
 
 
@@ -550,30 +390,5 @@ public class PortingUtils {
 			System.setProperty("apple.laf.useScreenMenuBar", "true");
 			System.setProperty("apple.awt.brushMetalLook", "true");
 		}
-	}
-
-	/**
-	 * Sets the preferred size on a component. This method is there mainly to fix the issue that setPreferredSize method
-	 * is there on Component only after JDK5. For JDK1.4 and before, you need to cast to JComponent first. So this
-	 * method captures this logic and only call setPreferedSize when the JDK is 1.5 and above or when the component is
-	 * instance of JComponent.
-	 *
-	 * @param component the component
-	 * @param size      the preferred size.
-	 */
-	public static void setPreferredSize(Component component, Dimension size) {
-		component.setPreferredSize(size);
-	}
-
-	/**
-	 * Sets the minimum size on a component. This method is there mainly to fix the issue that setMinimumSize method is
-	 * there on Component only after JDK5. For JDK1.4 and before, you need to cast to JComponent first. So this method
-	 * captures this logic and only call setMinimumSize when the JDK is 1.5 and above or when the component is
-	 *
-	 * @param component the component
-	 * @param size      the preferred size.
-	 */
-	public static void setMinimumSize(Component component, Dimension size) {
-		component.setMinimumSize(size);
 	}
 }
