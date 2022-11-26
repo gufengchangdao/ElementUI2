@@ -3,7 +3,6 @@ package com.element.ui.svg.app;
 import com.element.color.ColorUtil;
 import com.element.ui.base.BaseInputField;
 import com.element.ui.button.ButtonFactory;
-import com.element.util.SwingTestUtil;
 import net.miginfocom.swing.MigLayout;
 
 import javax.swing.*;
@@ -108,11 +107,5 @@ public class BatchProcessFrame extends JFrame {
 			button.setEnabled(false);
 		});
 	}
-
-	public static void main(String[] args) {
-		SwingTestUtil.loadSkin();
-		EventQueue.invokeLater(() -> new BatchProcessFrame().setVisible(true));
-	}
-
 }
 

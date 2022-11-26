@@ -1,6 +1,6 @@
 package lab.component.frame;
 
-import com.element.util.SwingTestUtil;
+import demo.SwingTestUtil;
 
 import javax.swing.*;
 import java.awt.*;

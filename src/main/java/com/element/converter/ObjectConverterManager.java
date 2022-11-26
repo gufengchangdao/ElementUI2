@@ -8,7 +8,7 @@ package com.element.converter;
 import com.element.event.CacheMap;
 import com.element.event.RegistrationListener;
 import com.element.range.*;
-import com.element.util.TypeUtils;
+import com.element.util.TypeUtil;
 
 import java.awt.*;
 import java.io.File;
@@ -218,8 +218,8 @@ public class ObjectConverterManager {
 		if (converter != null && converter.supportFromString(string, context)) {
 			Object value = converter.fromString(string, context);
 			if (value != null && clazz != null && !clazz.isAssignableFrom(value.getClass())) {
-				if (TypeUtils.isNumericType(clazz) && value instanceof Number) {
-					clazz = TypeUtils.convertPrimitiveToWrapperType(clazz);
+				if (TypeUtil.isNumericType(clazz) && value instanceof Number) {
+					clazz = TypeUtil.convertPrimitiveToWrapperType(clazz);
 					if (clazz == Double.class) {
 						return ((Number) value).doubleValue();
 					}

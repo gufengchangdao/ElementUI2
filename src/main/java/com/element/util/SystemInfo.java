@@ -58,7 +58,7 @@ final public class SystemInfo {
 	/**
 	 * Flag which indicates that the Win98/Win2k/WinME features should be disabled.
 	 */
-	private static boolean _isClassicWindows = false;
+	private static boolean _isClassicWindows;
 
 	/**
 	 * Variable for whether or not we're on Windows 95.
@@ -88,17 +88,17 @@ final public class SystemInfo {
 	/**
 	 * Variable for whether or not we're on Linux.
 	 */
-	private static boolean _isLinux = false;
+	private static boolean _isLinux;
 
 	/**
 	 * Variable for whether or not we're on Solaris.
 	 */
-	private static boolean _isSolaris = false;
+	private static boolean _isSolaris;
 
 	/**
 	 * Variable for whether or not we're on *BSD.
 	 */
-	private static boolean _isBSD = false;
+	private static boolean _isBSD;
 
 	private static JavaVersion _currentVersion;
 
@@ -446,12 +446,10 @@ final public class SystemInfo {
 		GraphicsDevice device = graphicsEnvironment.getDefaultScreenDevice();
 		try {
 			Field field = device.getClass().getDeclaredField("scale");
-			if (field != null) {
-				field.setAccessible(true);
-				Object scale = field.get(device);
-				if (scale instanceof Integer) {
-					return (Integer) scale;
-				}
+			field.setAccessible(true);
+			Object scale = field.get(device);
+			if (scale instanceof Integer) {
+				return (Integer) scale;
 			}
 		} catch (Exception ignore) {
 		}

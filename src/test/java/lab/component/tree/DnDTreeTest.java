@@ -1,6 +1,6 @@
 package lab.component.tree;
 
-import com.element.util.SwingTestUtil;
+import demo.SwingTestUtil;
 
 import javax.swing.*;
 import javax.swing.tree.*;

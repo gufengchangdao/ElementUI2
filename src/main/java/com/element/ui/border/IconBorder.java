@@ -1,7 +1,7 @@
 package com.element.ui.border;
 
 import com.element.radiance.common.api.icon.RadianceIcon;
-import com.element.util.SizeAdjustUtil;
+import com.element.util.UIUtil;
 
 import javax.swing.*;
 import javax.swing.border.AbstractBorder;
@@ -100,11 +100,11 @@ public class IconBorder extends AbstractBorder {
 		Dimension size = c.getPreferredSize();
 		if (leftIcon != null) {
 			Dimension leftIconSize = new Dimension(leftIcon.getIconWidth(), leftIcon.getIconHeight());
-			leftIcon.setDimension(SizeAdjustUtil.adjustDimensionSize(size, leftIconSize, c.getInsets()));
+			leftIcon.setDimension(UIUtil.adjustDimensionSize(size, leftIconSize, c.getInsets()));
 		}
 		if (rightIcon != null) {
 			Dimension rightIconSize = new Dimension(rightIcon.getIconWidth(), rightIcon.getIconHeight());
-			rightIcon.setDimension(SizeAdjustUtil.adjustDimensionSize(size, rightIconSize, c.getInsets()));
+			rightIcon.setDimension(UIUtil.adjustDimensionSize(size, rightIconSize, c.getInsets()));
 		}
 	}
 }

@@ -2,7 +2,7 @@ package com.element.ui.base;
 
 import com.element.radiance.common.api.icon.RadianceIcon;
 import com.element.ui.border.IconBorder;
-import com.element.util.SizeAdjustUtil;
+import com.element.util.UIUtil;
 
 import javax.swing.*;
 import java.awt.*;
@@ -49,11 +49,11 @@ public class IconComponent<E extends JComponent> extends BaseComponent {
 	public void setPreferredSize(Dimension preferredSize) {
 		super.setPreferredSize(preferredSize);
 		if (leftIcon != null)
-			leftIcon.setDimension(SizeAdjustUtil
+			leftIcon.setDimension(UIUtil
 					.adjustDimensionSize(preferredSize, leftButton.getPreferredSize()));
 
 		if (rightIcon != null)
-			rightIcon.setDimension(SizeAdjustUtil
+			rightIcon.setDimension(UIUtil
 					.adjustDimensionSize(preferredSize, rightButton.getPreferredSize()));
 	}
 

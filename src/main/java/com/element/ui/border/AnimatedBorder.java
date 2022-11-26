@@ -1,8 +1,6 @@
 package com.element.ui.border;
 
 import com.element.color.ColorUtil;
-import com.element.util.SwingTestUtil;
-import net.miginfocom.swing.MigLayout;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
@@ -106,27 +104,6 @@ public class AnimatedBorder extends EmptyBorder implements ActionListener, Focus
 		double nx = start.getX() + dx * fraction;
 		double ny = start.getY() + dy * fraction;
 		return new Point2D.Double(nx, ny);
-	}
-
-	public static void main(String[] args) {
-		EventQueue.invokeLater(() -> {
-			JPanel p = SwingTestUtil.init(new MigLayout());
-			JTextField field1 = makeTextField("Animated Border 1");
-			field1.setBorder(new AnimatedBorder(field1));
-			p.add(field1, "wrap");
-			JTextField field2 = makeTextField("Animated Border 2");
-			field2.setBorder(new AnimatedBorder(field2));
-			p.add(field2, "wrap");
-
-			JTextField field3 = makeTextField("Animated Border 2");
-			Dimension s = field3.getPreferredSize();
-			field3.setBorder(new AnimatedBorder(field3,
-					new LinearGradientPaint(0, 0, s.width, 0,
-							new float[]{0.3f, 0.6f}, new Color[]{Color.YELLOW, Color.RED})));
-			p.add(field3);
-
-			SwingTestUtil.test();
-		});
 	}
 
 	private static JTextField makeTextField(String text) {

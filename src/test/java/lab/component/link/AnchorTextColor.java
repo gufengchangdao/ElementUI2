@@ -3,7 +3,7 @@ package lab.component.link;
 // @homepage@
 
 
-import com.element.util.SwingTestUtil;
+import demo.SwingTestUtil;
 
 import javax.swing.*;
 import javax.swing.text.html.HTMLEditorKit;

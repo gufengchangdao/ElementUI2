@@ -9,7 +9,7 @@ import java.util.Date;
 /**
  * Utils methods for data type.
  */
-public class TypeUtils {
+public class TypeUtil {
 	// indexes referring to columns in the PRIMITIVE_ARRAY_TYPES table.
 	private static final int WRAPPER_TYPE_INDEX = 0;
 	private static final int PRIMITIVE_TYPE_INDEX = 1;
@@ -26,6 +26,7 @@ public class TypeUtils {
 			{Double.class, double.class, "D"}
 	};
 
+	/** 是否是基本数据类型类对象 */
 	public static boolean isPrimitive(Class<?> primitive) {
 		for (Object[] primitiveArrayType : PRIMITIVE_ARRAY_TYPES) {
 			if (primitiveArrayType[PRIMITIVE_TYPE_INDEX] == primitive) {
@@ -35,6 +36,7 @@ public class TypeUtils {
 		return false;
 	}
 
+	/** 是否是基本类型包装类对象 */
 	public static boolean isPrimitiveWrapper(Class<?> wrapperType) {
 		for (Object[] primitiveArrayType : PRIMITIVE_ARRAY_TYPES) {
 			if (primitiveArrayType[WRAPPER_TYPE_INDEX] == wrapperType) {
@@ -44,6 +46,7 @@ public class TypeUtils {
 		return false;
 	}
 
+	/** 基本类型类对象转其包装类对象，不是基本类型类对象的话返回参数 */
 	public static Class<?> convertPrimitiveToWrapperType(Class<?> primitive) {
 		for (Object[] primitiveArrayType : PRIMITIVE_ARRAY_TYPES) {
 			if (primitiveArrayType[PRIMITIVE_TYPE_INDEX] == primitive) {
@@ -53,6 +56,7 @@ public class TypeUtils {
 		return primitive;
 	}
 
+	/** 包装类对象转其基本类型类对象，不是包装类对象的话返回参数 */
 	public static Class<?> convertWrapperToPrimitiveType(Class<?> wrapperType) {
 		for (Object[] primitiveArrayType : PRIMITIVE_ARRAY_TYPES) {
 			if (primitiveArrayType[WRAPPER_TYPE_INDEX] == wrapperType) {
@@ -84,8 +88,7 @@ public class TypeUtils {
 	 * @return true if it is numeric type including all subclasses of Integer or int.
 	 */
 	public static boolean isIntegerType(Class<?> type) {
-		return type != null && (Integer.class.isAssignableFrom(type)
-				|| type == int.class);
+		return type != null && (Integer.class.isAssignableFrom(type) || type == int.class);
 	}
 
 	/**
@@ -95,8 +98,7 @@ public class TypeUtils {
 	 * @return true if it is numeric type including all subclasses of Long or long.
 	 */
 	public static boolean isLongType(Class<?> type) {
-		return type != null && (Long.class.isAssignableFrom(type)
-				|| type == long.class);
+		return type != null && (Long.class.isAssignableFrom(type) || type == long.class);
 	}
 
 	/**

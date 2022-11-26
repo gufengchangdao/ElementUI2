@@ -9,9 +9,8 @@ import javax.swing.*;
 import java.awt.*;
 
 /**
- * <code>Overlayable</code> provides a way to add a number of components on top of another component as the overlay
- * components. Usually we make a component implementing Overlayable interface although it is not required. This
- * interface will allow user to add/remove other components as overlay components and set their location independently.
+ * Overlayable提供了一种在另一个组件之上添加多个组件作为叠加组件的方法。
+ * 通常我们会制作一个实现 Overlayable 接口的组件，尽管这不是必需的。该界面将允许用户添加/删除其他组件作为叠加组件并独立设置它们的位置。
  */
 public interface Overlayable extends SwingConstants {
 	/**

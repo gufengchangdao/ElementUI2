@@ -1,6 +1,6 @@
 package lab.other.animatedtray;
 
-import com.element.util.SwingTestUtil;
+import demo.SwingTestUtil;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;

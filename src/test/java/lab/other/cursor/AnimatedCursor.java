@@ -3,7 +3,7 @@ package lab.other.cursor;
 // @homepage@
 
 
-import com.element.util.SwingTestUtil;
+import demo.SwingTestUtil;
 
 import javax.swing.*;
 import java.awt.*;

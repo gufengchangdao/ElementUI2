@@ -5,7 +5,7 @@
  */
 package com.element.event;
 
-import com.element.util.TypeUtils;
+import com.element.util.TypeUtil;
 
 import java.util.*;
 
@@ -137,10 +137,10 @@ public class CacheMap<T, K> {
 			List<Class<?>> classesToSearch = new ArrayList<>();
 
 			classesToSearch.add(clazz);
-			if (TypeUtils.isPrimitive(clazz)) {
-				classesToSearch.add(TypeUtils.convertPrimitiveToWrapperType(clazz));
-			} else if (TypeUtils.isPrimitiveWrapper(clazz)) {
-				classesToSearch.add(TypeUtils.convertWrapperToPrimitiveType(clazz));
+			if (TypeUtil.isPrimitive(clazz)) {
+				classesToSearch.add(TypeUtil.convertPrimitiveToWrapperType(clazz));
+			} else if (TypeUtil.isPrimitiveWrapper(clazz)) {
+				classesToSearch.add(TypeUtil.convertWrapperToPrimitiveType(clazz));
 			}
 
 			// Direct super interfaces, recursively

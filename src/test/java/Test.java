@@ -1,4 +1,4 @@
-import com.element.util.SwingTestUtil;
+import demo.SwingTestUtil;
 import net.miginfocom.swing.MigLayout;
 
 import javax.swing.*;

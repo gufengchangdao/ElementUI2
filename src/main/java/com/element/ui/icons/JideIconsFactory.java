@@ -8,10 +8,9 @@ package com.element.ui.icons;
 import javax.swing.*;
 
 /**
- * A helper class to contain icons for demo of JIDE products. Those icons are copyrighted by JIDE Software, Inc.
+ * 包含 JIDE 产品演示图标的辅助类。这些图标的版权归 JIDE Software, Inc. 所有。
  */
 public class JideIconsFactory {
-
 	public static class FileType {
 		public static final String TEXT = "jide/file_text.png";
 		public static final String JAVA = "jide/file_java.png";
@@ -85,9 +84,6 @@ public class JideIconsFactory {
 		public static final String DOT = "jide/direction_dot.gif";
 	}
 
-
-	public static final String TAIL = "jide/tail.gif";
-
 	public static final String MENU_CHECKBOX_VSNET = "jide/menu_checkbox_vsnet.gif";
 
 	public static final String MENU_CHECKBOX_ECLIPSE = "jide/menu_checkbox_eclipse.gif";
@@ -108,15 +104,11 @@ public class JideIconsFactory {
 	public static final String JIDELOGO_SMALL2 = "jide/jide_logo_small_2.png";
 
 	public static ImageIcon getImageIcon(String name) {
-		if (name != null)
-			return IconsFactory.getImageIcon(JideIconsFactory.class, name);
-		else
-			return null;
+		if (name != null) return IconsFactory.getImageIcon(JideIconsFactory.class, name);
+		else return null;
 	}
 
 	public static void main(String[] argv) {
 		IconsFactory.generateHTML(JideIconsFactory.class);
 	}
-
-
 }
