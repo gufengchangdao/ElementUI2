@@ -1,7 +1,7 @@
 package com.element.ui.button;
 
-import com.element.ui.base.BaseComponent;
 import com.element.radiance.common.api.icon.RadianceIcon;
+import com.element.ui.base.BaseComponent;
 
 import java.awt.*;
 import java.awt.event.MouseEvent;

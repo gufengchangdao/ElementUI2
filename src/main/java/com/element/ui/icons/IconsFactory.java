@@ -6,9 +6,7 @@
 package com.element.ui.icons;
 
 import com.element.util.GraphicsUtil;
-import com.element.util.JideSwingUtilities;
 import com.element.util.SecurityUtils;
-import org.jdesktop.swingx.util.GraphicsUtilities;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -934,7 +932,7 @@ public class IconsFactory {
 			g2.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BILINEAR);
 			g2.drawImage(icon.getImage(), 0, 0, temp.getWidth(), temp.getHeight(), c);
 			g2.dispose();
-			return new ImageIcon(GraphicsUtil.createFixedWidthScaledCompositeInstance(temp,w,h));
+			return new ImageIcon(GraphicsUtil.createFixedWidthScaledCompositeInstance(temp, w, h));
 		}
 	}
 

@@ -5,17 +5,17 @@
  */
 package com.element.swing;
 
-import com.element.ui.list.ListSearchable;
-import com.element.plaf.UIDefaultsLookup;
-import com.element.ui.popup.JidePopup;
 import com.element.event.SearchableEvent;
 import com.element.event.SearchableListener;
-import com.element.wildcard.DefaultWildcardSupport;
-import com.element.util.JideSwingUtilities;
-import com.element.util.SearchableUtils;
-import com.element.wildcard.WildcardSupport;
+import com.element.plaf.UIDefaultsLookup;
+import com.element.ui.list.ListSearchable;
+import com.element.ui.popup.JidePopup;
 import com.element.ui.tabs.TableSearchable;
 import com.element.ui.tree.TreeSearchable;
+import com.element.util.SearchableUtils;
+import com.element.util.UIUtil;
+import com.element.wildcard.DefaultWildcardSupport;
+import com.element.wildcard.WildcardSupport;
 
 import javax.swing.*;
 import javax.swing.event.*;
@@ -298,7 +298,7 @@ public abstract class Searchable {
 	 */
 	protected class SearchField extends JTextField {
 		SearchField() {
-			JideSwingUtilities.setComponentTransparent(this);
+			UIUtil.setComponentTransparent(this);
 		}
 
 		@Override
@@ -507,7 +507,7 @@ public abstract class Searchable {
 			_componentListener = createComponentListener();
 		}
 		_component.addComponentListener(_componentListener);
-		Component scrollPane = JideSwingUtilities.getScrollPane(_component);
+		Component scrollPane = UIUtil.getScrollPane(_component);
 		if (scrollPane != null) {
 			scrollPane.addComponentListener(_componentListener);
 		}
@@ -515,7 +515,7 @@ public abstract class Searchable {
 		if (_keyListener == null) {
 			_keyListener = createKeyListener();
 		}
-		JideSwingUtilities.insertKeyListener(getComponent(), _keyListener, 0);
+		UIUtil.insertKeyListener(getComponent(), _keyListener, 0);
 
 		if (_focusListener == null) {
 			_focusListener = createFocusListener();
@@ -635,7 +635,7 @@ public abstract class Searchable {
 	public void uninstallListeners() {
 		if (_componentListener != null) {
 			getComponent().removeComponentListener(_componentListener);
-			Component scrollPane = JideSwingUtilities.getScrollPane(getComponent());
+			Component scrollPane = UIUtil.getScrollPane(getComponent());
 			if (scrollPane != null) {
 				scrollPane.removeComponentListener(_componentListener);
 			}
@@ -1057,7 +1057,7 @@ public abstract class Searchable {
 		if (isActivateKey(e)) {
 			String searchingText = "";
 			if (e.getID() == KeyEvent.KEY_TYPED) {
-				if (JideSwingUtilities.isMenuShortcutKeyDown(e)) { // if ctrl key is pressed
+				if (UIUtil.isMenuShortcutKeyDown(e)) { // if ctrl key is pressed
 					return;
 				}
 				if (e.isAltDown()) {
@@ -1193,7 +1193,7 @@ public abstract class Searchable {
 	private Point updateSizeAndLocation() {
 		Component component = getPopupLocationRelativeTo();
 		if (component == null) {
-			component = JideSwingUtilities.getScrollPane(_component);
+			component = UIUtil.getScrollPane(_component);
 		}
 		if (component == null) {
 			component = _component;
@@ -1332,7 +1332,7 @@ public abstract class Searchable {
 	 * @return true if the key in KeyEvent is a key to trigger selecting all.
 	 */
 	protected boolean isSelectAllKey(KeyEvent e) {
-		return JideSwingUtilities.isMenuShortcutKeyDown(e) && e.getKeyCode() == KeyEvent.VK_A;
+		return UIUtil.isMenuShortcutKeyDown(e) && e.getKeyCode() == KeyEvent.VK_A;
 	}
 
 	/**
@@ -1342,7 +1342,7 @@ public abstract class Searchable {
 	 * @return true if the key in KeyEvent is a key to trigger incremental selection. By default, ctrl down key is used.
 	 */
 	protected boolean isIncrementalSelectKey(KeyEvent e) {
-		return JideSwingUtilities.isMenuShortcutKeyDown(e);
+		return UIUtil.isMenuShortcutKeyDown(e);
 	}
 
 	/**
@@ -1974,7 +1974,7 @@ public abstract class Searchable {
 			int index = getIndex(count, i);
 			Object element = getElementAt(index);
 			String text = convertElementToString(element);
-			if (JideSwingUtilities.equals(text, str))
+			if (UIUtil.equals(text, str))
 				return index;
 		}
 

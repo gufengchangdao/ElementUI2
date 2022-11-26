@@ -6,7 +6,6 @@
 
 package com.element.ui.tabs;
 
-import com.element.ui.tabs.JideTabbedPane;
 import com.element.ui.pane.SidePaneItem;
 
 import java.awt.*;

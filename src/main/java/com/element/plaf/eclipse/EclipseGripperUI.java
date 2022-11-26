@@ -8,7 +8,7 @@ package com.element.plaf.eclipse;
 import com.element.plaf.UIDefaultsLookup;
 import com.element.plaf.basic.BasicGripperUI;
 import com.element.ui.base.Gripper;
-import com.element.util.JideSwingUtilities;
+import com.element.util.UIUtil;
 
 import javax.swing.*;
 import javax.swing.plaf.ComponentUI;
@@ -49,9 +49,9 @@ public class EclipseGripperUI extends BasicGripperUI {
 	@Override
 	public void paint(Graphics g, JComponent c) {
 		if (_gripperPainter == null) {
-			getPainter().paintGripper(c, g, new Rectangle(0, 0, c.getWidth(), c.getHeight()), JideSwingUtilities.getOrientationOf(c), 0);
+			getPainter().paintGripper(c, g, new Rectangle(0, 0, c.getWidth(), c.getHeight()), UIUtil.getOrientationOf(c), 0);
 		} else {
-			_gripperPainter.paint(c, g, new Rectangle(0, 0, c.getWidth(), c.getHeight()), JideSwingUtilities.getOrientationOf(c), 0);
+			_gripperPainter.paint(c, g, new Rectangle(0, 0, c.getWidth(), c.getHeight()), UIUtil.getOrientationOf(c), 0);
 		}
 	}
 }

@@ -7,7 +7,7 @@ package com.element.ui.tabs;
 
 import com.element.event.SearchableEvent;
 import com.element.swing.Searchable;
-import com.element.util.JideSwingUtilities;
+import com.element.util.UIUtil;
 
 import javax.swing.*;
 import javax.swing.event.TableModelEvent;
@@ -271,7 +271,7 @@ public class TableSearchable extends Searchable implements TableModelListener, P
 		}
 
 		int[] old = _searchColumnIndices;
-		if (!JideSwingUtilities.equals(old, columnIndices, true)) {
+		if (!UIUtil.equals(old, columnIndices, true)) {
 			_searchColumnIndices = columnIndices;
 			hidePopup();
 		}

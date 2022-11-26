@@ -6,15 +6,15 @@
 package com.element.plaf.eclipse;
 
 import com.element.color.ColorUtil;
-import com.element.ui.icons.IconsFactory;
-import com.element.ui.icons.JideIconsFactory;
 import com.element.plaf.LookAndFeelFactory;
 import com.element.plaf.UIDefaultsLookup;
 import com.element.plaf.basic.Painter;
 import com.element.plaf.basic.ThemePainter;
 import com.element.plaf.metal.MetalIconFactory;
 import com.element.ui.button.JideButton;
-import com.element.util.JideSwingUtilities;
+import com.element.ui.font.FontUtil;
+import com.element.ui.icons.IconsFactory;
+import com.element.ui.icons.JideIconsFactory;
 import com.element.ui.tabs.JideTabbedPane;
 
 import javax.swing.*;
@@ -72,9 +72,9 @@ public class EclipseMetalUtils extends EclipseLookAndFeelExtension {
 		Object mdiBackgroundColor = UIDefaultsLookup.get("controlShadow");
 		Object selectionBackgroundColor = UIDefaultsLookup.getColor("controlShadow");
 
-		Object controlFont = JideSwingUtilities.getControlFont(toolkit, table);
-		Object toolbarFont = JideSwingUtilities.getMenuFont(toolkit, table);
-		Object boldFont = JideSwingUtilities.getBoldFont(toolkit, table);
+		Object controlFont = FontUtil.getControlFont(toolkit, table);
+		Object toolbarFont = FontUtil.getMenuFont(toolkit, table);
+		Object boldFont = FontUtil.getBoldFont(toolkit, table);
 
 		Border shadowBorder = BorderFactory.createCompoundBorder(new ShadowBorder(null, null, new Color(171, 168, 165), new Color(143, 141, 138), new Insets(0, 0, 2, 2)),
 				BorderFactory.createLineBorder(Color.gray));

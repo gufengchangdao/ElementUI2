@@ -1,8 +1,8 @@
 package com.element.ui.list;
 
-import com.element.ui.border.RoundBorder;
 import com.element.color.ColorUtil;
 import com.element.ui.base.BaseComponent;
+import com.element.ui.border.RoundBorder;
 import com.element.ui.list.renderer.CheckBoxCellRenderer;
 import org.jdesktop.swingx.JXSearchField;
 import org.jdesktop.swingx.VerticalLayout;

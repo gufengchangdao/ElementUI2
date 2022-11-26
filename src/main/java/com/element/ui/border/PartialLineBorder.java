@@ -1,6 +1,6 @@
 package com.element.ui.border;
 
-import com.element.util.JideSwingUtilities;
+import com.element.util.UIUtil;
 
 import javax.swing.border.LineBorder;
 import java.awt.*;
@@ -63,9 +63,9 @@ public class PartialLineBorder extends LineBorder implements PartialSide {
 				if (!roundedCorners)
 					g.drawRect(x + i, y + i, width - i - i - 1, height - i - i - 1);
 				else {
-					Object o = JideSwingUtilities.setupShapeAntialiasing(g);
+					Object o = UIUtil.setupShapeAntialiasing(g);
 					g.drawRoundRect(x + i, y + i, width - i - i - 1, height - i - i - 1, _roundedCornerSize, _roundedCornerSize);
-					JideSwingUtilities.restoreShapeAntialiasing(g, o);
+					UIUtil.restoreShapeAntialiasing(g, o);
 				}
 			} else {
 				if ((_sides & NORTH) != 0) {

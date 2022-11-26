@@ -6,8 +6,6 @@
 
 package com.element.plaf.basic;
 
-import com.element.plaf.basic.ThemePainter;
-
 import java.awt.*;
 
 /**

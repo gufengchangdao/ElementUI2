@@ -5,18 +5,18 @@
  */
 package com.element.plaf.xerto;
 
-import com.element.ui.icons.IconsFactory;
-import com.element.ui.icons.JideIconsFactory;
-import com.element.ui.icons.MenuCheckIcon;
-import com.element.plaf.vsnet.ResizeFrameBorder;
-import com.element.plaf.vsnet.VsnetLookAndFeelExtension;
 import com.element.plaf.LookAndFeelFactory;
 import com.element.plaf.UIDefaultsLookup;
 import com.element.plaf.basic.Painter;
 import com.element.plaf.basic.ThemePainter;
 import com.element.plaf.metal.MetalIconFactory;
+import com.element.plaf.vsnet.ResizeFrameBorder;
+import com.element.plaf.vsnet.VsnetLookAndFeelExtension;
 import com.element.ui.button.JideButton;
-import com.element.util.JideSwingUtilities;
+import com.element.ui.font.FontUtil;
+import com.element.ui.icons.IconsFactory;
+import com.element.ui.icons.JideIconsFactory;
+import com.element.ui.icons.MenuCheckIcon;
 import com.element.ui.tabs.JideTabbedPane;
 import com.element.util.SecurityUtils;
 
@@ -85,7 +85,7 @@ public class XertoMetalUtils extends VsnetLookAndFeelExtension {
 		Object selectionBackgroundColor = UIDefaultsLookup.get("controlShadow");
 		Object menuTextColor = UIDefaultsLookup.get("control");
 
-		Object menuFont = JideSwingUtilities.getMenuFont(toolkit, table);
+		Object menuFont = FontUtil.getMenuFont(toolkit, table);
 
 
 		Object menuSelectionBackground = new ColorUIResource(XertoUtils.getMenuSelectionColor(UIDefaultsLookup.getColor("controlShadow")));
@@ -188,9 +188,9 @@ public class XertoMetalUtils extends VsnetLookAndFeelExtension {
 
 		Object singleLineBorder = new BorderUIResource(BorderFactory.createLineBorder(UIDefaultsLookup.getColor("controlShadow")));
 
-		Object controlFont = JideSwingUtilities.getControlFont(toolkit, table);
-		Object toolbarFont = JideSwingUtilities.getMenuFont(toolkit, table);
-		Object boldFont = JideSwingUtilities.getBoldFont(toolkit, table);
+		Object controlFont = FontUtil.getControlFont(toolkit, table);
+		Object toolbarFont = FontUtil.getMenuFont(toolkit, table);
+		Object boldFont = FontUtil.getBoldFont(toolkit, table);
 
 		Object resizeBorder = new XertoFrameBorder(new Insets(4, 4, 4, 4));
 

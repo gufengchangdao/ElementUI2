@@ -10,7 +10,7 @@ import java.awt.*;
 
 /**
  * 定义用于绘制 UI 的方法列表的接口。
- *
+ * <p>
  * 请注意，此接口仍处于开发模式。如果您现在使用它，未来的版本可能会破坏您的构建。
  */
 public interface ThemePainter {

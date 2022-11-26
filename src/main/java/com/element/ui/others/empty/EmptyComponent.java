@@ -1,8 +1,8 @@
 package com.element.ui.others.empty;
 
 import com.element.color.ColorUtil;
-import com.element.ui.template.Y3Component;
 import com.element.ui.svg.empty.EmptyImageSvg;
+import com.element.ui.template.Y3Component;
 
 import javax.swing.*;
 

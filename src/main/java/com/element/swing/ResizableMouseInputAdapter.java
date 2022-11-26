@@ -5,7 +5,6 @@
  */
 package com.element.swing;
 
-import com.element.swing.Resizable;
 import com.element.util.PortingUtils;
 
 import javax.swing.*;
@@ -569,7 +568,7 @@ public class ResizableMouseInputAdapter extends MouseInputAdapter {
 				((JFrame) _resizable.getComponent().getTopLevelAncestor()).getGlassPane().setCursor(Cursor.getDefaultCursor());
 
 				((JFrame) _resizable.getComponent().getTopLevelAncestor()).getGlassPane().setVisible(false);
-			}  else if (c instanceof JWindow) {
+			} else if (c instanceof JWindow) {
 				((JWindow) c).getGlassPane().setCursor(Cursor.getDefaultCursor());
 				((JWindow) c).getGlassPane().setVisible(false);
 			} else if (c instanceof JDialog) {

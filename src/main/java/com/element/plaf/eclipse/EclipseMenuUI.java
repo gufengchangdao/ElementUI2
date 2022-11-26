@@ -9,8 +9,8 @@ package com.element.plaf.eclipse;
 import com.element.plaf.LookAndFeelFactory;
 import com.element.plaf.UIDefaultsLookup;
 import com.element.plaf.windows.WindowsGraphicsUtilsPort;
-import com.element.util.JideSwingUtilities;
 import com.element.ui.menu.TopLevelMenuContainer;
+import com.element.util.UIUtil;
 
 import javax.swing.*;
 import javax.swing.border.Border;
@@ -81,7 +81,7 @@ public class EclipseMenuUI extends EclipseMenuItemUI {
 		Color oldColor = g.getColor();
 		int menuWidth = 0;
 		int menuHeight = 0;
-		if (JideSwingUtilities.getOrientationOf(menuItem) == SwingConstants.HORIZONTAL) {
+		if (UIUtil.getOrientationOf(menuItem) == SwingConstants.HORIZONTAL) {
 			menuWidth = menuItem.getWidth();
 			menuHeight = menuItem.getHeight();
 		} else {
@@ -130,9 +130,9 @@ public class EclipseMenuUI extends EclipseMenuItemUI {
 		if (isDownArrowVisible(menuItem.getParent())) {
 			int middle = menuWidth - 9;
 			if (model.isSelected() || model.isArmed() || model.isPressed() || isMouseOver()) {
-				JideSwingUtilities.paintArrow(g, selectionForeground, middle - 2, menuHeight / 2 - 1, 5, SwingConstants.HORIZONTAL);
+				UIUtil.paintArrow(g, selectionForeground, middle - 2, menuHeight / 2 - 1, 5, SwingConstants.HORIZONTAL);
 			} else {
-				JideSwingUtilities.paintArrow(g, menuItem.getForeground(), middle - 2, menuHeight / 2 - 1, 5, SwingConstants.HORIZONTAL);
+				UIUtil.paintArrow(g, menuItem.getForeground(), middle - 2, menuHeight / 2 - 1, 5, SwingConstants.HORIZONTAL);
 			}
 		}
 		g.setColor(oldColor);
@@ -798,7 +798,7 @@ public class EclipseMenuUI extends EclipseMenuItemUI {
 			if (model.isArmed() || (menuItem instanceof JMenu && model.isSelected()) || isMouseOver()) {
 				g.setColor(selectionForeground); // Uses protected field.
 			}
-			JideSwingUtilities.drawStringUnderlineCharAt(menuItem, g, text,
+			UIUtil.drawStringUnderlineCharAt(menuItem, g, text,
 					mnemonicIndex,
 					textRect.x,
 					textRect.y + fm.getAscent() - 1);
@@ -826,7 +826,7 @@ public class EclipseMenuUI extends EclipseMenuItemUI {
 		Dimension size = super.getPreferredSize(c);
 		if (menuItem instanceof JMenu && ((JMenu) menuItem).isTopLevelMenu() &&
 				isDownArrowVisible(menuItem.getParent())) {
-			if (JideSwingUtilities.getOrientationOf(menuItem) == SwingConstants.HORIZONTAL)
+			if (UIUtil.getOrientationOf(menuItem) == SwingConstants.HORIZONTAL)
 				size.width += 11;
 			else
 				size.height += 11;

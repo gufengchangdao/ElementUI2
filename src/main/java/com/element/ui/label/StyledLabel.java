@@ -5,9 +5,9 @@
  */
 package com.element.ui.label;
 
-import com.element.plaf.basic.BasicStyledLabelUI;
 import com.element.plaf.LookAndFeelFactory;
 import com.element.plaf.UIDefaultsLookup;
+import com.element.plaf.basic.BasicStyledLabelUI;
 import com.element.swing.StyleRange;
 
 import javax.swing.*;

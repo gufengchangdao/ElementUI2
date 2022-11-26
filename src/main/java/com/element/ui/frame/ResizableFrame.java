@@ -5,10 +5,10 @@
  */
 package com.element.ui.frame;
 
-import com.element.ui.panel.ResizablePanel;
 import com.element.swing.Resizable;
-import com.element.util.PortingUtils;
 import com.element.swing.ResizableSupport;
+import com.element.ui.panel.ResizablePanel;
+import com.element.util.PortingUtils;
 
 import javax.swing.*;
 import javax.swing.border.Border;

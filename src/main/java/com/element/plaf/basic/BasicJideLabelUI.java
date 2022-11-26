@@ -1,7 +1,7 @@
 package com.element.plaf.basic;
 
 import com.element.ui.base.JideLabel;
-import com.element.util.JideSwingUtilities;
+import com.element.util.UIUtil;
 
 import javax.swing.*;
 import javax.swing.plaf.ComponentUI;
@@ -29,7 +29,7 @@ public class BasicJideLabelUI extends BasicLabelUI {
 	@Override
 	public Dimension getPreferredSize(JComponent c) {
 		Dimension d = super.getPreferredSize(c);
-		if (JideSwingUtilities.getOrientationOf(c) == SwingConstants.HORIZONTAL) {
+		if (UIUtil.getOrientationOf(c) == SwingConstants.HORIZONTAL) {
 			return d;
 		} else {
 			//noinspection SuspiciousNameCombination
@@ -44,7 +44,7 @@ public class BasicJideLabelUI extends BasicLabelUI {
 
 	@Override
 	public void paint(Graphics g, JComponent c) {
-		if (JideSwingUtilities.getOrientationOf(c) == SwingConstants.VERTICAL) {
+		if (UIUtil.getOrientationOf(c) == SwingConstants.VERTICAL) {
 			boolean clockwise = true;
 			if (c instanceof JideLabel) {
 				clockwise = ((JideLabel) c).isClockwise();

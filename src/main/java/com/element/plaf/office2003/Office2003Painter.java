@@ -1,17 +1,17 @@
 package com.element.plaf.office2003;
 
 import com.element.color.ColorUtil;
-import com.element.ui.icons.IconsFactory;
 import com.element.plaf.LookAndFeelFactory;
 import com.element.plaf.UIDefaultsLookup;
 import com.element.plaf.XPUtils;
 import com.element.plaf.basic.BasicPainter;
-import com.element.plaf.basic.ThemePainter;
 import com.element.plaf.basic.ComponentStateSupport;
+import com.element.plaf.basic.ThemePainter;
 import com.element.ui.button.JideButton;
-import com.element.util.JideSwingUtilities;
+import com.element.ui.icons.IconsFactory;
 import com.element.ui.tabs.JideTabbedPane;
 import com.element.util.SystemInfo;
+import com.element.util.UIUtil;
 
 import javax.swing.*;
 import javax.swing.plaf.ColorUIResource;
@@ -537,7 +537,7 @@ public class Office2003Painter extends BasicPainter {
 	protected void paintBackground(JComponent c, Graphics2D g2d, Rectangle rect, Color borderColor, Color startColor, Color endColor, int orientation) {
 		if (borderColor != null) {
 			if (startColor != null && endColor != null) {
-				JideSwingUtilities.fillGradient(g2d, new Rectangle(rect.x, rect.y, rect.width, rect.height), startColor, endColor, orientation == SwingConstants.HORIZONTAL);
+				UIUtil.fillGradient(g2d, new Rectangle(rect.x, rect.y, rect.width, rect.height), startColor, endColor, orientation == SwingConstants.HORIZONTAL);
 			}
 			boolean paintDefaultBorder = true;
 			Object o = c.getClientProperty("JideButton.paintDefaultBorder");
@@ -573,7 +573,7 @@ public class Office2003Painter extends BasicPainter {
 			}
 		} else {
 			if (startColor != null && endColor != null) {
-				JideSwingUtilities.fillGradient(g2d, new Rectangle(rect.x, rect.y, rect.width, rect.height), startColor, endColor, orientation == SwingConstants.HORIZONTAL);
+				UIUtil.fillGradient(g2d, new Rectangle(rect.x, rect.y, rect.width, rect.height), startColor, endColor, orientation == SwingConstants.HORIZONTAL);
 			}
 		}
 	}
@@ -595,7 +595,7 @@ public class Office2003Painter extends BasicPainter {
 	@Override
 	public void paintDividerBackground(JComponent c, Graphics g, Rectangle rect, int orientation, int state) {
 		Graphics2D g2d = (Graphics2D) g;
-		JideSwingUtilities.fillGradient(g2d, rect,
+		UIUtil.fillGradient(g2d, rect,
 				getCurrentTheme().getColor("Divider.backgroundLt"), getCurrentTheme().getColor("Divider.backgroundDk"), true);
 	}
 
@@ -603,7 +603,7 @@ public class Office2003Painter extends BasicPainter {
 		if (orientation == SwingConstants.HORIZONTAL) {
 			// don't use fast gradient painter as it has some problem
 			if (!c.getComponentOrientation().isLeftToRight()) {
-				JideSwingUtilities.fillGradient(g2d, new Rectangle(rect.x, rect.y + 2, rect.width - 2, rect.height - 4), color1, color2, true);
+				UIUtil.fillGradient(g2d, new Rectangle(rect.x, rect.y + 2, rect.width - 2, rect.height - 4), color1, color2, true);
 				g2d.setColor(color1);
 				g2d.drawLine(rect.x + 2, rect.y, rect.x + rect.width - 1, rect.y);
 				g2d.drawLine(rect.x + 1, rect.y + 1, rect.x + rect.width - 2, rect.y + 1);
@@ -611,7 +611,7 @@ public class Office2003Painter extends BasicPainter {
 				g2d.drawLine(rect.x + 1, rect.y + rect.height - 2, rect.x + rect.width - 2, rect.y + rect.height - 2);
 				g2d.drawLine(rect.x + 2, rect.y + rect.height - 1, rect.x + rect.width - 1, rect.y + rect.height - 1);
 			} else {
-				JideSwingUtilities.fillGradient(g2d, new Rectangle(rect.x + 2, rect.y + 2, rect.width - 2, rect.height - 4), color1, color2, true);
+				UIUtil.fillGradient(g2d, new Rectangle(rect.x + 2, rect.y + 2, rect.width - 2, rect.height - 4), color1, color2, true);
 				g2d.setColor(color1);
 				g2d.drawLine(rect.x, rect.y, rect.x + rect.width - 3, rect.y);
 				g2d.drawLine(rect.x + 1, rect.y + 1, rect.x + rect.width - 2, rect.y + 1);
@@ -621,7 +621,7 @@ public class Office2003Painter extends BasicPainter {
 			}
 		} else {
 			// don't use fast gradient painter as it has some problem
-			JideSwingUtilities.fillGradient(g2d, new Rectangle(rect.x + 2, rect.y + 2, rect.width - 4, rect.height - 2), color1, color2, false);
+			UIUtil.fillGradient(g2d, new Rectangle(rect.x + 2, rect.y + 2, rect.width - 4, rect.height - 2), color1, color2, false);
 			g2d.setColor(color1);
 			g2d.drawLine(rect.x, rect.y, rect.x, rect.y + rect.height - 3);
 			g2d.drawLine(rect.x + 1, rect.y + 1, rect.x + 1, rect.y + rect.height - 2);
@@ -645,7 +645,7 @@ public class Office2003Painter extends BasicPainter {
 		}
 
 		Graphics2D g2d = (Graphics2D) g;
-		JideSwingUtilities.fillGradient(g2d, new RoundRectangle2D.Float(rect.x, rect.y, rect.width, rect.height, 4, 4),
+		UIUtil.fillGradient(g2d, new RoundRectangle2D.Float(rect.x, rect.y, rect.width, rect.height, 4, 4),
 				getCurrentTheme().getColor("controlLt"), getCurrentTheme().getColor("controlDk"), orientation == SwingConstants.HORIZONTAL);
 		g2d.setColor(getCurrentTheme().getColor("controlShadow"));
 		if (orientation == SwingConstants.HORIZONTAL) {
@@ -658,7 +658,7 @@ public class Office2003Painter extends BasicPainter {
 	@Override
 	public void paintFloatingCommandBarBackground(JComponent c, Graphics g, Rectangle rect, int orientation, int state) {
 		Graphics2D g2d = (Graphics2D) g;
-		JideSwingUtilities.fillGradient(g2d, rect,
+		UIUtil.fillGradient(g2d, rect,
 				getCurrentTheme().getColor("controlLt"), getCurrentTheme().getColor("controlDk"), orientation == SwingConstants.HORIZONTAL);
 	}
 
@@ -666,9 +666,9 @@ public class Office2003Painter extends BasicPainter {
 	public void paintMenuShadow(JComponent c, Graphics g, Rectangle rect, int orientation, int state) {
 		Graphics2D g2d = (Graphics2D) g;
 		if (c.getComponentOrientation().isLeftToRight()) {
-			JideSwingUtilities.fillGradient(g2d, rect, getCurrentTheme().getColor("controlLt"), getCurrentTheme().getColor("controlDk"), orientation != SwingConstants.HORIZONTAL);
+			UIUtil.fillGradient(g2d, rect, getCurrentTheme().getColor("controlLt"), getCurrentTheme().getColor("controlDk"), orientation != SwingConstants.HORIZONTAL);
 		} else {
-			JideSwingUtilities.fillGradient(g2d, rect, getCurrentTheme().getColor("controlDk"), getCurrentTheme().getColor("controlLt"), orientation != SwingConstants.HORIZONTAL);
+			UIUtil.fillGradient(g2d, rect, getCurrentTheme().getColor("controlDk"), getCurrentTheme().getColor("controlLt"), orientation != SwingConstants.HORIZONTAL);
 		}
 	}
 
@@ -855,7 +855,7 @@ public class Office2003Painter extends BasicPainter {
 	@Override
 	public void paintContentBackground(JComponent c, Graphics g, Rectangle rect, int orientation, int state) {
 		Graphics2D g2d = (Graphics2D) g;
-		JideSwingUtilities.fillGradient(g2d, rect, getBackgroundDk(), getBackgroundLt(), false);
+		UIUtil.fillGradient(g2d, rect, getBackgroundDk(), getBackgroundLt(), false);
 	}
 
 	@Override
@@ -904,40 +904,40 @@ public class Office2003Painter extends BasicPainter {
 				startX = rect.width - 8;
 				startX--;
 				startY++;
-				JideSwingUtilities.paintArrow(c, g, Color.WHITE, startX, startY, 3, oppositeOrientation);
+				UIUtil.paintArrow(c, g, Color.WHITE, startX, startY, 3, oppositeOrientation);
 				startX -= 4;
-				JideSwingUtilities.paintArrow(c, g, Color.WHITE, startX, startY, 3, oppositeOrientation);
+				UIUtil.paintArrow(c, g, Color.WHITE, startX, startY, 3, oppositeOrientation);
 				startX++;
 				startX += 4;
 				startY--;
-				JideSwingUtilities.paintArrow(c, g, Color.BLACK, startX, startY, 3, oppositeOrientation);
+				UIUtil.paintArrow(c, g, Color.BLACK, startX, startY, 3, oppositeOrientation);
 				startX -= 4;
-				JideSwingUtilities.paintArrow(c, g, Color.BLACK, startX, startY, 3, oppositeOrientation);
+				UIUtil.paintArrow(c, g, Color.BLACK, startX, startY, 3, oppositeOrientation);
 			} else {
 				startX++;
 				startY++;
-				JideSwingUtilities.paintArrow(g, Color.WHITE, startX, startY, 3, oppositeOrientation);
+				UIUtil.paintArrow(g, Color.WHITE, startX, startY, 3, oppositeOrientation);
 				startX += 4;
-				JideSwingUtilities.paintArrow(g, Color.WHITE, startX, startY, 3, oppositeOrientation);
+				UIUtil.paintArrow(g, Color.WHITE, startX, startY, 3, oppositeOrientation);
 				startX--;
 				startX -= 4;
 				startY--;
-				JideSwingUtilities.paintArrow(g, Color.BLACK, startX, startY, 3, oppositeOrientation);
+				UIUtil.paintArrow(g, Color.BLACK, startX, startY, 3, oppositeOrientation);
 				startX += 4;
-				JideSwingUtilities.paintArrow(g, Color.BLACK, startX, startY, 3, oppositeOrientation);
+				UIUtil.paintArrow(g, Color.BLACK, startX, startY, 3, oppositeOrientation);
 			}
 		} else if (orientation == SwingConstants.VERTICAL) {
 			startX++;
 			startY++;
-			JideSwingUtilities.paintArrow(g, Color.WHITE, startX, startY, 3, oppositeOrientation);
+			UIUtil.paintArrow(g, Color.WHITE, startX, startY, 3, oppositeOrientation);
 			startY += 4;
-			JideSwingUtilities.paintArrow(g, Color.WHITE, startX, startY, 3, oppositeOrientation);
+			UIUtil.paintArrow(g, Color.WHITE, startX, startY, 3, oppositeOrientation);
 			startX--;
 			startY--;
 			startY -= 4;
-			JideSwingUtilities.paintArrow(g, Color.BLACK, startX, startY, 3, oppositeOrientation);
+			UIUtil.paintArrow(g, Color.BLACK, startX, startY, 3, oppositeOrientation);
 			startY += 4;
-			JideSwingUtilities.paintArrow(g, Color.BLACK, startX, startY, 3, oppositeOrientation);
+			UIUtil.paintArrow(g, Color.BLACK, startX, startY, 3, oppositeOrientation);
 		}
 	}
 
@@ -974,10 +974,10 @@ public class Office2003Painter extends BasicPainter {
 	private void paintDown(Graphics g, int startX, int startY, int orientation) {
 		if (orientation == SwingConstants.HORIZONTAL) {
 			g.drawLine(startX, startY, startX + 4, startY);
-			JideSwingUtilities.paintArrow(g, g.getColor(), startX, startY + 3, 5, SwingConstants.HORIZONTAL);
+			UIUtil.paintArrow(g, g.getColor(), startX, startY + 3, 5, SwingConstants.HORIZONTAL);
 		} else {
 			g.drawLine(startX, startY, startX, startY + 4);
-			JideSwingUtilities.paintArrow(g, g.getColor(), startX + 3, startY, 5, orientation);
+			UIUtil.paintArrow(g, g.getColor(), startX + 3, startY, 5, orientation);
 		}
 	}
 
@@ -987,7 +987,7 @@ public class Office2003Painter extends BasicPainter {
 			return;
 		}
 		Graphics2D g2d = (Graphics2D) g;
-		JideSwingUtilities.fillGradient(g2d,
+		UIUtil.fillGradient(g2d,
 				new Rectangle(rect.x, rect.y, rect.width, rect.height),
 				getCurrentTheme().getColor("DockableFrame.backgroundLt"),
 				getCurrentTheme().getColor("DockableFrame.backgroundDk"),
@@ -1017,7 +1017,7 @@ public class Office2003Painter extends BasicPainter {
 
 		boolean active = state == STATE_SELECTED;
 		Graphics2D g2d = (Graphics2D) g;
-		JideSwingUtilities.fillGradient(g2d, rect,
+		UIUtil.fillGradient(g2d, rect,
 				active ? getCurrentTheme().getColor("selection.SelectedLt") : getCurrentTheme().getColor("DockableFrameTitlePane.backgroundLt"),
 				active ? getCurrentTheme().getColor("selection.SelectedDk") : getCurrentTheme().getColor("DockableFrameTitlePane.backgroundDk"),
 				orientation == SwingConstants.HORIZONTAL);
@@ -1030,7 +1030,7 @@ public class Office2003Painter extends BasicPainter {
 			case SwingConstants.EAST:
 				g2d.drawLine(rect.x + 2, rect.y, rect.x + rect.width - 1, rect.y);
 				g2d.drawLine(rect.x + 1, rect.y + 1, rect.x + rect.width - 1, rect.y + 1);
-				JideSwingUtilities.fillGradient(g2d,
+				UIUtil.fillGradient(g2d,
 						new Rectangle(rect.x, rect.y + 2, rect.width, rect.height - 4),
 						colorLt,
 						colorDk,
@@ -1042,7 +1042,7 @@ public class Office2003Painter extends BasicPainter {
 			case SwingConstants.WEST:
 				g2d.drawLine(rect.x, rect.y, rect.x + rect.width - 3, rect.y);
 				g2d.drawLine(rect.x, rect.y + 1, rect.x + rect.width - 1, rect.y + 1);
-				JideSwingUtilities.fillGradient(g2d,
+				UIUtil.fillGradient(g2d,
 						new Rectangle(rect.x, rect.y + 2, rect.width, rect.height - 4),
 						colorLt,
 						colorDk,
@@ -1054,7 +1054,7 @@ public class Office2003Painter extends BasicPainter {
 			case SwingConstants.NORTH:
 				g2d.drawLine(rect.x, rect.y, rect.x, rect.y + rect.height - 2);
 				g2d.drawLine(rect.x + 1, rect.y, rect.x + 1, rect.y + rect.height - 1);
-				JideSwingUtilities.fillGradient(g2d,
+				UIUtil.fillGradient(g2d,
 						new Rectangle(rect.x + 2, rect.y, rect.width - 4, rect.height),
 						colorLt,
 						colorDk,
@@ -1066,7 +1066,7 @@ public class Office2003Painter extends BasicPainter {
 			case SwingConstants.SOUTH:
 				g2d.drawLine(rect.x, rect.y + 2, rect.x, rect.y + rect.height - 1);
 				g2d.drawLine(rect.x + 1, rect.y + 1, rect.x + 1, rect.y + rect.height - 1);
-				JideSwingUtilities.fillGradient(g2d,
+				UIUtil.fillGradient(g2d,
 						new Rectangle(rect.x + 2, rect.y, rect.width - 4, rect.height),
 						colorLt,
 						colorDk,
@@ -1134,13 +1134,13 @@ public class Office2003Painter extends BasicPainter {
 		}
 		Graphics2D g2d = (Graphics2D) g;
 		if (!(c.getBackground() instanceof UIResource)) {
-			JideSwingUtilities.fillGradient(g2d,
+			UIUtil.fillGradient(g2d,
 					new Rectangle(rect.x, rect.y, rect.width, rect.height),
 					ColorUtil.getDerivedColor(c.getBackground(), 0.6f),
 					c.getBackground(),
 					orientation == SwingConstants.HORIZONTAL);
 		} else {
-			JideSwingUtilities.fillGradient(g2d,
+			UIUtil.fillGradient(g2d,
 					new Rectangle(rect.x, rect.y, rect.width, rect.height),
 					getCurrentTheme().getColor("CollapsiblePanes.backgroundLt"),
 					getCurrentTheme().getColor("CollapsiblePanes.backgroundDk"),
@@ -1150,23 +1150,13 @@ public class Office2003Painter extends BasicPainter {
 	}
 
 	private void paintCollapsiblePaneTitlePanePlain(Graphics2D g2d, Color colorDk, Color colorLt, int orientation, Rectangle rect) {
-		Rectangle rectangle;
-		switch (orientation) {
-			case SwingConstants.EAST:
-				rectangle = new Rectangle(rect.x + rect.width - 1, rect.y, 1, rect.height);
-				break;
-			case SwingConstants.WEST:
-				rectangle = new Rectangle(rect.x, rect.y, 1, rect.height);
-				break;
-			case SwingConstants.NORTH:
-				rectangle = new Rectangle(rect.x, rect.y, rect.width, 1);
-				break;
-			case SwingConstants.SOUTH:
-			default:
-				rectangle = new Rectangle(rect.x, rect.y + rect.height - 1, rect.width, 1);
-				break;
-		}
-		JideSwingUtilities.fillGradient(g2d, rectangle,
+		Rectangle rectangle = switch (orientation) {
+			case SwingConstants.EAST -> new Rectangle(rect.x + rect.width - 1, rect.y, 1, rect.height);
+			case SwingConstants.WEST -> new Rectangle(rect.x, rect.y, 1, rect.height);
+			case SwingConstants.NORTH -> new Rectangle(rect.x, rect.y, rect.width, 1);
+			default -> new Rectangle(rect.x, rect.y + rect.height - 1, rect.width, 1);
+		};
+		UIUtil.fillGradient(g2d, rectangle,
 				colorLt,
 				colorDk,
 				orientation == SwingConstants.NORTH || orientation == SwingConstants.SOUTH);
@@ -1209,7 +1199,7 @@ public class Office2003Painter extends BasicPainter {
 		Graphics2D g2d = (Graphics2D) g;
 		Color colorLt = getCurrentTheme().getColor("CollapsiblePaneTitlePane.backgroundLt.emphasized");
 		Color colorDk = getCurrentTheme().getColor("CollapsiblePaneTitlePane.backgroundDk.emphasized");
-		JideSwingUtilities.fillGradient(g2d,
+		UIUtil.fillGradient(g2d,
 				new Rectangle(rect.x, rect.y, rect.width, rect.height),
 				colorDk,
 				colorLt,
@@ -1226,7 +1216,7 @@ public class Office2003Painter extends BasicPainter {
 		Graphics2D g2d = (Graphics2D) g;
 		Color colorLt = getCurrentTheme().getColor("backgroundLt");
 		Color colorDk = getCurrentTheme().getColor("backgroundDk");
-		JideSwingUtilities.fillGradient(g2d,
+		UIUtil.fillGradient(g2d,
 				new Rectangle(rect.x, rect.y, rect.width, rect.height),
 				colorLt,
 				colorDk,
@@ -1255,18 +1245,14 @@ public class Office2003Painter extends BasicPainter {
 					Color endColor = getTabAreaBackgroundLt();
 					int placement = ((JideTabbedPane) c).getTabPlacement();
 					switch (placement) {
-						case TOP:
-							JideSwingUtilities.fillGradient(g2d, new Rectangle(rect.x, rect.y, rect.width, rect.height), startColor, endColor, true);
-							break;
-						case BOTTOM:
-							JideSwingUtilities.fillGradient(g2d, new Rectangle(rect.x, rect.y, rect.width, rect.height), endColor, startColor, true);
-							break;
-						case LEFT:
-							JideSwingUtilities.fillGradient(g2d, new Rectangle(rect.x, rect.y, rect.width, rect.height), startColor, endColor, false);
-							break;
-						case RIGHT:
-							JideSwingUtilities.fillGradient(g2d, new Rectangle(rect.x, rect.y, rect.width, rect.height), endColor, startColor, false);
-							break;
+						case TOP ->
+								UIUtil.fillGradient(g2d, new Rectangle(rect.x, rect.y, rect.width, rect.height), startColor, endColor, true);
+						case BOTTOM ->
+								UIUtil.fillGradient(g2d, new Rectangle(rect.x, rect.y, rect.width, rect.height), endColor, startColor, true);
+						case LEFT ->
+								UIUtil.fillGradient(g2d, new Rectangle(rect.x, rect.y, rect.width, rect.height), startColor, endColor, false);
+						case RIGHT ->
+								UIUtil.fillGradient(g2d, new Rectangle(rect.x, rect.y, rect.width, rect.height), endColor, startColor, false);
 					}
 				} else {
 					g.setColor(UIDefaultsLookup.getColor("control"));
@@ -1296,7 +1282,7 @@ public class Office2003Painter extends BasicPainter {
 		int x;
 		int y;
 
-		if (JideSwingUtilities.getOrientationOf(c) == SwingConstants.HORIZONTAL) {
+		if (UIUtil.getOrientationOf(c) == SwingConstants.HORIZONTAL) {
 			y = rect.y + 5;
 			x = rect.x + 1;
 			g.setColor(getSeparatorForeground());
@@ -1364,10 +1350,10 @@ public class Office2003Painter extends BasicPainter {
 	public void fillBackground(JComponent c, Graphics g, Rectangle rect, int orientation, int state, Color color) {
 		Graphics2D g2d = (Graphics2D) g.create();
 		if (orientation == SwingConstants.HORIZONTAL) {
-			JideSwingUtilities.fillGradient(g2d, new Rectangle(rect.x, rect.y, rect.width, rect.height), ColorUtil.getDerivedColor(color, 0.60f),
+			UIUtil.fillGradient(g2d, new Rectangle(rect.x, rect.y, rect.width, rect.height), ColorUtil.getDerivedColor(color, 0.60f),
 					ColorUtil.getDerivedColor(color, 0.40f), true);
 		} else {
-			JideSwingUtilities.fillGradient(g2d, new Rectangle(rect.x, rect.y, rect.width, rect.height), ColorUtil.getDerivedColor(color, 0.55f),
+			UIUtil.fillGradient(g2d, new Rectangle(rect.x, rect.y, rect.width, rect.height), ColorUtil.getDerivedColor(color, 0.55f),
 					color, false);
 		}
 		g2d.dispose();

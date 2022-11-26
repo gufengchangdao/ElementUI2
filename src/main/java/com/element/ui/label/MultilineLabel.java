@@ -5,7 +5,7 @@
  */
 package com.element.ui.label;
 
-import com.element.util.JideSwingUtilities;
+import com.element.util.UIUtil;
 
 import javax.swing.*;
 import javax.swing.plaf.UIResource;
@@ -48,7 +48,7 @@ public class MultilineLabel extends JTextArea {
 		setEditable(false);
 		setRequestFocusEnabled(false);
 		setFocusable(false);
-		JideSwingUtilities.setComponentTransparent(this);
+		UIUtil.setComponentTransparent(this);
 
 		setCaret(new DefaultCaret() {
 			@Override

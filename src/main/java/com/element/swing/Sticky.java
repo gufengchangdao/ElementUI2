@@ -5,7 +5,7 @@
  */
 package com.element.swing;
 
-import com.element.util.JideSwingUtilities;
+import com.element.util.UIUtil;
 
 import javax.swing.*;
 import javax.swing.tree.TreePath;
@@ -155,7 +155,7 @@ public class Sticky {
 		if (table.getSelectedRow() != index) {
 			table.getSelectionModel().setSelectionInterval(index, index);
 			if (shouldScroll)
-				JideSwingUtilities.ensureRowVisible(table, index);
+				UIUtil.ensureRowVisible(table, index);
 		}
 	}
 }

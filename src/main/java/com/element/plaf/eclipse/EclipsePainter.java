@@ -8,7 +8,7 @@ package com.element.plaf.eclipse;
 import com.element.plaf.UIDefaultsLookup;
 import com.element.plaf.basic.BasicPainter;
 import com.element.plaf.basic.ThemePainter;
-import com.element.util.JideSwingUtilities;
+import com.element.util.UIUtil;
 
 import javax.swing.*;
 import java.awt.*;
@@ -156,13 +156,13 @@ public class EclipsePainter extends BasicPainter {
 		if (state == STATE_SELECTED) {
 			int width = rect.width;
 			Graphics2D g2d = (Graphics2D) g;
-			JideSwingUtilities.fillGradient(g2d, new Rectangle(x + 1, y + 1, width / 2, h - 2), UIDefaultsLookup.getColor("DockableFrame.activeTitleBackground"), UIDefaultsLookup.getColor("DockableFrame.activeTitleBackground2"), false);
-			JideSwingUtilities.fillGradient(g2d, new Rectangle(x + 1 + width / 2, y + 1, width / 2, h - 2), UIDefaultsLookup.getColor("DockableFrame.activeTitleBackground2"), UIDefaultsLookup.getColor("DockableFrame.background"), false);
+			UIUtil.fillGradient(g2d, new Rectangle(x + 1, y + 1, width / 2, h - 2), UIDefaultsLookup.getColor("DockableFrame.activeTitleBackground"), UIDefaultsLookup.getColor("DockableFrame.activeTitleBackground2"), false);
+			UIUtil.fillGradient(g2d, new Rectangle(x + 1 + width / 2, y + 1, width / 2, h - 2), UIDefaultsLookup.getColor("DockableFrame.activeTitleBackground2"), UIDefaultsLookup.getColor("DockableFrame.background"), false);
 		}
 //        else if (state == STATE_DEFAULT) {
 //            int width = rect.width;
 //            Graphics2D g2d = (Graphics2D) g;
-//            JideSwingUtilities.fillGradient(g2d, new Rectangle(x + 1, y + 1, width, h - 2), UIManagerLookup.getColor("DockableFrame.inactiveTitleBackground"), UIManagerLookup.getColor("DockableFrame.background"), false);
+//            UIUtil.fillGradient(g2d, new Rectangle(x + 1, y + 1, width, h - 2), UIManagerLookup.getColor("DockableFrame.inactiveTitleBackground"), UIManagerLookup.getColor("DockableFrame.background"), false);
 //        }
 	}
 
@@ -173,7 +173,7 @@ public class EclipsePainter extends BasicPainter {
 		int y;
 		int x;
 
-		if (JideSwingUtilities.getOrientationOf(c) == SwingConstants.HORIZONTAL) {
+		if (UIUtil.getOrientationOf(c) == SwingConstants.HORIZONTAL) {
 			y = rect.y + 3;
 			x = rect.x + 1;
 			g.setColor(_shadowColor);

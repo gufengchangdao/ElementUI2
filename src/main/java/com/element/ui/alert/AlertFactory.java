@@ -1,10 +1,10 @@
 package com.element.ui.alert;
 
 import com.element.color.ColorUtil;
-import com.element.ui.template.X2Component;
 import com.element.ui.svg.icon.fill.CheckCircleSvg;
 import com.element.ui.svg.icon.fill.WarningCircleSvg;
 import com.element.ui.svg.icon.fill.XCircleSvg;
+import com.element.ui.template.X2Component;
 
 import java.awt.*;
 

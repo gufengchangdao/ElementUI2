@@ -7,12 +7,12 @@
 package com.element.ui.pane;
 
 
-import com.element.ui.layout.JideBoxLayout;
 import com.element.plaf.UIDefaultsLookup;
 import com.element.plaf.basic.Painter;
 import com.element.swing.JideCursors;
+import com.element.ui.layout.JideBoxLayout;
 import com.element.util.PortingUtils;
-import com.element.util.JideSwingUtilities;
+import com.element.util.UIUtil;
 
 import javax.swing.*;
 import javax.swing.border.Border;
@@ -271,7 +271,7 @@ public class JideSplitPaneDivider extends JPanel
 			} else {
 				rect.x++;
 				rect.y++;
-				JideSwingUtilities.drawGrip(g, rect, 9, UIDefaultsLookup.getInt("JideSplitPane.dividerSize") / 3);
+				UIUtil.drawGrip(g, rect, 9, UIDefaultsLookup.getInt("JideSplitPane.dividerSize") / 3);
 			}
 		}
 	}

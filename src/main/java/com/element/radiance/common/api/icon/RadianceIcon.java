@@ -21,8 +21,7 @@ public interface RadianceIcon extends Icon {
 	void setDimension(Dimension newDimension);
 
 	default BufferedImage toImage(double scale) {
-		BufferedImage result = RadianceCommonCortex.getBlankScaledImage(scale,
-				this.getIconWidth(), this.getIconHeight());
+		BufferedImage result = RadianceCommonCortex.getBlankScaledImage(scale, this.getIconWidth(), this.getIconHeight());
 		this.paintIcon(null, result.getGraphics(), 0, 0);
 		return result;
 	}

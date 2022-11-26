@@ -1,7 +1,7 @@
 package com.element.ui.others.upload;
 
-import com.element.ui.button.ButtonFactory;
 import com.element.color.ColorUtil;
+import com.element.ui.button.ButtonFactory;
 import org.jdesktop.swingx.VerticalLayout;
 
 import javax.swing.*;

@@ -5,9 +5,9 @@
  */
 package com.element.ui.dialog;
 
-import com.element.util.JideSwingUtilities;
 import com.element.ui.label.MultilineLabel;
 import com.element.util.SecurityUtils;
+import com.element.util.UIUtil;
 
 import javax.swing.*;
 import java.awt.*;
@@ -310,7 +310,7 @@ public class BannerPanel extends JPanel {
 	protected void paintComponent(Graphics g) {
 		super.paintComponent(g);
 		if (getStartColor() != null && getEndColor() != null) {
-			JideSwingUtilities.fillGradient((Graphics2D) g, new Rectangle(0, 0, getWidth(), getHeight()), getStartColor(), getEndColor(), isVertical());
+			UIUtil.fillGradient((Graphics2D) g, new Rectangle(0, 0, getWidth(), getHeight()), getStartColor(), getEndColor(), isVertical());
 		} else if (getBackgroundPaint() != null) {
 			Graphics2D g2d = (Graphics2D) g;
 			g2d.setPaint(getBackgroundPaint());

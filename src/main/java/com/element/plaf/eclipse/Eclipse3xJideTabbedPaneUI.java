@@ -8,8 +8,8 @@ package com.element.plaf.eclipse;
 
 import com.element.plaf.UIDefaultsLookup;
 import com.element.plaf.vsnet.VsnetJideTabbedPaneUI;
-import com.element.util.JideSwingUtilities;
 import com.element.ui.tabs.JideTabbedPane;
+import com.element.util.UIUtil;
 
 import javax.swing.*;
 import javax.swing.plaf.ComponentUI;
@@ -675,7 +675,7 @@ public class Eclipse3xJideTabbedPaneUI extends VsnetJideTabbedPaneUI {
 							y + h + w - 21, y + h + w - 10};
 					int np = yp.length;
 					Polygon p = new Polygon(xp, yp, np);
-					JideSwingUtilities.fillGradient(g2d, p, background1, background2, false);
+					UIUtil.fillGradient(g2d, p, background1, background2, false);
 				}
 				break;
 				case RIGHT: {
@@ -686,7 +686,7 @@ public class Eclipse3xJideTabbedPaneUI extends VsnetJideTabbedPaneUI {
 							y + h + w - 21, y + h + w - 10};
 					int np = yp.length;
 					Polygon p = new Polygon(xp, yp, np);
-					JideSwingUtilities.fillGradient(g2d, p, background2, background1, false);
+					UIUtil.fillGradient(g2d, p, background2, background1, false);
 				}
 				break;
 				case BOTTOM: {
@@ -700,7 +700,7 @@ public class Eclipse3xJideTabbedPaneUI extends VsnetJideTabbedPaneUI {
 							y + h - 4, y + h - 6, y + 4, y + 1, y};
 					int np = yp.length;
 					Polygon p = new Polygon(xp, yp, np);
-					JideSwingUtilities.fillGradient(g2d, p, background2, background1, true);
+					UIUtil.fillGradient(g2d, p, background2, background1, true);
 				}
 				break;
 				case TOP:
@@ -713,7 +713,7 @@ public class Eclipse3xJideTabbedPaneUI extends VsnetJideTabbedPaneUI {
 							y + 5, y + h - 6, y + h};
 					int np = xp.length;
 					Polygon p = new Polygon(xp, yp, np);
-					JideSwingUtilities.fillGradient(g2d, p, background1, background2, true);
+					UIUtil.fillGradient(g2d, p, background1, background2, true);
 				}
 				break;
 			}

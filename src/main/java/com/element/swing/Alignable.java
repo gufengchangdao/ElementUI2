@@ -47,7 +47,7 @@ public interface Alignable {
 
 	/**
 	 * Gets the orientation. If the component is a Swing component, the default implementation is
-	 * {@link com.element.util.JideSwingUtilities#getOrientationOf(Component)}. <br>
+	 * {@link com.element.util.UIUtil#getOrientationOf(Component)}. <br>
 	 *
 	 * @return orientation
 	 */

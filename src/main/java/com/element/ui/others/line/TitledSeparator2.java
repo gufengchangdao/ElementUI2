@@ -6,13 +6,13 @@
 
 package com.element.ui.others.line;
 
+import com.element.plaf.UIDefaultsLookup;
 import com.element.ui.border.PartialEtchedBorder;
 import com.element.ui.border.PartialGradientLineBorder;
 import com.element.ui.border.PartialLineBorder;
 import com.element.ui.border.PartialSide;
 import com.element.ui.layout.JideBoxLayout;
-import com.element.plaf.UIDefaultsLookup;
-import com.element.util.JideSwingUtilities;
+import com.element.util.UIUtil;
 
 import javax.swing.*;
 import javax.swing.border.Border;
@@ -285,7 +285,7 @@ public class TitledSeparator2 extends JPanel {
 	 */
 	public void setLabelComponent(JComponent labelComponent) {
 		JComponent oldValue = _labelComponent;
-		if (!JideSwingUtilities.equals(oldValue, labelComponent)) {
+		if (!UIUtil.equals(oldValue, labelComponent)) {
 			_labelComponent = labelComponent;
 			firePropertyChange(PROPERTY_LABEL, oldValue, _labelComponent);
 			validateTitledSeparator();
@@ -311,7 +311,7 @@ public class TitledSeparator2 extends JPanel {
 	 */
 	public void setSeparatorBorder(Border border) {
 		Border oldValue = _border;
-		if (!JideSwingUtilities.equals(oldValue, border)) {
+		if (!UIUtil.equals(oldValue, border)) {
 			_border = border;
 			firePropertyChange(PROPERTY_SEPARATOR_BORDER, oldValue, _border);
 			validateTitledSeparator();

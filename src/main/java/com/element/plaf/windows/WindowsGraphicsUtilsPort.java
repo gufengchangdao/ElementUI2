@@ -6,8 +6,8 @@
 
 package com.element.plaf.windows;
 
-import com.element.util.JideSwingUtilities;
 import com.element.util.SystemInfo;
+import com.element.util.UIUtil;
 
 import javax.swing.*;
 import java.awt.*;
@@ -26,7 +26,7 @@ public class WindowsGraphicsUtilsPort {
 	public static void paintText(Graphics g, AbstractButton b,
 	                             Rectangle textRect, String text,
 	                             int textShiftOffset) {
-		FontMetrics fm = JideSwingUtilities.getFontMetrics(b, g);
+		FontMetrics fm = b.getFontMetrics(b.getFont());
 
 		int mnemIndex = b.getDisplayedMnemonicIndex();
 		// W2K Feature: Check to see if the Underscore should be rendered.
@@ -56,7 +56,7 @@ public class WindowsGraphicsUtilsPort {
 				 * reach them from this class */
 				g.setColor(b.getForeground());
 			}
-			JideSwingUtilities.drawStringUnderlineCharAt(b, g, text, mnemIndex, x, y);
+			UIUtil.drawStringUnderlineCharAt(b, g, text, mnemIndex, x, y);
 		} else {        /* paint the text disabled ***/
 			color = getDisabledTextColor(b);
 			if (color == null) {
@@ -70,14 +70,13 @@ public class WindowsGraphicsUtilsPort {
 					shadow = b.getBackground().darker();
 				}
 				g.setColor(shadow);
-				JideSwingUtilities.drawStringUnderlineCharAt(b, g, text, mnemIndex,
-						x + 1, y + 1);
+				UIUtil.drawStringUnderlineCharAt(b, g, text, mnemIndex, x + 1, y + 1);
 			}
 			if (color == null) {
 				color = b.getBackground().brighter();
 			}
 			g.setColor(color);
-			JideSwingUtilities.drawStringUnderlineCharAt(b, g, text, mnemIndex, x, y);
+			UIUtil.drawStringUnderlineCharAt(b, g, text, mnemIndex, x, y);
 		}
 	}
 

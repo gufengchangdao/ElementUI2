@@ -5,15 +5,15 @@
  */
 package com.element.plaf.aqua;
 
-import com.element.ui.icons.IconsFactory;
-import com.element.ui.icons.JideIconsFactory;
-import com.element.plaf.vsnet.VsnetLookAndFeelExtension;
 import com.element.plaf.ExtWindowsDesktopProperty;
 import com.element.plaf.LookAndFeelFactory;
 import com.element.plaf.UIDefaultsLookup;
+import com.element.plaf.vsnet.VsnetLookAndFeelExtension;
 import com.element.ui.button.JideButton;
-import com.element.util.JideSwingUtilities;
+import com.element.ui.icons.IconsFactory;
+import com.element.ui.icons.JideIconsFactory;
 import com.element.ui.tabs.JideTabbedPane;
+import com.element.util.UIUtil;
 
 import javax.swing.*;
 import javax.swing.plaf.BorderUIResource;
@@ -552,8 +552,8 @@ public class AquaJideUtils extends VsnetLookAndFeelExtension {
 		Rectangle rect = shape.getBounds();
 		Rectangle r2 = new Rectangle(rect.x, rect.y + rect.height / 2, rect.width, rect.height / 2);
 		Rectangle r1 = new Rectangle(rect.x, rect.y, rect.width, rect.height / 2);
-		JideSwingUtilities.fillGradient(g2d, r1, c[0], c[1], true);
-		JideSwingUtilities.fillGradient(g2d, r2, c[2], c[3], true);
+		UIUtil.fillGradient(g2d, r1, c[0], c[1], true);
+		UIUtil.fillGradient(g2d, r2, c[2], c[3], true);
 //        g2d.setClip(oldClipShape);
 	}
 
@@ -569,8 +569,8 @@ public class AquaJideUtils extends VsnetLookAndFeelExtension {
 		Rectangle rect = shape.getBounds();
 		Rectangle r2 = new Rectangle(rect.x + rect.width / 2, rect.y, rect.width / 2, rect.height);
 		Rectangle r1 = new Rectangle(rect.x, rect.y, rect.width / 2, rect.height);
-		JideSwingUtilities.fillGradient(g2d, r1, c[0], c[1], false);
-		JideSwingUtilities.fillGradient(g2d, r2, c[2], c[3], false);
+		UIUtil.fillGradient(g2d, r1, c[0], c[1], false);
+		UIUtil.fillGradient(g2d, r2, c[2], c[3], false);
 //        g.setClip(oldClipShape);
 	}
 

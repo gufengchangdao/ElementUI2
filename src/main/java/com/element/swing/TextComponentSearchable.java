@@ -6,9 +6,7 @@
 package com.element.swing;
 
 import com.element.event.SearchableEvent;
-import com.element.swing.DelegateAction;
-import com.element.swing.Searchable;
-import com.element.util.JideSwingUtilities;
+import com.element.util.UIUtil;
 
 import javax.swing.*;
 import javax.swing.event.DocumentEvent;
@@ -303,7 +301,7 @@ public class TextComponentSearchable extends Searchable implements DocumentListe
 	@Override
 	protected boolean isActivateKey(KeyEvent e) {
 		if (_component instanceof JTextComponent && ((JTextComponent) _component).isEditable()) {
-			return (e.getID() == KeyEvent.KEY_PRESSED && e.getKeyCode() == KeyEvent.VK_F && JideSwingUtilities.isMenuShortcutKeyDown(e));
+			return (e.getID() == KeyEvent.KEY_PRESSED && e.getKeyCode() == KeyEvent.VK_F && UIUtil.isMenuShortcutKeyDown(e));
 		} else {
 			return super.isActivateKey(e);
 		}

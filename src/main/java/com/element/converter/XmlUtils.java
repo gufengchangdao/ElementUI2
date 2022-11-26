@@ -5,7 +5,6 @@
  */
 package com.element.converter;
 
-import com.element.util.JideSwingUtilities;
 import org.w3c.dom.Element;
 import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
@@ -70,10 +69,8 @@ public class XmlUtils {
 
 				try {
 					method.invoke(object, ObjectConverterManager.fromString(value, type));
-				} catch (IllegalAccessException e) {
+				} catch (IllegalAccessException | InvocationTargetException e) {
 					throw new RuntimeException(e);
-				} catch (InvocationTargetException e) {
-					JideSwingUtilities.ignoreException(e);
 				}
 			}
 		}

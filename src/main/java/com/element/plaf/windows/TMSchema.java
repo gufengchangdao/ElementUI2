@@ -17,7 +17,7 @@ import java.util.EnumMap;
  * <p/>
  * See http://msdn.microsoft.com/library/default.asp?url=/library/en-us/shellcc/platform/commctls/userex/topics/partsandstates.asp
  * See tmschema.h (or vssym32.h & vsstyle.h for MS Vista)
- *
+ * <p>
  * Copied from JDK source code and modified to provide additional integration between JIDE components and native windows L&F.
  *
  * @author Leif Samuelsson

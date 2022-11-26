@@ -5,8 +5,6 @@
  */
 package com.element.swing;
 
-import com.element.swing.Resizable;
-
 import javax.swing.border.Border;
 
 /**

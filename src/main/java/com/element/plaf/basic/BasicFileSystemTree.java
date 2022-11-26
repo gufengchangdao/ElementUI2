@@ -6,8 +6,8 @@
 package com.element.plaf.basic;
 
 import com.element.ui.others.FolderChooser;
-import com.element.util.JideSwingUtilities;
 import com.element.ui.tree.TreeSearchable;
+import com.element.util.UIUtil;
 
 import javax.swing.*;
 import javax.swing.event.TreeExpansionEvent;
@@ -29,7 +29,7 @@ class BasicFileSystemTree extends JTree {
 		setShowsRootHandles(false);
 		setRootVisible(false);
 		setBorder(BorderFactory.createEmptyBorder(0, 3, 0, 3));
-		setRowHeight(JideSwingUtilities.getLineHeight(this, 17));
+		setRowHeight((int) UIUtil.getLineHeight(this, 17));
 		expandRow(0);
 		FolderTreeListener treeListener = new FolderTreeListener();
 		addTreeWillExpandListener(treeListener);

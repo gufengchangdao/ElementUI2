@@ -5,7 +5,7 @@
  */
 package com.element.ui.border;
 
-import com.element.util.JideSwingUtilities;
+import com.element.util.UIUtil;
 
 import javax.swing.border.AbstractBorder;
 import java.awt.*;
@@ -50,25 +50,25 @@ public class PartialGradientLineBorder extends AbstractBorder implements Partial
 		Graphics2D g2d = (Graphics2D) g;
 		int i = 0;
 		if ((_sides & NORTH) != 0) {
-			JideSwingUtilities.fillGradient(g2d, new Rectangle(x, y, width, _thickness), _colors[i++], _colors[i++], false);
+			UIUtil.fillGradient(g2d, new Rectangle(x, y, width, _thickness), _colors[i++], _colors[i++], false);
 		}
 		if ((_sides & SOUTH) != 0) {
 			if (i >= _colors.length) {
 				i -= 2;
 			}
-			JideSwingUtilities.fillGradient(g2d, new Rectangle(x, y + height - _thickness, width, _thickness), _colors[i++], _colors[i++], false);
+			UIUtil.fillGradient(g2d, new Rectangle(x, y + height - _thickness, width, _thickness), _colors[i++], _colors[i++], false);
 		}
 		if ((_sides & WEST) != 0) {
 			if (i >= _colors.length) {
 				i -= 2;
 			}
-			JideSwingUtilities.fillGradient(g2d, new Rectangle(x, y, _thickness, height), _colors[i++], _colors[i++], true);
+			UIUtil.fillGradient(g2d, new Rectangle(x, y, _thickness, height), _colors[i++], _colors[i++], true);
 		}
 		if ((_sides & EAST) != 0) {
 			if (i >= _colors.length) {
 				i -= 2;
 			}
-			JideSwingUtilities.fillGradient(g2d, new Rectangle(x + width - _thickness, y, _thickness, height), _colors[i++], _colors[i], true);
+			UIUtil.fillGradient(g2d, new Rectangle(x + width - _thickness, y, _thickness, height), _colors[i++], _colors[i], true);
 		}
 		g.setColor(oldColor);
 	}

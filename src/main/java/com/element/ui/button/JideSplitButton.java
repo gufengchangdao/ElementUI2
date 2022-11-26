@@ -5,12 +5,11 @@
  */
 package com.element.ui.button;
 
-import com.element.ui.menu.JideMenu;
-import com.element.plaf.basic.ComponentStateSupport;
 import com.element.plaf.LookAndFeelFactory;
 import com.element.plaf.UIDefaultsLookup;
+import com.element.plaf.basic.ComponentStateSupport;
 import com.element.plaf.basic.ThemePainter;
-import com.element.util.SystemInfo;
+import com.element.ui.menu.JideMenu;
 
 import javax.swing.*;
 import javax.swing.plaf.ButtonUI;

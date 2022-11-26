@@ -6,13 +6,13 @@
 
 package com.element.plaf.basic;
 
-import com.element.ui.button.*;
-import com.element.ui.icons.IconsFactory;
-import com.element.plaf.vsnet.VsnetMenuUI;
 import com.element.plaf.LookAndFeelFactory;
 import com.element.plaf.UIDefaultsLookup;
-import com.element.util.JideSwingUtilities;
+import com.element.plaf.vsnet.VsnetMenuUI;
+import com.element.ui.button.*;
+import com.element.ui.icons.IconsFactory;
 import com.element.util.SecurityUtils;
+import com.element.util.UIUtil;
 
 import javax.swing.*;
 import javax.swing.event.MouseInputListener;
@@ -177,7 +177,7 @@ public class BasicJideSplitButtonUI extends VsnetMenuUI {
 		ButtonModel model = menuItem.getModel();
 		int menuWidth;
 		int menuHeight;
-		int orientation = JideSwingUtilities.getOrientationOf(menuItem);
+		int orientation = UIUtil.getOrientationOf(menuItem);
 		if (orientation == SwingConstants.HORIZONTAL) {
 			menuWidth = menuItem.getWidth();
 			menuHeight = menuItem.getHeight();
@@ -202,16 +202,16 @@ public class BasicJideSplitButtonUI extends VsnetMenuUI {
 				if (model.isArmed() || model.isPressed() || isMouseOver()) {
 					g.setColor(selectionForeground);
 					g.drawLine(menuWidth - _splitButtonMarginOnMenu, 0, menuWidth - _splitButtonMarginOnMenu, menuHeight - 2);
-					JideSwingUtilities.paintArrow(g, selectionForeground, menuWidth - _splitButtonMarginOnMenu / 2 - 2, menuHeight / 2 - 3, 7, SwingConstants.VERTICAL);
+					UIUtil.paintArrow(g, selectionForeground, menuWidth - _splitButtonMarginOnMenu / 2 - 2, menuHeight / 2 - 3, 7, SwingConstants.VERTICAL);
 				} else {
 					g.setColor(getForegroundOfState(menuItem));
 					g.drawLine(menuWidth - _splitButtonMarginOnMenu, 0, menuWidth - _splitButtonMarginOnMenu, menuHeight - 2);
-					JideSwingUtilities.paintArrow(g, getForegroundOfState(menuItem), menuWidth - _splitButtonMarginOnMenu / 2 - 2, menuHeight / 2 - 3, 7, SwingConstants.VERTICAL);
+					UIUtil.paintArrow(g, getForegroundOfState(menuItem), menuWidth - _splitButtonMarginOnMenu / 2 - 2, menuHeight / 2 - 3, 7, SwingConstants.VERTICAL);
 				}
 			} else {
 				g.setColor(UIDefaultsLookup.getColor("controlDkShadow"));
 				g.drawLine(menuWidth - _splitButtonMarginOnMenu, 0, menuWidth - _splitButtonMarginOnMenu, menuHeight - 2);
-				JideSwingUtilities.paintArrow(g, UIDefaultsLookup.getColor("controlDkShadow"), menuWidth - _splitButtonMarginOnMenu / 2 - 2, menuHeight / 2 - 3, 7, SwingConstants.VERTICAL);
+				UIUtil.paintArrow(g, UIDefaultsLookup.getColor("controlDkShadow"), menuWidth - _splitButtonMarginOnMenu / 2 - 2, menuHeight / 2 - 3, 7, SwingConstants.VERTICAL);
 			}
 			return;
 		}
@@ -304,7 +304,7 @@ public class BasicJideSplitButtonUI extends VsnetMenuUI {
 						getPainter().paintButtonBackground(b, g, rect, 0, ThemePainter.STATE_DISABLE);
 					}
 					if ("true".equals(SecurityUtils.getProperty("shadingtheme", "false"))) {
-						JideSwingUtilities.fillGradient(g, rect, SwingConstants.HORIZONTAL);
+						UIUtil.fillGradient(g, rect, SwingConstants.HORIZONTAL);
 					}
 					rect = getDropDownRect(b, orientation, menuWidth, menuHeight);
 					if (b.isEnabled()) {
@@ -313,7 +313,7 @@ public class BasicJideSplitButtonUI extends VsnetMenuUI {
 						getPainter().paintButtonBackground(b, g, rect, 0, ThemePainter.STATE_DISABLE);
 					}
 					if ("true".equals(SecurityUtils.getProperty("shadingtheme", "false"))) {
-						JideSwingUtilities.fillGradient(g, rect, SwingConstants.HORIZONTAL);
+						UIUtil.fillGradient(g, rect, SwingConstants.HORIZONTAL);
 					}
 				}
 			}
@@ -324,10 +324,10 @@ public class BasicJideSplitButtonUI extends VsnetMenuUI {
 			} else if (model.isArmed() || model.isPressed()) {
 				Rectangle rect = getButtonRect(b, orientation, menuWidth, menuHeight);
 				if (b.isButtonEnabled()) {
-					JideSwingUtilities.paintBackground(g, rect, _highlight, _highlight);
+					UIUtil.paintBackground(g, rect, _highlight, _highlight);
 				}
 				rect = getDropDownRect(b, orientation, menuWidth, menuHeight);
-				JideSwingUtilities.paintBackground(g, rect, _highlight, _highlight);
+				UIUtil.paintBackground(g, rect, _highlight, _highlight);
 
 				if (!b.isOpaque()) {
 					rect = getButtonRect(b, orientation, menuWidth, menuHeight);
@@ -338,10 +338,10 @@ public class BasicJideSplitButtonUI extends VsnetMenuUI {
 			} else if (model instanceof SplitButtonModel && ((DefaultSplitButtonModel) model).isButtonSelected()) {
 				if ((isMouseOver() || b.hasFocus()) && model.isEnabled()) {
 					Rectangle rect = getDropDownRect(b, orientation, menuWidth, menuHeight);
-					JideSwingUtilities.paintBackground(g, rect, _highlight, _highlight);
+					UIUtil.paintBackground(g, rect, _highlight, _highlight);
 					rect = getButtonRect(b, orientation, menuWidth, menuHeight);
 					if (b.isButtonEnabled()) {
-						JideSwingUtilities.paintBackground(g, rect, _highlight, _highlight);
+						UIUtil.paintBackground(g, rect, _highlight, _highlight);
 					}
 					if (!b.isOpaque()) {
 						rect = getButtonRect(b, orientation, menuWidth, menuHeight);
@@ -353,10 +353,10 @@ public class BasicJideSplitButtonUI extends VsnetMenuUI {
 					Rectangle rect;
 					if (b.isOpaque()) {
 						rect = getDropDownRect(b, orientation, menuWidth, menuHeight);
-						JideSwingUtilities.paintBackground(g, rect, _highlight, _highlight);
+						UIUtil.paintBackground(g, rect, _highlight, _highlight);
 					}
 					rect = getButtonRect(b, orientation, menuWidth, menuHeight);
-					JideSwingUtilities.paintBackground(g, rect, _highlight, _highlight);
+					UIUtil.paintBackground(g, rect, _highlight, _highlight);
 
 					if (!b.isOpaque()) {
 						rect = getButtonRect(b, orientation, menuWidth, menuHeight);
@@ -371,10 +371,10 @@ public class BasicJideSplitButtonUI extends VsnetMenuUI {
 					// Draw a line border with background
 					Rectangle rect = getButtonRect(b, orientation, menuWidth, menuHeight);
 					if (b.isButtonEnabled()) {
-						JideSwingUtilities.paintBackground(g, rect, _highlight, _highlight);
+						UIUtil.paintBackground(g, rect, _highlight, _highlight);
 					}
 					rect = getDropDownRect(b, orientation, menuWidth, menuHeight);
-					JideSwingUtilities.paintBackground(g, rect, _highlight, _highlight);
+					UIUtil.paintBackground(g, rect, _highlight, _highlight);
 
 					if (isAlwaysDropdown(b)) {
 						rect = new Rectangle(0, 0, menuWidth, menuHeight);
@@ -493,7 +493,7 @@ public class BasicJideSplitButtonUI extends VsnetMenuUI {
 	protected void paintArrow(JMenuItem menuItem, Graphics g) {
 		int menuWidth;
 		int menuHeight;
-		int orientation = JideSwingUtilities.getOrientationOf(menuItem);
+		int orientation = UIUtil.getOrientationOf(menuItem);
 		if (orientation == SwingConstants.HORIZONTAL) {
 			menuWidth = menuItem.getWidth();
 			menuHeight = menuItem.getHeight();
@@ -508,9 +508,9 @@ public class BasicJideSplitButtonUI extends VsnetMenuUI {
 			startX = 4;
 		}
 		if (menuItem.isEnabled()) {
-			JideSwingUtilities.paintArrow(g, getForegroundOfState(menuItem), startX, menuHeight / 2 - 1, 5, SwingConstants.HORIZONTAL);
+			UIUtil.paintArrow(g, getForegroundOfState(menuItem), startX, menuHeight / 2 - 1, 5, SwingConstants.HORIZONTAL);
 		} else {
-			JideSwingUtilities.paintArrow(g, UIDefaultsLookup.getColor("controlShadow"), startX, menuHeight / 2 - 1, 5, SwingConstants.HORIZONTAL);
+			UIUtil.paintArrow(g, UIDefaultsLookup.getColor("controlShadow"), startX, menuHeight / 2 - 1, 5, SwingConstants.HORIZONTAL);
 		}
 	}
 
@@ -667,7 +667,7 @@ public class BasicJideSplitButtonUI extends VsnetMenuUI {
 			boolean clickOnDropDown = false;
 			if (BasicJideButtonUI.shouldWrapText(menuItem)) {
 				int size = 27;
-				if (JideSwingUtilities.getOrientationOf(menuItem) == SwingConstants.HORIZONTAL) {
+				if (UIUtil.getOrientationOf(menuItem) == SwingConstants.HORIZONTAL) {
 					if (e.getPoint().getY() < menu.getHeight() - size) {
 						clickOnDropDown = true;
 					}
@@ -678,7 +678,7 @@ public class BasicJideSplitButtonUI extends VsnetMenuUI {
 				}
 			} else {
 				int size = ((JMenu) menuItem).isTopLevelMenu() ? _splitButtonMargin : _splitButtonMarginOnMenu;
-				if (JideSwingUtilities.getOrientationOf(menuItem) == SwingConstants.HORIZONTAL) {
+				if (UIUtil.getOrientationOf(menuItem) == SwingConstants.HORIZONTAL) {
 					if (menu.getComponentOrientation().isLeftToRight()) {
 						if (e.getPoint().getX() < menu.getWidth() - size) {
 							clickOnDropDown = true;
@@ -834,10 +834,10 @@ public class BasicJideSplitButtonUI extends VsnetMenuUI {
 
 		AbstractButton b = (AbstractButton) c;
 
-		boolean isHorizontal = JideSwingUtilities.getOrientationOf(c) == SwingConstants.HORIZONTAL;
+		boolean isHorizontal = UIUtil.getOrientationOf(c) == SwingConstants.HORIZONTAL;
 
-		// TODO: we should use isHorizontal when JideSwingUtilities.getPreferredButtonSize supports it
-		Dimension d = JideSwingUtilities.getPreferredButtonSize(b, defaultTextIconGap);
+		// TODO: we should use isHorizontal when UIUtil.getPreferredButtonSize supports it
+		Dimension d = UIUtil.getPreferredButtonSize(b, defaultTextIconGap);
 
 		if (BasicJideButtonUI.shouldWrapText(c)) {
 			if (c instanceof JideSplitButton) {
@@ -867,7 +867,7 @@ public class BasicJideSplitButtonUI extends VsnetMenuUI {
 		Dimension d = getPreferredSize(c);
 		View v = (View) c.getClientProperty(BasicHTML.propertyKey);
 		if (v != null) {
-			if (JideSwingUtilities.getOrientationOf(c) == SwingConstants.HORIZONTAL)
+			if (UIUtil.getOrientationOf(c) == SwingConstants.HORIZONTAL)
 				d.width -= v.getPreferredSpan(View.X_AXIS) - v.getMinimumSpan(View.X_AXIS);
 			else        // TODO: not sure if this is correct
 				d.height -= v.getPreferredSpan(View.X_AXIS) - v.getMinimumSpan(View.X_AXIS);
@@ -885,7 +885,7 @@ public class BasicJideSplitButtonUI extends VsnetMenuUI {
 		Dimension d = getPreferredSize(c);
 		View v = (View) c.getClientProperty(BasicHTML.propertyKey);
 		if (v != null) {
-			if (JideSwingUtilities.getOrientationOf(c) == SwingConstants.HORIZONTAL)
+			if (UIUtil.getOrientationOf(c) == SwingConstants.HORIZONTAL)
 				d.width += v.getMaximumSpan(View.X_AXIS) - v.getPreferredSpan(View.X_AXIS);
 			else        // TODO: not sure if this is correct
 				d.height += v.getMaximumSpan(View.X_AXIS) - v.getPreferredSpan(View.X_AXIS);
@@ -962,7 +962,7 @@ public class BasicJideSplitButtonUI extends VsnetMenuUI {
 	}
 
 	private Color getForegroundOfState(JMenuItem menuItem) {
-		int state = JideSwingUtilities.getButtonState(menuItem);
+		int state = UIUtil.getButtonState(menuItem);
 		Color foreground = null;
 		if (menuItem instanceof ComponentStateSupport) {
 			foreground = ((ComponentStateSupport) menuItem).getForegroundOfState(state);
@@ -975,7 +975,7 @@ public class BasicJideSplitButtonUI extends VsnetMenuUI {
 
 	protected void drawStringUnderlineCharAt(JComponent c, Graphics g, String text,
 	                                         int underlinedIndex, int x, int y) {
-		JideSwingUtilities.drawStringUnderlineCharAt(c, g, text, underlinedIndex, x, y);
+		UIUtil.drawStringUnderlineCharAt(c, g, text, underlinedIndex, x, y);
 	}
 
 	@Override
@@ -984,7 +984,7 @@ public class BasicJideSplitButtonUI extends VsnetMenuUI {
 
 		// Paint the Icon
 		if (b.getIcon() != null) {
-//            if (JideSwingUtilities.getOrientationOf(b) == SwingConstants.VERTICAL) {
+//            if (UIUtil.getOrientationOf(b) == SwingConstants.VERTICAL) {
 //                ((Graphics2D) g).translate(0, b.getWidth() - 1);
 //                ((Graphics2D) g).rotate(-Math.PI / 2);
 //            }
@@ -1021,7 +1021,7 @@ public class BasicJideSplitButtonUI extends VsnetMenuUI {
 				}
 			}
 
-//            if (JideSwingUtilities.getOrientationOf(b) == SwingConstants.VERTICAL) {
+//            if (UIUtil.getOrientationOf(b) == SwingConstants.VERTICAL) {
 //                ((Graphics2D) g).rotate(Math.PI / 2);
 //                ((Graphics2D) g).translate(0, -b.getHeight() + 1);
 //            }

@@ -7,7 +7,7 @@ package com.element.ui.list;
 
 
 import com.element.ui.tree.CheckBoxTree;
-import com.element.util.JideSwingUtilities;
+import com.element.util.UIUtil;
 
 import javax.swing.*;
 import javax.swing.event.ListDataEvent;
@@ -145,8 +145,8 @@ public class CheckBoxList extends JList {
 		_listCellRenderer = createCellRenderer();
 		_handler = createHandler();
 		_checkBoxListSelectionModel.addListSelectionListener(_handler);
-		JideSwingUtilities.insertMouseListener(this, _handler, 0);
-		JideSwingUtilities.insertMouseMotionListener(this, _handler, 0);
+		UIUtil.insertMouseListener(this, _handler, 0);
+		UIUtil.insertMouseMotionListener(this, _handler, 0);
 		addKeyListener(_handler);
 		addPropertyChangeListener("model", _handler);
 		ListModel model = getModel();
@@ -861,12 +861,5 @@ public class CheckBoxList extends JList {
 		if (getModel().getSize() > 0) {
 			getCheckBoxListSelectionModel().removeIndexInterval(0, getModel().getSize() - 1);
 		}
-	}
-
-	@Override
-	public Dimension getPreferredScrollableViewportSize() {
-		Dimension size = super.getPreferredScrollableViewportSize();
-		return size != null && size.width > 0 && size.height > 0 ? JideSwingUtilities.adjustPreferredScrollableViewportSize(this, size) : size;
-
 	}
 }

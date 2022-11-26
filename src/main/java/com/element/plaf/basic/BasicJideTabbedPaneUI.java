@@ -10,9 +10,8 @@ import com.element.plaf.UIDefaultsLookup;
 import com.element.ui.border.PartialLineBorder;
 import com.element.ui.tabs.JideTabbedPane;
 import com.element.ui.tabs.TabColorProvider;
-import com.element.util.JideSwingUtilities;
 import com.element.util.SecurityUtils;
-import com.element.util.SystemInfo;
+import com.element.util.UIUtil;
 
 import javax.swing.Timer;
 import javax.swing.*;
@@ -1002,10 +1001,10 @@ public class BasicJideTabbedPaneUI extends JideTabbedPaneUI implements SwingCons
 		paintTabBackground(g, tabPlacement, tabIndex, tabRect.x, tabRect.y,
 				tabRect.width, tabRect.height, isSelected);
 
-		Object savedHints = JideSwingUtilities.setupShapeAntialiasing(g);
+		Object savedHints = UIUtil.setupShapeAntialiasing(g);
 		paintTabBorder(g, tabPlacement, tabIndex, tabRect.x, tabRect.y,
 				tabRect.width, tabRect.height, isSelected);
-		JideSwingUtilities.restoreShapeAntialiasing(g, savedHints);
+		UIUtil.restoreShapeAntialiasing(g, savedHints);
 
 		Icon icon = _tabPane.getIconForTab(tabIndex);
 
@@ -1367,7 +1366,7 @@ public class BasicJideTabbedPaneUI extends JideTabbedPaneUI implements SwingCons
 				}
 
 				if (tabPlacement == TOP || tabPlacement == BOTTOM) {
-					JideSwingUtilities.drawStringUnderlineCharAt(_tabPane, g2d, actualText, mnemIndex, textRect.x, textRect.y + metrics.getAscent());
+					UIUtil.drawStringUnderlineCharAt(_tabPane, g2d, actualText, mnemIndex, textRect.x, textRect.y + metrics.getAscent());
 				} else {// draw string from top to bottom
 					AffineTransform old = g2d.getTransform();
 					g2d.translate(textRect.x, textRect.y);
@@ -1378,16 +1377,16 @@ public class BasicJideTabbedPaneUI extends JideTabbedPaneUI implements SwingCons
 						g2d.rotate(-Math.PI / 2);
 						g2d.translate(-textRect.height + metrics.getHeight() / 2 + _rectSizeExtend, 0); // no idea why i need 7 here
 					}
-					JideSwingUtilities.drawStringUnderlineCharAt(_tabPane, g2d, actualText, mnemIndex, 0,
+					UIUtil.drawStringUnderlineCharAt(_tabPane, g2d, actualText, mnemIndex, 0,
 							((textRect.width - metrics.getHeight()) / 2) + metrics.getAscent());
 					g2d.setTransform(old);
 				}
 			} else { // tab disabled
 				if (tabPlacement == TOP || tabPlacement == BOTTOM) {
 					g2d.setColor(_tabPane.getBackgroundAt(tabIndex).brighter());
-					JideSwingUtilities.drawStringUnderlineCharAt(_tabPane, g2d, actualText, mnemIndex, textRect.x, textRect.y + metrics.getAscent());
+					UIUtil.drawStringUnderlineCharAt(_tabPane, g2d, actualText, mnemIndex, textRect.x, textRect.y + metrics.getAscent());
 					g2d.setColor(_tabPane.getBackgroundAt(tabIndex).darker());
-					JideSwingUtilities.drawStringUnderlineCharAt(_tabPane, g2d, actualText, mnemIndex, textRect.x - 1, textRect.y + metrics.getAscent() - 1);
+					UIUtil.drawStringUnderlineCharAt(_tabPane, g2d, actualText, mnemIndex, textRect.x - 1, textRect.y + metrics.getAscent() - 1);
 				} else {// draw string from top to bottom
 					AffineTransform old = g2d.getTransform();
 					g2d.translate(textRect.x, textRect.y);
@@ -1399,10 +1398,10 @@ public class BasicJideTabbedPaneUI extends JideTabbedPaneUI implements SwingCons
 						g2d.translate(-textRect.height + metrics.getHeight() / 2 + _rectSizeExtend, 0); // no idea why i need 7 here
 					}
 					g2d.setColor(_tabPane.getBackgroundAt(tabIndex).brighter());
-					JideSwingUtilities.drawStringUnderlineCharAt(_tabPane, g2d, actualText, mnemIndex,
+					UIUtil.drawStringUnderlineCharAt(_tabPane, g2d, actualText, mnemIndex,
 							0, ((textRect.width - metrics.getHeight()) / 2) + metrics.getAscent());
 					g2d.setColor(_tabPane.getBackgroundAt(tabIndex).darker());
-					JideSwingUtilities.drawStringUnderlineCharAt(_tabPane, g2d, actualText, mnemIndex,
+					UIUtil.drawStringUnderlineCharAt(_tabPane, g2d, actualText, mnemIndex,
 							tabPlacement == RIGHT ? -1 : 1, ((textRect.width - metrics.getHeight()) / 2) + metrics.getAscent() - 1);
 					g2d.setTransform(old);
 				}
@@ -3897,7 +3896,7 @@ public class BasicJideTabbedPaneUI extends JideTabbedPaneUI implements SwingCons
 					polygon = new Polygon(xp, yp, np);
 
 				}
-				JideSwingUtilities.fillGradient(g2d, polygon, backgroundUnselectedColorStart, backgroundUnselectedColorEnd, false);
+				UIUtil.fillGradient(g2d, polygon, backgroundUnselectedColorStart, backgroundUnselectedColorEnd, false);
 				break;
 			case RIGHT:
 				if (tabIndex < _tabPane.getSelectedIndex()) {
@@ -3915,14 +3914,14 @@ public class BasicJideTabbedPaneUI extends JideTabbedPaneUI implements SwingCons
 					int np = yp.length;
 					polygon = new Polygon(xp, yp, np);
 				}
-				JideSwingUtilities.fillGradient(g2d, polygon, backgroundUnselectedColorEnd, backgroundUnselectedColorStart, false);
+				UIUtil.fillGradient(g2d, polygon, backgroundUnselectedColorEnd, backgroundUnselectedColorStart, false);
 				break;
 			case BOTTOM:
 				int[] xp = {x + 1, x + 1, x + 1, x + w - 1, x + w - 1};
 				int[] yp = {y + h - 2, y + 2, y, y, y + h - 2};
 				int np = yp.length;
 				polygon = new Polygon(xp, yp, np);
-				JideSwingUtilities.fillGradient(g2d, polygon, backgroundUnselectedColorEnd, backgroundUnselectedColorStart, true);
+				UIUtil.fillGradient(g2d, polygon, backgroundUnselectedColorEnd, backgroundUnselectedColorStart, true);
 				break;
 			case TOP:
 			default:
@@ -3930,7 +3929,7 @@ public class BasicJideTabbedPaneUI extends JideTabbedPaneUI implements SwingCons
 				int[] yp1 = {y + h, y + 2, y, y, y + h};
 				int np1 = yp1.length;
 				polygon = new Polygon(xp1, yp1, np1);
-				JideSwingUtilities.fillGradient(g2d, polygon, backgroundUnselectedColorStart, backgroundUnselectedColorEnd, true);
+				UIUtil.fillGradient(g2d, polygon, backgroundUnselectedColorStart, backgroundUnselectedColorEnd, true);
 		}
 	}
 
@@ -5151,8 +5150,8 @@ public class BasicJideTabbedPaneUI extends JideTabbedPaneUI implements SwingCons
 		Component lastFocused = _tabPane.getLastFocusedComponent(visibleComponent);
 		if (lastFocused != null && lastFocused.requestFocusInWindow()) {
 			return true;
-		} else if (visibleComponent != null && JideSwingUtilities.passesFocusabilityTest(visibleComponent)) { //  visibleComponent.isFocusTraversable()) {
-			JideSwingUtilities.compositeRequestFocus(visibleComponent);
+		} else if (visibleComponent != null && UIUtil.passesFocusabilityTest(visibleComponent)) { //  visibleComponent.isFocusTraversable()) {
+			UIUtil.compositeRequestFocus(visibleComponent);
 			return true;
 		} else return visibleComponent != null && visibleComponent.requestFocusInWindow();
 	}
@@ -5719,7 +5718,7 @@ public class BasicJideTabbedPaneUI extends JideTabbedPaneUI implements SwingCons
 					//
 					if (selectedComponent != null) {
 						if (selectedComponent != visibleComponent && visibleComponent != null) {
-							if (JideSwingUtilities.isAncestorOfFocusOwner(visibleComponent) && _tabPane.isAutoRequestFocus()) {
+							if (UIUtil.isAncestorOfFocusOwner(visibleComponent) && _tabPane.isAutoRequestFocus()) {
 								shouldChangeFocus = true;
 							}
 						}
@@ -6183,7 +6182,7 @@ public class BasicJideTabbedPaneUI extends JideTabbedPaneUI implements SwingCons
 				//
 				if (selectedComponent != null) {
 					if (selectedComponent != visibleComponent && visibleComponent != null) {
-						if (JideSwingUtilities.isAncestorOfFocusOwner(visibleComponent) && _tabPane.isAutoRequestFocus()) {
+						if (UIUtil.isAncestorOfFocusOwner(visibleComponent) && _tabPane.isAutoRequestFocus()) {
 							shouldChangeFocus = true;
 						}
 					}
@@ -8265,7 +8264,7 @@ public class BasicJideTabbedPaneUI extends JideTabbedPaneUI implements SwingCons
 			if (SwingUtilities.isLeftMouseButton(e) || _tabPane.isRightClickSelect()) {
 				int tabIndex = tabForCoordinate(_tabPane, e.getX(), e.getY());
 				if (tabIndex >= 0 && _tabPane.isEnabledAt(tabIndex)) {
-					if (tabIndex == _tabPane.getSelectedIndex() && JideSwingUtilities.isAncestorOfFocusOwner(_tabPane)) {
+					if (tabIndex == _tabPane.getSelectedIndex() && UIUtil.isAncestorOfFocusOwner(_tabPane)) {
 						if (_tabPane.isAutoFocusOnTabHideClose() && _tabPane.isRequestFocusEnabled()) {
 //                            if (!_tabPane.requestFocusInWindow()) {
 							_tabPane.requestFocus();
@@ -8287,7 +8286,7 @@ public class BasicJideTabbedPaneUI extends JideTabbedPaneUI implements SwingCons
 //                                }
 						} else {
 							// first try to find a default component.
-							boolean foundInTab = JideSwingUtilities.compositeRequestFocus(comp);
+							boolean foundInTab = UIUtil.compositeRequestFocus(comp);
 							if (!foundInTab) { // && !_tabPane.requestFocusInWindow()) {
 								_tabPane.requestFocus();
 							}
@@ -8980,12 +8979,12 @@ public class BasicJideTabbedPaneUI extends JideTabbedPaneUI implements SwingCons
 			Color orgColor = g2.getColor();
 
 			g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.70f));
-			Object o = JideSwingUtilities.setupShapeAntialiasing(g);
+			Object o = UIUtil.setupShapeAntialiasing(g);
 
 			g2.setColor(getBackground());
 			g.fillRoundRect(1, 1, getWidth() - 2, getHeight() - 2, 1, 1);
 
-			JideSwingUtilities.restoreShapeAntialiasing(g, o);
+			UIUtil.restoreShapeAntialiasing(g, o);
 			g2.setColor(orgColor);
 			g2.setComposite(orgComposite);
 			super.paintComponent(g);

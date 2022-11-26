@@ -10,8 +10,8 @@
 package com.element.plaf.basic;
 
 import com.element.plaf.UIDefaultsLookup;
-import com.element.util.JideSwingUtilities;
 import com.element.ui.progress.MeterProgressBar;
+import com.element.util.UIUtil;
 
 import javax.swing.*;
 import javax.swing.plaf.ComponentUI;
@@ -110,15 +110,15 @@ public class MeterProgressBarUI extends BasicProgressBarUI {
 				if (!c.getComponentOrientation().isLeftToRight()) {
 					rect.x += barRectWidth - amountFull;
 				}
-				JideSwingUtilities.fillGradient(g2, rect, _cellForeground, _cellBackground, true);
+				UIUtil.fillGradient(g2, rect, _cellForeground, _cellBackground, true);
 				rect.y += barRectHeight / 2;
-				JideSwingUtilities.fillGradient(g2, rect, _cellBackground, _cellForeground, true);
+				UIUtil.fillGradient(g2, rect, _cellBackground, _cellForeground, true);
 			} else {
 				Rectangle rect = new Rectangle(b.left, b.top + barRectHeight - amountFull,
 						barRectWidth / 2, amountFull);
-				JideSwingUtilities.fillGradient(g2, rect, _cellForeground, _cellBackground, false);
+				UIUtil.fillGradient(g2, rect, _cellForeground, _cellBackground, false);
 				rect.x += barRectWidth / 2;
-				JideSwingUtilities.fillGradient(g2, rect, _cellBackground, _cellForeground, false);
+				UIUtil.fillGradient(g2, rect, _cellBackground, _cellForeground, false);
 			}
 		}
 

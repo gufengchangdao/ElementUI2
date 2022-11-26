@@ -5,7 +5,7 @@
  */
 package com.element.ui.pane;
 
-import com.element.util.JideSwingUtilities;
+import com.element.util.UIUtil;
 
 import javax.swing.*;
 import javax.swing.plaf.UIResource;
@@ -174,42 +174,42 @@ public class JideScrollPane extends JScrollPane implements JideScrollPaneConstan
 		super.setViewport(viewport);
 		if (old != null) {
 			if (rowHeader != null) {
-				JideSwingUtilities.unsynchronizeView(rowHeader, old);
+				UIUtil.unsynchronizeView(rowHeader, old);
 			}
 			if (_rowFooter != null) {
-				JideSwingUtilities.unsynchronizeView(_rowFooter, old);
-				JideSwingUtilities.unsynchronizeView(old, _rowFooter);
+				UIUtil.unsynchronizeView(_rowFooter, old);
+				UIUtil.unsynchronizeView(old, _rowFooter);
 			}
 			if (_columnFooter != null) {
-				JideSwingUtilities.unsynchronizeView(_columnFooter, old);
-				JideSwingUtilities.unsynchronizeView(old, _columnFooter);
+				UIUtil.unsynchronizeView(_columnFooter, old);
+				UIUtil.unsynchronizeView(old, _columnFooter);
 			}
 			if (columnHeader != null) {
-				JideSwingUtilities.unsynchronizeView(columnHeader, old);
+				UIUtil.unsynchronizeView(columnHeader, old);
 			}
 			if (_subColumnHeader != null) {
-				JideSwingUtilities.unsynchronizeView(_subColumnHeader, old);
-				JideSwingUtilities.unsynchronizeView(old, _subColumnHeader);
+				UIUtil.unsynchronizeView(_subColumnHeader, old);
+				UIUtil.unsynchronizeView(old, _subColumnHeader);
 			}
 		}
 		if (viewport != null) {
 			if (rowHeader != null) {
-				JideSwingUtilities.synchronizeView(rowHeader, getViewport(), SwingConstants.VERTICAL);
+				UIUtil.synchronizeView(rowHeader, getViewport(), SwingConstants.VERTICAL);
 			}
 			if (_rowFooter != null) {
-				JideSwingUtilities.synchronizeView(_rowFooter, getViewport(), SwingConstants.VERTICAL);
-				JideSwingUtilities.synchronizeView(getViewport(), _rowFooter, SwingConstants.VERTICAL);
+				UIUtil.synchronizeView(_rowFooter, getViewport(), SwingConstants.VERTICAL);
+				UIUtil.synchronizeView(getViewport(), _rowFooter, SwingConstants.VERTICAL);
 			}
 			if (_columnFooter != null) {
-				JideSwingUtilities.synchronizeView(_columnFooter, getViewport(), SwingConstants.HORIZONTAL);
-				JideSwingUtilities.synchronizeView(getViewport(), _columnFooter, SwingConstants.HORIZONTAL);
+				UIUtil.synchronizeView(_columnFooter, getViewport(), SwingConstants.HORIZONTAL);
+				UIUtil.synchronizeView(getViewport(), _columnFooter, SwingConstants.HORIZONTAL);
 			}
 			if (columnHeader != null) {
-				JideSwingUtilities.synchronizeView(columnHeader, getViewport(), SwingConstants.HORIZONTAL);
+				UIUtil.synchronizeView(columnHeader, getViewport(), SwingConstants.HORIZONTAL);
 			}
 			if (_subColumnHeader != null) {
-				JideSwingUtilities.synchronizeView(_subColumnHeader, getViewport(), SwingConstants.HORIZONTAL);
-				JideSwingUtilities.synchronizeView(getViewport(), _subColumnHeader, SwingConstants.HORIZONTAL);
+				UIUtil.synchronizeView(_subColumnHeader, getViewport(), SwingConstants.HORIZONTAL);
+				UIUtil.synchronizeView(getViewport(), _subColumnHeader, SwingConstants.HORIZONTAL);
 			}
 		}
 	}
@@ -246,12 +246,12 @@ public class JideScrollPane extends JScrollPane implements JideScrollPaneConstan
 		revalidate();
 		repaint();
 		if (old != null) {
-			JideSwingUtilities.unsynchronizeView(old, getViewport());
-			JideSwingUtilities.unsynchronizeView(getViewport(), old);
+			UIUtil.unsynchronizeView(old, getViewport());
+			UIUtil.unsynchronizeView(getViewport(), old);
 		}
 		if (rowFooter != null) {
-			JideSwingUtilities.synchronizeView(rowFooter, getViewport(), SwingConstants.VERTICAL);
-			JideSwingUtilities.synchronizeView(getViewport(), rowFooter, SwingConstants.VERTICAL);
+			UIUtil.synchronizeView(rowFooter, getViewport(), SwingConstants.VERTICAL);
+			UIUtil.synchronizeView(getViewport(), rowFooter, SwingConstants.VERTICAL);
 		}
 	}
 
@@ -266,12 +266,12 @@ public class JideScrollPane extends JScrollPane implements JideScrollPaneConstan
 		JViewport old = getRowHeader();
 		super.setRowHeader(rowHeader);
 		if (old != null) {
-			JideSwingUtilities.unsynchronizeView(old, getViewport());
-			JideSwingUtilities.unsynchronizeView(getViewport(), old);
+			UIUtil.unsynchronizeView(old, getViewport());
+			UIUtil.unsynchronizeView(getViewport(), old);
 		}
 		if (getRowHeader() != null) {
-			JideSwingUtilities.synchronizeView(getRowHeader(), getViewport(), SwingConstants.VERTICAL);
-			JideSwingUtilities.synchronizeView(getViewport(), getRowHeader(), SwingConstants.VERTICAL);
+			UIUtil.synchronizeView(getRowHeader(), getViewport(), SwingConstants.VERTICAL);
+			UIUtil.synchronizeView(getViewport(), getRowHeader(), SwingConstants.VERTICAL);
 		}
 	}
 
@@ -330,12 +330,12 @@ public class JideScrollPane extends JScrollPane implements JideScrollPaneConstan
 		repaint();
 
 		if (old != null) {
-			JideSwingUtilities.unsynchronizeView(old, getViewport());
-			JideSwingUtilities.unsynchronizeView(getViewport(), old);
+			UIUtil.unsynchronizeView(old, getViewport());
+			UIUtil.unsynchronizeView(getViewport(), old);
 		}
 		if (_columnFooter != null) {
-			JideSwingUtilities.synchronizeView(_columnFooter, getViewport(), SwingConstants.HORIZONTAL);
-			JideSwingUtilities.synchronizeView(getViewport(), _columnFooter, SwingConstants.HORIZONTAL);
+			UIUtil.synchronizeView(_columnFooter, getViewport(), SwingConstants.HORIZONTAL);
+			UIUtil.synchronizeView(getViewport(), _columnFooter, SwingConstants.HORIZONTAL);
 		}
 	}
 
@@ -349,10 +349,10 @@ public class JideScrollPane extends JScrollPane implements JideScrollPaneConstan
 		JViewport old = getColumnHeader();
 		super.setColumnHeader(columnHeader);
 		if (old != null) {
-			JideSwingUtilities.unsynchronizeView(old, getViewport());
+			UIUtil.unsynchronizeView(old, getViewport());
 		}
 		if (getColumnHeader() != null) {
-			JideSwingUtilities.synchronizeView(getColumnHeader(), getViewport(), SwingConstants.HORIZONTAL);
+			UIUtil.synchronizeView(getColumnHeader(), getViewport(), SwingConstants.HORIZONTAL);
 		}
 	}
 
@@ -388,12 +388,12 @@ public class JideScrollPane extends JScrollPane implements JideScrollPaneConstan
 		repaint();
 
 		if (old != null) {
-			JideSwingUtilities.unsynchronizeView(old, getViewport());
-			JideSwingUtilities.unsynchronizeView(getViewport(), old);
+			UIUtil.unsynchronizeView(old, getViewport());
+			UIUtil.unsynchronizeView(getViewport(), old);
 		}
 		if (_subColumnHeader != null) {
-			JideSwingUtilities.synchronizeView(_subColumnHeader, getViewport(), SwingConstants.HORIZONTAL);
-			JideSwingUtilities.synchronizeView(getViewport(), _subColumnHeader, SwingConstants.HORIZONTAL);
+			UIUtil.synchronizeView(_subColumnHeader, getViewport(), SwingConstants.HORIZONTAL);
+			UIUtil.synchronizeView(getViewport(), _subColumnHeader, SwingConstants.HORIZONTAL);
 		}
 	}
 

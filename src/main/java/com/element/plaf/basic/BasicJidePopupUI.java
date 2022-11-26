@@ -8,8 +8,8 @@ package com.element.plaf.basic;
 
 import com.element.plaf.PopupUI;
 import com.element.plaf.UIDefaultsLookup;
-import com.element.ui.popup.JidePopup;
 import com.element.ui.base.Gripper;
+import com.element.ui.popup.JidePopup;
 
 import javax.swing.*;
 import javax.swing.plaf.ActionMapUIResource;

@@ -5,8 +5,6 @@
  */
 package com.element.plaf;
 
-import com.element.util.SystemInfo;
-
 import java.awt.*;
 
 /**

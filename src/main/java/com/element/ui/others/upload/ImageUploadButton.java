@@ -1,7 +1,7 @@
 package com.element.ui.others.upload;
 
-import com.element.ui.button.SimpleIconButton;
 import com.element.radiance.common.api.icon.RadianceIcon;
+import com.element.ui.button.SimpleIconButton;
 import com.element.ui.svg.upload.UploadImageSvg;
 
 import javax.imageio.ImageIO;

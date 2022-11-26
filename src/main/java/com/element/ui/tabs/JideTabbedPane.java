@@ -5,18 +5,17 @@
  */
 package com.element.ui.tabs;
 
-import com.element.plaf.basic.Resource;
 import com.element.plaf.JideTabbedPaneUI;
 import com.element.plaf.LookAndFeelFactory;
 import com.element.plaf.UIDefaultsLookup;
 import com.element.plaf.basic.BasicJideTabbedPaneUI;
+import com.element.plaf.basic.Resource;
 import com.element.swing.Sticky;
 import com.element.swing.StringConverter;
 import com.element.ui.popup.JidePopup;
 import com.element.util.JideFocusTracker;
-import com.element.util.JideSwingUtilities;
 import com.element.util.PortingUtils;
-import com.element.util.SystemInfo;
+import com.element.util.UIUtil;
 
 import javax.swing.*;
 import javax.swing.plaf.TabbedPaneUI;
@@ -571,7 +570,7 @@ public class JideTabbedPane extends JTabbedPane {
 		// we will not let UI to auto request focus so we will have to do it here.
 		// if the selected component has focus, we will request it after the tab is moved.
 		if (selectedComponent != null) {
-			if (JideSwingUtilities.isAncestorOfFocusOwner(selectedComponent) && isAutoFocusOnTabHideClose()) {
+			if (UIUtil.isAncestorOfFocusOwner(selectedComponent) && isAutoFocusOnTabHideClose()) {
 				shouldChangeFocus = true;
 			}
 		}
@@ -662,7 +661,7 @@ public class JideTabbedPane extends JTabbedPane {
                 return false;
             }
             Component comp = nearestRoot.getFocusTraversalPolicy().getComponentAfter(nearestRoot, this);
-            return comp != null && comp.requestFocusInWindow() || JideSwingUtilities.compositeRequestFocus(visibleComponent);
+            return comp != null && comp.requestFocusInWindow() || UIUtil.compositeRequestFocus(visibleComponent);
         }
 */
 	}
@@ -1731,7 +1730,7 @@ public class JideTabbedPane extends JTabbedPane {
 	 * @return true if the JideTabbedPane has the focus component. Otherwise false.
 	 */
 	public boolean hasFocusComponent() {
-		return JideSwingUtilities.isAncestorOfFocusOwner(this);
+		return UIUtil.isAncestorOfFocusOwner(this);
 	}
 
 	public Insets getContentBorderInsets() {
@@ -2206,7 +2205,7 @@ public class JideTabbedPane extends JTabbedPane {
 	private void componentSelected(JList list) {
 		int tabIndex = list.getSelectedIndex();
 		if (tabIndex != -1 && isEnabledAt(tabIndex)) {
-			if (tabIndex == getSelectedIndex() && JideSwingUtilities.isAncestorOfFocusOwner(this)) {
+			if (tabIndex == getSelectedIndex() && UIUtil.isAncestorOfFocusOwner(this)) {
 				if (isAutoFocusOnTabHideClose() && isRequestFocusEnabled()) {
 					Runnable runnable = this::requestFocus;
 					SwingUtilities.invokeLater(runnable);
@@ -2214,36 +2213,36 @@ public class JideTabbedPane extends JTabbedPane {
 			} else {
 				setSelectedIndex(tabIndex);
 				final Component comp = getComponentAt(tabIndex);
-					final Component lastFocused = getLastFocusedComponent(comp);
-					if (lastFocused != null) {
-						Runnable runnable = lastFocused::requestFocus;
-						SwingUtilities.invokeLater(runnable);
+				final Component lastFocused = getLastFocusedComponent(comp);
+				if (lastFocused != null) {
+					Runnable runnable = lastFocused::requestFocus;
+					SwingUtilities.invokeLater(runnable);
+				} else {
+					Container container;
+					if (comp instanceof Container) {
+						container = (Container) comp;
 					} else {
-						Container container;
-						if (comp instanceof Container) {
-							container = (Container) comp;
-						} else {
-							container = comp.getFocusCycleRootAncestor();
-						}
-						FocusTraversalPolicy traversalPolicy = container.getFocusTraversalPolicy();
-						Component focusComponent;
-						if (traversalPolicy != null) {
-							focusComponent = traversalPolicy.getDefaultComponent(container);
-							if (focusComponent == null) {
-								focusComponent = traversalPolicy.getFirstComponent(container);
-							}
-						} else if (comp instanceof Container) {
-							// not sure if it is correct
-							focusComponent = findFocusableComponent((Container) comp);
-						} else {
-							focusComponent = comp;
-						}
-						if (focusComponent != null) {
-							final Component theComponent = focusComponent;
-							Runnable runnable = theComponent::requestFocus;
-							SwingUtilities.invokeLater(runnable);
-						}
+						container = comp.getFocusCycleRootAncestor();
 					}
+					FocusTraversalPolicy traversalPolicy = container.getFocusTraversalPolicy();
+					Component focusComponent;
+					if (traversalPolicy != null) {
+						focusComponent = traversalPolicy.getDefaultComponent(container);
+						if (focusComponent == null) {
+							focusComponent = traversalPolicy.getFirstComponent(container);
+						}
+					} else if (comp instanceof Container) {
+						// not sure if it is correct
+						focusComponent = findFocusableComponent((Container) comp);
+					} else {
+						focusComponent = comp;
+					}
+					if (focusComponent != null) {
+						final Component theComponent = focusComponent;
+						Runnable runnable = theComponent::requestFocus;
+						SwingUtilities.invokeLater(runnable);
+					}
+				}
 
 			}
 			if (getUI() instanceof BasicJideTabbedPaneUI) {

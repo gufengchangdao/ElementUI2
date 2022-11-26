@@ -7,11 +7,6 @@
 package com.element.plaf.metro;
 
 import com.element.color.ColorUtil;
-import com.element.ui.icons.IconsFactory;
-import com.element.ui.icons.MenuCheckIcon;
-import com.element.plaf.office2003.Office2003WindowsUtils;
-import com.element.plaf.office2007.Office2007Painter;
-import com.element.plaf.vsnet.VsnetWindowsUtils;
 import com.element.plaf.ExtWindowsDesktopProperty;
 import com.element.plaf.LookAndFeelFactory;
 import com.element.plaf.UIDefaultsLookup;
@@ -19,7 +14,12 @@ import com.element.plaf.WindowsDesktopProperty;
 import com.element.plaf.basic.BasicPainter;
 import com.element.plaf.basic.Painter;
 import com.element.plaf.basic.ThemePainter;
-import com.element.util.JideSwingUtilities;
+import com.element.plaf.office2003.Office2003WindowsUtils;
+import com.element.plaf.office2007.Office2007Painter;
+import com.element.plaf.vsnet.VsnetWindowsUtils;
+import com.element.ui.font.FontUtil;
+import com.element.ui.icons.IconsFactory;
+import com.element.ui.icons.MenuCheckIcon;
 import com.element.ui.tabs.JideTabbedPane;
 
 import javax.swing.*;
@@ -79,8 +79,8 @@ public class MetroWindowsUtils extends VsnetWindowsUtils {
 
 		Color defaultFormBackground = new ColorUIResource(0xBFDBFF);
 
-		Object toolbarFont = JideSwingUtilities.getMenuFont(toolkit, table);
-		Object boldFont = JideSwingUtilities.getBoldFont(toolkit, table);
+		Object toolbarFont = FontUtil.getMenuFont(toolkit, table);
+		Object boldFont = FontUtil.getBoldFont(toolkit, table);
 
 		Painter gripperPainter = (c, g, rect, orientation, state) -> {
 			Object p = UIDefaultsLookup.get("Theme.painter");

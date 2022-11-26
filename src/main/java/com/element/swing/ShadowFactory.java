@@ -267,8 +267,8 @@ public class ShadowFactory implements ShadowRenderer {
 		}
 
 		changeSupport.firePropertyChange(SIZE_CHANGED_PROPERTY,
-				(Integer)oldSize,
-				(Integer)this.size);
+				(Integer) oldSize,
+				(Integer) this.size);
 	}
 
 	/**

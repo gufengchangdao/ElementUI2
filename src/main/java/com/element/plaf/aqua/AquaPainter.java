@@ -5,11 +5,11 @@
  */
 package com.element.plaf.aqua;
 
-import com.element.ui.icons.IconsFactory;
+import com.element.plaf.UIDefaultsLookup;
 import com.element.plaf.basic.BasicPainter;
 import com.element.plaf.basic.ThemePainter;
-import com.element.plaf.UIDefaultsLookup;
-import com.element.util.JideSwingUtilities;
+import com.element.ui.icons.IconsFactory;
+import com.element.util.UIUtil;
 
 import javax.swing.*;
 import java.awt.*;
@@ -67,7 +67,7 @@ public class AquaPainter extends BasicPainter {
 	}
 
 	private void paintImageBorder(Graphics g, Rectangle rect, ImageIcon icon, Color background) {
-		JideSwingUtilities.drawImageBorder(g, icon, rect, new Insets(3, 3, 3, 3), false);
+		UIUtil.drawImageBorder(g, icon, rect, new Insets(3, 3, 3, 3), false);
 
 		if (background != null) {
 			Color oldColor = g.getColor();
@@ -141,7 +141,7 @@ public class AquaPainter extends BasicPainter {
 	private void drawFrameTitleBackground(Graphics2D g, int x, int y, int w, int h, boolean active, boolean c, boolean d) {
 		Color topColor = active ? ACTIVE_TOP_GRADIENT_COLOR : INACTIVE_TOP_GRADIENT_COLOR;
 		Color bottomColor = active ? ACTIVE_BOTTOM_GRADIENT_COLOR : INACTIVE_BOTTOM_GRADIENT_COLOR;
-		JideSwingUtilities.fillGradient(g, new Rectangle(x, y, w, h), topColor, bottomColor, true);
+		UIUtil.fillGradient(g, new Rectangle(x, y, w, h), topColor, bottomColor, true);
 	}
 }
 

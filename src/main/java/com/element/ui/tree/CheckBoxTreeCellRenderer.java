@@ -6,8 +6,8 @@
 
 package com.element.ui.tree;
 
-import com.element.ui.nullc.NullTristateCheckBox;
 import com.element.ui.checkbox.TristateCheckBox;
+import com.element.ui.nullc.NullTristateCheckBox;
 
 import javax.swing.*;
 import javax.swing.border.Border;

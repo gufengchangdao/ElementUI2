@@ -7,15 +7,14 @@
 package com.element.plaf.metro;
 
 import com.element.color.ColorUtil;
-import com.element.ui.icons.IconsFactory;
 import com.element.plaf.UIDefaultsLookup;
 import com.element.plaf.basic.BasicJideButtonUI;
 import com.element.plaf.basic.BasicPainter;
-import com.element.plaf.basic.ThemePainter;
 import com.element.plaf.basic.ComponentStateSupport;
+import com.element.plaf.basic.ThemePainter;
 import com.element.ui.button.JideSplitButton;
-import com.element.util.JideSwingUtilities;
-import com.element.util.SystemInfo;
+import com.element.ui.icons.IconsFactory;
+import com.element.util.UIUtil;
 
 import javax.swing.*;
 import javax.swing.plaf.ColorUIResource;
@@ -109,7 +108,7 @@ public class MetroPainter extends BasicPainter {
 			}
 		} else if (state == STATE_ROLLOVER) {
 			if (h != 0) {
-				Paint lgp = JideSwingUtilities.getLinearGradientPaint(x, y, x, y + h,
+				Paint lgp = new LinearGradientPaint(x, y, x, y + h,
 						new float[]{.0f, .5f, 1f},
 						new Color[]{new Color(0xd8ca96), new Color(0xb9a074), new Color(0xb8a98e)});
 				gfx.setPaint(lgp);
@@ -120,7 +119,7 @@ public class MetroPainter extends BasicPainter {
 			gfx.setPaint(new GradientPaint(x, y + h, new Color(0xbbae97), x + (w >> 1), y + h, new Color(0xcbc3aa), true));
 			gfx.drawLine(x + 1, y + h - 1, x + w - 2, y + h - 1);
 			if (h - 1 != 0) {
-				gfx.setPaint(JideSwingUtilities.getLinearGradientPaint(x + w - 1, y, x + w - 1, y + h - 1,
+				gfx.setPaint(new LinearGradientPaint(x + w - 1, y, x + w - 1, y + h - 1,
 						new float[]{.0f, .5f, 1f},
 						new Color[]{new Color(0xdcce9a), new Color(0xc3ab7a), new Color(0xd2ceb9)}));
 			}
@@ -218,7 +217,7 @@ public class MetroPainter extends BasicPainter {
 		} else if (state == STATE_ROLLOVER) {
 			if (c.getClientProperty(IS_MENU_PART_BUTTON) == Boolean.TRUE) {
 				if (1 != height - 2) {
-					g2d.setPaint(JideSwingUtilities.getLinearGradientPaint(x + 1, y + 1, x + 1, y + height - 2,
+					g2d.setPaint(new LinearGradientPaint(x + 1, y + 1, x + 1, y + height - 2,
 							new float[]{0f, .5f, .51f, 1f},
 							new Color[]{new Color(0xfffee2), new Color(0xffdc73), new Color(0xffd660), new Color(0xffeaa8)}));
 				}
@@ -230,12 +229,12 @@ public class MetroPainter extends BasicPainter {
 				g2d.setPaint(new GradientPaint(x, y, new Color(0xfff792), x + width >> 1, y, new Color(0xFFFFFF), true));
 				g2d.drawLine(x, y + height - 2, x + width, y + height - 2);
 				if (2 != height - 4) {
-					g2d.setPaint(JideSwingUtilities.getLinearGradientPaint(x + 2, y + 2, x + 2, y + height - 4,
+					g2d.setPaint(new LinearGradientPaint(x + 2, y + 2, x + 2, y + height - 4,
 							new float[]{0f, .36f, .37f, .38f, 1f},
 							new Color[]{new Color(0xfffddf), new Color(0xffe794), new Color(0xfed160), new Color(0xfecd58), new Color(0xffe794)}));
 				}
 				g2d.fillRect(x + 2, y + 2, width - 4, height - 4);
-//                g2d.setPaint(JideSwingUtilities.getRadialGradientPaint(x + width >> 1, y + height - 4, (int) (height * .53f),
+//                g2d.setPaint(UIUtil.getRadialGradientPaint(x + width >> 1, y + height - 4, (int) (height * .53f),
 //                        new float[]{0f, 1f},
 //                        new Color[]{new Color(0xFFFFFFFF, true), new Color(0x00FFFFFF, true)}));
 //                Composite oldComp = g2d.getComposite();
@@ -260,7 +259,7 @@ public class MetroPainter extends BasicPainter {
 			paintShadowedButtonBackground(g2d, rect, baseColors, innerBackgroundColors);
 		} else if (state == STATE_DEFAULT) {
 			if (1 != height - 2) {
-				g2d.setPaint(JideSwingUtilities.getLinearGradientPaint(x + 1, y + 1, x + 1, y + height - 2,
+				g2d.setPaint(new LinearGradientPaint(x + 1, y + 1, x + 1, y + height - 2,
 						new float[]{0f, .5f, .51f, 1f},
 						new Color[]{new Color(0xe8f1fc), new Color(0xe8f1fc), new Color(0xd2e1f4), new Color(0xebf3fd)}));
 			}
@@ -285,7 +284,7 @@ public class MetroPainter extends BasicPainter {
 
 		// base background
 		if (1 != height - 2) {
-			gfx.setPaint(JideSwingUtilities.getLinearGradientPaint(x + 1, y + 1, x + width - 2, y + height - 2,
+			gfx.setPaint(new LinearGradientPaint(x + 1, y + 1, x + width - 2, y + height - 2,
 					new float[]{0f, .6f, .61f, 1f},
 					baseColors));
 		}
@@ -296,7 +295,7 @@ public class MetroPainter extends BasicPainter {
 		base.subtract(new Area(new Rectangle(x + 2, y + height - 3, 1, 1)));
 		base.subtract(new Area(new Rectangle(x + width - 3, y + height - 3, 1, 1)));
 		if (2 != height - 4) {
-			gfx.setPaint(JideSwingUtilities.getLinearGradientPaint(x + 2, y + 2, x + 2, y + height - 4,
+			gfx.setPaint(new LinearGradientPaint(x + 2, y + 2, x + 2, y + height - 4,
 					new float[]{.39f, .4f, 1f},
 					innerBackgroundColors));
 		}
@@ -305,7 +304,7 @@ public class MetroPainter extends BasicPainter {
 		// highlight
 //        int h = (int) (height * .53f);
 //        if (h > 0) {
-//            gfx.setPaint(JideSwingUtilities.getRadialGradientPaint(x + width >> 1, y + height - 4, h,
+//            gfx.setPaint(UIUtil.getRadialGradientPaint(x + width >> 1, y + height - 4, h,
 //                    new float[]{0f, 1f},
 //                    new Color[]{new Color(0xFFFFFFFF, true), new Color(0x00FFFFFF, true)}));
 //        }
@@ -381,7 +380,7 @@ public class MetroPainter extends BasicPainter {
 		if (c.getClientProperty(IS_MENU_PART_BUTTON) == Boolean.TRUE) {
 			paintButtonBackground(c, g, rect, orientation, state, showBorder);
 		} else {
-			JideSwingUtilities.drawImageBorder(g, IconsFactory.getImageIcon(MetroPainter.class, "icons/menu_item_bg.png"), rect, new Insets(2, 2, 2, 2), true);
+			UIUtil.drawImageBorder(g, IconsFactory.getImageIcon(MetroPainter.class, "icons/menu_item_bg.png"), rect, new Insets(2, 2, 2, 2), true);
 		}
 	}
 
@@ -433,7 +432,7 @@ public class MetroPainter extends BasicPainter {
 			colors[i] = ColorUtil.getDerivedColor(color, .48f);
 		}
 		if (height != 0) {
-			g2d.setPaint(JideSwingUtilities.getLinearGradientPaint(x, y, x, y + height,
+			g2d.setPaint(new LinearGradientPaint(x, y, x, y + height,
 					new float[]{0f, .5f, .51f, 1f},
 					colors));
 		}
@@ -628,9 +627,9 @@ public class MetroPainter extends BasicPainter {
 					Color color = colors[i];
 					newColors[i] = ColorUtil.getDerivedColor(color, 0.60f);
 				}
-				g2d.setPaint(JideSwingUtilities.getLinearGradientPaint(x, y, x + w, y, new float[]{0f, .5f, 1f}, newColors));
+				g2d.setPaint(new LinearGradientPaint(x, y, x + w, y, new float[]{0f, .5f, 1f}, newColors));
 			} else {
-				g2d.setPaint(JideSwingUtilities.getLinearGradientPaint(x, y, x + w, y, new float[]{0f, .5f, 1f}, colors));
+				g2d.setPaint(new LinearGradientPaint(x, y, x + w, y, new float[]{0f, .5f, 1f}, colors));
 			}
 			g2d.fillRect(x, y, w, h);
 			g2d.dispose();
@@ -649,13 +648,13 @@ public class MetroPainter extends BasicPainter {
 		}
 		Graphics2D g2d = (Graphics2D) g;
 		if (!(c.getBackground() instanceof UIResource)) {
-			JideSwingUtilities.fillGradient(g2d,
+			UIUtil.fillGradient(g2d,
 					new Rectangle(rect.x, rect.y, rect.width, rect.height),
 					c.getBackground(),
 					ColorUtil.getDerivedColor(c.getBackground(), 0.6f),
 					orientation == SwingConstants.HORIZONTAL);
 		} else {
-			JideSwingUtilities.fillGradient(g2d,
+			UIUtil.fillGradient(g2d,
 					new Rectangle(rect.x, rect.y, rect.width, rect.height),
 					UIDefaultsLookup.getColor("CollapsiblePanes.backgroundLt"),
 					UIDefaultsLookup.getColor("CollapsiblePanes.backgroundDk"),
@@ -763,15 +762,15 @@ public class MetroPainter extends BasicPainter {
 		Graphics2D g2d = (Graphics2D) g.create();
 		if (orientation == SwingConstants.HORIZONTAL) {
 			int topHeight = rect.height / 3;
-			JideSwingUtilities.fillGradient((Graphics2D) g, new Rectangle(rect.x, rect.y, rect.width, topHeight), ColorUtil.getDerivedColor(color, 0.74f),
+			UIUtil.fillGradient((Graphics2D) g, new Rectangle(rect.x, rect.y, rect.width, topHeight), ColorUtil.getDerivedColor(color, 0.74f),
 					ColorUtil.getDerivedColor(color, 0.64f), true);
-			JideSwingUtilities.fillGradient((Graphics2D) g, new Rectangle(rect.x, rect.y + topHeight, rect.width, rect.height - topHeight), color,
+			UIUtil.fillGradient((Graphics2D) g, new Rectangle(rect.x, rect.y + topHeight, rect.width, rect.height - topHeight), color,
 					ColorUtil.getDerivedColor(color, 0.64f), true);
 		} else {
 			int leftWidth = rect.width / 3;
-			JideSwingUtilities.fillGradient((Graphics2D) g, new Rectangle(rect.x, rect.y, leftWidth, rect.height), ColorUtil.getDerivedColor(color, 0.74f),
+			UIUtil.fillGradient((Graphics2D) g, new Rectangle(rect.x, rect.y, leftWidth, rect.height), ColorUtil.getDerivedColor(color, 0.74f),
 					ColorUtil.getDerivedColor(color, 0.64f), false);
-			JideSwingUtilities.fillGradient((Graphics2D) g, new Rectangle(rect.x + leftWidth, rect.y, rect.width - leftWidth, rect.height), color,
+			UIUtil.fillGradient((Graphics2D) g, new Rectangle(rect.x + leftWidth, rect.y, rect.width - leftWidth, rect.height), color,
 					ColorUtil.getDerivedColor(color, 0.64f), false);
 		}
 		g2d.dispose();

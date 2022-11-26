@@ -8,7 +8,6 @@
 package com.element.ui.pane;
 
 import com.element.ui.layout.JideBoxLayout;
-import com.element.util.SystemInfo;
 
 import javax.swing.*;
 import java.awt.*;
@@ -210,11 +209,11 @@ public class JideSplitPaneLayout extends JideBoxLayout {
 			}
 		}
 
-			if (_target instanceof JideSplitPane) {
-				((JideSplitPane) _target).firePropertyChange(JideSplitPane.PROPERTY_DIVIDER_LOCATION, oldLocation, location);
-			} else {
-				_target.firePropertyChange(JideSplitPane.PROPERTY_DIVIDER_LOCATION, oldLocation, location);
-			}
+		if (_target instanceof JideSplitPane) {
+			((JideSplitPane) _target).firePropertyChange(JideSplitPane.PROPERTY_DIVIDER_LOCATION, oldLocation, location);
+		} else {
+			_target.firePropertyChange(JideSplitPane.PROPERTY_DIVIDER_LOCATION, oldLocation, location);
+		}
 		((JideSplitPane) _target).revalidate();
 
 		if (((JideSplitPane) _target).isProportionalLayout()) {

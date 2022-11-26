@@ -8,8 +8,8 @@ package com.element.plaf.metal;
 
 import com.element.plaf.UIDefaultsLookup;
 import com.element.plaf.basic.ThemePainter;
-import com.element.util.JideSwingUtilities;
 import com.element.ui.menu.TopLevelMenuContainer;
+import com.element.util.UIUtil;
 
 import javax.swing.*;
 import javax.swing.event.*;
@@ -492,7 +492,7 @@ public class MetalMenuItemUI extends MenuItemUI {
 	    System.out.println("returning pref.width: " + r.width);
 	    System.out.println("Current getSize: " + b.getSize() + "\n");
         }*/
-		if (JideSwingUtilities.getOrientationOf(menuItem) == SwingConstants.HORIZONTAL) {
+		if (UIUtil.getOrientationOf(menuItem) == SwingConstants.HORIZONTAL) {
 			return r.getSize();
 		} else {
 			return new Dimension(r.height, r.width);
@@ -526,7 +526,7 @@ public class MetalMenuItemUI extends MenuItemUI {
 		int menuWidth = 0;
 		int menuHeight = 0;
 
-		if (JideSwingUtilities.getOrientationOf(menuItem) == SwingConstants.HORIZONTAL) {
+		if (UIUtil.getOrientationOf(menuItem) == SwingConstants.HORIZONTAL) {
 			//   Dimension size = b.getSize();
 			menuWidth = b.getWidth();
 			menuHeight = b.getHeight();
@@ -654,16 +654,16 @@ public class MetalMenuItemUI extends MenuItemUI {
 				// *** paint the acceleratorText disabled
 				if (disabledForeground != null) {
 					g.setColor(disabledForeground);
-					JideSwingUtilities.drawString(menuItem, g, acceleratorText,
+					UIUtil.drawString(g, acceleratorText,
 							acceleratorRect.x - accOffset,
 							acceleratorRect.y + fmAccel.getAscent());
 				} else {
 					g.setColor(b.getBackground().brighter());
-					JideSwingUtilities.drawString(menuItem, g, acceleratorText,
+					UIUtil.drawString(g, acceleratorText,
 							acceleratorRect.x - accOffset,
 							acceleratorRect.y + fmAccel.getAscent());
 					g.setColor(b.getBackground().darker());
-					JideSwingUtilities.drawString(menuItem, g, acceleratorText,
+					UIUtil.drawString(g, acceleratorText,
 							acceleratorRect.x - accOffset - 1,
 							acceleratorRect.y + fmAccel.getAscent() - 1);
 				}
@@ -674,7 +674,7 @@ public class MetalMenuItemUI extends MenuItemUI {
 				} else {
 					g.setColor(acceleratorForeground);
 				}
-				JideSwingUtilities.drawString(menuItem, g, acceleratorText,
+				UIUtil.drawString(g, acceleratorText,
 						acceleratorRect.x - accOffset,
 						acceleratorRect.y + fmAccel.getAscent());
 			}
@@ -751,16 +751,16 @@ public class MetalMenuItemUI extends MenuItemUI {
 			// *** paint the text disabled
 			if (UIDefaultsLookup.get("MenuItem.disabledForeground") instanceof Color) {
 				g.setColor(UIDefaultsLookup.getColor("MenuItem.disabledForeground"));
-				JideSwingUtilities.drawStringUnderlineCharAt(menuItem, g, text, mnemIndex,
+				UIUtil.drawStringUnderlineCharAt(menuItem, g, text, mnemIndex,
 						textRect.x,
 						textRect.y + fm.getAscent());
 			} else {
 				g.setColor(menuItem.getBackground().brighter());
-				JideSwingUtilities.drawStringUnderlineCharAt(menuItem, g, text, mnemIndex,
+				UIUtil.drawStringUnderlineCharAt(menuItem, g, text, mnemIndex,
 						textRect.x,
 						textRect.y + fm.getAscent());
 				g.setColor(menuItem.getBackground().darker());
-				JideSwingUtilities.drawStringUnderlineCharAt(menuItem, g, text, mnemIndex,
+				UIUtil.drawStringUnderlineCharAt(menuItem, g, text, mnemIndex,
 						textRect.x - 1,
 						textRect.y + fm.getAscent() - 1);
 			}
@@ -769,7 +769,7 @@ public class MetalMenuItemUI extends MenuItemUI {
 			if (model.isArmed() || (menuItem instanceof JMenu && model.isSelected())) {
 				g.setColor(selectionForeground); // Uses protected field.
 			}
-			JideSwingUtilities.drawStringUnderlineCharAt(menuItem, g, text, mnemIndex,
+			UIUtil.drawStringUnderlineCharAt(menuItem, g, text, mnemIndex,
 					textRect.x,
 					textRect.y + fm.getAscent());
 		}

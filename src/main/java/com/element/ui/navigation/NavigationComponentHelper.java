@@ -7,7 +7,7 @@
 package com.element.ui.navigation;
 
 import com.element.color.ColorUtil;
-import com.element.util.JideSwingUtilities;
+import com.element.util.UIUtil;
 
 import javax.swing.*;
 import javax.swing.event.MouseInputAdapter;
@@ -148,7 +148,7 @@ abstract public class NavigationComponentHelper {
 
 	@SuppressWarnings({"UnusedParameters"})
 	private void paintRow(Graphics g, int row, Rectangle bounds, Color color, int a1, int a2, int a3, int a4) {
-		Object o = JideSwingUtilities.setupShapeAntialiasing(g);
+		Object o = UIUtil.setupShapeAntialiasing(g);
 		((Graphics2D) g).setPaint(new LinearGradientPaint(bounds.x, bounds.y, bounds.x, bounds.y + bounds.height, new float[]{0.5f, 0.95f, 1f}, new Color[]{
 				new Color(color.getRed(), color.getGreen(), color.getBlue(), a1),
 				new Color(color.getRed(), color.getGreen(), color.getBlue(), a2),
@@ -158,7 +158,7 @@ abstract public class NavigationComponentHelper {
 		g.fillRoundRect(bounds.x, bounds.y, bounds.width, bounds.height, cornerSize, cornerSize);
 		g.setColor(new Color(color.getRed(), color.getGreen(), color.getBlue(), a4));
 		g.drawRoundRect(bounds.x, bounds.y, bounds.width, bounds.height, cornerSize, cornerSize);
-		JideSwingUtilities.restoreShapeAntialiasing(g, o);
+		UIUtil.restoreShapeAntialiasing(g, o);
 	}
 
 	public void setup(final JComponent c) {

@@ -15,6 +15,7 @@ import java.util.Date;
 
 /**
  * A global object that can register comparator with a type and a ComparatorContext.
+ *
  * @deprecated 暂时没有使用的理由
  */
 public class ObjectComparatorManager {

@@ -5,8 +5,8 @@
  */
 package com.element.ui.tree;
 
-import com.element.util.JideSwingUtilities;
 import com.element.ui.checkbox.TristateCheckBox;
+import com.element.util.UIUtil;
 
 import javax.swing.*;
 import javax.swing.event.TreeSelectionEvent;
@@ -93,7 +93,7 @@ public class CheckBoxTree extends JTree {
 		_checkBoxTreeSelectionModel = createCheckBoxTreeSelectionModel(getModel());
 		_checkBoxTreeSelectionModel.setTree(this);
 		Handler handler = createHandler();
-		JideSwingUtilities.insertMouseListener(this, handler, 0);
+		UIUtil.insertMouseListener(this, handler, 0);
 		addKeyListener(handler);
 		_checkBoxTreeSelectionModel.addTreeSelectionListener(handler);
 

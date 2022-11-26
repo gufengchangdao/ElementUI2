@@ -1,6 +1,6 @@
 package com.element.ui.list;
 
-import com.element.util.JideSwingUtilities;
+import com.element.util.UIUtil;
 
 import javax.swing.*;
 import javax.swing.event.ListDataEvent;
@@ -55,7 +55,7 @@ public class CheckBoxListSelectionModel extends DefaultListSelectionModel implem
 		}
 		int size = getModel().getSize();
 		for (int i = 0; i < size; i++) {
-			if (JideSwingUtilities.equals(getModel().getElementAt(i), CheckBoxList.ALL_ENTRY)) {
+			if (UIUtil.equals(getModel().getElementAt(i), CheckBoxList.ALL_ENTRY)) {
 				return i;
 			}
 		}

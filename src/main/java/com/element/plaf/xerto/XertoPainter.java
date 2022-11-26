@@ -5,11 +5,11 @@
  */
 package com.element.plaf.xerto;
 
-import com.element.ui.icons.IconsFactory;
 import com.element.plaf.UIDefaultsLookup;
 import com.element.plaf.basic.BasicPainter;
 import com.element.plaf.basic.ThemePainter;
-import com.element.util.JideSwingUtilities;
+import com.element.ui.icons.IconsFactory;
+import com.element.util.UIUtil;
 
 import javax.swing.*;
 import java.awt.*;
@@ -40,7 +40,7 @@ public class XertoPainter extends BasicPainter {
 	}
 
 //    public void paintContentBackground(JComponent c, Graphics g, Rectangle rect, int orientation, int state) {
-//        JideSwingUtilities.fillGradient((Graphics2D) g, rect,
+//        UIUtil.fillGradient((Graphics2D) g, rect,
 //                XertoUtils.getMidControlColor(), XertoUtils.getControlColor(), false);
 //    }
 //
@@ -50,7 +50,7 @@ public class XertoPainter extends BasicPainter {
 		Graphics2D g2d = (Graphics2D) g;
 		Color gradientBot = XertoUtils.getHighlightColor(c.getBackground());
 		Color gradientTop = XertoUtils.getLighterColor(c.getBackground());
-		JideSwingUtilities.fillGradient(g2d, rect, gradientTop, gradientBot, true);
+		UIUtil.fillGradient(g2d, rect, gradientTop, gradientBot, true);
 	}
 
 	@Override
@@ -58,7 +58,7 @@ public class XertoPainter extends BasicPainter {
 		Graphics2D g2d = (Graphics2D) g;
 		Color gradientBot = XertoUtils.getEmBaseColor(c.getBackground());
 		Color gradientTop = c.getBackground();
-		JideSwingUtilities.fillGradient(g2d, rect, gradientTop, gradientBot, true);
+		UIUtil.fillGradient(g2d, rect, gradientTop, gradientBot, true);
 	}
 
 	@Override
@@ -80,7 +80,7 @@ public class XertoPainter extends BasicPainter {
 	}
 
 	private void paintImageBorder(Graphics g, Rectangle rect, ImageIcon icon, ImageIcon center, Color background) {
-		JideSwingUtilities.drawImageBorder(g, icon, rect, new Insets(4, 4, 4, 4), false);
+		UIUtil.drawImageBorder(g, icon, rect, new Insets(4, 4, 4, 4), false);
 
 		if (center == null) {
 			Color oldColor = g.getColor();
@@ -135,10 +135,10 @@ public class XertoPainter extends BasicPainter {
 	public void paintDockableFrameTitlePane(JComponent c, Graphics g, Rectangle rect, int orientation, int state) {
 		Graphics2D g2d = (Graphics2D) g;
 		if (ThemePainter.STATE_SELECTED == state) {
-			JideSwingUtilities.fillGradient(g2d, new Rectangle(rect.x, rect.y, rect.width, rect.height),
+			UIUtil.fillGradient(g2d, new Rectangle(rect.x, rect.y, rect.width, rect.height),
 					XertoUtils.getFrameActiveTitleTopColor(), XertoUtils.getFrameActiveTitleBottomColor(), orientation == SwingConstants.HORIZONTAL);
 		} else {
-			JideSwingUtilities.fillGradient(g2d, new Rectangle(rect.x, rect.y, rect.width, rect.height),
+			UIUtil.fillGradient(g2d, new Rectangle(rect.x, rect.y, rect.width, rect.height),
 					XertoUtils.getFrameInactiveTitleTopColor(), XertoUtils.getFrameInactiveTitleBottomColor(), orientation == SwingConstants.HORIZONTAL);
 		}
 	}

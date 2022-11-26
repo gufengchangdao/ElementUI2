@@ -5,21 +5,21 @@
  */
 package com.element.plaf.xerto;
 
-import com.element.ui.icons.IconsFactory;
-import com.element.ui.icons.JideIconsFactory;
-import com.element.ui.icons.MenuCheckIcon;
-import com.element.plaf.office2003.Office2003WindowsUtils;
-import com.element.plaf.vsnet.ResizeFrameBorder;
-import com.element.plaf.vsnet.VsnetLookAndFeelExtension;
-import com.element.plaf.windows.WindowsIconFactory;
 import com.element.plaf.ExtWindowsDesktopProperty;
 import com.element.plaf.LookAndFeelFactory;
 import com.element.plaf.UIDefaultsLookup;
 import com.element.plaf.WindowsDesktopProperty;
 import com.element.plaf.basic.Painter;
 import com.element.plaf.basic.ThemePainter;
+import com.element.plaf.office2003.Office2003WindowsUtils;
 import com.element.plaf.vsnet.HeaderCellBorder;
-import com.element.util.JideSwingUtilities;
+import com.element.plaf.vsnet.ResizeFrameBorder;
+import com.element.plaf.vsnet.VsnetLookAndFeelExtension;
+import com.element.plaf.windows.WindowsIconFactory;
+import com.element.ui.font.FontUtil;
+import com.element.ui.icons.IconsFactory;
+import com.element.ui.icons.JideIconsFactory;
+import com.element.ui.icons.MenuCheckIcon;
 import com.element.ui.tabs.JideTabbedPane;
 import com.element.util.SecurityUtils;
 
@@ -86,7 +86,7 @@ public class XertoWindowsUtils extends Office2003WindowsUtils {
 		WindowsDesktopProperty selectionBackgroundColor = new WindowsDesktopProperty("win.item.highlightColor", UIDefaultsLookup.get("controlShadow"), toolkit);
 		WindowsDesktopProperty menuTextColor = new WindowsDesktopProperty("win.menu.textColor", UIDefaultsLookup.get("control"), toolkit);
 
-		Object menuFont = JideSwingUtilities.getMenuFont(toolkit, table);
+		Object menuFont = FontUtil.getMenuFont(toolkit, table);
 
 		Object menuSelectionBackground = new ExtWindowsDesktopProperty(//Actual color 182, 189, 210
 				new String[]{"win.item.highlightColor"}, new Object[]{UIDefaultsLookup.get("controlShadow")}, toolkit, obj -> new ColorUIResource(XertoUtils.getMenuSelectionColor((Color) obj[0])));
@@ -193,9 +193,9 @@ public class XertoWindowsUtils extends Office2003WindowsUtils {
 
 		Object singleLineBorder = new ExtWindowsDesktopProperty(new String[]{"win.3d.shadowColor"}, new Object[]{UIDefaultsLookup.get("controlShadow")}, toolkit, obj -> new BorderUIResource(BorderFactory.createLineBorder((Color) obj[0])));
 
-		Object controlFont = JideSwingUtilities.getControlFont(toolkit, table);
-		Object toolbarFont = JideSwingUtilities.getMenuFont(toolkit, table);
-		Object boldFont = JideSwingUtilities.getBoldFont(toolkit, table);
+		Object controlFont = FontUtil.getControlFont(toolkit, table);
+		Object toolbarFont = FontUtil.getMenuFont(toolkit, table);
+		Object boldFont = FontUtil.getBoldFont(toolkit, table);
 
 		Object resizeBorder = new ExtWindowsDesktopProperty(new String[]{"win.3d.lightColor", "win.3d.highlightColor", "win.3d.shadowColor", "win.3d.darkShadowColor"},
 				new Object[]{UIDefaultsLookup.get("control"), UIDefaultsLookup.get("controlLtHighlight"), UIDefaultsLookup.get("controlShadow"), UIDefaultsLookup.get("controlDkShadow")}, toolkit, obj -> new XertoFrameBorder(new Insets(4, 4, 4, 4)));
@@ -410,35 +410,35 @@ public class XertoWindowsUtils extends Office2003WindowsUtils {
 
 			Object slidingEastFrameBorder = new ExtWindowsDesktopProperty(new String[]{"win.3d.lightColor", "win.3d.highlightColor", "win.3d.shadowColor", "win.3d.darkShadowColor"},
 					new Object[]{UIDefaultsLookup.get("control"), UIDefaultsLookup.get("controlLtHighlight"), UIDefaultsLookup.get("controlShadow"), UIDefaultsLookup.get("controlDkShadow")}, toolkit, obj -> new SlidingFrameBorder((Color) obj[0], (Color) obj[1], (Color) obj[2], (Color) obj[3],
-							new Insets(1, SlidingFrameBorder.SHADOW_SIZE + 5, 1, 0)));
+					new Insets(1, SlidingFrameBorder.SHADOW_SIZE + 5, 1, 0)));
 
 			Object slidingWestFrameBorder = new ExtWindowsDesktopProperty(new String[]{"win.3d.lightColor", "win.3d.highlightColor", "win.3d.shadowColor", "win.3d.darkShadowColor"},
 					new Object[]{UIDefaultsLookup.get("control"), UIDefaultsLookup.get("controlLtHighlight"), UIDefaultsLookup.get("controlShadow"), UIDefaultsLookup.get("controlDkShadow")}, toolkit, obj -> new SlidingFrameBorder((Color) obj[0], (Color) obj[1], (Color) obj[2], (Color) obj[3],
-							new Insets(1, 0, 1, SlidingFrameBorder.SHADOW_SIZE + 5)));
+					new Insets(1, 0, 1, SlidingFrameBorder.SHADOW_SIZE + 5)));
 
 			Object slidingNorthFrameBorder = new ExtWindowsDesktopProperty(new String[]{"win.3d.lightColor", "win.3d.highlightColor", "win.3d.shadowColor", "win.3d.darkShadowColor"},
 					new Object[]{UIDefaultsLookup.get("control"), UIDefaultsLookup.get("controlLtHighlight"), UIDefaultsLookup.get("controlShadow"), UIDefaultsLookup.get("controlDkShadow")}, toolkit, obj -> new SlidingFrameBorder((Color) obj[0], (Color) obj[1], (Color) obj[2], (Color) obj[3],
-							new Insets(0, 1, SlidingFrameBorder.SHADOW_SIZE + 5, 1)));
+					new Insets(0, 1, SlidingFrameBorder.SHADOW_SIZE + 5, 1)));
 
 			Object slidingSouthFrameBorder = new ExtWindowsDesktopProperty(new String[]{"win.3d.lightColor", "win.3d.highlightColor", "win.3d.shadowColor", "win.3d.darkShadowColor"},
 					new Object[]{UIDefaultsLookup.get("control"), UIDefaultsLookup.get("controlLtHighlight"), UIDefaultsLookup.get("controlShadow"), UIDefaultsLookup.get("controlDkShadow")}, toolkit, obj -> new SlidingFrameBorder((Color) obj[0], (Color) obj[1], (Color) obj[2], (Color) obj[3],
-							new Insets(SlidingFrameBorder.SHADOW_SIZE + 5, 1, 0, 1)));
+					new Insets(SlidingFrameBorder.SHADOW_SIZE + 5, 1, 0, 1)));
 
 			Object slidingEastFrameBorder2 = new ExtWindowsDesktopProperty(new String[]{"win.3d.lightColor", "win.3d.highlightColor", "win.3d.shadowColor", "win.3d.darkShadowColor"},
 					new Object[]{UIDefaultsLookup.get("control"), UIDefaultsLookup.get("controlLtHighlight"), UIDefaultsLookup.get("controlShadow"), UIDefaultsLookup.get("controlDkShadow")}, toolkit, obj -> new ResizeFrameBorder((Color) obj[0], (Color) obj[1], (Color) obj[2], (Color) obj[3],
-							new Insets(0, 4, 0, 0)));
+					new Insets(0, 4, 0, 0)));
 
 			Object slidingWestFrameBorder2 = new ExtWindowsDesktopProperty(new String[]{"win.3d.lightColor", "win.3d.highlightColor", "win.3d.shadowColor", "win.3d.darkShadowColor"},
 					new Object[]{UIDefaultsLookup.get("control"), UIDefaultsLookup.get("controlLtHighlight"), UIDefaultsLookup.get("controlShadow"), UIDefaultsLookup.get("controlDkShadow")}, toolkit, obj -> new ResizeFrameBorder((Color) obj[0], (Color) obj[1], (Color) obj[2], (Color) obj[3],
-							new Insets(0, 0, 0, 4)));
+					new Insets(0, 0, 0, 4)));
 
 			Object slidingNorthFrameBorder2 = new ExtWindowsDesktopProperty(new String[]{"win.3d.lightColor", "win.3d.highlightColor", "win.3d.shadowColor", "win.3d.darkShadowColor"},
 					new Object[]{UIDefaultsLookup.get("control"), UIDefaultsLookup.get("controlLtHighlight"), UIDefaultsLookup.get("controlShadow"), UIDefaultsLookup.get("controlDkShadow")}, toolkit, obj -> new ResizeFrameBorder((Color) obj[0], (Color) obj[1], (Color) obj[2], (Color) obj[3],
-							new Insets(0, 0, 4, 0)));
+					new Insets(0, 0, 4, 0)));
 
 			Object slidingSouthFrameBorder2 = new ExtWindowsDesktopProperty(new String[]{"win.3d.lightColor", "win.3d.highlightColor", "win.3d.shadowColor", "win.3d.darkShadowColor"},
 					new Object[]{UIDefaultsLookup.get("control"), UIDefaultsLookup.get("controlLtHighlight"), UIDefaultsLookup.get("controlShadow"), UIDefaultsLookup.get("controlDkShadow")}, toolkit, obj -> new ResizeFrameBorder((Color) obj[0], (Color) obj[1], (Color) obj[2], (Color) obj[3],
-							new Insets(4, 0, 0, 0)));
+					new Insets(4, 0, 0, 0)));
 
 			uiDefaults = new Object[]{
 					// dock

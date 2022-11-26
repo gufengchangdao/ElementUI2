@@ -1,11 +1,9 @@
 package com.element.util.handle;
 
-import com.element.util.JideSwingUtilities;
-
 import java.awt.*;
 
 /**
- * A simple handler used by {@link JideSwingUtilities#setRecursively}.
+ * A simple handler used by {@link com.element.util.UIUtil#setRecursively}.
  * <pre>
  *  if ( condition() ) {
  *      action();

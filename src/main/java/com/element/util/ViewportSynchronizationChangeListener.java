@@ -9,11 +9,11 @@ import java.awt.*;
 import java.util.HashMap;
 import java.util.Map;
 
-import static com.element.util.JideSwingUtilities.getViewportSynchronizationChangeListener;
+import static com.element.util.UIUtil.getViewportSynchronizationChangeListener;
 
 /**
  * 视口同步的监听器，用于从视口位置随主视口位置改变而改变。
- * 该类不适合外部调用，主从视口同步请调用{@link JideSwingUtilities#synchronizeView(JViewport, JViewport, int)}
+ * 该类不适合外部调用，主从视口同步请调用{@link UIUtil#synchronizeView(JViewport, JViewport, int)}
  */
 class ViewportSynchronizationChangeListener implements ChangeListener {
 	public void stateChanged(ChangeEvent e) {

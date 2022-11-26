@@ -6,15 +6,15 @@
 
 package com.element.plaf.metal;
 
-import com.element.ui.button.*;
-import com.element.ui.icons.IconsFactory;
-import com.element.plaf.basic.ComponentStateSupport;
 import com.element.plaf.UIDefaultsLookup;
+import com.element.plaf.basic.ComponentStateSupport;
 import com.element.plaf.basic.LazyActionMap;
 import com.element.plaf.basic.ThemePainter;
 import com.element.plaf.basic.UIAction;
-import com.element.util.JideSwingUtilities;
+import com.element.ui.button.*;
+import com.element.ui.icons.IconsFactory;
 import com.element.util.SecurityUtils;
+import com.element.util.UIUtil;
 
 import javax.swing.*;
 import javax.swing.event.MouseInputListener;
@@ -186,7 +186,7 @@ public class MetalJideSplitButtonUI extends MetalMenuUI {
 		ButtonModel model = menuItem.getModel();
 		int menuWidth;
 		int menuHeight;
-		int orientation = JideSwingUtilities.getOrientationOf(menuItem);
+		int orientation = UIUtil.getOrientationOf(menuItem);
 		if (orientation == SwingConstants.HORIZONTAL) {
 			menuWidth = menuItem.getWidth();
 			menuHeight = menuItem.getHeight();
@@ -212,16 +212,16 @@ public class MetalJideSplitButtonUI extends MetalMenuUI {
 				if (model.isArmed() || model.isPressed() || isMouseOver()) {
 					g.setColor(selectionForeground);
 					g.drawLine(menuWidth - _splitButtonMarginOnMenu, 0, menuWidth - _splitButtonMarginOnMenu, menuHeight - 2);
-					JideSwingUtilities.paintArrow(g, selectionForeground, menuWidth - _splitButtonMarginOnMenu / 2 - 2, menuHeight / 2 - 3, 7, SwingConstants.VERTICAL);
+					UIUtil.paintArrow(g, selectionForeground, menuWidth - _splitButtonMarginOnMenu / 2 - 2, menuHeight / 2 - 3, 7, SwingConstants.VERTICAL);
 				} else {
 					g.setColor(getForegroundOfState(menuItem));
 					g.drawLine(menuWidth - _splitButtonMarginOnMenu, 0, menuWidth - _splitButtonMarginOnMenu, menuHeight - 2);
-					JideSwingUtilities.paintArrow(g, getForegroundOfState(menuItem), menuWidth - _splitButtonMarginOnMenu / 2 - 2, menuHeight / 2 - 3, 7, SwingConstants.VERTICAL);
+					UIUtil.paintArrow(g, getForegroundOfState(menuItem), menuWidth - _splitButtonMarginOnMenu / 2 - 2, menuHeight / 2 - 3, 7, SwingConstants.VERTICAL);
 				}
 			} else {
 				g.setColor(UIDefaultsLookup.getColor("controlDkShadow"));
 				g.drawLine(menuWidth - _splitButtonMarginOnMenu, 0, menuWidth - _splitButtonMarginOnMenu, menuHeight - 2);
-				JideSwingUtilities.paintArrow(g, UIDefaultsLookup.getColor("controlDkShadow"), menuWidth - _splitButtonMarginOnMenu / 2 - 2, menuHeight / 2 - 3, 7, SwingConstants.VERTICAL);
+				UIUtil.paintArrow(g, UIDefaultsLookup.getColor("controlDkShadow"), menuWidth - _splitButtonMarginOnMenu / 2 - 2, menuHeight / 2 - 3, 7, SwingConstants.VERTICAL);
 			}
 			return;
 		}
@@ -316,7 +316,7 @@ public class MetalJideSplitButtonUI extends MetalMenuUI {
 						getPainter().paintButtonBackground(b, g, rect, 0, ThemePainter.STATE_DISABLE);
 					}
 					if ("true".equals(SecurityUtils.getProperty("shadingtheme", "false"))) {
-						JideSwingUtilities.fillGradient(g, rect, SwingConstants.HORIZONTAL);
+						UIUtil.fillGradient(g, rect, SwingConstants.HORIZONTAL);
 					}
 					rect = getDropDownRect(b, orientation, menuWidth, menuHeight);
 					if (b.isEnabled()) {
@@ -325,7 +325,7 @@ public class MetalJideSplitButtonUI extends MetalMenuUI {
 						getPainter().paintButtonBackground(b, g, rect, 0, ThemePainter.STATE_DISABLE);
 					}
 					if ("true".equals(SecurityUtils.getProperty("shadingtheme", "false"))) {
-						JideSwingUtilities.fillGradient(g, rect, SwingConstants.HORIZONTAL);
+						UIUtil.fillGradient(g, rect, SwingConstants.HORIZONTAL);
 					}
 				}
 			}
@@ -336,10 +336,10 @@ public class MetalJideSplitButtonUI extends MetalMenuUI {
 			} else if (model.isArmed() || model.isPressed()) {
 				Rectangle rect = getButtonRect(b, orientation, menuWidth, menuHeight);
 				if (b.isButtonEnabled()) {
-					JideSwingUtilities.paintBackground(g, rect, _highlight, _highlight);
+					UIUtil.paintBackground(g, rect, _highlight, _highlight);
 				}
 				rect = getDropDownRect(b, orientation, menuWidth, menuHeight);
-				JideSwingUtilities.paintBackground(g, rect, _highlight, _highlight);
+				UIUtil.paintBackground(g, rect, _highlight, _highlight);
 
 				if (!b.isOpaque()) {
 					rect = getButtonRect(b, orientation, menuWidth, menuHeight);
@@ -350,10 +350,10 @@ public class MetalJideSplitButtonUI extends MetalMenuUI {
 			} else if (model instanceof SplitButtonModel && ((DefaultSplitButtonModel) model).isButtonSelected()) {
 				if ((isMouseOver() || b.hasFocus()) && model.isEnabled()) {
 					Rectangle rect = getDropDownRect(b, orientation, menuWidth, menuHeight);
-					JideSwingUtilities.paintBackground(g, rect, _highlight, _highlight);
+					UIUtil.paintBackground(g, rect, _highlight, _highlight);
 					rect = getButtonRect(b, orientation, menuWidth, menuHeight);
 					if (b.isButtonEnabled()) {
-						JideSwingUtilities.paintBackground(g, rect, _highlight, _highlight);
+						UIUtil.paintBackground(g, rect, _highlight, _highlight);
 					}
 					if (!b.isOpaque()) {
 						rect = getButtonRect(b, orientation, menuWidth, menuHeight);
@@ -365,10 +365,10 @@ public class MetalJideSplitButtonUI extends MetalMenuUI {
 					Rectangle rect;
 					if (b.isOpaque()) {
 						rect = getDropDownRect(b, orientation, menuWidth, menuHeight);
-						JideSwingUtilities.paintBackground(g, rect, _highlight, _highlight);
+						UIUtil.paintBackground(g, rect, _highlight, _highlight);
 					}
 					rect = getButtonRect(b, orientation, menuWidth, menuHeight);
-					JideSwingUtilities.paintBackground(g, rect, _highlight, _highlight);
+					UIUtil.paintBackground(g, rect, _highlight, _highlight);
 
 					if (!b.isOpaque()) {
 						rect = getButtonRect(b, orientation, menuWidth, menuHeight);
@@ -383,10 +383,10 @@ public class MetalJideSplitButtonUI extends MetalMenuUI {
 					// Draw a line border with background
 					Rectangle rect = getButtonRect(b, orientation, menuWidth, menuHeight);
 					if (b.isButtonEnabled()) {
-						JideSwingUtilities.paintBackground(g, rect, _highlight, _highlight);
+						UIUtil.paintBackground(g, rect, _highlight, _highlight);
 					}
 					rect = getDropDownRect(b, orientation, menuWidth, menuHeight);
-					JideSwingUtilities.paintBackground(g, rect, _highlight, _highlight);
+					UIUtil.paintBackground(g, rect, _highlight, _highlight);
 
 					if (isAlwaysDropdown(b)) {
 						rect = new Rectangle(0, 0, menuWidth, menuHeight);
@@ -543,7 +543,7 @@ public class MetalJideSplitButtonUI extends MetalMenuUI {
 	protected void paintArrow(JMenuItem menuItem, Graphics g) {
 		int menuWidth;
 		int menuHeight;
-		int orientation = JideSwingUtilities.getOrientationOf(menuItem);
+		int orientation = UIUtil.getOrientationOf(menuItem);
 		if (orientation == SwingConstants.HORIZONTAL) {
 			menuWidth = menuItem.getWidth();
 			menuHeight = menuItem.getHeight();
@@ -558,9 +558,9 @@ public class MetalJideSplitButtonUI extends MetalMenuUI {
 			startX = 4;
 		}
 		if (menuItem.isEnabled()) {
-			JideSwingUtilities.paintArrow(g, getForegroundOfState(menuItem), startX, menuHeight / 2 - 1, 5, SwingConstants.HORIZONTAL);
+			UIUtil.paintArrow(g, getForegroundOfState(menuItem), startX, menuHeight / 2 - 1, 5, SwingConstants.HORIZONTAL);
 		} else {
-			JideSwingUtilities.paintArrow(g, UIDefaultsLookup.getColor("controlShadow"), startX, menuHeight / 2 - 1, 5, SwingConstants.HORIZONTAL);
+			UIUtil.paintArrow(g, UIDefaultsLookup.getColor("controlShadow"), startX, menuHeight / 2 - 1, 5, SwingConstants.HORIZONTAL);
 		}
 	}
 
@@ -650,16 +650,16 @@ public class MetalJideSplitButtonUI extends MetalMenuUI {
 			// *** paint the text disabled
 			if (UIDefaultsLookup.get("MenuItem.disabledForeground") instanceof Color) {
 				g.setColor(UIDefaultsLookup.getColor("MenuItem.disabledForeground"));
-				JideSwingUtilities.drawStringUnderlineCharAt(menuItem, g, text, mnemIndex,
+				UIUtil.drawStringUnderlineCharAt(menuItem, g, text, mnemIndex,
 						textRect.x,
 						textRect.y + fm.getAscent());
 			} else {
 				g.setColor(menuItem.getBackground().brighter());
-				JideSwingUtilities.drawStringUnderlineCharAt(menuItem, g, text, mnemIndex,
+				UIUtil.drawStringUnderlineCharAt(menuItem, g, text, mnemIndex,
 						textRect.x,
 						textRect.y + fm.getAscent());
 				g.setColor(menuItem.getBackground().darker());
-				JideSwingUtilities.drawStringUnderlineCharAt(menuItem, g, text, mnemIndex,
+				UIUtil.drawStringUnderlineCharAt(menuItem, g, text, mnemIndex,
 						textRect.x - 1,
 						textRect.y + fm.getAscent() - 1);
 			}
@@ -668,7 +668,7 @@ public class MetalJideSplitButtonUI extends MetalMenuUI {
 			if (model.isArmed() || model.isSelected()) {
 				g.setColor(selectionForeground); // Uses protected field.
 			}
-			JideSwingUtilities.drawStringUnderlineCharAt(menuItem, g, text, mnemIndex,
+			UIUtil.drawStringUnderlineCharAt(menuItem, g, text, mnemIndex,
 					textRect.x,
 					textRect.y + fm.getAscent());
 		}
@@ -716,7 +716,7 @@ public class MetalJideSplitButtonUI extends MetalMenuUI {
 
 			boolean clickOnDropDown = false;
 			int size = ((JMenu) menuItem).isTopLevelMenu() ? _splitButtonMargin : _splitButtonMarginOnMenu;
-			if (JideSwingUtilities.getOrientationOf(menuItem) == SwingConstants.HORIZONTAL) {
+			if (UIUtil.getOrientationOf(menuItem) == SwingConstants.HORIZONTAL) {
 				if (e.getPoint().getX() < menu.getWidth() - size) {
 					clickOnDropDown = true;
 				}
@@ -859,7 +859,7 @@ public class MetalJideSplitButtonUI extends MetalMenuUI {
 		Dimension d = getPreferredSize(c);
 		View v = (View) c.getClientProperty(BasicHTML.propertyKey);
 		if (v != null) {
-			if (JideSwingUtilities.getOrientationOf(c) == SwingConstants.HORIZONTAL)
+			if (UIUtil.getOrientationOf(c) == SwingConstants.HORIZONTAL)
 				d.width -= v.getPreferredSpan(View.X_AXIS) - v.getMinimumSpan(View.X_AXIS);
 			else        // TODO: not sure if this is correct
 				d.height -= v.getPreferredSpan(View.X_AXIS) - v.getMinimumSpan(View.X_AXIS);
@@ -879,7 +879,7 @@ public class MetalJideSplitButtonUI extends MetalMenuUI {
 
 		AbstractButton b = (AbstractButton) c;
 
-		boolean isHorizontal = JideSwingUtilities.getOrientationOf(c) != SwingConstants.VERTICAL;
+		boolean isHorizontal = UIUtil.getOrientationOf(c) != SwingConstants.VERTICAL;
 
 		// JDK PORTING HINT
 		// JDK1.3: No getIconTextGap, use defaultTextIconGap
@@ -907,7 +907,7 @@ public class MetalJideSplitButtonUI extends MetalMenuUI {
 		if (v != null) {
 			d.width += v.getMaximumSpan(View.X_AXIS) - v.getPreferredSpan(View.X_AXIS);
 		}
-		boolean isHorizontal = JideSwingUtilities.getOrientationOf(c) != SwingConstants.VERTICAL;
+		boolean isHorizontal = UIUtil.getOrientationOf(c) != SwingConstants.VERTICAL;
 
 		int size = ((JMenu) menuItem).isTopLevelMenu() ? _splitButtonMargin : _splitButtonMarginOnMenu;
 		if (isHorizontal)
@@ -918,7 +918,7 @@ public class MetalJideSplitButtonUI extends MetalMenuUI {
 	}
 
 	private Color getForegroundOfState(JMenuItem menuItem) {
-		int state = JideSwingUtilities.getButtonState(menuItem);
+		int state = UIUtil.getButtonState(menuItem);
 		Color foreground = null;
 		if (menuItem instanceof ComponentStateSupport) {
 			foreground = ((ComponentStateSupport) menuItem).getForegroundOfState(state);
@@ -935,7 +935,7 @@ public class MetalJideSplitButtonUI extends MetalMenuUI {
 		// Paint the Icon
 		if (b.getIcon() != null) {
 			// rotate back since we don't want to paint icon in a rotated way.
-			if (JideSwingUtilities.getOrientationOf(b) == SwingConstants.VERTICAL) {
+			if (UIUtil.getOrientationOf(b) == SwingConstants.VERTICAL) {
 				g.translate(0, b.getWidth() - 1);
 				((Graphics2D) g).rotate(-Math.PI / 2);
 			}
@@ -970,7 +970,7 @@ public class MetalJideSplitButtonUI extends MetalMenuUI {
 //                }
 			}
 
-			if (JideSwingUtilities.getOrientationOf(b) == SwingConstants.VERTICAL) {
+			if (UIUtil.getOrientationOf(b) == SwingConstants.VERTICAL) {
 				((Graphics2D) g).rotate(Math.PI / 2);
 				g.translate(0, -b.getHeight() + 1);
 			}

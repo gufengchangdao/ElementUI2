@@ -7,7 +7,7 @@
 
 package com.element.range;
 
-import com.element.util.JideSwingUtilities;
+import com.element.util.UIUtil;
 
 import java.text.DateFormat;
 import java.util.Calendar;
@@ -189,7 +189,7 @@ public class TimeRange extends AbstractRange<Date> {
 	@Override
 	public boolean equals(Object other) {
 		if (other instanceof TimeRange otherRange) {
-			return JideSwingUtilities.equals(_min, otherRange._min) && JideSwingUtilities.equals(_max, otherRange._max);
+			return UIUtil.equals(_min, otherRange._min) && UIUtil.equals(_max, otherRange._max);
 		} else {
 			return false;
 		}

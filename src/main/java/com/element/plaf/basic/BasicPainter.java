@@ -1,16 +1,16 @@
 package com.element.plaf.basic;
 
 import com.element.color.ColorUtil;
+import com.element.jdk.JdkSpecificClass;
+import com.element.plaf.LookAndFeelFactory;
+import com.element.plaf.UIDefaultsLookup;
+import com.element.plaf.XPUtils;
 import com.element.ui.button.HeaderBox;
 import com.element.ui.button.JideButton;
 import com.element.ui.tabs.JideTabbedPane;
-import com.element.jdk.JdkSpecificClass;
-import com.element.plaf.XPUtils;
-import com.element.plaf.LookAndFeelFactory;
-import com.element.plaf.UIDefaultsLookup;
-import com.element.util.JideSwingUtilities;
 import com.element.util.SecurityUtils;
 import com.element.util.SystemInfo;
+import com.element.util.UIUtil;
 
 import javax.swing.*;
 import javax.swing.plaf.ColorUIResource;
@@ -473,9 +473,9 @@ public class BasicPainter implements SwingConstants, ThemePainter {
 			startY = rect.y + 3;
 		}
 		if (orientation == SwingConstants.HORIZONTAL || !c.getComponentOrientation().isLeftToRight()) {
-			JideSwingUtilities.paintArrow(g, UIDefaultsLookup.getColor("CommandBar.darkShadow"), startX, startY, 5, SwingConstants.HORIZONTAL);
+			UIUtil.paintArrow(g, UIDefaultsLookup.getColor("CommandBar.darkShadow"), startX, startY, 5, SwingConstants.HORIZONTAL);
 		} else {
-			JideSwingUtilities.paintArrow(g, UIDefaultsLookup.getColor("CommandBar.darkShadow"), startX, startY, 5, orientation);
+			UIUtil.paintArrow(g, UIDefaultsLookup.getColor("CommandBar.darkShadow"), startX, startY, 5, orientation);
 		}
 	}
 
@@ -483,9 +483,9 @@ public class BasicPainter implements SwingConstants, ThemePainter {
 		int startX = rect.width / 2 - 4;
 		int startY = rect.height / 2 - 2;
 		if (state == STATE_ROLLOVER) {
-			JideSwingUtilities.paintArrow(g, Color.BLACK, startX, startY, 9, orientation);
+			UIUtil.paintArrow(g, Color.BLACK, startX, startY, 9, orientation);
 		} else {
-			JideSwingUtilities.paintArrow(g, Color.WHITE, startX, startY, 9, orientation);
+			UIUtil.paintArrow(g, Color.WHITE, startX, startY, 9, orientation);
 		}
 	}
 
@@ -528,7 +528,7 @@ public class BasicPainter implements SwingConstants, ThemePainter {
 			g.fillRect(rect.x, rect.y, rect.width, rect.height);
 		}
 		if ("true".equals(SecurityUtils.getProperty("shadingtheme", "false"))) {
-			JideSwingUtilities.fillGradient(g, rect, SwingConstants.HORIZONTAL);
+			UIUtil.fillGradient(g, rect, SwingConstants.HORIZONTAL);
 		}
 	}
 
@@ -640,19 +640,10 @@ public class BasicPainter implements SwingConstants, ThemePainter {
 				tabPlacement = ((JideTabbedPane) c).getTabPlacement();
 			}
 			switch (tabPlacement) {
-				case JideTabbedPane.LEFT:
-					JideSwingUtilities.fillGradient(g2d, region, backgroundStart, backgroundEnd, false);
-					break;
-				case JideTabbedPane.RIGHT:
-					JideSwingUtilities.fillGradient(g2d, region, backgroundEnd, backgroundStart, false);
-					break;
-				case JideTabbedPane.BOTTOM:
-					JideSwingUtilities.fillGradient(g2d, region, backgroundEnd, backgroundStart, true);
-					break;
-				case JideTabbedPane.TOP:
-				default:
-					JideSwingUtilities.fillGradient(g2d, region, backgroundStart, backgroundEnd, true);
-					break;
+				case JideTabbedPane.LEFT -> UIUtil.fillGradient(g2d, region, backgroundStart, backgroundEnd, false);
+				case JideTabbedPane.RIGHT -> UIUtil.fillGradient(g2d, region, backgroundEnd, backgroundStart, false);
+				case JideTabbedPane.BOTTOM -> UIUtil.fillGradient(g2d, region, backgroundEnd, backgroundStart, true);
+				default -> UIUtil.fillGradient(g2d, region, backgroundStart, backgroundEnd, true);
 			}
 		}
 		g2d.dispose();
@@ -666,22 +657,10 @@ public class BasicPainter implements SwingConstants, ThemePainter {
 		Color startColor = colors != null && colors.length > 0 ? colors[0] : c.getBackground();
 		Color endColor = colors != null && colors.length > 1 ? colors[1] : startColor;
 		switch (orientation) {
-			case SwingConstants.WEST:
-				JideSwingUtilities.fillGradient((Graphics2D) g, rect,
-						startColor, endColor, false);
-				break;
-			case SwingConstants.EAST:
-				JideSwingUtilities.fillGradient((Graphics2D) g, rect,
-						endColor, startColor, false);
-				break;
-			case SwingConstants.NORTH:
-				JideSwingUtilities.fillGradient((Graphics2D) g, rect,
-						startColor, endColor, true);
-				break;
-			case SwingConstants.SOUTH:
-				JideSwingUtilities.fillGradient((Graphics2D) g, rect,
-						endColor, startColor, true);
-				break;
+			case SwingConstants.WEST -> UIUtil.fillGradient((Graphics2D) g, rect, startColor, endColor, false);
+			case SwingConstants.EAST -> UIUtil.fillGradient((Graphics2D) g, rect, endColor, startColor, false);
+			case SwingConstants.NORTH -> UIUtil.fillGradient((Graphics2D) g, rect, startColor, endColor, true);
+			case SwingConstants.SOUTH -> UIUtil.fillGradient((Graphics2D) g, rect, endColor, startColor, true);
 		}
 	}
 
@@ -767,7 +746,7 @@ public class BasicPainter implements SwingConstants, ThemePainter {
 		if (c.getComponentOrientation().isLeftToRight()) {
 			g.fillRect(0, 0, defaultShadowWidth, rect.height);
 			if ("true".equals(SecurityUtils.getProperty("shadingtheme", "false"))) {
-				JideSwingUtilities.fillSingleGradient(g, new Rectangle(rect.x, rect.y, defaultShadowWidth, rect.height), SwingConstants.EAST, 255);
+				UIUtil.fillSingleGradient(g, new Rectangle(rect.x, rect.y, defaultShadowWidth, rect.height), SwingConstants.EAST, 255);
 			}
 
 			g.setColor(background);
@@ -778,7 +757,7 @@ public class BasicPainter implements SwingConstants, ThemePainter {
 		} else {
 			g.fillRect(rect.x + rect.width, rect.y, defaultShadowWidth, rect.height);
 			if ("true".equals(SecurityUtils.getProperty("shadingtheme", "false"))) {
-				JideSwingUtilities.fillSingleGradient(g, new Rectangle(rect.x + rect.width - defaultTextIconGap, rect.y, defaultShadowWidth, 2), SwingConstants.WEST, 255);
+				UIUtil.fillSingleGradient(g, new Rectangle(rect.x + rect.width - defaultTextIconGap, rect.y, defaultShadowWidth, 2), SwingConstants.WEST, 255);
 			}
 
 			g.setColor(background);
@@ -870,11 +849,11 @@ public class BasicPainter implements SwingConstants, ThemePainter {
 			int x = rect.x + rect.width / 2 - (iconWidth + ARROW_TEXT_GAP + textWidth) / 2;
 			int y = rect.y + V_GAP;
 			if (shouldDisplayOnTop()) {
-				JideSwingUtilities.drawString(c, g, str, x + ARROW_TEXT_GAP + iconWidth, rect.y + V_GAP + c.getFontMetrics(font).getAscent() - 2);
+				UIUtil.drawString(g, str, x + ARROW_TEXT_GAP + iconWidth, rect.y + V_GAP + c.getFontMetrics(font).getAscent() - 2);
 			} else if (leftToRight) {
-				JideSwingUtilities.drawString(c, g, str, rect.x + rect.width - textWidth - H_GAP, rect.y + yOffset + iconHeight / 2 + 1);
+				UIUtil.drawString(g, str, rect.x + rect.width - textWidth - H_GAP, rect.y + yOffset + iconHeight / 2 + 1);
 			} else {
-				JideSwingUtilities.drawString(c, g, str, rect.x + H_GAP, rect.y + yOffset + iconHeight / 2 + 1);
+				UIUtil.drawString(g, str, rect.x + H_GAP, rect.y + yOffset + iconHeight / 2 + 1);
 			}
 			g.setColor(oldColor);
 			g.setFont(oldFont);

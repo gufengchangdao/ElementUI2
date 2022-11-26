@@ -6,10 +6,9 @@
 package com.element.ui.layout;
 
 import com.element.ui.dialog.JideOptionPane;
-import com.element.util.SecurityUtils;
-import com.element.util.SystemInfo;
 import com.element.ui.pane.JideSplitPane;
 import com.element.ui.pane.JideSplitPaneDivider;
+import com.element.util.SecurityUtils;
 
 import javax.swing.*;
 import java.awt.*;

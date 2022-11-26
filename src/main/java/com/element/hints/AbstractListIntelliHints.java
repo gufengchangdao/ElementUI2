@@ -5,8 +5,8 @@
  */
 package com.element.hints;
 
-import com.element.ui.pane.JideScrollPane;
 import com.element.swing.Sticky;
+import com.element.ui.pane.JideScrollPane;
 
 import javax.swing.*;
 import javax.swing.text.JTextComponent;

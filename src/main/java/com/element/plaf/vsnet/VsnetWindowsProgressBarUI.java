@@ -6,7 +6,7 @@
 package com.element.plaf.vsnet;
 
 import com.element.plaf.UIDefaultsLookup;
-import com.element.util.JideSwingUtilities;
+import com.element.util.UIUtil;
 import com.sun.java.swing.plaf.windows.WindowsProgressBarUI;
 
 import javax.swing.*;
@@ -124,10 +124,10 @@ public class VsnetWindowsProgressBarUI extends WindowsProgressBarUI implements A
 		// Paint the bouncing box.
 		if (delta > 0) {
 			boxRect = new Rectangle(b.left, b.top, x, barRectHeight);
-			JideSwingUtilities.fillNormalGradient(g2d, boxRect, endColor, startColor, vertical);
+			UIUtil.fillNormalGradient(g2d, boxRect, endColor, startColor, vertical);
 		} else {
 			boxRect = new Rectangle(x, b.top, barRectWidth - x, barRectHeight);
-			JideSwingUtilities.fillNormalGradient(g2d, boxRect, startColor, endColor, vertical);
+			UIUtil.fillNormalGradient(g2d, boxRect, startColor, endColor, vertical);
 		}
 
 		// Deal with possible text painting
@@ -166,31 +166,24 @@ public class VsnetWindowsProgressBarUI extends WindowsProgressBarUI implements A
 
 		String progressString = progressBar.getString();
 		g2.setFont(progressBar.getFont());
-		Point renderLocation = getStringPlacement(g2, progressString,
-				x, y, width, height);
+		Point renderLocation = getStringPlacement(g2, progressString, x, y, width, height);
 		Rectangle oldClip = g2.getClipBounds();
 
 		if (progressBar.getOrientation() == JProgressBar.HORIZONTAL) {
 			g2.setColor(getSelectionBackground());
-			JideSwingUtilities.drawString(progressBar, g2, progressString,
-					renderLocation.x, renderLocation.y);
+			UIUtil.drawString(g2, progressString, renderLocation.x, renderLocation.y);
 			g2.setColor(getSelectionForeground());
 			g2.clipRect(fillStart, y, amountFull, height);
-			JideSwingUtilities.drawString(progressBar, g2, progressString,
-					renderLocation.x, renderLocation.y);
+			UIUtil.drawString(g2, progressString, renderLocation.x, renderLocation.y);
 		} else { // VERTICAL
 			g2.setColor(getSelectionBackground());
-			AffineTransform rotate =
-					AffineTransform.getRotateInstance(Math.PI / 2);
+			AffineTransform rotate = AffineTransform.getRotateInstance(Math.PI / 2);
 			g2.setFont(progressBar.getFont().deriveFont(rotate));
-			renderLocation = getStringPlacement(g2, progressString,
-					x, y, width, height);
-			JideSwingUtilities.drawString(progressBar, g2, progressString,
-					renderLocation.x, renderLocation.y);
+			renderLocation = getStringPlacement(g2, progressString, x, y, width, height);
+			UIUtil.drawString(g2, progressString, renderLocation.x, renderLocation.y);
 			g2.setColor(getSelectionForeground());
 			g2.clipRect(x, fillStart, width, amountFull);
-			JideSwingUtilities.drawString(progressBar, g2, progressString,
-					renderLocation.x, renderLocation.y);
+			UIUtil.drawString(g2, progressString, renderLocation.x, renderLocation.y);
 		}
 		g2.setClip(oldClip);
 	}

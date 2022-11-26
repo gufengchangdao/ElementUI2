@@ -1,8 +1,8 @@
 package com.element.ui.others.result;
 
 import com.element.color.ColorUtil;
-import com.element.ui.others.empty.EmptyComponent;
 import com.element.radiance.common.api.icon.RadianceIcon;
+import com.element.ui.others.empty.EmptyComponent;
 import com.element.ui.svg.icon.fill.CheckCircleSvg;
 import com.element.ui.svg.icon.fill.WarningCircleSvg;
 import com.element.ui.svg.icon.fill.XCircleSvg;

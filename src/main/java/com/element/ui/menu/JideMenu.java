@@ -8,7 +8,7 @@ package com.element.ui.menu;
 import com.element.plaf.UIDefaultsLookup;
 import com.element.swing.Alignable;
 import com.element.util.SystemInfo;
-import com.element.util.JideSwingUtilities;
+import com.element.util.UIUtil;
 
 import javax.swing.*;
 import javax.swing.event.MenuEvent;
@@ -271,7 +271,7 @@ public class JideMenu extends JMenu implements Alignable {
 			int yOffset = UIDefaultsLookup.getInt("Menu.submenuPopupOffsetY");
 
 			if (this.getComponentOrientation().isLeftToRight()) {
-				if (JideSwingUtilities.getOrientationOf(this) == HORIZONTAL) {
+				if (UIUtil.getOrientationOf(this) == HORIZONTAL) {
 					// First determine x:
 					x = s.width + xOffset;   // Prefer placement to the right
 					if (position.x + x + pmSize.width >= screenBounds.width
@@ -317,7 +317,7 @@ public class JideMenu extends JMenu implements Alignable {
 			int yOffset = UIDefaultsLookup.getInt("Menu.menuPopupOffsetY");
 
 			if (this.getComponentOrientation().isLeftToRight()) {
-				if (JideSwingUtilities.getOrientationOf(this) == HORIZONTAL) {
+				if (UIUtil.getOrientationOf(this) == HORIZONTAL) {
 					// First determine the x:
 					if (getPreferredPopupHorizontalAlignment() == LEFT) {
 						x = xOffset;                   // Extend to the right
@@ -363,7 +363,7 @@ public class JideMenu extends JMenu implements Alignable {
 			}
 
 			// Then the y:
-			if (JideSwingUtilities.getOrientationOf(this) == HORIZONTAL) {
+			if (UIUtil.getOrientationOf(this) == HORIZONTAL) {
 				y = s.height + yOffset - 1;    // Prefer dropping down
 				if (getPreferredPopupVerticalAlignment() == TOP || // If forced to be on TOP
 						(position.y + y + pmSize.height >= screenBounds.height &&

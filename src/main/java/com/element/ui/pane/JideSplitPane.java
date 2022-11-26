@@ -6,11 +6,11 @@
 
 package com.element.ui.pane;
 
-import com.element.ui.layout.JideBoxLayout;
-import com.element.ui.panel.HeavyweightWrapper;
-import com.element.ui.base.Contour;
 import com.element.plaf.LookAndFeelFactory;
 import com.element.plaf.UIDefaultsLookup;
+import com.element.ui.base.Contour;
+import com.element.ui.layout.JideBoxLayout;
+import com.element.ui.panel.HeavyweightWrapper;
 
 import javax.accessibility.*;
 import javax.swing.*;

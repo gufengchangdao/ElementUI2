@@ -5,7 +5,7 @@
  */
 package com.element.ui.panel;
 
-import com.element.util.JideSwingUtilities;
+import com.element.util.UIUtil;
 
 import javax.swing.*;
 import java.awt.*;
@@ -110,7 +110,7 @@ public class PaintPanel extends JPanel {
 	protected void paintComponent(Graphics g) {
 		super.paintComponent(g);
 		if (getStartColor() != null && getEndColor() != null) {
-			JideSwingUtilities.fillGradient((Graphics2D) g, new Rectangle(0, 0, getWidth(), getHeight()), getStartColor(), getEndColor(), isVertical());
+			UIUtil.fillGradient((Graphics2D) g, new Rectangle(0, 0, getWidth(), getHeight()), getStartColor(), getEndColor(), isVertical());
 		} else if (isOpaque() && getBackgroundPaint() != null) {
 			Graphics2D g2d = (Graphics2D) g;
 			g2d.setPaint(getBackgroundPaint());

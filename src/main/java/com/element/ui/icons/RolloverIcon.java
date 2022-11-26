@@ -6,7 +6,7 @@
 
 package com.element.ui.icons;
 
-import com.element.util.JideSwingUtilities;
+import com.element.util.UIUtil;
 
 import javax.swing.*;
 import java.awt.*;
@@ -87,7 +87,7 @@ public class RolloverIcon implements Icon {
 		public void paintIcon(Component c, Graphics g, int x, int y) {
 			Graphics2D g2 = (Graphics2D) g;
 			Color orgColor = g2.getColor();
-			Object o = JideSwingUtilities.setupShapeAntialiasing(g);
+			Object o = UIUtil.setupShapeAntialiasing(g);
 			GeneralPath path = new GeneralPath();
 			if (c.getComponentOrientation() == ComponentOrientation.RIGHT_TO_LEFT) {
 				path.moveTo(x + 4, y);
@@ -105,7 +105,7 @@ public class RolloverIcon implements Icon {
 			g2.setColor(rollover ? COLOR_COLLAPSED_ROLLOVER : COLOR_COLLAPSED);
 			g2.draw(path);
 			g2.setColor(orgColor);
-			JideSwingUtilities.restoreShapeAntialiasing(g, o);
+			UIUtil.restoreShapeAntialiasing(g, o);
 		}
 
 		@Override
@@ -133,7 +133,7 @@ public class RolloverIcon implements Icon {
 		public void paintIcon(Component c, Graphics g, int x, int y) {
 			Graphics2D g2 = (Graphics2D) g;
 			Color orgColor = g2.getColor();
-			Object o = JideSwingUtilities.setupShapeAntialiasing(g);
+			Object o = UIUtil.setupShapeAntialiasing(g);
 			GeneralPath path = new GeneralPath();
 			if (c.getComponentOrientation() == ComponentOrientation.RIGHT_TO_LEFT) {
 				path.moveTo(x, y);
@@ -151,7 +151,7 @@ public class RolloverIcon implements Icon {
 			g2.setColor(rollover ? COLOR_EXPANDED_ROLLOVER : COLOR_EXPANDED);
 			g2.draw(path);
 			g2.setColor(orgColor);
-			JideSwingUtilities.restoreShapeAntialiasing(g, o);
+			UIUtil.restoreShapeAntialiasing(g, o);
 		}
 
 		@Override

@@ -1,11 +1,11 @@
 package com.element.util.handle;
 
-import com.element.util.JideSwingUtilities;
-
 import java.awt.*;
 
 /**
- * A simple handler used by {@link JideSwingUtilities#setRecursively}.
+ * {@link com.element.util.UIUtil#setRecursively}使用的简单处理程序。
+ * 类似于将Predicate<Boolean>和两个Consumer<Component>组合在一起了。
+ *
  * <pre>
  *  if ( condition() ) {
  *      action();

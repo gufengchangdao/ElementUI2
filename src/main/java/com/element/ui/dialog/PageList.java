@@ -5,7 +5,7 @@
  */
 package com.element.ui.dialog;
 
-import com.element.util.JideSwingUtilities;
+import com.element.util.UIUtil;
 
 import javax.swing.*;
 import java.util.ArrayList;
@@ -150,7 +150,7 @@ public class PageList extends DefaultComboBoxModel {
 			oldPage.firePageEvent(source, PageEvent.PAGE_CLOSED);
 		}
 
-		if (!JideSwingUtilities.equals(oldPage, page)) {
+		if (!UIUtil.equals(oldPage, page)) {
 			setSelectedItem(page);
 			AbstractDialogPage newPage = getCurrentPage();
 			if (newPage != null) {

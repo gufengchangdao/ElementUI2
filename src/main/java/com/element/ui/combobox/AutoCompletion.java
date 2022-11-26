@@ -5,11 +5,10 @@
  */
 package com.element.ui.combobox;
 
-import com.element.util.PortingUtils;
-import com.element.util.SystemInfo;
 import com.element.swing.DelegateAction;
-import com.element.util.JideSwingUtilities;
 import com.element.swing.Searchable;
+import com.element.util.PortingUtils;
+import com.element.util.UIUtil;
 
 import javax.swing.*;
 import javax.swing.text.*;
@@ -511,7 +510,7 @@ public class AutoCompletion {
 		for (int i = 0, n = getSearchable().getElementCount(); i < n; i++) {
 			Object currentItem = getSearchable().getElementAt(i);
 			// current item starts with the pattern?
-			if (JideSwingUtilities.equals(item, currentItem)) {
+			if (UIUtil.equals(item, currentItem)) {
 				getSearchable().setSelectedIndex(i, false);
 			}
 		}

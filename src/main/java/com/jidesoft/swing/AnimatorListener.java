@@ -5,6 +5,7 @@ import java.util.EventListener;
 
 /**
  * This is a listener that can be used to customize the behaviour of animation.
+ *
  * @deprecated
  */
 @Deprecated

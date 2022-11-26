@@ -5,7 +5,7 @@
  */
 package com.element.ui.panel;
 
-import com.element.util.JideSwingUtilities;
+import com.element.util.UIUtil;
 
 import javax.swing.*;
 import java.awt.*;
@@ -65,7 +65,7 @@ public class HeavyweightWrapper extends Panel {
 	}
 
 	public void delegateAdd(Container parent, Object constraints) {
-		JideSwingUtilities.removeFromParentWithFocusTransfer(_component);
+		UIUtil.removeFromParentWithFocusTransfer(_component);
 
 		if (isHeavyweight()) {
 			if (_component.getParent() != this) {
@@ -82,7 +82,7 @@ public class HeavyweightWrapper extends Panel {
 	}
 
 	public void delegateRemove(Container parent) {
-		JideSwingUtilities.removeFromParentWithFocusTransfer(_component);
+		UIUtil.removeFromParentWithFocusTransfer(_component);
 
 		if (isHeavyweight()) {
 			remove(_component);

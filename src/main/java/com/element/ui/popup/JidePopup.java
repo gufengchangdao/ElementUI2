@@ -6,19 +6,18 @@
 
 package com.element.ui.popup;
 
-import com.element.util.handle.Handler;
-import com.element.swing.ResizableSupport;
-import com.element.ui.pane.JideScrollPane;
-import com.element.ui.panel.ResizablePanel;
-import com.element.ui.window.ResizableWindow;
 import com.element.plaf.LookAndFeelFactory;
 import com.element.plaf.PopupUI;
 import com.element.plaf.UIDefaultsLookup;
 import com.element.swing.Resizable;
-import com.element.util.JideSwingUtilities;
+import com.element.swing.ResizableSupport;
+import com.element.ui.pane.JideScrollPane;
+import com.element.ui.panel.ResizablePanel;
+import com.element.ui.window.ResizableWindow;
 import com.element.util.PortingUtils;
 import com.element.util.SecurityUtils;
-import com.element.util.SystemInfo;
+import com.element.util.UIUtil;
+import com.element.util.handle.Handler;
 
 import javax.accessibility.Accessible;
 import javax.accessibility.AccessibleContext;
@@ -163,7 +162,7 @@ public class JidePopup extends JComponent implements Accessible, WindowConstants
 	 * If the popup shows a dialog and you don't want the popup to be hidden when the dialog is shown, you can use this
 	 * special client property to do it. Here is the code, assuming the dialog is shown from your popup.
 	 * <code><pre>
-	 * JComponent c = JideSwingUtilities.getFirstJComponent(dialog);
+	 * JComponent c = UIUtil.getFirstJComponent(dialog);
 	 *   if(c != null) {
 	 *       c.putClientProperty(JidePopup.CLIENT_PROPERTY_POPUP_ACTUAL_OWNER, component);
 	 *   }
@@ -838,7 +837,7 @@ public class JidePopup extends JComponent implements Accessible, WindowConstants
 			case Resizable.UPPER_RIGHT:
 				if (_resizableSupport != null) {
 					_resizableSupport.getResizable().setResizableCorners(Resizable.UPPER_RIGHT);
-					JideSwingUtilities.setRecursively(this, new Handler() {
+					UIUtil.setRecursively(this, new Handler() {
 						public boolean condition(Component c) {
 							return c instanceof JideScrollPane;
 						}
@@ -860,7 +859,7 @@ public class JidePopup extends JComponent implements Accessible, WindowConstants
 			case Resizable.LOWER_RIGHT:
 				if (_resizableSupport != null) {
 					_resizableSupport.getResizable().setResizableCorners(Resizable.LOWER_RIGHT);
-					JideSwingUtilities.setRecursively(this, new Handler() {
+					UIUtil.setRecursively(this, new Handler() {
 						public boolean condition(Component c) {
 							return c instanceof JideScrollPane;
 						}
@@ -1101,7 +1100,7 @@ public class JidePopup extends JComponent implements Accessible, WindowConstants
 				y = p.y;
 			}
 
-			JRootPane rootPane = JideSwingUtilities.getOutermostRootPane(owner);
+			JRootPane rootPane = UIUtil.getOutermostRootPane(owner);
 			JLayeredPane layeredPane;
 			if (rootPane != null)
 				layeredPane = rootPane.getLayeredPane();
@@ -1112,7 +1111,7 @@ public class JidePopup extends JComponent implements Accessible, WindowConstants
 			Point p = new Point(x, y);
 			SwingUtilities.convertPointFromScreen(p, layeredPane);
 			layeredPane.add(_panel, JLayeredPane.PALETTE_LAYER);
-				layeredPane.setComponentZOrder(_panel, 0);
+			layeredPane.setComponentZOrder(_panel, 0);
 
 			_panel.setLocation(p.x, p.y);
 		} else if (_popupType == HEAVY_WEIGHT_POPUP) {
@@ -1198,15 +1197,15 @@ public class JidePopup extends JComponent implements Accessible, WindowConstants
 
 		Object opaque = getClientProperty(CLIENT_PROPERTY_WINDOW_OPAQUE);
 		if (opaque instanceof Boolean) {
-			JideSwingUtilities.setWindowOpaque(container, (Boolean) opaque);
+			setOpaque((Boolean) opaque);
 		}
 		Object opacity = getClientProperty(CLIENT_PROPERTY_WINDOW_OPACITY);
 		if (opacity instanceof Float) {
-			JideSwingUtilities.setWindowOpacity(container, (Float) opacity);
+			container.setOpacity((Float) opacity);
 		}
 		Object shape = getClientProperty(CLIENT_PROPERTY_WINDOW_SHAPE);
 		if (shape instanceof Shape) {
-			JideSwingUtilities.setWindowShape(container, (Shape) shape);
+			container.setShape((Shape) shape);
 		}
 
 		return container;
@@ -1763,10 +1762,10 @@ public class JidePopup extends JComponent implements Accessible, WindowConstants
 			if (_popupType == LIGHT_WEIGHT_POPUP) {
 				startingBounds = _panel.getBounds();
 				Container parent = _panel.getParent();
-					if (isClickOnPopup(e) && parent.getComponentZOrder(_panel) != 0) {
-						parent.setComponentZOrder(_panel, 0);
-						parent.repaint();
-					}
+				if (isClickOnPopup(e) && parent.getComponentZOrder(_panel) != 0) {
+					parent.setComponentZOrder(_panel, 0);
+					parent.repaint();
+				}
 			} else if (_popupType == HEAVY_WEIGHT_POPUP) {
 				final Window sourceWindow = SwingUtilities.getWindowAncestor(component);
 				if (sourceWindow == _window) {
@@ -1894,7 +1893,7 @@ public class JidePopup extends JComponent implements Accessible, WindowConstants
 	}
 
 	protected JComponent getRealParent(RootPaneContainer rootPaneContainer) {
-		JComponent c = JideSwingUtilities.getFirstJComponent(rootPaneContainer);
+		JComponent c = UIUtil.getFirstJComponent(rootPaneContainer);
 		if (c != null) {
 			Object clientProperty = c.getClientProperty(CLIENT_PROPERTY_POPUP_ACTUAL_OWNER);
 			if (clientProperty instanceof JComponent) {
@@ -2545,7 +2544,7 @@ public class JidePopup extends JComponent implements Accessible, WindowConstants
 	 * For example, AbstractComboBox uses JidePopup to display the popup. If you want to show a JDialog from the popup,
 	 * you will have to add the dialog as excluded component. See below for an example.
 	 * <pre><code>
-	 * JDialog dialog =new JDialog((Frame) JideSwingUtilities.getWindowForComponent(this), true);
+	 * JDialog dialog =new JDialog((Frame) UIUtil.getWindowForComponent(this), true);
 	 * dialog.add(new JTable(10, 4));
 	 * dialog.pack();
 	 * Container ancestorOfClass = SwingUtilities.getAncestorOfClass(JidePopup.class, this); // try

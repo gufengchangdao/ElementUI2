@@ -2,9 +2,9 @@ package com.element.ui.notice.message;
 
 import com.element.animator.popup.PopupAnimatorGroup;
 import com.element.animator.popup.PopupAnimatorTask;
-import com.element.ui.template.X2Component;
 import com.element.ui.alert.AlertComponent;
 import com.element.ui.alert.AlertFactory;
+import com.element.ui.template.X2Component;
 
 import javax.swing.*;
 import java.awt.*;

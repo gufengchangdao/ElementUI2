@@ -1,11 +1,9 @@
 package com.element.util.handle;
 
-import com.element.util.JideSwingUtilities;
-
 import java.awt.*;
 
 /**
- * A simple handler used by {@link JideSwingUtilities#getRecursively(Component, GetHandler)}.
+ * A simple handler used by {@link com.element.util.UIUtil#getRecursively(Component, GetHandler)}.
  * <code><pre>
  *  if ( condition() ) {
  *      return action();
@@ -39,7 +37,7 @@ public interface GetHandler {
 	 * #condition(Component)} returns true.
 	 *
 	 * @param c the component
-	 * @return the component that will be returned from {@link JideSwingUtilities#getRecursively(Component, GetHandler)}
+	 * @return the component that will be returned from {@link com.element.util.UIUtil#getRecursively(Component, GetHandler)}
 	 */
 	Component action(Component c);
 }

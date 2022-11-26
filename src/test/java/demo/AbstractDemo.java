@@ -7,8 +7,8 @@ import com.element.ui.label.MultilineLabel;
 import com.element.ui.layout.JideBoxLayout;
 import com.element.ui.others.collapse.AccordionPanel;
 import com.element.ui.tabs.JideTabbedPane;
-import com.element.util.JideSwingUtilities;
 import com.element.util.SearchableUtils;
+import com.element.util.UIUtil;
 
 import javax.swing.*;
 import java.awt.*;
@@ -94,7 +94,7 @@ abstract public class AbstractDemo implements Demo {
 						| InputEvent.SHIFT_DOWN_MASK | InputEvent.ALT_DOWN_MASK), "printMem");
 		frame.getRootPane().getActionMap().put("printMem", new AbstractAction() {
 			public void actionPerformed(ActionEvent e) {
-				JideSwingUtilities.runGCAndPrintFreeMemory();
+				UIUtil.runGCAndPrintFreeMemory();
 			}
 		});
 
@@ -131,7 +131,7 @@ abstract public class AbstractDemo implements Demo {
 			if (optionsPanel != null) {
 				if (optionsPanel instanceof JComponent optionPanel) {
 					optionPanel.setBorder(BorderFactory.createEmptyBorder(8, 10, 8, 10));
-					JideSwingUtilities.setOpaqueRecursively(optionPanel, false);
+					UIUtil.setOpaqueRecursively(optionPanel, false);
 				}
 				list.add(optionsPanel);
 			}
@@ -141,7 +141,7 @@ abstract public class AbstractDemo implements Demo {
 				JComponent commonOptionsPanel = createCommonOptions(demoPanel);
 				commonOptionsPanel.setName("Demo.CommonOptionsPanel");
 				commonOptionsPanel.setBorder(BorderFactory.createEmptyBorder(8, 10, 8, 10));
-				JideSwingUtilities.setOpaqueRecursively(commonOptionsPanel, false);
+				UIUtil.setOpaqueRecursively(commonOptionsPanel, false);
 				list.add(commonOptionsPanel);
 			}
 
@@ -166,9 +166,9 @@ abstract public class AbstractDemo implements Demo {
 				MultilineLabel label = new MultilineLabel(sourceFiles.toString());
 				label.setColumns(30);
 				panel.add(label);
-				panel.add(JideSwingUtilities.createLeftPanel(AbstractDemo.createBrowseSourceCodeButton(parentFrame, demo)), BorderLayout.AFTER_LAST_LINE);
+				panel.add(UIUtil.createLeftPanel(AbstractDemo.createBrowseSourceCodeButton(parentFrame, demo)), BorderLayout.AFTER_LAST_LINE);
 				panel.setBorder(BorderFactory.createEmptyBorder(8, 10, 8, 10));
-				JideSwingUtilities.setOpaqueRecursively(panel, false);
+				UIUtil.setOpaqueRecursively(panel, false);
 				list.add(panel);
 			}
 
@@ -189,8 +189,8 @@ abstract public class AbstractDemo implements Demo {
 		JCheckBox toggleLTR = new JCheckBox(Resource.RB.getString("Demo.toggleLTR"));
 		toggleLTR.setSelected(component.getComponentOrientation().isLeftToRight());
 		toggleLTR.addItemListener(e -> {
-			JideSwingUtilities.toggleRTLnLTR(component);
-			JideSwingUtilities.invalidateRecursively(component);
+			UIUtil.toggleRTLnLTR(component);
+			UIUtil.invalidateRecursively(component);
 		});
 		toggleLTR.setMnemonic('T');
 
@@ -207,7 +207,7 @@ abstract public class AbstractDemo implements Demo {
 		locale.setSelectedItem(Locale.getDefault());
 		locale.addItemListener(e -> {
 			if (e.getStateChange() == ItemEvent.SELECTED && e.getItem() instanceof Locale l) {
-				JideSwingUtilities.setLocaleRecursively(component, l);
+				UIUtil.setLocaleRecursively(component, l);
 				SwingUtilities.updateComponentTreeUI(component);
 			}
 		});

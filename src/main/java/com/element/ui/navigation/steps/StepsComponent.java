@@ -1,8 +1,8 @@
 package com.element.ui.navigation.steps;
 
 import com.element.color.ColorUtil;
-import com.element.ui.base.BaseComponent;
 import com.element.radiance.common.api.icon.RadianceIcon;
+import com.element.ui.base.BaseComponent;
 
 import javax.swing.*;
 import java.awt.*;

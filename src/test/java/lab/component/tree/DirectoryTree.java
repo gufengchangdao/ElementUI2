@@ -26,13 +26,13 @@ public class DirectoryTree extends JPanel {
 		DefaultTreeModel treeModel = new DefaultTreeModel(root);
 		Stream.of(fileSystemView.getRoots())
 				.forEach(fileSystemRoot -> {
-			DefaultMutableTreeNode node = new DefaultMutableTreeNode(fileSystemRoot);
-			root.add(node);
-			Stream.of(fileSystemView.getFiles(fileSystemRoot, true))
-					.filter(File::isDirectory)
-					.map(DefaultMutableTreeNode::new)
-					.forEach(node::add);
-		});
+					DefaultMutableTreeNode node = new DefaultMutableTreeNode(fileSystemRoot);
+					root.add(node);
+					Stream.of(fileSystemView.getFiles(fileSystemRoot, true))
+							.filter(File::isDirectory)
+							.map(DefaultMutableTreeNode::new)
+							.forEach(node::add);
+				});
 
 		JTree tree = new JTree(treeModel) {
 			@Override

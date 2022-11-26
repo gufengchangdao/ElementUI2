@@ -1,7 +1,7 @@
 package com.element.ui.base;
 
-import com.element.ui.border.AngleBorder;
 import com.element.swing.SwingPosition;
+import com.element.ui.border.AngleBorder;
 
 import javax.swing.*;
 import javax.swing.border.Border;

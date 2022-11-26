@@ -15,7 +15,6 @@
 package com.element.plaf.aqua;
 
 import com.element.util.SecurityUtils;
-import org.apache.batik.util.Base64EncoderStream;
 
 import java.io.*;
 import java.nio.charset.StandardCharsets;

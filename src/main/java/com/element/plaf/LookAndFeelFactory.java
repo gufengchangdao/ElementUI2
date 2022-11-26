@@ -6,7 +6,6 @@
 
 package com.element.plaf;
 
-import com.element.ui.icons.IconsFactory;
 import com.element.plaf.basic.BasicPainter;
 import com.element.plaf.basic.Painter;
 import com.element.plaf.eclipse.Eclipse3xMetalUtils;
@@ -21,7 +20,7 @@ import com.element.plaf.vsnet.VsnetWindowsUtils;
 import com.element.plaf.xerto.XertoMetalUtils;
 import com.element.plaf.xerto.XertoPainter;
 import com.element.plaf.xerto.XertoWindowsUtils;
-import com.element.util.JideSwingUtilities;
+import com.element.ui.icons.IconsFactory;
 import com.element.ui.tabs.JideTabbedPane;
 import com.element.util.ProductNames;
 import com.element.util.SecurityUtils;
@@ -34,7 +33,6 @@ import java.beans.PropertyChangeListener;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.*;
-import java.util.List;
 
 /**
  * JIDE Software created many new components that need their own ComponentUI classes and additional UIDefaults in
@@ -900,10 +898,8 @@ public class LookAndFeelFactory implements ProductNames {
 				aquaJideUtils.getMethod("initComponentDefaults", UIDefaults.class).invoke(null, uiDefaults);
 				aquaJideUtils.getMethod("initClassDefaults", UIDefaults.class).invoke(null, uiDefaults);
 			} catch (ClassNotFoundException | IllegalAccessException | IllegalArgumentException |
-			         NoSuchMethodException | SecurityException e) {
+			         NoSuchMethodException | SecurityException | InvocationTargetException e) {
 				throw new RuntimeException(e);
-			} catch (InvocationTargetException e) {
-				JideSwingUtilities.throwInvocationTargetException(e);
 			}
 		} else {
 			switch (style) {
@@ -1176,10 +1172,11 @@ public class LookAndFeelFactory implements ProductNames {
 	private static void invokeInitialize(UIDefaults uiDefaults, String initializer) {
 		try {
 			Class<?> clazz = Class.forName(initializer);
-			Object o =  clazz.getConstructor().newInstance();
+			Object o = clazz.getConstructor().newInstance();
 			Method method = o.getClass().getMethod("initialize", UIDefaults.class);
 			method.invoke(o, uiDefaults);
-		} catch (NoSuchMethodException | InvocationTargetException | InstantiationException | IllegalAccessException e) {
+		} catch (NoSuchMethodException | InvocationTargetException | InstantiationException |
+		         IllegalAccessException e) {
 			e.printStackTrace();
 		} catch (ClassNotFoundException e) {
 			// ignore
@@ -1243,7 +1240,8 @@ public class LookAndFeelFactory implements ProductNames {
 			Object o = clazz.getConstructor().newInstance();
 			Method method = o.getClass().getMethod("customize", UIDefaults.class);
 			method.invoke(o, uiDefaults);
-		} catch (NoSuchMethodException | InvocationTargetException | InstantiationException | IllegalAccessException e) {
+		} catch (NoSuchMethodException | InvocationTargetException | InstantiationException |
+		         IllegalAccessException e) {
 			e.printStackTrace();
 		} catch (ClassNotFoundException e) {
 			// ignore

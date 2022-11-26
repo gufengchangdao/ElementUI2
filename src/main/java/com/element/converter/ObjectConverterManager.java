@@ -5,9 +5,9 @@
  */
 package com.element.converter;
 
-import com.element.range.*;
 import com.element.event.CacheMap;
 import com.element.event.RegistrationListener;
+import com.element.range.*;
 import com.element.util.TypeUtils;
 
 import java.awt.*;

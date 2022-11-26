@@ -5,11 +5,11 @@
  */
 package com.element.plaf.basic;
 
-import com.element.ui.dialog.ButtonPanel;
 import com.element.hints.FileIntelliHints;
 import com.element.plaf.FolderChooserUI;
-import com.element.ui.others.FolderChooser;
+import com.element.ui.dialog.ButtonPanel;
 import com.element.ui.layout.JideBoxLayout;
+import com.element.ui.others.FolderChooser;
 import com.element.util.SelectAllUtils;
 import com.element.util.SystemInfo;
 import sun.awt.shell.ShellFolder;
@@ -24,7 +24,9 @@ import javax.swing.tree.MutableTreeNode;
 import javax.swing.tree.TreePath;
 import javax.swing.tree.TreeSelectionModel;
 import java.awt.*;
-import java.awt.event.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.io.File;

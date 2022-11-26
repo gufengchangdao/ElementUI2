@@ -5,8 +5,6 @@
  */
 package com.element.ui.button;
 
-import com.element.util.SystemInfo;
-
 import javax.accessibility.Accessible;
 import javax.accessibility.AccessibleContext;
 import javax.accessibility.AccessibleRole;

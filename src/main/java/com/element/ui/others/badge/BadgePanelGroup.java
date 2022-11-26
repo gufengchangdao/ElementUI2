@@ -1,7 +1,7 @@
 package com.element.ui.others.badge;
 
-import com.element.ui.template.C2PLPGroup;
 import com.element.ui.label.badge.BadgeLabel;
+import com.element.ui.template.C2PLPGroup;
 
 import javax.swing.*;
 import java.awt.*;

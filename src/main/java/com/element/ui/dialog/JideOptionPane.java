@@ -7,7 +7,7 @@
 package com.element.ui.dialog;
 
 import com.element.plaf.basic.BasicJideOptionPaneUI;
-import com.element.util.JideSwingUtilities;
+import com.element.util.UIUtil;
 
 import javax.swing.*;
 import java.awt.*;
@@ -179,7 +179,7 @@ public class JideOptionPane extends JOptionPane {
 
 	@Override
 	public void setLocale(Locale l) {
-		if (!JideSwingUtilities.equals(l, getLocale())) {
+		if (!UIUtil.equals(l, getLocale())) {
 			super.setLocale(l);
 			updateUI();
 		}

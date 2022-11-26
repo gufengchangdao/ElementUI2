@@ -6,16 +6,16 @@
 package com.element.plaf.vsnet;
 
 import com.element.color.ColorUtil;
-import com.element.ui.icons.IconsFactory;
-import com.element.ui.icons.JideIconsFactory;
-import com.element.plaf.metal.MetalIconFactory;
-import com.element.plaf.metal.MetalPainter;
 import com.element.plaf.LookAndFeelFactory;
 import com.element.plaf.UIDefaultsLookup;
 import com.element.plaf.basic.Painter;
 import com.element.plaf.basic.ThemePainter;
+import com.element.plaf.metal.MetalIconFactory;
+import com.element.plaf.metal.MetalPainter;
 import com.element.ui.button.JideButton;
-import com.element.util.JideSwingUtilities;
+import com.element.ui.font.FontUtil;
+import com.element.ui.icons.IconsFactory;
+import com.element.ui.icons.JideIconsFactory;
 import com.element.ui.tabs.JideTabbedPane;
 
 import javax.swing.*;
@@ -81,8 +81,8 @@ public class VsnetMetalUtils extends VsnetLookAndFeelExtension {
 		Object inactiveTitleBackgroundColor = UIDefaultsLookup.get("control");
 		Object mdiBackgroundColor = UIDefaultsLookup.get("controlShadow");
 
-		Object controlFont = JideSwingUtilities.getControlFont(toolkit, table);
-		Object toolbarFont = JideSwingUtilities.getMenuFont(toolkit, table);
+		Object controlFont = FontUtil.getControlFont(toolkit, table);
+		Object toolbarFont = FontUtil.getMenuFont(toolkit, table);
 
 		Object singleLineBorder = new BorderUIResource(BorderFactory.createLineBorder(UIDefaultsLookup.getColor("controlShadow")));
 

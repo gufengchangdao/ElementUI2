@@ -5,10 +5,10 @@
  */
 package com.element.hints;
 
-import com.element.ui.popup.JidePopupFactory;
 import com.element.plaf.UIDefaultsLookup;
-import com.element.ui.popup.JidePopup;
 import com.element.swing.DelegateAction;
+import com.element.ui.popup.JidePopup;
+import com.element.ui.popup.JidePopupFactory;
 
 import javax.swing.*;
 import javax.swing.event.DocumentEvent;

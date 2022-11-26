@@ -94,7 +94,7 @@ public class ReflectionUtils {
 	 * @throws Exception if the method is not found or invocation to the method fails.
 	 */
 	public static Object callConstructor(Class<?> clazz, Class<?>[] argTypes, Object[] args) throws Exception {
-		Constructor constructor = clazz.getConstructor(argTypes);
+		Constructor<?> constructor = clazz.getConstructor(argTypes);
 		return constructor.newInstance(args);
 	}
 

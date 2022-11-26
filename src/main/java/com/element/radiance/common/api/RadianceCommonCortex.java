@@ -103,23 +103,13 @@ public class RadianceCommonCortex {
 	public static FontPolicy getDefaultFontPolicy() {
 		Platform platform = getPlatform();
 
-		FontPolicy defaultPolicy;
-		switch (platform) {
-			case MACOS:
-				defaultPolicy = new DefaultMacFontPolicy();
-				break;
-			case KDE:
-				defaultPolicy = new DefaultKDEFontPolicy();
-				break;
-			case GNOME:
-				defaultPolicy = new DefaultGnomeFontPolicy();
-				break;
-			case WINDOWS:
-				defaultPolicy = FontPolicies.getDefaultWindowsPolicy();
-				break;
-			default:
-				defaultPolicy = FontPolicies.getDefaultPlasticPolicy();
-		}
+		FontPolicy defaultPolicy = switch (platform) {
+			case MACOS -> new DefaultMacFontPolicy();
+			case KDE -> new DefaultKDEFontPolicy();
+			case GNOME -> new DefaultGnomeFontPolicy();
+			case WINDOWS -> FontPolicies.getDefaultWindowsPolicy();
+			default -> FontPolicies.getDefaultPlasticPolicy();
+		};
 
 		return () -> new RadianceFontSet(defaultPolicy.getFontSet());
 	}

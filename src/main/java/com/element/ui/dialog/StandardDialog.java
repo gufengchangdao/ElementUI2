@@ -6,7 +6,7 @@
 package com.element.ui.dialog;
 
 import com.element.swing.DelegateAction;
-import com.element.util.JideSwingUtilities;
+import com.element.util.StringUtil;
 
 import javax.swing.*;
 import java.awt.*;
@@ -190,7 +190,7 @@ abstract public class StandardDialog extends JDialog implements ButtonNames {
 		try {
 			initialize();
 		} catch (Exception e) {
-			JideSwingUtilities.throwException(e);
+			throw new RuntimeException(e);
 		}
 		super.pack();
 	}
@@ -205,7 +205,7 @@ abstract public class StandardDialog extends JDialog implements ButtonNames {
 		try {
 			initialize();
 		} catch (Exception e) {
-			JideSwingUtilities.throwException(e);
+			throw new RuntimeException(e);
 		}
 		super.show();
 	}
@@ -331,13 +331,13 @@ abstract public class StandardDialog extends JDialog implements ButtonNames {
 		ButtonPanel buttonPanel = new ButtonPanel();
 		buttonPanel.setBorder(BorderFactory.createEmptyBorder(0, 10, 6, 10));
 
-		AbstractAction okAction = new AbstractAction(JideSwingUtilities.getOKString(getLocale())) {
+		AbstractAction okAction = new AbstractAction(StringUtil.getOKString(getLocale())) {
 			public void actionPerformed(ActionEvent e) {
 				setDialogResult(RESULT_AFFIRMED);
 				setVisible(false);
 			}
 		};
-		AbstractAction cancelAction = new AbstractAction(JideSwingUtilities.getCancelString(getLocale())) {
+		AbstractAction cancelAction = new AbstractAction(StringUtil.getCancelString(getLocale())) {
 			public void actionPerformed(ActionEvent e) {
 				setDialogResult(RESULT_CANCELED);
 				setVisible(false);

@@ -5,9 +5,6 @@
  */
 package com.element.plaf.eclipse;
 
-import com.element.ui.icons.IconsFactory;
-import com.element.ui.icons.JideIconsFactory;
-import com.element.ui.icons.MenuCheckIcon;
 import com.element.plaf.ExtWindowsDesktopProperty;
 import com.element.plaf.LookAndFeelFactory;
 import com.element.plaf.UIDefaultsLookup;
@@ -17,7 +14,10 @@ import com.element.plaf.basic.ThemePainter;
 import com.element.plaf.vsnet.HeaderCellBorder;
 import com.element.plaf.windows.WindowsIconFactory;
 import com.element.ui.button.JideButton;
-import com.element.util.JideSwingUtilities;
+import com.element.ui.font.FontUtil;
+import com.element.ui.icons.IconsFactory;
+import com.element.ui.icons.JideIconsFactory;
+import com.element.ui.icons.MenuCheckIcon;
 import com.element.ui.tabs.JideTabbedPane;
 
 import javax.swing.*;
@@ -94,9 +94,9 @@ public class EclipseWindowsUtils extends EclipseLookAndFeelExtension {
 
 		WindowsDesktopProperty highContrast = new WindowsDesktopProperty("win.highContrast.on", UIDefaultsLookup.get("highContrast"), toolkit);
 
-		Object controlFont = JideSwingUtilities.getControlFont(toolkit, table);
-		Object toolbarFont = JideSwingUtilities.getMenuFont(toolkit, table);
-		Object boldFont = JideSwingUtilities.getBoldFont(toolkit, table);
+		Object controlFont = FontUtil.getControlFont(toolkit, table);
+		Object toolbarFont = FontUtil.getMenuFont(toolkit, table);
+		Object boldFont = FontUtil.getBoldFont(toolkit, table);
 
 		Border shadowBorder = BorderFactory.createCompoundBorder(new ShadowBorder(null, null, new Color(171, 168, 165), new Color(143, 141, 138), new Insets(0, 0, 2, 2)),
 				BorderFactory.createLineBorder(Color.gray));
@@ -107,7 +107,7 @@ public class EclipseWindowsUtils extends EclipseLookAndFeelExtension {
 
 		Object sunkenBorder = new ExtWindowsDesktopProperty(new String[]{"win.3d.lightColor", "win.3d.highlightColor", "win.3d.shadowColor", "win.3d.darkShadowColor"},
 				new Object[]{UIDefaultsLookup.get("control"), UIDefaultsLookup.get("controlLtHighlight"), UIDefaultsLookup.get("controlShadow"), UIDefaultsLookup.get("controlDkShadow")}, toolkit, obj -> new SunkenBorder((Color) obj[0], (Color) obj[1], (Color) obj[2], (Color) obj[3],
-						new Insets(1, 1, 2, 1)));
+				new Insets(1, 1, 2, 1)));
 
 		Object focusedButtonColor = new ExtWindowsDesktopProperty(new String[]{"win.item.highlightColor"}, new Object[]{UIDefaultsLookup.get("textHighlight")}, toolkit, obj -> new ColorUIResource(EclipseUtils.getFocusedButtonColor((Color) obj[0])));
 
@@ -313,19 +313,19 @@ public class EclipseWindowsUtils extends EclipseLookAndFeelExtension {
 		if ((products & PRODUCT_DOCK) != 0) {
 			Object slidingEastFrameBorder = new ExtWindowsDesktopProperty(new String[]{"win.3d.lightColor", "win.3d.highlightColor", "win.3d.shadowColor", "win.3d.darkShadowColor"},
 					new Object[]{UIDefaultsLookup.get("control"), UIDefaultsLookup.get("controlLtHighlight"), UIDefaultsLookup.get("controlShadow"), UIDefaultsLookup.get("controlDkShadow")}, toolkit, obj -> new FrameBorder((Color) obj[0], (Color) obj[1], (Color) obj[2], (Color) obj[3],
-							new Insets(0, 4, 0, 0)));
+					new Insets(0, 4, 0, 0)));
 
 			Object slidingWestFrameBorder = new ExtWindowsDesktopProperty(new String[]{"win.3d.lightColor", "win.3d.highlightColor", "win.3d.shadowColor", "win.3d.darkShadowColor"},
 					new Object[]{UIDefaultsLookup.get("control"), UIDefaultsLookup.get("controlLtHighlight"), UIDefaultsLookup.get("controlShadow"), UIDefaultsLookup.get("controlDkShadow")}, toolkit, obj -> new FrameBorder((Color) obj[0], (Color) obj[1], (Color) obj[2], (Color) obj[3],
-							new Insets(0, 0, 0, 4)));
+					new Insets(0, 0, 0, 4)));
 
 			Object slidingNorthFrameBorder = new ExtWindowsDesktopProperty(new String[]{"win.3d.lightColor", "win.3d.highlightColor", "win.3d.shadowColor", "win.3d.darkShadowColor"},
 					new Object[]{UIDefaultsLookup.get("control"), UIDefaultsLookup.get("controlLtHighlight"), UIDefaultsLookup.get("controlShadow"), UIDefaultsLookup.get("controlDkShadow")}, toolkit, obj -> new FrameBorder((Color) obj[0], (Color) obj[1], (Color) obj[2], (Color) obj[3],
-							new Insets(0, 0, 4, 0)));
+					new Insets(0, 0, 4, 0)));
 
 			Object slidingSouthFrameBorder = new ExtWindowsDesktopProperty(new String[]{"win.3d.lightColor", "win.3d.highlightColor", "win.3d.shadowColor", "win.3d.darkShadowColor"},
 					new Object[]{UIDefaultsLookup.get("control"), UIDefaultsLookup.get("controlLtHighlight"), UIDefaultsLookup.get("controlShadow"), UIDefaultsLookup.get("controlDkShadow")}, toolkit, obj -> new FrameBorder((Color) obj[0], (Color) obj[1], (Color) obj[2], (Color) obj[3],
-							new Insets(4, 0, 0, 0)));
+					new Insets(4, 0, 0, 0)));
 
 			ImageIcon titleButtonImage = IconsFactory.getImageIcon(Eclipse3xWindowsUtils.class, "icons/title_buttons_eclipse.gif"); // 16 x 16 x 8
 			final int titleButtonSize = 16;
@@ -529,9 +529,9 @@ public class EclipseWindowsUtils extends EclipseLookAndFeelExtension {
 
 			Object menuBorder = new ExtWindowsDesktopProperty(new String[]{"win.3d.lightColor", "win.3d.highlightColor", "win.3d.shadowColor", "win.3d.darkShadowColor"},
 					new Object[]{UIDefaultsLookup.get("control"), UIDefaultsLookup.get("controlLtHighlight"), UIDefaultsLookup.get("controlShadow"), UIDefaultsLookup.get("controlDkShadow")}, toolkit, obj -> new RaisedBorder((Color) obj[0], (Color) obj[1], (Color) obj[2], (Color) obj[3],
-							new Insets(2, 2, 2, 2)));
+					new Insets(2, 2, 2, 2)));
 
-			Object menuFont = JideSwingUtilities.getMenuFont(toolkit, table);
+			Object menuFont = FontUtil.getMenuFont(toolkit, table);
 
 			Object[] uiDefaults = {
 					"PopupMenuSeparator.foreground", defaultHighlightColor,

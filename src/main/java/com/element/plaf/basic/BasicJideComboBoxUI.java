@@ -1,7 +1,7 @@
 package com.element.plaf.basic;
 
 import com.element.plaf.UIDefaultsLookup;
-import com.element.util.JideSwingUtilities;
+import com.element.util.UIUtil;
 
 import javax.swing.*;
 import javax.swing.border.AbstractBorder;
@@ -25,7 +25,7 @@ public class BasicJideComboBoxUI extends MetalComboBoxUI {
 	@Override
 	protected void installDefaults() {
 		super.installDefaults();
-		JideSwingUtilities.installBorder(comboBox, createComboBoxBorder());
+		comboBox.setBorder(createComboBoxBorder());
 	}
 
 	protected BasicJideComboBoxBorder createComboBoxBorder() {
@@ -245,7 +245,7 @@ public class BasicJideComboBoxUI extends MetalComboBoxUI {
 
 	protected static class BasicJideComboBoxIcon implements Icon {
 		public void paintIcon(Component c, Graphics g, int x, int y) {
-			JideSwingUtilities.paintArrow(g, c.getForeground(), x, y, 5, SwingConstants.HORIZONTAL);
+			UIUtil.paintArrow(g, c.getForeground(), x, y, 5, SwingConstants.HORIZONTAL);
 		}
 
 		public int getIconWidth() {

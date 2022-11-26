@@ -1,7 +1,7 @@
 package com.element.ui.others.carousel;
 
-import com.element.ui.button.ButtonFactory;
 import com.element.color.ColorUtil;
+import com.element.ui.button.ButtonFactory;
 import org.jdesktop.animation.transitions.EffectsManager;
 import org.jdesktop.animation.transitions.ScreenTransition;
 import org.jdesktop.animation.transitions.TransitionTarget;

@@ -5,8 +5,7 @@ import com.element.plaf.UIDefaultsLookup;
 import com.element.plaf.basic.ThemePainter;
 import com.element.ui.icons.JideIconsFactory;
 import com.element.ui.layout.JideBoxLayout;
-import com.element.util.JideSwingUtilities;
-import com.sun.java.swing.plaf.windows.WindowsLookAndFeel;
+import com.element.util.StringUtil;
 import demo.AbstractDemo;
 
 import javax.swing.*;
@@ -156,11 +155,11 @@ public class JideOptionPaneTest extends AbstractDemo {
 
 				// Options
 				String[] options = {
-						JideSwingUtilities.getYesString(_demoPanel.getLocale()),
-						JideSwingUtilities.getNoString(_demoPanel.getLocale()),
+						StringUtil.getYesString(_demoPanel.getLocale()),
+						StringUtil.getNoString(_demoPanel.getLocale()),
 						"Maybe",
 						"Probably",
-						JideSwingUtilities.getCancelString(_demoPanel.getLocale())
+						StringUtil.getCancelString(_demoPanel.getLocale())
 				};
 				int result = JideOptionPane.showOptionDialog(
 						getDemoPanel(),                             // the parent that the dialog blocks

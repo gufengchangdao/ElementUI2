@@ -5,8 +5,8 @@
  */
 package com.element.swing;
 
-import com.element.ui.window.ResizableWindow;
 import com.element.plaf.UIDefaultsLookup;
+import com.element.ui.window.ResizableWindow;
 
 import javax.swing.*;
 import javax.swing.event.MouseInputListener;

@@ -5,13 +5,13 @@
  */
 package com.element.ui.field;
 
-import com.element.ui.menu.JidePopupMenu;
-import com.element.ui.base.DefaultOverlayable;
 import com.element.plaf.UIDefaultsLookup;
-import com.element.util.JideSwingUtilities;
-import com.element.util.SystemInfo;
 import com.element.swing.Overlayable;
+import com.element.ui.base.DefaultOverlayable;
+import com.element.ui.menu.JidePopupMenu;
 import com.element.util.SelectAllUtils;
+import com.element.util.SystemInfo;
+import com.element.util.UIUtil;
 
 import javax.swing.*;
 import javax.swing.border.Border;
@@ -114,7 +114,7 @@ public class LabeledTextField extends JPanel {
 			}
 			if (menu != null && menu.getComponentCount() > 0) {
 				Point location = calculateContextMenuLocation();
-				JideSwingUtilities.showPopupMenu(menu, this, location.x, location.y);
+				UIUtil.showPopupMenu(menu, this, location.x, location.y);
 			}
 		}
 	}
@@ -233,7 +233,7 @@ public class LabeledTextField extends JPanel {
 	protected JTextField createTextField() {
 		JTextField textField = new OverlayTextField();
 		SelectAllUtils.install(textField);
-		JideSwingUtilities.setComponentTransparent(textField);
+		UIUtil.setComponentTransparent(textField);
 		textField.setColumns(20);
 		return textField;
 	}
@@ -461,15 +461,15 @@ public class LabeledTextField extends JPanel {
 	}
 
 	public int getBaseline(int width, int height) {
-			try {
-				Method method = Component.class.getMethod("getBaseline", int.class, int.class);
-				Object value = method.invoke(_textField, width, height);
-				if (value instanceof Integer) {
-					return (Integer) value;
-				}
-			} catch (NoSuchMethodException | IllegalAccessException | InvocationTargetException e) {
-				// ignore
+		try {
+			Method method = Component.class.getMethod("getBaseline", int.class, int.class);
+			Object value = method.invoke(_textField, width, height);
+			if (value instanceof Integer) {
+				return (Integer) value;
 			}
+		} catch (NoSuchMethodException | IllegalAccessException | InvocationTargetException e) {
+			// ignore
+		}
 		return -1;
 	}
 

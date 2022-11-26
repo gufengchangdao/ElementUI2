@@ -8,8 +8,8 @@ package com.element.plaf.eclipse;
 
 import com.element.plaf.UIDefaultsLookup;
 import com.element.plaf.vsnet.VsnetJideTabbedPaneUI;
-import com.element.util.JideSwingUtilities;
 import com.element.ui.tabs.JideTabbedPane;
+import com.element.util.UIUtil;
 
 import javax.swing.*;
 import javax.swing.plaf.ComponentUI;
@@ -325,34 +325,24 @@ public class EclipseJideTabbedPaneUI extends VsnetJideTabbedPaneUI {
 				int restWidth = w - (isShowCloseButtonOnTab() ? buttonSize : 0) - 3;
 				int restHeight = h - (isShowCloseButtonOnTab() ? buttonSize : 0) - 3;
 				switch (tabPlacement) {
-					case LEFT:
-						JideSwingUtilities.fillGradient(g2d, new Rectangle(x, y + 1, w, restHeight >> 1), background1, background2, true);
-						break;
-					case RIGHT:
-						JideSwingUtilities.fillGradient(g2d, new Rectangle(x, y + 1, w - 1, restHeight >> 1), background1, background2, true);
-						break;
-					case BOTTOM:
-						JideSwingUtilities.fillGradient(g2d, new Rectangle(x + 1, y, restWidth >> 1, h - 1), background1, background2, false);
-						break;
-					case TOP:
-					default:
-						JideSwingUtilities.fillGradient(g2d, new Rectangle(x + 1, y + 1, restWidth >> 1, h), background1, background2, false);
-						break;
+					case LEFT ->
+							UIUtil.fillGradient(g2d, new Rectangle(x, y + 1, w, restHeight >> 1), background1, background2, true);
+					case RIGHT ->
+							UIUtil.fillGradient(g2d, new Rectangle(x, y + 1, w - 1, restHeight >> 1), background1, background2, true);
+					case BOTTOM ->
+							UIUtil.fillGradient(g2d, new Rectangle(x + 1, y, restWidth >> 1, h - 1), background1, background2, false);
+					default ->
+							UIUtil.fillGradient(g2d, new Rectangle(x + 1, y + 1, restWidth >> 1, h), background1, background2, false);
 				}
 				switch (tabPlacement) {
-					case LEFT:
-						JideSwingUtilities.fillGradient(g2d, new Rectangle(x, y + 1 + (restHeight >> 1), w, restHeight >> 1), background2, _tabBackground, true);
-						break;
-					case RIGHT:
-						JideSwingUtilities.fillGradient(g2d, new Rectangle(x, y + 1 + (restHeight >> 1), w - 1, restHeight >> 1), background2, _tabBackground, true);
-						break;
-					case BOTTOM:
-						JideSwingUtilities.fillGradient(g2d, new Rectangle(x + 1 + (restWidth >> 1), y, restWidth >> 1, h - 1), background2, _tabBackground, false);
-						break;
-					case TOP:
-					default:
-						JideSwingUtilities.fillGradient(g2d, new Rectangle(x + 1 + (restWidth >> 1), y + 1, restWidth >> 1, h), background2, _tabBackground, false);
-						break;
+					case LEFT ->
+							UIUtil.fillGradient(g2d, new Rectangle(x, y + 1 + (restHeight >> 1), w, restHeight >> 1), background2, _tabBackground, true);
+					case RIGHT ->
+							UIUtil.fillGradient(g2d, new Rectangle(x, y + 1 + (restHeight >> 1), w - 1, restHeight >> 1), background2, _tabBackground, true);
+					case BOTTOM ->
+							UIUtil.fillGradient(g2d, new Rectangle(x + 1 + (restWidth >> 1), y, restWidth >> 1, h - 1), background2, _tabBackground, false);
+					default ->
+							UIUtil.fillGradient(g2d, new Rectangle(x + 1 + (restWidth >> 1), y + 1, restWidth >> 1, h), background2, _tabBackground, false);
 				}
 			} else {
 				super.paintTabBackground(g, tabPlacement, tabIndex, x, y, w, h, isSelected);

@@ -7,10 +7,10 @@ package com.element.plaf.basic;
 
 import com.element.plaf.LookAndFeelFactory;
 import com.element.plaf.UIDefaultsLookup;
-import com.element.ui.font.FontUtils;
-import com.element.util.JideSwingUtilities;
 import com.element.swing.StyleRange;
+import com.element.ui.font.FontUtils;
 import com.element.ui.label.StyledLabel;
+import com.element.util.UIUtil;
 
 import javax.swing.*;
 import javax.swing.plaf.ComponentUI;
@@ -905,9 +905,9 @@ public class BasicStyledLabelUI extends BasicLabelUI implements SwingConstants {
 					g.setColor(textColor);
 
 					if (displayMnemonic) {
-						JideSwingUtilities.drawStringUnderlineCharAt(label, g, s, mneIndex, x, y);
+						UIUtil.drawStringUnderlineCharAt(label, g, s, mneIndex, x, y);
 					} else {
-						JideSwingUtilities.drawString(label, g, s, x, y);
+						UIUtil.drawString(g, s, x, y);
 					}
 
 					if (style != null) {
@@ -1219,9 +1219,9 @@ public class BasicStyledLabelUI extends BasicLabelUI implements SwingConstants {
 			g.setColor(textColor);
 
 			if (displayMnemonic) {
-				JideSwingUtilities.drawStringUnderlineCharAt(label, g, s, mneIndex, x, y);
+				UIUtil.drawStringUnderlineCharAt(label, g, s, mneIndex, x, y);
 			} else {
-				JideSwingUtilities.drawString(label, g, s, x, y);
+				UIUtil.drawString(g, s, x, y);
 			}
 
 			if (style != null) {

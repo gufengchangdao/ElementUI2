@@ -230,7 +230,7 @@ public class ImageUtil {
 		icon.setImageObserver((img, infoflags, x, y, w, h) -> {
 			if (combo.isShowing() && (infoflags & (FRAMEBITS | ALLBITS)) != 0) {
 				// 重绘gif图片所在行
-				RepaintUtil.repaint(combo, row);
+				UIUtil.repaint(combo, row);
 			}
 			return (infoflags & (ALLBITS | ABORT)) == 0;
 		});
@@ -253,7 +253,7 @@ public class ImageUtil {
 				return false;
 			}
 			if ((infoflags & (FRAMEBITS | ALLBITS)) != 0) {
-				RepaintUtil.repaint(table, row, col);
+				UIUtil.repaint(table, row, col);
 			}
 			return (infoflags & (ALLBITS | ABORT)) == 0;
 		});

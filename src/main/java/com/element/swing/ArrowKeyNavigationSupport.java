@@ -1,7 +1,7 @@
 package com.element.swing;
 
+import com.element.util.UIUtil;
 import com.element.util.handle.Handler;
-import com.element.util.JideSwingUtilities;
 
 import javax.swing.*;
 import java.awt.*;
@@ -106,7 +106,7 @@ public class ArrowKeyNavigationSupport {
 		public void actionPerformed(ActionEvent e) {
 			final List<Rectangle> rects = new ArrayList<>();
 			final List<Component> components = new ArrayList<>();
-			JideSwingUtilities.setRecursively(_parent, new Handler() {
+			UIUtil.setRecursively(_parent, new Handler() {
 				public void postAction(Component c) {
 				}
 

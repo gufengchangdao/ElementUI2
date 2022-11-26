@@ -6,16 +6,16 @@
 
 package com.element.plaf.vsnet;
 
-import com.element.ui.icons.IconsFactory;
-import com.element.plaf.windows.WindowsGraphicsUtilsPort;
 import com.element.plaf.UIDefaultsLookup;
 import com.element.plaf.basic.ThemePainter;
+import com.element.plaf.windows.WindowsGraphicsUtilsPort;
 import com.element.ui.button.ButtonStyle;
 import com.element.ui.button.JideSplitButton;
-import com.element.util.JideSwingUtilities;
+import com.element.ui.icons.IconsFactory;
 import com.element.ui.menu.TopLevelMenuContainer;
 import com.element.util.SecurityUtils;
 import com.element.util.SystemInfo;
+import com.element.util.UIUtil;
 
 import javax.swing.*;
 import javax.swing.event.*;
@@ -516,7 +516,7 @@ public class VsnetMenuItemUI extends MenuItemUI {
 //            r.height++;
 //        }
 
-		if (JideSwingUtilities.getOrientationOf(menuItem) == SwingConstants.HORIZONTAL) {
+		if (UIUtil.getOrientationOf(menuItem) == SwingConstants.HORIZONTAL) {
 			return r.getSize();
 		} else {
 			//noinspection SuspiciousNameCombination
@@ -562,7 +562,7 @@ public class VsnetMenuItemUI extends MenuItemUI {
 		int menuWidth;
 		int menuHeight;
 
-		if (JideSwingUtilities.getOrientationOf(menuItem) == SwingConstants.HORIZONTAL) {
+		if (UIUtil.getOrientationOf(menuItem) == SwingConstants.HORIZONTAL) {
 			menuWidth = b.getWidth();
 			menuHeight = b.getHeight();
 		} else {
@@ -638,7 +638,7 @@ public class VsnetMenuItemUI extends MenuItemUI {
 		}
 
 		// rotate back since we don't want to paint icon in rotated way.
-		if (JideSwingUtilities.getOrientationOf(menuItem) == SwingConstants.VERTICAL) {
+		if (UIUtil.getOrientationOf(menuItem) == SwingConstants.VERTICAL) {
 			//   Dimension size = b.getSize();
 			Graphics2D g2d = (Graphics2D) g;
 			g2d.rotate(-Math.PI / 2);
@@ -651,7 +651,7 @@ public class VsnetMenuItemUI extends MenuItemUI {
 
 		paintIcon(b, g);
 
-		if (JideSwingUtilities.getOrientationOf(menuItem) == SwingConstants.VERTICAL) {
+		if (UIUtil.getOrientationOf(menuItem) == SwingConstants.VERTICAL) {
 			int save = iconRect.x;
 			//noinspection SuspiciousNameCombination
 			iconRect.x = iconRect.y;
@@ -696,16 +696,16 @@ public class VsnetMenuItemUI extends MenuItemUI {
 				// *** paint the acceleratorText disabled
 				if (disabledForeground != null) {
 					g.setColor(disabledForeground);
-					JideSwingUtilities.drawString(menuItem, g, acceleratorText,
+					UIUtil.drawString(g, acceleratorText,
 							acceleratorRect.x - accOffset,
 							acceleratorRect.y + fmAccel.getAscent());
 				} else {
 					g.setColor(b.getBackground().brighter());
-					JideSwingUtilities.drawString(menuItem, g, acceleratorText,
+					UIUtil.drawString(g, acceleratorText,
 							acceleratorRect.x - accOffset,
 							acceleratorRect.y + fmAccel.getAscent());
 					g.setColor(b.getBackground().darker());
-					JideSwingUtilities.drawString(menuItem, g, acceleratorText,
+					UIUtil.drawString(g, acceleratorText,
 							acceleratorRect.x - accOffset - 1,
 							acceleratorRect.y + fmAccel.getAscent() - 1);
 				}
@@ -716,7 +716,7 @@ public class VsnetMenuItemUI extends MenuItemUI {
 				} else {
 					g.setColor(acceleratorForeground);
 				}
-				JideSwingUtilities.drawString(menuItem, g, acceleratorText,
+				UIUtil.drawString(g, acceleratorText,
 						acceleratorRect.x - accOffset,
 						acceleratorRect.y + fmAccel.getAscent());
 			}
@@ -795,7 +795,7 @@ public class VsnetMenuItemUI extends MenuItemUI {
 		Color oldColor = g.getColor();
 		int menuWidth;
 		int menuHeight;
-		if (JideSwingUtilities.getOrientationOf(menuItem) == SwingConstants.HORIZONTAL) {
+		if (UIUtil.getOrientationOf(menuItem) == SwingConstants.HORIZONTAL) {
 			menuWidth = menuItem.getWidth();
 			menuHeight = menuItem.getHeight();
 		} else {
@@ -819,7 +819,7 @@ public class VsnetMenuItemUI extends MenuItemUI {
 
 
 				if ("true".equals(SecurityUtils.getProperty("shadingtheme", "false"))) {
-					JideSwingUtilities.fillSingleGradient(g, new Rectangle(0, 0, defaultShadowWidth, menuHeight), SwingConstants.EAST, 255);
+					UIUtil.fillSingleGradient(g, new Rectangle(0, 0, defaultShadowWidth, menuHeight), SwingConstants.EAST, 255);
 				}
 
 				g.setColor(oldColor);
@@ -837,7 +837,7 @@ public class VsnetMenuItemUI extends MenuItemUI {
 				}
 
 				if ("true".equals(SecurityUtils.getProperty("shadingtheme", "false"))) {
-					JideSwingUtilities.fillSingleGradient(g, new Rectangle(menuWidth - defaultShadowWidth, 0, defaultShadowWidth, menuHeight), SwingConstants.WEST, 255);
+					UIUtil.fillSingleGradient(g, new Rectangle(menuWidth - defaultShadowWidth, 0, defaultShadowWidth, menuHeight), SwingConstants.WEST, 255);
 				}
 
 				g.setColor(oldColor);
@@ -876,7 +876,7 @@ public class VsnetMenuItemUI extends MenuItemUI {
 			if (model.isArmed() || (menuItem instanceof JMenu && model.isSelected())) {
 				g.setColor(selectionForeground); // Uses protected field.
 			}
-			JideSwingUtilities.drawStringUnderlineCharAt(menuItem, g, text,
+			UIUtil.drawStringUnderlineCharAt(menuItem, g, text,
 					mnemonicIndex,
 					textRect.x,
 					textRect.y + fm.getAscent());
@@ -922,7 +922,7 @@ public class VsnetMenuItemUI extends MenuItemUI {
 		// get viewRect which is the bounds of menuitem
 		viewRect.x = insets.left;
 		viewRect.y = insets.top;
-		if (JideSwingUtilities.getOrientationOf(menuItem) == SwingConstants.HORIZONTAL) {
+		if (UIUtil.getOrientationOf(menuItem) == SwingConstants.HORIZONTAL) {
 			//   Dimension size = b.getSize();
 			viewRect.height = menuItem.getHeight() - insets.top - insets.bottom;
 			viewRect.width = menuItem.getWidth() - insets.left - insets.right;

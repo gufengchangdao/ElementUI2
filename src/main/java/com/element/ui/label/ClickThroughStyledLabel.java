@@ -1,6 +1,6 @@
 package com.element.ui.label;
 
-import com.element.util.JideSwingUtilities;
+import com.element.util.UIUtil;
 
 import javax.swing.*;
 import javax.swing.event.MouseInputListener;
@@ -74,30 +74,30 @@ public class ClickThroughStyledLabel extends StyledLabel implements MouseInputLi
 	}
 
 	public void mouseClicked(MouseEvent e) {
-		JideSwingUtilities.retargetMouseEvent(e.getID(), e, getTarget());
+		UIUtil.retargetMouseEvent(e.getID(), e, getTarget());
 	}
 
 	public void mousePressed(MouseEvent e) {
-		JideSwingUtilities.retargetMouseEvent(e.getID(), e, getTarget());
+		UIUtil.retargetMouseEvent(e.getID(), e, getTarget());
 	}
 
 	public void mouseReleased(MouseEvent e) {
-		JideSwingUtilities.retargetMouseEvent(e.getID(), e, getTarget());
+		UIUtil.retargetMouseEvent(e.getID(), e, getTarget());
 	}
 
 	public void mouseEntered(MouseEvent e) {
-		JideSwingUtilities.retargetMouseEvent(e.getID(), e, getTarget());
+		UIUtil.retargetMouseEvent(e.getID(), e, getTarget());
 	}
 
 	public void mouseExited(MouseEvent e) {
-		JideSwingUtilities.retargetMouseEvent(e.getID(), e, getTarget());
+		UIUtil.retargetMouseEvent(e.getID(), e, getTarget());
 	}
 
 	public void mouseDragged(MouseEvent e) {
-		JideSwingUtilities.retargetMouseEvent(e.getID(), e, getTarget());
+		UIUtil.retargetMouseEvent(e.getID(), e, getTarget());
 	}
 
 	public void mouseMoved(MouseEvent e) {
-		JideSwingUtilities.retargetMouseEvent(e.getID(), e, getTarget());
+		UIUtil.retargetMouseEvent(e.getID(), e, getTarget());
 	}
 }

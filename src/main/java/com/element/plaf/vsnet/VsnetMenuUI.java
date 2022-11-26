@@ -6,13 +6,13 @@
 
 package com.element.plaf.vsnet;
 
-import com.element.plaf.windows.WindowsGraphicsUtilsPort;
 import com.element.plaf.LookAndFeelFactory;
 import com.element.plaf.UIDefaultsLookup;
 import com.element.plaf.basic.ThemePainter;
+import com.element.plaf.windows.WindowsGraphicsUtilsPort;
 import com.element.ui.button.ButtonStyle;
-import com.element.util.JideSwingUtilities;
 import com.element.ui.menu.TopLevelMenuContainer;
+import com.element.util.UIUtil;
 
 import javax.swing.*;
 import javax.swing.event.*;
@@ -74,7 +74,7 @@ public class VsnetMenuUI extends VsnetMenuItemUI {
 		Color oldColor = g.getColor();
 		int menuWidth;
 		int menuHeight;
-		if (JideSwingUtilities.getOrientationOf(menuItem) == SwingConstants.HORIZONTAL) {
+		if (UIUtil.getOrientationOf(menuItem) == SwingConstants.HORIZONTAL) {
 			menuWidth = menuItem.getWidth();
 			menuHeight = menuItem.getHeight();
 		} else {
@@ -101,15 +101,15 @@ public class VsnetMenuUI extends VsnetMenuItemUI {
 			// TODO: we should consider the location of popup menu and decide which side not paint.
 			// TODO: for example if the menu is going upward, we shouldn't paint the top.
 			if (((JMenu) menuItem).getPopupMenu().isVisible()) { // paint differently if popup menu is visible
-				if (JideSwingUtilities.getOrientationOf(menuItem) == SwingConstants.HORIZONTAL) {
-					getPainter().paintMenuItemBackground(menuItem, g, rect, JideSwingUtilities.getOrientationOf(menuItem), ThemePainter.STATE_DEFAULT, false);
+				if (UIUtil.getOrientationOf(menuItem) == SwingConstants.HORIZONTAL) {
+					getPainter().paintMenuItemBackground(menuItem, g, rect, UIUtil.getOrientationOf(menuItem), ThemePainter.STATE_DEFAULT, false);
 					g.setColor(borderColor);
 					g.drawLine(0, 0, menuWidth - 1, 0);
 					g.drawLine(menuWidth - 1, 0, menuWidth - 1, menuHeight - 1);
 					g.drawLine(0, menuHeight - 1, 0, 1);
 					g.drawLine(0, menuHeight - 1, menuWidth - 1, menuHeight - 1);
 				} else {
-					getPainter().paintMenuItemBackground(menuItem, g, rect, JideSwingUtilities.getOrientationOf(menuItem), ThemePainter.STATE_DEFAULT, false);
+					getPainter().paintMenuItemBackground(menuItem, g, rect, UIUtil.getOrientationOf(menuItem), ThemePainter.STATE_DEFAULT, false);
 					g.setColor(borderColor);
 					g.drawLine(0, menuHeight - 1, menuWidth - 1, menuHeight - 1);
 					g.drawLine(menuWidth - 1, 0, menuWidth - 1, menuHeight);
@@ -117,10 +117,10 @@ public class VsnetMenuUI extends VsnetMenuItemUI {
 					g.drawLine(0, 0, menuWidth - 1, 0);
 				}
 			} else {
-				getPainter().paintMenuItemBackground(menuItem, g, rect, JideSwingUtilities.getOrientationOf(menuItem), ThemePainter.STATE_ROLLOVER);
+				getPainter().paintMenuItemBackground(menuItem, g, rect, UIUtil.getOrientationOf(menuItem), ThemePainter.STATE_ROLLOVER);
 			}
 		} else if (isMouseOver() && model.isEnabled()) {
-			getPainter().paintMenuItemBackground(menuItem, g, rect, JideSwingUtilities.getOrientationOf(menuItem), ThemePainter.STATE_ROLLOVER);
+			getPainter().paintMenuItemBackground(menuItem, g, rect, UIUtil.getOrientationOf(menuItem), ThemePainter.STATE_ROLLOVER);
 		}
 
 		if (isDownArrowVisible(menuItem.getParent())) {
@@ -316,7 +316,7 @@ public class VsnetMenuUI extends VsnetMenuItemUI {
 	public Dimension getMaximumSize(JComponent c) {
 		if (menuItem instanceof JMenu && ((JMenu) menuItem).isTopLevelMenu()) {
 			Dimension d = c.getPreferredSize();
-			if (JideSwingUtilities.getOrientationOf(menuItem) == SwingConstants.HORIZONTAL) {
+			if (UIUtil.getOrientationOf(menuItem) == SwingConstants.HORIZONTAL) {
 				return new Dimension(d.width, Short.MAX_VALUE);
 			} else {
 				return new Dimension(Short.MAX_VALUE, d.height);
@@ -853,7 +853,7 @@ public class VsnetMenuUI extends VsnetMenuItemUI {
 					g.setColor(selectionForeground); // Uses protected field.
 				}
 			}
-			JideSwingUtilities.drawStringUnderlineCharAt(menuItem, g, text,
+			UIUtil.drawStringUnderlineCharAt(menuItem, g, text,
 					mnemonicIndex,
 					textRect.x,
 					textRect.y + fm.getAscent());
@@ -886,7 +886,7 @@ public class VsnetMenuUI extends VsnetMenuItemUI {
 		Dimension size = super.getPreferredSize(c);
 		if (menuItem instanceof JMenu && ((JMenu) menuItem).isTopLevelMenu() &&
 				isDownArrowVisible(menuItem.getParent())) {
-			if (JideSwingUtilities.getOrientationOf(menuItem) == SwingConstants.HORIZONTAL)
+			if (UIUtil.getOrientationOf(menuItem) == SwingConstants.HORIZONTAL)
 				size.width += 11;
 			else
 				size.height += 11;

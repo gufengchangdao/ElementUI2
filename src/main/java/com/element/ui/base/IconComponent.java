@@ -1,7 +1,7 @@
 package com.element.ui.base;
 
-import com.element.ui.border.IconBorder;
 import com.element.radiance.common.api.icon.RadianceIcon;
+import com.element.ui.border.IconBorder;
 import com.element.util.SizeAdjustUtil;
 
 import javax.swing.*;

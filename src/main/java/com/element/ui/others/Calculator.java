@@ -6,9 +6,9 @@
 
 package com.element.ui.others;
 
-import com.element.util.PortingUtils;
 import com.element.ui.button.JideButton;
-import com.element.util.JideSwingUtilities;
+import com.element.util.PortingUtils;
+import com.element.util.UIUtil;
 
 import javax.swing.*;
 import java.awt.*;
@@ -22,7 +22,7 @@ import java.util.Locale;
 
 /**
  * 计算器是一个可以进行简单算术计算的组件。由于它扩展了 JPanel，您可以在应用程序的任何地方使用它。
- *
+ * <p>
  * 为了使其更加灵活，计算器没有用于显示结果的文本字段。您可以创建自己的 JTextField 或 JLabel 来显示结果。下面是一个创建文本字段并将其与计算器相关联的简单示例。
  * <pre><code>
  * final JTextField textField = new JTextField();
@@ -37,14 +37,14 @@ import java.util.Locale;
  * });
  * calculator.clear();
  * </code></pre>
- *
+ * <p>
  * 使用上面的代码，用户可以直接在文本字段中输入并进行计算。如果您只想显示结果而不介意文本字段是否接受键盘输入，则无需调用 registerKeyboardActions 方法。
- *
+ * <p>
  * 所有数字键和运算符键都按预期工作。这里有一些值得一提的特殊键
  * 'C', 'c' 或 ESC 清除当前结果
  * '！'使当前显示的数字由正变负（或由负变正）
  * ENTER 等同于 '='..
- *
+ * <p>
  * 使用计算器的另一种有趣方式是不使用 GUI 来使用它。
  * <pre><code>
  * Calculator calculator = new Calculator();
@@ -56,9 +56,9 @@ import java.util.Locale;
  * calculator.input('=');
  * System.out.println("10 * 24 = " + calculator.getDisplayText());
  * </code></pre>
- *
+ * <p>
  * 打印输出将是“10 * 24 = 240”。
- *
+ * <p>
  * 您可以使用多种方法来获取计算器的内部状态。
  * <ul>
  *     <li>getDisplayText() ：获取应显示的结果。请注意，此方法返回一个字符串。</li>
@@ -311,14 +311,14 @@ public class Calculator extends JPanel implements ActionListener {
 		}
 
 		public void paintIcon(Component c, Graphics g, int x, int y) {
-			Object save = JideSwingUtilities.setupShapeAntialiasing(g);
+			Object save = UIUtil.setupShapeAntialiasing(g);
 			Color old = g.getColor();
 			g.setColor(c.getForeground());
 			g.drawLine(x, y + 3, x + 3, y);
 			g.drawLine(x, y + 3, x + 3, y + 6);
 			g.drawLine(x + 3, y + 3, x + 7, y + 3);
 			g.setColor(old);
-			JideSwingUtilities.restoreShapeAntialiasing(g, save);
+			UIUtil.restoreShapeAntialiasing(g, save);
 		}
 
 		public int getIconWidth() {
@@ -336,13 +336,13 @@ public class Calculator extends JPanel implements ActionListener {
 
 		public void paintIcon(Component c, Graphics g, int x, int y) {
 			Color old = g.getColor();
-			Object save = JideSwingUtilities.setupShapeAntialiasing(g);
+			Object save = UIUtil.setupShapeAntialiasing(g);
 			g.setColor(c.getForeground());
 			g.drawLine(x, y + 2, x + 6, y + 2);
 			g.drawLine(x, y + 7, x + 6, y + 7);
 			g.drawLine(x + 3, y, x + 3, y + 5);
 			g.setColor(old);
-			JideSwingUtilities.restoreShapeAntialiasing(g, save);
+			UIUtil.restoreShapeAntialiasing(g, save);
 		}
 
 		public int getIconWidth() {
@@ -683,7 +683,7 @@ public class Calculator extends JPanel implements ActionListener {
 		int old = _operator;
 		if (old != operator) {
 			_operator = operator;
-			firePropertyChange(PROPERTY_OPERATOR, (Integer)old, (Integer)operator);
+			firePropertyChange(PROPERTY_OPERATOR, (Integer) old, (Integer) operator);
 		}
 	}
 

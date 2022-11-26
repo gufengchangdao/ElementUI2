@@ -2,7 +2,6 @@ package com.element.plaf.basic;
 
 import com.element.plaf.UIDefaultsLookup;
 import com.element.ui.button.JideButton;
-import com.element.util.JideSwingUtilities;
 
 import javax.swing.*;
 import javax.swing.plaf.ComponentInputMapUIResource;

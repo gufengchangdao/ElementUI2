@@ -1,26 +1,24 @@
-import com.element.util.JideSwingUtilities;
-import com.element.util.SwingTestUtil;
-
-import javax.swing.*;
-import java.awt.*;
+import static com.element.util.UIUtil.MAC_USE_QUARTZ;
 
 public class Main {
 	public static void main(String[] args) {
-		EventQueue.invokeLater(() -> {
-			JPanel p = SwingTestUtil.init(new FlowLayout());
-
-			JPanel panel = new JPanel();
-			// JideSwingUtilities.setOpaqueRecursively(panel, true);
-			JButton b = new JButton("改变");
-			b.addActionListener(e -> {
-				System.out.println(panel.isOpaque());
-				panel.setOpaque(false);
-				System.out.println(panel.isOpaque());
-			});
-			p.add(panel);
-			p.add(b);
-
-			SwingTestUtil.test();
-		});
+		// EventQueue.invokeLater(() -> {
+		// 	JPanel p = SwingTestUtil.init(new FlowLayout());
+		//
+		// 	p.add(new JLabel("1") {
+		// 		@Override
+		// 		protected void paintComponent(Graphics g) {
+		// 			super.paintComponent(g);
+		// 			Graphics2D g2 = (Graphics2D) g;
+		// 			g2.setClip(10,10,20,20);
+		// 			g2.scale(2.1,2.1);
+		// 			System.out.println(g2.getTransform().getScaleX());
+		// 			System.out.println(JideSwingUtilities.isIntegerScaleFactor(g2));
+		// 		}
+		// 	});
+		//
+		// 	SwingTestUtil.test();
+		// });
+		System.out.println(MAC_USE_QUARTZ);
 	}
 }

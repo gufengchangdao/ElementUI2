@@ -6,8 +6,8 @@ package com.element.plaf.basic;
 import com.element.plaf.GripperUI;
 import com.element.plaf.UIDefaultsLookup;
 import com.element.ui.base.Gripper;
-import com.element.util.JideSwingUtilities;
 import com.element.util.SecurityUtils;
+import com.element.util.UIUtil;
 
 import javax.swing.*;
 import javax.swing.plaf.ComponentUI;
@@ -83,7 +83,7 @@ public class BasicGripperUI extends GripperUI {
 			if (b.isOpaque()) {
 				getPainter().paintButtonBackground(b, g, rect, 0, b.isSelected() ? ThemePainter.STATE_SELECTED : ThemePainter.STATE_DEFAULT, false);
 				if ("true".equals(SecurityUtils.getProperty("shadingtheme", "false"))) {
-					JideSwingUtilities.fillGradient(g, rect, SwingConstants.HORIZONTAL);
+					UIUtil.fillGradient(g, rect, SwingConstants.HORIZONTAL);
 				}
 			}
 		}

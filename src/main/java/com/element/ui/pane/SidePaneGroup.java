@@ -7,7 +7,7 @@ package com.element.ui.pane;
 
 import com.element.event.SidePaneEvent;
 import com.element.event.SidePaneListener;
-import com.element.util.JideSwingUtilities;
+import com.element.util.UIUtil;
 
 import javax.swing.event.EventListenerList;
 import java.awt.*;
@@ -183,7 +183,7 @@ public class SidePaneGroup extends ArrayList<SidePaneItem> {
 	 */
 	public void addSidePaneListener(SidePaneListener l) {
 		if (initListenerList(true)) {
-			if (!JideSwingUtilities.isListenerRegistered(listenerList, SidePaneListener.class, l)) {
+			if (!UIUtil.isListenerRegistered(listenerList, SidePaneListener.class, l)) {
 				listenerList.add(SidePaneListener.class, l);
 			}
 		}

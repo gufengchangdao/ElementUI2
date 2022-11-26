@@ -6,14 +6,14 @@
 
 package com.element.plaf.eclipse;
 
-import com.element.ui.icons.IconsFactory;
 import com.element.plaf.LookAndFeelFactory;
 import com.element.plaf.UIDefaultsLookup;
 import com.element.plaf.basic.ThemePainter;
 import com.element.plaf.windows.WindowsGraphicsUtilsPort;
 import com.element.ui.button.ButtonStyle;
-import com.element.util.JideSwingUtilities;
+import com.element.ui.icons.IconsFactory;
 import com.element.ui.menu.TopLevelMenuContainer;
+import com.element.util.UIUtil;
 
 import javax.swing.*;
 import javax.swing.event.*;
@@ -497,7 +497,7 @@ public class EclipseMenuItemUI extends MenuItemUI {
 			r.height++;
 		}
 
-		if (JideSwingUtilities.getOrientationOf(menuItem) == SwingConstants.HORIZONTAL) {
+		if (UIUtil.getOrientationOf(menuItem) == SwingConstants.HORIZONTAL) {
 			return r.getSize();
 		} else {
 			return new Dimension(r.height, r.width);
@@ -531,7 +531,7 @@ public class EclipseMenuItemUI extends MenuItemUI {
 		int menuWidth;
 		int menuHeight;
 
-		if (JideSwingUtilities.getOrientationOf(menuItem) == SwingConstants.HORIZONTAL) {
+		if (UIUtil.getOrientationOf(menuItem) == SwingConstants.HORIZONTAL) {
 			//   Dimension size = b.getSize();
 			menuWidth = b.getWidth();
 			menuHeight = b.getHeight();
@@ -635,16 +635,16 @@ public class EclipseMenuItemUI extends MenuItemUI {
 				// *** paint the acceleratorText disabled
 				if (disabledForeground != null) {
 					g.setColor(disabledForeground);
-					JideSwingUtilities.drawString(menuItem, g, acceleratorText,
+					UIUtil.drawString(g, acceleratorText,
 							acceleratorRect.x - accOffset,
 							acceleratorRect.y + fmAccel.getAscent());
 				} else {
 					g.setColor(b.getBackground().brighter());
-					JideSwingUtilities.drawString(menuItem, g, acceleratorText,
+					UIUtil.drawString(g, acceleratorText,
 							acceleratorRect.x - accOffset,
 							acceleratorRect.y + fmAccel.getAscent());
 					g.setColor(b.getBackground().darker());
-					JideSwingUtilities.drawString(menuItem, g, acceleratorText,
+					UIUtil.drawString(g, acceleratorText,
 							acceleratorRect.x - accOffset - 1,
 							acceleratorRect.y + fmAccel.getAscent() - 1);
 				}
@@ -655,7 +655,7 @@ public class EclipseMenuItemUI extends MenuItemUI {
 				} else {
 					g.setColor(acceleratorForeground);
 				}
-				JideSwingUtilities.drawString(menuItem, g, acceleratorText,
+				UIUtil.drawString(g, acceleratorText,
 						acceleratorRect.x - accOffset,
 						acceleratorRect.y + fmAccel.getAscent());
 			}
@@ -746,7 +746,7 @@ public class EclipseMenuItemUI extends MenuItemUI {
 		int menuWidth;
 		int menuHeight;
 
-		if (JideSwingUtilities.getOrientationOf(menuItem) == SwingConstants.HORIZONTAL) {
+		if (UIUtil.getOrientationOf(menuItem) == SwingConstants.HORIZONTAL) {
 			menuWidth = menuItem.getWidth();
 			menuHeight = menuItem.getHeight();
 		} else {
@@ -800,7 +800,7 @@ public class EclipseMenuItemUI extends MenuItemUI {
 			if (model.isArmed() || (menuItem instanceof JMenu && model.isSelected())) {
 				g.setColor(selectionForeground); // Uses protected field.
 			}
-			JideSwingUtilities.drawStringUnderlineCharAt(menuItem, g, text,
+			UIUtil.drawStringUnderlineCharAt(menuItem, g, text,
 					mnemonicIndex,
 					textRect.x,
 					textRect.y + fm.getAscent());
@@ -840,7 +840,7 @@ public class EclipseMenuItemUI extends MenuItemUI {
 
 		// get viewRect which is the bounds of menu item
 		viewRect.x = viewRect.y = 0;
-		if (JideSwingUtilities.getOrientationOf(menuItem) == SwingConstants.HORIZONTAL) {
+		if (UIUtil.getOrientationOf(menuItem) == SwingConstants.HORIZONTAL) {
 			//   Dimension size = b.getSize();
 			viewRect.height = menuItem.getHeight();
 			viewRect.width = menuItem.getWidth();

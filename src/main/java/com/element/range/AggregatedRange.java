@@ -6,7 +6,7 @@
 
 package com.element.range;
 
-import com.element.util.JideSwingUtilities;
+import com.element.util.UIUtil;
 
 import java.beans.PropertyChangeListener;
 import java.util.ArrayList;
@@ -221,7 +221,7 @@ public class AggregatedRange implements Range<Double> {
 		if (negativeCount != that.negativeCount) return false;
 		if (positiveCount != that.positiveCount) return false;
 		if (negativeSum != null ? !negativeSum.equals(that.negativeSum) : that.negativeSum != null) return false;
-		if (!JideSwingUtilities.equals(positions, that.positions, true)) return false;
+		if (!UIUtil.equals(positions, that.positions, true)) return false;
 		return positiveSum != null ? positiveSum.equals(that.positiveSum) : that.positiveSum == null;
 	}
 

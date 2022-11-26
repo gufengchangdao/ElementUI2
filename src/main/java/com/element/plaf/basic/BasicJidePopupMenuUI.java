@@ -8,7 +8,6 @@ package com.element.plaf.basic;
 
 import com.element.ui.menu.JidePopupMenu;
 import com.element.ui.pane.SimpleScrollPane;
-import com.element.util.SystemInfo;
 
 import javax.swing.*;
 import javax.swing.plaf.ComponentUI;

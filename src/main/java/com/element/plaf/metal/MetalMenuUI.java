@@ -7,8 +7,8 @@
 package com.element.plaf.metal;
 
 import com.element.plaf.UIDefaultsLookup;
-import com.element.util.JideSwingUtilities;
 import com.element.ui.menu.TopLevelMenuContainer;
+import com.element.util.UIUtil;
 
 import javax.swing.*;
 import javax.swing.event.*;
@@ -705,7 +705,7 @@ public class MetalMenuUI extends MetalMenuItemUI {
 		Dimension size = super.getPreferredSize(c);
 		if (menuItem instanceof JMenu && ((JMenu) menuItem).isTopLevelMenu() &&
 				isDownArrowVisible(menuItem.getParent())) {
-			if (JideSwingUtilities.getOrientationOf(menuItem) == SwingConstants.HORIZONTAL)
+			if (UIUtil.getOrientationOf(menuItem) == SwingConstants.HORIZONTAL)
 				size.width += 11;
 			else
 				size.height += 11;
@@ -731,7 +731,7 @@ public class MetalMenuUI extends MetalMenuItemUI {
 		Color oldColor = g.getColor();
 		int menuWidth = 0;
 		int menuHeight = 0;
-		if (JideSwingUtilities.getOrientationOf(menuItem) == SwingConstants.HORIZONTAL) {
+		if (UIUtil.getOrientationOf(menuItem) == SwingConstants.HORIZONTAL) {
 			menuWidth = menuItem.getWidth();
 			menuHeight = menuItem.getHeight();
 		} else {

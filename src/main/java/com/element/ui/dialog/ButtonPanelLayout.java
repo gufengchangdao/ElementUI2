@@ -67,6 +67,7 @@ class ButtonPanelLayout implements LayoutManager2, Serializable {
 	private int _axis = X_AXIS; // get from L&F or user can set it
 
 	private int _alignment = SwingConstants.TRAILING; // get from L&F or user can set it
+
 	/**
 	 * Creates a layout manager that will lay out components along the given axis.
 	 *

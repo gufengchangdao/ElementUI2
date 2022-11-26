@@ -7,8 +7,8 @@ package com.element.ui.menu;
 
 import com.element.plaf.LookAndFeelFactory;
 import com.element.plaf.UIDefaultsLookup;
-import com.element.util.PortingUtils;
 import com.element.ui.pane.SimpleScrollPane;
+import com.element.util.PortingUtils;
 
 import javax.swing.*;
 import javax.swing.event.PopupMenuEvent;

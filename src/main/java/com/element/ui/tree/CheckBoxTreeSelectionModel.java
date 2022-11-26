@@ -1,6 +1,6 @@
 package com.element.ui.tree;
 
-import com.element.util.JideSwingUtilities;
+import com.element.util.UIUtil;
 
 import javax.swing.event.TreeModelEvent;
 import javax.swing.event.TreeModelListener;
@@ -500,7 +500,7 @@ public class CheckBoxTreeSelectionModel extends DefaultTreeSelectionModel implem
 					int childCount = getChildrenCount(node);
 					for (int i = 0; i < childCount; i++) {
 						Object childNode = getChild(node, i);
-						if (!JideSwingUtilities.equals(childNode, peekNode)) {
+						if (!UIUtil.equals(childNode, peekNode)) {
 							TreePath treePath = temp.pathByAddingChild(childNode);
 							toBeAdded.add(treePath);
 						}
