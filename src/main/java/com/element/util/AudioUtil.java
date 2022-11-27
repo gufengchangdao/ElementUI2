@@ -10,13 +10,7 @@ import java.util.Objects;
 /**
  * 提示音工具类
  */
-public class AuditoryCuesFactory {
-	public static final String AUDITORY_KEY = "AuditoryCues.playList";
-	public static final String[] AUDITORY_CUES = {
-			"OptionPane.errorSound", "OptionPane.informationSound",
-			"OptionPane.questionSound", "OptionPane.warningSound"
-	};
-
+public class AudioUtil {
 	/**
 	 * 对组件事件播放自定义提示音，如果播放失败会使用系统默认提示音
 	 * <p>
@@ -54,16 +48,23 @@ public class AuditoryCuesFactory {
 	}
 
 	/**
-	 * 关闭系统提示音
+	 * 通知用户有问题。我们默认使用 Toolkit beep 方法。
+	 * 如果系统属性"jide.beepNotifyUser"不为true的话，则不进行任何操作(默认是true的)
 	 */
-	public static void closeAuditoryCues() {
-		UIManager.put(AUDITORY_KEY, UIManager.get("AuditoryCues.noAuditoryCues"));
+	public static void notifyUser() {
+		notifyUser(null);
 	}
 
 	/**
-	 * 恢复默认提示音
+	 * 通知用户有问题。我们默认使用 Toolkit beep 方法。
+	 * 如果系统属性"jide.beepNotifyUser"不为true的话，则不进行任何操作(默认是true的)
+	 *
+	 * @param component 有错误的组件，如果错误与任何组件无关，则为 null。
 	 */
-	public static void resetAuditoryCues() {
-		UIManager.put(AUDITORY_KEY, AUDITORY_CUES);
+	public static void notifyUser(Component component) {
+		String beep = System.getProperty("jide.beepNotifyUser", "true");
+		if ("true".equalsIgnoreCase(beep)) {
+			UIManager.getLookAndFeel().provideErrorFeedback(component);
+		}
 	}
 }

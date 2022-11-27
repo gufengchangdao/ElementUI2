@@ -45,12 +45,13 @@ import java.beans.PropertyChangeListener;
  * Additional customization can be done on the base Searchable class such as background and foreground color,
  * keystrokes, case sensitivity,
  */
-public class ComboBoxSearchable extends Searchable implements ListDataListener, PropertyChangeListener, PopupMenuListener {
+@SuppressWarnings("unchecked")
+public class ComboBoxSearchable<E> extends Searchable implements ListDataListener, PropertyChangeListener, PopupMenuListener {
 
 	private boolean _refreshPopupDuringSearching = false;
 	private boolean _showPopupDuringSearching = true;
 
-	public ComboBoxSearchable(final JComboBox comboBox) {
+	public ComboBoxSearchable(final JComboBox<E> comboBox) {
 		super(comboBox);
 
 		// to avoid conflict with default type-match feature of JComboBox.
@@ -68,12 +69,12 @@ public class ComboBoxSearchable extends Searchable implements ListDataListener, 
 					if (e.getKeyChar() != KeyEvent.CHAR_UNDEFINED && e.getKeyCode() != KeyEvent.VK_ENTER
 							&& e.getKeyCode() != KeyEvent.VK_ESCAPE) {
 						String text = textField.getText();
-						ComboBoxModel model = comboBox.getModel();
+						ComboBoxModel<E> model = comboBox.getModel();
 						ListDataListener removedListener = null;
 						// this is a hack. We have to remove the listener registered in BasicComboBoxUI while filtering the combobox model.
 						// the code below will break if the listener is not a class in BasicComboBoxUI.
 						if (model instanceof AbstractListModel) {
-							ListDataListener[] listeners = ((AbstractListModel) model).getListDataListeners();
+							ListDataListener[] listeners = ((AbstractListModel<E>) model).getListDataListeners();
 							for (ListDataListener listener : listeners) {
 								//noinspection IndexOfReplaceableByContains
 								if (listener.getClass().toString().indexOf("BasicComboBoxUI") != -1) {
@@ -117,8 +118,8 @@ public class ComboBoxSearchable extends Searchable implements ListDataListener, 
 	public void uninstallListeners() {
 		super.uninstallListeners();
 		if (_component instanceof JComboBox) {
-			((JComboBox) _component).getModel().removeListDataListener(this);
-			((JComboBox) _component).removePopupMenuListener(this);
+			((JComboBox<E>) _component).getModel().removeListDataListener(this);
+			((JComboBox<E>) _component).removePopupMenuListener(this);
 		}
 		_component.removePropertyChangeListener("model", this);
 	}
@@ -163,21 +164,21 @@ public class ComboBoxSearchable extends Searchable implements ListDataListener, 
 
 	@Override
 	public void setSelectedIndex(int index, boolean incremental) {
-		if (((JComboBox) _component).getSelectedIndex() != index) {
-			((JComboBox) _component).setSelectedIndex(index);
+		if (((JComboBox<E>) _component).getSelectedIndex() != index) {
+			((JComboBox<E>) _component).setSelectedIndex(index);
 		}
 		if (isShowPopupDuringSearching() || isRefreshPopupDuringSearching()) {
-			if (_component.getClientProperty("ShrinkSearchableSupport") != null && ((JComboBox) _component).isPopupVisible()) {
+			if (_component.getClientProperty("ShrinkSearchableSupport") != null && ((JComboBox<E>) _component).isPopupVisible()) {
 				boolean old = isHideSearchPopupOnEvent();
 				setHideSearchPopupOnEvent(false);
-				((JComboBox) _component).hidePopup();
+				((JComboBox<E>) _component).hidePopup();
 				setHideSearchPopupOnEvent(old);
 			}
 			try {
-				if (!((JComboBox) _component).isPopupVisible() &&
+				if (!((JComboBox<E>) _component).isPopupVisible() &&
 						KeyboardFocusManager.getCurrentKeyboardFocusManager().getFocusOwner() != null &&
 						SwingUtilities.isDescendingFrom(KeyboardFocusManager.getCurrentKeyboardFocusManager().getFocusOwner(), _component)) {
-					((JComboBox) _component).showPopup();
+					((JComboBox<E>) _component).showPopup();
 				}
 			} catch (IllegalComponentStateException e) {
 				//null
@@ -187,18 +188,18 @@ public class ComboBoxSearchable extends Searchable implements ListDataListener, 
 
 	@Override
 	public int getSelectedIndex() {
-		return ((JComboBox) _component).getSelectedIndex();
+		return ((JComboBox<E>) _component).getSelectedIndex();
 	}
 
 	@Override
-	public Object getElementAt(int index) {
-		ComboBoxModel comboBoxModel = ((JComboBox) _component).getModel();
+	public E getElementAt(int index) {
+		ComboBoxModel<E> comboBoxModel = ((JComboBox<E>) _component).getModel();
 		return comboBoxModel.getElementAt(index);
 	}
 
 	@Override
 	public int getElementCount() {
-		ComboBoxModel comboBoxModel = ((JComboBox) _component).getModel();
+		ComboBoxModel<E> comboBoxModel = ((JComboBox<E>) _component).getModel();
 		return comboBoxModel.getSize();
 	}
 
@@ -250,11 +251,11 @@ public class ComboBoxSearchable extends Searchable implements ListDataListener, 
 			hidePopup();
 
 			if (evt.getOldValue() instanceof ComboBoxModel) {
-				((ComboBoxModel) evt.getOldValue()).removeListDataListener(this);
+				((ComboBoxModel<E>) evt.getOldValue()).removeListDataListener(this);
 			}
 
 			if (evt.getNewValue() instanceof ComboBoxModel) {
-				((ComboBoxModel) evt.getNewValue()).addListDataListener(this);
+				((ComboBoxModel<E>) evt.getNewValue()).addListDataListener(this);
 			}
 			fireSearchableEvent(new SearchableEvent(this, SearchableEvent.SEARCHABLE_MODEL_CHANGE));
 		}

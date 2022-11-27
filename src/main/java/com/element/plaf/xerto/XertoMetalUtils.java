@@ -18,7 +18,6 @@ import com.element.ui.icons.IconsFactory;
 import com.element.ui.icons.JideIconsFactory;
 import com.element.ui.icons.MenuCheckIcon;
 import com.element.ui.tabs.JideTabbedPane;
-import com.element.util.SecurityUtils;
 
 import javax.swing.*;
 import javax.swing.plaf.BorderUIResource;
@@ -408,7 +407,7 @@ public class XertoMetalUtils extends VsnetLookAndFeelExtension {
 
 			FrameBorder frameBorder = new FrameBorder();
 
-			boolean useShadowBorder = "true".equals(SecurityUtils.getProperty("jide.shadeSlidingBorder", "false"));
+			boolean useShadowBorder = "true".equals(System.getProperty("jide.shadeSlidingBorder", "false"));
 
 			Object slidingEastFrameBorder = new SlidingFrameBorder(UIDefaultsLookup.getColor("control"), UIDefaultsLookup.getColor("controlLtHighlight"), UIDefaultsLookup.getColor("controlShadow"), UIDefaultsLookup.getColor("controlDkShadow"),
 					new Insets(1, SlidingFrameBorder.SHADOW_SIZE + 5, 1, 0));

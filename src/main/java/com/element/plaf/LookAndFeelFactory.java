@@ -22,8 +22,6 @@ import com.element.plaf.xerto.XertoPainter;
 import com.element.plaf.xerto.XertoWindowsUtils;
 import com.element.ui.icons.IconsFactory;
 import com.element.ui.tabs.JideTabbedPane;
-import com.element.util.ProductNames;
-import com.element.util.SecurityUtils;
 import com.element.util.SystemInfo;
 
 import javax.swing.*;
@@ -35,92 +33,86 @@ import java.lang.reflect.Method;
 import java.util.*;
 
 /**
- * JIDE Software created many new components that need their own ComponentUI classes and additional UIDefaults in
- * UIDefaults table. LookAndFeelFactory can take the UIDefaults from any existing look and feel and add the extra
- * UIDefaults JIDE components need.
- * <p/>
- * Before using any JIDE components, please make you call one of the two LookAndFeelFactory.installJideExtension(...)
- * methods. Basically, you set L&F using UIManager first just like before, then call installJideExtension. See code
- * below for an example.
+ * JIDE Software 创建了许多新组件，它们需要自己的 ComponentUI 类和 UIDefaults 表中的其他 UIDefaults。 LookAndFeelFactory 可以从
+ * 任何现有外观中获取 UIDefaults，并添加 JIDE 组件所需的额外 UIDefaults。
+ * <p>
+ * 在使用任何 JIDE 组件之前，请让您调用两个 LookAndFeelFactory.installJideExtension(...) 方法之一。基本上，您首先像以前一样使用
+ * UIManager 设置 L&F，然后调用 installJideExtension。有关示例，请参见下面的代码。
  * <code><pre>
+ * // 安装外观...
  * LookAndFeelFactory.installJideExtension();
  * </pre></code>
- * LookAndFeelFactory.installJideExtension() method will check what kind of L&F you set and what operating system you
- * are on and decide which style of JIDE extension it will install. Here is the rule. <ul> <li> OS: Windows Vista or
- * Windows 7, L&F: Windows L&F => OFFICE2007_STYLE </li><li> OS: Windows XP with XP theme on, L&F: Windows L&F =>
- * OFFICE2003_STYLE <li> OS: any Windows, L&F: Windows L&F => VSNET_STYLE <li> OS: Linux, L&F: any L&F based on Metal
- * L&F => VSNET_STYLE <li> OS: Mac OS X, L&F: Aqua L&F => AQUA_STYLE <li> OS: any OS, L&F: Quaqua L&F => AQUA_STYLE <li>
- * Otherwise => VSNET_STYLE </ul> There is also another installJideExtension which takes an int style parameter. You can
- * pass in {@link #EXTENSION_STYLE_VSNET}, {@link #EXTENSION_STYLE_ECLIPSE}, {@link #EXTENSION_STYLE_ECLIPSE3X}, {@link
- * #EXTENSION_STYLE_OFFICE2003}, {@link #EXTENSION_STYLE_OFFICE2007}, or {@link #EXTENSION_STYLE_XERTO}, {@link
- * #EXTENSION_STYLE_OFFICE2003_WITHOUT_MENU}, {@link #EXTENSION_STYLE_OFFICE2007_WITHOUT_MENU}, {@link
- * #EXTENSION_STYLE_ECLIPSE_WITHOUT_MENU}, {@link #EXTENSION_STYLE_ECLIPSE3X_WITHOUT_MENU}. In the other word, you will
- * make the choice of style instead of letting LookAndFeelFactory to decide one for you. Please note, there is no
- * constant defined for AQUA_STYLE. The only way to use it is when you are using Aqua L&F or Quaqua L&F and you call
- * installJideExtension() method, the one without parameter.
- * <p/>
- * Another way is to call {@link LookAndFeelFactory#installDefaultLookAndFeelAndExtension()} which will set the default
- * L&Fs based on the OS and install JIDE extension.
- * <p/>
- * LookAndFeelFactory supports a number of known L&Fs. Some are L&Fs in the JDK such as Metal, Windows, Aqua (on Apple
- * JDK only), GTK. We also support some 3rd party L&Fs such as Plastic XP or Plastic 3D, Tonic, A03, Synthetica etc.
- * <p/>
- * If you are using a 3rd party L&F we are not officially supporting, you might need to customize it. Here are two
- * classes you can use - {@link UIDefaultsInitializer} and {@link
- * UIDefaultsCustomizer}.
- * <p/>
- * Let's start with UIDefaultsCustomizer. No matter what unknown L&F you are trying to use, LookAndFeelFactory's
- * installJideExtension() will try to install the UIDefaults that JIDE components required. Hopefully JIDE will run on
- * your L&F without any exception. But most likely, it won't look very good. That's why you need {@link
- * UIDefaultsCustomizer} to customize the UIDefaults.
- * <p/>
- * Most likely, you will not need to use {@link UIDefaultsInitializer}. The only exception is Synth L&F and any L&Fs
- * based on it. The reason is we calculate all colors we will use in JIDE components from existing well-known
- * UIDefaults. For example, we will use UIManagerLookup.getColor("activeCaption") to calculate a color that we can use
- * in dockable frame's title pane. We will use UIManagerLookup.getColor("control") to calculate a color that we can use
- * as background of JIDE component. Most L&Fs will fill those UIDefaults. However in Synth L&F, those UIDefaults may or
- * may not have a valid value. You will end up with NPE later in the code when you call installJideExtension. In this
- * case, you can add those extra UIDefaults in UIDefaultsInitializer. We will call it before installJideExtension is
- * called so that those UIDefaults are there ready for us to use. This is how added support to GTK L&F and Synthetica
- * L&F.
- * <p/>
- * After you create your own UIDefaultsCustomizer or Initializer, you can call {@link
- * #addUIDefaultsCustomizer(UIDefaultsCustomizer)} or {@link
- * #addUIDefaultsInitializer(UIDefaultsInitializer)} which will make the customizer
- * or the initializer triggered all the times. If you only want it to be used for a certain L&F, you should use {@link
- * #registerDefaultCustomizer(String, String)} or {@link #registerDefaultInitializer(String, String)}.
- * <p/>
- * By default, we also use UIDefaultsCustomizer and UIDefaultsInitializer internally to provide support for non-standard
- * L&Fs. However we look into the classes under "com.jidesoft.plaf" package for default customizers and initializers.
- * For example, for PlasticXPLookAndFeel, the corresponding customizer is "oom.jidesoft.plaf.plasticxp.PlasticXPCustomizer".
- * We basically take the L&F name "PlasticXP", append it after "com.jidesoft.plaf" using lower case to get package name,
- * take the L&F name, append with "Customizer" to get the class name. We will look at PlasticXPLookAndFeel's super class
- * which is PlasticLookAndFeel. The customizer corresponding to PlasticLookAndFeel is
- * "com.jidesoft.plaf.plastic.PlasticCustomizer". This searching process continues till we find all super classes of a
- * L&F. Then we start from its top-most super class and call the customizers one by one, if it is there. The
- * src-plaf.jar or src-plaf-jdk7.jar contain some of these customizers. You could use this naming pattern to create the
- * customizers so that you don't need to register them explicitly.
- * <p/>
- * {@link #installJideExtension()} method will only add the additional UIDefaults to current ClassLoader. If you have
- * several class loaders in your system, you probably should tell the UIManager to use the class loader that called
- * <code>installJideExtension</code>. Otherwise, you might some unexpected errors. Here is how to specify the class
- * loaders.
+ * <p>
+ * {@link #installJideExtension()} 方法将检查您设置的 L&F 类型以及您使用的操作系统，并决定它将安装哪种类型的 JIDE 扩展。这是规则。
+ * 操作系统：Windows Vista 或 Windows 7，L&F：Windows L&F => OFFICE2007_STYLE
+ * 操作系统：带有 XP 主题的 Windows XP，L&F：Windows L&F => OFFICE2003_STYLE
+ * 操作系统：任何 Windows，L&F：Windows L&F => VSNET_STYLE
+ * 操作系统：Linux，L&F：任何基于 Metal L&F 的 L&F => VSNET_STYLE
+ * 操作系统：Mac OS X，L&F：Aqua L&F => AQUA_STYLE
+ * 操作系统：任何操作系统，L&F：Quaqua L&F => AQUA_STYLE
+ * 否则=> VSNET_STYLE
+ * 还有另一个 {@link #installJideExtension(int)}，它采用 int 样式参数。 你可以传入
+ * <ul>
+ *     <li>{@link LookAndFeelFactory#EXTENSION_STYLE_VSNET}</li>
+ *     <li>{@link LookAndFeelFactory#EXTENSION_STYLE_ECLIPSE}</li>
+ *     <li>{@link LookAndFeelFactory#EXTENSION_STYLE_ECLIPSE3X}</li>
+ *     <li>{@link LookAndFeelFactory#EXTENSION_STYLE_OFFICE2003}</li>
+ *     <li>{@link LookAndFeelFactory#EXTENSION_STYLE_OFFICE2007}</li>
+ *     <li>{@link LookAndFeelFactory#EXTENSION_STYLE_XERTO}</li>
+ *     <li>{@link LookAndFeelFactory#EXTENSION_STYLE_ECLIPSE_WITHOUT_MENU}</li>
+ *     <li>{@link LookAndFeelFactory#EXTENSION_STYLE_ECLIPSE3X_WITHOUT_MENU}</li>
+ * </ul>
+ * <p>
+ * 换句话说，您将选择样式，而不是让 LookAndFeelFactory 为您决定样式。请注意，没有为 AQUA_STYLE 定义常量。使用它的唯一方法是当您使用
+ * Aqua L&F 或 Quaqua L&F 并调用 {@link #installJideExtension()} 方法时，该方法没有参数。
+ * <p>
+ * 另一种方法是调用{@link #installDefaultLookAndFeelAndExtension()} ，这将根据操作系统设置默认 L&F 并安装 JIDE 扩展。
+ * <p>
+ * LookAndFeelFactory 支持许多已知的 L&F。有些是 JDK 中的 L&F，例如 Metal、Windows、Aqua（仅在 Apple JDK 上）、GTK。我们还支持一
+ * 些第 3 方 L&F，例如 Plastic XP 或 Plastic 3D、Tonic、A03、Synthetica 等。
+ * <p>
+ * 如果您使用我们未正式支持的第 3 方 L&F，您可能需要对其进行自定义。您可以使用以下两个类
+ * <ul>
+ *     <li>{@link LookAndFeelFactory.UIDefaultsInitializer}</li>
+ *     <li>{@link LookAndFeelFactory.UIDefaultsCustomizer}</li>
+ * </ul>
+ * <p>
+ * 让我们从 UIDefaultsCustomizer 开始。无论您尝试使用什么未知 L&F，LookAndFeelFactory 的 installJideExtension() 都会尝试安
+ * 装 JIDE 组件所需的 UIDefaults。希望 JIDE 能毫无例外地在您的 L&F 上运行。但最有可能的是，它看起来不会很好。这就是为什么您需要
+ * {@link LookAndFeelFactory.UIDefaultsCustomizer}来自定义 UIDefaults。
+ * <p>
+ * 您很可能不需要使用{@link LookAndFeelFactory.UIDefaultsInitializer} 。唯一的例外是 Synth L&F 和任何基于它的 L&F。原因是我们根据
+ * 现有的众所周知的 UIDefaults 计算我们将在 JIDE 组件中使用的所有颜色。例如，我们将使用 UIManagerLookup.getColor("activeCaption")
+ * 来计算我们可以在可停靠框架的标题窗格中使用的颜色。我们将使用 UIManagerLookup.getColor("control") 来计算我们可以用作 JIDE 组件背景
+ * 的颜色。大多数 L&F 将填充这些 UIDefaults。但是在 Synth L&F 中，这些 UIDefaults 可能有也可能没有有效值。当您稍后调用
+ * installJideExtension 时，您将在代码中以 NPE 结束。在这种情况下，您可以在 UIDefaultsInitializer 中添加那些额外的 UIDefaults。我
+ * 们将在调用 installJideExtension 之前调用它，以便那些 UIDefaults 准备好供我们使用。这就是添加对 GTK L&F 和 Synthetica L&F 的支持的方式。
+ * <p>
+ * 创建自己的 UIDefaultsCustomizer 或 Initializer 后，您可以调用 {@link #addUIDefaultsCustomizer(UIDefaultsCustomizer)} 或
+ * {@link #addUIDefaultsInitializer(UIDefaultsInitializer)} ，这将使定制器或初始化器一直被触发。如果您只想将其用于某个 L&F，则应
+ * 使用{@link #registerDefaultCustomizer(String, String)}或{@link #registerDefaultInitializer(String, String)} 。
+ *
+ * <p>
+ * 默认情况下，我们还在内部使用 UIDefaultsCustomizer 和 UIDefaultsInitializer 来提供对非标准 L&F 的支持。但是，我们查
+ * 看"com.jidesoft.plaf"包下的类以获取默认定制器和初始化器。例如，对于 PlasticXPLookAndFeel，对应的定制器
+ * 是“com.jidesoft.plaf.plasticxp.PlasticXPCustomizer”。我们基本上采用 L&F 名称"PlasticXP"，将其附加在"com.jidesoft.plaf"之后，
+ * 使用小写字母获取包名，采用 L&F 名称，附加“Customizer”以获得类名。我们将查看 PlasticXPLookAndFeel 的超类，即 PlasticLookAndFeel。
+ * PlasticLookAndFeel对应的customizer是"com.jidesoft.plaf.plastic.PlasticCustomizer"。这个搜索过程一直持续到我们找到 L&F 的所有
+ * 超类。然后我们从它最顶层的超类开始，如果有的话，一个接一个地调用定制器。 src-plaf.jar 或 src-plaf-jdk7.jar 包含其中一些定制器。您可以
+ * 使用此命名模式来创建定制器，这样您就不需要显式注册它们。
+ * <p>
+ * {@link #installJideExtension()}方法只会将额外的 UIDefaults 添加到当前的 ClassLoader。如果您的系统中有多个类加载器，您可能应该告
+ * 诉 UIManager 使用名为installJideExtension的类加载器。否则，您可能会出现一些意想不到的错误。下面是如何指定类加载器。
  * <code><pre>
  * UIManager.put("ClassLoader", currentClass.getClassLoader()); // currentClass is the class where the code is.
  * LookAndFeelFactory.installDefaultLookAndFeelAndExtension(); // or installJideExtension()
  * </pre></code>
  */
 public class LookAndFeelFactory implements ProductNames {
-
 	/**
 	 * Class name of Windows L&F provided in Sun JDK.
 	 */
 	public static final String WINDOWS_CLASSIC_LNF = "com.sun.java.swing.plaf.windows.WindowsClassicLookAndFeel";
-
-	/**
-	 * Class name of Windows L&F provided in Sun JDK.
-	 */
-	public static final String WINDOWS_LNF = "com.sun.java.swing.plaf.windows.WindowsLookAndFeel";
 
 	/**
 	 * Class name of Metal L&F provided in Sun JDK.
@@ -423,28 +415,6 @@ public class LookAndFeelFactory implements ProductNames {
 
 	/**
 	 * A style that you can use with {@link #installJideExtension(int)} method. This style is the same as
-	 * EXTENSION_STYLE_OFFICE2003 except it doesn't have menu related UIDefaults. You can only use this style if you
-	 * didn't use any component from JIDE Action Framework.
-	 * <p/>
-	 *
-	 * @see #EXTENSION_STYLE_OFFICE2003
-	 */
-	@Deprecated
-	public static final int EXTENSION_STYLE_OFFICE2003_WITHOUT_MENU = 8;
-
-	/**
-	 * A style that you can use with {@link #installJideExtension(int)} method. This style is the same as
-	 * EXTENSION_STYLE_OFFICE2007 except it doesn't have menu related UIDefaults. You can only use this style if you
-	 * didn't use any component from JIDE Action Framework.
-	 * <p/>
-	 *
-	 * @see #EXTENSION_STYLE_OFFICE2007
-	 */
-	@Deprecated
-	public static final int EXTENSION_STYLE_OFFICE2007_WITHOUT_MENU = 9;
-
-	/**
-	 * A style that you can use with {@link #installJideExtension(int)} method. This style is the same as
 	 * EXTENSION_STYLE_ECLIPSE except it doesn't have menu related UIDefaults. You can only use this style if you didn't
 	 * use any component from JIDE Action Framework.
 	 * <p/>
@@ -484,8 +454,8 @@ public class LookAndFeelFactory implements ProductNames {
 
 	/**
 	 * An interface to make the customization of UIDefaults easier. This customizer will be called after
-	 * installJideExtension() is called. So if you want to further customize UIDefault, you can use this customizer to
-	 * do it.
+	 * {@link #installJideExtension()} is called. So if you want to further customize UIDefault, you can use this
+	 * customizer to do it.
 	 */
 	public interface UIDefaultsCustomizer {
 		void customize(UIDefaults defaults);
@@ -493,15 +463,15 @@ public class LookAndFeelFactory implements ProductNames {
 
 	/**
 	 * An interface to make the initialization of UIDefaults easier. This initializer will be called before
-	 * installJideExtension() is called. So if you want to initialize UIDefault before installJideExtension is called,
-	 * you can use this initializer to do it.
+	 * {@link #installJideExtension()} is called. So if you want to initialize UIDefault before installJideExtension
+	 * is called, you can use this initializer to do it.
 	 */
 	public interface UIDefaultsInitializer {
 		void initialize(UIDefaults defaults);
 	}
 
-	private static List<UIDefaultsCustomizer> _uiDefaultsCustomizers = new Vector<>();
-	private static List<UIDefaultsInitializer> _uiDefaultsInitializers = new Vector<>();
+	private static final List<UIDefaultsCustomizer> _uiDefaultsCustomizers = new Vector<>();
+	private static final List<UIDefaultsInitializer> _uiDefaultsInitializers = new Vector<>();
 	private static Map<String, String> _installedLookAndFeels = new HashMap<>();
 	private static boolean _loadLookAndFeelClass = true;
 
@@ -512,30 +482,23 @@ public class LookAndFeelFactory implements ProductNames {
 	}
 
 	/**
-	 * Gets the default style. If you never set default style before, it will return OFFICE2003_STYLE if you are on
-	 * Windows XP, L&F is instance of Windows L&F and XP theme is on. Otherwise, it will return VSNET_STYLE. If you set
-	 * default style before, it will return whatever style you set.
+	 * Gets the default style. If you never set default style before, it will return {@link #OFFICE2003_STYLE} if you
+	 * are on Windows XP, L&F is instance of Windows L&F and XP theme is on. Otherwise, it will return
+	 * {@link #VSNET_STYLE}. If you set default style before, it will return whatever style you set.
 	 *
 	 * @return the default style.
 	 */
 	public static int getDefaultStyle() {
 		if (_defaultStyle == -1) {
-			String defaultStyle = SecurityUtils.getProperty("jide.defaultStyle", "-1");
+			String defaultStyle = System.getProperty("jide.defaultStyle", "-1");
 			try {
 				_defaultStyle = Integer.parseInt(defaultStyle);
-			} catch (NumberFormatException e) {
-				// ignore
+			} catch (NumberFormatException ignored) {
 			}
 			if (_defaultStyle == -1) {
 				int suggestedStyle;
 				try {
-					if (SystemInfo.isWindowsVistaAbove() && isWindowsLookAndFeel(UIManager.getLookAndFeel())) {
-						suggestedStyle = EXTENSION_STYLE_OFFICE2007;
-					} else if (XPUtils.isXPStyleOn() && isWindowsLookAndFeel(UIManager.getLookAndFeel())) {
-						suggestedStyle = EXTENSION_STYLE_OFFICE2003;
-					} else {
-						suggestedStyle = ((LookAndFeelFactory.getProductsUsed() & PRODUCT_ACTION) == 0) ? EXTENSION_STYLE_VSNET_WITHOUT_MENU : EXTENSION_STYLE_VSNET;
-					}
+					suggestedStyle = ((LookAndFeelFactory.getProductsUsed() & PRODUCT_ACTION) == 0) ? EXTENSION_STYLE_VSNET_WITHOUT_MENU : EXTENSION_STYLE_VSNET;
 				} catch (UnsupportedOperationException e) {
 					suggestedStyle = ((LookAndFeelFactory.getProductsUsed() & PRODUCT_ACTION) == 0) ? EXTENSION_STYLE_VSNET_WITHOUT_MENU : EXTENSION_STYLE_VSNET;
 				}
@@ -672,24 +635,6 @@ public class LookAndFeelFactory implements ProductNames {
 			}
 		}
 
-		// For Alloy
-/*        if (lnf.getClass().getName().equals(ALLOY_LNF) && isAlloyLnfInstalled()) {
-            Object progressBarUI = uiDefaults.get("ProgressBarUI");
-            VsnetMetalUtils.initClassDefaults(uiDefaults);
-            VsnetMetalUtils.initComponentDefaults(uiDefaults);
-            uiDefaults.put("ProgressBarUI", progressBarUI);
-            uiDefaults.put("DockableFrameUI", "com.jidesoft.plaf.vsnet.VsnetDockableFrameUI");
-            uiDefaults.put("DockableFrameTitlePane.hideIcon", IconsFactory.getIcon(null, titleButtonImage, 0, 0, titleButtonSize, titleButtonSize));
-            uiDefaults.put("DockableFrameTitlePane.unfloatIcon", IconsFactory.getIcon(null, titleButtonImage, 0, titleButtonSize, titleButtonSize, titleButtonSize));
-            uiDefaults.put("DockableFrameTitlePane.floatIcon", IconsFactory.getIcon(null, titleButtonImage, 0, 2 * titleButtonSize, titleButtonSize, titleButtonSize));
-            uiDefaults.put("DockableFrameTitlePane.autohideIcon", IconsFactory.getIcon(null, titleButtonImage, 0, 3 * titleButtonSize, titleButtonSize, titleButtonSize));
-            uiDefaults.put("DockableFrameTitlePane.stopAutohideIcon", IconsFactory.getIcon(null, titleButtonImage, 0, 4 * titleButtonSize, titleButtonSize, titleButtonSize));
-            uiDefaults.put("DockableFrameTitlePane.hideAutohideIcon", IconsFactory.getIcon(null, titleButtonImage, 0, 5 * titleButtonSize, titleButtonSize, titleButtonSize));
-            uiDefaults.put("DockableFrameTitlePane.maximizeIcon", IconsFactory.getIcon(null, titleButtonImage, 0, 6 * titleButtonSize, titleButtonSize, titleButtonSize));
-            uiDefaults.put("DockableFrameTitlePane.restoreIcon", IconsFactory.getIcon(null, titleButtonImage, 0, 7 * titleButtonSize, titleButtonSize, titleButtonSize));
-            uiDefaults.put("DockableFrameTitlePane.buttonGap", new Integer(4)); // gap between buttons
-        }
-        else */
 		initialize(lnf.getClass().getName(), uiDefaults);
 
 		if ((lnf.getClass().getName().equals(ALLOY_LNF) && isAlloyLnfInstalled())
@@ -699,24 +644,20 @@ public class LookAndFeelFactory implements ProductNames {
 				|| (lnf.getClass().getName().equals(TONIC_LNF) && isTonicLnfInstalled())) {
 
 			switch (style) {
-				case EXTENSION_STYLE_OFFICE2007:
-				case EXTENSION_STYLE_OFFICE2007_WITHOUT_MENU:
+				case EXTENSION_STYLE_OFFICE2007 -> {
 					VsnetWindowsUtils.initComponentDefaults(uiDefaults);
 					Office2003WindowsUtils.initComponentDefaults(uiDefaults);
 					Office2007WindowsUtils.initComponentDefaults(uiDefaults);
 					Office2007WindowsUtils.initClassDefaults(uiDefaults, false);
-					break;
-				case EXTENSION_STYLE_OFFICE2003:
-				case EXTENSION_STYLE_OFFICE2003_WITHOUT_MENU:
+				}
+				case EXTENSION_STYLE_OFFICE2003 -> {
 					VsnetWindowsUtils.initComponentDefaults(uiDefaults);
 					Office2003WindowsUtils.initComponentDefaults(uiDefaults);
 					Office2003WindowsUtils.initClassDefaults(uiDefaults, false);
-					break;
-				case EXTENSION_STYLE_VSNET:
-				case EXTENSION_STYLE_VSNET_WITHOUT_MENU:
+				}
+				case EXTENSION_STYLE_VSNET, EXTENSION_STYLE_VSNET_WITHOUT_MENU -> {
 					VsnetMetalUtils.initComponentDefaults(uiDefaults);
 					VsnetMetalUtils.initClassDefaults(uiDefaults);
-
 					Painter gripperPainter = (c, g, rect, orientation, state) -> Office2003Painter.getInstance().paintGripper(c, g, rect, orientation, state);
 
 					// set all grippers to Office2003 style gripper
@@ -728,7 +669,6 @@ public class LookAndFeelFactory implements ProductNames {
 					uiDefaults.put("JideTabbedPane.foreground", UIDefaultsLookup.getColor("controlText"));
 					uiDefaults.put("JideTabbedPane.light", UIDefaultsLookup.getColor("control"));
 					uiDefaults.put("JideSplitPaneDivider.gripperPainter", gripperPainter);
-
 					int products = LookAndFeelFactory.getProductsUsed();
 					if ((products & PRODUCT_DOCK) != 0) {
 						ImageIcon titleButtonImage = IconsFactory.getImageIcon(VsnetWindowsUtils.class, "icons/title_buttons_windows.gif"); // 10 x 10 x 8
@@ -748,22 +688,19 @@ public class LookAndFeelFactory implements ProductNames {
 						uiDefaults.put("DockableFrame.border", new BorderUIResource(BorderFactory.createEmptyBorder(2, 0, 0, 0)));
 						uiDefaults.put("DockableFrameTitlePane.gripperPainter", gripperPainter);
 					}
-					break;
-				case EXTENSION_STYLE_ECLIPSE:
-				case EXTENSION_STYLE_ECLIPSE_WITHOUT_MENU:
+				}
+				case EXTENSION_STYLE_ECLIPSE, EXTENSION_STYLE_ECLIPSE_WITHOUT_MENU -> {
 					EclipseMetalUtils.initComponentDefaults(uiDefaults);
 					EclipseMetalUtils.initClassDefaults(uiDefaults);
-					break;
-				case EXTENSION_STYLE_ECLIPSE3X:
-				case EXTENSION_STYLE_ECLIPSE3X_WITHOUT_MENU:
+				}
+				case EXTENSION_STYLE_ECLIPSE3X, EXTENSION_STYLE_ECLIPSE3X_WITHOUT_MENU -> {
 					Eclipse3xMetalUtils.initComponentDefaults(uiDefaults);
 					Eclipse3xMetalUtils.initClassDefaults(uiDefaults);
-					break;
-				case EXTENSION_STYLE_XERTO:
-				case EXTENSION_STYLE_XERTO_WITHOUT_MENU:
+				}
+				case EXTENSION_STYLE_XERTO, EXTENSION_STYLE_XERTO_WITHOUT_MENU -> {
 					XertoMetalUtils.initComponentDefaults(uiDefaults);
 					XertoMetalUtils.initClassDefaults(uiDefaults);
-					break;
+				}
 			}
 
 			if (style == EXTENSION_STYLE_XERTO || style == EXTENSION_STYLE_XERTO_WITHOUT_MENU) {
@@ -773,124 +710,49 @@ public class LookAndFeelFactory implements ProductNames {
 			}
 		} else if (lnf.getClass().getName().equals(MetalLookAndFeel.class.getName())) {
 			switch (style) {
-				case EXTENSION_STYLE_OFFICE2007:
-				case EXTENSION_STYLE_OFFICE2003:
-				case EXTENSION_STYLE_VSNET:
+				case EXTENSION_STYLE_OFFICE2007, EXTENSION_STYLE_OFFICE2003, EXTENSION_STYLE_VSNET -> {
 					VsnetMetalUtils.initComponentDefaults(uiDefaults);
 					VsnetMetalUtils.initClassDefaultsWithMenu(uiDefaults);
-					break;
-				case EXTENSION_STYLE_ECLIPSE:
+				}
+				case EXTENSION_STYLE_ECLIPSE -> {
 					EclipseMetalUtils.initComponentDefaults(uiDefaults);
 					EclipseMetalUtils.initClassDefaults(uiDefaults);
-					break;
-				case EXTENSION_STYLE_ECLIPSE3X:
+				}
+				case EXTENSION_STYLE_ECLIPSE3X -> {
 					Eclipse3xMetalUtils.initComponentDefaults(uiDefaults);
 					Eclipse3xMetalUtils.initClassDefaults(uiDefaults);
-					break;
-				case EXTENSION_STYLE_VSNET_WITHOUT_MENU:
-				case EXTENSION_STYLE_OFFICE2003_WITHOUT_MENU:
-				case EXTENSION_STYLE_OFFICE2007_WITHOUT_MENU:
+				}
+				case EXTENSION_STYLE_VSNET_WITHOUT_MENU -> {
 					VsnetMetalUtils.initComponentDefaults(uiDefaults);
 					VsnetMetalUtils.initClassDefaults(uiDefaults);
-					break;
-				case EXTENSION_STYLE_XERTO:
-				case EXTENSION_STYLE_XERTO_WITHOUT_MENU:
+				}
+				case EXTENSION_STYLE_XERTO, EXTENSION_STYLE_XERTO_WITHOUT_MENU -> {
 					XertoMetalUtils.initComponentDefaults(uiDefaults);
 					XertoMetalUtils.initClassDefaults(uiDefaults);
-					break;
-				default:
+				}
+				default -> {
+				}
 			}
 		} else if (lnf instanceof MetalLookAndFeel) {
 			switch (style) {
-				case EXTENSION_STYLE_OFFICE2007:
-				case EXTENSION_STYLE_OFFICE2003:
-				case EXTENSION_STYLE_VSNET:
-				case EXTENSION_STYLE_OFFICE2007_WITHOUT_MENU:
-				case EXTENSION_STYLE_OFFICE2003_WITHOUT_MENU:
-				case EXTENSION_STYLE_VSNET_WITHOUT_MENU:
+				case EXTENSION_STYLE_OFFICE2007, EXTENSION_STYLE_OFFICE2003, EXTENSION_STYLE_VSNET, EXTENSION_STYLE_VSNET_WITHOUT_MENU -> {
 					VsnetMetalUtils.initComponentDefaults(uiDefaults);
 					VsnetMetalUtils.initClassDefaults(uiDefaults);
-					break;
-				case EXTENSION_STYLE_ECLIPSE:
-				case EXTENSION_STYLE_ECLIPSE_WITHOUT_MENU:
+				}
+				case EXTENSION_STYLE_ECLIPSE, EXTENSION_STYLE_ECLIPSE_WITHOUT_MENU -> {
 					EclipseMetalUtils.initClassDefaults(uiDefaults);
 					EclipseMetalUtils.initComponentDefaults(uiDefaults);
-					break;
-				case EXTENSION_STYLE_ECLIPSE3X:
-				case EXTENSION_STYLE_ECLIPSE3X_WITHOUT_MENU:
+				}
+				case EXTENSION_STYLE_ECLIPSE3X, EXTENSION_STYLE_ECLIPSE3X_WITHOUT_MENU -> {
 					Eclipse3xMetalUtils.initClassDefaults(uiDefaults);
 					Eclipse3xMetalUtils.initComponentDefaults(uiDefaults);
-					break;
-				case EXTENSION_STYLE_XERTO:
-				case EXTENSION_STYLE_XERTO_WITHOUT_MENU:
+				}
+				case EXTENSION_STYLE_XERTO, EXTENSION_STYLE_XERTO_WITHOUT_MENU -> {
 					XertoMetalUtils.initComponentDefaults(uiDefaults);
 					XertoMetalUtils.initClassDefaults(uiDefaults);
-					break;
+				}
 			}
-		} else if (isWindowsLookAndFeel(lnf)) {
-			switch (style) {
-				case EXTENSION_STYLE_OFFICE2007:
-					VsnetWindowsUtils.initComponentDefaultsWithMenu(uiDefaults);
-					VsnetWindowsUtils.initClassDefaultsWithMenu(uiDefaults);
-					Office2003WindowsUtils.initComponentDefaults(uiDefaults);
-					Office2007WindowsUtils.initComponentDefaults(uiDefaults);
-					Office2007WindowsUtils.initClassDefaults(uiDefaults);
-					break;
-				case EXTENSION_STYLE_OFFICE2007_WITHOUT_MENU:
-					VsnetWindowsUtils.initComponentDefaults(uiDefaults);
-					VsnetWindowsUtils.initClassDefaults(uiDefaults);
-					Office2003WindowsUtils.initComponentDefaults(uiDefaults);
-					Office2007WindowsUtils.initComponentDefaults(uiDefaults);
-					Office2007WindowsUtils.initClassDefaults(uiDefaults);
-					break;
-				case EXTENSION_STYLE_OFFICE2003:
-					VsnetWindowsUtils.initComponentDefaultsWithMenu(uiDefaults);
-					VsnetWindowsUtils.initClassDefaultsWithMenu(uiDefaults);
-					Office2003WindowsUtils.initClassDefaults(uiDefaults);
-					Office2003WindowsUtils.initComponentDefaults(uiDefaults);
-					break;
-				case EXTENSION_STYLE_OFFICE2003_WITHOUT_MENU:
-					VsnetWindowsUtils.initComponentDefaults(uiDefaults);
-					VsnetWindowsUtils.initClassDefaults(uiDefaults);
-					Office2003WindowsUtils.initClassDefaults(uiDefaults);
-					Office2003WindowsUtils.initComponentDefaults(uiDefaults);
-					break;
-				case EXTENSION_STYLE_ECLIPSE:
-					EclipseWindowsUtils.initClassDefaultsWithMenu(uiDefaults);
-					EclipseWindowsUtils.initComponentDefaultsWithMenu(uiDefaults);
-					break;
-				case EXTENSION_STYLE_ECLIPSE_WITHOUT_MENU:
-					EclipseWindowsUtils.initClassDefaults(uiDefaults);
-					EclipseWindowsUtils.initComponentDefaults(uiDefaults);
-					break;
-				case EXTENSION_STYLE_ECLIPSE3X:
-					Eclipse3xWindowsUtils.initClassDefaultsWithMenu(uiDefaults);
-					Eclipse3xWindowsUtils.initComponentDefaultsWithMenu(uiDefaults);
-					break;
-				case EXTENSION_STYLE_ECLIPSE3X_WITHOUT_MENU:
-					Eclipse3xWindowsUtils.initClassDefaults(uiDefaults);
-					Eclipse3xWindowsUtils.initComponentDefaults(uiDefaults);
-					break;
-				case EXTENSION_STYLE_VSNET:
-					VsnetWindowsUtils.initComponentDefaultsWithMenu(uiDefaults);
-					VsnetWindowsUtils.initClassDefaultsWithMenu(uiDefaults);
-					break;
-				case EXTENSION_STYLE_VSNET_WITHOUT_MENU:
-					VsnetWindowsUtils.initComponentDefaults(uiDefaults);
-					VsnetWindowsUtils.initClassDefaults(uiDefaults);
-					break;
-				case EXTENSION_STYLE_XERTO:
-					XertoWindowsUtils.initComponentDefaultsWithMenu(uiDefaults);
-					XertoWindowsUtils.initClassDefaultsWithMenu(uiDefaults);
-					break;
-				case EXTENSION_STYLE_XERTO_WITHOUT_MENU:
-					XertoWindowsUtils.initComponentDefaults(uiDefaults);
-					XertoWindowsUtils.initClassDefaults(uiDefaults);
-					break;
-			}
-		}
-		// For Mac only
-		else if (isAquaLnfInstalled() && ((isLnfInUse(AQUA_LNF_6) || isLnfInUse(AQUA_LNF)))
+		} else if (isAquaLnfInstalled() && ((isLnfInUse(AQUA_LNF_6) || isLnfInUse(AQUA_LNF)))
 				|| (isQuaquaLnfInstalled() && isLnfInUse(QUAQUA_LNF))) {
 			// use reflection since we don't deliver source code of AquaJideUtils as most users don't compile it on Mac OS X
 			try {
@@ -914,30 +776,9 @@ public class LookAndFeelFactory implements ProductNames {
 						VsnetMetalUtils.initClassDefaults(uiDefaults);
 					}
 					break;
-				case EXTENSION_STYLE_OFFICE2007_WITHOUT_MENU:
-					if (SystemInfo.isWindows()) {
-						VsnetWindowsUtils.initComponentDefaults(uiDefaults);
-						Office2003WindowsUtils.initComponentDefaults(uiDefaults);
-						Office2007WindowsUtils.initComponentDefaults(uiDefaults);
-						Office2007WindowsUtils.initClassDefaults(uiDefaults);
-					} else {
-						VsnetMetalUtils.initComponentDefaults(uiDefaults);
-						VsnetMetalUtils.initClassDefaults(uiDefaults);
-					}
-					break;
 				case EXTENSION_STYLE_OFFICE2003:
 					if (SystemInfo.isWindows()) {
 						VsnetWindowsUtils.initComponentDefaultsWithMenu(uiDefaults);
-						Office2003WindowsUtils.initComponentDefaults(uiDefaults);
-						Office2003WindowsUtils.initClassDefaults(uiDefaults);
-					} else {
-						VsnetMetalUtils.initComponentDefaults(uiDefaults);
-						VsnetMetalUtils.initClassDefaults(uiDefaults);
-					}
-					break;
-				case EXTENSION_STYLE_OFFICE2003_WITHOUT_MENU:
-					if (SystemInfo.isWindows()) {
-						VsnetWindowsUtils.initComponentDefaults(uiDefaults);
 						Office2003WindowsUtils.initComponentDefaults(uiDefaults);
 						Office2003WindowsUtils.initClassDefaults(uiDefaults);
 					} else {
@@ -1503,7 +1344,7 @@ public class LookAndFeelFactory implements ProductNames {
 	 */
 	public static void installDefaultLookAndFeel() {
 		try {
-			String lnfName = SecurityUtils.getProperty("swing.defaultlaf", null);
+			String lnfName = System.getProperty("swing.defaultlaf", null);
 			UIManager.setLookAndFeel(Objects.requireNonNullElseGet(lnfName, UIManager::getSystemLookAndFeelClassName));
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -1670,107 +1511,13 @@ public class LookAndFeelFactory implements ProductNames {
 
 	private static int _productsUsed = -1;
 
-	public static int getProductsUsed() {
-		if (_productsUsed == -1) {
-			_productsUsed = 0;
-			try {
-				Class.forName("com.jidesoft.docking.Product");
-				_productsUsed |= PRODUCT_DOCK;
-			} catch (Throwable e) {
-				//
-			}
-			try {
-				Class.forName("com.jidesoft.action.Product");
-				_productsUsed |= PRODUCT_ACTION;
-			} catch (Throwable e) {
-				//
-			}
-			try {
-				Class.forName("com.jidesoft.document.Product");
-				_productsUsed |= PRODUCT_COMPONENTS;
-			} catch (Throwable e) {
-				//
-			}
-			try {
-				Class.forName("com.jidesoft.grid.Product");
-				_productsUsed |= PRODUCT_GRIDS;
-			} catch (Throwable e) {
-				//
-			}
-			try {
-				Class.forName("com.jidesoft.wizard.Product");
-				_productsUsed |= PRODUCT_DIALOGS;
-			} catch (Throwable e) {
-				//
-			}
-			try {
-				Class.forName("com.jidesoft.pivot.Product");
-				_productsUsed |= PRODUCT_PIVOT;
-			} catch (Throwable e) {
-				//
-			}
-			try {
-				Class.forName("com.jidesoft.shortcut.Product");
-				_productsUsed |= PRODUCT_SHORTCUT;
-			} catch (Throwable e) {
-				//
-			}
-			try {
-				Class.forName("com.jidesoft.editor.Product");
-				_productsUsed |= PRODUCT_CODE_EDITOR;
-			} catch (Throwable e) {
-				//
-			}
-			try {
-				Class.forName("com.jidesoft.rss.Product");
-				_productsUsed |= PRODUCT_FEEDREADER;
-			} catch (Throwable e) {
-				//
-			}
-			try {
-				Class.forName("com.jidesoft.treemap.Product");
-				_productsUsed |= PRODUCT_TREEMAP;
-			} catch (Throwable e) {
-				//
-			}
-			try {
-				Class.forName("com.jidesoft.chart.Product");
-				_productsUsed |= PRODUCT_CHARTS;
-			} catch (Throwable e) {
-				//
-			}
-			try {
-				Class.forName("com.jidesoft.diff.Product");
-				_productsUsed |= PRODUCT_DIFF;
-			} catch (Throwable e) {
-				//
-			}
-		}
-		return _productsUsed;
-	}
-
 	/**
-	 * As of Java 10, com.sun.java.swing.plaf.windows.WindowsLookAndFeel is no longer available on macOS thus
-	 * "instanceof WindowsLookAndFeel" directives will result in a NoClassDefFoundError during runtime. This method
-	 * was introduced to avoid this exception.
+	 * TODO 这个方法通过反射加载不同的Project类，但是jide没有公开这些Project类，尚不知道如何修改
 	 *
-	 * @param lnf
-	 * @return true if it is a WindowsLookAndFeel.
+	 * @deprecated 没有Product类，这个方法需要修改
 	 */
-	public static boolean isWindowsLookAndFeel(LookAndFeel lnf) {
-		if (lnf == null) {
-			return false;
-		} else {
-			try {
-				Class c = Class.forName(WINDOWS_LNF);
-				return c.isInstance(lnf);
-			} catch (ClassNotFoundException | NoClassDefFoundError ignore) {
-				// if it is not possible to load the Windows LnF class, the
-				// given lnf instance cannot be an instance of the Windows
-				// LnF class
-				return false;
-			}
-		}
+	public static int getProductsUsed() {
+		return _productsUsed == -1 ? 0 : _productsUsed;
 	}
 
 	/**
@@ -1786,7 +1533,7 @@ public class LookAndFeelFactory implements ProductNames {
 			return false;
 		} else {
 			try {
-				Class c = Class.forName(WINDOWS_CLASSIC_LNF);
+				Class<?> c = Class.forName(WINDOWS_CLASSIC_LNF);
 				return c.isInstance(lnf);
 			} catch (ClassNotFoundException | NoClassDefFoundError ignore) {
 				// if it is not possible to load the Windows LnF class, the
@@ -1848,11 +1595,5 @@ public class LookAndFeelFactory implements ProductNames {
 
 	public static boolean isMnemonicHidden() {
 		return !UIManager.getBoolean("Button.showMnemonics");
-	}
-
-
-	public static void main(String[] args) {
-//        LookAndFeelFactory.setLnfInstalled(AQUA_LNF, false);
-//        System.out.println(LookAndFeelFactory.isLnfInstalled(AQUA_LNF));
 	}
 }

@@ -8,28 +8,48 @@
 package com.element.util;
 
 import javax.swing.*;
+import java.awt.*;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeSupport;
 
 /**
- * This subclass of {@code java.beans.PropertyChangeSupport} is almost identical in functionality. The only difference
- * is if constructed with {@code SwingPropertyChangeSupport(sourceBean, true)} it ensures listeners are only ever
- * notified on the <i>Event Dispatch Thread</i>.
- *
- * @author Igor Kushnirskiy
- * @version $Revision: 1.1 $ $Date: 2005/06/18 21:27:14 $
+ * java.beans.PropertyChangeSupport的这个子类在功能上几乎相同。唯一的区别是，如果使用
+ * SwingPropertyChangeSupport(sourceBean, true)构造，它确保侦听器只会在Event Dispatch Thread上收到通知。
+ * 使用方式如下：
+ * <pre>
+ * 		SwingPropertyChangeSupport pcs = new SwingPropertyChangeSupport(someObject, true);
+ * 		pcs.addPropertyChangeListener("text", evt -> {
+ * 			System.out.println(evt.getPropertyName() + " : old: " + evt.getOldValue() + ", new: " + evt.getNewValue());
+ * 			// 在EDT中执行一些更新...
+ *                });
+ * 		// ...
+ * 		pcs.firePropertyChange("text", oldVal, newVal);
+ * </pre>
+ * <p>
+ * 如果是监听组件的属性变化则不大需要这个类，因为组件属性的修改大多都在EDT中执行，fire方法可直接接后面，但是非组件类的属性监听就有些作用，
+ * firePropertyChange相当于以下代码：
+ * <pre>
+ *     EventQueue.invokeLater(() -> pcs.firePropertyChange("text", oldVal, newVal));
+ * </pre>
  */
-
 public final class SwingPropertyChangeSupport extends PropertyChangeSupport {
 
 	/**
-	 * Constructs a SwingPropertyChangeSupport object.
+	 * whether to notify listeners on EDT
 	 *
-	 * @param sourceBean The bean to be given as the source for any events.
-	 * @throws NullPointerException if {@code sourceBean} is {@code null}
+	 * @serial
+	 * @since 1.6
 	 */
-	public SwingPropertyChangeSupport(Object sourceBean) {
-		this(sourceBean, false);
+	private final boolean notifyOnEDT;
+
+	/**
+	 * Returns {@code notifyOnEDT} property.
+	 *
+	 * @return {@code notifyOnEDT} property
+	 * @since 1.6
+	 */
+	public boolean isNotifyOnEDT() {
+		return notifyOnEDT;
 	}
 
 	/**
@@ -58,33 +78,12 @@ public final class SwingPropertyChangeSupport extends PropertyChangeSupport {
 	 */
 	@Override
 	public void firePropertyChange(final PropertyChangeEvent evt) {
-		if (evt == null) {
+		if (evt == null)
 			throw new NullPointerException();
-		}
-		if (!isNotifyOnEDT()
-				|| SwingUtilities.isEventDispatchThread()) {
+		if (!notifyOnEDT || SwingUtilities.isEventDispatchThread()) {
 			super.firePropertyChange(evt);
 		} else {
-			SwingUtilities.invokeLater(
-					() -> firePropertyChange(evt));
+			EventQueue.invokeLater(() -> super.firePropertyChange(evt));
 		}
 	}
-
-	/**
-	 * Returns {@code notifyOnEDT} property.
-	 *
-	 * @return {@code notifyOnEDT} property
-	 * @since 1.6
-	 */
-	public boolean isNotifyOnEDT() {
-		return notifyOnEDT;
-	}
-
-	/**
-	 * whether to notify listeners on EDT
-	 *
-	 * @serial
-	 * @since 1.6
-	 */
-	private final boolean notifyOnEDT;
 }

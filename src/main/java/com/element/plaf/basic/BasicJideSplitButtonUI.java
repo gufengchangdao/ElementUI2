@@ -11,7 +11,6 @@ import com.element.plaf.UIDefaultsLookup;
 import com.element.plaf.vsnet.VsnetMenuUI;
 import com.element.ui.button.*;
 import com.element.ui.icons.IconsFactory;
-import com.element.util.SecurityUtils;
 import com.element.util.UIUtil;
 
 import javax.swing.*;
@@ -303,7 +302,7 @@ public class BasicJideSplitButtonUI extends VsnetMenuUI {
 					} else {
 						getPainter().paintButtonBackground(b, g, rect, 0, ThemePainter.STATE_DISABLE);
 					}
-					if ("true".equals(SecurityUtils.getProperty("shadingtheme", "false"))) {
+					if ("true".equals(System.getProperty("shadingtheme", "false"))) {
 						UIUtil.fillGradient(g, rect, SwingConstants.HORIZONTAL);
 					}
 					rect = getDropDownRect(b, orientation, menuWidth, menuHeight);
@@ -312,7 +311,7 @@ public class BasicJideSplitButtonUI extends VsnetMenuUI {
 					} else {
 						getPainter().paintButtonBackground(b, g, rect, 0, ThemePainter.STATE_DISABLE);
 					}
-					if ("true".equals(SecurityUtils.getProperty("shadingtheme", "false"))) {
+					if ("true".equals(System.getProperty("shadingtheme", "false"))) {
 						UIUtil.fillGradient(g, rect, SwingConstants.HORIZONTAL);
 					}
 				}
@@ -1001,7 +1000,7 @@ public class BasicJideSplitButtonUI extends VsnetMenuUI {
 				boolean enabled = model.isEnabled() && (!(model instanceof SplitButtonModel) || ((SplitButtonModel) model).isButtonEnabled());
 				if (isFloatingIcon() && enabled) {
 					if (model.isRollover() && !model.isPressed() && !model.isSelected()) {
-						if (!"true".equals(SecurityUtils.getProperty("shadingtheme", "false"))) {
+						if (!"true".equals(System.getProperty("shadingtheme", "false"))) {
 							if (icon instanceof ImageIcon) {
 								ImageIcon shadow = IconsFactory.createGrayImage(((ImageIcon) icon).getImage());
 								shadow.paintIcon(b, g, iconRect.x + 1, iconRect.y + 1);

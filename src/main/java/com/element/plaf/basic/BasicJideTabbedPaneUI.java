@@ -10,7 +10,6 @@ import com.element.plaf.UIDefaultsLookup;
 import com.element.ui.border.PartialLineBorder;
 import com.element.ui.tabs.JideTabbedPane;
 import com.element.ui.tabs.TabColorProvider;
-import com.element.util.SecurityUtils;
 import com.element.util.UIUtil;
 
 import javax.swing.Timer;
@@ -4123,7 +4122,7 @@ public class BasicJideTabbedPaneUI extends JideTabbedPaneUI implements SwingCons
 	}
 
 	protected Color getBorderEdgeColor() {
-		if ("true".equals(SecurityUtils.getProperty("shadingtheme", "false"))) {
+		if ("true".equals(System.getProperty("shadingtheme", "false"))) {
 			return _shadow;
 		} else {
 			return _lightHighlight;
@@ -5150,7 +5149,7 @@ public class BasicJideTabbedPaneUI extends JideTabbedPaneUI implements SwingCons
 		Component lastFocused = _tabPane.getLastFocusedComponent(visibleComponent);
 		if (lastFocused != null && lastFocused.requestFocusInWindow()) {
 			return true;
-		} else if (visibleComponent != null && UIUtil.passesFocusabilityTest(visibleComponent)) { //  visibleComponent.isFocusTraversable()) {
+		} else if (UIUtil.passesFocusabilityTest(visibleComponent)) { //  visibleComponent.isFocusTraversable()) {
 			UIUtil.compositeRequestFocus(visibleComponent);
 			return true;
 		} else return visibleComponent != null && visibleComponent.requestFocusInWindow();
@@ -9184,7 +9183,7 @@ public class BasicJideTabbedPaneUI extends JideTabbedPaneUI implements SwingCons
 	}
 
 	protected boolean isRoundedCorner() {
-		return "true".equals(SecurityUtils.getProperty("shadingtheme", "false"));
+		return "true".equals(System.getProperty("shadingtheme", "false"));
 	}
 
 	protected int getTabShape() {

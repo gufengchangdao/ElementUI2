@@ -14,7 +14,6 @@ import com.element.swing.Sticky;
 import com.element.swing.StringConverter;
 import com.element.ui.popup.JidePopup;
 import com.element.util.JideFocusTracker;
-import com.element.util.PortingUtil;
 import com.element.util.UIUtil;
 
 import javax.swing.*;
@@ -2096,7 +2095,7 @@ public class JideTabbedPane extends JTabbedPane {
 				break;
 		}
 
-		Rectangle screenBounds = PortingUtil.getScreenBounds(true);
+		Rectangle screenBounds = UIUtil.getScreenBounds(this,true);
 		int right = x + size.width + 3;
 		int bottom = y + size.height + 3;
 
@@ -2142,7 +2141,7 @@ public class JideTabbedPane extends JTabbedPane {
 				if (preferredScrollableViewportSize.width < 150) {
 					preferredScrollableViewportSize.width = 150;
 				}
-				int screenWidth = PortingUtil.getScreenSize().width;
+				int screenWidth = UIUtil.getScreenSize(this).width;
 				if (preferredScrollableViewportSize.width >= screenWidth) {
 					preferredScrollableViewportSize.width = screenWidth;
 				}
@@ -2152,7 +2151,7 @@ public class JideTabbedPane extends JTabbedPane {
 			@Override
 			public Dimension getPreferredSize() {
 				Dimension preferredSize = super.getPreferredSize();
-				int screenWidth = PortingUtil.getScreenSize().width;
+				int screenWidth = UIUtil.getScreenSize(this).width;
 				if (preferredSize.width >= screenWidth) {
 					preferredSize.width = screenWidth;
 				}
@@ -2191,7 +2190,7 @@ public class JideTabbedPane extends JTabbedPane {
 		});
 
 		list.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-		int max = (PortingUtil.getScreenSize().height - insets.top - insets.bottom) / list.getCellBounds(0, 0).height;
+		int max = (UIUtil.getScreenSize(this).height - insets.top - insets.bottom) / list.getCellBounds(0, 0).height;
 		if (listModel.getSize() > max) {
 			list.setVisibleRowCount(max);
 		} else {

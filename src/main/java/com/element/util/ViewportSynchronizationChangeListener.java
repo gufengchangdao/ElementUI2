@@ -9,11 +9,10 @@ import java.awt.*;
 import java.util.HashMap;
 import java.util.Map;
 
-import static com.element.util.UIUtil.getViewportSynchronizationChangeListener;
 
 /**
  * 视口同步的监听器，用于从视口位置随主视口位置改变而改变。
- * 该类不适合外部调用，主从视口同步请调用{@link UIUtil#synchronizeView(JViewport, JViewport, int)}
+ * 该类不适合外部调用，主从视口同步请调用{@link ListenerUtil#synchronizeView(JViewport, JViewport, int)}
  */
 class ViewportSynchronizationChangeListener implements ChangeListener {
 	public void stateChanged(ChangeEvent e) {
@@ -51,7 +50,7 @@ class ViewportSynchronizationChangeListener implements ChangeListener {
 		// 同步所有从视口
 		for (JViewport slaveViewport : allViewportToSync.keySet()) {
 			// 在改变从视口的视口位置时移除监听器，防止该视口触发通知，因为需要通知的视口都在映射中，不需要重复触发
-			slaveViewport.removeChangeListener(getViewportSynchronizationChangeListener());
+			slaveViewport.removeChangeListener(ListenerUtil.getViewportSynchronizationChangeListener());
 			int orientation = allViewportToSync.get(slaveViewport);
 			if (orientation == SwingConstants.HORIZONTAL) {
 				Point v1 = masterViewport.getViewPosition();
@@ -66,7 +65,7 @@ class ViewportSynchronizationChangeListener implements ChangeListener {
 					slaveViewport.setViewPosition(new Point(v2.x, v1.y));
 				}
 			}
-			slaveViewport.addChangeListener(getViewportSynchronizationChangeListener());
+			slaveViewport.addChangeListener(ListenerUtil.getViewportSynchronizationChangeListener());
 		}
 	}
 }

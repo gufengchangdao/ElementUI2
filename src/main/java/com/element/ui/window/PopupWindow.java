@@ -5,7 +5,7 @@
  */
 package com.element.ui.window;
 
-import com.element.util.PortingUtil;
+import com.element.util.UIUtil;
 
 import javax.swing.*;
 import javax.swing.event.EventListenerList;
@@ -90,7 +90,7 @@ public class PopupWindow {
 
 		SwingUtilities.convertPointToScreen(p, relative);
 
-		Rectangle screenSize = PortingUtil.getScreenBounds(false);
+		Rectangle screenSize = UIUtil.getScreenBounds(relative);
 
 		Dimension size = _component.getPreferredSize();
 

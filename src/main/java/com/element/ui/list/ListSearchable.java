@@ -50,10 +50,11 @@ import java.beans.PropertyChangeListener;
  * </pre>
  * </code>
  */
-public class ListSearchable extends Searchable implements ListDataListener, PropertyChangeListener {
+@SuppressWarnings("unchecked") //泛型转换不会出错
+public class ListSearchable<E> extends Searchable implements ListDataListener, PropertyChangeListener {
 	private boolean _useRendererAsConverter = false;
 
-	public ListSearchable(JList list) {
+	public ListSearchable(JList<E> list) {
 		super(list);
 		list.getModel().addListDataListener(this);
 		list.addPropertyChangeListener("model", this);
@@ -63,7 +64,7 @@ public class ListSearchable extends Searchable implements ListDataListener, Prop
 	public void uninstallListeners() {
 		super.uninstallListeners();
 		if (_component instanceof JList) {
-			((JList) _component).getModel().removeListDataListener(this);
+			((JList<E>) _component).getModel().removeListDataListener(this);
 		}
 		_component.removePropertyChangeListener("model", this);
 	}
@@ -72,30 +73,28 @@ public class ListSearchable extends Searchable implements ListDataListener, Prop
 	@Override
 	public void setSelectedIndex(int index, boolean incremental) {
 		if (incremental) {
-			((JList) _component).addSelectionInterval(index, index);
+			((JList<E>) _component).addSelectionInterval(index, index);
 		} else {
-			if (((JList) _component).getSelectedIndex() != index) {
-				((JList) _component).setSelectedIndex(index);
+			if (((JList<E>) _component).getSelectedIndex() != index) {
+				((JList<E>) _component).setSelectedIndex(index);
 			}
 		}
-		((JList) _component).ensureIndexIsVisible(index);
+		((JList<E>) _component).ensureIndexIsVisible(index);
 	}
 
 	@Override
 	public int getSelectedIndex() {
-		return ((JList) _component).getSelectedIndex();
+		return ((JList<E>) _component).getSelectedIndex();
 	}
 
 	@Override
-	public Object getElementAt(int index) {
-		ListModel listModel = ((JList) _component).getModel();
-		return listModel.getElementAt(index);
+	public E getElementAt(int index) {
+		return ((JList<E>) _component).getModel().getElementAt(index);
 	}
 
 	@Override
 	public int getElementCount() {
-		ListModel listModel = ((JList) _component).getModel();
-		return listModel.getSize();
+		return ((JList<E>) _component).getModel().getSize();
 	}
 
 	/**
@@ -108,18 +107,18 @@ public class ListSearchable extends Searchable implements ListDataListener, Prop
 	@Override
 	public String convertElementToString(Object object) {
 		if (isUseRendererAsConverter()) {
-			ListCellRenderer renderer = ((JList) _component).getCellRenderer();
+			ListCellRenderer<? super E> renderer = ((JList<E>) _component).getCellRenderer();
 			// try to get the string displayed on the list first so we can search exactly on what the customers are looking at
 			// if cannot get it, still go object.toString().
 			if (renderer != null) {
-				Component component = renderer.getListCellRendererComponent((JList) _component, object, 0, false, false);
+				Component component = renderer.getListCellRendererComponent((JList<E>) _component, (E) object, 0, false, false);
 				if (component != null) {
 					if (component instanceof JLabel) {
 						return ((JLabel) component).getText();
 					} else if (component instanceof CheckBoxListCellRenderer) {
 						ListCellRenderer actualRenderer = ((CheckBoxListCellRenderer) component).getActualListRenderer();
 						if (actualRenderer != null) {
-							Component rendererComponent = actualRenderer.getListCellRendererComponent((JList) _component, object, 0, false, false);
+							Component rendererComponent = actualRenderer.getListCellRendererComponent((JList<E>) _component, object, 0, false, false);
 							if (rendererComponent instanceof JLabel) {
 								return ((JLabel) rendererComponent).getText();
 							}
@@ -165,13 +164,12 @@ public class ListSearchable extends Searchable implements ListDataListener, Prop
 	public void propertyChange(PropertyChangeEvent evt) {
 		if ("model".equals(evt.getPropertyName())) {
 			hidePopup();
-
-			ListModel oldModel = (ListModel) evt.getOldValue();
+			ListModel<E> oldModel = (ListModel<E>) evt.getOldValue();
 			if (oldModel != null) {
 				oldModel.removeListDataListener(this);
 			}
 
-			ListModel newModel = (ListModel) evt.getNewValue();
+			ListModel<E> newModel = (ListModel<E>) evt.getNewValue();
 			if (newModel != null) {
 				newModel.addListDataListener(this);
 			}

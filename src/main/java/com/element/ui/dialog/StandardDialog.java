@@ -6,7 +6,7 @@
 package com.element.ui.dialog;
 
 import com.element.swing.DelegateAction;
-import com.element.util.StringUtil;
+import com.element.util.LocaleUtil;
 
 import javax.swing.*;
 import java.awt.*;
@@ -331,13 +331,13 @@ abstract public class StandardDialog extends JDialog implements ButtonNames {
 		ButtonPanel buttonPanel = new ButtonPanel();
 		buttonPanel.setBorder(BorderFactory.createEmptyBorder(0, 10, 6, 10));
 
-		AbstractAction okAction = new AbstractAction(StringUtil.getOKString(getLocale())) {
+		AbstractAction okAction = new AbstractAction(LocaleUtil.getOKString(getLocale())) {
 			public void actionPerformed(ActionEvent e) {
 				setDialogResult(RESULT_AFFIRMED);
 				setVisible(false);
 			}
 		};
-		AbstractAction cancelAction = new AbstractAction(StringUtil.getCancelString(getLocale())) {
+		AbstractAction cancelAction = new AbstractAction(LocaleUtil.getCancelString(getLocale())) {
 			public void actionPerformed(ActionEvent e) {
 				setDialogResult(RESULT_CANCELED);
 				setVisible(false);

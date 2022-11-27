@@ -8,7 +8,6 @@ package com.element.ui.layout;
 import com.element.ui.dialog.JideOptionPane;
 import com.element.ui.pane.JideSplitPane;
 import com.element.ui.pane.JideSplitPaneDivider;
-import com.element.util.SecurityUtils;
 
 import javax.swing.*;
 import java.awt.*;
@@ -156,7 +155,7 @@ public class JideBoxLayout implements LayoutManager2, Serializable {
 				}
 				boolean success = calculateComponentSizes(availableSize, 0, _target.getComponentCount());
 				if (!success) {
-					if (!isAlwaysLayout() && "false".equals(SecurityUtils.getProperty("JideBoxLayout.alwaysLayout", "false"))) {
+					if (!isAlwaysLayout() && "false".equals(System.getProperty("JideBoxLayout.alwaysLayout", "false"))) {
 						for (int i = 0; i < _target.getComponentCount(); i++) {
 							Component comp = _target.getComponent(i);
 							setComponentToSize(comp, 0, 0, insets, containerSize); // set size to zero to clear the layout
@@ -183,7 +182,7 @@ public class JideBoxLayout implements LayoutManager2, Serializable {
 					}
 					boolean success = calculateComponentSizes(availableSize, 0, _target.getComponentCount());
 					if (!success) {
-						if (!isAlwaysLayout() && "false".equals(SecurityUtils.getProperty("JideBoxLayout.alwaysLayout", "false"))) {
+						if (!isAlwaysLayout() && "false".equals(System.getProperty("JideBoxLayout.alwaysLayout", "false"))) {
 							for (int i = 0; i < _target.getComponentCount(); i++) {
 								Component comp = _target.getComponent(i);
 								setComponentToSize(comp, 0, 0, insets, containerSize); // set size to zero to clear the layout
@@ -291,7 +290,7 @@ public class JideBoxLayout implements LayoutManager2, Serializable {
 			}
 		}
 
-		if (!isAlwaysLayout() && "false".equals(SecurityUtils.getProperty("JideBoxLayout.alwaysLayout", "false")) && availableSizeExcludeFixed - varMinSize < 0) {
+		if (!isAlwaysLayout() && "false".equals(System.getProperty("JideBoxLayout.alwaysLayout", "false")) && availableSizeExcludeFixed - varMinSize < 0) {
 			return false;
 		}
 

@@ -13,6 +13,9 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
+import static java.util.Calendar.*;
+import static java.util.Calendar.MILLISECOND;
+
 /**
  * 日期时间工具类
  *
@@ -343,6 +346,67 @@ public class DateUtil {
 	 */
 	public static boolean isAtQuarter(Calendar cal, int quarter) {
 		return cal.get(Calendar.MONTH) / 3 + 1 == quarter;
+	}
+
+	public static boolean isSameYear(Calendar c1, Calendar c2) {return isSameInField(YEAR, c1, c2);}
+
+	public static boolean isSameMonth(Calendar c1, Calendar c2) {
+		return isSameInField(MONTH, c1, c2);
+	}
+
+	public static boolean isSameWeek(Calendar c1, Calendar c2) {
+		return isSameInField(WEEK_OF_YEAR, c1, c2);
+	}
+
+	public static boolean isSameDay(Calendar c1, Calendar c2) {
+		return isSameInField(DAY_OF_MONTH, c1, c2);
+	}
+
+	public static boolean isSameHour(Calendar c1, Calendar c2) {
+		return isSameInField(HOUR_OF_DAY, c1, c2);
+	}
+
+	public static boolean isSameMinute(Calendar c1, Calendar c2) {
+		return isSameInField(MINUTE, c1, c2);
+	}
+
+	public static boolean isSameSecond(Calendar c1, Calendar c2) {
+		return isSameInField(SECOND, c1, c2);
+	}
+
+	public static boolean isSameMillis(Calendar c1, Calendar c2) {
+		return isSameInField(MILLISECOND, c1, c2);
+	}
+
+	public static boolean isSameInField(int field, Calendar c1, Calendar c2) {
+		return c1.get(field) == c2.get(field);
+	}
+
+	/**
+	 * @return the int field from the Calendar class at which the dates differ. This will be one of YEAR, MONTH,
+	 * WEEK_OF_YEAR, DAY_OF_YEAR, HOUR_OF_DAY, MINUTE, SECOND, MILLISECOND, or null if there are no
+	 * differences.
+	 */
+	public static Integer mostSignificantDifference(Calendar c1, Calendar c2) {
+		if (!isSameYear(c1, c2)) {
+			return YEAR;
+		} else if (!isSameMonth(c1, c2)) {
+			return MONTH;
+		} else if (!isSameWeek(c1, c2)) {
+			return WEEK_OF_YEAR;
+		} else if (!isSameDay(c1, c2)) {
+			return DAY_OF_MONTH;
+		} else if (!isSameHour(c1, c2)) {
+			return HOUR_OF_DAY;
+		} else if (!isSameMinute(c1, c2)) {
+			return MINUTE;
+		} else if (!isSameSecond(c1, c2)) {
+			return SECOND;
+		} else if (!isSameMillis(c1, c2)) {
+			return MILLISECOND;
+		} else {
+			return null;
+		}
 	}
 
 	/**

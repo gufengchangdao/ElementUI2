@@ -11,7 +11,6 @@ import com.element.plaf.LookAndFeelFactory;
 import com.element.plaf.UIDefaultsLookup;
 import com.element.ui.button.JideButton;
 import com.element.ui.icons.IconsFactory;
-import com.element.util.SecurityUtils;
 import com.element.util.UIUtil;
 
 import javax.swing.*;
@@ -318,7 +317,7 @@ public class BasicJideButtonUI extends JideButtonUI {
 			if (icon != null) {
 				if (isFloatingIcon() && model.isEnabled()) {
 					if (model.isRollover() && !model.isPressed() && !model.isSelected()) {
-						if (!"true".equals(SecurityUtils.getProperty("shadingtheme", "false")) && b instanceof JideButton && ((JideButton) b).getButtonStyle() == JideButton.TOOLBAR_STYLE) {
+						if (!"true".equals(System.getProperty("shadingtheme", "false")) && b instanceof JideButton && ((JideButton) b).getButtonStyle() == JideButton.TOOLBAR_STYLE) {
 							if (icon instanceof ImageIcon) {
 								ImageIcon shadow = IconsFactory.createGrayImage(((ImageIcon) icon).getImage());
 								shadow.paintIcon(b, g, iconRect.x + 1, iconRect.y + 1);
@@ -520,7 +519,7 @@ public class BasicJideButtonUI extends JideButtonUI {
 				} else {
 					if (paintBackground) {
 						getPainter().paintButtonBackground(b, g, rect, UIUtil.getOrientationOf(b), state);
-						if ("true".equals(SecurityUtils.getProperty("shadingtheme", "false"))) {
+						if ("true".equals(System.getProperty("shadingtheme", "false"))) {
 							UIUtil.fillGradient(g, rect, UIUtil.getOrientationOf(b));
 						}
 					}

@@ -6,7 +6,6 @@
 package com.element.ui.icons;
 
 import com.element.util.GraphicsUtil;
-import com.element.util.SecurityUtils;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -552,7 +551,7 @@ public class IconsFactory {
 			}
 
 			Image image;
-			if ("true".equals(SecurityUtils.getProperty("jide.useImageIO", "true"))) {
+			if ("true".equals(System.getProperty("jide.useImageIO", "true"))) {
 				image = ImageIO.read(resource);
 			} else {
 				image = readImageIcon(baseClass, file, resource);

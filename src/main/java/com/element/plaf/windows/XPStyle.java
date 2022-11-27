@@ -7,7 +7,6 @@ import com.element.plaf.windows.TMSchema.Part;
 import com.element.plaf.windows.TMSchema.Prop;
 import com.element.plaf.windows.TMSchema.State;
 import com.element.plaf.windows.TMSchema.TypeEnum;
-import com.element.util.ReflectionUtils;
 import com.sun.java.swing.plaf.windows.WindowsClassicLookAndFeel;
 import com.sun.java.swing.plaf.windows.WindowsComboBoxUI;
 import sun.awt.image.SunWritableRaster;
@@ -29,6 +28,7 @@ import java.awt.image.BufferedImage;
 import java.awt.image.DataBuffer;
 import java.awt.image.DataBufferInt;
 import java.awt.image.WritableRaster;
+import java.lang.reflect.Method;
 import java.security.AccessController;
 import java.util.HashMap;
 
@@ -633,14 +633,20 @@ public class XPStyle {
 			// Note that stealData() requires a markDirty() afterwards
 			// since we modify the data in it.
 			try {
+				Method stealDataMethod = SunWritableRaster.class.getDeclaredMethod("stealData", DataBufferInt.class, int.class);
+				stealDataMethod.setAccessible(true);
+				Object values = stealDataMethod.invoke(null, dbi, 0);
+
 				ThemeReader.paintBackground(
-						(int[]) ReflectionUtils.callStatic(SunWritableRaster.class, "stealData", new Class[]{DataBufferInt.class, int.class}, new Object[]{dbi, 0}),
+						(int[]) values,
 						/*SunWritableRaster.stealData(dbi, 0),*/
 						part.getControlName(c), part.getValue(),
 						State.getValue(part, state),
 						0, 0, w, h, w);
-				ReflectionUtils.callStatic(SunWritableRaster.class, "markDirty", new Class[]{DataBuffer.class}, new Object[]{dbi});
-//                    SunWritableRaster.markDirty(dbi);
+
+				Method markDirtyMethod = SunWritableRaster.class.getDeclaredMethod("markDirty", DataBuffer.class);
+				markDirtyMethod.setAccessible(true);
+				markDirtyMethod.invoke(null, dbi);
 			} catch (Exception e) {
 				e.printStackTrace();
 			}

@@ -7,8 +7,8 @@ package com.element.ui.combobox;
 
 import com.element.swing.DelegateAction;
 import com.element.swing.Searchable;
-import com.element.util.PortingUtil;
-import com.element.util.UIUtil;
+import com.element.util.AudioUtil;
+import com.element.util.CompareUtil;
 
 import javax.swing.*;
 import javax.swing.text.*;
@@ -302,7 +302,7 @@ public class AutoCompletion {
 							if (isStrict()) {
 								getTextComponent().setText(_saveText);
 								e.consume();
-								PortingUtil.notifyUser(_textComponent);
+								AudioUtil.notifyUser(_textComponent);
 							}
 						}
 					}
@@ -380,7 +380,7 @@ public class AutoCompletion {
 					if (_hitBackspaceOnSelection) offs--;
 				} else {
 					// User hit backspace with the cursor positioned on the start => beep
-					PortingUtil.notifyUser(_textComponent);
+					AudioUtil.notifyUser(_textComponent);
 				}
 				highlightCompletedText(offs);
 			} else {
@@ -437,7 +437,7 @@ public class AutoCompletion {
 										item = getSearchable().getElementAt(index);
 										offs = offs - str.length();
 										// imitate no insert (later on offs will be incremented by str.length(): selection won't move forward)
-										PortingUtil.notifyUser(_textComponent);
+										AudioUtil.notifyUser(_textComponent);
 										setText(getSearchable().convertElementToString(item));
 										// select the completed part
 										highlightCompletedText(offs + str.length());
@@ -458,7 +458,7 @@ public class AutoCompletion {
 							item = getSearchable().getElementAt(index);
 							offs = offs - str.length();
 							// imitate no insert (later on offs will be incremented by str.length(): selection won't move forward)
-							PortingUtil.notifyUser(_textComponent);
+							AudioUtil.notifyUser(_textComponent);
 							setText(getSearchable().convertElementToString(item));
 							// select the completed part
 							highlightCompletedText(offs + str.length());
@@ -510,7 +510,7 @@ public class AutoCompletion {
 		for (int i = 0, n = getSearchable().getElementCount(); i < n; i++) {
 			Object currentItem = getSearchable().getElementAt(i);
 			// current item starts with the pattern?
-			if (UIUtil.equals(item, currentItem)) {
+			if (CompareUtil.equals(item, currentItem)) {
 				getSearchable().setSelectedIndex(i, false);
 			}
 		}

@@ -1,7 +1,7 @@
 package com.element.ui.template;
 
 import com.element.ui.base.BaseComponent;
-import com.element.util.BoxLayoutUtil;
+import com.element.util.WrapperUtil;
 
 import javax.swing.*;
 
@@ -41,12 +41,12 @@ public class Y4CCNCCRComponent<TL extends JComponent, TR extends JComponent, C e
 
 		if (centerC != null) {
 			add(Box.createVerticalStrut(vGap1));
-			add(BoxLayoutUtil.horizontalCenter(centerC));
+			add(WrapperUtil.horizontalCenter(centerC));
 		}
 
 		if (bottomC != null) {
 			add(Box.createVerticalStrut(vGap2));
-			add(BoxLayoutUtil.right(bottomC));
+			add(WrapperUtil.right(bottomC));
 		}
 	}
 

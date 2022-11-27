@@ -21,9 +21,6 @@ import com.element.swing.Alignable;
 import com.element.swing.FastGradientPainter;
 import com.element.ui.button.JideSplitButton;
 import com.element.ui.button.SplitButtonModel;
-import com.element.ui.layout.JideBorderLayout;
-import com.element.ui.nullc.NullPanel;
-import com.element.ui.pane.JideScrollPane;
 import com.element.util.handle.ConditionHandler;
 import com.element.util.handle.GetHandler;
 import com.element.util.handle.Handler;
@@ -31,26 +28,15 @@ import org.apache.batik.ext.awt.geom.Polygon2D;
 
 import javax.accessibility.Accessible;
 import javax.swing.*;
-import javax.swing.event.ChangeListener;
-import javax.swing.event.EventListenerList;
-import javax.swing.event.TableModelListener;
 import javax.swing.plaf.ComponentUI;
 import javax.swing.plaf.basic.ComboPopup;
-import javax.swing.table.AbstractTableModel;
 import javax.swing.table.TableCellRenderer;
-import javax.swing.table.TableModel;
 import javax.swing.text.JTextComponent;
 import javax.swing.tree.TreeCellRenderer;
 import java.awt.*;
-import java.awt.event.*;
-import java.awt.geom.Ellipse2D;
-import java.awt.geom.Path2D;
-import java.awt.geom.Rectangle2D;
-import java.awt.geom.RoundRectangle2D;
+import java.awt.geom.*;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
-import java.lang.reflect.Array;
-import java.util.List;
 import java.util.*;
 import java.util.function.Supplier;
 
@@ -82,7 +68,7 @@ public class UIUtil implements SwingConstants {
 	public static final Object AA_TEXT_PROPERTY_KEY = new StringBuilder("AATextPropertyKey");
 
 	static {
-		String aa = SecurityUtils.getProperty("swing.aatext");
+		String aa = System.getProperty("swing.aatext");
 		AA_TEXT_DEFINED = (aa != null);
 		AA_TEXT = "true".equals(aa);
 	}
@@ -394,17 +380,6 @@ public class UIUtil implements SwingConstants {
 	}
 
 	/**
-	 * Find the first parent that is opaque.
-	 */
-	private static Container findOpaqueParent(Container c) {
-		while ((c = c.getParent()) != null) {
-			if (c.isOpaque())
-				return c;
-		}
-		return null;
-	}
-
-	/**
 	 * 创建具有给定线宽的非填充矩形形状
 	 */
 	public static Path2D createRectangle(float x, float y, float width, float height, float lineWidth) {
@@ -702,7 +677,7 @@ public class UIUtil implements SwingConstants {
 	 * @param isVertical 是否为垂直方向
 	 */
 	public static void fillGradient(Graphics2D g2, Shape s, Color startColor, Color endColor, boolean isVertical) {
-		if ("true".equals(SecurityUtils.getProperty("normalGradientPaint", "false"))) {
+		if ("true".equals(System.getProperty("normalGradientPaint", "false"))) {
 			fillNormalGradient(g2, s, startColor, endColor, isVertical);
 		} else {
 			FastGradientPainter.drawGradient(g2, s, startColor, endColor, isVertical);
@@ -790,7 +765,6 @@ public class UIUtil implements SwingConstants {
 	public static void clearGradientCache() {
 		FastGradientPainter.clearGradientCache();
 	}
-
 
 	/**
 	 * 绘制带有禁用笔画正常化的给定形状。形状的x/y坐标转换了半个像素。
@@ -938,729 +912,6 @@ public class UIUtil implements SwingConstants {
 	}
 
 	// ---------------------------------------------------------------------
-	// 包装组件
-	// ---------------------------------------------------------------------
-
-	/**
-	 * Create a Panel around a component so that component aligns to left.
-	 *
-	 * @param object the component
-	 * @return a Panel
-	 */
-	public static JPanel createLeftPanel(Component object) {
-		JPanel ret = new NullPanel(new BorderLayout());
-		ret.setOpaque(false);
-		ret.add(object, BorderLayout.LINE_START);
-		return ret;
-	}
-
-	/**
-	 * Create a Panel around a component so that component aligns to right.
-	 *
-	 * @param object the component
-	 * @return a Panel
-	 */
-	public static JPanel createRightPanel(Component object) {
-		JPanel ret = new NullPanel(new BorderLayout());
-		ret.setOpaque(false);
-		ret.add(object, BorderLayout.LINE_END);
-		return ret;
-	}
-
-	/**
-	 * Create a Panel around a component so that component aligns to top.
-	 *
-	 * @param object the component
-	 * @return a Panel
-	 */
-	public static JPanel createTopPanel(Component object) {
-		JPanel ret = new NullPanel(new BorderLayout());
-		ret.setOpaque(false);
-		ret.add(object, BorderLayout.PAGE_START);
-		return ret;
-	}
-
-	/**
-	 * Create a Panel around a component so that component aligns to bottom.
-	 *
-	 * @param object the component
-	 * @return a Panel
-	 */
-	public static JPanel createBottomPanel(Component object) {
-		JPanel ret = new NullPanel(new BorderLayout());
-		ret.setOpaque(false);
-		ret.add(object, BorderLayout.PAGE_END);
-		return ret;
-	}
-
-	/**
-	 * Create a Panel around a component so that component is right in the middle.
-	 *
-	 * @param object the component
-	 * @return a Panel
-	 */
-	public static JPanel createCenterPanel(Component object) {
-		JPanel ret = new NullPanel(new GridBagLayout());
-		ret.setOpaque(false);
-		ret.add(object, new GridBagConstraints());
-		return ret;
-	}
-
-	/**
-	 * Creates a container which a label for the component.
-	 *
-	 * @param title      the label
-	 * @param component  the component
-	 * @param constraint the constraint as in BorderLayout. You can use all the constraints as in BorderLayout except
-	 *                   CENTER.
-	 * @return the container which has both the label and the component.
-	 */
-	public static JPanel createLabeledComponent(JLabel title, Component component, Object constraint) {
-		JPanel ret = new NullPanel(new JideBorderLayout(3, 3));
-		ret.setOpaque(false);
-		ret.add(title, constraint);
-		title.setLabelFor(component);
-		ret.add(component);
-		return ret;
-	}
-
-	/**
-	 * Center the component to it's parent window.
-	 *
-	 * @param childToCenter the parent window
-	 */
-	public static void centerWindow(Window childToCenter) {
-		childToCenter.setLocationRelativeTo(childToCenter.getParent());
-	}
-
-	// ---------------------------------------------------------------------
-	// 比较
-	// ---------------------------------------------------------------------
-
-	/**
-	 * Checks if the two objects equal. If both are null, they are equal. If o1 and o2 both are Comparable, we will use
-	 * compareTo method to see if it equals 0. At last, we will use <code>o1.equals(o2)</code> to compare. If none of
-	 * the above conditions match, we return false.
-	 *
-	 * @param o1 the first object to compare
-	 * @param o2 the second object to compare
-	 * @return true if the two objects are equal. Otherwise false.
-	 */
-	public static boolean equals(Object o1, Object o2) {
-		return equals(o1, o2, false);
-	}
-
-	/**
-	 * Checks if the two objects equal. If both are the same instance, they are equal. If both are null, they are equal.
-	 * If o1 and o2 both are Comparable, we will use compareTo method to see if it equals 0. If considerArrayOrList is
-	 * true and o1 and o2 are both array, we will compare each element in the array. At last, we will use
-	 * <code>o1.equals(o2)</code> to compare. If none of the above conditions match, we return false.
-	 *
-	 * @param o1                  the first object to compare
-	 * @param o2                  the second object to compare
-	 * @param considerArrayOrList If true, and if o1 and o2 are both array, we will compare each element in the array
-	 *                            instead of just compare the two array objects.
-	 * @return true if the two objects are equal. Otherwise false.
-	 */
-	public static boolean equals(Object o1, Object o2, boolean considerArrayOrList) {
-		return equals(o1, o2, considerArrayOrList, true);
-	}
-
-	/**
-	 * Checks if the two objects equal. If both are the same instance, they are equal. If both are null, they are equal.
-	 * If o1 and o2 both are Comparable, we will use compareTo method to see if it equals 0. If considerArrayOrList is
-	 * true and o1 and o2 are both array, we will compare each element in the array. At last, we will use
-	 * <code>o1.equals(o2)</code> to compare. If none of the above conditions match, we return false.
-	 *
-	 * @param o1                  the first object to compare
-	 * @param o2                  the second object to compare
-	 * @param considerArrayOrList If true, and if o1 and o2 are both array, we will compare each element in the array
-	 *                            instead of just compare the two array objects.
-	 * @param caseSensitive       if the o1 and o2 are CharSequence, we will use this parameter to do a case sensitive
-	 *                            or insensitive comparison
-	 * @return true if the two objects are equal. Otherwise false.
-	 */
-	public static boolean equals(Object o1, Object o2, boolean considerArrayOrList, boolean caseSensitive) {
-		if (o1 == o2) {
-			return true;
-		} else if (o1 != null && o2 == null) {
-			return false;
-		} else if (o1 == null) {
-			return false;
-		} else if (o1 instanceof CharSequence && o2 instanceof CharSequence) {
-			return equals((CharSequence) o1, (CharSequence) o2, caseSensitive);
-		} else if (o1 instanceof Comparable && o2 instanceof Comparable && o1.getClass().isAssignableFrom(o2.getClass())) {
-			return ((Comparable) o1).compareTo(o2) == 0;
-		} else if (o1 instanceof Comparable && o2 instanceof Comparable && o2.getClass().isAssignableFrom(o1.getClass())) {
-			return ((Comparable) o2).compareTo(o1) == 0;
-		} else if (considerArrayOrList && o1 instanceof java.util.List && o2 instanceof java.util.List) {
-			int length1 = ((java.util.List<?>) o1).size();
-			int length2 = ((java.util.List<?>) o2).size();
-			if (length1 != length2) {
-				return false;
-			}
-			for (int i = 0; i < length1; i++) {
-				if (!equals(((java.util.List<?>) o1).get(i), ((List<?>) o2).get(i), true)) {
-					return false;
-				}
-			}
-			return true;
-		} else if (considerArrayOrList && o1.getClass().isArray() && o2.getClass().isArray()) {
-			int length1 = Array.getLength(o1);
-			int length2 = Array.getLength(o2);
-			if (length1 != length2) {
-				return false;
-			}
-			for (int i = 0; i < length1; i++) {
-				if (!equals(Array.get(o1, i), Array.get(o2, i), true)) {
-					return false;
-				}
-			}
-			return true;
-		} else {
-			return o1.equals(o2);
-		}
-	}
-
-	public static boolean equals(CharSequence s1, CharSequence s2, boolean caseSensitive) {
-		if (s1 == s2) return true;
-		if (s1 == null || s2 == null) return false;
-
-		// Algorithm from String.regionMatches()
-
-		if (s1.length() != s2.length()) return false;
-		int to = 0;
-		int po = 0;
-		int len = s1.length();
-
-		while (len-- > 0) {
-			char c1 = s1.charAt(to++);
-			char c2 = s2.charAt(po++);
-			if (c1 == c2) {
-				continue;
-			}
-			if (!caseSensitive && charsEqualIgnoreCase(c1, c2)) continue;
-			return false;
-		}
-
-		return true;
-	}
-
-	public static boolean charsEqualIgnoreCase(char a, char b) {
-		return a == b || Character.toLowerCase(a) == Character.toLowerCase(b);
-	}
-
-	// ---------------------------------------------------------------------
-	// 监听器
-	// ---------------------------------------------------------------------
-
-	/** 组件是否是永久焦点所有者 */
-	public static boolean componentIsPermanentFocusOwner(Component comp) {
-		return ((comp != null) && (KeyboardFocusManager.getCurrentKeyboardFocusManager().
-				getPermanentFocusOwner() == comp));
-	}
-
-	/**
-	 * 查找容器中可以获取焦点的第一个组件并尝试使其获取焦点
-	 * <p>
-	 * 请注意，这并没有做一些聪明的事情，比如尝试在每个级别水平地遍历层次结构，以便聚焦的子组件尽可能高。相反，它是深度遍历的。它只是一个安全阀，因此可以在某处请求焦点而不是丢失。
-	 *
-	 * @param container 要获取焦点容器
-	 * @return 一个可聚焦的子组件，可能是容器本身，或者是容器的子组件，找不到就返回null
-	 */
-	public static Component findSomethingFocusable(Container container) {
-		if (passesFocusabilityTest(container)) {
-			container.requestFocusInWindow();
-			return container;
-		}
-		Component[] comps = container.getComponents();
-		for (Component comp1 : comps) {
-			if (passesFocusabilityTest(comp1)) {
-				container.requestFocusInWindow();
-				return container;
-			} else if (comp1 instanceof Container) {
-				Component comp = findSomethingFocusable((Container) (comp1));
-				if (comp != null) {
-					return comp;
-				}
-			}
-		}
-		return null;
-	}
-
-	/**
-	 * There are four standard tests which determine if Swing will be able to request focus for a component. Test them.
-	 *
-	 * @param comp
-	 * @return does the specified component pass the four focusability tests
-	 */
-	public static boolean passesFocusabilityTest(Component comp) {
-		return ((comp != null) && comp.isEnabled() && comp.isFocusable() && comp.isShowing());
-	}
-
-	/**
-	 * Copied from BasicLookAndFeel as the method is package local.
-	 *
-	 * @param component
-	 * @return if request focus is success or not.
-	 */
-	public static boolean compositeRequestFocus(Component component) {
-		if (component instanceof Container container) {
-			if (container.isFocusCycleRoot()) {
-				FocusTraversalPolicy policy = container.getFocusTraversalPolicy();
-				Component comp = policy.getDefaultComponent(container);
-
-				if ((comp != null) && comp.isShowing() && container.getComponentCount() > 0) {
-					return comp.requestFocusInWindow();
-				}
-			}
-			Container rootAncestor = container.getFocusCycleRootAncestor();
-			if (rootAncestor != null) {
-				FocusTraversalPolicy policy = rootAncestor.getFocusTraversalPolicy();
-				Component comp = null;
-				try {
-					comp = policy.getComponentAfter(rootAncestor, container);
-				} catch (Exception e) {
-					// ClassCastException when docking frames on Solaris
-					// http://jidesoft.com/forum/viewtopic.php?p=32569
-				}
-
-				if (comp != null && SwingUtilities.isDescendingFrom(comp, container)) {
-					return comp.requestFocusInWindow();
-				}
-			}
-		}
-		if (!passesFocusabilityTest(component)) {
-			return false;
-		}
-
-		return component.requestFocusInWindow();
-	}
-
-	public static boolean isAncestorOfFocusOwner(Component component) {
-		boolean hasFocus = false;
-		Component focusOwner = KeyboardFocusManager.getCurrentKeyboardFocusManager().getFocusOwner();
-		if (component == focusOwner || (component instanceof Container && ((Container) component).isAncestorOf(focusOwner))) {
-			hasFocus = true;
-		}
-		return hasFocus;
-	}
-
-	/**
-	 * Checks if the key listener is already registered on the component.
-	 *
-	 * @param component the component
-	 * @param l         the listener
-	 * @return true if already registered. Otherwise false.
-	 */
-	public static boolean isKeyListenerRegistered(Component component, KeyListener l) {
-		return Arrays.stream(component.getKeyListeners()).anyMatch(keyListener -> keyListener == l);
-	}
-
-	/**
-	 * Inserts the key listener at the particular index in the listeners' chain.
-	 *
-	 * @param component
-	 * @param l
-	 * @param index
-	 */
-	public static void insertKeyListener(Component component, KeyListener l, int index) {
-		KeyListener[] listeners = component.getKeyListeners();
-		for (KeyListener listener : listeners) {
-			component.removeKeyListener(listener);
-		}
-		for (int i = 0; i < listeners.length; i++) {
-			KeyListener listener = listeners[i];
-			if (index == i) {
-				component.addKeyListener(l);
-			}
-			component.addKeyListener(listener);
-		}
-		// index is too large, add to the end.
-		if (index > listeners.length - 1) {
-			component.addKeyListener(l);
-		}
-	}
-
-	/**
-	 * Inserts the table model listener at the particular index in the listeners' chain. The listeners are fired in
-	 * reverse order. So the listener at index 0 will be fired at last.
-	 *
-	 * @param model the AbstractTableModel
-	 * @param l     the TableModelListener to be inserted
-	 * @param index the index.
-	 */
-	public static void insertTableModelListener(TableModel model, TableModelListener l, int index) {
-		if (!(model instanceof AbstractTableModel)) {
-			model.addTableModelListener(l);
-			return;
-		}
-		TableModelListener[] listeners = ((AbstractTableModel) model).getTableModelListeners();
-		for (TableModelListener listener : listeners) {
-			model.removeTableModelListener(listener);
-		}
-		for (int i = 0; i < listeners.length; i++) {
-			TableModelListener listener = listeners[i];
-			if (index == i) {
-				model.addTableModelListener(l);
-			}
-			model.addTableModelListener(listener);
-		}
-		// index is too large, add to the end.
-		if (index < 0 || index > listeners.length - 1) {
-			model.addTableModelListener(l);
-		}
-	}
-
-	/**
-	 * Inserts the property change listener at the particular index in the listeners' chain.
-	 *
-	 * @param component    the component where the listener will be inserted.
-	 * @param l            the listener to be inserted
-	 * @param propertyName the name of the property. Could be null.
-	 * @param index        the index to be inserted
-	 */
-	public static void insertPropertyChangeListener(Component component, PropertyChangeListener l, String propertyName, int index) {
-		PropertyChangeListener[] listeners = propertyName == null ? component.getPropertyChangeListeners() : component.getPropertyChangeListeners(propertyName);
-		for (PropertyChangeListener listener : listeners) {
-			if (propertyName == null) {
-				component.removePropertyChangeListener(listener);
-			} else {
-				component.removePropertyChangeListener(propertyName, listener);
-			}
-		}
-		for (int i = 0; i < listeners.length; i++) {
-			PropertyChangeListener listener = listeners[i];
-			if (index == i) {
-				if (propertyName == null) {
-					component.addPropertyChangeListener(l);
-				} else {
-					component.addPropertyChangeListener(propertyName, l);
-				}
-			}
-			if (propertyName == null) {
-				component.addPropertyChangeListener(listener);
-			} else {
-				component.addPropertyChangeListener(propertyName, listener);
-			}
-		}
-		// index is too large, add to the end.
-		if (index > listeners.length - 1) {
-			if (propertyName == null) {
-				component.addPropertyChangeListener(l);
-			} else {
-				component.addPropertyChangeListener(propertyName, l);
-			}
-		}
-	}
-
-	/**
-	 * Inserts the property change listener at the particular index in the listeners' chain.
-	 *
-	 * @param manager      the KeyboardFocusManager where the listener will be inserted.
-	 * @param l            the listener to be inserted
-	 * @param propertyName the name of the property. Could be null.
-	 * @param index        the index to be inserted
-	 */
-	public static void insertPropertyChangeListener(KeyboardFocusManager manager, PropertyChangeListener l, String propertyName, int index) {
-		PropertyChangeListener[] listeners = propertyName == null ? manager.getPropertyChangeListeners() : manager.getPropertyChangeListeners(propertyName);
-		for (PropertyChangeListener listener : listeners) {
-			if (propertyName == null) {
-				manager.removePropertyChangeListener(listener);
-			} else {
-				manager.removePropertyChangeListener(propertyName, listener);
-			}
-		}
-		for (int i = 0; i < listeners.length; i++) {
-			PropertyChangeListener listener = listeners[i];
-			if (index == i) {
-				if (propertyName == null) {
-					manager.addPropertyChangeListener(l);
-				} else {
-					manager.addPropertyChangeListener(propertyName, l);
-				}
-			}
-			if (propertyName == null) {
-				manager.addPropertyChangeListener(listener);
-			} else {
-				manager.addPropertyChangeListener(propertyName, listener);
-			}
-		}
-		// index is too large, add to the end.
-		if (index > listeners.length - 1) {
-			if (propertyName == null) {
-				manager.addPropertyChangeListener(l);
-			} else {
-				manager.addPropertyChangeListener(propertyName, l);
-			}
-		}
-	}
-
-	/**
-	 * Inserts the mouse listener at the particular index in the listeners' chain.
-	 *
-	 * @param component
-	 * @param l
-	 * @param index
-	 */
-	public static void insertMouseListener(Component component, MouseListener l, int index) {
-		MouseListener[] listeners = component.getMouseListeners();
-		for (MouseListener listener : listeners) {
-			component.removeMouseListener(listener);
-		}
-		for (int i = 0; i < listeners.length; i++) {
-			MouseListener listener = listeners[i];
-			if (index == i) {
-				component.addMouseListener(l);
-			}
-			component.addMouseListener(listener);
-		}
-		// index is too large, add to the end.
-		if (index < 0 || index > listeners.length - 1) {
-			component.addMouseListener(l);
-		}
-	}
-
-	/**
-	 * Inserts the mouse motion listener at the particular index in the listeners' chain.
-	 *
-	 * @param component
-	 * @param l
-	 * @param index
-	 */
-	public static void insertMouseMotionListener(Component component, MouseMotionListener l, int index) {
-		MouseMotionListener[] listeners = component.getMouseMotionListeners();
-		for (MouseMotionListener listener : listeners) {
-			component.removeMouseMotionListener(listener);
-		}
-		for (int i = 0; i < listeners.length; i++) {
-			MouseMotionListener listener = listeners[i];
-			if (index == i) {
-				component.addMouseMotionListener(l);
-			}
-			component.addMouseMotionListener(listener);
-		}
-		// index is too large, add to the end.
-		if (index < 0 || index > listeners.length - 1) {
-			component.addMouseMotionListener(l);
-		}
-	}
-
-	/**
-	 * Checks if the property change listener is already registered on the component.
-	 *
-	 * @param component the component
-	 * @param l         the listener
-	 * @return true if already registered. Otherwise false.
-	 */
-	public static boolean isPropertyChangeListenerRegistered(Component component, PropertyChangeListener l) {
-		return Arrays.stream(component.getPropertyChangeListeners()).anyMatch(propertyChangeListener -> propertyChangeListener == l);
-	}
-
-	/**
-	 * Checks if the property change listener is already registered on the component.
-	 *
-	 * @param component    the component
-	 * @param propertyName the property name
-	 * @param l            the listener
-	 * @return true if already registered. Otherwise false.
-	 */
-	public static boolean isPropertyChangeListenerRegistered(Component component, String propertyName, PropertyChangeListener l) {
-		if (propertyName == null) return isPropertyChangeListenerRegistered(component, l);
-		return Arrays.stream(component.getPropertyChangeListeners(propertyName)).anyMatch(propertyChangeListener -> propertyChangeListener == l);
-	}
-
-	/**
-	 * Checks if the mouse listener is already registered on the component.
-	 *
-	 * @param component the component
-	 * @param l         the listener
-	 * @return true if already registered. Otherwise false.
-	 */
-	public static boolean isMouseListenerRegistered(Component component, MouseListener l) {
-		return Arrays.stream(component.getMouseListeners()).anyMatch(mouseListener -> mouseListener == l);
-	}
-
-
-	/**
-	 * Checks if the mouse motion listener is already registered on the component.
-	 *
-	 * @param component the component
-	 * @param l         the listener
-	 * @return true if already registered. Otherwise false.
-	 */
-	public static boolean isMouseMotionListenerRegistered(Component component, MouseMotionListener l) {
-		return Arrays.stream(component.getMouseMotionListeners()).anyMatch(mouseMotionListener -> mouseMotionListener == l);
-	}
-
-	/**
-	 * Checks if the listener is always registered to the EventListenerList to avoid duplicated registration of the same
-	 * listener
-	 *
-	 * @param list the EventListenerList to register the listener.
-	 * @param t    the type of the EventListener.
-	 * @param l    the listener.
-	 * @return true if already registered. Otherwise false.
-	 */
-	public static boolean isListenerRegistered(EventListenerList list, Class t, EventListener l) {
-		Object[] objects = list.getListenerList();
-		return isListenerRegistered(objects, t, l);
-	}
-
-	/**
-	 * Checks if the listener is always registered to the Component to avoid duplicated registration of the same
-	 * listener
-	 *
-	 * @param component the component that you want to register the listener.
-	 * @param t         the type of the EventListener.
-	 * @param l         the listener.
-	 * @return true if already registered. Otherwise false.
-	 */
-	public static boolean isListenerRegistered(Component component, Class t, EventListener l) {
-		Object[] objects = component.getListeners(t);
-		return isListenerRegistered(objects, t, l);
-	}
-
-	private static boolean isListenerRegistered(Object[] objects, Class t, EventListener l) {
-		// TODO 为什么这么遍历？百思不得其解
-		for (int i = objects.length - 2; i >= 0; i -= 2) {
-			if ((objects[i] == t) && (objects[i + 1].equals(l))) {
-				return true;
-			}
-		}
-		return false;
-	}
-
-	public static void retargetMouseEvent(int id, MouseEvent e, Component target) {
-		if (target == null || (target == e.getSource() && id == e.getID())) {
-			return;
-		}
-		if (e.isConsumed()) {
-			return;
-		}
-
-		// fix for bug #4202966 -- hania
-		// When re-targeting a mouse event, we need to translate
-		// the event's coordinates relative to the target.
-
-		Point p = SwingUtilities.convertPoint((Component) e.getSource(),
-				e.getX(), e.getY(),
-				target);
-		MouseEvent retargeted = new MouseEvent(target,
-				id,
-				e.getWhen(),
-				e.getModifiersEx() | e.getModifiersEx(),
-				p.x, p.y,
-				e.getClickCount(),
-				e.isPopupTrigger(),
-				e.getButton());
-		target.dispatchEvent(retargeted);
-	}
-
-	/**
-	 * Checks if the ctrl key is pressed. On Mac oS X, it will be command key.
-	 *
-	 * @param event the InputEvent.
-	 * @return true or false.
-	 */
-	public static boolean isMenuShortcutKeyDown(InputEvent event) {
-		return (event.getModifiersEx() & Toolkit.getDefaultToolkit().getMenuShortcutKeyMaskEx()) != 0;
-	}
-
-	/**
-	 * Checks if the ctrl key is pressed. On Mac oS X, it will be command key.
-	 *
-	 * @param event the InputEvent.
-	 * @return true or false.
-	 */
-	public static boolean isMenuShortcutKeyDown(ActionEvent event) {
-		return (event.getModifiers() & Toolkit.getDefaultToolkit().getMenuShortcutKeyMaskEx()) != 0;
-	}
-
-	private static ChangeListener _viewportSyncListener;
-
-	/** 获取视口同步更改侦听器 */
-	public static ChangeListener getViewportSynchronizationChangeListener() {
-		if (_viewportSyncListener == null) {
-			_viewportSyncListener = new ViewportSynchronizationChangeListener();
-		}
-		return _viewportSyncListener;
-	}
-
-	/**
-	 * 同步两个视口。主视口的视口位置发生变化，从视口的视口位置也会发生变化。
-	 * 一般来说，如果你想让两个视口在垂直方向上同步，它们应该有相同的高度。如果水平就应该宽度相同。
-	 * <p>
-	 * 如果您使用相同的主视口和从视口重复调用此方法，则可以。它不会导致触发多个事件。
-	 *
-	 * @param masterViewport 主视口
-	 * @param slaveViewport  从视口
-	 * @param orientation    它可以是 {@link SwingConstants#HORIZONTAL} 或 {@link SwingConstants#VERTICAL}
-	 */
-	public static void synchronizeView(final JViewport masterViewport, final JViewport slaveViewport, final int orientation) {
-		if (masterViewport == null || slaveViewport == null) {
-			return;
-		}
-		ChangeListener[] changeListeners = masterViewport.getChangeListeners();
-		// 添加视口改变监听器，但如果已经添加了就不再添加
-		int i = 0;
-		for (; i < changeListeners.length; i++) {
-			if (changeListeners[i] == getViewportSynchronizationChangeListener()) break;
-		}
-		if (i >= changeListeners.length) {
-			masterViewport.addChangeListener(getViewportSynchronizationChangeListener());
-		}
-
-		// 将从视口添加到客户端属性中
-		Object property = masterViewport.getClientProperty(JideScrollPane.CLIENT_PROPERTY_SLAVE_VIEWPORT);
-		if (!(property instanceof Map)) {
-			property = new HashMap<JViewport, Integer>();
-		}
-		Map<JViewport, Integer> slaveViewportMap = (Map) property;
-		slaveViewportMap.put(slaveViewport, orientation);
-		masterViewport.putClientProperty(JideScrollPane.CLIENT_PROPERTY_SLAVE_VIEWPORT, slaveViewportMap);
-
-		// 将主视口添加到客户端属性中
-		property = slaveViewport.getClientProperty(JideScrollPane.CLIENT_PROPERTY_MASTER_VIEWPORT);
-		if (!(property instanceof Map)) {
-			property = new HashMap<JViewport, Integer>();
-		}
-		Map<JViewport, Integer> masterViewportMap = (Map) property;
-		masterViewportMap.put(masterViewport, orientation);
-		slaveViewport.putClientProperty(JideScrollPane.CLIENT_PROPERTY_MASTER_VIEWPORT, masterViewportMap);
-	}
-
-	/**
-	 * 取消同步两个视口
-	 *
-	 * @param masterViewport 主视口
-	 * @param slaveViewport  从视口
-	 */
-	public static void unsynchronizeView(final JViewport masterViewport, final JViewport slaveViewport) {
-		if (masterViewport == null || slaveViewport == null) {
-			return;
-		}
-		Object property = masterViewport.getClientProperty(JideScrollPane.CLIENT_PROPERTY_SLAVE_VIEWPORT);
-		if (property instanceof Map slaveViewportMap) {
-			slaveViewportMap.remove(slaveViewport);
-			if (slaveViewportMap.isEmpty()) {
-				slaveViewportMap = null;
-				masterViewport.removeChangeListener(getViewportSynchronizationChangeListener());
-			}
-			masterViewport.putClientProperty(JideScrollPane.CLIENT_PROPERTY_SLAVE_VIEWPORT, slaveViewportMap);
-		}
-
-		property = slaveViewport.getClientProperty(JideScrollPane.CLIENT_PROPERTY_MASTER_VIEWPORT);
-		if (property instanceof Map masterViewportMap) {
-			masterViewportMap.remove(masterViewport);
-			if (masterViewportMap.isEmpty()) {
-				masterViewportMap = null;
-			}
-			slaveViewport.putClientProperty(JideScrollPane.CLIENT_PROPERTY_MASTER_VIEWPORT, masterViewportMap);
-		}
-	}
-
-	// ---------------------------------------------------------------------
 	// 递归处理组件
 	// ---------------------------------------------------------------------
 
@@ -1736,6 +987,57 @@ public class UIUtil implements SwingConstants {
 			}
 		}
 		return null;
+	}
+
+	/**
+	 * 查找容器中可以获取焦点的第一个组件并尝试使其获取焦点
+	 * <p>
+	 * 请注意，这并没有做一些聪明的事情，比如尝试在每个级别水平地遍历层次结构，以便聚焦的子组件尽可能高。相反，它是深度遍历的。它只是一个安全阀，因此可以在某处请求焦点而不是丢失。
+	 *
+	 * @param container 要获取焦点容器
+	 * @return 一个可聚焦的子组件，可能是容器本身，或者是容器的子组件，找不到就返回null
+	 */
+	public static Component findSomethingFocusable(Container container) {
+		if (UIUtil.passesFocusabilityTest(container)) {
+			container.requestFocusInWindow();
+			return container;
+		}
+		Component[] comps = container.getComponents();
+		for (Component comp1 : comps) {
+			if (UIUtil.passesFocusabilityTest(comp1)) {
+				container.requestFocusInWindow();
+				return container;
+			} else if (comp1 instanceof Container) {
+				Component comp = findSomethingFocusable((Container) (comp1));
+				if (comp != null) {
+					return comp;
+				}
+			}
+		}
+		return null;
+	}
+
+	/**
+	 * Calls setRequestFocusEnabled method recursively on component. <code>Component</code> c is usually a
+	 * <code>Container</code>
+	 *
+	 * @param c       component
+	 * @param enabled true if setRequestFocusEnabled to true; false otherwise
+	 */
+	public static void setRequestFocusEnabledRecursively(final Component c, final boolean enabled) {
+		UIUtil.setRecursively(c, new Handler() {
+			public boolean condition(Component c) {
+				return true;
+			}
+
+			public void action(Component c) {
+				if (c instanceof JComponent)
+					((JComponent) c).setRequestFocusEnabled(enabled);
+			}
+
+			public void postAction(Component c) {
+			}
+		});
 	}
 
 	/**
@@ -1831,34 +1133,9 @@ public class UIUtil implements SwingConstants {
 		});
 	}
 
-	/**
-	 * Calls setRequestFocusEnabled method recursively on component. <code>Component</code> c is usually a
-	 * <code>Container</code>
-	 *
-	 * @param c       component
-	 * @param enabled true if setRequestFocusEnabled to true; false otherwise
-	 */
-	public static void setRequestFocusEnabledRecursively(final Component c, final boolean enabled) {
-		setRecursively(c, new Handler() {
-			public boolean condition(Component c) {
-				return true;
-			}
-
-			public void action(Component c) {
-				if (c instanceof JComponent)
-					((JComponent) c).setRequestFocusEnabled(enabled);
-			}
-
-			public void postAction(Component c) {
-			}
-		});
-	}
-
 	private static PropertyChangeListener _setOpaqueTrueListener;
 	private static PropertyChangeListener _setOpaqueFalseListener;
-
 	private static final String OPAQUE_LISTENER = "setOpaqueRecursively.opaqueListener";
-
 	/**
 	 * setOpaqueRecursively method will make all child components opaque true or false. But if you call
 	 * jcomponent.putClientProperty(SET_OPAQUE_RECURSIVELY_EXCLUDED, Boolean.TRUE), we will not touch this particular
@@ -1879,7 +1156,7 @@ public class UIUtil implements SwingConstants {
 	 * @param opaque true if setOpaque to true; false otherwise
 	 */
 	public static void setOpaqueRecursively(final Component c, final boolean opaque) {
-		setRecursively(c, new Handler() {
+		UIUtil.setRecursively(c, new Handler() {
 			public boolean condition(Component c) {
 				if (c instanceof JComboBox || c instanceof JButton || c instanceof JTextComponent ||
 						c instanceof ListCellRenderer || c instanceof TreeCellRenderer || c instanceof TableCellRenderer || c instanceof CellEditor)
@@ -2090,9 +1367,335 @@ public class UIUtil implements SwingConstants {
 	}
 
 	// ---------------------------------------------------------------------
-	// 组件属性
+	// 屏幕大小
 	// ---------------------------------------------------------------------
 
+	private static final GraphicsEnvironment GRAPHICS_ENVIRONMENT = GraphicsEnvironment.getLocalGraphicsEnvironment();
+
+	/**
+	 * To make sure the rectangle is within the screen bounds.
+	 *
+	 * @param invoker          the invoker component
+	 * @param rect             the rectangle
+	 * @param useInvokerDevice the flag to return invoker device or not
+	 * @return the rectangle that is in the screen bounds.
+	 * @since 3.4.1
+	 */
+	public static Rectangle containsInScreenBounds(Component invoker, Rectangle rect, boolean useInvokerDevice) {
+		Rectangle screenBounds = getScreenBounds(invoker, useInvokerDevice);
+		Point p = rect.getLocation();
+		if (p.x + rect.width > screenBounds.x + screenBounds.width) {
+			p.x = screenBounds.x + screenBounds.width - rect.width;
+		}
+		if (p.y + rect.height > screenBounds.y + screenBounds.height) {
+			p.y = screenBounds.y + screenBounds.height - rect.height;
+		}
+		if (p.x < screenBounds.x) {
+			p.x = screenBounds.x;
+		}
+		if (p.y < screenBounds.y) {
+			p.y = screenBounds.y;
+		}
+		return new Rectangle(p, rect.getSize());
+	}
+
+	/**
+	 * To make sure the rectangle has overlap with the screen bounds.
+	 *
+	 * @param invoker the invoker component
+	 * @param rect    the rectangle
+	 * @return the rectangle that has overlap with the screen bounds.
+	 */
+	public static Rectangle overlapWithScreenBounds(Component invoker, Rectangle rect) {
+		Rectangle screenBounds = getScreenBounds(invoker);
+		Point p = rect.getLocation();
+		if (p.x > screenBounds.x + screenBounds.width) {
+			p.x = screenBounds.x + screenBounds.width - rect.width;
+		}
+		if (p.y > screenBounds.y + screenBounds.height) {
+			p.y = screenBounds.y + screenBounds.height - rect.height;
+		}
+		if (p.x + rect.width < screenBounds.x) {
+			p.x = screenBounds.x;
+		}
+		if (p.y + rect.height < screenBounds.y) {
+			p.y = screenBounds.y;
+		}
+		return new Rectangle(p, rect.getSize());
+	}
+
+	/**
+	 * Gets the screen size. In JDK1.4+, the returned size will exclude task bar area on Windows OS.
+	 *
+	 * @param invoker the invoker component
+	 * @return the screen size.
+	 */
+	public static Dimension getScreenSize(Component invoker) {
+		// to handle multi-display case
+		Dimension screenSize = getScreenBounds().getSize();
+
+		// jdk1.4 only
+		if (invoker != null && invoker.getGraphicsConfiguration() != null) {
+			Insets insets = Toolkit.getDefaultToolkit().getScreenInsets(invoker.getGraphicsConfiguration());
+			screenSize.width -= insets.left + insets.right;
+			screenSize.height -= insets.top + insets.bottom;
+		}
+
+		return screenSize;
+	}
+
+	/**
+	 * Gets the screen bounds. In JDK1.4+, the returned bounds will exclude task bar area on Windows OS. If the invoker
+	 * is null, the whole screen bounds including all display devices will be returned. If the invoker is not null and
+	 * the useInvokeDevice flag is true, the screen of the display device for the invoker will be returned.
+	 *
+	 * @param invoker          the invoker component
+	 * @param useInvokerDevice the flag to return invoker device or not
+	 * @return the screen bounds.
+	 */
+	public static Rectangle getScreenBounds(Component invoker, boolean useInvokerDevice) {
+		// to handle multi-display case
+		Rectangle bounds = (!useInvokerDevice || invoker == null || invoker.getGraphicsConfiguration() == null)
+				? new Rectangle(getScreenBounds())
+				: invoker.getGraphicsConfiguration().getBounds();
+
+		// jdk1.4 only
+		if (invoker != null && invoker.getGraphicsConfiguration() != null) {
+			Insets insets = Toolkit.getDefaultToolkit().getScreenInsets(invoker.getGraphicsConfiguration());
+			bounds.x += insets.left;
+			bounds.y += insets.top;
+			bounds.width -= insets.left + insets.right;
+			bounds.height -= insets.top + insets.bottom;
+		}
+
+		return bounds;
+	}
+
+	/**
+	 * Gets the screen bounds. In JDK1.4+, the returned bounds will exclude task bar area on Windows OS.
+	 * <p/>
+	 * By default, it will not use invoker graphic device automatically.
+	 *
+	 * @param invoker the invoker component
+	 * @return the screen bounds.
+	 * @see #getScreenBounds(Component, boolean)
+	 */
+	public static Rectangle getScreenBounds(Component invoker) {
+		return getScreenBounds(invoker, false);
+	}
+
+	/**
+	 * Gets the local monitor's screen bounds.
+	 *
+	 * @return the screen bounds.
+	 */
+	public static Rectangle getLocalScreenBounds() {
+		Rectangle bounds;
+		try {
+			// use this because it takes into account areas
+			// like the taskbar, but it can throw
+			// a "Window must not be zero" if there are 3 monitors
+			// on Linux with some newer Java versions, see
+			// https://github.com/lbalazscs/Pixelitor/issues/15
+			bounds = GRAPHICS_ENVIRONMENT.getMaximumWindowBounds();
+		} catch (Exception e) {
+			return new Rectangle(new Point(0, 0), Toolkit.getDefaultToolkit().getScreenSize());
+		}
+
+		return bounds;
+	}
+
+	private static Rectangle getScreenBounds() {
+		Rectangle SCREEN_BOUNDS = new Rectangle();
+		GraphicsDevice[] gs = GRAPHICS_ENVIRONMENT.getScreenDevices();
+		for (GraphicsDevice gd : gs) {
+			GraphicsConfiguration gc = gd.getDefaultConfiguration();
+			SCREEN_BOUNDS = SCREEN_BOUNDS.union(gc.getBounds());
+		}
+		return SCREEN_BOUNDS;
+	}
+
+	/**
+	 * Ensures the rectangle is visible on the screen.
+	 *
+	 * @param invoker the invoking component
+	 * @param bounds  the input bounds
+	 * @return the modified bounds.
+	 */
+	public static Rectangle ensureVisible(Component invoker, Rectangle bounds) {
+		// this is fast. Only if it is outside this bounds, we try the more expensive one.
+		Rectangle mainScreenBounds = getLocalScreenBounds();
+		if (!mainScreenBounds.contains(bounds.getLocation())) {
+			Rectangle screenBounds = getScreenBounds(invoker, false);
+			if (bounds.x > screenBounds.x + screenBounds.width || bounds.x < screenBounds.x) {
+				bounds.x = screenBounds.x;
+			}
+			if (bounds.y > screenBounds.y + screenBounds.height || bounds.y < screenBounds.y) {
+				bounds.y = screenBounds.y;
+			}
+		}
+		return bounds;
+	}
+
+	/**
+	 * Modifies the position of rect so that it is completely on screen if that is possible. By default, it will allow
+	 * the rect to cross two screens. You can call {@link #ensureOnScreen(Rectangle, boolean)} and set the
+	 * second parameter to false if you don't want to allow that case.
+	 *
+	 * @param rect The rectangle to be moved to a single screen
+	 * @return rect after its position has been modified
+	 */
+	public static Rectangle ensureOnScreen(Rectangle rect) {
+		return ensureOnScreen(rect, true);
+	}
+
+	/**
+	 * Modifies the position of rect so that it is completely on screen if that is possible.
+	 *
+	 * @param rect             The rectangle to be moved to a single screen
+	 * @param allowCrossScreen a flag to allow or disallow when the rect is cross two screens.
+	 * @return rect after its position has been modified
+	 */
+	public static Rectangle ensureOnScreen(Rectangle rect, boolean allowCrossScreen) {
+		// optimize it so that it is faster for most cases
+		Rectangle localScreenBounds = getLocalScreenBounds();
+		if (localScreenBounds.contains(rect)) {
+			return rect;
+		}
+
+		final Rectangle[] SCREENS = getScreens();
+
+		// check if rect is total on screen
+		if (allowCrossScreen && getScreenArea().contains(rect)) return rect;
+		// see if the top left is on any of the screens
+		Rectangle containingScreen = null;
+		Point rectPos = rect.getLocation();
+		for (Rectangle screenBounds : SCREENS) {
+			if (screenBounds.contains(rectPos)) {
+				containingScreen = screenBounds;
+				break;
+			}
+		}
+		// if not see if rect partial on any screen
+		for (Rectangle screenBounds : SCREENS) {
+			if (screenBounds.intersects(rect)) {
+				containingScreen = screenBounds;
+				break;
+			}
+		}
+		// check if it was on any screen
+		if (containingScreen == null) {
+			// it was not on any of the screens so center it on the first screen
+			rect.x = (SCREENS[0].width - rect.width) / 2;
+			rect.y = (SCREENS[0].height - rect.height) / 2;
+		} else {
+			// move rect so it is completely on a single screen
+			// check X
+			int rectRight = rect.x + rect.width;
+			int screenRight = containingScreen.x + containingScreen.width;
+			if (rectRight > screenRight) {
+				rect.x = screenRight - rect.width;
+			}
+			if (rect.x < containingScreen.x) rect.x = containingScreen.x;
+			// check Y
+			int rectBottom = rect.y + rect.height;
+			int screenBottom = containingScreen.y + containingScreen.height;
+			if (rectBottom > screenBottom) {
+				rect.y = screenBottom - rect.height;
+			}
+			if (rect.y < containingScreen.y) rect.y = containingScreen.y;
+			// return corrected rect
+		}
+		return rect;
+	}
+
+	/**
+	 * Gets the screen bounds that contains the rect. The screen bounds consider the screen insets if any.
+	 *
+	 * @param rect           the rect of the component.
+	 * @param considerInsets if consider the insets. The insets is for thing like Windows Task Bar.
+	 * @return the screen bounds that contains the rect.
+	 */
+	public static Rectangle getContainingScreenBounds(Rectangle rect, boolean considerInsets) {
+		// check if rect is total on screen
+//        if (SCREEN_AREA.contains(rect)) return SCREEN_AREA;
+
+		final Insets[] INSETS = getInsets();
+		final Rectangle[] SCREENS = getScreens();
+
+		// see if the top left is on any of the screens
+		Rectangle containingScreen = null;
+		Insets insets = null;
+		Point rectPos = rect.getLocation();
+		for (int i = 0; i < SCREENS.length; i++) {
+			Rectangle screenBounds = SCREENS[i];
+			if (screenBounds.contains(rectPos)) {
+				containingScreen = screenBounds;
+				insets = INSETS[i];
+				break;
+			}
+		}
+		// if not see if rect partial on any screen
+		for (int i = 0; i < SCREENS.length; i++) {
+			Rectangle screenBounds = SCREENS[i];
+			if (screenBounds.intersects(rect)) {
+				containingScreen = screenBounds;
+				insets = INSETS[i];
+				break;
+			}
+		}
+
+		// fall back to the first screen
+		if (containingScreen == null) {
+			containingScreen = SCREENS[0];
+			insets = INSETS[0];
+		}
+
+		Rectangle bounds = new Rectangle(containingScreen);
+		if (considerInsets && insets != null) {
+			bounds.x += insets.left;
+			bounds.y += insets.top;
+			bounds.width -= insets.left + insets.right;
+			bounds.height -= insets.top + insets.bottom;
+		}
+		return bounds;
+	}
+
+	/**
+	 * Get screen area of all monitors.
+	 *
+	 * @return Union of all screens
+	 */
+	public static Area getScreenArea() {
+		return Arrays.stream(GRAPHICS_ENVIRONMENT.getScreenDevices()).reduce(new Area(), (area, device) -> {
+					GraphicsConfiguration configuration = device.getDefaultConfiguration();
+					Rectangle screenBounds = configuration.getBounds();
+					return new Area(screenBounds);
+				}, (area, area2) -> {
+					area.add(area2);
+					return area;
+				}
+		);
+	}
+
+	private static Rectangle[] getScreens() {
+		return Arrays.stream(GRAPHICS_ENVIRONMENT.getScreenDevices()).map(device -> {
+			GraphicsConfiguration configuration = device.getDefaultConfiguration();
+			return configuration.getBounds();
+		}).toArray(Rectangle[]::new);
+	}
+
+	private static Insets[] getInsets() {
+		return Arrays.stream(GRAPHICS_ENVIRONMENT.getScreenDevices()).map(device -> {
+			GraphicsConfiguration configuration = device.getDefaultConfiguration();
+			return Toolkit.getDefaultToolkit().getScreenInsets(configuration);
+		}).toArray(Insets[]::new);
+	}
+
+
+	// ---------------------------------------------------------------------
+	// 组件属性
+	// ---------------------------------------------------------------------
 
 	/**
 	 * Toggles between RTL and LTR.
@@ -2511,25 +2114,6 @@ public class UIUtil implements SwingConstants {
 	}
 
 	/**
-	 * Registers all actions registered on the source component and registered them on the target component at the
-	 * specified condition.
-	 *
-	 * @param sourceComponent the source component.
-	 * @param targetComponent the target component.
-	 * @param keyStrokes      the keystrokes
-	 * @param condition       the condition which will be used in {@link JComponent#registerKeyboardAction(ActionListener,
-	 *                        KeyStroke, int)} as the last parameter.
-	 */
-	public static void synchronizeKeyboardActions(JComponent sourceComponent, JComponent targetComponent, KeyStroke[] keyStrokes, int condition) {
-		for (KeyStroke keyStroke : keyStrokes) {
-			ActionListener actionListener = sourceComponent.getActionForKeyStroke(keyStroke);
-			if (actionListener != null) {
-				targetComponent.registerKeyboardAction(actionListener, keyStroke, condition);
-			}
-		}
-	}
-
-	/**
 	 * The semantics in AWT of hiding a component, removing a component, and reparenting a component are inconsistent
 	 * with respect to focus. By calling this function before any of the operations above focus is guaranteed a
 	 * consistent degregation.
@@ -2632,4 +2216,90 @@ public class UIUtil implements SwingConstants {
 			popup.show(invoker, x - popup.getPreferredSize().width, y);
 		}
 	}
+
+	/** 组件是否是永久焦点所有者 */
+	public static boolean componentIsPermanentFocusOwner(Component comp) {
+		return ((comp != null) && (KeyboardFocusManager.getCurrentKeyboardFocusManager().
+				getPermanentFocusOwner() == comp));
+	}
+
+	/**
+	 * Find the first parent that is opaque.
+	 */
+	private static Container findOpaqueParent(Container c) {
+		while ((c = c.getParent()) != null) {
+			if (c.isOpaque())
+				return c;
+		}
+		return null;
+	}
+
+	/**
+	 * Center the component to it's parent window.
+	 *
+	 * @param childToCenter the parent window
+	 */
+	public static void centerWindow(Window childToCenter) {
+		childToCenter.setLocationRelativeTo(childToCenter.getParent());
+	}
+
+	/**
+	 * 有四种标准测试可以确定 Swing 是否能够请求组件的焦点。
+	 * 与{@link Component#isFocusable()}不同的是，组件不启用或组件当前没有显示在屏幕上都会返回false
+	 *
+	 * @param comp 组件
+	 * @return 指定的组件是否通过了四个可聚焦性测试
+	 */
+	public static boolean passesFocusabilityTest(Component comp) {
+		return ((comp != null) && comp.isEnabled() && comp.isFocusable() && comp.isShowing());
+	}
+
+	/**
+	 * Copied from BasicLookAndFeel as the method is package local.
+	 *
+	 * @param component
+	 * @return if request focus is success or not.
+	 */
+	public static boolean compositeRequestFocus(Component component) {
+		if (component instanceof Container container) {
+			if (container.isFocusCycleRoot()) {
+				FocusTraversalPolicy policy = container.getFocusTraversalPolicy();
+				Component comp = policy.getDefaultComponent(container);
+
+				if ((comp != null) && comp.isShowing() && container.getComponentCount() > 0) {
+					return comp.requestFocusInWindow();
+				}
+			}
+			Container rootAncestor = container.getFocusCycleRootAncestor();
+			if (rootAncestor != null) {
+				FocusTraversalPolicy policy = rootAncestor.getFocusTraversalPolicy();
+				Component comp = null;
+				try {
+					comp = policy.getComponentAfter(rootAncestor, container);
+				} catch (Exception e) {
+					// ClassCastException when docking frames on Solaris
+					// http://jidesoft.com/forum/viewtopic.php?p=32569
+				}
+
+				if (comp != null && SwingUtilities.isDescendingFrom(comp, container)) {
+					return comp.requestFocusInWindow();
+				}
+			}
+		}
+		if (!passesFocusabilityTest(component)) {
+			return false;
+		}
+
+		return component.requestFocusInWindow();
+	}
+
+	public static boolean isAncestorOfFocusOwner(Component component) {
+		boolean hasFocus = false;
+		Component focusOwner = KeyboardFocusManager.getCurrentKeyboardFocusManager().getFocusOwner();
+		if (component == focusOwner || (component instanceof Container && ((Container) component).isAncestorOf(focusOwner))) {
+			hasFocus = true;
+		}
+		return hasFocus;
+	}
+
 }

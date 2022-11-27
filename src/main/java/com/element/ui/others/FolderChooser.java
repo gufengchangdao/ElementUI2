@@ -8,6 +8,7 @@ package com.element.ui.others;
 import com.element.comparator.AlphanumFileComparator;
 import com.element.plaf.LookAndFeelFactory;
 import com.element.plaf.UIDefaultsLookup;
+import com.element.util.CompareUtil;
 import com.element.util.UIUtil;
 
 import javax.swing.*;
@@ -212,7 +213,7 @@ public class FolderChooser extends JFileChooser {
 	 */
 	public void setSelectedFolder(File selectedFolder) {
 		File old = _selectedFolder;
-		if (!UIUtil.equals(old, selectedFolder)) {
+		if (!CompareUtil.equals(old, selectedFolder)) {
 			_selectedFolder = selectedFolder;
 			firePropertyChange(SELECTED_FILE_CHANGED_PROPERTY, old, _selectedFolder);
 		}
@@ -254,7 +255,7 @@ public class FolderChooser extends JFileChooser {
 	 */
 	public void setNavigationFieldVisible(boolean navigationFieldVisible) {
 		boolean oldValue = _navigationFieldVisible;
-		if (!UIUtil.equals(oldValue, navigationFieldVisible)) {
+		if (!CompareUtil.equals(oldValue, navigationFieldVisible)) {
 			_navigationFieldVisible = navigationFieldVisible;
 			firePropertyChange(PROPERTY_NAVIGATION_FIELD_VISIBLE, oldValue, _navigationFieldVisible);
 		}

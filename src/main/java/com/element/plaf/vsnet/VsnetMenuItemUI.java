@@ -13,7 +13,6 @@ import com.element.ui.button.ButtonStyle;
 import com.element.ui.button.JideSplitButton;
 import com.element.ui.icons.IconsFactory;
 import com.element.ui.menu.TopLevelMenuContainer;
-import com.element.util.SecurityUtils;
 import com.element.util.SystemInfo;
 import com.element.util.UIUtil;
 
@@ -818,7 +817,7 @@ public class VsnetMenuItemUI extends MenuItemUI {
 				}
 
 
-				if ("true".equals(SecurityUtils.getProperty("shadingtheme", "false"))) {
+				if ("true".equals(System.getProperty("shadingtheme", "false"))) {
 					UIUtil.fillSingleGradient(g, new Rectangle(0, 0, defaultShadowWidth, menuHeight), SwingConstants.EAST, 255);
 				}
 
@@ -836,7 +835,7 @@ public class VsnetMenuItemUI extends MenuItemUI {
 					getPainter().paintMenuItemBackground(menuItem, g, new Rectangle(0, 0, menuWidth, menuHeight), SwingConstants.HORIZONTAL, ThemePainter.STATE_ROLLOVER);
 				}
 
-				if ("true".equals(SecurityUtils.getProperty("shadingtheme", "false"))) {
+				if ("true".equals(System.getProperty("shadingtheme", "false"))) {
 					UIUtil.fillSingleGradient(g, new Rectangle(menuWidth - defaultShadowWidth, 0, defaultShadowWidth, menuHeight), SwingConstants.WEST, 255);
 				}
 

@@ -9,46 +9,43 @@ import com.element.swing.Searchable;
 import com.element.swing.TextComponentSearchable;
 import com.element.ui.combobox.ComboBoxSearchable;
 import com.element.ui.list.ListSearchable;
-import com.element.ui.tabs.TableSearchable;
+import com.element.ui.table.TableSearchable;
 import com.element.ui.tree.TreeSearchable;
 
 import javax.swing.*;
 import javax.swing.text.JTextComponent;
 
 /**
- * Utility class to make component searchable. It's very easy to use this class. In order to make a component, all you
- * need to do is to call
+ * 使组件可搜索的实用程序类。使用这个类非常容易。为了制作一个组件，您需要做的就是调用
  * <code><pre>
  * SearchableUtils.installSearchable(component);
  * </pre></code>
- * The component could be a JList, JTree or JTable. If you need to further customize some attributes of Searchable, you
- * can assign a variable that returns from installSearchable().
+ * <p>
+ * 该组件可以是 JList、JTree 或 JTable。如果您需要进一步自定义 Searchable 的一些属性，您可以分配一个从 installSearchable() 返回的变量。
  * <code><pre>
  * Searchable searchable = SearchableUtils.installSearchable(component);
  * // further configure it
  * searchable.setCaseSensitive(true);
  * // ...
  * </pre></code>
- * Usually you don't need to uninstall the searchable from the component. But if for some reason, you need to disable
- * the searchable feature of the component, you can call uninstallSearchable().
+ * <p>
+ * 通常您不需要从组件中卸载 searchable。但是如果由于某种原因，你需要禁用组件的可搜索特性，你可以调用 uninstallSearchable()。
  * <code><pre>
  * Searchable searchable = SearchableUtils.installSearchable(component);
  * // ...
  * // Now disable it
  * SearchableUtils.uninstallSearchable(searchable);
  * </pre></code>
- * <p/>
- * There is a small trick that you should know. JTree and JList implemented partially the quick search feature so that
- * when you type in the first character, it will jump to the first occurrence. This feature sometimes conflicts with the
- * Searchable we provided. So it'd better if you disable the JTree or JList default feature by creating JTree and JList
- * with getNextMatch method overridden. See below
+ * <p>
+ * 有一个小技巧你应该知道。 JTree 和 JList 部分实现了快速搜索功能，因此当您输入第一个字符时，它会跳转到第一个出现的地方。此功能有时会与我们
+ * 提供的 Searchable 冲突。因此，最好通过覆盖 getNextMatch 方法创建 JTree 和 JList 来禁用 JTree 或 JList 默认功能。见下文
  * <code><pre>
  * JTree tree = new JTree(...) {
  *     public TreePath getNextMatch(String prefix, int startingRow, Position.Bias bias) {
  *         return null;
  *     }
  * };
- * <p/>
+ *
  * JList list = new JList(...){
  *     public int getNextMatch(String prefix, int startIndex, Position.Bias bias) {
  *         return -1;
@@ -56,7 +53,7 @@ import javax.swing.text.JTextComponent;
  * };
  * </pre></code>
  */
-public class SearchableUtils {
+public class SearchableUtil {
 	/**
 	 * Installs the searchable function onto a JTree.
 	 *
@@ -83,8 +80,8 @@ public class SearchableUtils {
 	 * @param list the JList to install searchable
 	 * @return A ListSearchable
 	 */
-	public static ListSearchable installSearchable(JList list) {
-		return new ListSearchable(list);
+	public static <E> ListSearchable<E> installSearchable(JList<E> list) {
+		return new ListSearchable<>(list);
 	}
 
 	/**
@@ -93,8 +90,8 @@ public class SearchableUtils {
 	 * @param combobox the combo box to install searchable
 	 * @return A ComboBoxSearchable
 	 */
-	public static ComboBoxSearchable installSearchable(JComboBox combobox) {
-		return new ComboBoxSearchable(combobox);
+	public static <E> ComboBoxSearchable<E> installSearchable(JComboBox<E> combobox) {
+		return new ComboBoxSearchable<>(combobox);
 	}
 
 	/**
@@ -116,10 +113,10 @@ public class SearchableUtils {
 		if (searchable != null) {
 			searchable.hidePopup();
 			searchable.uninstallListeners();
-			if (searchable.getComponent() instanceof JComponent) {
-				Object clientProperty = ((JComponent) searchable.getComponent()).getClientProperty(Searchable.CLIENT_PROPERTY_SEARCHABLE);
+			if (searchable.getComponent() instanceof JComponent c) {
+				Object clientProperty = c.getClientProperty(Searchable.CLIENT_PROPERTY_SEARCHABLE);
 				if (clientProperty == searchable) {
-					((JComponent) searchable.getComponent()).putClientProperty(Searchable.CLIENT_PROPERTY_SEARCHABLE, null);
+					c.putClientProperty(Searchable.CLIENT_PROPERTY_SEARCHABLE, null);
 				}
 			}
 		}

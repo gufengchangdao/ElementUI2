@@ -7,8 +7,9 @@ import com.element.ui.label.MultilineLabel;
 import com.element.ui.layout.JideBoxLayout;
 import com.element.ui.others.collapse.AccordionPanel;
 import com.element.ui.tabs.JideTabbedPane;
-import com.element.util.SearchableUtils;
+import com.element.util.SearchableUtil;
 import com.element.util.UIUtil;
+import com.element.util.WrapperUtil;
 
 import javax.swing.*;
 import java.awt.*;
@@ -166,7 +167,7 @@ abstract public class AbstractDemo implements Demo {
 				MultilineLabel label = new MultilineLabel(sourceFiles.toString());
 				label.setColumns(30);
 				panel.add(label);
-				panel.add(UIUtil.createLeftPanel(AbstractDemo.createBrowseSourceCodeButton(parentFrame, demo)), BorderLayout.AFTER_LAST_LINE);
+				panel.add(WrapperUtil.createLeftPanel(AbstractDemo.createBrowseSourceCodeButton(parentFrame, demo)), BorderLayout.AFTER_LAST_LINE);
 				panel.setBorder(BorderFactory.createEmptyBorder(8, 10, 8, 10));
 				UIUtil.setOpaqueRecursively(panel, false);
 				list.add(panel);
@@ -211,7 +212,7 @@ abstract public class AbstractDemo implements Demo {
 				SwingUtilities.updateComponentTreeUI(component);
 			}
 		});
-		SearchableUtils.installSearchable(locale);
+		SearchableUtil.installSearchable(locale);
 
 		JPanel panel = new JPanel();
 		panel.setLayout(new JideBoxLayout(panel, JideBoxLayout.Y_AXIS, 3));

@@ -9,7 +9,7 @@ import com.element.plaf.UIDefaultsLookup;
 import com.element.swing.Overlayable;
 import com.element.ui.base.DefaultOverlayable;
 import com.element.ui.menu.JidePopupMenu;
-import com.element.util.SelectAllUtils;
+import com.element.util.SelectAllUtil;
 import com.element.util.SystemInfo;
 import com.element.util.UIUtil;
 
@@ -232,7 +232,7 @@ public class LabeledTextField extends JPanel {
 	 */
 	protected JTextField createTextField() {
 		JTextField textField = new OverlayTextField();
-		SelectAllUtils.install(textField);
+		SelectAllUtil.install(textField);
 		UIUtil.setComponentTransparent(textField);
 		textField.setColumns(20);
 		return textField;

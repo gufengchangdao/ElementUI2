@@ -2,14 +2,10 @@ package com.element.plaf.basic;
 
 import com.element.color.ColorUtil;
 import com.element.jdk.JdkSpecificClass;
-import com.element.plaf.LookAndFeelFactory;
 import com.element.plaf.UIDefaultsLookup;
-import com.element.plaf.XPUtils;
 import com.element.ui.button.HeaderBox;
 import com.element.ui.button.JideButton;
 import com.element.ui.tabs.JideTabbedPane;
-import com.element.util.SecurityUtils;
-import com.element.util.SystemInfo;
 import com.element.util.UIUtil;
 
 import javax.swing.*;
@@ -514,7 +510,7 @@ public class BasicPainter implements SwingConstants, ThemePainter {
 		boolean highContrast = UIManager.getBoolean("Theme.highContrast");
 		if (state == STATE_SELECTED) {
 			g.setColor(UIDefaultsLookup.getColor("DockableFrame.activeTitleBorderColor"));
-			if ("true".equals(SecurityUtils.getProperty("shadingtheme", "false"))) {
+			if ("true".equals(System.getProperty("shadingtheme", "false"))) {
 				g.drawRoundRect(x, y, w, h, 2, 2);
 			} else {
 				g.drawRect(x, y, w, h);
@@ -527,7 +523,7 @@ public class BasicPainter implements SwingConstants, ThemePainter {
 			g.setColor(UIDefaultsLookup.getColor("DockableFrame.inactiveTitleBackground"));
 			g.fillRect(rect.x, rect.y, rect.width, rect.height);
 		}
-		if ("true".equals(SecurityUtils.getProperty("shadingtheme", "false"))) {
+		if ("true".equals(System.getProperty("shadingtheme", "false"))) {
 			UIUtil.fillGradient(g, rect, SwingConstants.HORIZONTAL);
 		}
 	}
@@ -745,7 +741,7 @@ public class BasicPainter implements SwingConstants, ThemePainter {
 		g.setColor(shadowColor);
 		if (c.getComponentOrientation().isLeftToRight()) {
 			g.fillRect(0, 0, defaultShadowWidth, rect.height);
-			if ("true".equals(SecurityUtils.getProperty("shadingtheme", "false"))) {
+			if ("true".equals(System.getProperty("shadingtheme", "false"))) {
 				UIUtil.fillSingleGradient(g, new Rectangle(rect.x, rect.y, defaultShadowWidth, rect.height), SwingConstants.EAST, 255);
 			}
 
@@ -756,7 +752,7 @@ public class BasicPainter implements SwingConstants, ThemePainter {
 			g.drawLine(rect.x + defaultShadowWidth + defaultTextIconGap, rect.y + 1, rect.x + rect.width, rect.y + 1);
 		} else {
 			g.fillRect(rect.x + rect.width, rect.y, defaultShadowWidth, rect.height);
-			if ("true".equals(SecurityUtils.getProperty("shadingtheme", "false"))) {
+			if ("true".equals(System.getProperty("shadingtheme", "false"))) {
 				UIUtil.fillSingleGradient(g, new Rectangle(rect.x + rect.width - defaultTextIconGap, rect.y, defaultShadowWidth, 2), SwingConstants.WEST, 255);
 			}
 
@@ -787,16 +783,6 @@ public class BasicPainter implements SwingConstants, ThemePainter {
 	 */
 	public static int ARROW_TEXT_GAP = 0;
 
-	/**
-	 * Should the arrow be displayed on the top of the header.
-	 *
-	 * @return true to display the sort arrow on top. Otherwise false.
-	 */
-	protected boolean shouldDisplayOnTop() {
-		return SystemInfo.isWindowsVistaAbove() &&
-				(LookAndFeelFactory.isWindowsLookAndFeel(UIManager.getLookAndFeel()) && !LookAndFeelFactory.isWindowsClassicLookAndFeel(UIManager.getLookAndFeel())) && XPUtils.isXPStyleOn();
-	}
-
 	public void fillBackground(JComponent c, Graphics g, Rectangle rect, int orientation, int state, Color color) {
 		Color oldColor = g.getColor();
 		g.setColor(color);
@@ -805,9 +791,6 @@ public class BasicPainter implements SwingConstants, ThemePainter {
 	}
 
 	public Insets getSortableTableHeaderColumnCellDecoratorInsets(JComponent c, Graphics g, Rectangle rect, int orientation, int state, int sortOrder, Icon sortIcon, int orderIndex, Color indexColor, boolean paintIndex) {
-		if (shouldDisplayOnTop()) {
-			return null;
-		}
 		int iconWidth = sortIcon == null ? 0 : sortIcon.getIconWidth();
 		int textWidthAndGap;
 		if (paintIndex && orderIndex != -1) {
@@ -848,9 +831,7 @@ public class BasicPainter implements SwingConstants, ThemePainter {
 			g.setColor(indexColor);
 			int x = rect.x + rect.width / 2 - (iconWidth + ARROW_TEXT_GAP + textWidth) / 2;
 			int y = rect.y + V_GAP;
-			if (shouldDisplayOnTop()) {
-				UIUtil.drawString(g, str, x + ARROW_TEXT_GAP + iconWidth, rect.y + V_GAP + c.getFontMetrics(font).getAscent() - 2);
-			} else if (leftToRight) {
+			if (leftToRight) {
 				UIUtil.drawString(g, str, rect.x + rect.width - textWidth - H_GAP, rect.y + yOffset + iconHeight / 2 + 1);
 			} else {
 				UIUtil.drawString(g, str, rect.x + H_GAP, rect.y + yOffset + iconHeight / 2 + 1);
@@ -858,12 +839,10 @@ public class BasicPainter implements SwingConstants, ThemePainter {
 			g.setColor(oldColor);
 			g.setFont(oldFont);
 			if (sortIcon != null) {
-				if (!shouldDisplayOnTop()) {
-					if (leftToRight) {
-						x = rect.x + rect.width - iconWidth - textWidth - H_GAP - ARROW_TEXT_GAP;
-					} else {
-						x = rect.x + textWidth + H_GAP + ARROW_TEXT_GAP;
-					}
+				if (leftToRight) {
+					x = rect.x + rect.width - iconWidth - textWidth - H_GAP - ARROW_TEXT_GAP;
+				} else {
+					x = rect.x + textWidth + H_GAP + ARROW_TEXT_GAP;
 				}
 				if (JdkSpecificClass.isSynthIcon(sortIcon)) {
 					JdkSpecificClass.paintTableHeaderIcon(c, sortIcon, g, x, y);
@@ -874,14 +853,12 @@ public class BasicPainter implements SwingConstants, ThemePainter {
 				int x = rect.x + rect.width / 2 - iconWidth / 2;
 				int y = rect.y + V_GAP;
 
-				if (!shouldDisplayOnTop()) {
-					if (leftToRight) {
-						x = rect.x + rect.width - iconWidth - H_GAP;
-					} else {
-						x = rect.x + H_GAP;
-					}
-					y = rect.y + yOffset;
+				if (leftToRight) {
+					x = rect.x + rect.width - iconWidth - H_GAP;
+				} else {
+					x = rect.x + H_GAP;
 				}
+				y = rect.y + yOffset;
 				if (JdkSpecificClass.isSynthIcon(sortIcon)) {
 					JdkSpecificClass.paintTableHeaderIcon(c, sortIcon, g, x, y);
 				} else sortIcon.paintIcon(c, g, x, y);

@@ -5,9 +5,8 @@
  */
 package com.element.converter;
 
-import com.element.util.ReflectionUtils;
-
 import java.lang.reflect.Array;
+import java.lang.reflect.Method;
 
 /**
  * A typical way to define a constant is to use int as the value type. For example, in SwingConstants, the following
@@ -63,7 +62,10 @@ public class EnumConverter implements ObjectConverter {
 		}
 		_type = enumType;
 		try {
-			Object values = ReflectionUtils.callStatic(enumType, "values", null, null);
+			Method markDirtyMethod = enumType.getDeclaredMethod("values");
+			markDirtyMethod.setAccessible(true);
+			Object values = markDirtyMethod.invoke(null);
+
 			if (!values.getClass().isArray()) {
 				throw new IllegalArgumentException("Illegal enum type.");
 			}

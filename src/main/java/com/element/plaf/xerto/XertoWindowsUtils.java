@@ -21,7 +21,6 @@ import com.element.ui.icons.IconsFactory;
 import com.element.ui.icons.JideIconsFactory;
 import com.element.ui.icons.MenuCheckIcon;
 import com.element.ui.tabs.JideTabbedPane;
-import com.element.util.SecurityUtils;
 
 import javax.swing.*;
 import javax.swing.plaf.BorderUIResource;
@@ -406,7 +405,7 @@ public class XertoWindowsUtils extends Office2003WindowsUtils {
 
 			FrameBorder frameBorder = new FrameBorder();
 
-			boolean useShadowBorder = "true".equals(SecurityUtils.getProperty("jide.shadeSlidingBorder", "false"));
+			boolean useShadowBorder = "true".equals(System.getProperty("jide.shadeSlidingBorder", "false"));
 
 			Object slidingEastFrameBorder = new ExtWindowsDesktopProperty(new String[]{"win.3d.lightColor", "win.3d.highlightColor", "win.3d.shadowColor", "win.3d.darkShadowColor"},
 					new Object[]{UIDefaultsLookup.get("control"), UIDefaultsLookup.get("controlLtHighlight"), UIDefaultsLookup.get("controlShadow"), UIDefaultsLookup.get("controlDkShadow")}, toolkit, obj -> new SlidingFrameBorder((Color) obj[0], (Color) obj[1], (Color) obj[2], (Color) obj[3],

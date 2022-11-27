@@ -15,7 +15,6 @@
 package com.element.plaf.aqua;
 
 import com.element.plaf.UIDefaultsLookup;
-import com.element.util.SecurityUtils;
 
 import java.io.File;
 import java.io.FileReader;
@@ -83,7 +82,7 @@ class AquaPreferences {
 		prefs.put("AppleScrollerPagingBehavior", "false");
 
 		File globalPrefsFile = new File(
-				SecurityUtils.getProperty("user.home", "")
+				System.getProperty("user.home", "")
 						+ "/Library/Preferences/.GlobalPreferences.plist"
 		);
 		try {

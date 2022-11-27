@@ -15,7 +15,9 @@ import com.element.ui.icons.SearchableBarIconsFactory;
 import com.element.ui.layout.JideBoxLayout;
 import com.element.ui.popup.JidePopup;
 import com.element.ui.popup.JidePopupFactory;
+import com.element.util.CompareUtil;
 import com.element.util.UIUtil;
+import com.element.util.WrapperUtil;
 
 import javax.swing.*;
 import javax.swing.event.DocumentEvent;
@@ -545,8 +547,8 @@ public class SearchableBar extends JToolBar implements SearchableProvider {
 		_leadingLabel.setDisplayedMnemonic(getResourceString("SearchableBar.find.mnemonic").charAt(0));
 		add(_leadingLabel);
 		add(Box.createHorizontalStrut(2), JideBoxLayout.FIX);
-		add(UIUtil.createCenterPanel(_textField), JideBoxLayout.FIX);
-		add(UIUtil.createCenterPanel(_comboBox), JideBoxLayout.FIX);
+		add(WrapperUtil.createCenterPanel(_textField), JideBoxLayout.FIX);
+		add(WrapperUtil.createCenterPanel(_comboBox), JideBoxLayout.FIX);
 		if (getMaxHistoryLength() == 0) {
 			_leadingLabel.setLabelFor(_textField);
 			_textField.setVisible(true);
@@ -1102,7 +1104,7 @@ public class SearchableBar extends JToolBar implements SearchableProvider {
 			_comboBox.setModel(model);
 			return;
 		}
-		if (UIUtil.equals(_searchHistory.get(_searchHistory.size() - 1), searchingText)) {
+		if (CompareUtil.equals(_searchHistory.get(_searchHistory.size() - 1), searchingText)) {
 			return;
 		}
 		_searchHistory.remove(searchingText); // remove existing entry first

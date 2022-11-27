@@ -7,6 +7,7 @@ package com.element.ui.list;
 
 
 import com.element.ui.tree.CheckBoxTree;
+import com.element.util.ListenerUtil;
 import com.element.util.UIUtil;
 
 import javax.swing.*;
@@ -145,8 +146,8 @@ public class CheckBoxList extends JList {
 		_listCellRenderer = createCellRenderer();
 		_handler = createHandler();
 		_checkBoxListSelectionModel.addListSelectionListener(_handler);
-		UIUtil.insertMouseListener(this, _handler, 0);
-		UIUtil.insertMouseMotionListener(this, _handler, 0);
+		ListenerUtil.insertMouseListener(this, _handler, 0);
+		ListenerUtil.insertMouseMotionListener(this, _handler, 0);
 		addKeyListener(_handler);
 		addPropertyChangeListener("model", _handler);
 		ListModel model = getModel();

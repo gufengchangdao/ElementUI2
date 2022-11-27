@@ -5,7 +5,7 @@ import com.element.ui.dialog.ButtonResources;
 
 import java.util.Locale;
 
-public class StringUtil {
+public class LocaleUtil {
 	/**
 	 * Gets the string representing OK button.
 	 *

@@ -3,10 +3,11 @@
  *
  * Copyright 2002 - 2004 JIDE Software Inc. All rights reserved.
  */
-package com.element.ui.tabs;
+package com.element.ui.table;
 
 import com.element.event.SearchableEvent;
 import com.element.swing.Searchable;
+import com.element.util.CompareUtil;
 import com.element.util.UIUtil;
 
 import javax.swing.*;
@@ -271,7 +272,7 @@ public class TableSearchable extends Searchable implements TableModelListener, P
 		}
 
 		int[] old = _searchColumnIndices;
-		if (!UIUtil.equals(old, columnIndices, true)) {
+		if (!CompareUtil.equals(old, columnIndices, true)) {
 			_searchColumnIndices = columnIndices;
 			hidePopup();
 		}

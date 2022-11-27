@@ -34,10 +34,6 @@ public class JideFocusTracker {
 		setHighestComponent(compHighest);
 	}
 
-////////////////////////////////////////////////////////////////////////////////
-// Public Methods
-////////////////////////////////////////////////////////////////////////////////
-
 	/** 为给定组件添加监听器，该操作也会移除原有组件的监听器 */
 	public void setHighestComponent(Component compHighest) {
 		Component oldValue = this.compHighest;
@@ -85,10 +81,6 @@ public class JideFocusTracker {
 	public synchronized void removeFocusListener(FocusListener l) {
 		multiCastListener = AWTEventMulticaster.remove(multiCastListener, l);
 	}
-
-////////////////////////////////////////////////////////////////////////////////
-// Protected Methods
-////////////////////////////////////////////////////////////////////////////////
 
 	//递归地为该组件及子组件添加listenerFocus 和 listenerContainer
 	protected void addInternalListeners(Component component) {

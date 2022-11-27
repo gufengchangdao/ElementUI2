@@ -7,7 +7,7 @@ package com.element.ui.dialog;
 
 import com.element.ui.button.JideButton;
 import com.element.ui.pane.JideScrollPane;
-import com.element.util.StringUtil;
+import com.element.util.LocaleUtil;
 
 import javax.swing.*;
 import javax.swing.event.ListDataEvent;
@@ -419,14 +419,14 @@ public class MultiplePageDialog extends StandardDialog {
 		buttonPanel.addButton(_applyButton, ButtonPanel.OTHER_BUTTON);
 
 		Locale l = getLocale();
-		_okButton.setAction(new AbstractAction(StringUtil.getOKString(l)) {
+		_okButton.setAction(new AbstractAction(LocaleUtil.getOKString(l)) {
 			public void actionPerformed(ActionEvent e) {
 				setDialogResult(RESULT_AFFIRMED);
 				setVisible(false);
 				dispose();
 			}
 		});
-		_cancelButton.setAction(new AbstractAction(StringUtil.getCancelString(l)) {
+		_cancelButton.setAction(new AbstractAction(LocaleUtil.getCancelString(l)) {
 			public void actionPerformed(ActionEvent e) {
 				setDialogResult(RESULT_CANCELED);
 				setVisible(false);

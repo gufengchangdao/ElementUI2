@@ -15,7 +15,7 @@ import com.element.ui.dialog.JideOptionPane;
 import com.element.ui.layout.JideBoxLayout;
 import com.element.ui.nullc.NullPanel;
 import com.element.ui.panel.PaintPanel;
-import com.element.util.StringUtil;
+import com.element.util.LocaleUtil;
 
 import javax.swing.*;
 import javax.swing.border.Border;
@@ -407,12 +407,12 @@ public class BasicJideOptionPaneUI extends BasicOptionPaneUI {
 					defaultOptions = new ButtonFactory[2];
 					defaultOptions[0] = new ButtonFactory(
 							ButtonNames.OK,
-							StringUtil.getOKString(l),
+							LocaleUtil.getOKString(l),
 							getMnemonic("OptionPane.okButtonMnemonic", l),
 							(Icon) UIDefaultsLookup.get("OptionPane.okIcon"));
 					defaultOptions[1] = new ButtonFactory(
 							ButtonNames.CANCEL,
-							StringUtil.getCancelString(l),
+							LocaleUtil.getCancelString(l),
 							getMnemonic("OptionPane.cancelButtonMnemonic", l),
 							(Icon) UIDefaultsLookup.get("OptionPane.cancelIcon"));
 				} else if (type == JideOptionPane.CLOSE_OPTION) {
@@ -427,7 +427,7 @@ public class BasicJideOptionPaneUI extends BasicOptionPaneUI {
 					defaultOptions = new ButtonFactory[1];
 					defaultOptions[0] = new ButtonFactory(
 							ButtonNames.OK,
-							StringUtil.getOKString(l),
+							LocaleUtil.getOKString(l),
 							getMnemonic("OptionPane.okButtonMnemonic", l),
 							(Icon) UIDefaultsLookup.get("OptionPane.okIcon"));
 				}

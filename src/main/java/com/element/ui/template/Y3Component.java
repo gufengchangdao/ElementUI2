@@ -1,7 +1,7 @@
 package com.element.ui.template;
 
 import com.element.ui.base.BaseComponent;
-import com.element.util.BoxLayoutUtil;
+import com.element.util.WrapperUtil;
 
 import javax.swing.*;
 
@@ -76,16 +76,16 @@ public class Y3Component<Q extends JComponent, W extends JComponent, R extends J
 	public void init() {
 		setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 		Box b;
-		add(BoxLayoutUtil.horizontalCenter(topC));
+		add(WrapperUtil.horizontalCenter(topC));
 
 		if (centerC != null) {
 			add(Box.createVerticalStrut(vGap1));
-			add(BoxLayoutUtil.horizontalCenter(centerC));
+			add(WrapperUtil.horizontalCenter(centerC));
 		}
 
 		if (bottomC != null) {
 			add(Box.createVerticalStrut(vGap2));
-			add(BoxLayoutUtil.horizontalCenter(bottomC));
+			add(WrapperUtil.horizontalCenter(bottomC));
 		}
 	}
 

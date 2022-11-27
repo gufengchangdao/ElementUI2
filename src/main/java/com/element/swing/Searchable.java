@@ -10,9 +10,11 @@ import com.element.event.SearchableListener;
 import com.element.plaf.UIDefaultsLookup;
 import com.element.ui.list.ListSearchable;
 import com.element.ui.popup.JidePopup;
-import com.element.ui.tabs.TableSearchable;
+import com.element.ui.table.TableSearchable;
 import com.element.ui.tree.TreeSearchable;
-import com.element.util.SearchableUtils;
+import com.element.util.CompareUtil;
+import com.element.util.ListenerUtil;
+import com.element.util.SearchableUtil;
 import com.element.util.UIUtil;
 import com.element.wildcard.DefaultWildcardSupport;
 import com.element.wildcard.WildcardSupport;
@@ -160,7 +162,7 @@ public abstract class Searchable {
 	public Searchable(JComponent component) {
 		Searchable searchable = getSearchable(component);
 		if (searchable != null) {
-			SearchableUtils.uninstallSearchable(searchable);
+			SearchableUtil.uninstallSearchable(searchable);
 		}
 		_previousSearchText = null;
 		_component = component;
@@ -178,7 +180,7 @@ public abstract class Searchable {
 	public Searchable(JComponent component, SearchableProvider searchableProvider) {
 		Searchable searchable = getSearchable(component);
 		if (searchable != null) {
-			SearchableUtils.uninstallSearchable(searchable);
+			SearchableUtil.uninstallSearchable(searchable);
 		}
 		_searchableProvider = searchableProvider;
 		_previousSearchText = null;
@@ -515,7 +517,7 @@ public abstract class Searchable {
 		if (_keyListener == null) {
 			_keyListener = createKeyListener();
 		}
-		UIUtil.insertKeyListener(getComponent(), _keyListener, 0);
+		ListenerUtil.insertKeyListener(getComponent(), _keyListener, 0);
 
 		if (_focusListener == null) {
 			_focusListener = createFocusListener();
@@ -1057,7 +1059,7 @@ public abstract class Searchable {
 		if (isActivateKey(e)) {
 			String searchingText = "";
 			if (e.getID() == KeyEvent.KEY_TYPED) {
-				if (UIUtil.isMenuShortcutKeyDown(e)) { // if ctrl key is pressed
+				if (ListenerUtil.isMenuShortcutKeyDown(e)) { // if ctrl key is pressed
 					return;
 				}
 				if (e.isAltDown()) {
@@ -1332,7 +1334,7 @@ public abstract class Searchable {
 	 * @return true if the key in KeyEvent is a key to trigger selecting all.
 	 */
 	protected boolean isSelectAllKey(KeyEvent e) {
-		return UIUtil.isMenuShortcutKeyDown(e) && e.getKeyCode() == KeyEvent.VK_A;
+		return ListenerUtil.isMenuShortcutKeyDown(e) && e.getKeyCode() == KeyEvent.VK_A;
 	}
 
 	/**
@@ -1342,7 +1344,7 @@ public abstract class Searchable {
 	 * @return true if the key in KeyEvent is a key to trigger incremental selection. By default, ctrl down key is used.
 	 */
 	protected boolean isIncrementalSelectKey(KeyEvent e) {
-		return UIUtil.isMenuShortcutKeyDown(e);
+		return ListenerUtil.isMenuShortcutKeyDown(e);
 	}
 
 	/**
@@ -1974,7 +1976,7 @@ public abstract class Searchable {
 			int index = getIndex(count, i);
 			Object element = getElementAt(index);
 			String text = convertElementToString(element);
-			if (UIUtil.equals(text, str))
+			if (CompareUtil.equals(text, str))
 				return index;
 		}
 

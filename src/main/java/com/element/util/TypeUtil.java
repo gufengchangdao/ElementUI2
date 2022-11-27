@@ -13,17 +13,16 @@ public class TypeUtil {
 	// indexes referring to columns in the PRIMITIVE_ARRAY_TYPES table.
 	private static final int WRAPPER_TYPE_INDEX = 0;
 	private static final int PRIMITIVE_TYPE_INDEX = 1;
-	private static final int PRIMITIVE_TYPE_KEY_INDEX = 2;
 
 	private static final Object[][] PRIMITIVE_ARRAY_TYPES = {
-			{Boolean.class, boolean.class, "Z"},
-			{Character.class, char.class, "C"},
-			{Byte.class, byte.class, "B"},
-			{Short.class, short.class, "S"},
-			{Integer.class, int.class, "I"},
-			{Long.class, long.class, "J"},
-			{Float.class, float.class, "F"},
-			{Double.class, double.class, "D"}
+			{Boolean.class, boolean.class},
+			{Character.class, char.class},
+			{Byte.class, byte.class},
+			{Short.class, short.class},
+			{Integer.class, int.class},
+			{Long.class, long.class},
+			{Float.class, float.class},
+			{Double.class, double.class}
 	};
 
 	/** 是否是基本数据类型类对象 */

@@ -23,7 +23,7 @@ final public class SystemInfo {
 	/**
 	 * Variable for whether or not we're on Windows.
 	 */
-	private static boolean _isWindows = false;
+	private static final boolean _isWindows;
 
 	/**
 	 * Variable for whether or not we're on Windows NT or 2000.
@@ -88,62 +88,51 @@ final public class SystemInfo {
 	/**
 	 * Variable for whether or not we're on Linux.
 	 */
-	private static boolean _isLinux;
+	private static final boolean _isLinux;
 
 	/**
 	 * Variable for whether or not we're on Solaris.
 	 */
-	private static boolean _isSolaris;
+	private static final boolean _isSolaris;
 
 	/**
 	 * Variable for whether or not we're on *BSD.
 	 */
-	private static boolean _isBSD;
-
-	private static JavaVersion _currentVersion;
+	private static final boolean _isBSD;
 
 	/*
 	 * Initialize the settings statically.
 	 */
 	static {
 		// get the operating system
-		String os = SecurityUtils.getProperty("os.name", "Windows XP");
+		String os = System.getProperty("os.name", "Windows XP");
 
 		// set the operating system variables
 		_isWindows = os.contains("Windows");
 		try {
-			String osVersion = SecurityUtils.getProperty("os.version", "5.0");
+			String osVersion = System.getProperty("os.version", "5.0");
 			Float version = Float.valueOf(osVersion);
 			_isClassicWindows = version <= 4.0;
 		} catch (NumberFormatException ex) {
 			_isClassicWindows = false;
 		}
-		if (os.contains("Windows XP") || os.contains("Windows NT") || os.contains("Windows 2000")) {
-			_isWindowsNTor2000 = true;
+		if (_isWindows) {
+			if (os.contains("Windows XP") || os.contains("Windows NT") || os.contains("Windows 2000")) {
+				_isWindowsNTor2000 = true;
+			}
+			if (os.contains("Windows XP")) _isWindowsXP = true;
+			if (os.contains("Windows Vista")) _isWindowsVista = true;
+			if (os.contains("Windows 7")) _isWindows7 = true;
+			if (os.contains("Windows 8")) _isWindows8 = true;
+			if (os.contains("Windows 2003")) {
+				_isWindows2003 = true;
+				_isWindowsXP = true;
+			}
+			if (os.contains("Windows 95")) _isWindows95 = true;
+			if (os.contains("Windows 98")) _isWindows98 = true;
+			_supportsTray = true;
 		}
-		if (os.contains("Windows XP")) {
-			_isWindowsXP = true;
-		}
-		if (os.contains("Windows Vista")) {
-			_isWindowsVista = true;
-		}
-		if (os.contains("Windows 7")) {
-			_isWindows7 = true;
-		}
-		if (os.contains("Windows 8")) {
-			_isWindows8 = true;
-		}
-		if (os.contains("Windows 2003")) {
-			_isWindows2003 = true;
-			_isWindowsXP = true;
-		}
-		if (os.contains("Windows 95")) {
-			_isWindows95 = true;
-		}
-		if (os.contains("Windows 98")) {
-			_isWindows98 = true;
-		}
-		if (_isWindows) _supportsTray = true;
+
 		_isSolaris = (os.contains("Solaris")) || (os.contains("SunOS"));
 		_isBSD = os.endsWith("BSD");
 		_isLinux = os.contains("Linux");
@@ -163,30 +152,12 @@ final public class SystemInfo {
 	}
 
 	/**
-	 * Returns the version of java we're using.
-	 *
-	 * @return the java version.
-	 */
-	public static String getJavaVersion() {
-		return SecurityUtils.getProperty("java.version", "1.4.2");
-	}
-
-	/**
-	 * Returns the vendor for java we're using.
-	 *
-	 * @return the java vendor.
-	 */
-	public static String getJavaVendor() {
-		return SecurityUtils.getProperty("java.vendor", "");
-	}
-
-	/**
 	 * Returns the version of the java class we're using.
 	 *
 	 * @return the java class version.
 	 */
 	public static String getJavaClassVersion() {
-		return SecurityUtils.getProperty("java.class.version", "");
+		return System.getProperty("java.class.version", "");
 	}
 
 	/**
@@ -195,7 +166,7 @@ final public class SystemInfo {
 	 * @return the os name.
 	 */
 	public static String getOS() {
-		return SecurityUtils.getProperty("os.name", "Windows XP");
+		return System.getProperty("os.name", "Windows XP");
 	}
 
 	/**
@@ -204,7 +175,7 @@ final public class SystemInfo {
 	 * @return the os version.
 	 */
 	public static String getOSVersion() {
-		return SecurityUtils.getProperty("os.version", "");
+		return System.getProperty("os.version", "");
 	}
 
 	/**
@@ -213,7 +184,7 @@ final public class SystemInfo {
 	 * @return the os architecture.
 	 */
 	public static String getOSArchitecture() {
-		return SecurityUtils.getProperty("os.arch", "");
+		return System.getProperty("os.arch", "");
 	}
 
 	/**
@@ -222,7 +193,7 @@ final public class SystemInfo {
 	 * @return the user home .
 	 */
 	public static String getCurrentDirectory() {
-		return SecurityUtils.getProperty("user.dir", "");
+		return System.getProperty("user.dir", "");
 	}
 
 	/**
@@ -456,9 +427,34 @@ final public class SystemInfo {
 		return 1;
 	}
 
+	/**
+	 * Returns the version of java we're using.
+	 *
+	 * @return the java version.
+	 */
+	public static String getJavaVersion() {
+		return System.getProperty("java.version");
+	}
+
+	public static JavaVersion getJavaVersionInfo() {
+		return new JavaVersion(getJavaVersion());
+	}
+
+	/**
+	 * Returns the vendor for java we're using.
+	 *
+	 * @return the java vendor.
+	 */
+	public static String getJavaVendor() {
+		return System.getProperty("java.vendor", "");
+	}
+
 	public static class JavaVersion {
 		/**
-		 * For example: 1.6.0_12: Group 1 = major version (1.6) Group 3 = minor version (0) Group 5 = build number (12)
+		 * For example: 1.6.0_12:
+		 * Group 1 = major version (1.6)
+		 * Group 3 = minor version (0)
+		 * Group 5 = build number (12)
 		 */
 		private static final Pattern SUN_JAVA_VERSION = Pattern.compile("(\\d+(?:\\.\\d+)?)(\\.(\\d+))?(_([^-]+))?(.*)");
 		private static final Pattern SUN_JAVA_VERSION_SIMPLE = Pattern.compile("(\\d+(?:\\.\\d+)?)(\\.(\\d+))?(.*)");

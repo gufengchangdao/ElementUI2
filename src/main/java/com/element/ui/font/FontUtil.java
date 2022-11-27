@@ -1,7 +1,6 @@
 package com.element.ui.font;
 
 import com.element.plaf.WindowsDesktopProperty;
-import com.element.util.SecurityUtils;
 import com.element.util.SystemInfo;
 import org.apache.batik.ext.swing.Resources;
 
@@ -12,7 +11,10 @@ import java.awt.font.FontRenderContext;
 import java.awt.geom.AffineTransform;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.Locale;
 import java.util.Map;
+import java.util.MissingResourceException;
+import java.util.Objects;
 
 public class FontUtil {
 	/** 辅助文字 */
@@ -62,8 +64,8 @@ public class FontUtil {
 	 */
 	public static Font getFont(String fontFileName) {
 		try (InputStream in = Resources.class.getResourceAsStream(fontFileName)) {
-			return Font.createFont(Font.TRUETYPE_FONT, in);
-		} catch (IOException | FontFormatException e) {
+			return Font.createFont(Font.TRUETYPE_FONT, Objects.requireNonNull(in));
+		} catch (NullPointerException |IOException | FontFormatException e) {
 			throw new RuntimeException(e);
 		}
 	}
@@ -71,7 +73,7 @@ public class FontUtil {
 	/** 获取jide的默认字体大小，如果获取失败返回 -1 */
 	public static float getDefaultFontSize() {
 		// read the font size from system property.
-		String fontSize = SecurityUtils.getProperty("jide.fontSize", null);
+		String fontSize = System.getProperty("jide.fontSize", null);
 		float defaultFontSize = -1f;
 		try {
 			if (fontSize != null) {
@@ -142,5 +144,64 @@ public class FontUtil {
 			}
 			return boldFont;
 		}
+	}
+
+	public static final String BOLD = "Bold";
+	public static final String ITALIC = "Italic";
+	public static final String BOLD_ITALIC = "Bold Italic";
+
+	private static String createFontStrings(String font, int style) {
+		String fontString = switch (style) {
+			case Font.BOLD -> font + " " + BOLD;
+			case Font.ITALIC -> font + " " + ITALIC;
+			case Font.BOLD | Font.ITALIC -> font + " " + BOLD_ITALIC;
+			default -> font;
+		};
+		return fontString.replace(' ', '_');
+	}
+
+	/**
+	 * Creates font. If there is no permission to access font file, it will try to create the font directly from font
+	 * file that is bundled as part of jar.
+	 *
+	 * @param name  the font name.
+	 * @param style the font style.
+	 * @param size  the font size.
+	 * @return the font.
+	 */
+	public static Font createFont(String name, int style, int size) {
+		try {
+			return new Font(name, style, size);
+		} catch (Exception e) {
+			ClassLoader cl = FontUtil.class.getClassLoader();
+			try {
+				String value = null;
+				try {
+					value = FontFilesResource.getResourceBundle(Locale.getDefault()).getString(createFontStrings(name, style));
+				} catch (MissingResourceException me1) {
+					try {
+						value = FontFilesResource.getResourceBundle(Locale.getDefault()).getString(name);
+					} catch (MissingResourceException ignored) {
+					}
+				}
+				if (value == null) {
+					return null;
+				} else {
+					try (InputStream inputStream = cl.getResourceAsStream(value)) {
+						Font font = Font.createFont(Font.TRUETYPE_FONT, Objects.requireNonNull(inputStream));
+						return font.deriveFont(style, size);
+					}
+				}
+			} catch (IOException | RuntimeException | FontFormatException ex) {
+				throw new RuntimeException(ex);
+			}
+		}
+	}
+
+	public static FontUIResource createFontUIResource(String name, int style, int size) {
+		Font font = createFont(name, style, size);
+		if (font != null)
+			return new FontUIResource(font);
+		return null;
 	}
 }

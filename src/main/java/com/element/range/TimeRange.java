@@ -7,6 +7,7 @@
 
 package com.element.range;
 
+import com.element.util.CompareUtil;
 import com.element.util.UIUtil;
 
 import java.text.DateFormat;
@@ -189,7 +190,7 @@ public class TimeRange extends AbstractRange<Date> {
 	@Override
 	public boolean equals(Object other) {
 		if (other instanceof TimeRange otherRange) {
-			return UIUtil.equals(_min, otherRange._min) && UIUtil.equals(_max, otherRange._max);
+			return CompareUtil.equals(_min, otherRange._min) && CompareUtil.equals(_max, otherRange._max);
 		} else {
 			return false;
 		}

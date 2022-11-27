@@ -1,5 +1,6 @@
 package com.element.ui.label;
 
+import com.element.util.ListenerUtil;
 import com.element.util.UIUtil;
 
 import javax.swing.*;
@@ -74,30 +75,30 @@ public class ClickThroughStyledLabel extends StyledLabel implements MouseInputLi
 	}
 
 	public void mouseClicked(MouseEvent e) {
-		UIUtil.retargetMouseEvent(e.getID(), e, getTarget());
+		ListenerUtil.retargetMouseEvent(e.getID(), e, getTarget());
 	}
 
 	public void mousePressed(MouseEvent e) {
-		UIUtil.retargetMouseEvent(e.getID(), e, getTarget());
+		ListenerUtil.retargetMouseEvent(e.getID(), e, getTarget());
 	}
 
 	public void mouseReleased(MouseEvent e) {
-		UIUtil.retargetMouseEvent(e.getID(), e, getTarget());
+		ListenerUtil.retargetMouseEvent(e.getID(), e, getTarget());
 	}
 
 	public void mouseEntered(MouseEvent e) {
-		UIUtil.retargetMouseEvent(e.getID(), e, getTarget());
+		ListenerUtil.retargetMouseEvent(e.getID(), e, getTarget());
 	}
 
 	public void mouseExited(MouseEvent e) {
-		UIUtil.retargetMouseEvent(e.getID(), e, getTarget());
+		ListenerUtil.retargetMouseEvent(e.getID(), e, getTarget());
 	}
 
 	public void mouseDragged(MouseEvent e) {
-		UIUtil.retargetMouseEvent(e.getID(), e, getTarget());
+		ListenerUtil.retargetMouseEvent(e.getID(), e, getTarget());
 	}
 
 	public void mouseMoved(MouseEvent e) {
-		UIUtil.retargetMouseEvent(e.getID(), e, getTarget());
+		ListenerUtil.retargetMouseEvent(e.getID(), e, getTarget());
 	}
 }

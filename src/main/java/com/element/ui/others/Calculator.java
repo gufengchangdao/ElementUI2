@@ -7,7 +7,7 @@
 package com.element.ui.others;
 
 import com.element.ui.button.JideButton;
-import com.element.util.PortingUtil;
+import com.element.util.AudioUtil;
 import com.element.util.UIUtil;
 
 import javax.swing.*;
@@ -520,7 +520,7 @@ public class Calculator extends JPanel implements ActionListener {
 	}
 
 	protected void beep() {
-		PortingUtil.notifyUser();
+		AudioUtil.notifyUser();
 	}
 
 	private void negativePressed(StringBuffer buf) {

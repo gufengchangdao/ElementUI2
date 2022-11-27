@@ -14,8 +14,6 @@
 
 package com.element.plaf.aqua;
 
-import com.element.util.SecurityUtils;
-
 import java.io.*;
 import java.nio.charset.StandardCharsets;
 import java.text.DateFormat;
@@ -698,7 +696,7 @@ class BinaryPListParser {
 	public static void main(String[] args) {
 
 		try {
-			File[] list = new File(SecurityUtils.getProperty("user.home", ""), "Library/Preferences").listFiles();
+			File[] list = new File(System.getProperty("user.home", ""), "Library/Preferences").listFiles();
             /*
             File[] list = {
                 //new File(QuaquaManager.getProperty("user.home"), "Documents/BPList/date.plist")

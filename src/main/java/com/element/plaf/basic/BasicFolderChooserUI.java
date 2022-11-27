@@ -6,11 +6,10 @@
 package com.element.plaf.basic;
 
 import com.element.hints.FileIntelliHints;
-import com.element.plaf.FolderChooserUI;
 import com.element.ui.dialog.ButtonPanel;
 import com.element.ui.layout.JideBoxLayout;
 import com.element.ui.others.FolderChooser;
-import com.element.util.SelectAllUtils;
+import com.element.util.SelectAllUtil;
 import com.element.util.SystemInfo;
 import sun.awt.shell.ShellFolder;
 
@@ -34,7 +33,7 @@ import java.text.MessageFormat;
 import java.util.List;
 import java.util.*;
 
-public class BasicFolderChooserUI extends BasicFileChooserUI implements FolderChooserUI {
+public class BasicFolderChooserUI extends BasicFileChooserUI {
 	private FolderChooser _folderChooser;
 
 	protected FolderToolBar _toolbar;
@@ -134,7 +133,7 @@ public class BasicFolderChooserUI extends BasicFileChooserUI implements FolderCh
 	protected JPanel createNavigationPanel() {
 		NavigationTextFieldListener navigationTextFieldListener = new NavigationTextFieldListener();
 		_navigationTextField = new JTextField(24);
-		SelectAllUtils.install(_navigationTextField);
+		SelectAllUtil.install(_navigationTextField);
 		FileIntelliHints fileIntelliHints = new FileIntelliHints(_navigationTextField);
 		fileIntelliHints.setFolderOnly(true);
 		fileIntelliHints.setShowFullPath(false);

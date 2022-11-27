@@ -16,7 +16,6 @@ import com.element.plaf.xerto.SlidingFrameBorder;
 import com.element.plaf.xerto.StatusBarBorder;
 import com.element.ui.font.FontUtil;
 import com.element.ui.tabs.JideTabbedPane;
-import com.element.util.SecurityUtils;
 import com.element.util.SystemInfo;
 
 import javax.swing.*;
@@ -124,7 +123,7 @@ public class Office2003WindowsUtils extends VsnetWindowsUtils {
 		int products = LookAndFeelFactory.getProductsUsed();
 
 		if ((products & PRODUCT_DOCK) != 0) {
-			boolean useShadowBorder = "true".equals(SecurityUtils.getProperty("jide.shadeSlidingBorder", "false"));
+			boolean useShadowBorder = "true".equals(System.getProperty("jide.shadeSlidingBorder", "false"));
 
 			Object slidingEastFrameBorder = new ExtWindowsDesktopProperty(new String[]{"win.3d.lightColor", "win.3d.highlightColor", "win.3d.shadowColor", "win.3d.darkShadowColor"},
 					new Object[]{UIDefaultsLookup.get("control"), UIDefaultsLookup.get("controlLtHighlight"), UIDefaultsLookup.get("controlShadow"), UIDefaultsLookup.get("controlDkShadow")}, toolkit, obj -> new SlidingFrameBorder((Color) obj[0], (Color) obj[1], (Color) obj[2], (Color) obj[3],

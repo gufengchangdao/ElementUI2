@@ -13,7 +13,6 @@ import com.element.plaf.basic.ThemePainter;
 import com.element.plaf.basic.UIAction;
 import com.element.ui.button.*;
 import com.element.ui.icons.IconsFactory;
-import com.element.util.SecurityUtils;
 import com.element.util.UIUtil;
 
 import javax.swing.*;
@@ -315,7 +314,7 @@ public class MetalJideSplitButtonUI extends MetalMenuUI {
 					} else {
 						getPainter().paintButtonBackground(b, g, rect, 0, ThemePainter.STATE_DISABLE);
 					}
-					if ("true".equals(SecurityUtils.getProperty("shadingtheme", "false"))) {
+					if ("true".equals(System.getProperty("shadingtheme", "false"))) {
 						UIUtil.fillGradient(g, rect, SwingConstants.HORIZONTAL);
 					}
 					rect = getDropDownRect(b, orientation, menuWidth, menuHeight);
@@ -324,7 +323,7 @@ public class MetalJideSplitButtonUI extends MetalMenuUI {
 					} else {
 						getPainter().paintButtonBackground(b, g, rect, 0, ThemePainter.STATE_DISABLE);
 					}
-					if ("true".equals(SecurityUtils.getProperty("shadingtheme", "false"))) {
+					if ("true".equals(System.getProperty("shadingtheme", "false"))) {
 						UIUtil.fillGradient(g, rect, SwingConstants.HORIZONTAL);
 					}
 				}

@@ -656,10 +656,6 @@ public class BasicStyledLabelUI extends BasicLabelUI implements SwingConstants {
 		int endX = paintWidth + startX;
 		int x = startX;
 		int mnemonicIndex = label.getDisplayedMnemonicIndex();
-		if (LookAndFeelFactory.isWindowsLookAndFeel(UIManager.getLookAndFeel()) &&
-				LookAndFeelFactory.isMnemonicHidden()) {
-			mnemonicIndex = -1;
-		}
 
 		int charDisplayed = 0;
 		boolean displayMnemonic;
@@ -1040,10 +1036,6 @@ public class BasicStyledLabelUI extends BasicLabelUI implements SwingConstants {
 		paintWidth = Math.min(paintWidth, rightMostX - leftAlignmentX);
 
 		int mnemonicIndex = label.getDisplayedMnemonicIndex();
-		if (LookAndFeelFactory.isWindowsLookAndFeel(UIManager.getLookAndFeel()) &&
-				LookAndFeelFactory.isMnemonicHidden()) {
-			mnemonicIndex = -1;
-		}
 
 		int charDisplayed = 0;
 		boolean displayMnemonic;

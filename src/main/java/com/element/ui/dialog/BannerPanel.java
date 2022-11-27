@@ -5,8 +5,8 @@
  */
 package com.element.ui.dialog;
 
+import com.element.ui.font.FontUtil;
 import com.element.ui.label.MultilineLabel;
-import com.element.util.SecurityUtils;
 import com.element.util.UIUtil;
 
 import javax.swing.*;
@@ -155,7 +155,7 @@ public class BannerPanel extends JPanel {
 			}
 		};
 		if (getTitleFont() == null) {
-			setTitleFont(SecurityUtils.createFont(getFont().getFontName(), Font.BOLD, getFont().getSize() + 2));
+			setTitleFont(FontUtil.createFont(getFont().getFontName(), Font.BOLD, getFont().getSize() + 2));
 		}
 		_titleLabel.setFont(getTitleFont());
 		if (getTitleColor() == null) {

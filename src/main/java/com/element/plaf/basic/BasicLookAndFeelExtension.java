@@ -6,8 +6,8 @@
 
 package com.element.plaf.basic;
 
-import com.element.plaf.LookAndFeelExtension;
 import com.element.plaf.LookAndFeelFactory;
+import com.element.plaf.ProductNames;
 
 import javax.swing.*;
 
@@ -16,7 +16,7 @@ import javax.swing.*;
  * uiClassID constants (see AbstractComponent.getUIClassID).  This table must map those constants to a BasicComponentUI
  * class of the appropriate type.
  */
-public class BasicLookAndFeelExtension implements LookAndFeelExtension {
+public class BasicLookAndFeelExtension implements ProductNames {
 
 	/**
 	 * Initializes class defaults.

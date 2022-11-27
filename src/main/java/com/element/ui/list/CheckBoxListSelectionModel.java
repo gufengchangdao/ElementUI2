@@ -1,5 +1,6 @@
 package com.element.ui.list;
 
+import com.element.util.CompareUtil;
 import com.element.util.UIUtil;
 
 import javax.swing.*;
@@ -55,7 +56,7 @@ public class CheckBoxListSelectionModel extends DefaultListSelectionModel implem
 		}
 		int size = getModel().getSize();
 		for (int i = 0; i < size; i++) {
-			if (UIUtil.equals(getModel().getElementAt(i), CheckBoxList.ALL_ENTRY)) {
+			if (CompareUtil.equals(getModel().getElementAt(i), CheckBoxList.ALL_ENTRY)) {
 				return i;
 			}
 		}

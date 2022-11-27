@@ -6,8 +6,6 @@
 
 package com.element.swing;
 
-import com.element.util.ReflectionUtils;
-
 import javax.swing.*;
 import java.awt.*;
 import java.util.HashSet;
@@ -40,9 +38,6 @@ public class VisibilityFocusTraversalPolicy extends FocusTraversalPolicy {
 	 */
 	public VisibilityFocusTraversalPolicy(FocusTraversalPolicy defaultPolicy, Container container) {
 		super();
-		if (defaultPolicy != null && ReflectionUtils.isSubClassOf(defaultPolicy, "LegacyGlueFocusTraversalPolicy")) {
-			throw new IllegalArgumentException("VisibilityFocusTraversalPolicy can't work well with LegacyGlueFocusTraversalPolicy.");
-		}
 		_defaultPolicy = defaultPolicy;
 		if (container != null) {
 			_containers = new HashSet<>();

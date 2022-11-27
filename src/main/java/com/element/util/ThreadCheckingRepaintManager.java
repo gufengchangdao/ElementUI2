@@ -7,17 +7,20 @@
 package com.element.util;
 
 import javax.swing.*;
-import java.io.ByteArrayOutputStream;
-import java.io.PrintStream;
+import java.util.ArrayList;
 
 /**
- * For usage of this class, please refer to http://weblogs.java.net/blog/alexfromsun/archive/2006/02/debugging_swing.html
- * <p> To use it, call RepaintManager.setCurrentManager(new ThreadCheckingRepaintManager()) then watch the print out
- * from the console of all threading violations. </p>
+ * 该重绘管理员可用于检测swing组件更新的线程违规操作，即必要的操作是否在EDT中执行，对于违规的地方会打印异常，建议开发过程使用该重绘管理器
+ * <p>
+ * 使用方法，在启动窗口前如下调用：
+ * <pre>
+ *     RepaintManager.setCurrentManager(new ThreadCheckingRepaintManager());
+ * </pre>
  */
 public class ThreadCheckingRepaintManager extends RepaintManager {
-	// it is recommended to pass the complete check
+	/** 是否完整检查，如果为true，则忽视checkIsShowing的值检查所有组件 */
 	private boolean completeCheck = true;
+	/** 是否仅检查显示在屏幕上的组件 */
 	private boolean checkIsShowing = false;
 
 	/**
@@ -72,44 +75,45 @@ public class ThreadCheckingRepaintManager extends RepaintManager {
 		super.addDirtyRegion(jComponent, i, i1, i2, i3);
 	}
 
+	/** 上一个打印的堆栈轨迹列表，因为验证方法可能会多次调用，防止重复打印相同的堆栈轨迹，这里消除连续的相同的堆栈轨迹 */
+	public static ArrayList<StackTraceElement> LAST_STACK_TRACE = new ArrayList<>();
+
+	/**
+	 * 检查是否在非EDT中对组件进行了重绘操作，如果进行了会打印堆栈轨迹，方便找出代码可能存在问题的地方
+	 */
 	private void checkThreadViolations(JComponent c) {
 		if (!SwingUtilities.isEventDispatchThread() && (completeCheck || checkIsShowing(c))) {
-			Exception exception = new Exception();
+			IllegalThreadStateException e = new IllegalThreadStateException(c.getClass().getSimpleName() + " 的操作应该在EDT中执行");
 			boolean repaint = false;
 			boolean fromSwing = false;
-			StackTraceElement[] stackTrace = exception.getStackTrace();
+			StackTraceElement[] stackTrace = e.getStackTrace();
+			ArrayList<StackTraceElement> traceElements = new ArrayList<>();
 			for (StackTraceElement st : stackTrace) {
 				if (repaint && st.getClassName().startsWith("javax.swing.")) {
 					fromSwing = true;
 				}
-				if ("repaint".equals(st.getMethodName())) {
+				if ("repaint".equals(st.getMethodName())) {//repaint方法
 					repaint = true;
 				}
+				// 打印的堆栈只打印用户自己代码的部分，这里用getClassLoaderName是否为null来判断，我知道源码的部分null，不知道用户代码
+				// 会不会也有可能返回null
+				if (repaint && fromSwing && st.getClassLoaderName() != null) {
+					traceElements.add(st);
+				}
 			}
-			if (repaint && !fromSwing) {
-				//no problems here, since repaint() is thread safe
-				return;
-			}
-			System.out.println("----------Wrong Thread START");
-			System.out.println(getStrackTraceAsString(exception));
-			System.out.println("----------Wrong Thread END");
+			//这里没有问题，因为 repaint() 是线程安全的
+			if (repaint && !fromSwing) return;
+			// 跟上一个堆栈比较，如果跟上一个相同就不重复打印了
+			if (LAST_STACK_TRACE.equals(traceElements)) return;
+
+			e.setStackTrace(traceElements.toArray(StackTraceElement[]::new));
+			e.printStackTrace();
+			LAST_STACK_TRACE = traceElements;
 		}
 	}
 
-	@SuppressWarnings({"SimplifiableIfStatement"})
 	private boolean checkIsShowing(JComponent c) {
-		if (this.checkIsShowing) {
-			return c.isShowing();
-		} else {
-			return true;
-		}
-	}
-
-	private String getStrackTraceAsString(Exception e) {
-		ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
-		PrintStream printStream = new PrintStream(byteArrayOutputStream);
-		e.printStackTrace(printStream);
-		printStream.flush();
-		return byteArrayOutputStream.toString();
+		if (this.checkIsShowing) return c.isShowing();
+		else return true;
 	}
 }

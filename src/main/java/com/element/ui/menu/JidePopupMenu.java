@@ -8,7 +8,7 @@ package com.element.ui.menu;
 import com.element.plaf.LookAndFeelFactory;
 import com.element.plaf.UIDefaultsLookup;
 import com.element.ui.pane.SimpleScrollPane;
-import com.element.util.PortingUtil;
+import com.element.util.UIUtil;
 
 import javax.swing.*;
 import javax.swing.event.PopupMenuEvent;
@@ -93,7 +93,7 @@ public class JidePopupMenu extends JPopupMenu implements Scrollable {
 
 		Point p = new Point(x, y);
 		SwingUtilities.convertPointToScreen(p, invoker);
-		Rectangle bounds = PortingUtil.ensureOnScreen(new Rectangle(p, size));
+		Rectangle bounds = UIUtil.ensureOnScreen(new Rectangle(p, size));
 		p = bounds.getLocation();
 		SwingUtilities.convertPointFromScreen(p, invoker);
 		return p;
@@ -112,7 +112,7 @@ public class JidePopupMenu extends JPopupMenu implements Scrollable {
 
 	public Dimension getPreferredScrollableViewportSize() {
 		Dimension size = getPreferredSize();
-		Dimension screenSize = PortingUtil.getScreenSize();
+		Dimension screenSize = UIUtil.getScreenSize(this);
 		Container container = SwingUtilities.getAncestorOfClass(SimpleScrollPane.class, this);
 		if (container instanceof SimpleScrollPane scrollPane) {
 			int height = screenSize.height;
