@@ -6,8 +6,6 @@
 
 package com.element.ui.label;
 
-import com.element.swing.StyleRange;
-
 import java.awt.*;
 import java.util.List;
 import java.util.*;

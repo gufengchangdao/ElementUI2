@@ -1,4 +1,4 @@
-package com.element.wildcard;
+package com.element.regex;
 
 import java.io.Serializable;
 

@@ -13,7 +13,6 @@ import java.awt.geom.GeneralPath;
  * 该边框一般不单独使用，因为含有切角的组件一般都设置了背景色，但是背景色会覆盖边框的绘制，建议使用{@link AngleComponent}
  */
 public class AngleBorder implements Border {
-
 	private final GeneralPath generalPath = new GeneralPath();
 	/** 展示方式 */
 	private SwingPosition position;
@@ -61,58 +60,46 @@ public class AngleBorder implements Border {
 		// 定位坐标原点
 		double tx = 0, ty = 0;
 		switch (position) {
-			case TOP: { // 上边
+			case TOP -> { // 上边
 				tx = width / 2.0 - size;
-				break;
 			}
-			case TOP_LEFT: { // 上左
+			case TOP_LEFT -> { // 上左
 				tx = width / 4.0 - size;
-				break;
 			}
-			case TOP_RIGHT: { // 上右
+			case TOP_RIGHT -> { // 上右
 				tx = width * 3.0 / 4 - size;
-				break;
 			}
-			case BOTTOM:
-			case BOTTOM_LEFT: { // 下边
+			case BOTTOM, BOTTOM_LEFT -> { // 下边
 				tx = width / 2.0 - size;
 				ty = height - size;
-				break;
 			}// 下左
-			case BOTTOM_RIGHT: { // 下右
+			case BOTTOM_RIGHT -> { // 下右
 				tx = width * 3.0 / 4 - size;
 				ty = height - size;
-				break;
 			}
-			case LEFT: { // 左边
+			case LEFT -> { // 左边
 				tx = 0.3;
 				ty = height / 2.0 - size;
-				break;
 			}
-			case LEFT_TOP: {
+			case LEFT_TOP -> {
 				tx = 0.3;
 				ty = height / 4.0 - size;
-				break;
 			}
-			case LEFT_BOTTOM: {
+			case LEFT_BOTTOM -> {
 				tx = 0.3;
 				ty = height * 3.0 / 4 - size;
-				break;
 			}
-			case RIGHT: {
+			case RIGHT -> {
 				tx = width - size * 2 - 0.3; //这是为了消除边框与组件可能存在的缝隙
 				ty = height / 2.0 - size;
-				break;
 			}
-			case RIGHT_TOP: {
+			case RIGHT_TOP -> {
 				tx = width - size * 2 - 0.4;
 				ty = height / 4.0 - size;
-				break;
 			}
-			case RIGHT_BOTTOM: {
+			case RIGHT_BOTTOM -> {
 				tx = width - size * 2 - 0.4;
 				ty = height * 3.0 / 4 - size;
-				break;
 			}
 		}
 
@@ -130,23 +117,14 @@ public class AngleBorder implements Border {
 		generalPath.lineTo(size * 2, size);
 
 		switch (position) {
-			case BOTTOM:
-			case BOTTOM_LEFT:
-			case BOTTOM_RIGHT: {
+			case BOTTOM, BOTTOM_LEFT, BOTTOM_RIGHT -> {
 				g2d.rotate(Math.toRadians(180), size, size / 2.0);
-				break;
 			}
-			case LEFT:
-			case LEFT_TOP:
-			case LEFT_BOTTOM: {
+			case LEFT, LEFT_TOP, LEFT_BOTTOM -> {
 				g2d.rotate(Math.toRadians(-90), size, size);
-				break;
 			}
-			case RIGHT:
-			case RIGHT_TOP:
-			case RIGHT_BOTTOM: {
+			case RIGHT, RIGHT_TOP, RIGHT_BOTTOM -> {
 				g2d.rotate(Math.toRadians(90), size, size);
-				break;
 			}
 		}
 
@@ -161,30 +139,10 @@ public class AngleBorder implements Border {
 	public Insets getBorderInsets(Component c) {
 		Insets insets = new Insets(0, 0, 0, 0);
 		switch (position) {
-			case TOP:
-			case TOP_LEFT:
-			case TOP_RIGHT: {
-				insets.top = size;
-				break;
-			}
-			case BOTTOM:
-			case BOTTOM_LEFT:
-			case BOTTOM_RIGHT: {
-				insets.bottom = size;
-				break;
-			}
-			case LEFT:
-			case LEFT_TOP:
-			case LEFT_BOTTOM: {
-				insets.left = size;
-				break;
-			}
-			case RIGHT:
-			case RIGHT_TOP:
-			case RIGHT_BOTTOM: {
-				insets.right = size;
-				break;
-			}
+			case TOP, TOP_LEFT, TOP_RIGHT -> insets.top = size;
+			case BOTTOM, BOTTOM_LEFT, BOTTOM_RIGHT -> insets.bottom = size;
+			case LEFT, LEFT_TOP, LEFT_BOTTOM -> insets.left = size;
+			case RIGHT, RIGHT_TOP, RIGHT_BOTTOM -> insets.right = size;
 		}
 		return insets;
 	}

@@ -22,8 +22,6 @@ import java.awt.event.*;
 import java.util.ArrayList;
 import java.util.List;
 
-import static java.awt.event.InputEvent.CTRL_DOWN_MASK;
-
 
 /**
  * <code>AbstractIntelliHints</code> is an abstract implementation of {@link IntelliHints}. It covers
@@ -34,7 +32,6 @@ import static java.awt.event.InputEvent.CTRL_DOWN_MASK;
  * @author JIDE Software, Inc.
  */
 public abstract class AbstractIntelliHints implements IntelliHints {
-
 	private JidePopup _popup;
 	private JTextComponent _textComponent;
 	private JComponent _hintsComponent;
@@ -50,6 +47,80 @@ public abstract class AbstractIntelliHints implements IntelliHints {
 	private int _showHintsDelay = 200;
 	private List<KeyStroke> _showHintsKeyStrokes;
 	private DelegateAction _showAction;
+
+	private final DelegateAction acceptAction = new DelegateAction() {
+		@Override
+		public boolean isDelegateEnabled() {
+			return isHintsPopupVisible() && getSelectedHint() != null;
+		}
+
+		@Override
+		public boolean delegateActionPerformed(ActionEvent e) {
+			JComponent tf = (JComponent) e.getSource();
+			IntelliHints hints = getIntelliHints(tf);
+			if (hints instanceof AbstractIntelliHints aih) {
+				aih.hideHintsPopup();
+				if (aih.getSelectedHint() != null) {
+					aih.setHintsEnabled(false);
+					aih.acceptHint(hints.getSelectedHint());
+					aih.setHintsEnabled(true);
+					return true;
+				}
+			}
+			return false;
+		}
+	};
+
+	private final DelegateAction hideAction = new DelegateAction() {
+		@Override
+		public boolean isDelegateEnabled() {
+			return _textComponent.isEnabled() && isHintsPopupVisible();
+		}
+
+		@Override
+		public boolean delegateActionPerformed(ActionEvent e) {
+			if (isEnabled()) {
+				hideHintsPopup();
+				return true;
+			}
+			return false;
+		}
+	};
+
+	private final DocumentListener documentListener = new DocumentListener() {
+		private final Timer timer = new Timer(getShowHintsDelay(), e -> {
+			if (isKeyTyped()) {
+				if (isHintsPopupVisible() || isAutoPopup()) {
+					showHintsPopup(true);
+				}
+				setKeyTyped(false);
+			}
+		});
+
+		public void insertUpdate(DocumentEvent e) {
+			startTimer();
+		}
+
+		public void removeUpdate(DocumentEvent e) {
+			startTimer();
+		}
+
+		public void changedUpdate(DocumentEvent e) {
+		}
+
+		void startTimer() {
+			if (timer.isRunning()) {
+				timer.setInitialDelay(getShowHintsDelay());
+				timer.setDelay(getShowHintsDelay());
+				timer.restart();
+			} else {
+				timer.setRepeats(false);
+				timer.setInitialDelay(getShowHintsDelay());
+				timer.setDelay(getShowHintsDelay());
+				timer.start();
+			}
+		}
+	};
 
 	/**
 	 * Creates an IntelliHints object for a given JTextComponent.
@@ -98,7 +169,8 @@ public abstract class AbstractIntelliHints implements IntelliHints {
 			public boolean delegateActionPerformed(ActionEvent e) {
 				JComponent tf = (JComponent) e.getSource();
 				IntelliHints hints = getIntelliHints(tf);
-				if (hints instanceof AbstractIntelliHints aih) {
+				if (hints instanceof AbstractIntelliHints) {
+					AbstractIntelliHints aih = (AbstractIntelliHints) hints;
 					if (tf.isEnabled() && !aih.isHintsPopupVisible()) {
 						aih.showHintsPopup(false);
 						return true;
@@ -444,85 +516,11 @@ public abstract class AbstractIntelliHints implements IntelliHints {
 	 */
 	protected KeyStroke getShowHintsKeyStroke() {
 		if (isMultilineTextComponent()) {
-			return KeyStroke.getKeyStroke(KeyEvent.VK_SPACE, CTRL_DOWN_MASK);
+			return KeyStroke.getKeyStroke(KeyEvent.VK_SPACE, KeyEvent.CTRL_MASK);
 		} else {
 			return KeyStroke.getKeyStroke(KeyEvent.VK_DOWN, 0);
 		}
 	}
-
-	private DelegateAction acceptAction = new DelegateAction() {
-		@Override
-		public boolean isDelegateEnabled() {
-			return isHintsPopupVisible() && getSelectedHint() != null;
-		}
-
-		@Override
-		public boolean delegateActionPerformed(ActionEvent e) {
-			JComponent tf = (JComponent) e.getSource();
-			IntelliHints hints = getIntelliHints(tf);
-			if (hints instanceof AbstractIntelliHints aih) {
-				aih.hideHintsPopup();
-				if (aih.getSelectedHint() != null) {
-					aih.setHintsEnabled(false);
-					aih.acceptHint(hints.getSelectedHint());
-					aih.setHintsEnabled(true);
-					return true;
-				}
-			}
-			return false;
-		}
-	};
-
-	private DelegateAction hideAction = new DelegateAction() {
-		@Override
-		public boolean isDelegateEnabled() {
-			return _textComponent.isEnabled() && isHintsPopupVisible();
-		}
-
-		@Override
-		public boolean delegateActionPerformed(ActionEvent e) {
-			if (isEnabled()) {
-				hideHintsPopup();
-				return true;
-			}
-			return false;
-		}
-	};
-
-	private DocumentListener documentListener = new DocumentListener() {
-		private Timer timer = new Timer(getShowHintsDelay(), e -> {
-			if (isKeyTyped()) {
-				if (isHintsPopupVisible() || isAutoPopup()) {
-					showHintsPopup(true);
-				}
-				setKeyTyped(false);
-			}
-		});
-
-		public void insertUpdate(DocumentEvent e) {
-			startTimer();
-		}
-
-		public void removeUpdate(DocumentEvent e) {
-			startTimer();
-		}
-
-		public void changedUpdate(DocumentEvent e) {
-		}
-
-		void startTimer() {
-			if (timer.isRunning()) {
-				timer.setInitialDelay(getShowHintsDelay());
-				timer.setDelay(getShowHintsDelay());
-				timer.restart();
-			} else {
-				timer.setRepeats(false);
-				timer.setInitialDelay(getShowHintsDelay());
-				timer.setDelay(getShowHintsDelay());
-				timer.start();
-			}
-		}
-	};
 
 	private boolean isKeyTyped() {
 		return _keyTyped;
@@ -563,7 +561,7 @@ public abstract class AbstractIntelliHints implements IntelliHints {
 	 */
 	public void addShowHintsKeyStroke(KeyStroke keyStroke) {
 		if (_showHintsKeyStrokes == null) {
-			_showHintsKeyStrokes = new ArrayList<>();
+			_showHintsKeyStrokes = new ArrayList<KeyStroke>();
 		}
 		_showHintsKeyStrokes.add(keyStroke);
 		DelegateAction.replaceAction(getTextComponent(), JComponent.WHEN_FOCUSED, keyStroke, _showAction);
@@ -596,8 +594,7 @@ public abstract class AbstractIntelliHints implements IntelliHints {
 	}
 
 	private class LazyDelegateAction extends DelegateAction {
-		private KeyStroke _keyStroke;
-
+		private final KeyStroke _keyStroke;
 		public LazyDelegateAction(KeyStroke keyStroke) {
 			_keyStroke = keyStroke;
 		}

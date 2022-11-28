@@ -11,29 +11,20 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 /**
- * DelegateAction is a special AbstractAction which can do something then delegate to another action depending on the
- * return value of {@link #delegateActionPerformed(ActionEvent)}. There are two usages of it. First, you
- * can use {@link #replaceAction(JComponent, int, KeyStroke, DelegateAction)} to replace the action
- * associated with the specified keystroke with the DelegateAction. The DelegateAction will be triggered when the
- * keystroke is pressed. After DelegateAction is done, it can return true or false. If false, the original action
- * associated with the keystroke will be triggered as well. This solves the problem that {@link
- * JComponent#registerKeyboardAction(ActionListener, String, KeyStroke, int)} will replace the
- * original action so that the original action will never be triggered.
- * <p/>
- * The second way to use DelegateAction is to delegate the action from one component to another component using {@link
- * #replaceAction(JComponent, int, JComponent, int, KeyStroke, DelegateAction)}. In this
- * case, the keystroke on the first component parameter will be triggered the DelegateAction. If DelegateAction returns
- * false, the registered action on the second component parameter will be triggered. If you pass in {@link
- * PassthroughDelegateAction}, the registered action on the second component will always be triggered.
- * <p/>
- * Please notes, if you call replaceAction several times on the same component with the same keystroke, it will form a
- * chain of DelegateActions. In this case, the first call will be the first DelegateAction. In the other words, the
- * first one will have the highest priority and will be triggered first. Ideally, we should assign a priority to each
- * DelegateAction. But for the sake of simplicity, we decided not doing it for now. So because of this, this class is
- * not ready to be used as public API. We have to make it public because different packages in JIDE need to use it. If
- * you want to use, please use it with caution. We don't guarantee that we will not change the public methods on this
- * classes.
- * <p/>
+ * DelegateAction 是一个特殊的 AbstractAction，它可以做一些事情，然后根据{@link #delegateActionPerformed(ActionEvent)}的返回值委
+ * 托给另一个动作。它有两种用法。首先，您可以使用{@link #replaceAction(JComponent, int, KeyStroke, DelegateAction)}将与指定击键关
+ * 联的操作替换为 DelegateAction。按下击键时将触发 DelegateAction。 DelegateAction 完成后，它可以返回 true 或 false。如果为 false，
+ * 则与击键关联的原始操作也将被触发。这解决了JComponent.registerKeyboardAction(ActionListener, String, KeyStroke, int)会替换原来
+ * 的动作，使原来的动作永远不会被触发的问题。
+ * <p>
+ * 使用 DelegateAction 的第二种方法是使用{@link JComponent#registerKeyboardAction(ActionListener, String, KeyStroke, int)}
+ * 将操作从一个组件委托给另一个组件。在这种情况下，第一个组件参数上的击键将触发 DelegateAction。如果 DelegateAction 返回 false，将触发
+ * 在第二个组件参数上注册的操作。如果你传入{@link PassthroughDelegateAction} ，第二个组件上的注册动作将始终被触发。
+ * <p>
+ * 请注意，如果您使用相同的击键在同一个组件上多次调用 replaceAction，它将形成一个 DelegateActions 链。在这种情况下，第一次调用将是第一个
+ * DelegateAction。换句话说，第一个将具有最高优先级并且将首先被触发。理想情况下，我们应该为每个 DelegateAction 分配一个优先级。但是为了
+ * 简单起见，我们决定暂时不这样做。因此，此类尚未准备好用作公共 API。我们必须将其公开，因为 JIDE 中的不同包需要使用它。如果要使用，请谨慎使
+ * 用。我们不保证我们不会更改此类的公共方法。
  */
 abstract public class DelegateAction extends AbstractAction {
 	private Action _action;

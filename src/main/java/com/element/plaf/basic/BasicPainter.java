@@ -1,7 +1,6 @@
 package com.element.plaf.basic;
 
 import com.element.color.ColorUtil;
-import com.element.jdk.JdkSpecificClass;
 import com.element.plaf.UIDefaultsLookup;
 import com.element.ui.button.HeaderBox;
 import com.element.ui.button.JideButton;
@@ -844,8 +843,8 @@ public class BasicPainter implements SwingConstants, ThemePainter {
 				} else {
 					x = rect.x + textWidth + H_GAP + ARROW_TEXT_GAP;
 				}
-				if (JdkSpecificClass.isSynthIcon(sortIcon)) {
-					JdkSpecificClass.paintTableHeaderIcon(c, sortIcon, g, x, y);
+				if (UIUtil.isSynthIcon(sortIcon)) {
+					UIUtil.paintTableHeaderIcon(c, sortIcon, g, x, y);
 				} else sortIcon.paintIcon(c, g, x, y);
 			}
 		} else {
@@ -859,8 +858,8 @@ public class BasicPainter implements SwingConstants, ThemePainter {
 					x = rect.x + H_GAP;
 				}
 				y = rect.y + yOffset;
-				if (JdkSpecificClass.isSynthIcon(sortIcon)) {
-					JdkSpecificClass.paintTableHeaderIcon(c, sortIcon, g, x, y);
+				if (UIUtil.isSynthIcon(sortIcon)) {
+					UIUtil.paintTableHeaderIcon(c, sortIcon, g, x, y);
 				} else sortIcon.paintIcon(c, g, x, y);
 			}
 		}

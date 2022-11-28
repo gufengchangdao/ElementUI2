@@ -4,7 +4,7 @@ import javax.swing.border.EtchedBorder;
 import java.awt.*;
 
 /**
- *
+ * 只在指定边绘制的蚀刻边框
  */
 public class PartialEtchedBorder extends EtchedBorder implements PartialSide {
 	private int _sides;
@@ -14,20 +14,41 @@ public class PartialEtchedBorder extends EtchedBorder implements PartialSide {
 		this(ALL);
 	}
 
+	/**
+	 * @param sides {@link PartialSide} 中的常量
+	 */
 	public PartialEtchedBorder(int sides) {
 		_sides = sides;
 	}
 
+	/**
+	 *
+	 * @param etchType
+	 * @param sides {@link PartialSide} 中的常量
+	 */
 	public PartialEtchedBorder(int etchType, int sides) {
 		super(etchType);
 		_sides = sides;
 	}
 
+	/**
+	 *
+	 * @param highlight
+	 * @param shadow
+	 * @param sides {@link PartialSide} 中的常量
+	 */
 	public PartialEtchedBorder(Color highlight, Color shadow, int sides) {
 		super(highlight, shadow);
 		_sides = sides;
 	}
 
+	/**
+	 *
+	 * @param etchType
+	 * @param highlight
+	 * @param shadow
+	 * @param sides {@link PartialSide} 中的常量
+	 */
 	public PartialEtchedBorder(int etchType, Color highlight, Color shadow, int sides) {
 		super(etchType, highlight, shadow);
 		_sides = sides;

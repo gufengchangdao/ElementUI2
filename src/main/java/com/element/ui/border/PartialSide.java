@@ -1,7 +1,7 @@
 package com.element.ui.border;
 
 /**
- *
+ * 绘制边的方向，这里使用2的幂次方的数方便位运算
  */
 public interface PartialSide {
 	int NORTH = 1;

@@ -14,7 +14,6 @@ import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.util.Vector;
 
-
 /**
  * <code>AbstractListIntelliHints</code> extends AbstractIntelliHints and further implement most of the methods in
  * interface {@link IntelliHints}. In this class, it assumes the hints can be represented as a JList,
@@ -23,8 +22,8 @@ import java.util.Vector;
  * @author Santhosh Kumar T - santhosh@in.fiorano.com
  * @author JIDE Software, Inc.
  */
-public abstract class AbstractListIntelliHints extends AbstractIntelliHints {
-	private JList _list;
+public abstract class AbstractListIntelliHints<E> extends AbstractIntelliHints {
+	private JList<E> _list;
 	protected KeyStroke[] _keyStrokes;
 	private JideScrollPane _scroll;
 
@@ -76,8 +75,8 @@ public abstract class AbstractListIntelliHints extends AbstractIntelliHints {
 	 *
 	 * @return the list.
 	 */
-	protected JList createList() {
-		return new JList() {
+	protected JList<E> createList() {
+		return new JList<E>() {
 			@Override
 			public int getVisibleRowCount() {
 				int size = getModel().getSize();
@@ -100,7 +99,7 @@ public abstract class AbstractListIntelliHints extends AbstractIntelliHints {
 	 *
 	 * @return the list.
 	 */
-	protected JList getList() {
+	protected JList<E> getList() {
 		return _list;
 	}
 
@@ -109,7 +108,7 @@ public abstract class AbstractListIntelliHints extends AbstractIntelliHints {
 	 *
 	 * @param objects
 	 */
-	protected void setListData(Object[] objects) {
+	protected void setListData(E[] objects) {
 		if (getList() == null) {
 			return;
 		}
@@ -128,7 +127,7 @@ public abstract class AbstractListIntelliHints extends AbstractIntelliHints {
 	 *
 	 * @param objects
 	 */
-	protected void setListData(Vector<?> objects) {
+	protected void setListData(Vector<E> objects) {
 		if (getList() == null) {
 			return;
 		}
@@ -149,7 +148,7 @@ public abstract class AbstractListIntelliHints extends AbstractIntelliHints {
 		getList().getSelectionModel().clearSelection();
 	}
 
-	public Object getSelectedHint() {
+	public E getSelectedHint() {
 		return getList() == null ? null : getList().getSelectedValue();
 	}
 

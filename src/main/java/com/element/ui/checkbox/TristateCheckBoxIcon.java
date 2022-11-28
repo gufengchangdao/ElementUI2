@@ -6,14 +6,14 @@
 
 package com.element.ui.checkbox;
 
-import com.element.jdk.JdkSpecificClass;
+import com.element.util.UIUtil;
 
 import javax.swing.*;
 import javax.swing.plaf.synth.SynthConstants;
 import java.awt.*;
 
 public class TristateCheckBoxIcon implements Icon, SynthConstants {
-	private UIDefaults.LazyValue _originalIcon;
+	private final UIDefaults.LazyValue _originalIcon;
 
 	public TristateCheckBoxIcon(UIDefaults.LazyValue originalIcon) {
 		_originalIcon = originalIcon;
@@ -21,11 +21,11 @@ public class TristateCheckBoxIcon implements Icon, SynthConstants {
 
 	public void paintIcon(Component c, Graphics g, int x, int y) {
 		Icon icon = (Icon) _originalIcon.createValue(UIManager.getDefaults());
-		if (JdkSpecificClass.isSynthIcon(icon)) {
+		if (UIUtil.isSynthIcon(icon)) {
 			int state = getComponentState((JComponent) c);
 			if (c instanceof TristateCheckBox && ((TristateCheckBox) c).getModel() instanceof TristateButtonModel && ((TristateButtonModel) ((TristateCheckBox) c).getModel()).isMixed())
 				state &= ~SynthConstants.SELECTED;
-			JdkSpecificClass.paintCheckBoxIcon((JComponent) c, icon, g, state, x, y);
+			UIUtil.paintCheckBoxIcon((JComponent) c, icon, g, state, x, y);
 		} else {
 			if (c instanceof TristateCheckBox && ((TristateCheckBox) c).getModel() instanceof TristateButtonModel && ((TristateButtonModel) ((TristateCheckBox) c).getModel()).isMixed()) {
 				((TristateButtonModel) ((TristateCheckBox) c).getModel()).internalSetSelected(false);

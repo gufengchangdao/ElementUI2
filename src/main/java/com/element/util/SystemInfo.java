@@ -5,8 +5,6 @@
  */
 package com.element.util;
 
-import com.element.jdk.JdkSpecificClass;
-
 import javax.swing.*;
 import java.awt.*;
 import java.lang.reflect.Field;
@@ -486,13 +484,6 @@ final public class SystemInfo {
 					if (groups >= 6 && matcher.group(6) != null) {
 						String s = matcher.group(6);
 						if (s != null && s.trim().length() > 0) _patch = s;
-					}
-				} else { // JDK9 and above
-					int[] versions = JdkSpecificClass.getVersions();
-					if (versions != null) {
-						_majorVersion = versions[0];
-						_minorVersion = versions[1];
-						_buildNumber = versions[2];
 					}
 				}
 			} catch (NumberFormatException e) {

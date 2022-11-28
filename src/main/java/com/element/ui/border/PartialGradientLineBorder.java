@@ -11,12 +11,11 @@ import javax.swing.border.AbstractBorder;
 import java.awt.*;
 
 /**
- * This is a border which allows you to have gradient line only at one side or several sides.
+ * 允许您仅在一侧或多侧有渐变线的边框
  */
 public class PartialGradientLineBorder extends AbstractBorder implements PartialSide {
-
 	private int _sides = ALL;
-	private Color[] _colors;
+	private final Color[] _colors;
 	protected int _thickness;
 
 	public PartialGradientLineBorder(Color[] colors) {
@@ -75,20 +74,7 @@ public class PartialGradientLineBorder extends AbstractBorder implements Partial
 
 	@Override
 	public Insets getBorderInsets(Component c) {
-		Insets borderInsets = super.getBorderInsets(c);
-		if ((_sides & NORTH) == 0) {
-			borderInsets.top = 0;
-		}
-		if ((_sides & SOUTH) == 0) {
-			borderInsets.bottom = 0;
-		}
-		if ((_sides & WEST) == 0) {
-			borderInsets.left = 0;
-		}
-		if ((_sides & EAST) == 0) {
-			borderInsets.right = 0;
-		}
-		return borderInsets;
+		return getBorderInsets(c,new Insets(0,0,0,0));
 	}
 
 	@Override

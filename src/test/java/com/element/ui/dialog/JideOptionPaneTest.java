@@ -172,20 +172,16 @@ public class JideOptionPaneTest extends AbstractDemo {
 						options[3]                                  // option that should be made into a default button
 				);
 				switch (result) {
-					case 0: // yes
-						JideOptionPane.showMessageDialog(getDemoPanel(), "Upbeat and positive! I like that! Good choice.");
-						break;
-					case 1: // no
-						JideOptionPane.showMessageDialog(getDemoPanel(), "Definitely not, I wouldn't do it either.");
-						break;
-					case 2: // maybe
-						JideOptionPane.showMessageDialog(getDemoPanel(), "<html><font color=black> Mmmm.. yes, the situation is unclear at this <br> time. Check back when you know for sure.</font></html>");
-						break;
-					case 3: // probably
-						JideOptionPane.showMessageDialog(getDemoPanel(), "<html><font color=black>You know you want to. I think you should <br> have gone for broke and pressed \"Yes\".</font></html>");
-						break;
-					default:
-						break;
+					case 0 -> // yes
+							JideOptionPane.showMessageDialog(getDemoPanel(), "Upbeat and positive! I like that! Good choice.");
+					case 1 -> // no
+							JideOptionPane.showMessageDialog(getDemoPanel(), "Definitely not, I wouldn't do it either.");
+					case 2 -> // maybe
+							JideOptionPane.showMessageDialog(getDemoPanel(), "<html><font color=black> Mmmm.. yes, the situation is unclear at this <br> time. Check back when you know for sure.</font></html>");
+					case 3 -> // probably
+							JideOptionPane.showMessageDialog(getDemoPanel(), "<html><font color=black>You know you want to. I think you should <br> have gone for broke and pressed \"Yes\".</font></html>");
+					default -> {
+					}
 				}
 
 			}

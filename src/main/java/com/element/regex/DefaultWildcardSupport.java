@@ -1,4 +1,4 @@
-package com.element.wildcard;
+package com.element.regex;
 
 /**
  * {@link WildcardSupport}的默认实现。它使用以下三个字符作为通配符。

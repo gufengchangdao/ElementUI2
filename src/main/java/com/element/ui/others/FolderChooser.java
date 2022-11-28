@@ -5,7 +5,6 @@
  */
 package com.element.ui.others;
 
-import com.element.comparator.AlphanumFileComparator;
 import com.element.plaf.LookAndFeelFactory;
 import com.element.plaf.UIDefaultsLookup;
 import com.element.util.CompareUtil;

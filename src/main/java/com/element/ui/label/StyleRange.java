@@ -3,19 +3,16 @@
  *
  * Copyright 2002 - 2005 JIDE Software Inc. All rights reserved.
  */
-package com.element.swing;
+package com.element.ui.label;
 
 import java.awt.*;
 
 /**
- * A data structure represents a style for a range of text. There are two categories of styles that currently supports.
- * One is the font style and color which includes bold, italic, superscript, subscript as well as the color of the text.
- * The other one is line color and style. The line style could be straight line, dotted line, waved line or any
- * customized style using Stroke. The line could be used as underline or strikethrough line.
- * <p/>
- * The name of StyleRange comes from SWT's StyleRange. We borrowed some design idea from it. StyledLabel is actually
- * very similar to SWT's StyledText. Saying that, the features of the two components are not exactly the same since the
- * purpose of the two components are quite different.
+ * 数据结构表示一系列文本的样式。目前支持两类样式。一种是字体样式和颜色，包括粗体、斜体、上标、下标以及文本的颜色。另一个是线条颜色和样式。线条
+ * 样式可以是直线、点线、波浪线或任何使用 Stroke 自定义的样式。该线可用作下划线或删除线。
+ * <p>
+ * StyleRange 的名字来源于SWT 的StyleRange。我们从中借鉴了一些设计理念。 StyledLabel 实际上与 SWT 的 StyledText 非常相似。话虽如此，
+ * 这两个组件的功能并不完全相同，因为这两个组件的用途完全不同。
  */
 public class StyleRange {
 	public static final int STYLE_STRIKE_THROUGH = 0x1;
@@ -25,17 +22,33 @@ public class StyleRange {
 	public static final int STYLE_DOTTED = STYLE_UNDERLINED << 1;
 	public static final int STYLE_SUPERSCRIPT = STYLE_DOTTED << 1;
 	public static final int STYLE_SUBSCRIPT = STYLE_SUPERSCRIPT << 1;
-
+	/** 字体样式。有效值为Font.PLAIN, Font.BOLD, Font.ITALIC, or Font.BOLD | Font.ITALIC */
 	private final int _fontStyle;
 	private final Color _fontColor;
 
 	private final Color _backgroundColor;
 
 	private final Color _lineColor;
+	/** 线条描边，如果在附加样式中存在线条，则将使用线条笔画来绘制线条。 */
 	private final Stroke _lineStroke;
+	/**
+	 * 额外的风格。这是您设置为获得各种样式的属性。有效值为
+	 * <ul>
+	 *     <li>STYLE_STRIKE_THROUGH</li>
+	 *     <li>STYLE_DOUBLE_STRIKE_THROUGH</li>
+	 *     <li>STYLE_WAVED</li>
+	 *     <li>STYLE_UNDERLINED</li>
+	 *     <li>STYLE_DOTTED</li>
+	 *     <li>STYLE_SUPERSCRIPT</li>
+	 *     <li>STYLE_SUBSCRIPT</li>
+	 * </ul>
+	 *
+	 * 它们在样式范围中定义为常数。你甚至可以通过使用“|”来使用几种风格的组合
+	 */
 	private final int _additionalStyle;
-
+	/** 该范围的起始索引 */
 	private int _start;
+	/** 该范围的长度 */
 	private int _length;
 
 	private float _fontShrinkRatio = 1.5f;

@@ -6,6 +6,7 @@
 package com.element.converter;
 
 import java.io.Serializable;
+import java.util.Objects;
 
 /**
  * <code>AbstractContext</code> is a generic context class. It has two fields: name and userObject. The name is just the
@@ -14,9 +15,9 @@ import java.io.Serializable;
  * example, in <code>ConverterContext</code>, we sometimes used it to pass in a <code>Format</code>.
  */
 abstract public class AbstractContext implements Serializable {
-	private String _name;
+	private String name;
 
-	private Object _userObject;
+	private Object userObject;
 
 	/**
 	 * Creates a named <code>AbstractContext</code>.
@@ -24,7 +25,7 @@ abstract public class AbstractContext implements Serializable {
 	 * @param name the name of the <code>AbstractContext</code>.
 	 */
 	public AbstractContext(String name) {
-		_name = name;
+		this.name = name;
 	}
 
 	/**
@@ -34,8 +35,8 @@ abstract public class AbstractContext implements Serializable {
 	 * @param object the user object. It can be used any object to pass information along.
 	 */
 	public AbstractContext(String name, Object object) {
-		_name = name;
-		_userObject = object;
+		this.name = name;
+		userObject = object;
 	}
 
 	/**
@@ -44,7 +45,7 @@ abstract public class AbstractContext implements Serializable {
 	 * @return the name of the abstract context
 	 */
 	public String getName() {
-		return _name;
+		return name;
 	}
 
 	/**
@@ -53,7 +54,7 @@ abstract public class AbstractContext implements Serializable {
 	 * @param name the name of the abstract context
 	 */
 	public void setName(String name) {
-		_name = name;
+		this.name = name;
 	}
 
 	/**
@@ -62,7 +63,7 @@ abstract public class AbstractContext implements Serializable {
 	 * @return the user object
 	 */
 	public Object getUserObject() {
-		return _userObject;
+		return userObject;
 	}
 
 	/**
@@ -71,7 +72,7 @@ abstract public class AbstractContext implements Serializable {
 	 * @param userObject the user object.
 	 */
 	public void setUserObject(Object userObject) {
-		_userObject = userObject;
+		this.userObject = userObject;
 	}
 
 	/**
@@ -83,14 +84,14 @@ abstract public class AbstractContext implements Serializable {
 	@Override
 	public boolean equals(Object o) {
 		if (this == o) return true;
-		if (!(o instanceof final AbstractContext abstractContext)) return false;
+		if (!(o instanceof AbstractContext abstractContext)) return false;
 
-		return !(_name != null ? !_name.equals(abstractContext._name) : abstractContext._name != null);
+		return Objects.equals(name, abstractContext.name);
 	}
 
 	@Override
 	public int hashCode() {
-		return (_name != null ? _name.hashCode() : 0);
+		return (name != null ? name.hashCode() : 0);
 	}
 
 	@Override

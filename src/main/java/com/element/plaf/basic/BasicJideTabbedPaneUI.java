@@ -7,7 +7,6 @@ package com.element.plaf.basic;
 
 import com.element.plaf.JideTabbedPaneUI;
 import com.element.plaf.UIDefaultsLookup;
-import com.element.ui.border.PartialLineBorder;
 import com.element.ui.tabs.JideTabbedPane;
 import com.element.ui.tabs.TabColorProvider;
 import com.element.util.UIUtil;
@@ -8964,7 +8963,7 @@ public class BasicJideTabbedPaneUI extends JideTabbedPaneUI implements SwingCons
 			setOpaque(false);
 //            setBorder(BorderFactory.createEmptyBorder());
 			setBorder(BorderFactory
-					.createCompoundBorder(new PartialLineBorder(Color.BLACK, 1, true),
+					.createCompoundBorder(BorderFactory.createLineBorder(Color.BLACK, 1, true),
 							BorderFactory.createEmptyBorder(0, 2, 0, 2)));
 		}
 

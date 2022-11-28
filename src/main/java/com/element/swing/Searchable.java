@@ -16,8 +16,8 @@ import com.element.util.CompareUtil;
 import com.element.util.ListenerUtil;
 import com.element.util.SearchableUtil;
 import com.element.util.UIUtil;
-import com.element.wildcard.DefaultWildcardSupport;
-import com.element.wildcard.WildcardSupport;
+import com.element.regex.DefaultWildcardSupport;
+import com.element.regex.WildcardSupport;
 
 import javax.swing.*;
 import javax.swing.event.*;

@@ -30,6 +30,10 @@ import javax.accessibility.Accessible;
 import javax.swing.*;
 import javax.swing.plaf.ComponentUI;
 import javax.swing.plaf.basic.ComboPopup;
+import javax.swing.plaf.synth.Region;
+import javax.swing.plaf.synth.SynthContext;
+import javax.swing.plaf.synth.SynthIcon;
+import javax.swing.plaf.synth.SynthLookAndFeel;
 import javax.swing.table.TableCellRenderer;
 import javax.swing.text.JTextComponent;
 import javax.swing.tree.TreeCellRenderer;
@@ -38,6 +42,7 @@ import java.awt.geom.*;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.util.*;
+import java.util.List;
 import java.util.function.Supplier;
 
 /**
@@ -872,6 +877,67 @@ public class UIUtil implements SwingConstants {
 	public static void drawImageBorder(Graphics g, Image img, Rectangle rect, Insets ins, boolean drawCenter) {
 		drawImageBorder(g, new ImageIcon(img), rect, ins, drawCenter);
 	}
+
+	// ---------------------------------------------------------------------
+	// 图标
+	// ---------------------------------------------------------------------
+	private static WeakHashMap<String, Boolean> _synthIconMap;
+
+	/**
+	 * Check if the class name is a SynthIcon class name.
+	 * <p/>
+	 * It's an interface reserved in case Sun changes the name or package of the class SynthIcon.
+	 *
+	 * @param name the class name to check
+	 * @return true if it's a SynthIcon class name. Otherwise false.
+	 */
+	public static boolean isSynthIconClassName(String name) {
+		return name != null && name.contains("javax.swing.plaf.synth.SynthIcon");
+	}
+
+	public static boolean isSynthIcon(Icon icon) {
+		if (_synthIconMap == null) {
+			_synthIconMap = new WeakHashMap<>();
+		}
+		Class<?> aClass = icon.getClass();
+		List<String> classNamesToPut = new ArrayList<>();
+		boolean isSynthIcon = false;
+		while (aClass != null) {
+			String name = aClass.getCanonicalName();
+			if (name != null) {
+				Boolean value = _synthIconMap.get(name);
+				if (value != null) return value;
+				classNamesToPut.add(name);
+				if (isSynthIconClassName(name)) {
+					isSynthIcon = true;
+					break;
+				}
+			}
+			aClass = aClass.getSuperclass();
+		}
+		for (String name : classNamesToPut) {
+			_synthIconMap.put(name, isSynthIcon);
+		}
+		return isSynthIcon;
+	}
+
+	public static void paintCheckBoxIcon(JComponent c, Icon icon, Graphics g, int state, int x, int y) {
+		SynthContext context = new SynthContext(c, Region.CHECK_BOX, SynthLookAndFeel.getStyle(c, Region.CHECK_BOX), state);
+		final int w = ((SynthIcon) icon).getIconWidth(context);
+		final int h = ((SynthIcon) icon).getIconHeight(context);
+		((SynthIcon) icon).paintIcon(context, g, x, y, w, h);
+	}
+
+	public static void paintTableHeaderIcon(JComponent c, Icon icon, Graphics g, int x, int y) {
+		SynthContext context = new SynthContext(c, Region.TABLE_HEADER, SynthLookAndFeel.getStyle(c, Region.TABLE_HEADER), 0);
+		((SynthIcon) icon).paintIcon(context, g, x, y, ((SynthIcon) icon).getIconWidth(context), ((SynthIcon) icon).getIconHeight(context));
+	}
+
+	public static void paintTableCellIcon(JTable table, Icon icon, Graphics g, int iconX, int iconY) {
+		SynthContext context = new SynthContext(table, Region.TREE_CELL, SynthLookAndFeel.getStyle(table, Region.TREE_CELL), 0);
+		((SynthIcon) icon).paintIcon(context, g, iconX, iconY, ((SynthIcon) icon).getIconWidth(context), ((SynthIcon) icon).getIconHeight(context));
+	}
+
 
 	// ---------------------------------------------------------------------
 	// 重绘
