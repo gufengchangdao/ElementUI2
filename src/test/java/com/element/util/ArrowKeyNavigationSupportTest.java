@@ -4,7 +4,6 @@ import com.element.plaf.LookAndFeelFactory;
 import com.element.swing.ArrowKeyNavigationSupport;
 import com.element.ui.dialog.ButtonPanel;
 import demo.AbstractDemo;
-import demo.SwingTestUtil;
 
 import javax.swing.*;
 import java.awt.*;

@@ -16,7 +16,6 @@ import com.element.ui.layout.JideBoxLayout;
 import com.element.ui.popup.JidePopup;
 import com.element.ui.popup.JidePopupFactory;
 import com.element.util.CompareUtil;
-import com.element.util.UIUtil;
 import com.element.util.WrapperUtil;
 
 import javax.swing.*;

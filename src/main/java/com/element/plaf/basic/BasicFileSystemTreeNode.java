@@ -42,7 +42,7 @@ class BasicFileSystemTreeNode extends LazyMutableTreeNode implements Comparable 
 
 	public boolean hasChildren() {
 		if (!_loaded) {
-			if (BasicFolderChooserUI.isFileSystem(_file) && _file.isDirectory()) {
+			if (_file.exists() && _file.isDirectory()) {
 				File[] files = _folderChooser.getFileSystemView().getFiles(_file, _folderChooser.isFileHidingEnabled());
 				for (File file : files) {
 					if (file.isDirectory()) {

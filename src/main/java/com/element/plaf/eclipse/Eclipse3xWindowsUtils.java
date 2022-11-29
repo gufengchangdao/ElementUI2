@@ -34,7 +34,7 @@ public class Eclipse3xWindowsUtils extends EclipseWindowsUtils {
 	 */
 	public static void initClassDefaults(UIDefaults table) {
 		EclipseWindowsUtils.initClassDefaults(table);
-		table.put("JideTabbedPaneUI", "com.jidesoft.plaf.eclipse.Eclipse3xJideTabbedPaneUI");
+		table.put("JideTabbedPaneUI", "com.element.plaf.eclipse.Eclipse3xJideTabbedPaneUI");
 	}
 
 	/**

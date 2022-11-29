@@ -7,7 +7,6 @@
 package com.element.range;
 
 import com.element.util.CompareUtil;
-import com.element.util.UIUtil;
 
 import java.beans.PropertyChangeListener;
 import java.util.ArrayList;

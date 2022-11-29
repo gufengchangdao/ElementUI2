@@ -6,7 +6,6 @@
 package com.element.ui.dialog;
 
 import com.element.util.CompareUtil;
-import com.element.util.UIUtil;
 
 import javax.swing.*;
 import java.util.ArrayList;

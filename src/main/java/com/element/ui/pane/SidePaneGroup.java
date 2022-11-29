@@ -8,7 +8,6 @@ package com.element.ui.pane;
 import com.element.event.SidePaneEvent;
 import com.element.event.SidePaneListener;
 import com.element.util.ListenerUtil;
-import com.element.util.UIUtil;
 
 import javax.swing.event.EventListenerList;
 import java.awt.*;

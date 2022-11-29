@@ -34,12 +34,12 @@ public class CheckBoxListCellRenderer extends JPanel implements ListCellRenderer
 	protected ListCellRenderer _actualListRenderer;
 
 	public CheckBoxListCellRenderer(ListCellRenderer renderer) {
+		_actualListRenderer = renderer;
 		_checkBox.setBorder(BorderFactory.createEmptyBorder(0, 2, 0, 2));
 		_checkBox.setOpaque(false);
 		setOpaque(true);
 		setLayout(new BorderLayout(0, 0));
 		add(_checkBox, BorderLayout.BEFORE_LINE_BEGINS);
-		_actualListRenderer = renderer;
 	}
 
 	/**
@@ -49,14 +49,7 @@ public class CheckBoxListCellRenderer extends JPanel implements ListCellRenderer
 		this(null);
 	}
 
-	public ListCellRenderer getActualListRenderer() {
-		return _actualListRenderer;
-	}
-
-	public void setActualListRenderer(ListCellRenderer actualListRenderer) {
-		_actualListRenderer = actualListRenderer;
-	}
-
+	/** 显示提示文本，重写是规定提示文本的位置 */
 	@Override
 	public String getToolTipText(MouseEvent event) {
 		if (_actualListRenderer instanceof JComponent) {
@@ -68,12 +61,9 @@ public class CheckBoxListCellRenderer extends JPanel implements ListCellRenderer
 					p.x, p.y, event.getClickCount(),
 					event.isPopupTrigger());
 
-			String tip = ((JComponent) _actualListRenderer).getToolTipText(
-					newEvent);
+			String tip = ((JComponent) _actualListRenderer).getToolTipText(newEvent);
 
-			if (tip != null) {
-				return tip;
-			}
+			if (tip != null) return tip;
 		}
 		return super.getToolTipText(event);
 	}
@@ -83,7 +73,6 @@ public class CheckBoxListCellRenderer extends JPanel implements ListCellRenderer
 	                                              int index,
 	                                              boolean isSelected,
 	                                              boolean cellHasFocus) {
-
 		applyComponentOrientation(list.getComponentOrientation());
 		setLocale(list.getLocale());
 
@@ -215,8 +204,15 @@ public class CheckBoxListCellRenderer extends JPanel implements ListCellRenderer
 	 * version of Swing.  As of 1.4, support for long term storage of all JavaBeans<sup><font size="-2">TM</font></sup>
 	 * has been added to the <code>java.beans</code> package. Please see {@link java.beans.XMLEncoder}.
 	 */
-	public static class UIResource extends CheckBoxListCellRenderer
-			implements javax.swing.plaf.UIResource {
+	public static class UIResource extends CheckBoxListCellRenderer implements javax.swing.plaf.UIResource {
 	}
 
+
+	public ListCellRenderer getActualListRenderer() {
+		return _actualListRenderer;
+	}
+
+	public void setActualListRenderer(ListCellRenderer actualListRenderer) {
+		_actualListRenderer = actualListRenderer;
+	}
 }

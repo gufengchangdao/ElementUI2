@@ -6,8 +6,8 @@
 package com.element.plaf.basic;
 
 import com.element.plaf.UIDefaultsLookup;
-import com.element.ui.label.StyleRange;
 import com.element.ui.font.FontUtils;
+import com.element.ui.label.StyleRange;
 import com.element.ui.label.StyledLabel;
 import com.element.util.UIUtil;
 

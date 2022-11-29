@@ -5,8 +5,6 @@
  */
 package com.element.ui.nullc;
 
-import com.element.ui.checkbox.TristateCheckBox;
-
 import javax.swing.*;
 import javax.swing.plaf.ColorUIResource;
 import javax.swing.plaf.FontUIResource;
@@ -70,7 +68,7 @@ import java.awt.*;
  * @see NullRadioButton
  * @see NullPanel
  */
-public class NullTristateCheckBox extends TristateCheckBox {
+public class NullTristateCheckBox extends JCheckBox {
 	public NullTristateCheckBox() {
 		clearAttribute();
 	}

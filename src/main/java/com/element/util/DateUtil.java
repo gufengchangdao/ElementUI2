@@ -14,7 +14,6 @@ import java.util.Date;
 import java.util.List;
 
 import static java.util.Calendar.*;
-import static java.util.Calendar.MILLISECOND;
 
 /**
  * 日期时间工具类
@@ -348,7 +347,9 @@ public class DateUtil {
 		return cal.get(Calendar.MONTH) / 3 + 1 == quarter;
 	}
 
-	public static boolean isSameYear(Calendar c1, Calendar c2) {return isSameInField(YEAR, c1, c2);}
+	public static boolean isSameYear(Calendar c1, Calendar c2) {
+		return isSameInField(YEAR, c1, c2);
+	}
 
 	public static boolean isSameMonth(Calendar c1, Calendar c2) {
 		return isSameInField(MONTH, c1, c2);

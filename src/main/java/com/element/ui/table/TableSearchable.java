@@ -8,7 +8,6 @@ package com.element.ui.table;
 import com.element.event.SearchableEvent;
 import com.element.swing.Searchable;
 import com.element.util.CompareUtil;
-import com.element.util.UIUtil;
 
 import javax.swing.*;
 import javax.swing.event.TableModelEvent;

@@ -122,6 +122,7 @@ abstract public class AbstractDemo implements Demo {
 	 */
 	protected static JComponent createOptionsPanel(JFrame parentFrame, Demo demo, Component demoPanel) {
 		if (demoPanel != null) {
+			ArrayList<String> nameList = new ArrayList<>();
 			ArrayList<Component> list = new ArrayList<>();
 			demoPanel.setName("Demo.DemoPanel");
 			Component optionsPanel = demo.getOptionsPanel();
@@ -130,6 +131,7 @@ abstract public class AbstractDemo implements Demo {
 			}
 
 			if (optionsPanel != null) {
+				nameList.add(Resource.RB.getString("Demo.options"));
 				if (optionsPanel instanceof JComponent optionPanel) {
 					optionPanel.setBorder(BorderFactory.createEmptyBorder(8, 10, 8, 10));
 					UIUtil.setOpaqueRecursively(optionPanel, false);
@@ -139,6 +141,7 @@ abstract public class AbstractDemo implements Demo {
 
 			// 通用选项
 			if (demo.isCommonOptionsPaneVisible()) {
+				nameList.add(Resource.RB.getString("Demo.commonOptions"));
 				JComponent commonOptionsPanel = createCommonOptions(demoPanel);
 				commonOptionsPanel.setName("Demo.CommonOptionsPanel");
 				commonOptionsPanel.setBorder(BorderFactory.createEmptyBorder(8, 10, 8, 10));
@@ -149,6 +152,7 @@ abstract public class AbstractDemo implements Demo {
 			// 详细介绍
 			String description = demo.getDescription();
 			if (description != null && description.trim().length() > 0) {
+				nameList.add(Resource.RB.getString("Demo.description"));
 				MultilineLabel label = new MultilineLabel(description);
 				label.setColumns(30);
 				label.setBorder(BorderFactory.createEmptyBorder(8, 10, 8, 10));
@@ -156,8 +160,11 @@ abstract public class AbstractDemo implements Demo {
 			}
 
 			// 源代码
-			String[] source = demo.getDemoSource(); //java演示文件名
-			if (source != null && source.length > 0) {
+			String[] source = Arrays.stream(demo.getDemoSource())
+					.map(aClass -> aClass.getName() + ".java")
+					.toArray(String[]::new);//java演示文件名
+			if (source.length > 0) {
+				nameList.add(Resource.RB.getString("Demo.source"));
 				JPanel panel = new JPanel(new BorderLayout(4, 4));
 				StringBuilder sourceFiles = new StringBuilder(MessageFormat.format(Resource.RB.getString("Demo.location"), "examples/" + demo.getDemoFolder()));
 				for (String s : source) {
@@ -179,9 +186,7 @@ abstract public class AbstractDemo implements Demo {
 				return null;
 			}
 
-			return new AccordionPanel(list,
-					Arrays.asList("通用选项", "详细介绍", "源代码").subList(0, list.size()),
-					Color.WHITE, new Color(0xC8_C8_FF));
+			return new AccordionPanel(list, nameList, Color.WHITE, new Color(0xC8_C8_FF));
 		}
 		return null;
 	}
@@ -227,9 +232,11 @@ abstract public class AbstractDemo implements Demo {
 		return panel;
 	}
 
-
-	public String[] getDemoSource() {
-		return new String[]{getClass().getName() + ".java"};
+	/**
+	 * 获取示例源码文件信息，类全名 + .java
+	 */
+	public Class<?>[] getDemoSource() {
+		return new Class[]{getClass()};
 	}
 
 	public String getDemoFolder() {
@@ -283,27 +290,27 @@ abstract public class AbstractDemo implements Demo {
 	 * @param sourceCode 要展示的源代码的包名列表
 	 * @return 源代码展示面板
 	 */
-	public static JComponent createSourceCodePanel(String[] sourceCode) {
-		JTabbedPane tabbedPane = new JTabbedPane(JideTabbedPane.BOTTOM);
+	public static JComponent createSourceCodePanel(Class<?>[] sourceCode) {
+		JTabbedPane tabbedPane = new JTabbedPane(JideTabbedPane.BOTTOM, JTabbedPane.SCROLL_TAB_LAYOUT);
 
-		for (String s : sourceCode) {
-			String className = s.substring(Math.max(0, s.substring(0, s.lastIndexOf(".")).lastIndexOf(".") + 1));
-			tabbedPane.addTab(className, new JScrollPane(createTextComponent(s)));
+		for (Class<?> c : sourceCode) {
+			String className = c.getName();
+			tabbedPane.addTab(className, new JScrollPane(createTextComponent(c)));
 		}
 		return tabbedPane;
 	}
 
 	/** 单个源代码面板，为了省事，这里不是编辑器打开的，没有语法高亮效果 */
-	public static JComponent createTextComponent(String fileName) {
+	public static JComponent createTextComponent(Class<?> c) {
 		JTextArea area = new JTextArea();
 		area.setEditable(false);
 		// 这里使用的是路径是：项目根目录\src\test\java\...
-		String packageName = fileName.substring(0, fileName.lastIndexOf("."));
-		String suffix = fileName.substring(fileName.lastIndexOf(".")); //.java
+		String packageName = c.getName();
+		String suffix = ".java";
 		String filePath = System.getProperty("user.dir") + File.separator + "src" + File.separator + "test" + File.separator + "java" + File.separator
 				+ packageName.replaceAll("\\.", "\\\\") + suffix;
-		try (BufferedReader br = new BufferedReader(
-				new FileReader(filePath))) {
+
+		try (BufferedReader br = new BufferedReader(new FileReader(filePath))) {
 			String line;
 			while ((line = br.readLine()) != null) {
 				area.append(line + "\n");

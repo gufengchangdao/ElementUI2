@@ -240,18 +240,10 @@ public class BannerPanel extends JPanel {
 	private void addIconComponent(JComponent component) {
 		if (component != null) {
 			switch (getTitleIconLocation()) {
-				case SwingConstants.EAST:
-					add(component, BorderLayout.EAST);
-					break;
-				case SwingConstants.WEST:
-					add(component, BorderLayout.WEST);
-					break;
-				case SwingConstants.LEADING:
-					add(component, BorderLayout.BEFORE_LINE_BEGINS);
-					break;
-				case SwingConstants.TRAILING:
-					add(component, BorderLayout.AFTER_LINE_ENDS);
-					break;
+				case SwingConstants.EAST -> add(component, BorderLayout.EAST);
+				case SwingConstants.WEST -> add(component, BorderLayout.WEST);
+				case SwingConstants.LEADING -> add(component, BorderLayout.BEFORE_LINE_BEGINS);
+				case SwingConstants.TRAILING -> add(component, BorderLayout.AFTER_LINE_ENDS);
 			}
 		}
 	}

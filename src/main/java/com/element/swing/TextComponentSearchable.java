@@ -7,7 +7,6 @@ package com.element.swing;
 
 import com.element.event.SearchableEvent;
 import com.element.util.ListenerUtil;
-import com.element.util.UIUtil;
 
 import javax.swing.*;
 import javax.swing.event.DocumentEvent;

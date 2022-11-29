@@ -65,7 +65,7 @@ public class FontUtil {
 	public static Font getFont(String fontFileName) {
 		try (InputStream in = Resources.class.getResourceAsStream(fontFileName)) {
 			return Font.createFont(Font.TRUETYPE_FONT, Objects.requireNonNull(in));
-		} catch (NullPointerException |IOException | FontFormatException e) {
+		} catch (NullPointerException | IOException | FontFormatException e) {
 			throw new RuntimeException(e);
 		}
 	}

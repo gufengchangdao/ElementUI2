@@ -74,7 +74,7 @@ public class PartialGradientLineBorder extends AbstractBorder implements Partial
 
 	@Override
 	public Insets getBorderInsets(Component c) {
-		return getBorderInsets(c,new Insets(0,0,0,0));
+		return getBorderInsets(c, new Insets(0, 0, 0, 0));
 	}
 
 	@Override

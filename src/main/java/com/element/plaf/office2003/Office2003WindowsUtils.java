@@ -44,14 +44,14 @@ public class Office2003WindowsUtils extends VsnetWindowsUtils {
 
 		int products = LookAndFeelFactory.getProductsUsed();
 
-		table.put("JideTabbedPaneUI", "com.jidesoft.plaf.office2003.Office2003JideTabbedPaneUI");
+		table.put("JideTabbedPaneUI", "com.element.plaf.office2003.Office2003JideTabbedPaneUI");
 
 		if ((products & PRODUCT_DOCK) != 0) {
-			table.put("SidePaneUI", "com.jidesoft.plaf.office2003.Office2003SidePaneUI");
+			table.put("SidePaneUI", "com.element.plaf.office2003.Office2003SidePaneUI");
 		}
 
 		if ((products & PRODUCT_COMPONENTS) != 0) {
-			table.put("CollapsiblePaneUI", "com.jidesoft.plaf.office2003.Office2003CollapsiblePaneUI");
+			table.put("CollapsiblePaneUI", "com.element.plaf.office2003.Office2003CollapsiblePaneUI");
 		}
 	}
 

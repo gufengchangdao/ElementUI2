@@ -31,7 +31,7 @@ public interface Demo extends Serializable {
 	/**
 	 * 获取演示的源代码。
 	 */
-	String[] getDemoSource();
+	Class<?>[] getDemoSource();
 
 	/**
 	 * 获取演示源代码的文件夹。

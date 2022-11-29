@@ -2,7 +2,7 @@ package lab.action;// -*- mode:java; encoding:utf-8 -*-
 // vim:set fileencoding=utf-8:
 // @homepage@
 
-import demo.SwingTestUtil;
+import com.element.util.SwingTestUtil;
 
 import javax.swing.*;
 import javax.swing.text.Caret;

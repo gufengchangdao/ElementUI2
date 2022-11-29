@@ -6,28 +6,22 @@
 package com.element.ui.pane;
 
 import com.element.util.ListenerUtil;
-import com.element.util.UIUtil;
 
 import javax.swing.*;
 import javax.swing.plaf.UIResource;
 import java.awt.*;
 
 /**
- * <code>JideScrollPane</code> is an enhanced version of <code>JScrollPane</code>. In <code>JScrollPane</code>, you can
- * have rowHeader and columnHeader. However you can't have rowFooter and columnFooter. However rowFooter and
- * columnFooter are very useful in table. For example they can be used to display "total" or "summary" type of
- * information.
- * <p/>
- * Several methods related to rowFooter and columnFooter are added such as {@link #setRowFooter(JViewport)},
- * and {@link #setColumnFooter(JViewport)} which will set the viewport to rowFooter and columnFooter area
- * respectively. The usage of those methods are exactly the same as {@link JScrollPane#setRowHeader(JViewport)}.
- * <p/>
- * To fully leverage the power of JideScrollPane, we also create a class called <code>TableScrollPane</code> which is
- * part of JIDE Grids package. It will allow you to easily create table with row header, row footer and column footer.
- * <p><code>JideScrollPane</code> also provides support for scrollbar corners. You can set them using {@link
- * #setScrollBarCorner(String, Component)}. Available key for scroll bar corner is defined at {@link
- * JideScrollPaneConstants}  which can be access from <code>JideScrollPane</code>.
- * <p/>
+ * JideScrollPane是JScrollPane的增强版。在JScrollPane中，你可以有 rowHeader 和 columnHeader。但是，您不能有 rowFooter 和
+ * columnFooter。然而 rowFooter 和 columnFooter 在表格中非常有用。例如，它们可用于显示“总计”或“摘要”类型的信息。
+ * <p>
+ * 添加了与rowFooter和columnFooter相关的几个方法，例如{@link #setRowFooter(JViewport)}和{@link #setColumnFooter(JViewport)} ，
+ * 它们将视口分别设置为rowFooter 和columnFooter 区域。这些方法的用法与{@link JScrollPane#setRowHeader(JViewport)}完全相同。
+ * <p>
+ * 为了充分利用 JideScrollPane 的强大功能，我们还创建了一个名为TableScrollPane的类，它是 JIDE Grids 包的一部分。它将允许您轻松创建带有
+ * 行标题、行脚注和列脚注的表格。JideScrollPane还提供了对滚动条角的支持。您可以使用{@link #setScrollBarCorner(String, Component)}设
+ * 置它们。滚动条角的可用键在{@link JideScrollPaneConstants}中定义，可以从JideScrollPane访问。
+ *
  * <b>Credit:</b> This implementation of scroll bar corner is based on work from Santhosh Kumar -
  * santhosh@in.fiorano.com.
  */

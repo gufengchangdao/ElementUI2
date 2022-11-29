@@ -16,58 +16,56 @@ import javax.swing.*;
  * #acceptHint(Object)} to accept it.
  */
 public interface IntelliHints {
-    /**
-     * The key of a client property. If a component has IntelliHints registered, you can use this client property to get
-     * the IntelliHints instance.
-     */
-    String CLIENT_PROPERTY_INTELLI_HINTS = "INTELLI_HINTS"; //NOI18N
+	/**
+	 * The key of a client property. If a component has IntelliHints registered, you can use this client property to get
+	 * the IntelliHints instance.
+	 */
+	String CLIENT_PROPERTY_INTELLI_HINTS = "INTELLI_HINTS"; //NOI18N
 
-    /**
-     * Creates the component which contains hints. At this moment, the content should be empty. Following call {@link
-     * #updateHints(Object, boolean)} will update the content.
-     *
-     * @return the component which will be used to display the hints.
-     */
-    JComponent createHintsComponent();
+	/**
+	 * Creates the component which contains hints. At this moment, the content should be empty. Following call {@link
+	 * #updateHints(Object, boolean)} will update the content.
+	 *
+	 * @return the component which will be used to display the hints.
+	 */
+	JComponent createHintsComponent();
 
-    /**
-     * Update hints depending on the context. This method will be triggered for every key typed event in the text
-     * component. Subclass can override it to provide your own list of hints and call setListData to set it and returns
-     * true after that.
-     *
-     * @param context the current context
-     *
-     * @return true or false. If it is false, hint popup will not be shown.
-     * @deprecated replaced it by {{@link #updateHints(Object, boolean)}}
-     */
-    @Deprecated
-    boolean updateHints(Object context);
+	/**
+	 * Update hints depending on the context. This method will be triggered for every key typed event in the text
+	 * component. Subclass can override it to provide your own list of hints and call setListData to set it and returns
+	 * true after that.
+	 *
+	 * @param context the current context
+	 * @return true or false. If it is false, hint popup will not be shown.
+	 * @deprecated replaced it by {{@link #updateHints(Object, boolean)}}
+	 */
+	@Deprecated
+	boolean updateHints(Object context);
 
-    /**
-     * Update hints depending on the context. This method will be triggered for every key typed event in the text
-     * component. Subclass can override it to provide your own list of hints and call setListData to set it and returns
-     * true after that.
-     *
-     * @param context   the current context
-     * @param autoPopup true or false. If true, it means this method was called through the auto-popup feature because
-     *                  of the show hint timer is triggered. If false, it means user pressed the show hint key stroke to
-     *                  show the popup.
-     *
-     * @return true or false. If it is false, hint popup will not be shown.
-     */
-    boolean updateHints(Object context, boolean autoPopup);
+	/**
+	 * Update hints depending on the context. This method will be triggered for every key typed event in the text
+	 * component. Subclass can override it to provide your own list of hints and call setListData to set it and returns
+	 * true after that.
+	 *
+	 * @param context   the current context
+	 * @param autoPopup true or false. If true, it means this method was called through the auto-popup feature because
+	 *                  of the show hint timer is triggered. If false, it means user pressed the show hint key stroke to
+	 *                  show the popup.
+	 * @return true or false. If it is false, hint popup will not be shown.
+	 */
+	boolean updateHints(Object context, boolean autoPopup);
 
-    /**
-     * Gets the selected value. This value will be used to complete the text component.
-     *
-     * @return the selected value.
-     */
-    Object getSelectedHint();
+	/**
+	 * Gets the selected value. This value will be used to complete the text component.
+	 *
+	 * @return the selected value.
+	 */
+	Object getSelectedHint();
 
-    /**
-     * Accepts the selected hint. Subclass can implements to decide how the new hint be set to the text component.
-     *
-     * @param hint the hint to be accepted.
-     */
-    void acceptHint(Object hint);
+	/**
+	 * Accepts the selected hint. Subclass can implements to decide how the new hint be set to the text component.
+	 *
+	 * @param hint the hint to be accepted.
+	 */
+	void acceptHint(Object hint);
 }

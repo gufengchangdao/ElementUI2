@@ -94,10 +94,10 @@ import java.util.*;
  *
  * <p>
  * 默认情况下，我们还在内部使用 UIDefaultsCustomizer 和 UIDefaultsInitializer 来提供对非标准 L&F 的支持。但是，我们查
- * 看"com.jidesoft.plaf"包下的类以获取默认定制器和初始化器。例如，对于 PlasticXPLookAndFeel，对应的定制器
- * 是“com.jidesoft.plaf.plasticxp.PlasticXPCustomizer”。我们基本上采用 L&F 名称"PlasticXP"，将其附加在"com.jidesoft.plaf"之后，
+ * 看"com.element.plaf"包下的类以获取默认定制器和初始化器。例如，对于 PlasticXPLookAndFeel，对应的定制器
+ * 是“com.element.plaf.plasticxp.PlasticXPCustomizer”。我们基本上采用 L&F 名称"PlasticXP"，将其附加在"com.element.plaf"之后，
  * 使用小写字母获取包名，采用 L&F 名称，附加“Customizer”以获得类名。我们将查看 PlasticXPLookAndFeel 的超类，即 PlasticLookAndFeel。
- * PlasticLookAndFeel对应的customizer是"com.jidesoft.plaf.plastic.PlasticCustomizer"。这个搜索过程一直持续到我们找到 L&F 的所有
+ * PlasticLookAndFeel对应的customizer是"com.element.plaf.plastic.PlasticCustomizer"。这个搜索过程一直持续到我们找到 L&F 的所有
  * 超类。然后我们从它最顶层的超类开始，如果有的话，一个接一个地调用定制器。 src-plaf.jar 或 src-plaf-jdk7.jar 包含其中一些定制器。您可以
  * 使用此命名模式来创建定制器，这样您就不需要显式注册它们。
  * <p>
@@ -674,7 +674,8 @@ public class LookAndFeelFactory implements ProductNames {
 						ImageIcon titleButtonImage = IconsFactory.getImageIcon(VsnetWindowsUtils.class, "icons/title_buttons_windows.gif"); // 10 x 10 x 8
 						final int titleButtonSize = 10;
 
-						uiDefaults.put("DockableFrameUI", "com.jidesoft.plaf.vsnet.VsnetDockableFrameUI");
+						// TODO 没有这个UI
+						uiDefaults.put("DockableFrameUI", "com.element.plaf.vsnet.VsnetDockableFrameUI");
 						uiDefaults.put("DockableFrameTitlePane.hideIcon", IconsFactory.getIcon(null, titleButtonImage, 0, 0, titleButtonSize, titleButtonSize));
 						uiDefaults.put("DockableFrameTitlePane.unfloatIcon", IconsFactory.getIcon(null, titleButtonImage, 0, titleButtonSize, titleButtonSize, titleButtonSize));
 						uiDefaults.put("DockableFrameTitlePane.floatIcon", IconsFactory.getIcon(null, titleButtonImage, 0, 2 * titleButtonSize, titleButtonSize, titleButtonSize));
@@ -1025,7 +1026,7 @@ public class LookAndFeelFactory implements ProductNames {
 	}
 
 	private static String getDefaultInitializer(String lnf) {
-		return "com.jidesoft.plaf." + lnf.toLowerCase() + "." + lnf + "Initializer";
+		return "com.element.plaf." + lnf.toLowerCase() + "." + lnf + "Initializer";
 	}
 
 	private static String findDefaultInitializer(String lnfClassName) {
@@ -1090,7 +1091,7 @@ public class LookAndFeelFactory implements ProductNames {
 	}
 
 	private static String getDefaultCustomizer(String lnf) {
-		return "com.jidesoft.plaf." + lnf.toLowerCase() + "." + lnf + "Customizer";
+		return "com.element.plaf." + lnf.toLowerCase() + "." + lnf + "Customizer";
 	}
 
 	private static String findDefaultCustomizer(String lnfClassName) {

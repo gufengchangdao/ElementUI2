@@ -24,7 +24,7 @@ public class Eclipse3xMetalUtils extends EclipseMetalUtils {
 	 */
 	public static void initClassDefaults(UIDefaults table) {
 		EclipseLookAndFeelExtension.initClassDefaults(table);
-		table.put("JideTabbedPaneUI", "com.jidesoft.plaf.eclipse.Eclipse3xJideTabbedPaneUI");
+		table.put("JideTabbedPaneUI", "com.element.plaf.eclipse.Eclipse3xJideTabbedPaneUI");
 	}
 
 	/**

@@ -1,7 +1,5 @@
 package com.element.util;
 
-import demo.SwingTestUtil;
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionListener;
@@ -34,7 +32,7 @@ public class SwingPropertyChangeSupportTest {
 			ActionListener l = e -> {
 				JButton b = (JButton) e.getSource();
 				String oldVal = b.getText();
-				String newVal = ""+System.currentTimeMillis();
+				String newVal = "" + System.currentTimeMillis();
 				b.setText(newVal);
 				new Thread(() -> {
 					if (e.getActionCommand().equals("b1")) pcs1.firePropertyChange("text", oldVal, newVal);

@@ -42,7 +42,7 @@ public class StyleRange {
 	 *     <li>STYLE_SUPERSCRIPT</li>
 	 *     <li>STYLE_SUBSCRIPT</li>
 	 * </ul>
-	 *
+	 * <p>
 	 * 它们在样式范围中定义为常数。你甚至可以通过使用“|”来使用几种风格的组合
 	 */
 	private final int _additionalStyle;

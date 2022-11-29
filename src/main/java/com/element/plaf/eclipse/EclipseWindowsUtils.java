@@ -12,7 +12,6 @@ import com.element.plaf.WindowsDesktopProperty;
 import com.element.plaf.basic.Painter;
 import com.element.plaf.basic.ThemePainter;
 import com.element.plaf.vsnet.HeaderCellBorder;
-import com.element.plaf.windows.WindowsIconFactory;
 import com.element.ui.button.JideButton;
 import com.element.ui.font.FontUtil;
 import com.element.ui.icons.IconsFactory;
@@ -53,7 +52,7 @@ public class EclipseWindowsUtils extends EclipseLookAndFeelExtension {
 	public static void initClassDefaults(UIDefaults table) {
 		EclipseLookAndFeelExtension.initClassDefaults(table);
 
-		final String windowsPackageName = "com.jidesoft.plaf.windows.";
+		final String windowsPackageName = "com.element.plaf.windows.";
 
 		int products = LookAndFeelFactory.getProductsUsed();
 
@@ -159,8 +158,6 @@ public class EclipseWindowsUtils extends EclipseLookAndFeelExtension {
 				"ENTER", "pressed",
 				"released ENTER", "released"
 		}),
-
-				"TristateCheckBox.icon", WindowsIconFactory.getCheckBoxIcon(),
 
 				"JideSplitPane.dividerSize", 3,
 				"JideSplitPaneDivider.border", new BorderUIResource(BorderFactory.createEmptyBorder()),

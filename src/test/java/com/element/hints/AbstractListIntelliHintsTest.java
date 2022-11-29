@@ -1,8 +1,8 @@
 package com.element.hints;
 
 import com.element.plaf.LookAndFeelFactory;
+import com.element.util.SwingTestUtil;
 import demo.AbstractDemo;
-import demo.SwingTestUtil;
 import net.miginfocom.swing.MigLayout;
 
 import javax.swing.*;

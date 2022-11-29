@@ -30,8 +30,7 @@ public class JideSplitPane extends JPanel implements ContainerListener, Componen
 	/**
 	 * The divider used for non-continuous layout is added to the split pane with this object.
 	 */
-	protected static final String NON_CONTINUOUS_DIVIDER =
-			"nonContinuousDivider";
+	protected static final String NON_CONTINUOUS_DIVIDER = "nonContinuousDivider";
 
 	/**
 	 * Vertical split indicates the <code>Component</code>s are split along the y axis.  For example the two or more

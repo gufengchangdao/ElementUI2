@@ -1,7 +1,6 @@
 package com.element.ui.list;
 
 import com.element.util.CompareUtil;
-import com.element.util.UIUtil;
 
 import javax.swing.*;
 import javax.swing.event.ListDataEvent;

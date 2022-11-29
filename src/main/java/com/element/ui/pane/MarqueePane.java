@@ -11,9 +11,14 @@ import javax.swing.*;
 import java.awt.*;
 
 /**
- * <code>MarqueePane</code> is a subclass of <code>JScrollPane</code> with automation of scrolling. In
- * <code>MarqueePane</code>, you can define the direction you want the component inside the <code>MarqueePane</code> to
- * scroll to and the scrolling speed.
+ * MarqueePane是JScrollPane的子类，具有自动滚动功能。在MarqueePane中，您可以定义希望MarqueePane内的组件滚动到的方向和滚动速度。
+ * <p>
+ * 支持的特性
+ * <ul>
+ *     <li>更改滚动方向。它可以向上、向下、向右或向左滚动。</li>
+ *     <li>更改滚动数量。它在每个循环中滚动的像素数。它越小，看起来就越平滑</li>
+ *     <li>卷轴和停留。例如，当您滚动一个文本时，它可以逐行滚动，并在每一行上停留一段时间，以便可以读取这一行上的全文。</li>
+ * </ul>
  */
 public class MarqueePane extends JScrollPane {
 	private int _scrollDelay = 100;

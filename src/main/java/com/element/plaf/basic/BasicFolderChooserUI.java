@@ -11,7 +11,6 @@ import com.element.ui.layout.JideBoxLayout;
 import com.element.ui.others.FolderChooser;
 import com.element.util.SelectAllUtil;
 import com.element.util.SystemInfo;
-import sun.awt.shell.ShellFolder;
 
 import javax.swing.*;
 import javax.swing.event.TreeSelectionEvent;
@@ -250,7 +249,7 @@ public class BasicFolderChooserUI extends BasicFileChooserUI {
 			 * @return <code>true</code> only if the file and all children were successfully deleted.
 			 */
 			public boolean recursiveDelete(File file) {
-				if (isFileSystem(file)) {
+				if (file.exists()) {
 					if (file.isDirectory()) {
 						// delete all children first
 						File[] children = FileSystemView.getFileSystemView().getFiles(file, false);
@@ -508,23 +507,6 @@ public class BasicFolderChooserUI extends BasicFileChooserUI {
 		}
 	}
 
-	/**
-	 * Checks if <code>f</code> represents a real directory or file as opposed to a special folder such as
-	 * <code>"Desktop"</code>. Used by UI classes to decide if a folder is selectable when doing directory choosing.
-	 *
-	 * @param f a <code>File</code> object
-	 * @return <code>true</code> if <code>f</code> is a real file or directory.
-	 */
-	public static boolean isFileSystem(File f) {
-		if (f instanceof ShellFolder sf) {
-			// Shortcuts to directories are treated as not being file system objects,
-			// so that they are never returned by JFileChooser.
-			return sf.isFileSystem() && !(sf.isLink() && sf.isDirectory());
-		} else {
-			return true;
-		}
-	}
-
 	private TreePath getTreePathForFile(File file) {
 		if (!file.isDirectory()) {
 			return null;
@@ -538,7 +520,7 @@ public class BasicFolderChooserUI extends BasicFileChooserUI {
 		if (SystemInfo.isWindows()) {
 			File[] roots = view.getRoots();
 			root = roots[0];
-			if (isFileSystem(root) && root.isDirectory()) {
+			if (root.exists() && root.isDirectory()) {
 				alternativeRoots = root.listFiles();
 			}
 		}

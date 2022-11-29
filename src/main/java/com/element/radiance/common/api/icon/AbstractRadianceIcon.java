@@ -124,14 +124,17 @@ public abstract class AbstractRadianceIcon implements RadianceIcon {
 		double coef2 = height / origHeight;
 		double coef = Math.min(coef1, coef2);
 		g2d.clipRect(0, 0, width, height);
+		// 按照最小的倍率缩小和放大
 		g2d.scale(coef, coef);
+		// 去除偏移量。缩放后图标相对于左上角的偏移量也会缩小和放大，将绘制起点回到左上角
 		g2d.translate(-origX, -origY);
 		if (coef1 != coef2) {
 			if (coef1 < coef2) {
-				int extraDy = (int) ((origWidth - origHeight) / 2.0);
+				// 高度没有缩放到给定的height，这里重新设置起点，使得图标垂直居中
+				double extraDy = (height / coef - origHeight) / 2.0;
 				g2d.translate(0, extraDy);
 			} else {
-				int extraDx = (int) ((origHeight - origWidth) / 2.0);
+				double extraDx = (width / coef - origWidth) / 2.0;
 				g2d.translate(extraDx, 0);
 			}
 		}

@@ -44,10 +44,10 @@ public class MetroWindowsUtils extends VsnetWindowsUtils {
 
 		int products = LookAndFeelFactory.getProductsUsed();
 
-		table.put("JideTabbedPaneUI", "com.jidesoft.plaf.office2007.Office2007JideTabbedPaneUI");
+		table.put("JideTabbedPaneUI", "com.element.plaf.office2007.Office2007JideTabbedPaneUI");
 
 		if ((products & PRODUCT_DOCK) != 0) {
-			table.put("SidePaneUI", "com.jidesoft.plaf.office2007.Office2007SidePaneUI");
+			table.put("SidePaneUI", "com.element.plaf.office2007.Office2007SidePaneUI");
 		}
 	}
 

@@ -595,6 +595,7 @@ public abstract class AbstractIntelliHints implements IntelliHints {
 
 	private class LazyDelegateAction extends DelegateAction {
 		private final KeyStroke _keyStroke;
+
 		public LazyDelegateAction(KeyStroke keyStroke) {
 			_keyStroke = keyStroke;
 		}

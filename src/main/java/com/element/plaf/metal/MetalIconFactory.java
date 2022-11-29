@@ -6,8 +6,6 @@
 
 package com.element.plaf.metal;
 
-import com.element.ui.checkbox.TristateButtonModel;
-
 import javax.swing.*;
 import javax.swing.plaf.UIResource;
 import javax.swing.plaf.metal.MetalLookAndFeel;
@@ -71,9 +69,7 @@ public class MetalIconFactory implements Serializable {
 			g.translate(-x, -y);
 
 			// the following statement added for LegacyTristateCheckBox
-			if (model instanceof TristateButtonModel && ((TristateButtonModel) model).isMixed()) {
-				drawSquare(c, g, x, y);
-			} else if (model.isSelected()) {
+			if (model.isSelected()) {
 				drawCheck(c, g, x, y);
 			}
 		}
@@ -100,9 +96,7 @@ public class MetalIconFactory implements Serializable {
 				g.drawRect(x, y, controlSize - 2, controlSize - 2);
 			}
 
-			if (model instanceof TristateButtonModel && ((TristateButtonModel) model).isMixed()) {
-				drawSquare(c, g, x, y);
-			} else if (model.isSelected()) {
+			if (model.isSelected()) {
 				drawCheck(c, g, x, y);
 			}
 

@@ -8,7 +8,6 @@
 package com.element.range;
 
 import com.element.util.CompareUtil;
-import com.element.util.UIUtil;
 
 import java.text.DateFormat;
 import java.util.Calendar;

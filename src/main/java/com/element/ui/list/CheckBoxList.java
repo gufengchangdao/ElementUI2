@@ -6,9 +6,7 @@
 package com.element.ui.list;
 
 
-import com.element.ui.tree.CheckBoxTree;
 import com.element.util.ListenerUtil;
-import com.element.util.UIUtil;
 
 import javax.swing.*;
 import javax.swing.event.ListDataEvent;
@@ -24,31 +22,24 @@ import java.util.List;
 import java.util.*;
 
 /**
- * <code>CheckBoxList</code> is a special JList which uses JCheckBox as the list element. In addition to regular JList
- * feature, it also allows you select any number of elements in the list by selecting the check boxes.
- * <p/>
- * To select an element, user can mouse click on the check box, or highlight the rows and press SPACE key to toggle the
- * selections.
- * <p/>
- * We used cell renderer feature in JList to add the check box in each row. However you can still set your own cell
- * renderer just like before using {@link #setCellRenderer(ListCellRenderer)}. CheckBoxList will use your
- * cell renderer and automatically put a check box before it.
- * <p/>
- * The selection state is kept in a ListSelectionModel called CheckBoxListSelectionModel, which you can get using {@link
- * CheckBoxList#getCheckBoxListSelectionModel()}. If you need to add a check to a check box or to find out if a check
- * box is checked, you need to ask the getCheckBoxListSelectionModel() by using addListSelectionListener.
- * <p/>
- * It is possible to add an "(All)" item. All you need to do is to add CheckBoxList.ALL_ENTRY to the list model. Then
- * check the (All) item will select all the check boxes and uncheck it will deselect all.
- * <p/>
- * Please note, we changed CheckBoxList implementation in 1.9.2 release. The old CheckBoxList class is renamed to {@link
- * CheckBoxListWithSelectable}. If you want to use the old implementation, you can use CheckBoxListWithSelectable
- * instead. The main difference between the two implementation is at how the selection state is kept. In new
- * implementation, the selection state is kept at a separate ListSelectionModel which you can get using {@link
- * CheckBoxList#getCheckBoxListSelectionModel()}. If you need to add a check to a check box or to find out if a check
- * box is checked, you need to ask the getCheckBoxListSelectionModel() by using addListSelectionListener. The old
- * implementation kept the selection state at Selectable object in the ListModel. The new implementation also has the
- * same design as that of {@link CheckBoxTree}.
+ * CheckBoxList是一个特殊的 JList，它使用 JCheckBox 作为列表元素。除了常规的 JList 功能外，它还允许您通过选中复选框来选择列表中的任意数量的元素。
+ * <p>
+ * 要选择一个元素，用户可以用鼠标单击复选框，或突出显示行并按空格键切换选择。
+ * <p>
+ * 我们使用 JList 中的单元格渲染器功能在每一行中添加复选框。但是，您仍然可以像使用{@link #setCellRenderer(ListCellRenderer)}之前一样
+ * 设置自己的单元格渲染器。 CheckBoxList 将使用您的单元格渲染器并自动在其前面放置一个复选框。
+ * <p>
+ * 选择状态保存在名为 CheckBoxListSelectionModel 的 ListSelectionModel 中，您可以使用
+ * {@link CheckBoxList#getCheckBoxListSelectionModel()}获取它。如果您需要向复选框添加检查或查明复选框是否被选中，则需要使用
+ * addListSelectionListener 询问 getCheckBoxListSelectionModel()。
+ * <p>
+ * 可以添加"(All)"项目。您需要做的就是将 CheckBoxList.ALL_ENTRY 添加到列表模型中。然后选中（全部）项将选中所有复选框，取消选中将取消全部选中。
+ * <p>
+ * 请注意，我们在 1.9.2 版本中更改了 CheckBoxList 实现。旧的 CheckBoxList 类重命名为CheckBoxListWithSelectable 。如果您想使用旧的实
+ * 现，则可以改用 CheckBoxListWithSelectable。两种实现之间的主要区别在于如何保持选择状态。在新的实现中，选择状态保存在一个单独的
+ * ListSelectionModel 中，您可以使用getCheckBoxListSelectionModel()获取它。如果您需要向复选框添加检查或查明复选框是否被选中，则需要使
+ * 用 addListSelectionListener 询问 getCheckBoxListSelectionModel()。旧实现将选择状态保持在 ListModel 中的 Selectable 对象。
+ * 新实现也具有与CheckBoxTree相同的设计。
  */
 public class CheckBoxList extends JList {
 	protected CheckBoxListCellRenderer _listCellRenderer;
@@ -63,14 +54,7 @@ public class CheckBoxList extends JList {
 	protected Handler _handler;
 
 	/**
-	 * @deprecated replaced by {@link #ALL_ENTRY}
-	 */
-	@Deprecated
-	public static final String ALL = "(All)";
-	/**
-	 * The default all entry for CheckBoxList.
-	 *
-	 * @since 3.4.1
+	 * CheckBoxList 的默认所有条目。因为这个对象可以被添加到List中，我没办法把该类泛型化
 	 */
 	public static final Object ALL_ENTRY = new AllEntry();
 

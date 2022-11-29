@@ -15,7 +15,6 @@ import com.element.plaf.office2003.Office2003WindowsUtils;
 import com.element.plaf.vsnet.HeaderCellBorder;
 import com.element.plaf.vsnet.ResizeFrameBorder;
 import com.element.plaf.vsnet.VsnetLookAndFeelExtension;
-import com.element.plaf.windows.WindowsIconFactory;
 import com.element.ui.font.FontUtil;
 import com.element.ui.icons.IconsFactory;
 import com.element.ui.icons.JideIconsFactory;
@@ -58,7 +57,7 @@ public class XertoWindowsUtils extends Office2003WindowsUtils {
 	private static void initClassDefaultsForXerto(UIDefaults table) {
 		int products = LookAndFeelFactory.getProductsUsed();
 
-		final String xertoPackageName = "com.jidesoft.plaf.xerto.";
+		final String xertoPackageName = "com.element.plaf.xerto.";
 
 		if ((products & PRODUCT_COMPONENTS) != 0) {
 			table.put("CollapsiblePaneUI", xertoPackageName + "XertoCollapsiblePaneUI");
@@ -255,8 +254,6 @@ public class XertoWindowsUtils extends Office2003WindowsUtils {
 				"ENTER", "pressed",
 				"released ENTER", "released"   // no last two for metal
 		}),
-
-				"TristateCheckBox.icon", WindowsIconFactory.getCheckBoxIcon(),
 
 				"JideSplitPane.dividerSize", 3,
 				"JideSplitPaneDivider.border", new BorderUIResource(BorderFactory.createEmptyBorder()),

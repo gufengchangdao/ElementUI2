@@ -8,7 +8,6 @@ package com.element.ui.dialog;
 
 import com.element.plaf.basic.BasicJideOptionPaneUI;
 import com.element.util.CompareUtil;
-import com.element.util.UIUtil;
 
 import javax.swing.*;
 import java.awt.*;

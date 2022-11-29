@@ -17,7 +17,6 @@ import javax.swing.*;
  * A helper class to contain icons for demo of JIDE products. Those icons are copyrighted by JIDE Software, Inc.
  */
 public class BasicFolderChooserIconsFactory {
-
 	public static class ToolBar {
 		public static final String NEW = "icons/new.png";
 		public static final String DELETE = "icons/delete.png";

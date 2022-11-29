@@ -8,6 +8,8 @@ package com.element.swing;
 import com.element.event.SearchableEvent;
 import com.element.event.SearchableListener;
 import com.element.plaf.UIDefaultsLookup;
+import com.element.regex.DefaultWildcardSupport;
+import com.element.regex.WildcardSupport;
 import com.element.ui.list.ListSearchable;
 import com.element.ui.popup.JidePopup;
 import com.element.ui.table.TableSearchable;
@@ -16,8 +18,6 @@ import com.element.util.CompareUtil;
 import com.element.util.ListenerUtil;
 import com.element.util.SearchableUtil;
 import com.element.util.UIUtil;
-import com.element.regex.DefaultWildcardSupport;
-import com.element.regex.WildcardSupport;
 
 import javax.swing.*;
 import javax.swing.event.*;

@@ -72,6 +72,8 @@ public class SvgTranscoder extends SvgBaseTranscoder {
 	public Document transcode(InputStream templateStream) {
 		if (this.listener == null)
 			return null;
+		if (templateStream == null)
+			throw new NullPointerException("模板输入流为null，请确认模板是否在正确的目录下");
 
 		UserAgentAdapter ua = new UserAgentAdapter();
 		DocumentLoader loader = new DocumentLoader(ua);

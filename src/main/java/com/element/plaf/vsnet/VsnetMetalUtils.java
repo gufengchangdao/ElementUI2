@@ -39,7 +39,7 @@ public class VsnetMetalUtils extends VsnetLookAndFeelExtension {
 	 */
 	public static void initClassDefaultsWithMenu(UIDefaults table) {
 		if (!Beans.isDesignTime()) {
-			table.put("MenuUI", "com.jidesoft.plaf.metal.MetalMenuUI");
+			table.put("MenuUI", "com.element.plaf.metal.MetalMenuUI");
 		}
 		initClassDefaults(table);
 	}
@@ -47,7 +47,7 @@ public class VsnetMetalUtils extends VsnetLookAndFeelExtension {
 	public static void initClassDefaults(UIDefaults table) {
 		VsnetLookAndFeelExtension.initClassDefaults(table);
 
-		final String metalPackageName = "com.jidesoft.plaf.metal.";
+		final String metalPackageName = "com.element.plaf.metal.";
 
 		int products = LookAndFeelFactory.getProductsUsed();
 

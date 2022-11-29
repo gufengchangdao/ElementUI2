@@ -1,6 +1,6 @@
 package lab.other.verifier;
 
-import demo.SwingTestUtil;
+import com.element.util.SwingTestUtil;
 import net.miginfocom.swing.MigLayout;
 
 import javax.swing.*;

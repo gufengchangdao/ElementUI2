@@ -788,7 +788,7 @@ public class JideSplitPaneDivider extends JPanel
 		if (_jideSplitPane.isOneTouchExpandable()) {
 			for (int i = 0; i < paneCount; i++) {
 				Component component = _jideSplitPane.getPaneAt(i);
-				component.setMinimumSize( new Dimension(0, 0));
+				component.setMinimumSize(new Dimension(0, 0));
 			}
 		} else {
 			for (int i = 0; i < paneCount; i++) {
@@ -870,6 +870,9 @@ public class JideSplitPaneDivider extends JPanel
 		return _currentState;
 	}
 
+	// 折叠/展开按钮的三角形按钮是通过直线绘制的，如果在设备上发现三角形中有间隙的话，就考虑使用RadianceIcon，虽然需要4个(不旋转的话)
+	// public final RadianceIcon RIGHT_ICON = CaretRightSvg.of(_buttonWidth,_buttonHeight);
+
 	/**
 	 * Builds the rightButton that can be used to expand/collapse a split panes divider to the right.
 	 *
@@ -878,43 +881,35 @@ public class JideSplitPaneDivider extends JPanel
 	protected JButton createRightOneTouchButton() {
 		JButton b = new JButton() {
 			@Override
-			public void setBorder(Border b) {
-			}
-
-			@Override
 			public void paint(Graphics g) {
-				if (_jideSplitPane != null) {
-					g.setColor(JideSplitPaneDivider.this.getBackground());
-					if (isOpaque()) {
-						g.fillRect(0, 0, this.getWidth(), this.getHeight());
+				if (_jideSplitPane == null) return;
+
+				g.setColor(JideSplitPaneDivider.this.getBackground());
+				if (isOpaque()) {
+					g.fillRect(0, 0, this.getWidth(), this.getHeight());
+				}
+
+				if (_jideSplitPane.getRightOneTouchButtonImageIcon() != null) {
+					_jideSplitPane.getRightOneTouchButtonImageIcon().paintIcon(this, g, 0, 0);
+				} else if (_orientation == JideSplitPane.HORIZONTAL_SPLIT) {
+					// 如果拆分窗格是水平拆分的，请绘制“右”按钮。
+					g.setColor(getDarkShadowColor());
+					int size = _triangleSize;
+					int j = 0;
+					for (int i = size - 1; i >= 0; i--) {
+						g.drawLine(j, size - i, j, size + i);
+						j++;
 					}
-
-					if (_jideSplitPane.getRightOneTouchButtonImageIcon() != null) {
-						_jideSplitPane.getRightOneTouchButtonImageIcon().paintIcon(this, g, 0, 0);
-					} else if (_orientation == JideSplitPane.HORIZONTAL_SPLIT) {
-
-						/*
-						 * If the split pane is horizontally split, paint the 'right' button.
-						 */
-						g.setColor(getDarkShadowColor());
-						int size = _triangleSize;
-						int j = 0;
-						for (int i = size - 1; i >= 0; i--) {
-							g.drawLine(j, size - i, j, size + i);
-							j++;
-						}
-					} else if (_orientation == JideSplitPane.VERTICAL_SPLIT) {
-
-						/*
-						 * If the split pane is vertically split, paint an 'down' button.
-						 */
-						g.setColor(getDarkShadowColor());
-						int size = _triangleSize;
-						int j = 0;
-						for (int i = size - 1; i >= 0; i--) {
-							g.drawLine(size - i, j, size + i, j);
-							j++;
-						}
+				} else if (_orientation == JideSplitPane.VERTICAL_SPLIT) {
+					/*
+					 * If the split pane is vertically split, paint an 'down' button.
+					 */
+					g.setColor(getDarkShadowColor());
+					int size = _triangleSize;
+					int j = 0;
+					for (int i = size - 1; i >= 0; i--) {
+						g.drawLine(size - i, j, size + i, j);
+						j++;
 					}
 				}
 			}
@@ -925,6 +920,7 @@ public class JideSplitPaneDivider extends JPanel
 				return false;
 			}
 		};
+		b.setMargin(new Insets(0, 0, 0, 0));
 		b.setMinimumSize(new Dimension(_buttonWidth, _buttonHeight));
 		b.setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
 		b.setFocusPainted(false);

@@ -3,7 +3,7 @@ package lab.component.combobox;
 // @homepage@
 
 
-import demo.SwingTestUtil;
+import com.element.util.SwingTestUtil;
 import net.miginfocom.swing.MigLayout;
 
 import javax.imageio.ImageIO;

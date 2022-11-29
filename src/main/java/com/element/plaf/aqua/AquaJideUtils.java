@@ -35,7 +35,7 @@ public class AquaJideUtils extends VsnetLookAndFeelExtension {
 	public static void initClassDefaults(UIDefaults table) {
 		VsnetLookAndFeelExtension.initClassDefaults(table);
 
-		final String aquaPackageName = "com.jidesoft.plaf.aqua.";
+		final String aquaPackageName = "com.element.plaf.aqua.";
 
 		int products = LookAndFeelFactory.getProductsUsed();
 

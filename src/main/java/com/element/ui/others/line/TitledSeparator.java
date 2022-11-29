@@ -73,7 +73,7 @@ public class TitledSeparator extends JLabel {
 	}
 
 	public TitledSeparator(String title, Font titleFont, Color titleColor,
-	                          Color startColor, Color endColor, int height, int titlePosition) {
+	                       Color startColor, Color endColor, int height, int titlePosition) {
 		super();
 		this.title = title;
 		this.titleFont = titleFont;

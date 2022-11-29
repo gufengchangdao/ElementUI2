@@ -30,11 +30,18 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
- * <code>JideTabbedPane</code> is an enhanced version of <code>JTabbedPane</code>. Different from
- * <code>JTabbedPane</code>, it <ul> <li> has an option to hide tab area if there is only one component in the tabbed
- * pane. <li> has an option to resize tab width so that all tabs can be fitted in one row. <li> has an option to show a
- * close button along with scroll left and scroll right buttons in tab area. </ul> Except methods to set additional
- * options specified above, the usage of <code>JideTabbedPane</code> is the same as <code>JTabbedPane</code>.
+ * JideTabbedPane是JTabbedPane的增强版本。不同于JTabbedPane ，它如果选项卡式窗格中只有一个组件，则可以选择隐藏选项卡区域。
+ * <ul>
+ *     <li>有许多您可以从中选择的选项卡形状，调用{@link #setTabShape(int)}</li>
+ *     <li>有不同的颜色主题可供选择。目前，它支持四个不同的主题。调用{@link #setColorTheme(int)}</li>
+ *     <li>有四个tab resize布局方式</li>
+ *     <li>如果选项卡窗格中只有一个组件，则有一个选项可以隐藏选项卡区域。</li>
+ *     <li>有一个选项可以在拐角、选项卡或选定选项卡上显示一个“关闭”按钮。</li>
+ *     <li>可以以粗体字体显示所选标签的标题。</li>
+ *     <li>还支持内联选项卡标题编辑，双击任何选项卡来开始编辑标题</li>
+ *     <li>允许标签引导组件和标签跟踪组件。此功能允许您将自己的组件添加到选项卡前后的区域中。</li>
+ *     <li>除了上面指定的设置其他选项的方法外， JideTabbedPane的用法与JTabbedPane相同。</li>
+ * </ul>
  */
 public class JideTabbedPane extends JTabbedPane {
 
@@ -2068,34 +2075,33 @@ public class JideTabbedPane extends JTabbedPane {
 		int x;
 		int y;
 		switch (getTabPlacement()) {
-			case TOP:
-			default:
-				if (getComponentOrientation().isLeftToRight()) {
-					x = bounds.x + bounds.width - size.width;
-				} else {
-					x = bounds.x;
-				}
-				y = bounds.y + bounds.height + 2;
-				break;
-			case BOTTOM:
+			case BOTTOM -> {
 				if (getComponentOrientation().isLeftToRight()) {
 					x = bounds.x + bounds.width - size.width;
 				} else {
 					x = bounds.x;
 				}
 				y = bounds.y - size.height - 2;
-				break;
-			case LEFT:
+			}
+			case LEFT -> {
 				x = bounds.x + bounds.width + 2;
 				y = bounds.y + bounds.height - size.height;
-				break;
-			case RIGHT:
+			}
+			case RIGHT -> {
 				x = bounds.x - size.width - 2;
 				y = bounds.y + bounds.height - size.height;
-				break;
+			}
+			default -> {
+				if (getComponentOrientation().isLeftToRight()) {
+					x = bounds.x + bounds.width - size.width;
+				} else {
+					x = bounds.x;
+				}
+				y = bounds.y + bounds.height + 2;
+			}
 		}
 
-		Rectangle screenBounds = UIUtil.getScreenBounds(this,true);
+		Rectangle screenBounds = UIUtil.getScreenBounds(this, true);
 		int right = x + size.width + 3;
 		int bottom = y + size.height + 3;
 
@@ -2191,11 +2197,7 @@ public class JideTabbedPane extends JTabbedPane {
 
 		list.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		int max = (UIUtil.getScreenSize(this).height - insets.top - insets.bottom) / list.getCellBounds(0, 0).height;
-		if (listModel.getSize() > max) {
-			list.setVisibleRowCount(max);
-		} else {
-			list.setVisibleRowCount(listModel.getSize());
-		}
+		list.setVisibleRowCount(Math.min(listModel.getSize(), max));
 		new Sticky(list);
 		list.setBackground(UIDefaultsLookup.getColor("JideTabbedPane.tabListBackground"));
 		return list;
@@ -2388,7 +2390,7 @@ public class JideTabbedPane extends JTabbedPane {
 				}
 			}
 			switch (type) {
-				case BUTTON_CLOSE:
+				case BUTTON_CLOSE -> {
 					if (isShowCloseButtonOnMouseOver() && !isMouseOver()) {
 						Object property = JideTabbedPane.this.getClientProperty("JideTabbedPane.mouseOverTabIndex");
 						if (property instanceof Integer && getIndex() >= 0 && (Integer) property != getIndex()) {
@@ -2404,20 +2406,8 @@ public class JideTabbedPane extends JTabbedPane {
 						g.drawLine(centerX - 3, centerY - 3, centerX + 3, centerY + 3);
 						g.drawLine(centerX + 3, centerY - 3, centerX - 3, centerY + 3);
 					}
-					break;
-				case BUTTON_EAST:
-					//
-					// |
-					// ||
-					// |||
-					// ||||
-					// ||||*
-					// ||||
-					// |||
-					// ||
-					// |
-					//
-				{
+				}
+				case BUTTON_EAST -> {
 					if (getTabPlacement() == TOP || getTabPlacement() == BOTTOM) {
 						int x = centerX + 2, y = centerY; // start point. mark as * above
 						if (isEnabled()) {
@@ -2447,19 +2437,7 @@ public class JideTabbedPane extends JTabbedPane {
 						}
 					}
 				}
-				break;
-				case BUTTON_WEST: {
-					//
-					//     |
-					//    ||
-					//   |||
-					//  ||||
-					// *||||
-					//  ||||
-					//   |||
-					//    ||
-					//     |
-					//
+				case BUTTON_WEST -> {
 					{
 						if (getTabPlacement() == TOP || getTabPlacement() == BOTTOM) {
 							int x = centerX - 3, y = centerY; // start point. mark as * above
@@ -2492,7 +2470,7 @@ public class JideTabbedPane extends JTabbedPane {
 					}
 					break;
 				}
-				case BUTTON_LIST: {
+				case BUTTON_LIST -> {
 					int x = centerX + 2, y = centerY; // start point. mark as
 					// * above
 					g.drawLine(x - 6, y - 4, x - 6, y + 4);

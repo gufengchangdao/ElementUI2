@@ -136,31 +136,28 @@ public class IconsFactory {
 	static Map<String, ImageIcon> _tintedIcons = new HashMap<>();
 
 	/**
-	 * Gets ImageIcon by passing class and a relative image file path.
+	 * 通过传递类和相对图像文件路径获取 ImageIcon。
+	 * 请注意，如果找不到图像，getImageIcon 将向 控制台 打印错误消息。我们这样做的原因是因为我们希望您确保所有图像文件都在您的应用程序中。
+	 * 如果您看到错误消息，您应该在发布前更正它。但是，如果您只想测试图像文件是否存在，则不希望打印出任何错误消息。如果是这样，您可以使用
+	 * {@link #findImageIcon(Class, String)}方法。当找不到图像时，它将抛出 IOException。
+	 * 我们使用这种方法创建了我们在 JIDE 代码中使用的所有图标。如果您想使用自己的图标而不是 JIDE 的默认图标，只需将它放到 UIManager 上即
+	 * 可。例如，AutoFilterTableHeader 在表头上使用一个图标。这就是它的名字。
+	 * <pre>
+	 *     IconsFactory.getImageIcon(AutoFilterTableHeader.class, "icons/filterYes_over.png")
+	 * </pre>
+	 * 这个图标的关键是"com.jidesoft.grid.AutoFilterTableHeader:icons/filterYes_over.png"。所以你可以调用下面的代码来注册你自己的图标。
+	 * <pre>
+	 *     UIManager.put("com.jidesoft.grid.AutoFilterTableHeader:icons/filterYes_over.png", your_new_icon);
+	 * </pre>
 	 * <p>
-	 * Please note, getImageIcon will print out error message to stderr if image is not found. The reason we did so is
-	 * because we want you to make sure all image files are there in your application. If you ever see the error
-	 * message, you should correct it before shipping the product. But if you just want to test if the image file is
-	 * there, you don't want any error message print out. If so, you can use {@link #findImageIcon(Class, String)}
-	 * method. It will throw IOException when image is not found.
-	 * <p>
-	 * We used this method to create all the icons we used in JIDE's code. If you ever want to use your own icon instead
-	 * of JIDE's default icon, you just need to put it onto UIManager. For example, AutoFilterTableHeader uses an icon
-	 * on the table header. This is how it was called. <br/> <code> IconsFactory.getImageIcon(AutoFilterTableHeader.class,
-	 * "icons/filterYes_over.png") </code>
-	 * <p>
-	 * The key for this icon is "com.jidesoft.grid.AutoFilterTableHeader:icons/filterYes_over.png". So you can call the
-	 * code below to register your own icon. <p/> <code> UIManager.put("com.jidesoft.grid.AutoFilterTableHeader:icons/filterYes_over.png",
-	 * your_new_icon); </code>
-	 * <p>
-	 * If you don't know what key to use, just put a breakpoint at this method, run it to inspect the id variable
-	 * below.
+	 * 如果你不知道使用什么键，就在这个方法下一个断点，运行它来检查下面的 id 变量。
 	 *
-	 * @param clazz    the Class<?>
-	 * @param fileName relative file name
-	 * @return the ImageIcon
+	 * @param clazz    类
+	 * @param fileName 相对文件名
+	 * @return ImageIcon
 	 */
 	public static ImageIcon getImageIcon(Class<?> clazz, String fileName) {
+		// 这个id对应要查找的图标,它首先会先查询UIManager中的值,如果存在就使用,否则会就从文件中去找,并且找到后添加到UIManager中
 		String id = clazz.getName() + ":" + fileName;
 		Object iconInUIDefaults = UIManager.getDefaults().get(id);
 		if (iconInUIDefaults instanceof ImageIcon) {
@@ -538,7 +535,10 @@ public class IconsFactory {
 		try {
 			return createImageIconWithException(baseClass, file);
 		} catch (IOException e) { //图片加载失败
-			System.err.println("Can't find the resource: " + e.getLocalizedMessage());
+			System.err.println("Can't find the resource: " +
+					((file.startsWith("/") || file.startsWith("\\"))
+							? file.replaceAll("/", "\\\\")
+							: (baseClass.getPackageName().replaceAll("\\.", "\\\\") + "\\" + file.replaceAll("/", "\\\\"))));
 			return null;
 		}
 	}

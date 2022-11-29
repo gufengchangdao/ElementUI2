@@ -8,7 +8,6 @@ package com.element.ui.others;
 import com.element.plaf.LookAndFeelFactory;
 import com.element.plaf.UIDefaultsLookup;
 import com.element.util.CompareUtil;
-import com.element.util.UIUtil;
 
 import javax.swing.*;
 import javax.swing.filechooser.FileFilter;
@@ -339,8 +338,7 @@ public class FolderChooser extends JFileChooser {
 
 	/**
 	 * Sets the comparator that will be used to compare the folders displayed in the FolderChooser. This comparator will
-	 * determine the order of the folders. For example, you can use {@link AlphanumFileComparator}
-	 * to sort the folder alphanum-ly.
+	 * determine the order of the folders.
 	 *
 	 * @param fileComparator a new Comparator.
 	 */

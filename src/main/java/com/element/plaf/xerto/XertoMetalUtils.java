@@ -55,9 +55,9 @@ public class XertoMetalUtils extends VsnetLookAndFeelExtension {
 	private static void initClassDefaultsForXerto(UIDefaults table) {
 		int products = LookAndFeelFactory.getProductsUsed();
 
-		final String xertoPackageName = "com.jidesoft.plaf.xerto.";
+		final String xertoPackageName = "com.element.plaf.xerto.";
 
-		table.put("RangeSliderUI", "com.jidesoft.plaf.metal.MetalRangeSliderUI");
+		table.put("RangeSliderUI", "com.element.plaf.metal.MetalRangeSliderUI");
 
 		if ((products & PRODUCT_COMPONENTS) != 0) {
 			table.put("CollapsiblePaneUI", xertoPackageName + "XertoCollapsiblePaneUI");

@@ -12,7 +12,6 @@ import com.element.plaf.WindowsDesktopProperty;
 import com.element.plaf.basic.BasicPainter;
 import com.element.plaf.basic.Painter;
 import com.element.plaf.basic.ThemePainter;
-import com.element.plaf.windows.WindowsIconFactory;
 import com.element.ui.button.JideButton;
 import com.element.ui.font.FontUtil;
 import com.element.ui.icons.IconsFactory;
@@ -52,7 +51,7 @@ public class VsnetWindowsUtils extends VsnetLookAndFeelExtension {
 	public static void initClassDefaults(UIDefaults table) {
 		VsnetLookAndFeelExtension.initClassDefaults(table);
 
-		final String windowsPackageName = "com.jidesoft.plaf.windows.";
+		final String windowsPackageName = "com.element.plaf.windows.";
 
 		// common
 		table.put("JidePopupMenuUI", windowsPackageName + "WindowsJidePopupMenuUI");
@@ -158,8 +157,6 @@ public class VsnetWindowsUtils extends VsnetLookAndFeelExtension {
 				"ENTER", "pressed",
 				"released ENTER", "released"
 		}),
-
-				"TristateCheckBox.icon", WindowsIconFactory.getCheckBoxIcon(),
 
 				"JideSplitPane.dividerSize", 4,
 				"JideSplitPaneDivider.border", new BorderUIResource(BorderFactory.createEmptyBorder()),

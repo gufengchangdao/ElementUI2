@@ -1,6 +1,6 @@
 package lab.other.frame;
 
-import demo.SwingTestUtil;
+import com.element.util.SwingTestUtil;
 
 import javax.swing.*;
 import javax.swing.event.MouseInputAdapter;

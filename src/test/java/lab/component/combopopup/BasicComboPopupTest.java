@@ -1,6 +1,6 @@
 package lab.component.combopopup;
 
-import demo.SwingTestUtil;
+import com.element.util.SwingTestUtil;
 import com.element.util.TextEditorUtil;
 import net.miginfocom.swing.MigLayout;
 

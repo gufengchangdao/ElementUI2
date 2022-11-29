@@ -298,31 +298,26 @@ abstract class SvgBaseTranscoder {
 			printWriterManager.checkin();
 			int type = pathIterator.currentSegment(coords);
 			switch (type) {
-				case PathIterator.SEG_CUBICTO:
-					printWriterManager.println(languageRenderer.getObjectNoNull("generalPath" + suffix)
-							+ ".curveTo(" + coords[0] + "f, " + coords[1] + "f, " + coords[2] + "f, "
-							+ coords[3] + "f, " + coords[4] + "f, " + coords[5] + "f)"
-							+ languageRenderer.getStatementEnd());
-					break;
-				case PathIterator.SEG_QUADTO:
-					printWriterManager.println(languageRenderer.getObjectNoNull("generalPath" + suffix)
-							+ ".quadTo(" + coords[0] + "f, " + coords[1] + "f, " + coords[2] + "f, "
-							+ coords[3] + "f)" + languageRenderer.getStatementEnd());
-					break;
-				case PathIterator.SEG_MOVETO:
-					printWriterManager.println(languageRenderer.getObjectNoNull("generalPath" + suffix)
-							+ ".moveTo(" + coords[0] + "f, " + coords[1] + "f)"
-							+ languageRenderer.getStatementEnd());
-					break;
-				case PathIterator.SEG_LINETO:
-					printWriterManager.println(languageRenderer.getObjectNoNull("generalPath" + suffix)
-							+ ".lineTo(" + coords[0] + "f, " + coords[1] + "f)"
-							+ languageRenderer.getStatementEnd());
-					break;
-				case PathIterator.SEG_CLOSE:
-					printWriterManager.println(languageRenderer.getObjectNoNull("generalPath" + suffix)
-							+ ".closePath()" + languageRenderer.getStatementEnd());
-					break;
+				case PathIterator.SEG_CUBICTO ->
+						printWriterManager.println(languageRenderer.getObjectNoNull("generalPath" + suffix)
+								+ ".curveTo(" + coords[0] + "f, " + coords[1] + "f, " + coords[2] + "f, "
+								+ coords[3] + "f, " + coords[4] + "f, " + coords[5] + "f)"
+								+ languageRenderer.getStatementEnd());
+				case PathIterator.SEG_QUADTO ->
+						printWriterManager.println(languageRenderer.getObjectNoNull("generalPath" + suffix)
+								+ ".quadTo(" + coords[0] + "f, " + coords[1] + "f, " + coords[2] + "f, "
+								+ coords[3] + "f)" + languageRenderer.getStatementEnd());
+				case PathIterator.SEG_MOVETO ->
+						printWriterManager.println(languageRenderer.getObjectNoNull("generalPath" + suffix)
+								+ ".moveTo(" + coords[0] + "f, " + coords[1] + "f)"
+								+ languageRenderer.getStatementEnd());
+				case PathIterator.SEG_LINETO ->
+						printWriterManager.println(languageRenderer.getObjectNoNull("generalPath" + suffix)
+								+ ".lineTo(" + coords[0] + "f, " + coords[1] + "f)"
+								+ languageRenderer.getStatementEnd());
+				case PathIterator.SEG_CLOSE ->
+						printWriterManager.println(languageRenderer.getObjectNoNull("generalPath" + suffix)
+								+ ".closePath()" + languageRenderer.getStatementEnd());
 			}
 		}
 		printWriterManager.println("shape" + suffix + " = generalPath"

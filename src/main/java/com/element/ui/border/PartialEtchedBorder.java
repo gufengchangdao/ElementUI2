@@ -22,9 +22,8 @@ public class PartialEtchedBorder extends EtchedBorder implements PartialSide {
 	}
 
 	/**
-	 *
 	 * @param etchType
-	 * @param sides {@link PartialSide} 中的常量
+	 * @param sides    {@link PartialSide} 中的常量
 	 */
 	public PartialEtchedBorder(int etchType, int sides) {
 		super(etchType);
@@ -32,10 +31,9 @@ public class PartialEtchedBorder extends EtchedBorder implements PartialSide {
 	}
 
 	/**
-	 *
 	 * @param highlight
 	 * @param shadow
-	 * @param sides {@link PartialSide} 中的常量
+	 * @param sides     {@link PartialSide} 中的常量
 	 */
 	public PartialEtchedBorder(Color highlight, Color shadow, int sides) {
 		super(highlight, shadow);
@@ -43,11 +41,10 @@ public class PartialEtchedBorder extends EtchedBorder implements PartialSide {
 	}
 
 	/**
-	 *
 	 * @param etchType
 	 * @param highlight
 	 * @param shadow
-	 * @param sides {@link PartialSide} 中的常量
+	 * @param sides     {@link PartialSide} 中的常量
 	 */
 	public PartialEtchedBorder(int etchType, Color highlight, Color shadow, int sides) {
 		super(etchType, highlight, shadow);

@@ -206,18 +206,10 @@ public class SimpleScrollPane extends JScrollPane implements ChangeListener, Mou
 		public ScrollButton(int type) {
 			_type = type;
 			switch (type) {
-				case SwingConstants.NORTH:
-					setIcon(JideIconsFactory.getImageIcon(JideIconsFactory.Arrow.UP));
-					break;
-				case SwingConstants.SOUTH:
-					setIcon(JideIconsFactory.getImageIcon(JideIconsFactory.Arrow.DOWN));
-					break;
-				case SwingConstants.WEST:
-					setIcon(JideIconsFactory.getImageIcon(JideIconsFactory.Arrow.LEFT));
-					break;
-				case SwingConstants.EAST:
-					setIcon(JideIconsFactory.getImageIcon(JideIconsFactory.Arrow.RIGHT));
-					break;
+				case SwingConstants.NORTH -> setIcon(JideIconsFactory.getImageIcon(JideIconsFactory.Arrow.UP));
+				case SwingConstants.SOUTH -> setIcon(JideIconsFactory.getImageIcon(JideIconsFactory.Arrow.DOWN));
+				case SwingConstants.WEST -> setIcon(JideIconsFactory.getImageIcon(JideIconsFactory.Arrow.LEFT));
+				case SwingConstants.EAST -> setIcon(JideIconsFactory.getImageIcon(JideIconsFactory.Arrow.RIGHT));
 			}
 			addActionListener(this);
 			addMouseListener(this);
@@ -327,7 +319,7 @@ public class SimpleScrollPane extends JScrollPane implements ChangeListener, Mou
 
 		JViewport vp = getViewport();
 		switch (type) {
-			case SwingConstants.NORTH:
+			case SwingConstants.NORTH -> {
 				if (!_verticalUnitIncrementSet && (vp != null) &&
 						(vp.getView() instanceof Scrollable)) {
 					Scrollable view = (Scrollable) (vp.getView());
@@ -339,8 +331,8 @@ public class SimpleScrollPane extends JScrollPane implements ChangeListener, Mou
 				if (p.y < 0) {
 					p.y = 0;
 				}
-				break;
-			case SwingConstants.SOUTH:
+			}
+			case SwingConstants.SOUTH -> {
 				if (!_verticalUnitIncrementSet && (vp != null) &&
 						(vp.getView() instanceof Scrollable)) {
 					Scrollable view = (Scrollable) (vp.getView());
@@ -352,8 +344,8 @@ public class SimpleScrollPane extends JScrollPane implements ChangeListener, Mou
 				if (p.y + viewport.getViewRect().height > viewport.getViewSize().height) {
 					p.y = viewport.getViewSize().height - viewport.getViewRect().height;
 				}
-				break;
-			case SwingConstants.WEST:
+			}
+			case SwingConstants.WEST -> {
 				if (!_horizontalUnitIncrementSet && (vp != null) &&
 						(vp.getView() instanceof Scrollable)) {
 					Scrollable view = (Scrollable) (vp.getView());
@@ -365,8 +357,8 @@ public class SimpleScrollPane extends JScrollPane implements ChangeListener, Mou
 				if (p.x < 0) {
 					p.x = 0;
 				}
-				break;
-			case SwingConstants.EAST:
+			}
+			case SwingConstants.EAST -> {
 				if (!_horizontalUnitIncrementSet && (vp != null) &&
 						(vp.getView() instanceof Scrollable)) {
 					Scrollable view = (Scrollable) (vp.getView());
@@ -378,7 +370,7 @@ public class SimpleScrollPane extends JScrollPane implements ChangeListener, Mou
 				if (p.x + viewport.getViewRect().width > viewport.getViewSize().width) {
 					p.x = viewport.getViewSize().width - viewport.getViewRect().width;
 				}
-				break;
+			}
 		}
 
 		viewport.setViewPosition(p);

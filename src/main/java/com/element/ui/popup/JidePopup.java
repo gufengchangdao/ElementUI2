@@ -998,7 +998,7 @@ public class JidePopup extends JComponent implements Accessible, WindowConstants
 			screenDim.x = p.x;
 			screenDim.y = p.y;
 		} else {
-			screenDim = getOwner() == null ? UIUtil.getLocalScreenBounds() : UIUtil.getScreenBounds(this,true);
+			screenDim = getOwner() == null ? UIUtil.getLocalScreenBounds() : UIUtil.getScreenBounds(this, true);
 		}
 		return screenDim;
 	}
@@ -1598,7 +1598,7 @@ public class JidePopup extends JComponent implements Accessible, WindowConstants
 			int y = newY - (int) (_currentPanel.getHeight() * _relativeY);
 			Rectangle bounds = new Rectangle(x, y, _currentPanel.getWidth(), _currentPanel.getHeight());
 
-			Rectangle screenBounds = UIUtil.getScreenBounds(this,true);
+			Rectangle screenBounds = UIUtil.getScreenBounds(this, true);
 			if (bounds.y + bounds.height > screenBounds.y + screenBounds.height) {
 				bounds.y = screenBounds.y + screenBounds.height - bounds.height;
 			}
@@ -1622,7 +1622,7 @@ public class JidePopup extends JComponent implements Accessible, WindowConstants
 			int y = newY - (int) (_currentWindow.getHeight() * _relativeY);
 			Rectangle bounds = new Rectangle(x, y, _currentWindow.getWidth(), _currentWindow.getHeight());
 
-			Rectangle screenBounds = UIUtil.getScreenBounds(this,true);
+			Rectangle screenBounds = UIUtil.getScreenBounds(this, true);
 			if (bounds.y + bounds.height > screenBounds.y + screenBounds.height) {
 				bounds.y = screenBounds.y + screenBounds.height - bounds.height;
 			}

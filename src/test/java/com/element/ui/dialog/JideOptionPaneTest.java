@@ -6,6 +6,7 @@ import com.element.plaf.basic.ThemePainter;
 import com.element.ui.icons.JideIconsFactory;
 import com.element.ui.layout.JideBoxLayout;
 import com.element.util.LocaleUtil;
+import com.element.util.SwingTestUtil;
 import demo.AbstractDemo;
 
 import javax.swing.*;
@@ -34,9 +35,10 @@ public class JideOptionPaneTest extends AbstractDemo {
 	}
 
 	public Component getDemoPanel() {
+		// 注册一下对话框的UI
 		LookAndFeelFactory.UIDefaultsCustomizer uiDefaultsCustomizer = defaults -> {
 			ThemePainter painter = (ThemePainter) UIDefaultsLookup.get("Theme.painter");
-			defaults.put("OptionPaneUI", "com.jidesoft.plaf.basic.BasicJideOptionPaneUI");
+			defaults.put("OptionPaneUI", "com.element.plaf.basic.BasicJideOptionPaneUI");
 
 			defaults.put("OptionPane.showBanner", Boolean.TRUE); // show banner or not. default is true
 			defaults.put("OptionPane.bannerIcon", JideIconsFactory.getImageIcon(JideIconsFactory.JIDE50));
@@ -97,7 +99,15 @@ public class JideOptionPaneTest extends AbstractDemo {
 		Action a = new AbstractAction("Show Warning Dialog") {
 			public void actionPerformed(ActionEvent e) {
 				JideOptionPane.showMessageDialog(_demoPanel,
-						"<html><P><font color=black>This is a test of the <font color=red><b>Emergency Broadcast System</b></font>. <i><b>This is <br> only a test</b></i>.  The webmaster of your local intranet, in voluntary <br> cooperation with the <font color=blue><b>Federal</b></font> and <font color=blue><b>State</b></font> authorities, have <br> developed this system to keep you informed in the event of an <br> emergency. If this had been an actual emergency, the signal you <br> just heard would have been followed by official information, news <br> or instructions. This concludes this test of the <font color=red><b>Emergency <br> Broadcast System</b></font>.</font></P><P><br>Developer Note: This dialog demo used HTML for text formatting.</P></html>",
+						"<html><P><font color=black>This is a test of the <font color=red><b>Emergency Broadcast " +
+								"System</b></font>. <i><b>This is <br> only a test</b></i>.  The webmaster of your local " +
+								"intranet, in voluntary <br> cooperation with the <font color=blue><b>Federal</b></font> " +
+								"and <font color=blue><b>State</b></font> authorities, have <br> developed this system to " +
+								"keep you informed in the event of an <br> emergency. If this had been an actual emergency," +
+								" the signal you <br> just heard would have been followed by official information, news " +
+								"<br> or instructions. This concludes this test of the <font color=red><b>Emergency <br>" +
+								" Broadcast System</b></font>.</font></P><P><br>Developer Note: This dialog demo used " +
+								"HTML for text formatting.</P></html>",
 						"Warning Dialog Example",
 						JOptionPane.WARNING_MESSAGE
 				);
@@ -275,14 +285,9 @@ public class JideOptionPaneTest extends AbstractDemo {
 		return b;
 	}
 
-	@Override
-	public String getDemoFolder() {
-		return "W7.JideOptionPane";
-	}
-
 	public static void main(String[] args) {
 		SwingUtilities.invokeLater(() -> {
-			// SwingTestUtil.loadSkin();
+			SwingTestUtil.loadSkin();
 			LookAndFeelFactory.installJideExtension();
 			showAsFrame(new JideOptionPaneTest());
 		});

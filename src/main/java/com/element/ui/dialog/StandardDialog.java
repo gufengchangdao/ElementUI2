@@ -18,16 +18,14 @@ import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 
 /**
- * StandardDialog is a dialog template. However several things are added to it to make it easier to use. <UL> <LI>
- * Laziness. The content will not be filled until pack() or show() are called. <LI> Default action and cancel action.
- * User can set the default action and cancel action of this dialog. By default, the ENTER key will trigger the default
- * action and the ESC key will trigger the cancel action and set the dialog result to RESULT_CANCELLED. <LI> Divide the
- * whole ContentPane of the dialog into three parts - content panel, button panel and banner panel. By default, they are
- * added to the CENTER, SOUTH and NORTH of a BorderLayout respectively. There isn't anything special about this. However
- * if all your dialogs use this pattern, it will automatically make the user interface more consistent. </UL>
- * <p/>
- * This class is abstract. Subclasses need to implement createBannerPanel(), createButtonPanel() and
- * createContentPanel()
+ * StandardDialog 是一个对话框模板。但是，添加了一些东西以使其更易于使用。
+ * 懒惰。在调用 pack() 或 show() 之前不会填充内容。
+ * 默认操作和取消操作。用户可以设置此对话框的默认操作和取消操作。默认情况下，ENTER 键将触发默认操作，ESC 键将触发取消操作并将对话框结果设置
+ * 为 RESULT_CANCELLED。
+ * 将对话框的整个 ContentPane 分为三个部分——内容面板、按钮面板和横幅面板。默认情况下，它们分别添加到 BorderLayout 的 CENTER、SOUTH 和
+ * NORTH。这没有什么特别的。然而，如果你所有的对话框都使用这种模式，它会自动使用户界面更加一致。
+ * <p>
+ * 这个类是抽象的。子类需要实现createBannerPanel()、createButtonPanel()和createContentPanel()
  */
 abstract public class StandardDialog extends JDialog implements ButtonNames {
 	private boolean _lazyConstructorCalled = false;

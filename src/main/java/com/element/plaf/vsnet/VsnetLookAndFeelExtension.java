@@ -24,11 +24,11 @@ public class VsnetLookAndFeelExtension extends BasicLookAndFeelExtension {
 	 */
 	public static void initClassDefaultsWithMenu(UIDefaults table) {
 		if (!Beans.isDesignTime()) {
-			table.put("PopupMenuSeparatorUI", "com.jidesoft.plaf.vsnet.VsnetPopupMenuSeparatorUI");
-			table.put("MenuUI", "com.jidesoft.plaf.vsnet.VsnetMenuUI");
-			table.put("MenuItemUI", "com.jidesoft.plaf.vsnet.VsnetMenuItemUI");
-			table.put("CheckBoxMenuItemUI", "com.jidesoft.plaf.vsnet.VsnetCheckBoxMenuItemUI");
-			table.put("RadioButtonMenuItemUI", "com.jidesoft.plaf.vsnet.VsnetRadioButtonMenuItemUI");
+			table.put("PopupMenuSeparatorUI", "com.element.plaf.vsnet.VsnetPopupMenuSeparatorUI");
+			table.put("MenuUI", "com.element.plaf.vsnet.VsnetMenuUI");
+			table.put("MenuItemUI", "com.element.plaf.vsnet.VsnetMenuItemUI");
+			table.put("CheckBoxMenuItemUI", "com.element.plaf.vsnet.VsnetCheckBoxMenuItemUI");
+			table.put("RadioButtonMenuItemUI", "com.element.plaf.vsnet.VsnetRadioButtonMenuItemUI");
 		}
 	}
 
@@ -40,7 +40,7 @@ public class VsnetLookAndFeelExtension extends BasicLookAndFeelExtension {
 	public static void initClassDefaults(UIDefaults table) {
 		BasicLookAndFeelExtension.initClassDefaults(table);
 
-		final String vsnetPackageName = "com.jidesoft.plaf.vsnet.";
+		final String vsnetPackageName = "com.element.plaf.vsnet.";
 
 		// common
 		table.put("JideTabbedPaneUI", vsnetPackageName + "VsnetJideTabbedPaneUI");

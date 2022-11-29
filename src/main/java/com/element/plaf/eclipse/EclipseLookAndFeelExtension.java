@@ -24,12 +24,12 @@ public class EclipseLookAndFeelExtension extends BasicLookAndFeelExtension {
 	 */
 	public static void initClassDefaultsWithMenu(UIDefaults table) {
 		if (!Beans.isDesignTime()) {
-			table.put("PopupMenuSeparatorUI", "com.jidesoft.plaf.eclipse.EclipsePopupMenuSeparatorUI");
-			table.put("SeparatorUI", "com.jidesoft.plaf.eclipse.EclipsePopupMenuSeparatorUI");
-			table.put("MenuUI", "com.jidesoft.plaf.eclipse.EclipseMenuUI");
-			table.put("MenuItemUI", "com.jidesoft.plaf.eclipse.EclipseMenuItemUI");
-			table.put("CheckBoxMenuItemUI", "com.jidesoft.plaf.eclipse.EclipseCheckBoxMenuItemUI");
-			table.put("RadioButtonMenuItemUI", "com.jidesoft.plaf.eclipse.EclipseRadioButtonMenuItemUI");
+			table.put("PopupMenuSeparatorUI", "com.element.plaf.eclipse.EclipsePopupMenuSeparatorUI");
+			table.put("SeparatorUI", "com.element.plaf.eclipse.EclipsePopupMenuSeparatorUI");
+			table.put("MenuUI", "com.element.plaf.eclipse.EclipseMenuUI");
+			table.put("MenuItemUI", "com.element.plaf.eclipse.EclipseMenuItemUI");
+			table.put("CheckBoxMenuItemUI", "com.element.plaf.eclipse.EclipseCheckBoxMenuItemUI");
+			table.put("RadioButtonMenuItemUI", "com.element.plaf.eclipse.EclipseRadioButtonMenuItemUI");
 		}
 	}
 
@@ -41,7 +41,7 @@ public class EclipseLookAndFeelExtension extends BasicLookAndFeelExtension {
 	public static void initClassDefaults(UIDefaults table) {
 		BasicLookAndFeelExtension.initClassDefaults(table);
 
-		final String eclipsePackageName = "com.jidesoft.plaf.eclipse.";
+		final String eclipsePackageName = "com.element.plaf.eclipse.";
 
 		int products = LookAndFeelFactory.getProductsUsed();
 

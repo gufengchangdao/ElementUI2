@@ -5290,7 +5290,9 @@ public class BasicJideTabbedPaneUI extends JideTabbedPaneUI implements SwingCons
 	private static class ScrollTabsForwardAction extends AbstractAction {
 		public ScrollTabsForwardAction() {
 			super();
-			putValue(Action.SHORT_DESCRIPTION, Resource.getResourceBundle(Locale.getDefault()).getString(BUTTON_NAME_SCROLL_FORWARD));
+
+			putValue(Action.SHORT_DESCRIPTION,
+					Resource.getResourceBundle(Locale.getDefault()).getString(BUTTON_NAME_SCROLL_FORWARD));
 		}
 
 		public void actionPerformed(ActionEvent e) {
