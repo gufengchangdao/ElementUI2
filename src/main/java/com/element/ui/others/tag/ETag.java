@@ -1,7 +1,7 @@
 package com.element.ui.others.tag;
 
 import com.element.color.ColorUtil;
-import com.element.radiance.common.api.icon.RadianceIcon;
+import com.element.radiance.common.api.icon.SvgIcon;
 import com.element.ui.base.RoundComponent;
 import com.element.ui.button.IconButton;
 
@@ -143,10 +143,10 @@ public class ETag extends RoundComponent {
 		this.fg = fg;
 		label.setForeground(fg);
 		if (button != null) {
-			RadianceIcon.ColorFilter filter1 = color -> fg;
+			SvgIcon.ColorFilter filter1 = color -> fg;
 			button.getBeginIcon().setColorFilter(filter1);
 			button.getEndIcon().setColorFilter(filter1);
-			RadianceIcon.ColorFilter filter2 = color -> ColorUtil.blend(fg, Color.WHITE, 0.3f);
+			SvgIcon.ColorFilter filter2 = color -> ColorUtil.blend(fg, Color.WHITE, 0.3f);
 			button.setFilter(filter2);
 		}
 	}

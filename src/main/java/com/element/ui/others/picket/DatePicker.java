@@ -1,7 +1,7 @@
 package com.element.ui.others.picket;
 
 import com.element.color.ColorUtil;
-import com.element.radiance.common.api.icon.RadianceIcon;
+import com.element.radiance.common.api.icon.SvgIcon;
 import com.element.ui.base.BaseInputField;
 import com.element.ui.border.IconBorder;
 import com.element.ui.svg.icon.regular.CalendarSvg;
@@ -82,7 +82,7 @@ public class DatePicker extends BaseInputField implements MouseListener, DateSel
 		popupFactory = new PopupFactory();
 
 		// 设置图标
-		RadianceIcon icon = CalendarSvg.of(16, 16);
+		SvgIcon icon = CalendarSvg.of(16, 16);
 		icon.setColorFilter(color -> ColorUtil.changeAlpha(ColorUtil.PRIMARY, .8f));
 		border = new IconBorder(icon, true);
 		setBorder(border);
@@ -215,7 +215,7 @@ public class DatePicker extends BaseInputField implements MouseListener, DateSel
 	}
 
 	/** 设置左侧图标 */
-	public void setIcon(RadianceIcon icon) {
+	public void setIcon(SvgIcon icon) {
 		Border border = getBorder();
 		if (border instanceof IconBorder) {
 			((IconBorder) border).setLeftIcon(icon);

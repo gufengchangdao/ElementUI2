@@ -1,7 +1,7 @@
 package com.element.ui.others.collapse;
 
 import com.element.color.ColorUtil;
-import com.element.radiance.common.api.icon.RadianceIcon;
+import com.element.radiance.common.api.icon.SvgIcon;
 import com.element.ui.button.IconButton;
 import com.element.ui.svg.icon.regular.CaretDownSvg;
 import com.element.ui.svg.icon.regular.CaretRightSvg;
@@ -24,8 +24,8 @@ public class CollapseItem extends JPanel implements TimingTarget, MouseListener 
 	int duration = 250;
 	int vgap = 10;
 
-	RadianceIcon icon1 = CaretRightSvg.of(16, 16);
-	RadianceIcon icon2 = CaretDownSvg.of(16, 16);
+	SvgIcon icon1 = CaretRightSvg.of(16, 16);
+	SvgIcon icon2 = CaretDownSvg.of(16, 16);
 
 	public CollapseItem(String title, String content) {
 		this.title = new JLabel(title);

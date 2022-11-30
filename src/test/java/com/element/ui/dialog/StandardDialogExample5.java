@@ -47,6 +47,7 @@ public class StandardDialogExample5 extends StandardDialog {
 				add(buttonPanel, JideBoxLayout.FIX);
 				_detailsPanel = createDetailsPanel();
 				add(_detailsPanel, JideBoxLayout.VARY);
+				// 初始不显示
 				_detailsPanel.setVisible(false);
 			}
 		};

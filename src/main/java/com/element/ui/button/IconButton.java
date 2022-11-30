@@ -1,6 +1,6 @@
 package com.element.ui.button;
 
-import com.element.radiance.common.api.icon.RadianceIcon;
+import com.element.radiance.common.api.icon.SvgIcon;
 import com.element.ui.base.BaseComponent;
 
 import java.awt.*;
@@ -12,16 +12,16 @@ import java.awt.event.MouseListener;
  */
 public class IconButton extends BaseComponent implements MouseListener {
 	/** 鼠标未悬停状态 */
-	private RadianceIcon beginIcon;
+	private SvgIcon beginIcon;
 	/** 鼠标悬停状态 */
-	private RadianceIcon endIcon;
-	private RadianceIcon currentIcon;
+	private SvgIcon endIcon;
+	private SvgIcon currentIcon;
 	/** 鼠标悬停状态的过滤器，保存下来使鼠标松开时能回归原样，因为 endIcon 有可能有设置初始过滤器(组件色) */
-	private RadianceIcon.ColorFilter endIconFilter;
+	private SvgIcon.ColorFilter endIconFilter;
 	/** 鼠标按下状态 */
-	private RadianceIcon.ColorFilter filter;
+	private SvgIcon.ColorFilter filter;
 
-	public IconButton(RadianceIcon beginIcon, RadianceIcon.ColorFilter filter) {
+	public IconButton(SvgIcon beginIcon, SvgIcon.ColorFilter filter) {
 		this.beginIcon = beginIcon;
 		this.endIcon = beginIcon;
 		endIconFilter = endIcon.getColorFilter();
@@ -30,7 +30,7 @@ public class IconButton extends BaseComponent implements MouseListener {
 		init();
 	}
 
-	public IconButton(RadianceIcon beginIcon, RadianceIcon endIcon) {
+	public IconButton(SvgIcon beginIcon, SvgIcon endIcon) {
 		this.beginIcon = beginIcon;
 		this.endIcon = endIcon;
 		currentIcon = beginIcon;
@@ -42,7 +42,7 @@ public class IconButton extends BaseComponent implements MouseListener {
 	 * @param endIcon   鼠标悬停时图标
 	 * @param filter    鼠标按下时图标颜色变化
 	 */
-	public IconButton(RadianceIcon beginIcon, RadianceIcon endIcon, RadianceIcon.ColorFilter filter) {
+	public IconButton(SvgIcon beginIcon, SvgIcon endIcon, SvgIcon.ColorFilter filter) {
 		this.beginIcon = beginIcon;
 		this.endIcon = endIcon;
 		endIconFilter = endIcon.getColorFilter();
@@ -123,28 +123,28 @@ public class IconButton extends BaseComponent implements MouseListener {
 		repaint();
 	}
 
-	public RadianceIcon getBeginIcon() {
+	public SvgIcon getBeginIcon() {
 		return beginIcon;
 	}
 
-	public void setBeginIcon(RadianceIcon beginIcon) {
+	public void setBeginIcon(SvgIcon beginIcon) {
 		this.beginIcon = beginIcon;
 		currentIcon = beginIcon;
 	}
 
-	public RadianceIcon getEndIcon() {
+	public SvgIcon getEndIcon() {
 		return endIcon;
 	}
 
-	public void setEndIcon(RadianceIcon endIcon) {
+	public void setEndIcon(SvgIcon endIcon) {
 		this.endIcon = endIcon;
 	}
 
-	public RadianceIcon.ColorFilter getFilter() {
+	public SvgIcon.ColorFilter getFilter() {
 		return filter;
 	}
 
-	public void setFilter(RadianceIcon.ColorFilter filter) {
+	public void setFilter(SvgIcon.ColorFilter filter) {
 		endIconFilter = endIcon.getColorFilter();
 		this.filter = filter;
 	}

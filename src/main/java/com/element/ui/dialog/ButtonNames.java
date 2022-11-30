@@ -4,7 +4,6 @@ package com.element.ui.dialog;
  * An interface to define commonly use button names.
  */
 public interface ButtonNames {
-
 	String APPLY = "APPLY";
 	String BACK = "BACK";
 	String BROWSE = "BROWSE";

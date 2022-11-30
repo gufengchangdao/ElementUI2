@@ -1,6 +1,6 @@
 package com.element.ui.others.upload;
 
-import com.element.radiance.common.api.icon.RadianceIcon;
+import com.element.radiance.common.api.icon.SvgIcon;
 import com.element.ui.button.SimpleIconButton;
 import com.element.ui.svg.upload.UploadImageSvg;
 
@@ -28,7 +28,7 @@ import java.util.function.Function;
  * <ul/>
  */
 public class ImageUploadButton extends SimpleIconButton implements ActionListener {
-	private RadianceIcon icon;
+	private SvgIcon icon;
 	/**
 	 * 图片更换次数，这个类里面没有使用，但是其他类可以用于一些判断，比如是否选择图片或者是否更改过图片
 	 */
@@ -56,7 +56,7 @@ public class ImageUploadButton extends SimpleIconButton implements ActionListene
 		this(UploadImageSvg.of(104, 104));
 	}
 
-	public ImageUploadButton(RadianceIcon icon) {
+	public ImageUploadButton(SvgIcon icon) {
 		super(icon);
 		this.icon = icon;
 		init();
@@ -139,7 +139,7 @@ public class ImageUploadButton extends SimpleIconButton implements ActionListene
 	}
 
 	@Override
-	public RadianceIcon getIcon() {
+	public SvgIcon getIcon() {
 		return icon;
 	}
 

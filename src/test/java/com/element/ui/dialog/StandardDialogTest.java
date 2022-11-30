@@ -50,8 +50,6 @@ public class StandardDialogTest extends AbstractDemo {
 
 		button = new JButton();
 		action = new AbstractAction("Show StandardDialog 2") {
-			private static final long serialVersionUID = -1782732774737815998L;
-
 			public void actionPerformed(ActionEvent e) {
 				StandardDialog example = new StandardDialogExample2();
 				example.pack();
@@ -110,7 +108,8 @@ public class StandardDialogTest extends AbstractDemo {
 	@Override
 	public Class<?>[] getDemoSource() {
 		return new Class[]{
-				StandardDialogTest.class, StandardDialogExample1.class, StandardDialogExample2.class, StandardDialogExample3.class, StandardDialogExample4.class, StandardDialogExample5.class
+				StandardDialogTest.class, StandardDialogExample1.class, StandardDialogExample2.class,
+				StandardDialogExample3.class, StandardDialogExample4.class, StandardDialogExample5.class
 		};
 	}
 

@@ -12,7 +12,7 @@ import java.awt.image.BufferedImage;
  *
  * @author Kirill Grouchnikov
  */
-public interface RadianceIcon extends Icon {
+public interface SvgIcon extends Icon {
 	/**
 	 * Changes the dimension of <code>this</code> icon.
 	 *
@@ -43,7 +43,7 @@ public interface RadianceIcon extends Icon {
 		 *
 		 * @return A new instance of the icon managed by this factory.
 		 */
-		RadianceIcon createNewIcon();
+		SvgIcon createNewIcon();
 	}
 
 	interface ColorFilter {

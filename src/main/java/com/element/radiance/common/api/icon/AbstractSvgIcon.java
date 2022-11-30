@@ -9,10 +9,12 @@ import java.util.Stack;
 /**
  * 核心图标界面的扩展的抽象类，用于减少生成的代码体积，将固定代码放在该类中。
  * <p>
+ * 该类的静态方法不应该被调用，只用于呈现子类的同名实现类的方法注释
+ * <p>
  * 子类由 Radiance SVG转码器自动生成
  * <a href="https://github.com/kirill-grouchnikov/radiance">Radiance SVG transcoder</a>
  */
-public abstract class AbstractRadianceIcon implements RadianceIcon {
+public abstract class AbstractSvgIcon implements SvgIcon {
 	protected Shape shape = null;
 	protected GeneralPath generalPath = null;
 	protected Paint paint = null;
@@ -30,7 +32,7 @@ public abstract class AbstractRadianceIcon implements RadianceIcon {
 	/**
 	 * 创建一个新的转码SVG图像。这被标记为private是为了表明应用程序代码应该使用{@link #of(int, int)}方法来获取预配置的实例。
 	 */
-	public AbstractRadianceIcon() {
+	public AbstractSvgIcon() {
 	}
 
 	protected float getOrigAlpha(Graphics2D g) {
@@ -88,7 +90,7 @@ public abstract class AbstractRadianceIcon implements RadianceIcon {
 	 * @param height Required height of the icon
 	 * @return A new instance of this icon with specified dimensions.
 	 */
-	public static RadianceIcon of(int width, int height) {
+	public static SvgIcon of(int width, int height) {
 		return null;
 	}
 
@@ -99,7 +101,7 @@ public abstract class AbstractRadianceIcon implements RadianceIcon {
 	 * @param height Required height of the icon
 	 * @return A new {@link UIResource} instance of this icon with specified dimensions.
 	 */
-	public static RadianceIconUIResource uiResourceOf(int width, int height) {
+	public static SvgIconUIResource uiResourceOf(int width, int height) {
 		return null;
 	}
 

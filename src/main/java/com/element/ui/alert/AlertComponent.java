@@ -3,7 +3,7 @@ package com.element.ui.alert;
 import com.element.animator.popup.PopupAnimatorTask;
 import com.element.animator.popup.listener.CloseMouseListener;
 import com.element.color.ColorUtil;
-import com.element.radiance.common.api.icon.RadianceIcon;
+import com.element.radiance.common.api.icon.SvgIcon;
 import com.element.ui.button.IconButton;
 import com.element.ui.others.tag.TagFactory;
 import com.element.ui.template.X2Component;
@@ -37,7 +37,7 @@ public class AlertComponent extends X2Component<JLabel, IconButton> {
 	 * @param style    增量类型，默认为 {@link GrowStyle#CONSTANT}
 	 * @param insets   外边距
 	 */
-	public AlertComponent(RadianceIcon icon,
+	public AlertComponent(SvgIcon icon,
 	                      String text, Color c, boolean closable, GrowStyle style,
 	                      Insets insets) {
 		JLabel label;

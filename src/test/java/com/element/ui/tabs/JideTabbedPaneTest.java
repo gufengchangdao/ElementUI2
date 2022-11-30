@@ -170,7 +170,7 @@ public class JideTabbedPaneTest extends AbstractDemo {
 		leading.setSelected(false);
 		leading.addItemListener(e -> {
 			if (leading.isSelected()) {
-				Component leadingComponent = new LabelUIResource(JideIconsFactory.getImageIcon(JideIconsFactory.JIDELOGO_SMALL2));
+				Component leadingComponent = new LabelUIResource(JideIconsFactory.getImageIcon(JideIconsFactory.JIDELOGO));
 				_tabbedPane.setTabLeadingComponent(leadingComponent);
 			} else {
 				_tabbedPane.setTabLeadingComponent(null);
@@ -181,7 +181,7 @@ public class JideTabbedPaneTest extends AbstractDemo {
 		trailing.setSelected(false);
 		trailing.addItemListener(e -> {
 			if (trailing.isSelected()) {
-				Component trailingComponent = new LabelUIResource(JideIconsFactory.getImageIcon(JideIconsFactory.JIDELOGO_SMALL));
+				Component trailingComponent = new LabelUIResource(JideIconsFactory.getImageIcon(JideIconsFactory.JIDELOGO));
 				_tabbedPane.setTabTrailingComponent(trailingComponent);
 			} else {
 				_tabbedPane.setTabTrailingComponent(null);

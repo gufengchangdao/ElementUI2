@@ -32,10 +32,10 @@ package com.element.radiance.common.api.icon;
 import javax.swing.plaf.UIResource;
 import java.awt.*;
 
-public class RadianceIconUIResource implements RadianceIcon, UIResource {
-	protected RadianceIcon delegate;
+public class SvgIconUIResource implements SvgIcon, UIResource {
+	protected SvgIcon delegate;
 
-	public RadianceIconUIResource(RadianceIcon delegate) {
+	public SvgIconUIResource(SvgIcon delegate) {
 		this.delegate = delegate;
 	}
 

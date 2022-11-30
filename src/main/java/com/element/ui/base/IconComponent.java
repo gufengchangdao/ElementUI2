@@ -1,6 +1,6 @@
 package com.element.ui.base;
 
-import com.element.radiance.common.api.icon.RadianceIcon;
+import com.element.radiance.common.api.icon.SvgIcon;
 import com.element.ui.border.IconBorder;
 import com.element.util.UIUtil;
 
@@ -13,9 +13,9 @@ import java.awt.*;
  * 该类跟 {@link IconBorder} 的区别在于IconBorder只是边框提供的图标，和应用边框的组件是一体的，
  */
 public class IconComponent<E extends JComponent> extends BaseComponent {
-	private RadianceIcon leftIcon;
+	private SvgIcon leftIcon;
 	private JButton leftButton;
-	private RadianceIcon rightIcon;
+	private SvgIcon rightIcon;
 	private JButton rightButton;
 	private E component;
 
@@ -57,16 +57,16 @@ public class IconComponent<E extends JComponent> extends BaseComponent {
 					.adjustDimensionSize(preferredSize, rightButton.getPreferredSize()));
 	}
 
-	public RadianceIcon getLeftIcon() {
+	public SvgIcon getLeftIcon() {
 		return leftIcon;
 	}
 
-	public void setLeftIcon(RadianceIcon leftIcon) {
+	public void setLeftIcon(SvgIcon leftIcon) {
 		this.leftIcon = leftIcon;
 		leftButton = updateIcon(this, BorderLayout.WEST, leftButton, leftIcon);
 	}
 
-	private static JButton updateIcon(JComponent container, String layout, JButton button, RadianceIcon icon) {
+	private static JButton updateIcon(JComponent container, String layout, JButton button, SvgIcon icon) {
 		if (button == null) {
 			button = new JButton();
 			button.setBorderPainted(false);
@@ -77,11 +77,11 @@ public class IconComponent<E extends JComponent> extends BaseComponent {
 		return button;
 	}
 
-	public RadianceIcon getRightIcon() {
+	public SvgIcon getRightIcon() {
 		return rightIcon;
 	}
 
-	public void setRightIcon(RadianceIcon rightIcon) {
+	public void setRightIcon(SvgIcon rightIcon) {
 		this.rightIcon = rightIcon;
 		rightButton = updateIcon(this, BorderLayout.EAST, rightButton, rightIcon);
 	}

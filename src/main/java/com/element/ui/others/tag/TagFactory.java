@@ -1,7 +1,7 @@
 package com.element.ui.others.tag;
 
 import com.element.color.ColorUtil;
-import com.element.radiance.common.api.icon.RadianceIcon;
+import com.element.radiance.common.api.icon.SvgIcon;
 import com.element.ui.button.IconButton;
 import com.element.ui.svg.icon.regular.XCircleSvg;
 
@@ -41,12 +41,12 @@ public class TagFactory {
 	 * @param fg 图标色
 	 */
 	public static IconButton createCloseButton(Color fg) {
-		RadianceIcon icon1 = XCircleSvg.of(16, 16);
-		RadianceIcon icon2 = com.element.ui.svg.icon.fill.XCircleSvg.of(16, 16);
-		RadianceIcon.ColorFilter filter1 = color -> fg;
+		SvgIcon icon1 = XCircleSvg.of(16, 16);
+		SvgIcon icon2 = com.element.ui.svg.icon.fill.XCircleSvg.of(16, 16);
+		SvgIcon.ColorFilter filter1 = color -> fg;
 		icon1.setColorFilter(filter1);
 		icon2.setColorFilter(filter1);
-		RadianceIcon.ColorFilter filter2 = color ->
+		SvgIcon.ColorFilter filter2 = color ->
 				ColorUtil.blend(fg, Color.WHITE, 0.3f);
 		return new IconButton(icon1, icon2, filter2);
 	}

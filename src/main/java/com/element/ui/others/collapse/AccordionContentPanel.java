@@ -1,7 +1,7 @@
 package com.element.ui.others.collapse;
 
 import com.element.color.ColorUtil;
-import com.element.radiance.common.api.icon.RadianceIcon;
+import com.element.radiance.common.api.icon.SvgIcon;
 import com.element.ui.svg.icon.regular.CaretDownSvg;
 import com.element.ui.svg.icon.regular.CaretUpSvg;
 
@@ -25,16 +25,16 @@ public class AccordionContentPanel extends JPanel implements MouseListener {
 	private final Component panel;
 	/** 图标类型，是否为填充图标 */
 	private boolean iconFill;
-	public static final RadianceIcon rIcon1 = CaretDownSvg.of(16, 16);
-	public static final RadianceIcon rIcon2 = CaretUpSvg.of(16, 16);
-	public static final RadianceIcon fIcon1 = com.element.ui.svg.icon.fill.CaretDownSvg.of(16, 16);
-	public static final RadianceIcon fIcon2 = com.element.ui.svg.icon.fill.CaretUpSvg.of(16, 16);
+	public static final SvgIcon rIcon1 = CaretDownSvg.of(16, 16);
+	public static final SvgIcon rIcon2 = CaretUpSvg.of(16, 16);
+	public static final SvgIcon fIcon1 = com.element.ui.svg.icon.fill.CaretDownSvg.of(16, 16);
+	public static final SvgIcon fIcon2 = com.element.ui.svg.icon.fill.CaretUpSvg.of(16, 16);
 	/** 默认图标色 */
 	public static final Color ICON_COLOR = ColorUtil.PRIMARY;
 
 	static {
 		// 设置图标默认颜色
-		RadianceIcon.ColorFilter filter = color -> ICON_COLOR;
+		SvgIcon.ColorFilter filter = color -> ICON_COLOR;
 		rIcon1.setColorFilter(filter);
 		rIcon2.setColorFilter(filter);
 		fIcon1.setColorFilter(filter);
@@ -65,7 +65,7 @@ public class AccordionContentPanel extends JPanel implements MouseListener {
 		this.iconFill = iconFill;
 
 		if (iconColor != null) {
-			RadianceIcon.ColorFilter filter = color -> iconColor;
+			SvgIcon.ColorFilter filter = color -> iconColor;
 			// 设置图标颜色
 			rIcon1.setColorFilter(filter);
 			rIcon2.setColorFilter(filter);

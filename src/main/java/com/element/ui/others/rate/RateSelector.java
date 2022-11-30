@@ -2,7 +2,7 @@ package com.element.ui.others.rate;
 
 import com.element.color.ColorUtil;
 import com.element.color.GradientColorFilter;
-import com.element.radiance.common.api.icon.RadianceIcon;
+import com.element.radiance.common.api.icon.SvgIcon;
 import com.element.ui.base.BaseComponent;
 import com.element.ui.svg.icon.fill.StarSvg;
 
@@ -27,7 +27,7 @@ import java.util.List;
  * </ul>
  */
 public class RateSelector extends BaseComponent implements MouseMotionListener, MouseListener {
-	private RadianceIcon icon;
+	private SvgIcon icon;
 	/** 图标个数，即满分是多少分，默认5分 */
 	private int maxCount;
 	/** 当前分数，受鼠标移动改变，默认0分 */
@@ -68,11 +68,11 @@ public class RateSelector extends BaseComponent implements MouseMotionListener, 
 		this(StarSvg.of(16, 16), 5, selectedCount, tipList);
 	}
 
-	public RateSelector(RadianceIcon icon, int maxCount, int selectedCount, List<String> tipList) {
+	public RateSelector(SvgIcon icon, int maxCount, int selectedCount, List<String> tipList) {
 		this(icon, maxCount, selectedCount, ColorUtil.WARNING, tipList, false, ColorUtil.INFO);
 	}
 
-	public RateSelector(RadianceIcon icon, int maxCount, int selectedCount, Color selectedColor,
+	public RateSelector(SvgIcon icon, int maxCount, int selectedCount, Color selectedColor,
 	                    List<String> tipList, boolean isTurnColor, Color lowScoreColor) {
 		this.icon = icon;
 		this.maxCount = maxCount;
@@ -216,7 +216,7 @@ public class RateSelector extends BaseComponent implements MouseMotionListener, 
 		repaint();
 	}
 
-	public RadianceIcon getIcon() {
+	public SvgIcon getIcon() {
 		return icon;
 	}
 
@@ -249,7 +249,7 @@ public class RateSelector extends BaseComponent implements MouseMotionListener, 
 		return colorFilter;
 	}
 
-	public void setIcon(RadianceIcon icon) {
+	public void setIcon(SvgIcon icon) {
 		this.icon = icon;
 	}
 

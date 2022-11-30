@@ -1,7 +1,7 @@
 package com.element.ui.link;
 
 import com.element.color.ColorUtil;
-import com.element.radiance.common.api.icon.RadianceIcon;
+import com.element.radiance.common.api.icon.SvgIcon;
 import com.element.util.BrowserLauncherUtil;
 
 import javax.swing.*;
@@ -25,9 +25,9 @@ public class LinkButton extends JButton implements MouseListener {
 	/** 鼠标悬停时字体色，默认为字体色的不透明度更低的颜色 */
 	private Color hoverFGColor;
 	/** 图标 */
-	private RadianceIcon icon;
+	private SvgIcon icon;
 	/** 鼠标悬停时图标色，与字体色保持一致 */
-	private RadianceIcon.ColorFilter colorFilter;
+	private SvgIcon.ColorFilter colorFilter;
 
 	public LinkButton(String text, Color fg) {
 		this(text, null, fg, null);
@@ -37,7 +37,7 @@ public class LinkButton extends JButton implements MouseListener {
 		this(text, null, fg, hoverFGColor);
 	}
 
-	public LinkButton(String text, RadianceIcon icon, Color fg, Color hoverFGColor) {
+	public LinkButton(String text, SvgIcon icon, Color fg, Color hoverFGColor) {
 		this(text, null, icon, fg, hoverFGColor, true);
 	}
 
@@ -48,7 +48,7 @@ public class LinkButton extends JButton implements MouseListener {
 	 * @param hoverFGColor     鼠标悬停时字体色，填null时为字体色的不透明度更低的颜色
 	 * @param underlinePainted 是否绘制下划线
 	 */
-	public LinkButton(String text, String url, RadianceIcon icon, Color fg, Color hoverFGColor, boolean underlinePainted) {
+	public LinkButton(String text, String url, SvgIcon icon, Color fg, Color hoverFGColor, boolean underlinePainted) {
 		super(text, icon);
 		this.url = url;
 		this.icon = icon;
@@ -131,7 +131,7 @@ public class LinkButton extends JButton implements MouseListener {
 	}
 
 	@Override
-	public RadianceIcon getIcon() {
+	public SvgIcon getIcon() {
 		return icon;
 	}
 
@@ -143,11 +143,11 @@ public class LinkButton extends JButton implements MouseListener {
 		this.hoverFGColor = hoverFGColor;
 	}
 
-	public void setIcon(RadianceIcon icon) {
+	public void setIcon(SvgIcon icon) {
 		this.icon = icon;
 	}
 
-	public void setColorFilter(RadianceIcon.ColorFilter colorFilter) {
+	public void setColorFilter(SvgIcon.ColorFilter colorFilter) {
 		this.colorFilter = colorFilter;
 	}
 

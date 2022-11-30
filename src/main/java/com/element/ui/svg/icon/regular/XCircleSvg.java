@@ -1,15 +1,15 @@
 package com.element.ui.svg.icon.regular;
 
-import com.element.radiance.common.api.icon.AbstractRadianceIcon;
-import com.element.radiance.common.api.icon.RadianceIcon;
-import com.element.radiance.common.api.icon.RadianceIconUIResource;
+import com.element.radiance.common.api.icon.AbstractSvgIcon;
+import com.element.radiance.common.api.icon.SvgIcon;
+import com.element.radiance.common.api.icon.SvgIconUIResource;
 
 import java.awt.*;
 import java.awt.geom.GeneralPath;
 
-public class XCircleSvg extends AbstractRadianceIcon {
+public class XCircleSvg extends AbstractSvgIcon {
 	/**
-	 * @see AbstractRadianceIcon#AbstractRadianceIcon()
+	 * @see AbstractSvgIcon#AbstractSvgIcon()
 	 */
 	public XCircleSvg() {
 		this.width = (int) getOrigWidth();
@@ -82,28 +82,28 @@ public class XCircleSvg extends AbstractRadianceIcon {
 	}
 
 	/**
-	 * @see AbstractRadianceIcon#getOrigX()
+	 * @see AbstractSvgIcon#getOrigX()
 	 */
 	public static double getOrigX() {
 		return 3.0;
 	}
 
 	/**
-	 * @see AbstractRadianceIcon#getOrigY()
+	 * @see AbstractSvgIcon#getOrigY()
 	 */
 	public static double getOrigY() {
 		return 3.0;
 	}
 
 	/**
-	 * @see AbstractRadianceIcon#getOrigWidth()
+	 * @see AbstractSvgIcon#getOrigWidth()
 	 */
 	public static double getOrigWidth() {
 		return 26.0;
 	}
 
 	/**
-	 * @see AbstractRadianceIcon#getOrigHeight()
+	 * @see AbstractSvgIcon#getOrigHeight()
 	 */
 	public static double getOrigHeight() {
 		return 26.0;
@@ -115,9 +115,9 @@ public class XCircleSvg extends AbstractRadianceIcon {
 	}
 
 	/**
-	 * @see AbstractRadianceIcon#of(int, int)
+	 * @see AbstractSvgIcon#of(int, int)
 	 */
-	public static RadianceIcon of(int width, int height) {
+	public static SvgIcon of(int width, int height) {
 		XCircleSvg base = new XCircleSvg();
 		base.width = width;
 		base.height = height;
@@ -125,13 +125,13 @@ public class XCircleSvg extends AbstractRadianceIcon {
 	}
 
 	/**
-	 * @see AbstractRadianceIcon#uiResourceOf(int, int)
+	 * @see AbstractSvgIcon#uiResourceOf(int, int)
 	 */
-	public static RadianceIconUIResource uiResourceOf(int width, int height) {
+	public static SvgIconUIResource uiResourceOf(int width, int height) {
 		XCircleSvg base = new XCircleSvg();
 		base.width = width;
 		base.height = height;
-		return new RadianceIconUIResource(base);
+		return new SvgIconUIResource(base);
 	}
 
 	@Override
@@ -142,7 +142,7 @@ public class XCircleSvg extends AbstractRadianceIcon {
 	}
 
 	/**
-	 * @see AbstractRadianceIcon#factory()
+	 * @see AbstractSvgIcon#factory()
 	 */
 	public static Factory factory() {
 		return XCircleSvg::new;

@@ -1,7 +1,7 @@
 package com.element.ui.others.upload;
 
 import com.element.color.ColorUtil;
-import com.element.radiance.common.api.icon.RadianceIcon;
+import com.element.radiance.common.api.icon.SvgIcon;
 import com.element.ui.base.BaseComponent;
 import com.element.ui.svg.icon.regular.CheckCircleSvg;
 import com.element.ui.svg.icon.regular.FileSvg;
@@ -18,9 +18,9 @@ import java.io.File;
  * 这里其实也可以使用IconInputField来实现
  */
 public class FileUploadItem extends BaseComponent implements ListCellRenderer<File> {
-	private RadianceIcon fileIcon = FileSvg.of(16, 16);
-	private RadianceIcon successIcon = CheckCircleSvg.of(16, 16);
-	private RadianceIcon delIcon = XCircleSvg.of(16, 16);
+	private SvgIcon fileIcon = FileSvg.of(16, 16);
+	private SvgIcon successIcon = CheckCircleSvg.of(16, 16);
+	private SvgIcon delIcon = XCircleSvg.of(16, 16);
 	/** 左侧标签 */
 	private JLabel leftLabel;
 	/** 中间文本 */
@@ -41,7 +41,7 @@ public class FileUploadItem extends BaseComponent implements ListCellRenderer<Fi
 		init();
 	}
 
-	public FileUploadItem(RadianceIcon fileIcon, RadianceIcon successIcon) {
+	public FileUploadItem(SvgIcon fileIcon, SvgIcon successIcon) {
 		this.fileIcon = fileIcon;
 		this.successIcon = successIcon;
 		init();
@@ -114,15 +114,15 @@ public class FileUploadItem extends BaseComponent implements ListCellRenderer<Fi
 		return fileIcon;
 	}
 
-	public void setFileIcon(RadianceIcon fileIcon) {
+	public void setFileIcon(SvgIcon fileIcon) {
 		this.fileIcon = fileIcon;
 	}
 
-	public RadianceIcon getSuccessIcon() {
+	public SvgIcon getSuccessIcon() {
 		return successIcon;
 	}
 
-	public RadianceIcon getDelIcon() {
+	public SvgIcon getDelIcon() {
 		return delIcon;
 	}
 

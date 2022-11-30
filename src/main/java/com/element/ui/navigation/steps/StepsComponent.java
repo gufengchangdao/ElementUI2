@@ -1,7 +1,7 @@
 package com.element.ui.navigation.steps;
 
 import com.element.color.ColorUtil;
-import com.element.radiance.common.api.icon.RadianceIcon;
+import com.element.radiance.common.api.icon.SvgIcon;
 import com.element.ui.base.BaseComponent;
 
 import javax.swing.*;
@@ -30,8 +30,8 @@ public class StepsComponent extends BaseComponent {
 	private Color notStartColor = ColorUtil.PLACEHOLDER_TEXT;
 	/** 正在进行步骤主题色 */
 	private Color currentColor = UIManager.getColor("Label.foreground");
-	private RadianceIcon.ColorFilter achievedColorFilter;
-	private RadianceIcon.ColorFilter notStartColorFilter = color -> notStartColor;
+	private SvgIcon.ColorFilter achievedColorFilter;
+	private SvgIcon.ColorFilter notStartColorFilter = color -> notStartColor;
 	private boolean isHorizontal;
 
 	/**
@@ -41,7 +41,7 @@ public class StepsComponent extends BaseComponent {
 	 * @param cl           图标类，内容利用反射进行图标的创建
 	 * @param isHorizontal 是否为水平步骤条，为false表示为垂直步骤条
 	 */
-	public StepsComponent(List<String> textList, Class<? extends RadianceIcon> cl, boolean isHorizontal) {
+	public StepsComponent(List<String> textList, Class<? extends SvgIcon> cl, boolean isHorizontal) {
 		this(textList, cl, 0, ColorUtil.SUCCESS, 100, isHorizontal);
 	}
 
@@ -53,11 +53,11 @@ public class StepsComponent extends BaseComponent {
 	 * @param lineLength   线宽
 	 * @param isHorizontal 是否为水平步骤条，为false表示为垂直步骤条
 	 */
-	public StepsComponent(List<String> textList, Class<? extends RadianceIcon> cl, int lineLength, boolean isHorizontal) {
+	public StepsComponent(List<String> textList, Class<? extends SvgIcon> cl, int lineLength, boolean isHorizontal) {
 		this(textList, cl, null, 0, ColorUtil.SUCCESS, lineLength, isHorizontal);
 	}
 
-	public StepsComponent(List<String> textList, Class<? extends RadianceIcon> cl,
+	public StepsComponent(List<String> textList, Class<? extends SvgIcon> cl,
 	                      int currentStep, Color achievedColor, int lineLength, boolean isHorizontal) {
 		this(textList, cl, null, currentStep, achievedColor, lineLength, isHorizontal);
 	}
@@ -73,7 +73,7 @@ public class StepsComponent extends BaseComponent {
 	 * @param lineLength      线宽
 	 * @param isHorizontal    是否为水平步骤条，为false表示为垂直步骤条
 	 */
-	public StepsComponent(List<String> textList, Class<? extends RadianceIcon> cl, List<String> descriptionList,
+	public StepsComponent(List<String> textList, Class<? extends SvgIcon> cl, List<String> descriptionList,
 	                      int currentStep, Color achievedColor, int lineLength, boolean isHorizontal) {
 		this.items = createItems(textList, cl, descriptionList, lineLength, isHorizontal);
 
@@ -86,7 +86,7 @@ public class StepsComponent extends BaseComponent {
 	/**
 	 * @see #StepsComponent(List, List, List, int, Color, int, boolean)
 	 */
-	public StepsComponent(List<String> textList, List<RadianceIcon> iconList, int currentStep, Color achievedColor,
+	public StepsComponent(List<String> textList, List<SvgIcon> iconList, int currentStep, Color achievedColor,
 	                      int lineLength, boolean isHorizontal) {
 		this(textList, iconList, null, currentStep, achievedColor, lineLength, isHorizontal);
 	}
@@ -111,7 +111,7 @@ public class StepsComponent extends BaseComponent {
 	 * @param lineLength      线宽
 	 * @param isHorizontal    是否为水平步骤条，为false表示为垂直步骤条
 	 */
-	public StepsComponent(List<String> textList, List<RadianceIcon> iconList, List<String> descriptionList,
+	public StepsComponent(List<String> textList, List<SvgIcon> iconList, List<String> descriptionList,
 	                      int currentStep, Color achievedColor, int lineLength, boolean isHorizontal) {
 		this.items = createItems(textList, iconList, descriptionList, lineLength, isHorizontal);
 
@@ -126,7 +126,7 @@ public class StepsComponent extends BaseComponent {
 	 *
 	 * @see #StepsComponent(List, Class, List, int, Color, int, boolean)
 	 */
-	public static ArrayList<StepInfo> createItems(List<String> textList, Class<? extends RadianceIcon> cl,
+	public static ArrayList<StepInfo> createItems(List<String> textList, Class<? extends SvgIcon> cl,
 	                                              List<String> descriptionList, int lineLength, boolean isHorizontal) {
 		ArrayList<StepInfo> items = new ArrayList<>();
 		try {
@@ -135,7 +135,7 @@ public class StepsComponent extends BaseComponent {
 			if (descriptionList != null)
 				dit = descriptionList.iterator();
 			for (String s : textList) {
-				RadianceIcon icon = (RadianceIcon) method.invoke(null, 16, 16);
+				SvgIcon icon = (SvgIcon) method.invoke(null, 16, 16);
 				items.add(new StepInfo(icon, s, dit == null ? null : dit.next(), lineLength,
 						isHorizontal ? SwingConstants.HORIZONTAL : SwingConstants.VERTICAL));
 			}
@@ -151,10 +151,10 @@ public class StepsComponent extends BaseComponent {
 	 *
 	 * @see #StepsComponent(List, List, int, Color, int, boolean)
 	 */
-	public static ArrayList<StepInfo> createItems(List<String> textList, List<RadianceIcon> iconList,
+	public static ArrayList<StepInfo> createItems(List<String> textList, List<SvgIcon> iconList,
 	                                              List<String> descriptionList, int lineLength, boolean isHorizontal) {
 		ArrayList<StepInfo> items = new ArrayList<>();
-		Iterator<RadianceIcon> it = iconList.iterator();
+		Iterator<SvgIcon> it = iconList.iterator();
 		Iterator<String> dit = null;
 		if (descriptionList != null) dit = descriptionList.iterator();
 		for (String s : textList) {

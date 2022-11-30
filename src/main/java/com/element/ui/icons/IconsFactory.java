@@ -5,6 +5,8 @@
  */
 package com.element.ui.icons;
 
+import com.element.radiance.common.api.icon.AbstractSvgIcon;
+import com.element.radiance.common.api.icon.SvgIcon;
 import com.element.util.GraphicsUtil;
 
 import javax.imageio.ImageIO;
@@ -14,6 +16,8 @@ import java.awt.geom.AffineTransform;
 import java.awt.image.BufferedImage;
 import java.io.*;
 import java.lang.reflect.Field;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
@@ -1204,4 +1208,37 @@ public class IconsFactory {
 		return null;
 	}
 
+	// SVG图标的方法
+
+	/**
+	 * 调用AbstractRadianceIcon子类的of()静态方法创建图标对象
+	 *
+	 * @param c      AbstractRadianceIcon子类，拥有返回图标对象的of方法
+	 * @param width  图标宽度
+	 * @param height 图标高度
+	 * @return 图标对象
+	 */
+	public static SvgIcon getSvgIcon(Class<? extends AbstractSvgIcon> c, int width, int height) {
+		try {
+			Method ofMethod = c.getMethod("of", int.class, int.class);
+			return (SvgIcon) ofMethod.invoke(null, width, height);
+		} catch (NoSuchMethodException | InvocationTargetException | IllegalAccessException e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	/**
+	 * 反射方法创建Icon对象并设置Icon颜色
+	 *
+	 * @param c         AbstractRadianceIcon子类，拥有返回图标对象的of方法
+	 * @param width     图标宽度
+	 * @param height    图标高度
+	 * @param iconColor 图标颜色
+	 * @return 图标对象
+	 */
+	public static SvgIcon getSvgIcon(Class<? extends AbstractSvgIcon> c, int width, int height, Color iconColor) {
+		SvgIcon icon = getSvgIcon(c, width, height);
+		icon.setColorFilter(color -> iconColor);
+		return icon;
+	}
 }

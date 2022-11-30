@@ -1,6 +1,6 @@
 package com.element.ui.notice.loading;
 
-import com.element.radiance.common.api.icon.RadianceIcon;
+import com.element.radiance.common.api.icon.SvgIcon;
 import org.jdesktop.core.animation.timing.Animator;
 import org.jdesktop.core.animation.timing.TimingTarget;
 
@@ -14,7 +14,7 @@ import java.util.concurrent.TimeUnit;
  * 加载标签，图标绕中心旋转动画
  */
 public class LoadingLabel extends JLabel implements TimingTarget, HierarchyListener {
-	private RadianceIcon icon;
+	private SvgIcon icon;
 	private Animator animator;
 	private double ratio = 0;
 
@@ -24,7 +24,7 @@ public class LoadingLabel extends JLabel implements TimingTarget, HierarchyListe
 	 * @param icon     图标
 	 * @param duration 转一圈所需时间，单位为毫秒
 	 */
-	public LoadingLabel(RadianceIcon icon, int duration) {
+	public LoadingLabel(SvgIcon icon, int duration) {
 		super(icon);
 		this.icon = icon;
 		animator = new Animator.Builder()
@@ -71,7 +71,7 @@ public class LoadingLabel extends JLabel implements TimingTarget, HierarchyListe
 	}
 
 	@Override
-	public RadianceIcon getIcon() {
+	public SvgIcon getIcon() {
 		return icon;
 	}
 
@@ -83,7 +83,7 @@ public class LoadingLabel extends JLabel implements TimingTarget, HierarchyListe
 		return ratio;
 	}
 
-	public void setIcon(RadianceIcon icon) {
+	public void setIcon(SvgIcon icon) {
 		this.icon = icon;
 	}
 

@@ -20,7 +20,6 @@ public class StandardDialogExample3 extends StandardDialog {
 				"BannerPanel is very useful to display a title, a description and an icon. It can be used in " +
 						"dialog to show some help information or display a product logo in a nice way.",
 				JideIconsFactory.getImageIcon(JideIconsFactory.JIDE32));
-		headerPanel1.setFont(new Font("Tahoma", Font.PLAIN, 11));
 		headerPanel1.setBackground(Color.WHITE);
 		headerPanel1.setBorder(BorderFactory.createBevelBorder(BevelBorder.LOWERED));
 		return headerPanel1;
@@ -46,8 +45,11 @@ public class StandardDialogExample3 extends StandardDialog {
 		JTextArea textArea = new MultilineLabel();
 		textArea.setColumns(50);
 		textArea.setRows(20);
-		textArea.setText("This is an example using StandardDialog." +
-				"\n\nIn this example, we create a dialog with banner, some example contents in content area, and a button panel with two buttons aligned at the center.");
+		textArea.setText("""
+				This is an example using StandardDialog.
+
+				In this example, we create a dialog with banner, some example contents in content area, and a button \s
+				panel with two buttons aligned at the center.""");
 		panel.add(new JScrollPane(textArea), BorderLayout.CENTER);
 		setInitFocusedComponent(textField);
 		return panel;

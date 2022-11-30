@@ -1,6 +1,6 @@
 package com.element.ui.base;
 
-import com.element.radiance.common.api.icon.RadianceIcon;
+import com.element.radiance.common.api.icon.SvgIcon;
 
 import java.awt.*;
 
@@ -15,14 +15,14 @@ import java.awt.*;
  */
 public class BackgroundComponent extends BaseComponent {
 	/** 背景 */
-	private RadianceIcon icon;
+	private SvgIcon icon;
 	private int rate = 1;
 
-	public BackgroundComponent(RadianceIcon icon) {
+	public BackgroundComponent(SvgIcon icon) {
 		this.icon = icon;
 	}
 
-	public BackgroundComponent(RadianceIcon icon, int rate) {
+	public BackgroundComponent(SvgIcon icon, int rate) {
 		this.icon = icon;
 		setRate(rate);
 	}
@@ -45,7 +45,7 @@ public class BackgroundComponent extends BaseComponent {
 		icon.setDimension(new Dimension(preferredSize.width * rate, preferredSize.height * rate));
 	}
 
-	public RadianceIcon getIcon() {
+	public SvgIcon getIcon() {
 		return icon;
 	}
 

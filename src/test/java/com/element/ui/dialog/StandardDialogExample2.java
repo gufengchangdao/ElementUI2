@@ -39,9 +39,13 @@ public class StandardDialogExample2 extends StandardDialog {
 		JTextArea textArea = new MultilineLabel();
 		textArea.setColumns(50);
 		textArea.setRows(20);
-		textArea.setText("This is an example using StandardDialog." +
-				"\n\nIn this example, we create a dialog with some example contents in content area, and a button panel with three buttons at the right side of the dialog.");
+		textArea.setText("""
+				This is an example using StandardDialog.
+
+				In this example, we create a dialog with some example contents in content area, and a button panel with\s
+				 three buttons at the right side of the dialog.""");
 		panel.add(new JScrollPane(textArea), BorderLayout.CENTER);
+		// 显示对话框时设置输入框申请初始焦点
 		setInitFocusedComponent(textField);
 		return panel;
 	}
@@ -55,10 +59,12 @@ public class StandardDialogExample2 extends StandardDialog {
 		okButton.setName(OK);
 		cancelButton.setName(CANCEL);
 		helpButton.setName(HELP);
+		// 确定按钮出现在面板中的位置
 		buttonPanel.addButton(okButton, ButtonPanel.AFFIRMATIVE_BUTTON);
 		buttonPanel.addButton(cancelButton, ButtonPanel.CANCEL_BUTTON);
 		buttonPanel.addButton(helpButton, ButtonPanel.HELP_BUTTON);
 
+		// 回车关闭按钮
 		okButton.setAction(new AbstractAction(UIDefaultsLookup.getString("OptionPane.okButtonText")) {
 			public void actionPerformed(ActionEvent e) {
 				setDialogResult(RESULT_AFFIRMED);

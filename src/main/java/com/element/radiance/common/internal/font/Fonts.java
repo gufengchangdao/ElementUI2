@@ -164,6 +164,7 @@ public final class Fonts {
 	 * @since 2.0.4
 	 */
 	public static Boolean canDisplayLocalizedText(Font font, Locale locale) {
+		System.out.println("Fonts.canDisplayLocalizedText()");
 		if (localeHasLocalizedDisplayLanguage(locale)) {
 			return canDisplayLocalizedDisplayLanguage(font, locale);
 		}

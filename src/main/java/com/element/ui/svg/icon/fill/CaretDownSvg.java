@@ -1,15 +1,15 @@
 package com.element.ui.svg.icon.fill;
 
-import com.element.radiance.common.api.icon.AbstractRadianceIcon;
-import com.element.radiance.common.api.icon.RadianceIcon;
-import com.element.radiance.common.api.icon.RadianceIconUIResource;
+import com.element.radiance.common.api.icon.AbstractSvgIcon;
+import com.element.radiance.common.api.icon.SvgIcon;
+import com.element.radiance.common.api.icon.SvgIconUIResource;
 
 import java.awt.*;
 import java.awt.geom.GeneralPath;
 
-public class CaretDownSvg extends AbstractRadianceIcon {
+public class CaretDownSvg extends AbstractSvgIcon {
 	/**
-	 * @see AbstractRadianceIcon#AbstractRadianceIcon()
+	 * @see AbstractSvgIcon#AbstractSvgIcon()
 	 */
 	public CaretDownSvg() {
 		this.width = (int) getOrigWidth();
@@ -61,28 +61,28 @@ public class CaretDownSvg extends AbstractRadianceIcon {
 	}
 
 	/**
-	 * @see AbstractRadianceIcon#getOrigX()
+	 * @see AbstractSvgIcon#getOrigX()
 	 */
 	public static double getOrigX() {
 		return 4.98468017578125;
 	}
 
 	/**
-	 * @see AbstractRadianceIcon#getOrigY()
+	 * @see AbstractSvgIcon#getOrigY()
 	 */
 	public static double getOrigY() {
 		return 10.99940013885498;
 	}
 
 	/**
-	 * @see AbstractRadianceIcon#getOrigWidth()
+	 * @see AbstractSvgIcon#getOrigWidth()
 	 */
 	public static double getOrigWidth() {
 		return 22.030620574951172;
 	}
 
 	/**
-	 * @see AbstractRadianceIcon#getOrigHeight()
+	 * @see AbstractSvgIcon#getOrigHeight()
 	 */
 	public static double getOrigHeight() {
 		return 12.001200675964355;
@@ -94,9 +94,9 @@ public class CaretDownSvg extends AbstractRadianceIcon {
 	}
 
 	/**
-	 * @see AbstractRadianceIcon#of(int, int)
+	 * @see AbstractSvgIcon#of(int, int)
 	 */
-	public static RadianceIcon of(int width, int height) {
+	public static SvgIcon of(int width, int height) {
 		CaretDownSvg base = new CaretDownSvg();
 		base.width = width;
 		base.height = height;
@@ -104,13 +104,13 @@ public class CaretDownSvg extends AbstractRadianceIcon {
 	}
 
 	/**
-	 * @see AbstractRadianceIcon#uiResourceOf(int, int)
+	 * @see AbstractSvgIcon#uiResourceOf(int, int)
 	 */
-	public static RadianceIconUIResource uiResourceOf(int width, int height) {
+	public static SvgIconUIResource uiResourceOf(int width, int height) {
 		CaretDownSvg base = new CaretDownSvg();
 		base.width = width;
 		base.height = height;
-		return new RadianceIconUIResource(base);
+		return new SvgIconUIResource(base);
 	}
 
 	@Override
@@ -121,7 +121,7 @@ public class CaretDownSvg extends AbstractRadianceIcon {
 	}
 
 	/**
-	 * @see AbstractRadianceIcon#factory()
+	 * @see AbstractSvgIcon#factory()
 	 */
 	public static Factory factory() {
 		return CaretDownSvg::new;

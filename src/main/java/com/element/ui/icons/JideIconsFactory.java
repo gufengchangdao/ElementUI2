@@ -97,11 +97,7 @@ public class JideIconsFactory {
 	public static final String JIDE32 = "jide/jide32.png";
 	public static final String JIDE50 = "jide/jide50.png";
 
-	public static final String JIDELOGO = "jide/jide_logo.png";
-
-
-	public static final String JIDELOGO_SMALL = "jide/jide_logo_small.png";
-	public static final String JIDELOGO_SMALL2 = "jide/jide_logo_small_2.png";
+	public static final String JIDELOGO = "jide/jide_logo_small.png";
 
 	public static ImageIcon getImageIcon(String name) {
 		if (name != null) return IconsFactory.getImageIcon(JideIconsFactory.class, name);

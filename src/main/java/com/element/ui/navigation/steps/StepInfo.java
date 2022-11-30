@@ -1,7 +1,7 @@
 package com.element.ui.navigation.steps;
 
 import com.element.color.ColorUtil;
-import com.element.radiance.common.api.icon.RadianceIcon;
+import com.element.radiance.common.api.icon.SvgIcon;
 import com.element.ui.others.line.LineLabel;
 
 import javax.swing.*;
@@ -11,25 +11,25 @@ import java.awt.*;
  * 步骤条数据，包含图标、描述、右边的一条线段
  */
 public class StepInfo {
-	RadianceIcon icon;
+	SvgIcon icon;
 	JLabel iconLabel;
 	JLabel text;
 	LineLabel lineLabel;
 	JLabel description;
 
-	public StepInfo(RadianceIcon icon, String text, int lineLength, int direction) {
+	public StepInfo(SvgIcon icon, String text, int lineLength, int direction) {
 		this(icon, text, null, null, lineLength, direction);
 	}
 
-	public StepInfo(RadianceIcon icon, String text, LineLabel lineLabel, int lineLength, int direction) {
+	public StepInfo(SvgIcon icon, String text, LineLabel lineLabel, int lineLength, int direction) {
 		this(icon, text, lineLabel, null, lineLength, direction);
 	}
 
-	public StepInfo(RadianceIcon icon, String text, String description, int lineLength, int direction) {
+	public StepInfo(SvgIcon icon, String text, String description, int lineLength, int direction) {
 		this(icon, text, null, description, lineLength, direction);
 	}
 
-	public StepInfo(RadianceIcon icon, String text, LineLabel lineLabel, String description, int lineLength, int direction) {
+	public StepInfo(SvgIcon icon, String text, LineLabel lineLabel, String description, int lineLength, int direction) {
 		this.icon = icon;
 		this.iconLabel = new JLabel(icon);
 		this.text = new JLabel(text);
@@ -74,11 +74,11 @@ public class StepInfo {
 		this.lineLabel = lineLabel;
 	}
 
-	public RadianceIcon getIcon() {
+	public SvgIcon getIcon() {
 		return icon;
 	}
 
-	public void setIcon(RadianceIcon icon) {
+	public void setIcon(SvgIcon icon) {
 		this.icon = icon;
 	}
 

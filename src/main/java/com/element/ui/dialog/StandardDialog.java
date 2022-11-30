@@ -355,6 +355,11 @@ abstract public class StandardDialog extends JDialog implements ButtonNames {
 		return buttonPanel;
 	}
 
+	/**
+	 * 重写该类可以扩展对话框，例如返回DefaultStandardDialogPane对象并重写
+	 * {@link DefaultStandardDialogPane#layoutComponents(Component, Component, ButtonPanel)}可以改变对话框内容或改变布局
+	 * @return
+	 */
 	protected StandardDialogPane createStandardDialogPane() {
 		return new DefaultStandardDialogPane();
 	}
@@ -403,6 +408,9 @@ abstract public class StandardDialog extends JDialog implements ButtonNames {
 			return StandardDialog.this.createContentPanel();
 		}
 
+		/**
+		 * 底部按钮面板，使用{@link ButtonPanel#ButtonPanel(int)} 可以改变按钮面板的位置，例如如果使用SwingConstants.TOP面板会绘制在对话框的右边
+		 */
 		@Override
 		public ButtonPanel createButtonPanel() {
 			return StandardDialog.this.createButtonPanel();

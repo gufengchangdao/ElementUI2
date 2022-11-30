@@ -1,6 +1,6 @@
 package com.element.ui.border;
 
-import com.element.radiance.common.api.icon.RadianceIcon;
+import com.element.radiance.common.api.icon.SvgIcon;
 import com.element.util.UIUtil;
 
 import javax.swing.*;
@@ -22,8 +22,8 @@ import java.awt.*;
 public class IconBorder extends AbstractBorder {
 	/** 绘制边框的边框对象，该类只负责绘制图标，不负责边框，如果不传则使用默认TextField的边框 */
 	private Border border;
-	private RadianceIcon leftIcon;
-	private RadianceIcon rightIcon;
+	private SvgIcon leftIcon;
+	private SvgIcon rightIcon;
 	/** 是否现在图标 */
 	private boolean isShowIcon = true;
 
@@ -31,13 +31,13 @@ public class IconBorder extends AbstractBorder {
 	 * @param icon   图标
 	 * @param isLeft true表示是左侧图标，否则为右侧图标
 	 */
-	public IconBorder(RadianceIcon icon, boolean isLeft) {
+	public IconBorder(SvgIcon icon, boolean isLeft) {
 		this.border = UIManager.getBorder("TextField.border");
 		if (isLeft) this.leftIcon = icon;
 		else this.rightIcon = icon;
 	}
 
-	public IconBorder(Border border, RadianceIcon leftIcon, RadianceIcon rightIcon) {
+	public IconBorder(Border border, SvgIcon leftIcon, SvgIcon rightIcon) {
 		this.border = border;
 		this.leftIcon = leftIcon;
 		this.rightIcon = rightIcon;
@@ -67,19 +67,19 @@ public class IconBorder extends AbstractBorder {
 		}
 	}
 
-	public RadianceIcon getLeftIcon() {
+	public SvgIcon getLeftIcon() {
 		return leftIcon;
 	}
 
-	public void setLeftIcon(RadianceIcon leftIcon) {
+	public void setLeftIcon(SvgIcon leftIcon) {
 		this.leftIcon = leftIcon;
 	}
 
-	public RadianceIcon getRightIcon() {
+	public SvgIcon getRightIcon() {
 		return rightIcon;
 	}
 
-	public void setRightIcon(RadianceIcon rightIcon) {
+	public void setRightIcon(SvgIcon rightIcon) {
 		this.rightIcon = rightIcon;
 	}
 

@@ -17,18 +17,23 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 
 /**
- * <code>JideSplitButton</code> is a combination of button and menu. There is a line in the middle of the button that
- * splits the button into two portions. The portion before the line is a button. User can click on it and trigger an
- * action. The portion after the line is a menu. User can click on it to show a normal menu.
- * <p/>
- * Please be noted that, when you try to use JideSplitButton as a menu item, please make sure that you will re-configure
- * its font with the following code. Otherwise, it may look different with the other JMenuItems.
- * <code><pre>
+ * JideSplitButton是按钮和菜单的组合。按钮中间有一条线将按钮分成两部分。该行之前的部分是一个按钮。用户可以点击它并触发一个动作。该行之后的
+ * 部分是菜单。用户可以点击它来显示一个普通的菜单。
+ * <p>
+ * 请注意：
+ *
+ * <ul>
+ *     <li>
+ *         JideSplitButton可以作为菜单项，但是添加之前应该移除icon，MenuItem不支持图标，不移除的话图标会显示在奇怪的位置上
+ *     </li>
+ *     <li>当您尝试使用 JideSplitButton 作为菜单项时，请确保您将使用以下代码重新配置其字体。否则，它可能看起来与其他 JMenuItem 不同。
+ *     <code><pre>
  *         splitButton.setFont((Font) JideSwingUtilities.getMenuFont(Toolkit.getDefaultToolkit(), UIManager.getDefaults()));
- * </pre></code>
+ *     </pre></code>
+ *     </li>
+ * </ul>
  */
 public class JideSplitButton extends JideMenu implements ButtonStyle, ComponentStateSupport {
-
 	/**
 	 * @see #getUIClassID
 	 */
@@ -90,7 +95,7 @@ public class JideSplitButton extends JideMenu implements ButtonStyle, ComponentS
 	 * Sets the L&F object that renders this component.
 	 *
 	 * @param ui the <code>JideSplitButtonUI</code> L&F object
-	 * @see UIDefaults#getUI
+	 * @see javax.swing.UIDefaults#getUI
 	 */
 	@Override
 	public void setUI(ButtonUI ui) {
@@ -101,7 +106,7 @@ public class JideSplitButton extends JideMenu implements ButtonStyle, ComponentS
 	 * Notification from the <code>UIFactory</code> that the L&F has changed. Called to replace the UI with the latest
 	 * version from the <code>UIFactory</code>.
 	 *
-	 * @see JComponent#updateUI
+	 * @see javax.swing.JComponent#updateUI
 	 */
 	@Override
 	public void updateUI() {
@@ -117,8 +122,8 @@ public class JideSplitButton extends JideMenu implements ButtonStyle, ComponentS
 	 * Returns the name of the L&F class that renders this component.
 	 *
 	 * @return the string "JideSplitButtonUI"
-	 * @see JComponent#getUIClassID
-	 * @see UIDefaults#getUI
+	 * @see javax.swing.JComponent#getUIClassID
+	 * @see javax.swing.UIDefaults#getUI
 	 */
 	@Override
 	public String getUIClassID() {
@@ -489,4 +494,5 @@ public class JideSplitButton extends JideMenu implements ButtonStyle, ComponentS
 	void smallIconChanged(Action a) {
 	}
 }
+
 

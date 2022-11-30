@@ -1,6 +1,6 @@
 package com.element.color;
 
-import com.element.radiance.common.api.icon.RadianceIcon;
+import com.element.radiance.common.api.icon.SvgIcon;
 
 import java.awt.*;
 
@@ -11,7 +11,7 @@ import static com.element.color.ColorUtil.blend;
  * <p>
  * 改变颜色需要手动设置 radio
  */
-public class GradientColorFilter implements RadianceIcon.ColorFilter {
+public class GradientColorFilter implements SvgIcon.ColorFilter {
 	private Color startColor;
 	private Color endColor;
 	private float radio;

@@ -1,15 +1,15 @@
 package com.element.ui.svg.upload;
 
-import com.element.radiance.common.api.icon.AbstractRadianceIcon;
-import com.element.radiance.common.api.icon.RadianceIcon;
-import com.element.radiance.common.api.icon.RadianceIconUIResource;
+import com.element.radiance.common.api.icon.AbstractSvgIcon;
+import com.element.radiance.common.api.icon.SvgIcon;
+import com.element.radiance.common.api.icon.SvgIconUIResource;
 
 import java.awt.*;
 import java.awt.geom.GeneralPath;
 
-public class Group32Svg extends AbstractRadianceIcon {
+public class Group32Svg extends AbstractSvgIcon {
 	/**
-	 * @see AbstractRadianceIcon#AbstractRadianceIcon()
+	 * @see AbstractSvgIcon#AbstractSvgIcon()
 	 */
 	public Group32Svg() {
 		this.width = (int) getOrigWidth();
@@ -256,28 +256,28 @@ public class Group32Svg extends AbstractRadianceIcon {
 	}
 
 	/**
-	 * @see AbstractRadianceIcon#getOrigX()
+	 * @see AbstractSvgIcon#getOrigX()
 	 */
 	public static double getOrigX() {
 		return 0.0;
 	}
 
 	/**
-	 * @see AbstractRadianceIcon#getOrigY()
+	 * @see AbstractSvgIcon#getOrigY()
 	 */
 	public static double getOrigY() {
 		return 0.0;
 	}
 
 	/**
-	 * @see AbstractRadianceIcon#getOrigWidth()
+	 * @see AbstractSvgIcon#getOrigWidth()
 	 */
 	public static double getOrigWidth() {
 		return 128.0;
 	}
 
 	/**
-	 * @see AbstractRadianceIcon#getOrigHeight()
+	 * @see AbstractSvgIcon#getOrigHeight()
 	 */
 	public static double getOrigHeight() {
 		return 128.0;
@@ -289,9 +289,9 @@ public class Group32Svg extends AbstractRadianceIcon {
 	}
 
 	/**
-	 * @see AbstractRadianceIcon#of(int, int)
+	 * @see AbstractSvgIcon#of(int, int)
 	 */
-	public static RadianceIcon of(int width, int height) {
+	public static SvgIcon of(int width, int height) {
 		Group32Svg base = new Group32Svg();
 		base.width = width;
 		base.height = height;
@@ -299,13 +299,13 @@ public class Group32Svg extends AbstractRadianceIcon {
 	}
 
 	/**
-	 * @see AbstractRadianceIcon#uiResourceOf(int, int)
+	 * @see AbstractSvgIcon#uiResourceOf(int, int)
 	 */
-	public static RadianceIconUIResource uiResourceOf(int width, int height) {
+	public static SvgIconUIResource uiResourceOf(int width, int height) {
 		Group32Svg base = new Group32Svg();
 		base.width = width;
 		base.height = height;
-		return new RadianceIconUIResource(base);
+		return new SvgIconUIResource(base);
 	}
 
 	@Override
@@ -316,7 +316,7 @@ public class Group32Svg extends AbstractRadianceIcon {
 	}
 
 	/**
-	 * @see AbstractRadianceIcon#factory()
+	 * @see AbstractSvgIcon#factory()
 	 */
 	public static Factory factory() {
 		return Group32Svg::new;

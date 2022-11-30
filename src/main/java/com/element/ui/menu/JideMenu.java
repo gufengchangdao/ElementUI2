@@ -18,40 +18,32 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 /**
- * A special implementation of JMenu. It is used to replace JMenu in order to use with CommandBar. <br> It has two
- * special features. First, it has a PopupMenuCustomizer for lazy menu creation. Instead of creating menu upfront which
- * might be quite expensive, you can create it using PopupMenuCustomizer. PopupMenuCustomizer is called before the menu
- * is set visible. Please note, when you use PopupMenuCustomizer, you need to remove the old menu items you added
- * previously using PopupMenuCustomizer. Otherwise, you will see a menu which gets longer and longer when you show it.
- * See below for an example.
- * <code><pre>
- * JideMenu jideMenu = new JideMenu("Dynamic");
- * jideMenu.setPopupMenuCustomizer(new JideMenu.PopupMenuCustomizer(){
- *     public void customize(JPopupMenu menu) {
- *         menu.add("item 1");
- *         menu.add("item 2");
- *         menu.add("item 3");
- *         menu.add("item 4");
- *         menu.add("item 5");
- *     }
- * });
- * </pre></code>
- * <p/>
- * Second feature is popup alignment. Usually menu and its popup align to the left side. In our case, we hope they align
- * to right side. So we added a method call setPreferredPopupHorizontalAlignment(). You can set to RIGHT if you want
- * to.
- * <p/>
+ * JMenu 的特殊实现。它用于替换 JMenu 以便与 CommandBar 一起使用。 它有两个特殊功能。首先，它有一个用于惰性菜单创建的
+ * PopupMenuCustomizer。您可以使用 PopupMenuCustomizer 创建它，而不是预先创建可能非常昂贵的菜单。在菜单设置为可见之前调用
+ * PopupMenuCustomizer。请注意，当您使用 PopupMenuCustomizer 时，您需要删除之前使用 PopupMenuCustomizer 添加的旧菜单项。否则，您会
+ * 看到一个菜单，当您显示它时它会变得越来越长。请参阅下面的示例。
+ * <pre><code>
+ *   JideMenu jideMenu = new JideMenu("Dynamic");
+ *   jideMenu.setPopupMenuCustomizer(new JideMenu.PopupMenuCustomizer(){
+ *       public void customize(JPopupMenu menu) {
+ *           // 删除所有菜单或设置PopupMenuCustomizer为null都可以解决问题
+ *           b1.setPopupMenuCustomizer(null);
+ *           // b1.removeAll();
+ *           menu.add("item 1");
+ *           menu.add("item 2");
+ *           menu.add("item 3");
+ *       }
+ *   });
+ * </code></pre>
  */
 public class JideMenu extends JMenu implements Alignable {
-
 	private int _preferredPopupHorizontalAlignment = LEFT;
-
 	private int _preferredPopupVerticalAlignment = BOTTOM;
 
-	private MenuCreator _menuCreator;
-
+	/** Menu定制器 */
 	private PopupMenuCustomizer _customizer;
 
+	/** 菜单弹出位置计算器 */
 	private PopupMenuOriginCalculator _originCalculator;
 
 	public static int DELAY = 400;
@@ -81,9 +73,9 @@ public class JideMenu extends JMenu implements Alignable {
 //        setDelay(DELAY);
 		addMenuListener(new MenuListener() {
 			public void menuSelected(MenuEvent e) {
-				MenuCreator menuCreator;
-				if ((menuCreator = getMenuCreator()) != null) {
-					menuCreator.createMenu();
+				PopupMenuCustomizer menuCreator;
+				if ((menuCreator = getPopupMenuCustomizer()) != null) {
+					menuCreator.customize(getPopupMenu());
 					if (getPopupMenu().getComponentCount() == 0) {
 						return;
 					}
@@ -116,23 +108,22 @@ public class JideMenu extends JMenu implements Alignable {
 	}
 
 	/**
-	 * @deprecated The createMenu method of MenuCreator should JPopupMenu as parameter. Since it's a public API we have
-	 * to deprecated this one and ask users to use {@link PopupMenuCustomizer} instead.
-	 */
-	@Deprecated
-	public interface MenuCreator {
-		void createMenu();
-	}
-
-	/**
-	 * Customizes the popup menu. This method will be called every time before popup menu is set visible.
+	 * 自定义弹出菜单。每次在弹出菜单设置为可见之前都会调用此方法。
+	 * <p>
+	 * 因此你需要像下面这样实现：
+	 * <pre>
+	 *  // 删除所有菜单或设置PopupMenuCustomizer为null都可以防止重复添加MenuItem
+	 *  b1.setPopupMenuCustomizer(null);
+	 *  // b1.removeAll();
+	 *  // 添加MenuItem...
+	 * </pre>
 	 */
 	public interface PopupMenuCustomizer {
 		void customize(JPopupMenu menu);
 	}
 
 	/**
-	 * Calculates the origin of the popup menu if specified.
+	 * 如果指定，计算弹出菜单的原点。
 	 */
 	public interface PopupMenuOriginCalculator {
 		Point getPopupMenuOrigin(JideMenu menu);
@@ -154,30 +145,6 @@ public class JideMenu extends JMenu implements Alignable {
 	 */
 	public void setOriginCalculator(PopupMenuOriginCalculator originCalculator) {
 		this._originCalculator = originCalculator;
-	}
-
-	/**
-	 * Gets the MenuCreator.
-	 *
-	 * @return the MenuCreator.
-	 * @deprecated use{@link PopupMenuCustomizer} and {@link #getPopupMenuCustomizer()} instead.
-	 */
-	@Deprecated
-	public MenuCreator getMenuCreator() {
-		return _menuCreator;
-	}
-
-	/**
-	 * Sets the MenuCreator. MenuCreator can be used to do lazy menu creation. If you put code in the MenuCreator, it
-	 * won't be called until before the menu is set visible.
-	 *
-	 * @param menuCreator he menu creator
-	 * @deprecated use{@link PopupMenuCustomizer} and {@link #setPopupMenuCustomizer(PopupMenuCustomizer)}
-	 * instead.
-	 */
-	@Deprecated
-	public void setMenuCreator(MenuCreator menuCreator) {
-		_menuCreator = menuCreator;
 	}
 
 	/**
@@ -280,7 +247,7 @@ public class JideMenu extends JMenu implements Alignable {
 							screenBounds.width - s.width < 2 * (position.x
 									- screenBounds.x)) {
 
-						x = -xOffset - pmSize.width;
+						x = 0 - xOffset - pmSize.width;
 					}
 				} else {
 					// First determine x:
@@ -289,12 +256,12 @@ public class JideMenu extends JMenu implements Alignable {
 							// popup doesn't fit - place it wherever there's more room
 							screenBounds.width - s.width < 2 * (position.x - screenBounds.x)) {
 
-						x = -xOffset - pmSize.width;
+						x = 0 - xOffset - pmSize.width;
 					}
 				}
 			} else {
 				// First determine x:
-				x = -xOffset - pmSize.width; // Prefer placement to the left
+				x = 0 - xOffset - pmSize.width; // Prefer placement to the left
 				if (position.x + x < screenBounds.x &&
 						// popup doesn't fit - place it wherever there's more room
 						screenBounds.width - s.width > 2 * (position.x -
@@ -380,7 +347,7 @@ public class JideMenu extends JMenu implements Alignable {
 						screenBounds.height - s.height < 2 * (position.y
 								- screenBounds.y)) {
 
-					y = -yOffset - pmSize.height;   // Otherwise drop 'up'
+					y = 0 - yOffset - pmSize.height;   // Otherwise drop 'up'
 				}
 			}
 		}
@@ -452,9 +419,9 @@ public class JideMenu extends JMenu implements Alignable {
 
 	@Override
 	public void setPopupMenuVisible(boolean b) {
-		MenuCreator menuCreator;
-		if (b && (menuCreator = getMenuCreator()) != null) {
-			menuCreator.createMenu();
+		PopupMenuCustomizer menuCreator;
+		if (b && (menuCreator = getPopupMenuCustomizer()) != null) {
+			menuCreator.customize(getPopupMenu());
 		}
 
 		PopupMenuCustomizer customizer;
@@ -510,6 +477,8 @@ public class JideMenu extends JMenu implements Alignable {
 	}
 
 	private class HideTimer extends Timer implements ActionListener {
+		private static final long serialVersionUID = 561631364532967870L;
+
 		public HideTimer() {
 			super(DELAY + 300, null);
 			addActionListener(this);

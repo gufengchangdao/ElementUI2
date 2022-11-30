@@ -86,7 +86,9 @@ abstract public class AbstractDemo implements Demo {
 		frame.getContentPane().setLayout(new BorderLayout());
 		frame.getContentPane().add(panel, BorderLayout.CENTER);
 		if (pane != null) {
-			frame.getContentPane().add(new JScrollPane(pane), BorderLayout.LINE_START);
+			JScrollPane scrollPane = new JScrollPane(pane);
+			scrollPane.getVerticalScrollBar().setUnitIncrement(5);
+			frame.getContentPane().add(scrollPane, BorderLayout.LINE_START);
 		}
 
 		// 使用快捷键 运行 GC 并打印可用内存
@@ -233,7 +235,7 @@ abstract public class AbstractDemo implements Demo {
 	}
 
 	/**
-	 * 获取示例源码文件信息，类全名 + .java
+	 * 获取示例源码文件信息，返回要展示的类对象
 	 */
 	public Class<?>[] getDemoSource() {
 		return new Class[]{getClass()};
@@ -291,12 +293,15 @@ abstract public class AbstractDemo implements Demo {
 	 * @return 源代码展示面板
 	 */
 	public static JComponent createSourceCodePanel(Class<?>[] sourceCode) {
-		JTabbedPane tabbedPane = new JTabbedPane(JideTabbedPane.BOTTOM, JTabbedPane.SCROLL_TAB_LAYOUT);
-
+		JideTabbedPane tabbedPane = new JideTabbedPane(JideTabbedPane.TOP, JideTabbedPane.SCROLL_TAB_LAYOUT);
+		tabbedPane.setOpaque(true);
 		for (Class<?> c : sourceCode) {
-			String className = c.getName();
-			tabbedPane.addTab(className, new JScrollPane(createTextComponent(c)));
+			tabbedPane.addTab(c.getSimpleName(), new JScrollPane(createTextComponent(c)));
 		}
+		// 设置关闭按钮
+		tabbedPane.setShowCloseButtonOnTab(true);
+		tabbedPane.setShowCloseButtonOnSelectedTab(true);
+
 		return tabbedPane;
 	}
 

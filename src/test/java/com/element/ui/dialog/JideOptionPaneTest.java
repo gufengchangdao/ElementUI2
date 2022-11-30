@@ -72,23 +72,23 @@ public class JideOptionPaneTest extends AbstractDemo {
 
 			JPanel panel1 = new JPanel(new GridLayout(0, 1, 10, 10));
 			panel1.setBorder(BorderFactory.createCompoundBorder(
-					BorderFactory.createTitledBorder("Standard JOptionPane Features"),
+					BorderFactory.createTitledBorder("JideOptionPane Features"),
 					BorderFactory.createEmptyBorder(5, 10, 10, 10)));
-			panel1.add(createInputDialogButton());
-			panel1.add(createWarningDialogButton());
-			panel1.add(createComponentDialogButton());
-			panel1.add(createConfirmDialogButton());
+			panel1.add(createDetailsDialogButton());
+			panel1.add(createProgressDialogButton());
 
 			JPanel panel2 = new JPanel(new GridLayout(0, 1, 10, 10));
 			panel2.setBorder(BorderFactory.createCompoundBorder(
-					BorderFactory.createTitledBorder("JideOptionPane Features"),
+					BorderFactory.createTitledBorder("Standard JOptionPane Features"),
 					BorderFactory.createEmptyBorder(5, 10, 10, 10)));
-			panel2.add(createDetailsDialogButton());
-			panel2.add(createProgressDialogButton());
+			panel2.add(createInputDialogButton());
+			panel2.add(createWarningDialogButton());
+			panel2.add(createComponentDialogButton());
+			panel2.add(createConfirmDialogButton());
 
-			_demoPanel.add(panel2);
-			_demoPanel.add(Box.createRigidArea(new Dimension(1, 15)));
 			_demoPanel.add(panel1);
+			_demoPanel.add(Box.createRigidArea(new Dimension(1, 15)));
+			_demoPanel.add(panel2);
 			_demoPanel.add(Box.createVerticalGlue(), JideBoxLayout.VARY);
 		}
 
@@ -202,7 +202,7 @@ public class JideOptionPaneTest extends AbstractDemo {
 	public JButton createDetailsDialogButton() {
 		Action a = new AbstractAction("Show Details Dialog") {
 			public void actionPerformed(ActionEvent e) {
-				String details = ("""
+				String details = """
 						java.lang.Exception: Stack trace
 						\tat java.awt.Component.processMouseEvent(Component.java:5957)
 						\tat javax.swing.JComponent.processMouseEvent(JComponent.java:3284)
@@ -223,7 +223,7 @@ public class JideOptionPaneTest extends AbstractDemo {
 						\tat java.awt.EventDispatchThread.pumpEventsForHierarchy(EventDispatchThread.java:173)
 						\tat java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:168)
 						\tat java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:160)
-						\tat java.awt.EventDispatchThread.run(EventDispatchThread.java:121)""");
+						\tat java.awt.EventDispatchThread.run(EventDispatchThread.java:121)""";
 				JideOptionPane optionPane = new JideOptionPane("Click \"Details\" button to see more information ... ", JOptionPane.ERROR_MESSAGE, JideOptionPane.CLOSE_OPTION);
 				optionPane.setLocale(_demoPanel.getLocale());
 				optionPane.setTitle("An exception happened during file transfers - if the title is very long, it will wrap automatically.");
@@ -281,7 +281,7 @@ public class JideOptionPaneTest extends AbstractDemo {
 		// action text.
 		b.putClientProperty("displayActionText", Boolean.TRUE);
 		b.setAction(a);
-		// b.setAlignmentX(JButton.CENTER_ALIGNMENT);
+		b.setAlignmentX(JButton.CENTER_ALIGNMENT);
 		return b;
 	}
 

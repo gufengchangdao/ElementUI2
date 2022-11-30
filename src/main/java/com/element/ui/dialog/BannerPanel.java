@@ -15,7 +15,7 @@ import java.beans.PropertyChangeListener;
 
 /**
  * <code>BannerPanel</code> is a panel that can show title, subtitle and icon with title on top, subtitle on the bottom
- * and icon on the left. You can use ImageIcon as the icon but you can also use your own component as the icon component
+ * and icon on the left. You can use Icon as the icon but you can also use your own component as the icon component
  * by using {@link #setIconComponent(JComponent)}.
  * <p/>
  * <code>BannerPanel</code> can be placed on top of any dialog or any panel to show some help information or display a
@@ -35,7 +35,7 @@ public class BannerPanel extends JPanel {
 	/**
 	 * Icon for the banner panel.
 	 */
-	protected ImageIcon _titleIcon;
+	protected Icon _titleIcon;
 
 
 	public static final String TITLE_PROPERTY = "title";
@@ -107,7 +107,7 @@ public class BannerPanel extends JPanel {
 	 * @param subtitle  the sub title.
 	 * @param titleIcon the icon.
 	 */
-	public BannerPanel(String title, String subtitle, ImageIcon titleIcon) {
+	public BannerPanel(String title, String subtitle, Icon titleIcon) {
 		setTitle(title);
 		setSubtitle(subtitle);
 		setTitleIcon(titleIcon);
@@ -120,7 +120,7 @@ public class BannerPanel extends JPanel {
 	 * @param title         the title.
 	 * @param subtitle      the sub title.
 	 * @param iconComponent the icon component. It will appear where the icon is if using constructor {@link
-	 *                      #BannerPanel(String, String, ImageIcon)}.
+	 *                      #BannerPanel(String, String, Icon)}.
 	 */
 	public BannerPanel(String title, String subtitle, JComponent iconComponent) {
 		setTitle(title);
@@ -255,7 +255,7 @@ public class BannerPanel extends JPanel {
 	 * @return the image icon after processing. By default it will return the same image icon. Subclass can override it
 	 * to scale the image or do other processing.
 	 */
-	protected ImageIcon prepareTitleIcon(ImageIcon icon) {
+	protected Icon prepareTitleIcon(Icon icon) {
 		return icon;
 	}
 
@@ -355,7 +355,7 @@ public class BannerPanel extends JPanel {
 	 *
 	 * @return the title icon
 	 */
-	public ImageIcon getTitleIcon() {
+	public Icon getTitleIcon() {
 		return _titleIcon;
 	}
 
@@ -364,15 +364,15 @@ public class BannerPanel extends JPanel {
 	 *
 	 * @param titleIcon the new titleIcon.
 	 */
-	public void setTitleIcon(ImageIcon titleIcon) {
-		ImageIcon old = _titleIcon;
+	public void setTitleIcon(Icon titleIcon) {
+		Icon old = _titleIcon;
 		_titleIcon = prepareTitleIcon(titleIcon);
 		firePropertyChange(ICON_PROPERTY, old, _titleIcon);
 	}
 
 
 	/**
-	 * Gets the icon component. If you use constructor {@link #BannerPanel(String, String, ImageIcon)}, the
+	 * Gets the icon component. If you use constructor {@link #BannerPanel(String, String, Icon)}, the
 	 * icon component will be a JLabel with the icon in the 3rd parameter. If you use the constructor {@link
 	 * #BannerPanel(String, String, JComponent)}, it will return the component as in the 3rd parameter.
 	 *

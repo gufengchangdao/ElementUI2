@@ -1,16 +1,16 @@
 package com.element.ui.svg.upload;
 
-import com.element.radiance.common.api.icon.AbstractRadianceIcon;
-import com.element.radiance.common.api.icon.RadianceIcon;
-import com.element.radiance.common.api.icon.RadianceIconUIResource;
+import com.element.radiance.common.api.icon.AbstractSvgIcon;
+import com.element.radiance.common.api.icon.SvgIcon;
+import com.element.radiance.common.api.icon.SvgIconUIResource;
 
 import java.awt.*;
 import java.awt.geom.AffineTransform;
 import java.awt.geom.GeneralPath;
 
-public class UploadVideoSvg extends AbstractRadianceIcon {
+public class UploadVideoSvg extends AbstractSvgIcon {
 	/**
-	 * @see AbstractRadianceIcon#AbstractRadianceIcon()
+	 * @see AbstractSvgIcon#AbstractSvgIcon()
 	 */
 	public UploadVideoSvg() {
 		this.width = (int) getOrigWidth();
@@ -119,28 +119,28 @@ public class UploadVideoSvg extends AbstractRadianceIcon {
 	}
 
 	/**
-	 * @see AbstractRadianceIcon#getOrigX()
+	 * @see AbstractSvgIcon#getOrigX()
 	 */
 	public static double getOrigX() {
 		return 0.0;
 	}
 
 	/**
-	 * @see AbstractRadianceIcon#getOrigY()
+	 * @see AbstractSvgIcon#getOrigY()
 	 */
 	public static double getOrigY() {
 		return 0.0;
 	}
 
 	/**
-	 * @see AbstractRadianceIcon#getOrigWidth()
+	 * @see AbstractSvgIcon#getOrigWidth()
 	 */
 	public static double getOrigWidth() {
 		return 158.0;
 	}
 
 	/**
-	 * @see AbstractRadianceIcon#getOrigHeight()
+	 * @see AbstractSvgIcon#getOrigHeight()
 	 */
 	public static double getOrigHeight() {
 		return 158.0;
@@ -152,9 +152,9 @@ public class UploadVideoSvg extends AbstractRadianceIcon {
 	}
 
 	/**
-	 * @see AbstractRadianceIcon#of(int, int)
+	 * @see AbstractSvgIcon#of(int, int)
 	 */
-	public static RadianceIcon of(int width, int height) {
+	public static SvgIcon of(int width, int height) {
 		UploadVideoSvg base = new UploadVideoSvg();
 		base.width = width;
 		base.height = height;
@@ -162,13 +162,13 @@ public class UploadVideoSvg extends AbstractRadianceIcon {
 	}
 
 	/**
-	 * @see AbstractRadianceIcon#uiResourceOf(int, int)
+	 * @see AbstractSvgIcon#uiResourceOf(int, int)
 	 */
-	public static RadianceIconUIResource uiResourceOf(int width, int height) {
+	public static SvgIconUIResource uiResourceOf(int width, int height) {
 		UploadVideoSvg base = new UploadVideoSvg();
 		base.width = width;
 		base.height = height;
-		return new RadianceIconUIResource(base);
+		return new SvgIconUIResource(base);
 	}
 
 	@Override
@@ -179,7 +179,7 @@ public class UploadVideoSvg extends AbstractRadianceIcon {
 	}
 
 	/**
-	 * @see AbstractRadianceIcon#factory()
+	 * @see AbstractSvgIcon#factory()
 	 */
 	public static Factory factory() {
 		return UploadVideoSvg::new;
