@@ -23,9 +23,6 @@ import java.awt.event.ActionEvent;
  * 请注意：
  *
  * <ul>
- *     <li>
- *         JideSplitButton可以作为菜单项，但是添加之前应该移除icon，MenuItem不支持图标，不移除的话图标会显示在奇怪的位置上
- *     </li>
  *     <li>当您尝试使用 JideSplitButton 作为菜单项时，请确保您将使用以下代码重新配置其字体。否则，它可能看起来与其他 JMenuItem 不同。
  *     <code><pre>
  *         splitButton.setFont((Font) JideSwingUtilities.getMenuFont(Toolkit.getDefaultToolkit(), UIManager.getDefaults()));
@@ -89,17 +86,6 @@ public class JideSplitButton extends JideMenu implements ButtonStyle, ComponentS
 	@Override
 	public ButtonUI getUI() {
 		return (ButtonUI) ui;
-	}
-
-	/**
-	 * Sets the L&F object that renders this component.
-	 *
-	 * @param ui the <code>JideSplitButtonUI</code> L&F object
-	 * @see javax.swing.UIDefaults#getUI
-	 */
-	@Override
-	public void setUI(ButtonUI ui) {
-		super.setUI(ui);
 	}
 
 	/**
@@ -310,17 +296,13 @@ public class JideSplitButton extends JideMenu implements ButtonStyle, ComponentS
 	 * @return the background for different states.
 	 */
 	public Color getBackgroundOfState(int state) {
-		switch (state) {
-			case ThemePainter.STATE_DEFAULT:
-				return getBackground();
-			case ThemePainter.STATE_ROLLOVER:
-				return getRolloverBackground();
-			case ThemePainter.STATE_SELECTED:
-				return getSelectedBackground();
-			case ThemePainter.STATE_PRESSED:
-				return getPressedBackground();
-		}
-		return null;
+		return switch (state) {
+			case ThemePainter.STATE_DEFAULT -> getBackground();
+			case ThemePainter.STATE_ROLLOVER -> getRolloverBackground();
+			case ThemePainter.STATE_SELECTED -> getSelectedBackground();
+			case ThemePainter.STATE_PRESSED -> getPressedBackground();
+			default -> null;
+		};
 	}
 
 	/**
@@ -338,18 +320,10 @@ public class JideSplitButton extends JideMenu implements ButtonStyle, ComponentS
 	 */
 	public void setBackgroundOfState(int state, Color color) {
 		switch (state) {
-			case ThemePainter.STATE_DEFAULT:
-				setBackground(color);
-				break;
-			case ThemePainter.STATE_ROLLOVER:
-				setRolloverBackground(color);
-				break;
-			case ThemePainter.STATE_SELECTED:
-				setSelectedBackground(color);
-				break;
-			case ThemePainter.STATE_PRESSED:
-				setPressedBackground(color);
-				break;
+			case ThemePainter.STATE_DEFAULT -> setBackground(color);
+			case ThemePainter.STATE_ROLLOVER -> setRolloverBackground(color);
+			case ThemePainter.STATE_SELECTED -> setSelectedBackground(color);
+			case ThemePainter.STATE_PRESSED -> setPressedBackground(color);
 		}
 	}
 
@@ -367,17 +341,13 @@ public class JideSplitButton extends JideMenu implements ButtonStyle, ComponentS
 	 * @return the foreground for different states.
 	 */
 	public Color getForegroundOfState(int state) {
-		switch (state) {
-			case ThemePainter.STATE_DEFAULT:
-				return getDefaultForeground();
-			case ThemePainter.STATE_ROLLOVER:
-				return getRolloverForeground();
-			case ThemePainter.STATE_SELECTED:
-				return getSelectedForeground();
-			case ThemePainter.STATE_PRESSED:
-				return getPressedForeground();
-		}
-		return null;
+		return switch (state) {
+			case ThemePainter.STATE_DEFAULT -> getDefaultForeground();
+			case ThemePainter.STATE_ROLLOVER -> getRolloverForeground();
+			case ThemePainter.STATE_SELECTED -> getSelectedForeground();
+			case ThemePainter.STATE_PRESSED -> getPressedForeground();
+			default -> null;
+		};
 	}
 
 
@@ -396,18 +366,10 @@ public class JideSplitButton extends JideMenu implements ButtonStyle, ComponentS
 	 */
 	public void setForegroundOfState(int state, Color color) {
 		switch (state) {
-			case ThemePainter.STATE_DEFAULT:
-				setDefaultForeground(color);
-				break;
-			case ThemePainter.STATE_ROLLOVER:
-				setRolloverForeground(color);
-				break;
-			case ThemePainter.STATE_SELECTED:
-				setSelectedForeground(color);
-				break;
-			case ThemePainter.STATE_PRESSED:
-				setPressedForeground(color);
-				break;
+			case ThemePainter.STATE_DEFAULT -> setDefaultForeground(color);
+			case ThemePainter.STATE_ROLLOVER -> setRolloverForeground(color);
+			case ThemePainter.STATE_SELECTED -> setSelectedForeground(color);
+			case ThemePainter.STATE_PRESSED -> setPressedForeground(color);
 		}
 	}
 
@@ -459,7 +421,6 @@ public class JideSplitButton extends JideMenu implements ButtonStyle, ComponentS
 	@Override
 	protected void actionPropertyChanged(Action action, String propertyName) {
 		super.actionPropertyChanged(action, propertyName);
-
 		if (ACTION_PROPERTY_SPLIT_BUTTON_ENABLED.equals(propertyName) || "enabled".equals(propertyName)) {
 			setButtonEnabled(isSplitButtonEnabled(action));
 		} else if (Action.SMALL_ICON.equals(propertyName)) {
@@ -486,12 +447,6 @@ public class JideSplitButton extends JideMenu implements ButtonStyle, ComponentS
 				return action.isEnabled();
 			}
 		}
-	}
-
-	void largeIconChanged(Action a) {
-	}
-
-	void smallIconChanged(Action a) {
 	}
 }
 

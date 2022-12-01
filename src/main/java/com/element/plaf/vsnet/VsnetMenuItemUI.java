@@ -375,6 +375,7 @@ public class VsnetMenuItemUI extends MenuItemUI {
 	// these rects are used for painting and preferredsize calculations.
 	// they used to be regenerated constantly.  Now they are reused.
 	protected static Rectangle zeroRect = new Rectangle(0, 0, 0, 0);
+	/** 图标所在区间 */
 	protected static Rectangle iconRect = new Rectangle();
 	protected static Rectangle textRect = new Rectangle();
 	protected static Rectangle acceleratorRect = new Rectangle();
@@ -384,6 +385,7 @@ public class VsnetMenuItemUI extends MenuItemUI {
 	static Rectangle r = new Rectangle();
 
 	private void resetRects() {
+		// 初始化
 		iconRect.setBounds(zeroRect);
 		textRect.setBounds(zeroRect);
 		acceleratorRect.setBounds(zeroRect);
@@ -902,20 +904,22 @@ public class VsnetMenuItemUI extends MenuItemUI {
 	                              Rectangle arrowIconRect,
 	                              int textIconGap,
 	                              int menuItemGap) {
+		// 如果图标大小为零，则可能会发生异常
 		if (icon != null)
-			if ((icon.getIconHeight() == 0) || (icon.getIconWidth() == 0))
-				icon = null;    // An exception may occur in case of zero sized icons
+			if ((icon.getIconHeight() == 0) || (icon.getIconWidth() == 0)) icon = null;
 
-		viewRect.width -= getRightMargin(); // this line is mainly for JideSplitButton
+		// 这一行主要是针对 JideSplitButton，计算不考虑右侧的下拉按钮
+		viewRect.width -= getRightMargin();
 		String newText = SwingUtilities.layoutCompoundLabel(menuItem, fm, text, icon, verticalAlignment,
 				horizontalAlignment, verticalTextPosition,
 				horizontalTextPosition, viewRect, iconRect, textRect,
 				textIconGap);
+
 		// only do it for split menu
 		if (getRightMargin() > 0) {
 			text = newText;
 		}
-		viewRect.width += getRightMargin(); // this line is mainly for JideSplitButton
+		viewRect.width += getRightMargin();
 
 		Insets insets = isDownArrowVisible(menuItem.getParent()) ? new Insets(0, 0, 0, 0) : menuItem.getInsets();
 		// get viewRect which is the bounds of menuitem
@@ -989,35 +993,36 @@ public class VsnetMenuItemUI extends MenuItemUI {
 			}
 		}
 
-		// left a shadow for non-top level menu
-		if (useCheckAndArrow()) {
-			iconRect.x = (defaultShadowWidth - iconRect.width) >> 1;
-			if (text != null && !text.equals("")) {
-				textRect.x = viewRect.x + defaultShadowWidth + textIconGap;
-			}
-		} else {
-//                if (icon != null) {
-//                    if (isDownArrowVisible(menuItem.getParent())) {
-//                        iconRect.x = 3;
-//                    }
-//                    else {
-//                        iconRect.x = menuItem.getInsets().left;
-//                    }
-//                    if (text != null && !text.equals("")) {
-//                        textRect.x = iconRect.x + iconRect.width + textIconGap;
-//                    }
-//                }
-//                else {
-//                    if (text != null && !text.equals("")) {
-//                        if (isDownArrowVisible(menuItem.getParent())) {
-//                            textRect.x = 3;
-//                        }
-//                        else {
-//                            textRect.x = menuItem.getInsets().left;
-//                        }
-//                    }
-//                }
-		}
+		// 为非顶级菜单留下阴影
+		// 这一部分导致子菜单图标和文本绘制位置异常，被我注释掉了
+		// if (useCheckAndArrow()) {
+		// 	iconRect.x = Math.abs((iconRect.width - defaultShadowWidth) >> 1);
+		// 	if (!text.equals("")) {
+		// 		textRect.x = viewRect.x + defaultShadowWidth + textIconGap;
+		// 	}
+		// } else {
+        //        if (icon != null) {
+        //            if (isDownArrowVisible(menuItem.getParent())) {
+        //                iconRect.x = 3;
+        //            }
+        //            else {
+        //                iconRect.x = menuItem.getInsets().left;
+        //            }
+        //            if (text != null && !text.equals("")) {
+        //                textRect.x = iconRect.x + iconRect.width + textIconGap;
+        //            }
+        //        }
+        //        else {
+        //            if (text != null && !text.equals("")) {
+        //                if (isDownArrowVisible(menuItem.getParent())) {
+        //                    textRect.x = 3;
+        //                }
+        //                else {
+        //                    textRect.x = menuItem.getInsets().left;
+        //                }
+        //            }
+        //        }
+		// }
 
 		// Position the Accelerator text rect
 		acceleratorRect.x = viewRect.x + viewRect.width - menuItemGap
@@ -1032,7 +1037,7 @@ public class VsnetMenuItemUI extends MenuItemUI {
 
 		if (verticalTextPosition == SwingConstants.CENTER && verticalAlignment == SwingConstants.CENTER) {
 			// put it in the middle
-			if (text != null && !text.equals("")) {
+			if (!text.equals("")) {
 				textRect.y = viewRect.y + ((viewRect.height - textRect.height) >> 1);
 			}
 			iconRect.y = viewRect.y + ((viewRect.height - iconRect.height) >> 1);
@@ -1057,10 +1062,10 @@ public class VsnetMenuItemUI extends MenuItemUI {
 			arrowIconRect.x = viewRect.width - arrowIconRect.width - arrowIconRect.x;
 		}
 
-//        System.out.println("Layout: text=" + menuItem.getText() + "\n\tv="
-//                + viewRect + "\n\tc=" + checkIconRect + "\n\ti="
-//                + iconRect + "\n\tt=" + textRect + "\n\tacc="
-//                + acceleratorRect + "\n\ta=" + arrowIconRect + "\n");
+       // System.out.println("Layout: text=" + menuItem.getText() + "\n\tv="
+       //         + viewRect + "\n\tc=" + checkIconRect + "\n\ti="
+       //         + iconRect + "\n\tt=" + textRect + "\n\tacc="
+       //         + acceleratorRect + "\n\ta=" + arrowIconRect + "\n");
 
 		return text;
 	}

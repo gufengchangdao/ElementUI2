@@ -31,7 +31,6 @@ import static java.awt.event.InputEvent.ALT_DOWN_MASK;
  * SplitButtonUI implementation
  */
 public class BasicJideSplitButtonUI extends VsnetMenuUI {
-
 	protected ThemePainter _painter;
 
 	protected Color _shadowColor;
@@ -184,7 +183,7 @@ public class BasicJideSplitButtonUI extends VsnetMenuUI {
 			menuWidth = menuItem.getHeight();
 			menuHeight = menuItem.getWidth();
 		}
-		// have to change to HORIZONTAL because we rotate the Graphics already
+		// 必须更改为 HORIZONTAL 因为我们已经旋转了图形
 		orientation = SwingConstants.HORIZONTAL;
 
 		boolean paintBackground;
@@ -196,7 +195,9 @@ public class BasicJideSplitButtonUI extends VsnetMenuUI {
 		}
 
 		if (!((JMenu) menuItem).isTopLevelMenu()) {
+			// 处理子菜单JideSplitButton
 			super.paintBackground(g, menuItem, bgColor);
+			// 绘制直线和箭头
 			if (menuItem.isEnabled()) {
 				if (model.isArmed() || model.isPressed() || isMouseOver()) {
 					g.setColor(selectionForeground);
@@ -215,6 +216,9 @@ public class BasicJideSplitButtonUI extends VsnetMenuUI {
 			return;
 		}
 
+		// 处理顶级菜单JideSplitButton
+
+		// 背景
 		if (paintBackground) {
 			if (menuItem.getParent() != null) {
 				g.setColor(menuItem.getParent().getBackground());
@@ -360,8 +364,6 @@ public class BasicJideSplitButtonUI extends VsnetMenuUI {
 					if (!b.isOpaque()) {
 						rect = getButtonRect(b, orientation, menuWidth, menuHeight);
 						paintSunkenBorder(g, rect);
-//                        rect = new Rectangle(menuWidth - _splitButtonMargin + getOffset(), 0, _splitButtonMargin - getOffset(), menuHeight);
-//                        paintRaisedBorder(g, rect);
 					}
 				}
 
@@ -564,6 +566,7 @@ public class BasicJideSplitButtonUI extends VsnetMenuUI {
 		} else {
 			rect = new Rectangle(_splitButtonMargin - 1, 0, width - _splitButtonMargin, height);
 		}
+
 		return rect;
 	}
 
@@ -903,7 +906,7 @@ public class BasicJideSplitButtonUI extends VsnetMenuUI {
 			int defaultTextIconGap = UIDefaultsLookup.getInt("MenuItem.textIconGap");
 			int defaultShadowWidth = UIDefaultsLookup.getInt("MenuItem.shadowWidth");
 			if (menuItem.getComponentOrientation().isLeftToRight()) {
-				textRect.x = defaultShadowWidth + defaultTextIconGap;
+				// textRect.x = defaultShadowWidth + defaultTextIconGap;
 			} else {
 				// isLeftToRight is false
 				Rectangle2D rectText = fm.getStringBounds(text, g);
@@ -931,15 +934,13 @@ public class BasicJideSplitButtonUI extends VsnetMenuUI {
 
 				// JDK PORTING HINT
 				// JDK1.3: No drawStringUnderlineCharAt, draw the string then draw the underline
-				drawStringUnderlineCharAt(menuItem, g, text, mnemonicIndex,
-						textRect.x, textRect.y + fm.getAscent());
+				drawStringUnderlineCharAt(menuItem, g, text, mnemonicIndex, textRect.x, textRect.y + fm.getAscent());
 				g.setColor(menuItem.getParent().getBackground().darker());
 			}
 
 			// JDK PORTING HINT
 			// JDK1.3: No drawStringUnderlineCharAt, draw the string then draw the underline
-			drawStringUnderlineCharAt(menuItem, g, text, mnemonicIndex,
-					textRect.x - 1, textRect.y + fm.getAscent() - 1);
+			drawStringUnderlineCharAt(menuItem, g, text, mnemonicIndex, textRect.x - 1, textRect.y + fm.getAscent() - 1);
 		} else {
 			// For Win95, the selected text color is the selection foreground color
 			Color color = getForegroundOfState(menuItem);
@@ -977,53 +978,40 @@ public class BasicJideSplitButtonUI extends VsnetMenuUI {
 		UIUtil.drawStringUnderlineCharAt(c, g, text, underlinedIndex, x, y);
 	}
 
+	/** 绘制按钮的图标 */
 	@Override
 	protected void paintIcon(JMenuItem b, Graphics g) {
+		if (b.getIcon() == null) return;
+
+		Icon icon = getIcon(b);
+		if (icon == null) return;
+
 		ButtonModel model = b.getModel();
-
-		// Paint the Icon
-		if (b.getIcon() != null) {
-//            if (UIUtil.getOrientationOf(b) == SwingConstants.VERTICAL) {
-//                ((Graphics2D) g).translate(0, b.getWidth() - 1);
-//                ((Graphics2D) g).rotate(-Math.PI / 2);
-//            }
-
-			Icon icon = getIcon(b);
-
-			if (icon != null) {
-				if (!b.getComponentOrientation().isLeftToRight()) {
-					if (b.getComponentOrientation().isHorizontal()) {
-						iconRect.x = b.getWidth() - iconRect.x - icon.getIconWidth() + (4 + b.getHeight() / 2 - 1);
-					}
-				}
-
-				boolean enabled = model.isEnabled() && (!(model instanceof SplitButtonModel) || ((SplitButtonModel) model).isButtonEnabled());
-				if (isFloatingIcon() && enabled) {
-					if (model.isRollover() && !model.isPressed() && !model.isSelected()) {
-						if (!"true".equals(System.getProperty("shadingtheme", "false"))) {
-							if (icon instanceof ImageIcon) {
-								ImageIcon shadow = IconsFactory.createGrayImage(((ImageIcon) icon).getImage());
-								shadow.paintIcon(b, g, iconRect.x + 1, iconRect.y + 1);
-							} else {
-								ImageIcon shadow = IconsFactory.createGrayImage(b, icon);
-								shadow.paintIcon(b, g, iconRect.x + 1, iconRect.y + 1);
-							}
-							icon.paintIcon(b, g, iconRect.x - 1, iconRect.y - 1);
-						} else {
-							icon.paintIcon(b, g, iconRect.x, iconRect.y);
-						}
+		if (!b.getComponentOrientation().isLeftToRight()) {
+			if (b.getComponentOrientation().isHorizontal()) {
+				iconRect.x = b.getWidth() - iconRect.x - icon.getIconWidth() + (4 + b.getHeight() / 2 - 1);
+			}
+		}
+		boolean enabled = model.isEnabled() && (!(model instanceof SplitButtonModel) || ((SplitButtonModel) model).isButtonEnabled());
+		if (isFloatingIcon() && enabled) {
+			if (model.isRollover() && !model.isPressed() && !model.isSelected()) {
+				if (!"true".equals(System.getProperty("shadingtheme", "false"))) {
+					if (icon instanceof ImageIcon) {
+						ImageIcon shadow = IconsFactory.createGrayImage(((ImageIcon) icon).getImage());
+						shadow.paintIcon(b, g, iconRect.x + 1, iconRect.y + 1);
 					} else {
-						icon.paintIcon(b, g, iconRect.x, iconRect.y);
+						ImageIcon shadow = IconsFactory.createGrayImage(b, icon);
+						shadow.paintIcon(b, g, iconRect.x + 1, iconRect.y + 1);
 					}
+					icon.paintIcon(b, g, iconRect.x - 1, iconRect.y - 1);
 				} else {
 					icon.paintIcon(b, g, iconRect.x, iconRect.y);
 				}
+			} else {
+				icon.paintIcon(b, g, iconRect.x, iconRect.y);
 			}
-
-//            if (UIUtil.getOrientationOf(b) == SwingConstants.VERTICAL) {
-//                ((Graphics2D) g).rotate(Math.PI / 2);
-//                ((Graphics2D) g).translate(0, -b.getHeight() + 1);
-//            }
+		} else {
+			icon.paintIcon(b, g, iconRect.x, iconRect.y);
 		}
 	}
 
@@ -1231,7 +1219,6 @@ public class BasicJideSplitButtonUI extends VsnetMenuUI {
 
 		return null;
 	}
-
 
 	/**
 	 * @param c          the component

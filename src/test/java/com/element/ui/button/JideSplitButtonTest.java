@@ -4,7 +4,6 @@ import com.element.color.ColorUtil;
 import com.element.plaf.LookAndFeelFactory;
 import com.element.ui.font.FontUtil;
 import com.element.ui.icons.IconsFactory;
-import com.element.ui.menu.JideMenu;
 import com.element.ui.svg.icon.fill.SwordSvg;
 import com.element.util.SwingTestUtil;
 import demo.AbstractDemo;
@@ -31,7 +30,7 @@ public class JideSplitButtonTest extends AbstractDemo {
 
 		JideSplitButton b1 = new JideSplitButton("按钮1", IconsFactory.getSvgIcon(SwordSvg.class, 16, 16, ColorUtil.PRIMARY));
 		b1.setButtonStyle(ButtonStyle.FLAT_STYLE);
-		JideSplitButton b2 = new JideSplitButton("按钮2");
+		JideSplitButton b2 = new JideSplitButton("按钮2", IconsFactory.getSvgIcon(SwordSvg.class, 16, 16, ColorUtil.PRIMARY));
 		b2.setFont((Font) FontUtil.getMenuFont(Toolkit.getDefaultToolkit(), UIManager.getDefaults()));
 		b2.add(new JMenuItem("本地历史记录"));
 
@@ -43,7 +42,7 @@ public class JideSplitButtonTest extends AbstractDemo {
 			b1.add(new JMenuItem("显示上下文操作"));
 			b1.add(new JMenuItem("复制"));
 			b1.add(new JMenuItem("粘贴"));
-			b1.add(new JMenuItem("剪切"));
+			b1.add(new JMenuItem("剪切", IconsFactory.getSvgIcon(SwordSvg.class, 16, 16, ColorUtil.PRIMARY)));
 			b1.add(b2);
 		});
 

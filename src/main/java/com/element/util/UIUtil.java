@@ -1932,8 +1932,7 @@ public class UIUtil implements SwingConstants {
 			return ((Alignable) component).getOrientation();
 		} else if (component instanceof JComponent) {
 			Integer value = (Integer) ((JComponent) component).getClientProperty(Alignable.PROPERTY_ORIENTATION);
-			if (value != null)
-				return value;
+			if (value != null) return value;
 		}
 		return HORIZONTAL;
 	}

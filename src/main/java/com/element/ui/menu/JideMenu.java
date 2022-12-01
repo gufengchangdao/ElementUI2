@@ -203,13 +203,11 @@ public class JideMenu extends JMenu implements Alignable {
 		Toolkit toolkit = Toolkit.getDefaultToolkit();
 		GraphicsConfiguration gc = getGraphicsConfiguration();
 		Rectangle screenBounds = new Rectangle(toolkit.getScreenSize());
-		GraphicsEnvironment ge =
-				GraphicsEnvironment.getLocalGraphicsEnvironment();
+		GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
 		GraphicsDevice[] gds = ge.getScreenDevices();
 		for (GraphicsDevice gd : gds) {
 			if (gd.getType() == GraphicsDevice.TYPE_RASTER_SCREEN) {
-				GraphicsConfiguration dgc =
-						gd.getDefaultConfiguration();
+				GraphicsConfiguration dgc = gd.getDefaultConfiguration();
 				if (dgc.getBounds().contains(position)) {
 					gc = dgc;
 					break;
@@ -217,16 +215,13 @@ public class JideMenu extends JMenu implements Alignable {
 			}
 		}
 
-
 		if (gc != null) {
 			screenBounds = gc.getBounds();
 			// take screen insets (e.g. task bar) into account
 			Insets screenInsets = toolkit.getScreenInsets(gc);
 
-			screenBounds.width -=
-					Math.abs(screenInsets.left + screenInsets.right);
-			screenBounds.height -=
-					Math.abs(screenInsets.top + screenInsets.bottom);
+			screenBounds.width -= Math.abs(screenInsets.left + screenInsets.right);
+			screenBounds.height -= Math.abs(screenInsets.top + screenInsets.bottom);
 			position.x -= Math.abs(screenInsets.left);
 			position.y -= Math.abs(screenInsets.top);
 		}
@@ -241,13 +236,11 @@ public class JideMenu extends JMenu implements Alignable {
 				if (UIUtil.getOrientationOf(this) == HORIZONTAL) {
 					// First determine x:
 					x = s.width + xOffset;   // Prefer placement to the right
-					if (position.x + x + pmSize.width >= screenBounds.width
-							+ screenBounds.x &&
+					if (position.x + x + pmSize.width >= screenBounds.width + screenBounds.x &&
 							// popup doesn't fit - place it wherever there's more room
-							screenBounds.width - s.width < 2 * (position.x
-									- screenBounds.x)) {
+							screenBounds.width - s.width < 2 * (position.x - screenBounds.x)) {
 
-						x = 0 - xOffset - pmSize.width;
+						x = -xOffset - pmSize.width;
 					}
 				} else {
 					// First determine x:
@@ -256,12 +249,12 @@ public class JideMenu extends JMenu implements Alignable {
 							// popup doesn't fit - place it wherever there's more room
 							screenBounds.width - s.width < 2 * (position.x - screenBounds.x)) {
 
-						x = 0 - xOffset - pmSize.width;
+						x = -xOffset - pmSize.width;
 					}
 				}
 			} else {
 				// First determine x:
-				x = 0 - xOffset - pmSize.width; // Prefer placement to the left
+				x = -xOffset - pmSize.width; // Prefer placement to the left
 				if (position.x + x < screenBounds.x &&
 						// popup doesn't fit - place it wherever there's more room
 						screenBounds.width - s.width > 2 * (position.x -
@@ -347,7 +340,7 @@ public class JideMenu extends JMenu implements Alignable {
 						screenBounds.height - s.height < 2 * (position.y
 								- screenBounds.y)) {
 
-					y = 0 - yOffset - pmSize.height;   // Otherwise drop 'up'
+					y = -yOffset - pmSize.height;   // Otherwise drop 'up'
 				}
 			}
 		}
@@ -477,8 +470,6 @@ public class JideMenu extends JMenu implements Alignable {
 	}
 
 	private class HideTimer extends Timer implements ActionListener {
-		private static final long serialVersionUID = 561631364532967870L;
-
 		public HideTimer() {
 			super(DELAY + 300, null);
 			addActionListener(this);
