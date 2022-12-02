@@ -16,7 +16,7 @@ import java.util.Vector;
  * Since auto-complete has to listen to the key user types, it has to be editable. If you want to limit user to the list
  * available in the combobox model, you can call {@link #setStrict(boolean)} and set it to true.
  */
-public class AutoCompletionComboBox extends JComboBox {
+public class AutoCompletionComboBox<E> extends JComboBox<E> {
 	protected AutoCompletion _autoCompletion;
 	private boolean _preventActionEvent = false;
 
@@ -24,17 +24,17 @@ public class AutoCompletionComboBox extends JComboBox {
 		initComponents();
 	}
 
-	public AutoCompletionComboBox(Vector<?> items) {
+	public AutoCompletionComboBox(Vector<E> items) {
 		super(items);
 		initComponents();
 	}
 
-	public AutoCompletionComboBox(final Object[] items) {
+	public AutoCompletionComboBox(final E[] items) {
 		super(items);
 		initComponents();
 	}
 
-	public AutoCompletionComboBox(ComboBoxModel aModel) {
+	public AutoCompletionComboBox(ComboBoxModel<E> aModel) {
 		super(aModel);
 		initComponents();
 	}
@@ -50,7 +50,7 @@ public class AutoCompletionComboBox extends JComboBox {
 	 * @return the <code>AutoCompletion</code>.
 	 */
 	protected AutoCompletion createAutoCompletion() {
-		return new AutoCompletion(this, new ComboBoxSearchable(this) {
+		return new AutoCompletion(this, new ComboBoxSearchable<>(this) {
 			@Override
 			public void setSelectedIndex(int index, boolean incremental) {
 				Object property = AutoCompletionComboBox.this.getClientProperty("JComboBox.isTableCellEditor");

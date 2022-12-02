@@ -10,7 +10,7 @@ import com.element.color.ColorUtil;
 import com.element.plaf.UIDefaultsLookup;
 import com.element.ui.dialog.ButtonNames;
 import com.element.ui.dialog.ButtonPanel;
-import com.element.ui.dialog.ButtonResources;
+import com.element.ui.button.ButtonResources;
 import com.element.ui.dialog.JideOptionPane;
 import com.element.ui.layout.JideBoxLayout;
 import com.element.ui.nullc.NullPanel;

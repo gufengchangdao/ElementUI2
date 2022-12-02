@@ -15,7 +15,7 @@ import com.element.plaf.basic.ThemePainter;
 import com.element.ui.button.JideButton;
 import com.element.ui.font.FontUtil;
 import com.element.ui.icons.IconsFactory;
-import com.element.ui.icons.JideIconsFactory;
+import com.element.swing.JideIconsFactory;
 import com.element.ui.icons.MenuCheckIcon;
 import com.element.ui.tabs.JideTabbedPane;
 

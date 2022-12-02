@@ -7,7 +7,6 @@ package com.element.ui.icons;
 
 import com.element.radiance.common.api.icon.AbstractSvgIcon;
 import com.element.radiance.common.api.icon.SvgIcon;
-import com.element.util.GraphicsUtil;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -24,47 +23,20 @@ import java.util.Map;
 import java.util.StringTokenizer;
 import java.util.logging.Logger;
 
+import static com.element.util.ImageUtil.createScaledCompositeInstance;
+
 /**
- * <code>IconsFactory</code> provides a consistent way to access icon resource in any application.
+ * IconsFactory提供了一种一致的方式来访问任何应用程序中的图标资源。
  * <p>
- * Any application usually need to access image files. One way to do it is to put those image files in the installation
- * and access them use direct file access. However this is not a good way because you have to know the full path to the
- * image file. So a better way that most Java applications take is to bundle the image files with in the jar and use
- * class loader to load them.
- * <p>
- * For example, if a class Foo needs to access image files foo.gif and bar.png, we put the image files right below the
- * source code under icons subfolder. See an example directory structure below.
- * <pre>
- * /src/com/jidesoft/Foo.java
- *                  /icons/foo.gif
- *                  /icons/bar.png
- * </pre>
- * When you compile the java class, you copy those images to class output directory like this.
- * <pre>
- * /classes/com/jidesoft/Foo.class
- *                      /icons/foo.gif
- *                      /icons/bar.png
- * </pre>
- * Notes:<i> In IntelliJ IDEA's "Compile" tab of "Project Property" dialog, there is a way to set "Resource Pattern".
- * Here is the setting on my computer - "?*.properties;?*.xml;?*.html;?*.tree;?*.gif;?*.png;?*.jpeg;?*.jpg;?*.vm;?*.xsd;?*.ilayout;?*.gz;?*.txt"
- * for your reference. If so, all your images will get copies automatically to class output folder. Although I haven't
- * tried, I believe most Java IDEs have the same or similar feature. This feature will make the usage of IconsFactory
- * much easier. </i>
- * <p>
- * If you setup directory structure as above, you can now use IconsFactory to access the images like this.
+ * 如果您设置目录结构如上，您现在可以使用 IconsFactory 来访问这样的图像。
  * <pre><code>
  * ImageIcon icon = IconsFactory.get(Foo.class, "icons/foo.gif");
  * </code></pre>
- * IconsFactory will cache the icon for you. So next time if you get the same icon, it will get from cache instead of
- * reading from disk again.
  * <p>
- * There are a few methods on IconsFactory to create difference variation from the original icon. For example, {@link
- * #getDisabledImageIcon(Class, String)} will get the image icon with disabled effect.
- * <p>
- * We also suggest you to use the template below to create a number of IconsFactory classes in your application. The
- * idea is that you should have one for each functional area so that all your image files can be grouped into each
- * functional area. All images used in that functional area should be put under the folder where this IconsFactory is.
- * Here is an template.
+ * IconsFactory 将为您缓存图标。所以下次如果你得到相同的图标，它将从缓存中获取而不是再次从磁盘读取。
+ * IconsFactory 上有几种方法可以创建与原始图标不同的变体。
+ * 我们还建议您使用下面的模板在您的应用程序中创建多个 IconsFactory 类。这个想法是，您应该为每个功能区域设置一个，以便可以将所有图像文件分
+ * 组到每个功能区域中。该功能区域中使用的所有图像都应放在此 IconsFactory 所在的文件夹下。下面是一个模板。
  * <pre><code>
  * class TemplateIconsFactory {
  *    public static class Group1 {
@@ -91,34 +63,27 @@ import java.util.logging.Logger;
  *    }
  * }
  * </code></pre>
- * In your own IconsFactory, you can further divide images into different groups. The example above has two groups.
- * There is also a convenient method getImageIcon() which takes just the icon name.
  * <p>
- * In the template, we defined the image names as constants. When you have a lot of images, it's hard to remember all of
- * them when writing code. If using the IconsFactory above, you can use
+ * 在您自己的 IconsFactory 中，您可以进一步将图像分成不同的组。上面的例子有两组。还有一个方便的方法 getImageIcon() 只接受图标名称。
+ * 在模板中，我们将图像名称定义为常量。当你有很多图像时，在编写代码时很难记住所有图像。如果使用上面的 IconsFactory，你可以使用
  * <pre><code>
  * ImageIcon icon = TemplateIconsFactory.getImageIcon(TemplateIconsFactory.Group1.IMAGE1);
  * </code></pre>
- * without saying the actual image file name. With the help of intelli-sense (or code completion) feature in most Java
- * IDE, you will find it is much easier to find the icons you want. You can refer to JIDE Components Developer Guide to
- * see a screenshot of what it looks like in IntelliJ IDEA.
  * <p>
- * You probably also notice this is a main() method in this template. You can run it. When you run, you will see a
- * message printed out like this.
+ * 不用说实际的图像文件名。借助大多数 Java IDE 中的智能感知（或代码完成）功能，您会发现找到所需的图标要容易得多。
+ * 您可能还注意到这是此模板中的一个 main() 方法。你可以运行它。当你运行时，你会看到这样打印的信息。
  * <pre><code>
- * "File is generated at "... some directory ...\com.jidesoft.icons.TemplateIconsFactory.html".
- * Please copy it to the same directory as TemplateIconsFactory.java"
+ * 文件生成在 "D:\...\TemplateIconsFactory.html". 请复制到与 BasicFolderChooserIconsFactory.java 同级目录下(资源文件目录)
  * </code></pre>
- * if you follow the instruction and copy the html file to the same location as the source code and open the html, you
- * will see the all image files defined in this IconsFactory are listed nicely in the page.
  * <p>
- * By default, all image files are loaded using ImageIO. However if you set system property "jide.useImageIO" to
- * "false", we will disable the usage of ImageIO and use Toolkit.getDefaultToolkit().createImage method to create the
- * image file.
+ * 如果您按照说明将 html 文件复制到与源代码相同的位置并打开 html，您将看到此 IconsFactory 中定义的所有图像文件都很好地列在页面中。
+ * 默认情况下，所有图像文件都使用 ImageIO 加载。但是，如果您将系统属性“jide.useImageIO”设置为“false”，我们将禁用 ImageIO 的使用并使
+ * 用 Toolkit.getDefaultToolkit().createImage 方法来创建图像文件。
  */
 public class IconsFactory {
 
-	static final double DEGREE_90 = 90.0 * Math.PI / 180.0;
+	static final double DEGREE_90 = Math.PI * 0.5;
+	/** 空图像图标，作为不会抛出异常方法的返回值 */
 	public static ImageIcon EMPTY_ICON = new ImageIcon() {
 		@Override
 		public int getIconHeight() {
@@ -140,6 +105,61 @@ public class IconsFactory {
 	static Map<String, ImageIcon> _tintedIcons = new HashMap<>();
 
 	/**
+	 * 读取图像数据，这里使用{@link Toolkit#getDefaultToolkit()}实现，相对于{@link ImageIcon#getImage()}的优点在于在低版本jdk中
+	 * ImageIcon读取的JPEG图片可能会出现红色背景(jdk8有该问题，更高版本不会)
+	 */
+	private static Image readImageIcon(Class<?> clazz, String file, InputStream resource) throws IOException {
+		try (BufferedInputStream in = new BufferedInputStream(resource);
+		     ByteArrayOutputStream out = new ByteArrayOutputStream(1024)) {
+			int n;
+			byte[] buffer = new byte[1024];
+			while ((n = in.read(buffer)) > 0) {
+				out.write(buffer, 0, n);
+			}
+			out.flush();
+
+			if (out.size() == 0) { //没有读取成功
+				Package pkg = clazz.getPackage();
+				String pkgName = "";
+				if (pkg != null) {
+					pkgName = pkg.getName().replace('.', '/');
+				}
+				throw new IOException("Warning: Resource " + pkgName + "/" + file + " is zero-length");
+			}
+			return Toolkit.getDefaultToolkit().createImage(out.toByteArray());
+		}
+	}
+
+	/** 读取本地图片，根据客户端属性判断选择使用{@link ImageIO#read(InputStream)} 还是{@link Toolkit#createImage(byte[])} */
+	private static ImageIcon createImageIconWithException(final Class<?> baseClass, final String file) throws IOException {
+		try (InputStream resource = baseClass.getResourceAsStream(file)) {
+			if (resource == null) {
+				throw new FileNotFoundException(file);
+			}
+
+			Image image;
+			if ("true".equals(System.getProperty("jide.useImageIO", "true"))) {
+				image = ImageIO.read(resource);
+			} else {
+				image = readImageIcon(baseClass, file, resource);
+			}
+			return new ImageIcon(image);
+		}
+	}
+
+	private static ImageIcon createImageIcon(final Class<?> baseClass, final String file) {
+		try {
+			return createImageIconWithException(baseClass, file);
+		} catch (IOException e) { //图片加载失败
+			System.err.println("Can't find the resource: " +
+					((file.startsWith("/") || file.startsWith("\\"))
+							? file.replaceAll("/", "\\\\")
+							: (baseClass.getPackageName().replaceAll("\\.", "\\\\") + "\\" + file.replaceAll("/", "\\\\"))));
+			return null;
+		}
+	}
+
+	/**
 	 * 通过传递类和相对图像文件路径获取 ImageIcon。
 	 * 请注意，如果找不到图像，getImageIcon 将向 控制台 打印错误消息。我们这样做的原因是因为我们希望您确保所有图像文件都在您的应用程序中。
 	 * 如果您看到错误消息，您应该在发布前更正它。但是，如果您只想测试图像文件是否存在，则不希望打印出任何错误消息。如果是这样，您可以使用
@@ -158,7 +178,7 @@ public class IconsFactory {
 	 *
 	 * @param clazz    类
 	 * @param fileName 相对文件名
-	 * @return ImageIcon
+	 * @return 图标类或 null
 	 */
 	public static ImageIcon getImageIcon(Class<?> clazz, String fileName) {
 		// 这个id对应要查找的图标,它首先会先查询UIManager中的值,如果存在就使用,否则会就从文件中去找,并且找到后添加到UIManager中
@@ -168,8 +188,8 @@ public class IconsFactory {
 			return (ImageIcon) iconInUIDefaults;
 		}
 		ImageIcon saved = _icons.get(id);
-		if (saved != null)
-			return saved;
+		if (saved != null) return saved;
+
 		else {
 			ImageIcon icon = createImageIcon(clazz, fileName);
 			_icons.put(id, icon);
@@ -178,12 +198,12 @@ public class IconsFactory {
 	}
 
 	/**
-	 * Gets ImageIcon by passing class and a relative image file path.
+	 * 通过传递类和相对图像文件路径获取，与{@link #getImageIcon(Class, String)} 不同，该方法找不到文件时会抛异常
 	 *
-	 * @param clazz    the Class<?>
-	 * @param fileName relative file name
-	 * @return the ImageIcon
-	 * @throws IOException when image file is not found.
+	 * @param clazz    类
+	 * @param fileName 相对文件名
+	 * @return 图标类
+	 * @throws IOException 当找不到图像文件时
 	 */
 	public static ImageIcon findImageIcon(Class<?> clazz, String fileName) throws IOException {
 		String id = clazz.getName() + ":" + fileName;
@@ -192,8 +212,7 @@ public class IconsFactory {
 			return (ImageIcon) iconInUIDefaults;
 		}
 		ImageIcon saved = _icons.get(id);
-		if (saved != null)
-			return saved;
+		if (saved != null) return saved;
 		else {
 			ImageIcon icon = createImageIconWithException(clazz, fileName);
 			_icons.put(id, icon);
@@ -201,23 +220,55 @@ public class IconsFactory {
 		}
 	}
 
+	// ---------------------------------------------------------------------
+	// SVG图标的方法
+	// ---------------------------------------------------------------------
+
 	/**
-	 * Gets a disabled version of ImageIcon by passing class and a relative image file path.
+	 * 调用AbstractRadianceIcon子类的of()静态方法创建图标对象
 	 *
-	 * @param clazz    the Class<?>
-	 * @param fileName relative file name
-	 * @return the ImageIcon
+	 * @param c      AbstractRadianceIcon子类，拥有返回图标对象的of方法
+	 * @param width  图标宽度
+	 * @param height 图标高度
+	 * @return 图标对象
 	 */
-	public static ImageIcon getDisabledImageIcon(Class<?> clazz, String fileName) {
-		String id = clazz.getName() + ":" + fileName;
-		ImageIcon saved = _disableIcons.get(id);
-		if (saved != null)
-			return saved;
-		else {
-			ImageIcon icon = createGrayImage(getImageIcon(clazz, fileName));
-			_disableIcons.put(id, icon);
-			return icon;
+	public static SvgIcon getSvgIcon(Class<? extends AbstractSvgIcon> c, int width, int height) {
+		try {
+			Method ofMethod = c.getMethod("of", int.class, int.class);
+			return (SvgIcon) ofMethod.invoke(null, width, height);
+		} catch (NoSuchMethodException | InvocationTargetException | IllegalAccessException e) {
+			throw new RuntimeException(e);
 		}
+	}
+
+	/**
+	 * 反射方法创建Icon对象并设置Icon颜色
+	 *
+	 * @param c         AbstractRadianceIcon子类，拥有返回图标对象的of方法
+	 * @param width     图标宽度
+	 * @param height    图标高度
+	 * @param iconColor 图标颜色
+	 * @return 图标对象
+	 */
+	public static SvgIcon getSvgIcon(Class<? extends AbstractSvgIcon> c, int width, int height, Color iconColor) {
+		SvgIcon icon = getSvgIcon(c, width, height);
+		icon.setColorFilter(color -> iconColor);
+		return icon;
+	}
+
+	// ---------------------------------------------------------------------
+	// 图像处理
+	// ---------------------------------------------------------------------
+
+	/**
+	 * 使用合适的方法缩放 ImageIcon对象
+	 */
+	public static ImageIcon imageIconScale(ImageIcon image, int newWidth, int newHeight) {
+		Image img = image.getImage();
+		// 这里还判断了一下，虽然我觉得Image都是BufferedImage类型的
+		if (img instanceof BufferedImage) img = createScaledCompositeInstance((BufferedImage) img, newWidth, newHeight);
+		else img = img.getScaledInstance(newWidth, newHeight, Image.SCALE_DEFAULT);
+		return new ImageIcon(img);
 	}
 
 	/**
@@ -275,6 +326,25 @@ public class IconsFactory {
 		else {
 			ImageIcon icon = createTintedImage(getImageIcon(clazz, fileName), color);
 			_tintedIcons.put(id, icon);
+			return icon;
+		}
+	}
+
+	/**
+	 * Gets a disabled version of ImageIcon by passing class and a relative image file path.
+	 *
+	 * @param clazz    the Class<?>
+	 * @param fileName relative file name
+	 * @return the ImageIcon
+	 */
+	public static ImageIcon getDisabledImageIcon(Class<?> clazz, String fileName) {
+		String id = clazz.getName() + ":" + fileName;
+		ImageIcon saved = _disableIcons.get(id);
+		if (saved != null)
+			return saved;
+		else {
+			ImageIcon icon = createGrayImage(getImageIcon(clazz, fileName));
+			_disableIcons.put(id, icon);
 			return icon;
 		}
 	}
@@ -454,14 +524,12 @@ public class IconsFactory {
 	}
 
 	/**
-	 * Creates a rotated version of the input image.
+	 * 创建输入图像的旋转版本。
 	 *
-	 * @param c            The component to get properties useful for painting, e.g. the foreground or background
-	 *                     color.
-	 * @param icon         the image to be rotated.
-	 * @param rotatedAngle the rotated angle, in degree, clockwise. It could be any double but we will mod it with 360
-	 *                     before using it.
-	 * @return the image after rotating.
+	 * @param c            旋转后新图标绘制的组件，如果不需要绘制传入null
+	 * @param icon         要旋转的图像
+	 * @param rotatedAngle 顺时针旋转的角度，以度为单位。它可以是任何 double，但我们会在使用它之前用 360 对其进行修改。
+	 * @return 旋转后的图像
 	 */
 	public static ImageIcon createRotatedImage(Component c, Icon icon, double rotatedAngle) {
 		// convert rotatedAngle to a value from 0 to 360
@@ -533,174 +601,6 @@ public class IconsFactory {
 		BufferedImage image = new BufferedImage(icon.getIconWidth(), icon.getIconHeight(), BufferedImage.TYPE_INT_ARGB);
 		icon.paintIcon(c, image.getGraphics(), 0, 0);
 		return new ImageIcon(MaskFilter.createNegativeImage(image));
-	}
-
-	private static ImageIcon createImageIcon(final Class<?> baseClass, final String file) {
-		try {
-			return createImageIconWithException(baseClass, file);
-		} catch (IOException e) { //图片加载失败
-			System.err.println("Can't find the resource: " +
-					((file.startsWith("/") || file.startsWith("\\"))
-							? file.replaceAll("/", "\\\\")
-							: (baseClass.getPackageName().replaceAll("\\.", "\\\\") + "\\" + file.replaceAll("/", "\\\\"))));
-			return null;
-		}
-	}
-
-	/** 读取本地图片 */
-	private static ImageIcon createImageIconWithException(final Class<?> baseClass, final String file) throws IOException {
-		try (InputStream resource = baseClass.getResourceAsStream(file)) {
-			if (resource == null) {
-				throw new FileNotFoundException(file);
-			}
-
-			Image image;
-			if ("true".equals(System.getProperty("jide.useImageIO", "true"))) {
-				image = ImageIO.read(resource);
-			} else {
-				image = readImageIcon(baseClass, file, resource);
-			}
-			return new ImageIcon(image);
-		}
-	}
-
-	/**
-	 * 读取图像数据，这里使用{@link Toolkit#getDefaultToolkit()}实现，相对于{@link ImageIcon#getImage()}的优点在于在低版本jdk中
-	 * ImageIcon读取的JPEG图片可能会出现红色背景(jdk8有该问题，更高版本不会)
-	 */
-	private static Image readImageIcon(Class<?> clazz, String file, InputStream resource) throws IOException {
-		try (BufferedInputStream in = new BufferedInputStream(resource);
-		     ByteArrayOutputStream out = new ByteArrayOutputStream(1024)) {
-			int n;
-			byte[] buffer = new byte[1024];
-			while ((n = in.read(buffer)) > 0) {
-				out.write(buffer, 0, n);
-			}
-			out.flush();
-
-			if (out.size() == 0) { //没有读取成功
-				Package pkg = clazz.getPackage();
-				String pkgName = "";
-				if (pkg != null) {
-					pkgName = pkg.getName().replace('.', '/');
-				}
-				throw new IOException("Warning: Resource " + pkgName + "/" + file + " is zero-length");
-			}
-			return Toolkit.getDefaultToolkit().createImage(out.toByteArray());
-		}
-	}
-
-	/**
-	 * Generates HTML that lists all icons in IconsFactory.
-	 *
-	 * @param clazz the IconsFactory class
-	 */
-	public static void generateHTML(Class<?> clazz) {
-		String fullClassName = clazz.getName();
-		String className = getClassName(fullClassName);
-		File file = new File(fullClassName + ".html");
-
-		try (FileWriter writer = new FileWriter(file)) {
-			StringBuilder b = new StringBuilder();
-			b.append("""
-							<!doctype html>
-							<html lang="en">
-							<head>
-							    <meta charset="UTF-8">
-							    <title>图标列表</title>
-							    <style>
-							        body {font-family: "Trebuchet MS", Verdana, Arial, Helvetica, sans-serif;background: #E6EAE9;}
-							       
-							        .mytable {margin: 10px;border-spacing: 0;border-collapse: collapse;}
-							       
-							        tr {background: #fff;color: #4f6b72;}
-							       
-							        th {font: bold 18px "Trebuchet MS", Verdana, Arial, Helvetica, sans-serif;color: #fff;
-							            border-right: 1px solid #C1DAD7;border-bottom: 1px solid #C1DAD7;border-top: 1px solid #C1DAD7;
-							            letter-spacing: 2px;text-align: left;padding: 6px 6px 6px 12px;background: #0098a2 no-repeat;}
-							       
-							        td {border-right: 1px solid #C1DAD7;border-bottom: 1px solid #C1DAD7;font-size: 16px;padding: 6px 6px 6px 12px;}
-							       
-							        .tr1 {background-color: #269fa7;color: white;}
-							       
-							        .tr2 {background-color: white;}
-							    </style>
-							</head>
-							""")
-					.append("<body>\n")
-					.append("<h1>图标定义在 ").append(fullClassName).append("</h1>\n")
-					.append("<ol>\n")
-					.append("<li>如果您无法查看此页面中的图像，请确保该文件位于正确的资源目录下</li>\n")
-					.append("<li>要在代码中获取特定图标，请调用 <b>JideIconsFactory.getImageIcon(FULL_CONSTANT_NAME)</b>。将 FULL_CONSTANT_NAME 替换为下表中的实际完整常量名称</li>\n")
-					.append("</ol>\n");
-			generate(clazz, b, className);
-			b.append("""
-					<script>
-					    let aTr = document.getElementsByTagName("tr");
-					    for (let i = 1; i < aTr.length; i++) {
-					        aTr[i].onmouseover = function () {
-					            aTr[i].className = "tr1";
-					        }
-					        aTr[i].onmouseout = function () {
-					            aTr[i].className = "tr2";
-					        }
-					    }
-					</script>
-					""");
-			b.append("</body>\n</html>");
-			writer.write(b.toString());
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		System.out.println("文件生成在 \"" + file.getAbsolutePath() + "\". 请复制到与 " + className + ".java 同级目录下(资源文件目录)");
-	}
-
-	private static String getClassName(String fullName) {
-		int last = fullName.lastIndexOf(".");
-		if (last != -1) {
-			fullName = fullName.substring(last + 1);
-		}
-		StringTokenizer tokenizer = new StringTokenizer(fullName, "$");
-		StringBuilder buffer = new StringBuilder();
-		while (tokenizer.hasMoreTokens()) {
-			buffer.append(tokenizer.nextToken());
-			buffer.append(".");
-		}
-		return buffer.substring(0, buffer.length() - 1);
-	}
-
-	private static void generate(Class<?> aClass, StringBuilder b, String prefix) throws IOException {
-		Class<?>[] classes = aClass.getDeclaredClasses();
-		// don't know why but the order is exactly the reverse of the order of definitions.
-		for (int i = classes.length - 1; i >= 0; i--) {
-			Class<?> clazz = classes[i];
-			generate(clazz, b, getClassName(clazz.getName()));
-		}
-
-		Field[] fields = aClass.getFields();
-		b.append("<p><b>").append(prefix).append("</b></p>\n");
-		b.append("<table class=\"mytable\">\n");
-		b.append("<tr>\n");
-		b.append("<th>Name</th>\n");
-		b.append("<th>Image</th>\n");
-		b.append("<th>File Name</th>\n");
-		b.append("<th>Full Constant Name</th>\n");
-		b.append("</tr>\n");
-		for (Field field : fields) {
-			try {
-				Object name = field.getName();
-				Object value = field.get(aClass);
-				b.append("<tr>\n");
-				b.append("<td>").append(name).append("</td>\n");
-				b.append("<td><img src=\"").append(value).append("\"></td>\n");
-				b.append("<td>").append(value).append("</td>\n");
-				b.append("<td>").append(prefix).append(".").append(name).append("</td>\n");
-				b.append("</tr>\n");
-			} catch (IllegalArgumentException | IllegalAccessException e) {
-				e.printStackTrace();
-			}
-		}
-		b.append("</table><br>\n");
 	}
 
 	/**
@@ -788,7 +688,10 @@ public class IconsFactory {
 			return EMPTY_ICON;
 		}
 		BufferedImage image = new BufferedImage(destWidth, destHeight, imageType);
-		image.getGraphics().drawImage(icon.getImage(), 0, 0, destWidth, destHeight, x, y, x + width, y + height, c);
+		image.getGraphics().drawImage(icon.getImage(),
+				0, 0, destWidth, destHeight,
+				x, y, x + width, y + height,
+				c);
 		return new ImageIcon(image);
 	}
 
@@ -943,34 +846,6 @@ public class IconsFactory {
 	}
 
 	/**
-	 * Gets a scaled version of the existing icon.
-	 *
-	 * @param c    the component where the returned icon will be used. The component is used as the ImageObserver. It
-	 *             could be null.
-	 * @param icon the original icon
-	 * @param w    the new width
-	 * @param h    the new height
-	 * @return the scaled icon
-	 */
-	public static ImageIcon getScaledImage(Component c, ImageIcon icon, int w, int h) {
-		if (w >= icon.getIconWidth() / 2) {
-			BufferedImage temp = new BufferedImage(w, h, BufferedImage.TYPE_INT_ARGB);
-			Graphics2D g2 = temp.createGraphics();
-			g2.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BICUBIC);
-			g2.drawImage(icon.getImage(), 0, 0, temp.getWidth(), temp.getHeight(), c);
-			g2.dispose();
-			return new ImageIcon(temp);
-		} else {
-			BufferedImage temp = new BufferedImage(w, h, BufferedImage.TYPE_INT_ARGB);
-			Graphics2D g2 = temp.createGraphics();
-			g2.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BILINEAR);
-			g2.drawImage(icon.getImage(), 0, 0, temp.getWidth(), temp.getHeight(), c);
-			g2.dispose();
-			return new ImageIcon(GraphicsUtil.createFixedWidthScaledCompositeInstance(temp, w, h));
-		}
-	}
-
-	/**
 	 * Writes a GIF image of the supplied component to the given file. In particular, you can use this method to take a
 	 * 'screen shot' of a Chart component as a GIF Image.
 	 *
@@ -1026,7 +901,6 @@ public class IconsFactory {
 			Logger.getAnonymousLogger().severe(e.getMessage());
 		}
 	}
-
 
 	/**
 	 * Paints the component as a PNG image to the supplied output stream
@@ -1165,7 +1039,6 @@ public class IconsFactory {
 		return new ImageIcon(createThumbnailImage(component, width, height));
 	}
 
-
 	/**
 	 * Utility method to create a texture paint from a graphics file
 	 *
@@ -1208,37 +1081,120 @@ public class IconsFactory {
 		return null;
 	}
 
-	// SVG图标的方法
+	// ---------------------------------------------------------------------
+	// 生成HTML，展示类定义的图标
+	// ---------------------------------------------------------------------
 
 	/**
-	 * 调用AbstractRadianceIcon子类的of()静态方法创建图标对象
+	 * Generates HTML that lists all icons in IconsFactory.
 	 *
-	 * @param c      AbstractRadianceIcon子类，拥有返回图标对象的of方法
-	 * @param width  图标宽度
-	 * @param height 图标高度
-	 * @return 图标对象
+	 * @param clazz the IconsFactory class
 	 */
-	public static SvgIcon getSvgIcon(Class<? extends AbstractSvgIcon> c, int width, int height) {
-		try {
-			Method ofMethod = c.getMethod("of", int.class, int.class);
-			return (SvgIcon) ofMethod.invoke(null, width, height);
-		} catch (NoSuchMethodException | InvocationTargetException | IllegalAccessException e) {
-			throw new RuntimeException(e);
+	public static void generateHTML(Class<?> clazz) {
+		String fullClassName = clazz.getName();
+		String className = getClassName(fullClassName);
+		File file = new File(fullClassName + ".html");
+
+		try (FileWriter writer = new FileWriter(file)) {
+			StringBuilder b = new StringBuilder();
+			b.append("""
+							<!doctype html>
+							<html lang="en">
+							<head>
+							    <meta charset="UTF-8">
+							    <title>图标列表</title>
+							    <style>
+							        body {font-family: "Trebuchet MS", Verdana, Arial, Helvetica, sans-serif;background: #E6EAE9;}
+							       
+							        .mytable {margin: 10px;border-spacing: 0;border-collapse: collapse;}
+							       
+							        tr {background: #fff;color: #4f6b72;}
+							       
+							        th {font: bold 18px "Trebuchet MS", Verdana, Arial, Helvetica, sans-serif;color: #fff;
+							            border-right: 1px solid #C1DAD7;border-bottom: 1px solid #C1DAD7;border-top: 1px solid #C1DAD7;
+							            letter-spacing: 2px;text-align: left;padding: 6px 6px 6px 12px;background: #0098a2 no-repeat;}
+							       
+							        td {border-right: 1px solid #C1DAD7;border-bottom: 1px solid #C1DAD7;font-size: 16px;padding: 6px 6px 6px 12px;}
+							       
+							        .tr1 {background-color: #269fa7;color: white;}
+							       
+							        .tr2 {background-color: white;}
+							    </style>
+							</head>
+							""")
+					.append("<body>\n")
+					.append("<h1>图标定义在 ").append(fullClassName).append("</h1>\n")
+					.append("<ol>\n")
+					.append("<li>如果您无法查看此页面中的图像，请确保该文件位于正确的资源目录下</li>\n")
+					.append("<li>要在代码中获取特定图标，请调用 <b>JideIconsFactory.getImageIcon(FULL_CONSTANT_NAME)</b>。将 FULL_CONSTANT_NAME 替换为下表中的实际完整常量名称</li>\n")
+					.append("</ol>\n");
+			generate(clazz, b, className);
+			b.append("""
+					<script>
+					    let aTr = document.getElementsByTagName("tr");
+					    for (let i = 1; i < aTr.length; i++) {
+					        aTr[i].onmouseover = function () {
+					            aTr[i].className = "tr1";
+					        }
+					        aTr[i].onmouseout = function () {
+					            aTr[i].className = "tr2";
+					        }
+					    }
+					</script>
+					""");
+			b.append("</body>\n</html>");
+			writer.write(b.toString());
+		} catch (IOException e) {
+			e.printStackTrace();
 		}
+		System.out.println("文件生成在 \"" + file.getAbsolutePath() + "\". 请复制到与 " + className + ".java 同级目录下(资源文件目录)");
 	}
 
-	/**
-	 * 反射方法创建Icon对象并设置Icon颜色
-	 *
-	 * @param c         AbstractRadianceIcon子类，拥有返回图标对象的of方法
-	 * @param width     图标宽度
-	 * @param height    图标高度
-	 * @param iconColor 图标颜色
-	 * @return 图标对象
-	 */
-	public static SvgIcon getSvgIcon(Class<? extends AbstractSvgIcon> c, int width, int height, Color iconColor) {
-		SvgIcon icon = getSvgIcon(c, width, height);
-		icon.setColorFilter(color -> iconColor);
-		return icon;
+	private static String getClassName(String fullName) {
+		int last = fullName.lastIndexOf(".");
+		if (last != -1) {
+			fullName = fullName.substring(last + 1);
+		}
+		StringTokenizer tokenizer = new StringTokenizer(fullName, "$");
+		StringBuilder buffer = new StringBuilder();
+		while (tokenizer.hasMoreTokens()) {
+			buffer.append(tokenizer.nextToken());
+			buffer.append(".");
+		}
+		return buffer.substring(0, buffer.length() - 1);
+	}
+
+	private static void generate(Class<?> aClass, StringBuilder b, String prefix) throws IOException {
+		Class<?>[] classes = aClass.getDeclaredClasses();
+		// don't know why but the order is exactly the reverse of the order of definitions.
+		for (int i = classes.length - 1; i >= 0; i--) {
+			Class<?> clazz = classes[i];
+			generate(clazz, b, getClassName(clazz.getName()));
+		}
+
+		Field[] fields = aClass.getFields();
+		b.append("<p><b>").append(prefix).append("</b></p>\n");
+		b.append("<table class=\"mytable\">\n");
+		b.append("<tr>\n");
+		b.append("<th>Name</th>\n");
+		b.append("<th>Image</th>\n");
+		b.append("<th>File Name</th>\n");
+		b.append("<th>Full Constant Name</th>\n");
+		b.append("</tr>\n");
+		for (Field field : fields) {
+			try {
+				Object name = field.getName();
+				Object value = field.get(aClass);
+				b.append("<tr>\n");
+				b.append("<td>").append(name).append("</td>\n");
+				b.append("<td><img src=\"").append(value).append("\"></td>\n");
+				b.append("<td>").append(value).append("</td>\n");
+				b.append("<td>").append(prefix).append(".").append(name).append("</td>\n");
+				b.append("</tr>\n");
+			} catch (IllegalArgumentException | IllegalAccessException e) {
+				e.printStackTrace();
+			}
+		}
+		b.append("</table><br>\n");
 	}
 }

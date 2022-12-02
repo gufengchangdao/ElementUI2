@@ -2,7 +2,7 @@ package com.element.ui.others.tag;
 
 import com.element.color.ColorUtil;
 import com.element.radiance.common.api.icon.SvgIcon;
-import com.element.ui.base.RoundComponent;
+import com.element.swing.RoundComponent;
 import com.element.ui.button.IconButton;
 
 import javax.swing.*;

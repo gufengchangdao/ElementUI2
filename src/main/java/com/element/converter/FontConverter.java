@@ -23,18 +23,13 @@ public class FontConverter implements ObjectConverter {
 
 	protected String getResourceString(int style) {
 		final ResourceBundle resourceBundle = Resource.getResourceBundle(Locale.getDefault());
-		switch (style) {
-			case Font.PLAIN:
-				return resourceBundle.getString("Font.plain");
-			case Font.BOLD:
-				return resourceBundle.getString("Font.bold");
-			case Font.ITALIC:
-				return resourceBundle.getString("Font.italic");
-			case Font.BOLD | Font.ITALIC:
-				return resourceBundle.getString("Font.boldItalic");
-			default:
-				return "";
-		}
+		return switch (style) {
+			case Font.PLAIN -> resourceBundle.getString("Font.plain");
+			case Font.BOLD -> resourceBundle.getString("Font.bold");
+			case Font.ITALIC -> resourceBundle.getString("Font.italic");
+			case Font.BOLD | Font.ITALIC -> resourceBundle.getString("Font.boldItalic");
+			default -> "";
+		};
 	}
 
 	protected int getStyleValue(String style) {

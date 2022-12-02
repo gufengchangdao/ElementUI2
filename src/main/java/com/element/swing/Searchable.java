@@ -33,60 +33,49 @@ import java.util.regex.Pattern;
 import java.util.regex.PatternSyntaxException;
 
 /**
- * JList, JTable and JTree are three data-rich components. They can be used to display a huge amount of data so
- * searching function will be very a useful feature in those components. <code>Searchable</code> is such a class that
- * can make JList, JTable and JTree searchable. User can simply type in any string they want to search for and use arrow
- * keys to navigate to next or previous occurrence.
- * <p/>
- * <code>Searchable</code> is a base abstract class. <code>ListSearchable</code>, <code>TableSearchable</code> and
- * <code>TreeSearchable</code> are implementations to make JList, JTable and JTree searchable respectively. For each
- * implementation, there are five methods need to be implemented. <ul> <li><code>protected abstract int
- * getSelectedIndex()</code> <li><code>protected abstract void setSelectedIndex(int index, boolean incremental)</code>
- * <li><code>protected abstract int getElementCount()</code> <li><code>protected abstract Object getElementAt(int
- * index)</code> <li><code>protected abstract String convertElementToString(Object element)</code> </ul>
- * <p/>
- * Please look at the javadoc of each method to learn more details.
- * <p/>
- * The keys used by this class are fully customizable. Subclass can override the methods such as {@link
- * #isActivateKey(KeyEvent)}, {@link #isDeactivateKey(KeyEvent)}, {@link
- * #isFindFirstKey(KeyEvent)},{@link #isFindLastKey(KeyEvent)}, {@link
- * #isFindNextKey(KeyEvent)}, {@link #isFindPreviousKey(KeyEvent)} to provide its own set
- * of keys.
- * <p/>
- * In addition to press up/down arrow to find next occurrence or previous occurrence of particular string, there are
- * several other features that are very handy.
- * <p/>
- * Multiple selection feature - If you press CTRL key and hold it while pressing up and down arrow, it will find
- * next/previous occurrence while keeping existing selections. <br> Select all feature - If you type in a searching text
- * and press CTRL+A, all the occurrences of that searching string will be selected. This is a very handy feature. For
- * example you want to delete all rows in a table whose name column begins with "old". So you can type in "old" and
- * press CTRL+A, now all rows beginning with "old" will be selected. Pressing delete will delete all of them. <br> Basic
- * regular expression support - It allows '?' to match any letter or digit, or '*' to match several letters or digits.
- * Even though it's possible to implement full regular expression support, we don't want to do that. The reason is the
- * regular expression is very complex, it's probably not a good idea to let user type in such a complex expression in a
- * small popup window. However if your user is very familiar with regular expression, you can add the feature to
- * <code>Searchable</code>. All you need to do is to override {@link #compare(String, String)} method and implement by
- * yourself.
- * <p/>
- * As this is an abstract class, please refer to to javadoc of {@link ListSearchable},{@link TreeSearchable}, and {@link
- * TableSearchable} to find out how to use it with JList, JTree and JTable respectively.
- * <p/>
- * This component has a timer. If user types very fast, it will accumulate them together and generate only one searching
- * action. The timer can be controlled by {@link #setSearchingDelay(int)}.
- * <p/>
- * By default we will use lightweight popup for the sake of performance. But if you use heavyweight component which
- * could obscure the lightweight popup, you can call {@link #setHeavyweightComponentEnabled(boolean)} to true so that
- * heavyweight popup will be used.
- * <p/>
- * When a <code>Searchable</code> is installed on a component, component.getClientProperty(Searchable.CLIENT_PROPERTY_SEARCHABLE)
- * will give you the Searchable instance. You can use static method {@link #getSearchable(JComponent)} to
- * get it too.
- * <p/>
- * Last but not the least, only one Searchable is allowed on a component. If you install another one, it will remove the
- * first one and then install the new one.
+ * JList、JTable 和JTree 是三个数据丰富的组件。它们可用于显示大量数据，因此搜索功能将是这些组件中非常有用的功能。 Searchable就是这样一个
+ * 类，可以让JList、JTable、JTree可搜索。用户可以简单地输入他们想要搜索的任何字符串，并使用箭头键导航到下一个或上一个匹配项。
+ * <p>
+ * Searchable是一个基础抽象类。 ListSearchable 、 TableSearchable和TreeSearchable是分别使 JList、JTable 和 JTree 可搜索的实现。
+ * 对于每个实现，需要实现五个方法。
+ * <ul>
+ *     <li>{@link #getSelectedIndex()}</li>
+ *     <li>{@link #setSelectedIndex(int, boolean)}</li>
+ *     <li>{@link #getElementCount()}</li>
+ *     <li>{@link #getElementAt(int)}</li>
+ *     <li>{@link #convertElementToString(Object)}</li>
+ * </ul>
+ * 请查看每个方法的 javadoc 以了解更多详细信息。
+ * <p>
+ * 此类使用的键是完全可定制的。子类可以覆盖
+ * {@link #isActivateKey(KeyEvent)}, {@link #isDeactivateKey(KeyEvent)}, {@link #isFindFirstKey(KeyEvent)},
+ * {@link #isFindLastKey(KeyEvent)}, {@link #isFindNextKey(KeyEvent)}, {@link #isFindPreviousKey(KeyEvent)}
+ * 等方法以提供自己的一组键。
+ *
+ * <ol>
+ *     <li>除了按向上/向下箭头查找特定字符串的下一次出现或上一次出现外，还有其他几个非常方便的功能。</li>
+ *     <li>多项选择功能 - 如果您按住 CTRL 键并在按下向上和向下箭头的同时按住它，它将在保留现有选择的同时找到下一个/上一个事件。 </li>
+ *     <li>选择所有功能 - 如果您键入搜索文本并按 CTRL+A，将选择该搜索字符串的所有匹配项。这是一个非常方便的功能。例如，您要删除表中名称列
+ *     以“old”开头的所有行。所以您可以输入“old”并按 CTRL+A，现在所有以“old”开头的行都将被选中。按删除将删除所有这些。 </li>
+ *     <li>基本正则表达式支持 - 它允许“？”匹配任何字母或数字，或“*”匹配多个字母或数字。尽管可以实现完整的正则表达式支持，但我们不想那样做。
+ *     原因是正则表达式非常复杂，让用户在一个小的弹出窗口中输入如此复杂的表达式可能不是一个好主意。但是，如果您的用户非常熟悉正则表达式，您可
+ *     以将该功能添加到Searchable 。您需要做的就是覆盖{@link #compare(String, String)}方法并自行实现。</li>
+ *     <li>递归搜索（仅在树可搜索中）-在树可搜索的情况下，有一个选项称为递归。您可以调用树可搜索的
+ *     {@link TreeSearchable#setRecursive(boolean)}来更改它。如果可搜索的树是递归的，它将搜索所有的树节点，包括那些不可见的树节点，以
+ *     找到匹配的节点。显然，如果您的树有无限数量的树节点或潜在的大量树节点（例如表示文件系统的树），那么递归属性应该是false。为了避免这种情况
+ *     下的这个潜在问题，我们将其默认为false。</li>
+ *     <li>由于这是一个抽象类，请参阅{@link ListSearchable},{@link TreeSearchable}, and {@link TableSearchable}的 javadoc
+ *     以了解如何分别将其与 JList、JTree 和 JTable 一起使用。</li>
+ *     <li>这个组件有一个计时器。如果用户输入速度非常快，它会将它们累积在一起并只生成一个搜索动作。定时器可以通过
+ *     {@link #setSearchingDelay(int)}来控制。</li>
+ *     <li>默认情况下，为了性能，我们将使用轻量级弹出窗口。但是，如果您使用重量级组件可能会掩盖轻量级弹出窗口，则可以调用
+ *     {@link #setHeavyweightComponentEnabled(boolean)}为 true，以便使用重量级弹出窗口。</li>
+ *     <li>在组件上安装Searchable时，component.getClientProperty(Searchable.CLIENT_PROPERTY_SEARCHABLE) 将为您提供
+ *     Searchable 实例。您也可以使用静态方法{@link #getSearchable(JComponent)}来获取它。</li>
+ *     <li>最后但并非最不重要的是，一个组件上只允许一个 Searchable。如果您安装另一个，它将删除第一个，然后安装新的。</li>
+ * </ol>
  */
 public abstract class Searchable {
-
 	private final PropertyChangeSupport _propertyChangeSupport = new PropertyChangeSupport(this);
 
 	protected final JComponent _component;

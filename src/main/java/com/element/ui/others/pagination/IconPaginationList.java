@@ -1,6 +1,6 @@
 package com.element.ui.others.pagination;
 
-import com.element.ui.base.IconComponent;
+import com.element.swing.IconComponent;
 import com.element.ui.others.pagination.model.PageListModel;
 import com.element.ui.others.pagination.renderer.PageListCellRenderer;
 import com.element.ui.svg.icon.regular.CaretLeftSvg;

@@ -1,6 +1,6 @@
 package com.element.ui.button;
 
-import com.element.util.GraphicsUtil;
+import com.element.util.ImageUtil;
 
 import javax.swing.*;
 import java.awt.*;
@@ -42,7 +42,7 @@ public class SimpleIconButton extends JButton {
 	public void setPreferredSize(Dimension preferredSize) {
 		super.setPreferredSize(preferredSize);
 		if (image != null)
-			setIcon(new ImageIcon(GraphicsUtil
+			setIcon(new ImageIcon(ImageUtil
 					.createScaledCompositeInstance(image, preferredSize.width, preferredSize.height)));
 	}
 
@@ -53,6 +53,6 @@ public class SimpleIconButton extends JButton {
 	public void setImage(BufferedImage image) {
 		this.image = image;
 		Dimension size = getPreferredSize();
-		setIcon(new ImageIcon(GraphicsUtil.createScaledCompositeInstance(image, size.width, size.height)));
+		setIcon(new ImageIcon(ImageUtil.createScaledCompositeInstance(image, size.width, size.height)));
 	}
 }

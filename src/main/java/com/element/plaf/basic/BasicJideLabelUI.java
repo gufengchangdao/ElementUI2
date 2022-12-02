@@ -1,6 +1,6 @@
 package com.element.plaf.basic;
 
-import com.element.ui.base.JideLabel;
+import com.element.swing.JideLabel;
 import com.element.util.UIUtil;
 
 import javax.swing.*;

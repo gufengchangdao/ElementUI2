@@ -5,6 +5,7 @@
  */
 package com.element.ui.dialog;
 
+import com.element.ui.button.ButtonResources;
 import com.element.ui.button.JideButton;
 import com.element.ui.pane.JideScrollPane;
 import com.element.util.LocaleUtil;

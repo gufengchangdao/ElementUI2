@@ -4,7 +4,7 @@ import com.element.plaf.LookAndFeelFactory;
 import com.element.plaf.UIDefaultsLookup;
 import com.element.ui.dialog.JideOptionPane;
 import com.element.ui.icons.IconsFactory;
-import com.element.ui.icons.JideIconsFactory;
+import com.element.swing.JideIconsFactory;
 import com.element.ui.layout.JideBoxLayout;
 import demo.AbstractDemo;
 

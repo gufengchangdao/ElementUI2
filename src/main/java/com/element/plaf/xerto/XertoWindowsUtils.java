@@ -17,7 +17,7 @@ import com.element.plaf.vsnet.ResizeFrameBorder;
 import com.element.plaf.vsnet.VsnetLookAndFeelExtension;
 import com.element.ui.font.FontUtil;
 import com.element.ui.icons.IconsFactory;
-import com.element.ui.icons.JideIconsFactory;
+import com.element.swing.JideIconsFactory;
 import com.element.ui.icons.MenuCheckIcon;
 import com.element.ui.tabs.JideTabbedPane;
 

@@ -11,7 +11,7 @@ import com.element.swing.Resource;
 import com.element.swing.Searchable;
 import com.element.swing.SearchableProvider;
 import com.element.swing.WholeWordsSupport;
-import com.element.ui.icons.SearchableBarIconsFactory;
+import com.element.swing.SearchableBarIconsFactory;
 import com.element.ui.layout.JideBoxLayout;
 import com.element.ui.popup.JidePopup;
 import com.element.ui.popup.JidePopupFactory;

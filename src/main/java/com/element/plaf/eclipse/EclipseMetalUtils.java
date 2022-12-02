@@ -14,7 +14,7 @@ import com.element.plaf.metal.MetalIconFactory;
 import com.element.ui.button.JideButton;
 import com.element.ui.font.FontUtil;
 import com.element.ui.icons.IconsFactory;
-import com.element.ui.icons.JideIconsFactory;
+import com.element.swing.JideIconsFactory;
 import com.element.ui.tabs.JideTabbedPane;
 
 import javax.swing.*;

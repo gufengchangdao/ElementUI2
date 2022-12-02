@@ -1,6 +1,6 @@
 package com.element.ui.button;
 
-import com.element.ui.base.BaseComponent;
+import com.element.swing.BaseComponent;
 
 import javax.swing.*;
 import java.awt.*;

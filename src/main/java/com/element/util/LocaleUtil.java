@@ -1,7 +1,7 @@
 package com.element.util;
 
 import com.element.plaf.UIDefaultsLookup;
-import com.element.ui.dialog.ButtonResources;
+import com.element.ui.button.ButtonResources;
 
 import java.util.Locale;
 

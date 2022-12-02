@@ -1,13 +1,14 @@
 package com.element.ui.dialog;
 
-import com.element.color.ColorUtil;
 import com.element.plaf.LookAndFeelFactory;
-import com.element.ui.icons.IconsFactory;
+import com.element.swing.JideIconsFactory;
+import com.element.ui.layout.JideBoxLayout;
 import com.element.util.SwingTestUtil;
+import com.element.util.WrapperUtil;
 import demo.AbstractDemo;
-import net.miginfocom.swing.MigLayout;
 
 import javax.swing.*;
+import javax.swing.border.BevelBorder;
 import java.awt.*;
 
 public class BannerPanelTest extends AbstractDemo {
@@ -27,23 +28,53 @@ public class BannerPanelTest extends AbstractDemo {
 
 	@Override
 	public Component getDemoPanel() {
-		JPanel p = new JPanel(new MigLayout("wrap 1"));
+		JPanel panel = new JPanel();
+		panel.setLayout(new JideBoxLayout(panel, JideBoxLayout.Y_AXIS, 10));
 
-		String title = "阿波卡利斯如是说";
-		String content = "……德莉莎，我的那些「老朋友」们，赤鸢仙人、理之律者……他们是真正的好人，一定会帮助你走出一条属于自己的道路。";
-		ImageIcon icon = IconsFactory.getImageIcon(BannerPanelTest.class, "/com/element/ui/tabs/icons/calendar.gif");
+		BannerPanel headerPanel0 = new BannerPanel("This is also a BannerPanel with no subtitle or icon");
+		headerPanel0.setBackground(new Color(0, 0, 128));
+		headerPanel0.setForeground(Color.WHITE);
+		headerPanel0.setBorder(BorderFactory.createBevelBorder(BevelBorder.LOWERED, Color.white, Color.lightGray, Color.lightGray, Color.gray));
 
-		BannerPanel bannerPanel = new BannerPanel(title, content);
-		bannerPanel.setBorder(BorderFactory.createTitledBorder(BorderFactory.createLineBorder(ColorUtil.PRIMARY), "标题和内容"));
-		p.add(bannerPanel);
+		BannerPanel headerPanel1 = new BannerPanel("This is a BannerPanel",
+				"BannerPanel is very useful to display a title, a description and an icon. It can be used in " +
+						"dialog to show some help information or display a product logo in a nice way.",
+				JideIconsFactory.getImageIcon(JideIconsFactory.JIDE32));
+		headerPanel1.setBackground(Color.WHITE);
+		headerPanel1.setBorder(BorderFactory.createBevelBorder(BevelBorder.LOWERED));
 
-		BannerPanel bannerPanel2 = new BannerPanel(title, content, icon);
-		bannerPanel2.setBackgroundPaint(new LinearGradientPaint(0, 0, bannerPanel2.getPreferredSize().width, 0,
-				new float[]{0, .5f}, new Color[]{ColorUtil.PRIMARY, ColorUtil.BORDER_LEVEL1}));
-		bannerPanel2.setBorder(BorderFactory.createTitledBorder(BorderFactory.createLineBorder(ColorUtil.PRIMARY), "标题、内容和图标"));
-		p.add(bannerPanel2);
+		BannerPanel headerPanel2 = new BannerPanel("This is a BannerPanel",
+				"BannerPanel is very useful to display a title, a description and an icon. It can be used in " +
+						"dialog to show some help information or display a product logo in a nice way.",
+				JideIconsFactory.getImageIcon(JideIconsFactory.JIDE32));
+		headerPanel2.setBorder(BorderFactory.createBevelBorder(BevelBorder.LOWERED));
+		headerPanel2.setTitleIconLocation(SwingConstants.LEADING);
+		// this method will use JideSwingUtilities fast gradient paint to do the painting.
+		headerPanel2.setGradientPaint(Color.WHITE, new Color(0, 0, 128), false);
+		//  you can use Paint such as GradientPaint or TexturePaint
+		//        headerPanel2.setBackgroundPaint(new GradientPaint(0, 0, new Color(0, 0, 128), 500, 0, Color.WHITE));
 
-		return p;
+		BannerPanel headerPanel3 = new BannerPanel("This is a BannerPanel",
+				"The place for the title icon of BannerPanel actually can be any JComponent. Here is an example " +
+						"to use a JComboBox instead of an icon. The component can be placed at the left or right.",
+				WrapperUtil.createCenterPanel(new JComboBox<>(new String[]{"Any Component", "Just a Demo"})));
+
+		headerPanel3.setFont(headerPanel0.getFont().deriveFont(11f));
+		headerPanel3.setBackground(Color.WHITE);
+		headerPanel3.setBorder(BorderFactory.createBevelBorder(BevelBorder.LOWERED));
+
+		panel.add(headerPanel1, JideBoxLayout.FLEXIBLE);
+		panel.add(Box.createVerticalStrut(12), JideBoxLayout.FIX);
+		panel.add(headerPanel2, JideBoxLayout.FLEXIBLE);
+		panel.add(Box.createVerticalStrut(12), JideBoxLayout.FIX);
+		panel.add(headerPanel0, JideBoxLayout.FLEXIBLE);
+		panel.add(Box.createVerticalStrut(12), JideBoxLayout.FIX);
+		panel.add(headerPanel3, JideBoxLayout.FLEXIBLE);
+		panel.add(Box.createGlue(), JideBoxLayout.VARY);
+
+		panel.setPreferredSize(new Dimension(500, 400));
+
+		return panel;
 	}
 
 	public static void main(String[] args) {

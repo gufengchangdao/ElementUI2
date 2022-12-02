@@ -3,7 +3,7 @@ package com.element.ui.dialog;
 import com.element.plaf.LookAndFeelFactory;
 import com.element.plaf.UIDefaultsLookup;
 import com.element.plaf.basic.ThemePainter;
-import com.element.ui.icons.JideIconsFactory;
+import com.element.swing.JideIconsFactory;
 import com.element.ui.layout.JideBoxLayout;
 import com.element.util.LocaleUtil;
 import com.element.util.SwingTestUtil;

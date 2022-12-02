@@ -1,6 +1,6 @@
 package com.element.ui.field.compound;
 
-import com.element.ui.base.BaseComponent;
+import com.element.swing.BaseComponent;
 import com.element.ui.spinner.InputNumberField;
 
 import javax.swing.*;

@@ -3,11 +3,7 @@
  *
  * Copyright 2002 - 2005 JIDE Software Inc. All rights reserved.
  */
-package com.element.plaf.basic;/*
- * @(#)CiscoIconsFactory.java 6/16/2005
- *
- * Copyright 2002 - 2005 JIDE Software Inc. All rights reserved.
- */
+package com.element.plaf.basic;
 
 import com.element.ui.icons.IconsFactory;
 
@@ -36,6 +32,4 @@ public class BasicFolderChooserIconsFactory {
 	public static void main(String[] argv) {
 		IconsFactory.generateHTML(BasicFolderChooserIconsFactory.class);
 	}
-
-
 }

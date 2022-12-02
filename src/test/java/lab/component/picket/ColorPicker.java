@@ -1,8 +1,8 @@
 package lab.component.picket;
 
-import com.element.util.GraphicsUtil;
 import com.element.util.SwingTestUtil;
 import net.miginfocom.swing.MigLayout;
+import org.jdesktop.swingx.util.GraphicsUtilities;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -33,7 +33,7 @@ public class ColorPicker extends JPanel {
 		box.add(field);
 
 		BufferedImage image = ImageIO.read(getClass().getResourceAsStream("/img/beauty.jpg"));
-		BufferedImage image2 = GraphicsUtil.createThumbnail(image, 400);
+		BufferedImage image2 = GraphicsUtilities.createThumbnail(image, 400);
 
 		JLabel label = new JLabel(new ImageIcon(image2));
 		label.addMouseListener(new MouseAdapter() {

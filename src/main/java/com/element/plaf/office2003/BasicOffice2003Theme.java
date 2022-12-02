@@ -89,8 +89,10 @@ public class BasicOffice2003Theme extends Office2003Theme {
 		if ((products & LookAndFeelFactory.PRODUCT_COMPONENTS) != 0) {
 			final int SIZE = 20;
 			final int MASK_SIZE = 11;
-			ImageIcon collapsiblePaneImage = IconsFactory.getImageIcon(Office2003WindowsUtils.class, "icons/collapsible_pane_" + prefix + ".png"); // 20 x 20
-			ImageIcon collapsiblePaneMask = IconsFactory.getImageIcon(Office2003WindowsUtils.class, "icons/collapsible_pane_mask.png"); // 11 x 11
+			ImageIcon collapsiblePaneImage = IconsFactory.getImageIcon(Office2003WindowsUtils.class,
+					"icons/collapsible_pane_" + prefix + ".png"); // 20 x 20
+			ImageIcon collapsiblePaneMask = IconsFactory.getImageIcon(Office2003WindowsUtils.class,
+					"icons/collapsible_pane_mask.png"); // 11 x 11
 			ImageIcon normalIcon = IconsFactory.getIcon(null, collapsiblePaneImage, 0, 0, SIZE, SIZE);
 			ImageIcon emphasizedIcon = IconsFactory.getIcon(null, collapsiblePaneImage, SIZE, 0, SIZE, SIZE);
 			ImageIcon downMark = IconsFactory.getIcon(null, collapsiblePaneMask, 0, 0, MASK_SIZE, MASK_SIZE);

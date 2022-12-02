@@ -9,7 +9,7 @@ import java.util.Locale;
 import java.util.ResourceBundle;
 
 public class FolderChooserResource {
-	static final String BASENAME = "com.element.plaf.basic.folderChooser";
+	static final String BASENAME = FolderChooserResource.class.getPackageName() + ".folderChooser";
 
 	static final ResourceBundle RB = ResourceBundle.getBundle(BASENAME);
 

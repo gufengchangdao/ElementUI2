@@ -145,34 +145,16 @@ public class DefaultOffice2003Theme extends Office2003Theme {
 	}
 
 	private void putDerivedSelectionColor() {
-		Object selectionRollover = (ActiveValue) table -> {
-			return UIDefaultsLookup.getColor("JideButton.focusedBackground");
-		};
-		Object selectionRolloverLt = (ActiveValue) table -> {
-			return brighter(UIDefaultsLookup.getColor("JideButton.focusedBackground"), LIGHTER_FACTOR);
-		};
-		Object selectionRolloverDk = (ActiveValue) table -> {
-			return darker(UIDefaultsLookup.getColor("JideButton.focusedBackground"), LIGHTER_FACTOR);
-		};
+		Object selectionRollover = (ActiveValue) table -> UIDefaultsLookup.getColor("JideButton.focusedBackground");
+		Object selectionRolloverLt = (ActiveValue) table -> brighter(UIDefaultsLookup.getColor("JideButton.focusedBackground"), LIGHTER_FACTOR);
+		Object selectionRolloverDk = (ActiveValue) table -> darker(UIDefaultsLookup.getColor("JideButton.focusedBackground"), LIGHTER_FACTOR);
 
-		Object selectionSelected = (ActiveValue) table -> {
-			return UIDefaultsLookup.getColor("JideButton.selectedBackground");
-		};
-		Object selectionSelectedLt = (ActiveValue) table -> {
-			return brighter(UIDefaultsLookup.getColor("JideButton.selectedBackground"), LIGHTER_FACTOR);
-		};
-		Object selectionSelectedDk = (ActiveValue) table -> {
-			return darker(UIDefaultsLookup.getColor("JideButton.selectedBackground"), LIGHTER_FACTOR);
-		};
-		Object selectionSelectedAndFocused = (ActiveValue) table -> {
-			return UIDefaultsLookup.getColor("JideButton.selectedAndFocusedBackground");
-		};
-		Object selectionSelectedAndFocusedLt = (ActiveValue) table -> {
-			return brighter(UIDefaultsLookup.getColor("JideButton.selectedAndFocusedBackground"), LIGHTER_FACTOR);
-		};
-		Object selectionSelectedAndFocusedDk = (ActiveValue) table -> {
-			return darker(UIDefaultsLookup.getColor("JideButton.selectedAndFocusedBackground"), LIGHTER_FACTOR);
-		};
+		Object selectionSelected = (ActiveValue) table -> UIDefaultsLookup.getColor("JideButton.selectedBackground");
+		Object selectionSelectedLt = (ActiveValue) table -> brighter(UIDefaultsLookup.getColor("JideButton.selectedBackground"), LIGHTER_FACTOR);
+		Object selectionSelectedDk = (ActiveValue) table -> darker(UIDefaultsLookup.getColor("JideButton.selectedBackground"), LIGHTER_FACTOR);
+		Object selectionSelectedAndFocused = (ActiveValue) table -> UIDefaultsLookup.getColor("JideButton.selectedAndFocusedBackground");
+		Object selectionSelectedAndFocusedLt = (ActiveValue) table -> brighter(UIDefaultsLookup.getColor("JideButton.selectedAndFocusedBackground"), LIGHTER_FACTOR);
+		Object selectionSelectedAndFocusedDk = (ActiveValue) table -> darker(UIDefaultsLookup.getColor("JideButton.selectedAndFocusedBackground"), LIGHTER_FACTOR);
 
 		Object[] uiDefaultsSelection = new Object[]{
 				"selection.Rollover", selectionRollover,

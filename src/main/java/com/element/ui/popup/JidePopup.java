@@ -32,13 +32,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * <code>JidePopup</code> is a popup window which can be resized, dragged and autohide if time out.
- * <p/>
- * JidePopup uses JWindow as the container in order to show itself. By default, JidePopup is not focusable which means
- * no component in the JidePopup will get focus. For example, if you put a JTextField in JidePopup and the JTextField
- * becomes not editable, this is a result of non-focusable JWindow. So if you want components in JidePopup to be able to
- * receive focus, you can either call setFocusable(true) or you can call {@link #setDefaultFocusComponent(Component)}
- * to set a child component as the default focus component.
+ * JidePopup是一个弹出窗口，可以调整大小、拖动和超时自动隐藏。
+ * <p>
+ * JidePopup 使用JWindow 作为容器来展示自己。默认情况下，JidePopup 是不可聚焦的，这意味着 JidePopup 中的任何组件都不会获得焦点。例如，
+ * 如果在 JidePopup 中放置一个 JTextField，并且 JTextField 变得不可编辑，这是不可聚焦的 JWindow 的结果。所以如果你想让 JidePopup 中
+ * 的组件能够获得焦点，你可以调用 setFocusable(true) 或者调用{@link #setDefaultFocusComponent(Component)}将子组件设置为默认焦点组件。
  */
 @SuppressWarnings({"UnusedDeclaration"})
 public class JidePopup extends JComponent implements Accessible, WindowConstants {
@@ -958,36 +956,28 @@ public class JidePopup extends JComponent implements Accessible, WindowConstants
 		if (_displayStartLocation != null) {
 			return _displayStartLocation;
 		}
-		switch (location) {
-			case SwingConstants.CENTER:
-				return new Point(screenDim.x + (screenDim.width - size.width) / 2,
-						screenDim.y + (screenDim.height - size.height) / 2);
-			case SwingConstants.SOUTH:
-				return new Point(screenDim.x + (screenDim.width - size.width) / 2,
-						screenDim.y + screenDim.height - size.height - DISTANCE_TO_SCREEN_BORDER);
-			case SwingConstants.NORTH:
-				return new Point(screenDim.x + (screenDim.width - size.width) / 2,
-						screenDim.y + DISTANCE_TO_SCREEN_BORDER);
-			case SwingConstants.EAST:
-				return new Point(screenDim.x + screenDim.width - size.width - DISTANCE_TO_SCREEN_BORDER,
-						screenDim.y + (screenDim.height - size.height) / 2);
-			case SwingConstants.WEST:
-				return new Point(screenDim.x + DISTANCE_TO_SCREEN_BORDER,
-						screenDim.y + (screenDim.height - size.height) / 2);
-			case SwingConstants.SOUTH_WEST:
-				return new Point(screenDim.x + DISTANCE_TO_SCREEN_BORDER,
-						screenDim.y + screenDim.height - size.height - DISTANCE_TO_SCREEN_BORDER);
-			case SwingConstants.NORTH_EAST:
-				return new Point(screenDim.x + screenDim.width - size.width - DISTANCE_TO_SCREEN_BORDER,
-						screenDim.y + DISTANCE_TO_SCREEN_BORDER);
-			case SwingConstants.NORTH_WEST:
-				return new Point(screenDim.x + DISTANCE_TO_SCREEN_BORDER,
-						screenDim.y + DISTANCE_TO_SCREEN_BORDER);
-			case SwingConstants.SOUTH_EAST:
-			default:
-				return new Point(screenDim.x + screenDim.width - size.width - DISTANCE_TO_SCREEN_BORDER,
-						screenDim.y + screenDim.height - size.height - DISTANCE_TO_SCREEN_BORDER);
-		}
+		return switch (location) {
+			case SwingConstants.CENTER -> new Point(screenDim.x + (screenDim.width - size.width) / 2,
+					screenDim.y + (screenDim.height - size.height) / 2);
+			case SwingConstants.SOUTH -> new Point(screenDim.x + (screenDim.width - size.width) / 2,
+					screenDim.y + screenDim.height - size.height - DISTANCE_TO_SCREEN_BORDER);
+			case SwingConstants.NORTH -> new Point(screenDim.x + (screenDim.width - size.width) / 2,
+					screenDim.y + DISTANCE_TO_SCREEN_BORDER);
+			case SwingConstants.EAST ->
+					new Point(screenDim.x + screenDim.width - size.width - DISTANCE_TO_SCREEN_BORDER,
+							screenDim.y + (screenDim.height - size.height) / 2);
+			case SwingConstants.WEST -> new Point(screenDim.x + DISTANCE_TO_SCREEN_BORDER,
+					screenDim.y + (screenDim.height - size.height) / 2);
+			case SwingConstants.SOUTH_WEST -> new Point(screenDim.x + DISTANCE_TO_SCREEN_BORDER,
+					screenDim.y + screenDim.height - size.height - DISTANCE_TO_SCREEN_BORDER);
+			case SwingConstants.NORTH_EAST ->
+					new Point(screenDim.x + screenDim.width - size.width - DISTANCE_TO_SCREEN_BORDER,
+							screenDim.y + DISTANCE_TO_SCREEN_BORDER);
+			case SwingConstants.NORTH_WEST -> new Point(screenDim.x + DISTANCE_TO_SCREEN_BORDER,
+					screenDim.y + DISTANCE_TO_SCREEN_BORDER);
+			default -> new Point(screenDim.x + screenDim.width - size.width - DISTANCE_TO_SCREEN_BORDER,
+					screenDim.y + screenDim.height - size.height - DISTANCE_TO_SCREEN_BORDER);
+		};
 	}
 
 	protected Rectangle getDisplayScreenBounds(Component owner) {
@@ -2065,7 +2055,7 @@ public class JidePopup extends JComponent implements Accessible, WindowConstants
 			_previousSize.height -= insetHeight;
 		}
 
-		SwingUtilities.invokeLater(() -> removeMouseEventHandler());
+		SwingUtilities.invokeLater(this::removeMouseEventHandler);
 
 		_resizableSupport = null;
 		_owner = null;

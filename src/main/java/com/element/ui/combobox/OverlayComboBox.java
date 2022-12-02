@@ -11,19 +11,19 @@ import com.element.util.OverlayableUtil;
 import javax.swing.*;
 import java.util.Vector;
 
-public class OverlayComboBox extends JComboBox {
+public class OverlayComboBox<E> extends JComboBox<E> {
 	public OverlayComboBox() {
 	}
 
-	public OverlayComboBox(Vector<?> items) {
+	public OverlayComboBox(Vector<E> items) {
 		super(items);
 	}
 
-	public OverlayComboBox(final Object[] items) {
+	public OverlayComboBox(final E[] items) {
 		super(items);
 	}
 
-	public OverlayComboBox(ComboBoxModel aModel) {
+	public OverlayComboBox(ComboBoxModel<E> aModel) {
 		super(aModel);
 	}
 

@@ -1,7 +1,7 @@
 package com.element.util;
 
 import com.element.swing.Overlayable;
-import com.element.ui.base.DefaultOverlayable;
+import com.element.swing.DefaultOverlayable;
 
 import javax.swing.*;
 import java.awt.*;

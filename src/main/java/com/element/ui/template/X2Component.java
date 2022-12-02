@@ -1,6 +1,6 @@
 package com.element.ui.template;
 
-import com.element.ui.base.RoundComponent;
+import com.element.swing.RoundComponent;
 
 import javax.swing.*;
 import java.awt.*;

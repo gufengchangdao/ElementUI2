@@ -7,7 +7,7 @@ package com.element.plaf.eclipse;
 
 import com.element.plaf.UIDefaultsLookup;
 import com.element.plaf.basic.BasicGripperUI;
-import com.element.ui.base.Gripper;
+import com.element.swing.Gripper;
 import com.element.util.UIUtil;
 
 import javax.swing.*;

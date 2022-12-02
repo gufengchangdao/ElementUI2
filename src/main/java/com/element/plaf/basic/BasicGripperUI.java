@@ -5,7 +5,7 @@ package com.element.plaf.basic;
 
 import com.element.plaf.GripperUI;
 import com.element.plaf.UIDefaultsLookup;
-import com.element.ui.base.Gripper;
+import com.element.swing.Gripper;
 import com.element.util.UIUtil;
 
 import javax.swing.*;

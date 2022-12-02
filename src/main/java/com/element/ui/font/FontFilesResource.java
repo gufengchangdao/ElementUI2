@@ -9,7 +9,7 @@ import java.util.Locale;
 import java.util.ResourceBundle;
 
 public class FontFilesResource {
-	static final String BASENAME = "fontfiles";
+	static final String BASENAME = FontFilesResource.class.getPackageName() + ".fontfiles";
 
 	static final ResourceBundle RB = ResourceBundle.getBundle(BASENAME);
 

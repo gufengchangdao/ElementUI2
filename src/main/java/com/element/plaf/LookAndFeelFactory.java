@@ -669,26 +669,6 @@ public class LookAndFeelFactory implements ProductNames {
 					uiDefaults.put("JideTabbedPane.foreground", UIDefaultsLookup.getColor("controlText"));
 					uiDefaults.put("JideTabbedPane.light", UIDefaultsLookup.getColor("control"));
 					uiDefaults.put("JideSplitPaneDivider.gripperPainter", gripperPainter);
-					int products = LookAndFeelFactory.getProductsUsed();
-					if ((products & PRODUCT_DOCK) != 0) {
-						ImageIcon titleButtonImage = IconsFactory.getImageIcon(VsnetWindowsUtils.class, "icons/title_buttons_windows.gif"); // 10 x 10 x 8
-						final int titleButtonSize = 10;
-
-						// TODO 没有这个UI
-						uiDefaults.put("DockableFrameUI", "com.element.plaf.vsnet.VsnetDockableFrameUI");
-						uiDefaults.put("DockableFrameTitlePane.hideIcon", IconsFactory.getIcon(null, titleButtonImage, 0, 0, titleButtonSize, titleButtonSize));
-						uiDefaults.put("DockableFrameTitlePane.unfloatIcon", IconsFactory.getIcon(null, titleButtonImage, 0, titleButtonSize, titleButtonSize, titleButtonSize));
-						uiDefaults.put("DockableFrameTitlePane.floatIcon", IconsFactory.getIcon(null, titleButtonImage, 0, 2 * titleButtonSize, titleButtonSize, titleButtonSize));
-						uiDefaults.put("DockableFrameTitlePane.autohideIcon", IconsFactory.getIcon(null, titleButtonImage, 0, 3 * titleButtonSize, titleButtonSize, titleButtonSize));
-						uiDefaults.put("DockableFrameTitlePane.stopAutohideIcon", IconsFactory.getIcon(null, titleButtonImage, 0, 4 * titleButtonSize, titleButtonSize, titleButtonSize));
-						uiDefaults.put("DockableFrameTitlePane.hideAutohideIcon", IconsFactory.getIcon(null, titleButtonImage, 0, 5 * titleButtonSize, titleButtonSize, titleButtonSize));
-						uiDefaults.put("DockableFrameTitlePane.maximizeIcon", IconsFactory.getIcon(null, titleButtonImage, 0, 6 * titleButtonSize, titleButtonSize, titleButtonSize));
-						uiDefaults.put("DockableFrameTitlePane.restoreIcon", IconsFactory.getIcon(null, titleButtonImage, 0, 7 * titleButtonSize, titleButtonSize, titleButtonSize));
-						uiDefaults.put("DockableFrameTitlePane.buttonGap", 4); // gap between buttons
-						uiDefaults.put("DockableFrame.titleBorder", new BorderUIResource(BorderFactory.createEmptyBorder(1, 0, 2, 0)));
-						uiDefaults.put("DockableFrame.border", new BorderUIResource(BorderFactory.createEmptyBorder(2, 0, 0, 0)));
-						uiDefaults.put("DockableFrameTitlePane.gripperPainter", gripperPainter);
-					}
 				}
 				case EXTENSION_STYLE_ECLIPSE, EXTENSION_STYLE_ECLIPSE_WITHOUT_MENU -> {
 					EclipseMetalUtils.initComponentDefaults(uiDefaults);

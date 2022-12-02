@@ -1,7 +1,7 @@
 package com.element.radiance.app;
 
 import com.element.color.ColorUtil;
-import com.element.ui.base.BaseInputField;
+import com.element.swing.BaseInputField;
 import com.element.ui.button.ButtonFactory;
 import com.element.util.SwingTestUtil;
 import net.miginfocom.swing.MigLayout;

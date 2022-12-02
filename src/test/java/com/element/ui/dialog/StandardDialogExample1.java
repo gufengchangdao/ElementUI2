@@ -1,7 +1,8 @@
 package com.element.ui.dialog;
 
 import com.element.plaf.UIDefaultsLookup;
-import com.element.ui.icons.JideIconsFactory;
+import com.element.swing.JideIconsFactory;
+import com.element.ui.button.ButtonResources;
 import com.element.ui.label.MultilineLabel;
 
 import javax.swing.*;

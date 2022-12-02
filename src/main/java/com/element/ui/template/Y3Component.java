@@ -1,6 +1,6 @@
 package com.element.ui.template;
 
-import com.element.ui.base.BaseComponent;
+import com.element.swing.BaseComponent;
 import com.element.util.WrapperUtil;
 
 import javax.swing.*;

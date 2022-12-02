@@ -11,7 +11,7 @@ import com.element.plaf.UIDefaultsLookup;
 import com.element.plaf.vsnet.VsnetLookAndFeelExtension;
 import com.element.ui.button.JideButton;
 import com.element.ui.icons.IconsFactory;
-import com.element.ui.icons.JideIconsFactory;
+import com.element.swing.JideIconsFactory;
 import com.element.ui.tabs.JideTabbedPane;
 import com.element.util.UIUtil;
 
@@ -381,6 +381,7 @@ public class AquaJideUtils extends VsnetLookAndFeelExtension {
 					"CollapsiblePane.titleBorder", new BorderUIResource(BorderFactory.createEmptyBorder(3, 3, 3, 3)),
 					"CollapsiblePane.titleFont", boldFont,
 					"CollapsiblePane.downIcon", IconsFactory.getIcon(null, collapsiblePaneImage, 0, 0, collapsiblePaneSize, collapsiblePaneSize),
+					"CollapsiblePane.downIcon", IconsFactory.imageIconScale(collapsiblePaneImage,collapsiblePaneSize, collapsiblePaneSize),
 					"CollapsiblePane.upIcon", IconsFactory.getIcon(null, collapsiblePaneImage, 0, collapsiblePaneSize, collapsiblePaneSize, collapsiblePaneSize),
 
 					"StatusBarItem.border", new BorderUIResource(BorderFactory.createLineBorder(UIDefaultsLookup.getColor("controlShadow"), 1)),

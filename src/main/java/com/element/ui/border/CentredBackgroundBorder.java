@@ -1,6 +1,6 @@
 package com.element.ui.border;
 
-import com.element.util.GraphicsUtil;
+import com.element.util.ImageUtil;
 
 import javax.swing.border.Border;
 import java.awt.*;
@@ -31,18 +31,18 @@ public class CentredBackgroundBorder implements Border {
 
 			if (fw > 1 && fh > 1) {
 				if (fw > fh)
-					bufferedImage = GraphicsUtil.createScaledCompositeInstance(image, height, true);
+					bufferedImage = ImageUtil.createScaledCompositeInstance(image, height, true);
 				else
-					bufferedImage = GraphicsUtil.createScaledCompositeInstance(image, width, true);
+					bufferedImage = ImageUtil.createScaledCompositeInstance(image, width, true);
 			} else if (fw > 1) {
-				bufferedImage = GraphicsUtil.createScaledCompositeInstance(image, height, true);
+				bufferedImage = ImageUtil.createScaledCompositeInstance(image, height, true);
 			} else if (fh > 1) {
-				bufferedImage = GraphicsUtil.createScaledCompositeInstance(image, width, true);
+				bufferedImage = ImageUtil.createScaledCompositeInstance(image, width, true);
 			} else {
 				if (fw > fh)
-					bufferedImage = GraphicsUtil.createScaledCompositeInstance(image, height, true);
+					bufferedImage = ImageUtil.createScaledCompositeInstance(image, height, true);
 				else
-					bufferedImage = GraphicsUtil.createScaledCompositeInstance(image, width, true);
+					bufferedImage = ImageUtil.createScaledCompositeInstance(image, width, true);
 			}
 		}
 

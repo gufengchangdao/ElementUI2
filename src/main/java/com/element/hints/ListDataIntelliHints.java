@@ -54,7 +54,7 @@ public class ListDataIntelliHints<T> extends AbstractListIntelliHints {
 	 */
 	public void setCompletionList(T[] completionList) {
 		final T[] list = completionList;
-		_completionList = new AbstractList<T>() {
+		_completionList = new AbstractList<>() {
 			@Override
 			public T get(int index) {
 				return list[index];

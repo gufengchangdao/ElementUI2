@@ -1,7 +1,7 @@
 package com.element.ui.tooltip;
 
 import com.element.swing.SwingPosition;
-import com.element.ui.base.AngleComponent;
+import com.element.swing.AngleComponent;
 import org.jdesktop.core.animation.timing.Animator;
 import org.jdesktop.core.animation.timing.TimingTarget;
 

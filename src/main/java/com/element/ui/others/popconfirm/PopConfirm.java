@@ -2,7 +2,7 @@ package com.element.ui.others.popconfirm;
 
 import com.element.color.ColorUtil;
 import com.element.swing.SwingPosition;
-import com.element.ui.base.AngleComponent;
+import com.element.swing.AngleComponent;
 import com.element.ui.button.ButtonFactory;
 import com.element.ui.template.Y2CNCCComponent;
 import org.jdesktop.core.animation.timing.Animator;

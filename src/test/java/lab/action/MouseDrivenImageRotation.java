@@ -1,8 +1,8 @@
 package lab.action;
 
-import com.element.util.GraphicsUtil;
 import com.element.util.SwingTestUtil;
 import net.miginfocom.swing.MigLayout;
+import org.jdesktop.swingx.util.GraphicsUtilities;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -25,7 +25,7 @@ public class MouseDrivenImageRotation extends JPanel {
 		BufferedImage img;
 		try {
 			img = ImageIO.read(getClass().getResourceAsStream("/img/beauty.jpg"));
-			img = GraphicsUtil.createThumbnail(img, 600);
+			img = GraphicsUtilities.createThumbnail(img, 600);
 		} catch (IOException e) {
 			throw new RuntimeException(e);
 		}

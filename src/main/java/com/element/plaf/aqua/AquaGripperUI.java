@@ -1,7 +1,7 @@
 package com.element.plaf.aqua;
 
 import com.element.plaf.basic.BasicGripperUI;
-import com.element.ui.base.Gripper;
+import com.element.swing.Gripper;
 
 import javax.swing.*;
 import javax.swing.plaf.ComponentUI;

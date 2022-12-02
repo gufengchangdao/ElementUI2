@@ -13,24 +13,93 @@ import java.awt.image.Kernel;
 import static java.awt.image.ImageObserver.*;
 
 /**
- * 图像处理工具类
+ * ImageUtil包含一组工具，可以轻松执行常见的图形操作。这些操作时基于{@link GraphicsUtilities} 所没有的其他操作，这些操作分为几个主题，如下所列。
+ * <h3>缩放图像</h3>
+ * 提供了三种其他的图像缩放方法
+ * <h3>图像处理</h3>
+ * 使图片支持反射、阴影、不透明度、支持GIF等功能
  */
 public class ImageUtil {
+	// ---------------------------------------------------------------------
+	// 缩放
+	// ---------------------------------------------------------------------
+
 	/**
-	 * 缩放图像，采用自适应方式，不改变原有比例的同时呈现所有内容。
-	 * 不支持放大
+	 * 对图像进行缩放，如果是放大将返回放大后的兼容图像，缩小则使用双线式图像缩放
+	 * <p>
+	 * 双线性缩放原理：
+	 * 缩放原理：对于缩小倍率较大的图像，使用一次drawImage()缩放并且当缩小比例大于 50% 时，图像质量会发生严重的问题，
+	 * 因此这里采用多次缩小的方法，每次最多缩小50%，在效率和质量上均衡。该方法要优于getScaledImage() (时间上优于)
 	 *
-	 * @param image     待缩放图像
-	 * @param maxWidth  最大宽度
-	 * @param maxHeight 最大高度
-	 * @return 缩放后的图像
+	 * @param image     源图像
+	 * @param newWidth  新图像宽度
+	 * @param newHeight 新图像高度
+	 * @return 缩放后兼容BufferedImage
 	 */
-	public static BufferedImage createThumbnailFast(BufferedImage image, int maxWidth, int maxHeight) {
+	public static BufferedImage createScaledCompositeInstance(BufferedImage image, int newWidth, int newHeight) {
+		if (newWidth >= image.getWidth() ||
+				newHeight >= image.getHeight()) {
+			// 不是两边都缩小，进行普通缩放
+			BufferedImage newImage = GraphicsUtilities.createCompatibleImage(image, newWidth, newHeight);
+			newImage.getGraphics().drawImage(image,
+					0, 0, newWidth, newHeight,
+					0, 0, image.getWidth(), image.getHeight(),
+					null);
+			return newImage;
+		}
+
+		// 双线性缩放
+		return GraphicsUtilities.createThumbnail(image, newWidth, newHeight);
+	}
+
+	/**
+	 * 双线式图像缩放，按图像比例缩放
+	 *
+	 * @param image     源图像
+	 * @param newSize   新的图像大小
+	 * @param isByShort newSize 是否为新图像的最短边
+	 * @return 最长边(或最短边)为 newSize 的新图像
+	 */
+	public static BufferedImage createScaledCompositeInstance(BufferedImage image, int newSize, boolean isByShort) {
 		int width = image.getWidth();
 		int height = image.getHeight();
-		float factor = Math.min(maxWidth * 1f / width, maxHeight * 1f / height);
-		return GraphicsUtilities.createThumbnailFast(image, (int) (width * factor), (int) (height * factor));
+		int newWidth, newHeight;
+
+		if (width >= height) {
+			if (isByShort) {
+				newWidth = newSize * width / height;
+				newHeight = newSize;
+			} else {
+				newWidth = newSize;
+				newHeight = newSize * height / width;
+			}
+		} else {
+			if (isByShort) {
+				newWidth = newSize;
+				newHeight = newSize * height / width;
+			} else {
+				newWidth = newSize * width / height;
+				newHeight = newSize;
+			}
+		}
+		return ImageUtil.createScaledCompositeInstance(image, newWidth, newHeight);
 	}
+
+	/**
+	 * 使用双线式图像缩放，返回指定宽度的缩放图像，图像高度按照宽度缩放倍率进行缩放
+	 *
+	 * @param image     源图像
+	 * @param newWidth  新图像宽度
+	 * @param maxHeight 缩放图像的最大高度，也就是说不能完全依靠图像的长宽比进行缩放
+	 * @return 包含image缩放图的新兼容BufferedImage
+	 */
+	public static BufferedImage createFixedWidthScaledCompositeInstance(BufferedImage image, int newWidth, int maxHeight) {
+		return ImageUtil.createScaledCompositeInstance(image, newWidth, Math.min(image.getHeight() * newWidth / image.getWidth(), maxHeight));
+	}
+
+	// ---------------------------------------------------------------------
+	// 图像处理
+	// ---------------------------------------------------------------------
 
 	/**
 	 * 返回一个具有给定图像反射效果的新图像。
@@ -168,7 +237,7 @@ public class ImageUtil {
 		ColorConvertOp op = new ColorConvertOp(colorSpace, null);
 		image = op.filter(image, null);
 		// 对一个图像执行这样的一个转换可能会使得它与您的图形显示硬件不相容，在这里转换为兼容图像
-		return GraphicsUtil.toCompatibleImage(image);
+		return GraphicsUtilities.toCompatibleImage(image);
 	}
 
 	/**
@@ -208,7 +277,7 @@ public class ImageUtil {
 		// paint()会用到这两个方法，这里得设值
 		if (!(c.getWidth() > 0 && c.getHeight() > 0)) c.setSize(size);
 
-		BufferedImage img = GraphicsUtil.createCompatibleImage(c.getWidth(), c.getHeight());
+		BufferedImage img = GraphicsUtilities.createCompatibleImage(c.getWidth(), c.getHeight());
 		Graphics2D g = img.createGraphics();
 		c.paint(g);
 		g.dispose();

@@ -7,6 +7,7 @@
 package com.element.ui.dialog;
 
 import com.element.plaf.basic.BasicJideOptionPaneUI;
+import com.element.ui.button.ButtonResources;
 import com.element.util.CompareUtil;
 
 import javax.swing.*;
@@ -159,7 +160,7 @@ public class JideOptionPane extends JOptionPane {
 
 	/**
 	 * Gets the localized string from resource bundle. Subclass can override it to provide its own string. Available
-	 * keys are defined in buttons.properties that begin with "Button.".
+	 * keys are defined in ButtonResources.properties that begin with "Button.".
 	 *
 	 * @param key the resource string key
 	 * @return the localized string.

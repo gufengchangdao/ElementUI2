@@ -7,7 +7,7 @@
 package com.element.ui.pane;
 
 import com.element.ui.button.JideButton;
-import com.element.ui.icons.JideIconsFactory;
+import com.element.swing.JideIconsFactory;
 
 import javax.swing.*;
 import javax.swing.event.ChangeEvent;

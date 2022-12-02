@@ -1,8 +1,8 @@
 package lab.animator;
 
-import com.element.util.GraphicsUtil;
 import com.element.util.SwingTestUtil;
 import net.miginfocom.swing.MigLayout;
+import org.jdesktop.swingx.util.GraphicsUtilities;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -20,7 +20,7 @@ public class EaseInOut extends JPanel {
 		Icon icon = null;
 		try {
 			BufferedImage image = ImageIO.read(getClass().getResourceAsStream("/img/beauty.jpg"));
-			image = GraphicsUtil.createThumbnail(image, 400);
+			image = GraphicsUtilities.createThumbnail(image, 400);
 			icon = new ImageIcon(image);
 		} catch (IOException e) {
 			throw new RuntimeException(e);
