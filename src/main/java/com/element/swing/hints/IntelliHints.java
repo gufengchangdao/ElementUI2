@@ -3,7 +3,7 @@
  *
  * Copyright 2002 - 2005 JIDE Software Inc. All rights reserved.
  */
-package com.element.hints;
+package com.element.swing.hints;
 
 import javax.swing.*;
 

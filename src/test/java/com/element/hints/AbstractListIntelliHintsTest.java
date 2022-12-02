@@ -1,6 +1,8 @@
 package com.element.hints;
 
 import com.element.plaf.LookAndFeelFactory;
+import com.element.swing.hints.FileIntelliHints;
+import com.element.swing.hints.ListDataIntelliHints;
 import com.element.util.SwingTestUtil;
 import demo.AbstractDemo;
 import net.miginfocom.swing.MigLayout;

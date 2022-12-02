@@ -6,8 +6,8 @@
 package com.element.converter;
 
 import com.element.converter.impl.*;
-import com.element.swing.RegistrationListener;
 import com.element.range.*;
+import com.element.swing.RegistrationListener;
 import com.element.util.TypeUtil;
 
 import java.awt.*;

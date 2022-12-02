@@ -13,9 +13,4 @@ package com.element.range;
  * @author Simon White (swhite@catalysoft.com)
  */
 public abstract class AbstractNumericRange<T> extends AbstractRange<T> {
-
-	public AbstractNumericRange() {
-		super();
-	}
-
 }

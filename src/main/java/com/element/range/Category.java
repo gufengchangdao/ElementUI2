@@ -16,16 +16,16 @@ import java.io.Serializable;
  */
 public class Category<T> implements Positionable, Serializable {
 	private String _name;
-	private T _value;
+	private final T _value;
 	private CategoryRange<T> _range;
 
 	public Category(String name, T value) {
-		setName(name);
+		_name = name;
 		_value = value;
 	}
 
 	public Category(String name, T value, CategoryRange<T> range) {
-		setName(name);
+		_name = name;
 		_value = value;
 		_range = range;
 	}
@@ -36,14 +36,6 @@ public class Category<T> implements Positionable, Serializable {
 
 	public Category(T value, CategoryRange<T> range) {
 		_value = value;
-		_range = range;
-	}
-
-	public CategoryRange<T> getRange() {
-		return _range;
-	}
-
-	public void setRange(CategoryRange<T> range) {
 		_range = range;
 	}
 
@@ -91,6 +83,14 @@ public class Category<T> implements Positionable, Serializable {
 		_name = name;
 	}
 
+	public CategoryRange<T> getRange() {
+		return _range;
+	}
+
+	public void setRange(CategoryRange<T> range) {
+		_range = range;
+	}
+
 	public int compareTo(Positionable o) {
 		double otherPosition = o.position();
 		double position = position();
@@ -115,7 +115,7 @@ public class Category<T> implements Positionable, Serializable {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Category other = (Category) obj;
+		Category<?> other = (Category<?>) obj;
 		if (_name == null) {
 			if (other._name != null)
 				return false;

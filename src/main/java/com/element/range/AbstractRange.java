@@ -13,11 +13,8 @@ import java.beans.PropertyChangeSupport;
 /**
  * An abstract implementation of <code>Range</code>
  */
-public abstract class AbstractRange<T> implements Range<T>, Comparable<Range> {
+public abstract class AbstractRange<T> implements Range<T>, Comparable<Range<T>> {
 	private PropertyChangeSupport changeSupport;
-
-	public AbstractRange() {
-	}
 
 	public Range<T> copy() {
 		throw new UnsupportedOperationException("Copy method not implemented");
@@ -85,11 +82,11 @@ public abstract class AbstractRange<T> implements Range<T>, Comparable<Range> {
 	public abstract Range<T> createIntermediate(Range<T> targetRange, double position);
 
 	@Override
-	public int compareTo(Range o) {
-		int lowerGap = (int) (minimum() - o.minimum());
-		if (size() == 0 && o.size() == 0) return lowerGap;
-		if (size() == 0 && size() < o.size()) return -1;
-		if (o.size() == 0 && size() > o.size()) return 1;
-		return lowerGap == 0 ? (int) (maximum() - o.maximum()) : lowerGap;
+	public int compareTo(Range<T> o) {
+			int lowerGap = (int) (minimum() - o.minimum());
+			if (size() == 0 && o.size() == 0) return lowerGap;
+			if (size() == 0 && size() < o.size()) return -1;
+			if (o.size() == 0 && size() > o.size()) return 1;
+			return lowerGap == 0 ? (int) (maximum() - o.maximum()) : lowerGap;
 	}
 }

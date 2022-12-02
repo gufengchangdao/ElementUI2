@@ -16,7 +16,7 @@ public class IntegerRange extends AbstractNumericRange<Integer> {
 	protected int _max;
 
 	/**
-	 * Creates a numeric range with minimum 0.0 and maximum of 1.0
+	 * Creates a numeric range with minimum 0 and maximum of 1
 	 */
 	public IntegerRange() {
 		this(0, 1);
@@ -30,8 +30,10 @@ public class IntegerRange extends AbstractNumericRange<Integer> {
 	 */
 	public IntegerRange(int min, int max) {
 		super();
-		_min = Math.min(min, max);
-		_max = Math.max(min, max);
+		if (max < min) throw new IllegalArgumentException("min cannot be greater than max");
+
+		_min = min;
+		_max = max;
 	}
 
 	/**
@@ -150,8 +152,8 @@ public class IntegerRange extends AbstractNumericRange<Integer> {
 
 	@Override
 	public Range<Integer> createIntermediate(Range<Integer> targetRange, double position) {
-		double sourceMin = this.minimum();
-		double sourceMax = this.maximum();
+		double sourceMin = minimum();
+		double sourceMax = maximum();
 		double targetMin = targetRange.minimum();
 		double targetMax = targetRange.maximum();
 		double min = sourceMin + position * (targetMin - sourceMin);

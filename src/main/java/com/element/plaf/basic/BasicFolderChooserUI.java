@@ -5,7 +5,7 @@
  */
 package com.element.plaf.basic;
 
-import com.element.hints.FileIntelliHints;
+import com.element.swing.hints.FileIntelliHints;
 import com.element.ui.dialog.ButtonPanel;
 import com.element.ui.layout.JideBoxLayout;
 import com.element.ui.others.FolderChooser;

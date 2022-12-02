@@ -1,6 +1,9 @@
 package com.element.hints;
 
 import com.element.plaf.LookAndFeelFactory;
+import com.element.swing.hints.AbstractListIntelliHints;
+import com.element.swing.hints.FileIntelliHints;
+import com.element.swing.hints.ListDataIntelliHints;
 import com.element.ui.layout.JideBoxLayout;
 import com.element.util.SelectAllUtil;
 import com.element.util.SwingTestUtil;
