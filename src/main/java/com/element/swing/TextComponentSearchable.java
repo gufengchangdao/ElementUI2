@@ -5,7 +5,6 @@
  */
 package com.element.swing;
 
-import com.element.event.SearchableEvent;
 import com.element.util.ListenerUtil;
 
 import javax.swing.*;

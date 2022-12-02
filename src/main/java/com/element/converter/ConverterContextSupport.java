@@ -40,5 +40,4 @@ public interface ConverterContextSupport {
 	 * @param clazz
 	 */
 	void setType(Class<?> clazz);
-
 }

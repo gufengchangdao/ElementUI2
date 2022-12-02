@@ -16,7 +16,7 @@ import java.util.Objects;
  */
 abstract public class AbstractContext implements Serializable {
 	private String name;
-
+	/** 用户对象，可以是转换器转换时需要用到的数据 */
 	private Object userObject;
 
 	/**
@@ -76,7 +76,7 @@ abstract public class AbstractContext implements Serializable {
 	}
 
 	/**
-	 * Override equals. Two abstract context equals as long as the name is the same.
+	 * Two abstract context equals as long as the name is the same.
 	 *
 	 * @param o object to compare.
 	 * @return if two objects equal.

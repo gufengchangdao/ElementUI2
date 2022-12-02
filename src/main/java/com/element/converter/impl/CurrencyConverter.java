@@ -1,0 +1,28 @@
+/*
+ * @(#)CurrencyConverter.java 5/9/2006
+ *
+ * Copyright 2002 - 2006 JIDE Software Inc. All rights reserved.
+ */
+
+package com.element.converter.impl;
+
+import com.element.converter.ConverterContext;
+import com.element.converter.impl.NumberFormatConverter;
+
+import java.text.NumberFormat;
+import java.util.Locale;
+
+/**
+ * Converter which converts currency to String and converts it back.
+ */
+public class CurrencyConverter extends NumberFormatConverter {
+	public static ConverterContext CONTEXT = new ConverterContext("Currency");
+
+	public CurrencyConverter() {
+		this(NumberFormat.getCurrencyInstance(Locale.getDefault()));
+	}
+
+	public CurrencyConverter(NumberFormat format) {
+		super(format);
+	}
+}

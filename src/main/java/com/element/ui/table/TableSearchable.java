@@ -5,7 +5,7 @@
  */
 package com.element.ui.table;
 
-import com.element.event.SearchableEvent;
+import com.element.swing.SearchableEvent;
 import com.element.swing.Searchable;
 import com.element.util.CompareUtil;
 

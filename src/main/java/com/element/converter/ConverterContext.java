@@ -14,11 +14,6 @@ public class ConverterContext extends AbstractContext {
 	 * Default converter context with empty name and no user object.
 	 */
 	public static ConverterContext DEFAULT_CONTEXT = new ConverterContext("");
-	/**
-	 * Default converter context with dynamic value to work with EditorContext#DEFAULT_CONTEXT_DYNAMIC_VALUE.
-	 */
-	@Deprecated
-	public static ConverterContext DEFAULT_CONTEXT_DYNAMIC_VALUE = new ConverterContext("Dynamic Value");
 
 	/**
 	 * Creates a converter context with a name.

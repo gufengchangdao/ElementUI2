@@ -3,7 +3,7 @@ package com.element.converter;
 import java.util.Locale;
 import java.util.ResourceBundle;
 
-class Resource {
+public class Resource {
 	static final String BASENAME = Resource.class.getPackageName()+".converter";
 
 	static final ResourceBundle RB = ResourceBundle.getBundle(BASENAME);

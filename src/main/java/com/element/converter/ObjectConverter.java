@@ -7,44 +7,48 @@ package com.element.converter;
 
 
 /**
- * An interface that can convert a object to a String and convert from
- * String to object.
+ * 一个可以将对象转换为字符串以及从字符串转换为对象的抽象类。
  */
-public interface ObjectConverter {
+public abstract class ObjectConverter {
+	/**
+	 * 根据当前语言环境从对象转换为字符串。
+	 * 如果{@link #supportToString(Object, ConverterContext)}返回常量false，则返回null即可，因为不支持转换该方法一定不会被调用的
+	 *
+	 * @param object  要转换的对象
+	 * @param context 要使用的转换器上下文
+	 * @return 字符串，不支持转换返回null
+	 */
+	public abstract String toString(Object object, ConverterContext context);
 
 	/**
-	 * Converts from object to String based on current locale.
+	 * 如果它支持 toString 方法。
 	 *
-	 * @param object  object to be converted
-	 * @param context converter context to be used
-	 * @return the String
+	 * @param object  要转换的对象
+	 * @param context 要使用的转换器上下文
+	 * @return 如果支持 toString 则为真
 	 */
-	String toString(Object object, ConverterContext context);
+	public boolean supportToString(Object object, ConverterContext context) {
+		return true;
+	}
 
 	/**
-	 * If it supports toString method.
+	 * 从字符串转换为对象。
+	 * 如果{@link #supportFromString(String, ConverterContext)}返回常量false，则返回null即可，因为不支持转换该方法一定不会被调用的
 	 *
-	 * @param object  object to be converted
-	 * @param context converter context to be used
-	 * @return true if supports toString
+	 * @param string  字符串
+	 * @param context 要转换的上下文
+	 * @return 从字符串转换的对象，不支持转换返回null
 	 */
-	boolean supportToString(Object object, ConverterContext context);
+	public abstract Object fromString(String string, ConverterContext context);
 
 	/**
-	 * Converts from String to an object.
+	 * 如果它支持 fromString。
 	 *
-	 * @param string  the string
-	 * @param context context to be converted
-	 * @return the object converted from string
+	 * @param string  字符串
+	 * @param context 要转换的上下文
+	 * @return 如果支持则为真
 	 */
-	Object fromString(String string, ConverterContext context);
-
-	/**
-	 * If it supports fromString.
-	 *
-	 * @param string  the string
-	 * @param context context to be converted
-	 * @return true if it supports
-	 */
-	boolean supportFromString(String string, ConverterContext context);
+	public boolean supportFromString(String string, ConverterContext context) {
+		return true;
+	}
 }

@@ -5,7 +5,7 @@
  */
 package com.element.ui.toolbar;
 
-import com.element.event.SearchableEvent;
+import com.element.swing.SearchableEvent;
 import com.element.plaf.UIDefaultsLookup;
 import com.element.swing.Resource;
 import com.element.swing.Searchable;

@@ -97,5 +97,4 @@ public interface Range<T> {
 	 * @return the registered property change listeners for a property.
 	 */
 	PropertyChangeListener[] getPropertyChangeListeners(String propertyName);
-
 }

@@ -5,8 +5,6 @@
  */
 package com.element.swing;
 
-import com.element.event.SearchableEvent;
-import com.element.event.SearchableListener;
 import com.element.plaf.UIDefaultsLookup;
 import com.element.regex.DefaultWildcardSupport;
 import com.element.regex.WildcardSupport;

@@ -5,8 +5,8 @@
  */
 package com.element.converter;
 
-import com.element.event.CacheMap;
-import com.element.event.RegistrationListener;
+import com.element.converter.impl.*;
+import com.element.swing.RegistrationListener;
 import com.element.range.*;
 import com.element.util.TypeUtil;
 
@@ -17,20 +17,22 @@ import java.util.Calendar;
 import java.util.Date;
 
 /**
- * <code>ObjectConverterManager</code> is a center place to register ObjectConverters with a data type and an optional
- * ConverterContext. The ConverterContext is a switch when you need several different converters for the same data type.
- * If you only use one ObjectConverter for a particular data type, you can use null as the ConverterContext.
- * <p/>
- * <code>ObjectConverterManager</code> is used in many places in JIDE products, especially in JIDE Grids where
- * <code>ContextSensitiveTableModel</code> adds getCellClassAt (the data type) and getConverterContextAt for each cell
- * in a table model. We use both values as the key to look up for the <code>ObjectConverter</code> from
- * <code>ObjectConverterManager</code>.
+ * ObjectConverterManager是使用数据类型和可选的 ConverterContext 注册 ObjectConverter 的中心空间。当您需要针对同一数据类型的多个不
+ * 同转换器时，ConverterContext 是一个开关。如果您只对特定数据类型使用一个 ObjectConverter，则可以使用 null 作为 ConverterContext。
+ * 也就是说要是使用的转换器类型由类对象和上下文共同决定。
+ * <p>
+ * ObjectConverterManager在 项目的许多地方都有使用，尤其是在 Grids 中，其中ContextSensitiveTableModel为表模型中的每个单元格添加了
+ * getCellClassAt（数据类型）和 getConverterContextAt。我们使用这两个值作为从ObjectConverterManager查找ObjectConverter的键。
  */
 public class ObjectConverterManager {
+	private static final CacheMap<ObjectConverter, ConverterContext> _cache =
+			new CacheMap<>(ConverterContext.DEFAULT_CONTEXT);
 
-	private static CacheMap<ObjectConverter, ConverterContext> _cache = new CacheMap<>(ConverterContext.DEFAULT_CONTEXT);
+	private static final ObjectConverter _defaultConverter = new DefaultObjectConverter();
 
-	private static ObjectConverter _defaultConverter = new DefaultObjectConverter();
+	private static boolean _inited = false;
+	private static boolean _initing = false;
+	private static boolean _autoInit = true;
 
 	/**
 	 * Registers a converter with the type specified as class and a converter context specified as context.
@@ -50,7 +52,7 @@ public class ObjectConverterManager {
 			context = ConverterContext.DEFAULT_CONTEXT;
 		}
 
-		if (isAutoInit() && !_inited && !_initing) {
+		if (_autoInit && !_inited && !_initing) {
 			initDefaultConverter();
 		}
 
@@ -246,10 +248,6 @@ public class ObjectConverterManager {
 		}
 	}
 
-	private static boolean _inited = false;
-	private static boolean _initing = false;
-	private static boolean _autoInit = true;
-
 	/**
 	 * Checks the value of autoInit.
 	 *
@@ -316,35 +314,42 @@ public class ObjectConverterManager {
 	}
 
 	/**
-	 * Initialize default converters. Please make sure you call this method before you use any converter related
-	 * classes. By default we register following converters. <ul> <li> registerConverter(String.class, new
-	 * DefaultObjectConverter()); <li> registerConverter(Integer.class, new IntegerConverter()); <li>
-	 * registerConverter(int.class, new IntegerConverter()); <li> registerConverter(Integer.class, new
-	 * NaturalNumberConverter(), NaturalNumberConverter.CONTEXT); <li> registerConverter(int.class, new
-	 * NaturalNumberConverter(), NaturalNumberConverter.CONTEXT); <li> registerConverter(Long.class, new
-	 * LongConverter()); <li> registerConverter(long.class, new LongConverter()); <li> registerConverter(Double.class,
-	 * new DoubleConverter()); <li> registerConverter(double.class, new DoubleConverter()); <li>
-	 * registerConverter(Float.class, new FloatConverter()); <li> registerConverter(float.class, new FloatConverter());
-	 * <li> registerConverter(Short.class, new ShortConverter()); <li> registerConverter(short.class, new
-	 * ShortConverter()); <li> registerConverter(Rectangle.class, new RectangleConverter()); <li>
-	 * registerConverter(Point.class, new PointConverter()); <li> registerConverter(Insets.class, new
-	 * InsetsConverter()); <li> registerConverter(Dimension.class, new DimensionConverter()); <li>
-	 * registerConverter(Boolean.class, new BooleanConverter()); <li> registerConverter(boolean.class, new
-	 * BooleanConverter()); <li> registerConverter(File.class, new FileConverter()); <li>
-	 * registerConverter(String.class, new FontNameConverter(), FontNameConverter.CONTEXT); <li>
-	 * registerConverter(Date.class, new DateConverter()); <li> registerConverter(Calendar.class, new
-	 * CalendarConverter()); <li> registerConverter(Calendar.class, new MonthConverter(), MonthConverter.CONTEXT_MONTH);
-	 * <li> registerConverter(Color.class, new RgbColorConverter()); <li> registerConverter(Color.class, new
-	 * HexColorConverter(), ColorConverter.CONTEXT_HEX); <li> registerConverter(String[].class, new
-	 * StringArrayConverter()); </ul>
+	 * 初始化默认转换器。请确保在使用任何与转换器相关的类之前调用此方法。默认情况下，我们注册以下转换器。
+	 * <ul>
+	 *     <li> registerConverter(String.class, new DefaultObjectConverter());
+	 *     <li> registerConverter(Integer.class, new IntegerConverter());
+	 *     <li> registerConverter(int.class, new IntegerConverter());
+	 *     <li> registerConverter(Integer.class, new NaturalNumberConverter(), NaturalNumberConverter.CONTEXT);
+	 *     <li> registerConverter(int.class, new NaturalNumberConverter(), NaturalNumberConverter.CONTEXT);
+	 *     <li> registerConverter(Long.class, new LongConverter());
+	 *     <li> registerConverter(long.class, new LongConverter());
+	 *     <li> registerConverter(Double.class, new DoubleConverter());
+	 *     <li> registerConverter(double.class, new DoubleConverter());
+	 *     <li> registerConverter(Float.class, new FloatConverter());
+	 *     <li> registerConverter(float.class, new FloatConverter());
+	 *     <li> registerConverter(Short.class, new ShortConverter());
+	 *     <li> registerConverter(short.class, new ShortConverter());
+	 *     <li> registerConverter(Rectangle.class, new RectangleConverter());
+	 *     <li> registerConverter(Point.class, new PointConverter());
+	 *     <li> registerConverter(Insets.class, new InsetsConverter());
+	 *     <li> registerConverter(Dimension.class, new DimensionConverter());
+	 *     <li> registerConverter(Boolean.class, new BooleanConverter());
+	 *     <li> registerConverter(boolean.class, new BooleanConverter());
+	 *     <li> registerConverter(File.class, new FileConverter());
+	 *     <li> registerConverter(String.class, new FontNameConverter(), FontNameConverter.CONTEXT);
+	 *     <li> registerConverter(Date.class, new DateConverter());
+	 *     <li> registerConverter(Calendar.class, new CalendarConverter());
+	 *     <li> registerConverter(Calendar.class, new MonthConverter(), MonthConverter.CONTEXT_MONTH);
+	 *     <li> registerConverter(Color.class, new RgbColorConverter());
+	 *     <li> registerConverter(Color.class, new HexColorConverter(), ColorConverter.CONTEXT_HEX);
+	 *     <li> registerConverter(String[].class, new StringArrayConverter());
+	 * </ul>
 	 */
 	public static void initDefaultConverter() {
 		if (_inited) {
 			return;
 		}
-
 		_initing = true;
-
 		try {
 			registerConverter(String.class, new DefaultObjectConverter());
 			registerConverter(char[].class, new PasswordConverter(), PasswordConverter.CONTEXT);
@@ -469,7 +474,6 @@ public class ObjectConverterManager {
 			_initing = false;
 			_inited = true;
 		}
-
 	}
 
 	/**
@@ -480,30 +484,6 @@ public class ObjectConverterManager {
 	public static void resetInit() {
 		_inited = false;
 	}
-
-//    static class A {
-//    }
-//
-//    public static void main(String[] args) {
-//        ObjectConverterManager.registerConverter(A.class, new ObjectConverter() {
-//            public String toString(Object object, ConverterContext context) {
-//                return null;
-//            }
-//
-//            public boolean supportToString(Object object, ConverterContext context) {
-//                return false;
-//            }
-//
-//            public Object fromString(String string, ConverterContext context) {
-//                return null;
-//            }
-//
-//            public boolean supportFromString(String string, ConverterContext context) {
-//                return false;
-//            }
-//        });
-//        ObjectConverter converter = ObjectConverterManager.getConverter(A.class, new ConverterContext("A"));
-//    }
 
 	public static void clear() {
 		resetInit();
