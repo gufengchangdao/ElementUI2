@@ -1,6 +1,5 @@
 package com.element.swing.compo;
 
-import com.element.swing.compo.BaseComponent;
 import com.element.util.UIUtil;
 
 import javax.swing.*;
@@ -92,15 +91,6 @@ public class RoundComponent extends BaseComponent {
 	@Override
 	public void setPreferredSize(Dimension preferredSize) {
 		super.setPreferredSize(preferredSize);
-	}
-
-	@Override
-	public Dimension getPreferredSize() {
-		// Dimension size = super.getPreferredSize();
-		// size.width -= 2;
-		// size.height -= 2;
-		// return size; //这个值会使传入的标签字显示不完全
-		return super.getPreferredSize();
 	}
 
 	public int getArcSize() {

@@ -9,7 +9,6 @@ import java.awt.event.MouseListener;
  * 圆角按钮
  */
 public class RoundButton extends JButton implements MouseListener {
-
 	private Color borderColor;
 	/** 背景色 */
 	private Color bGColor;

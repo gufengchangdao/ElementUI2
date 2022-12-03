@@ -48,13 +48,10 @@ public class DefaultSplitButtonModel extends DefaultButtonModel implements Split
 			stateMask &= ~BUTTON_SELECTED;
 		}
 
-		fireItemStateChanged(new ItemEvent(this,
-				ItemEvent.ITEM_STATE_CHANGED,
-				this,
+		fireItemStateChanged(new ItemEvent(this, ItemEvent.ITEM_STATE_CHANGED, this,
 				b ? ItemEvent.SELECTED : ItemEvent.DESELECTED));
 
 		fireStateChanged();
-
 	}
 
 	/**
@@ -83,7 +80,6 @@ public class DefaultSplitButtonModel extends DefaultButtonModel implements Split
 		}
 
 		fireStateChanged();
-
 	}
 
 	/**

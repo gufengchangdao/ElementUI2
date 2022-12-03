@@ -13,7 +13,6 @@ import javax.swing.event.PopupMenuEvent;
 import javax.swing.event.PopupMenuListener;
 import java.awt.*;
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 
@@ -46,7 +45,7 @@ public class JideSplitButtonTest extends AbstractDemo {
 		_buttons[i++] = createJideSplitButton("Undo the action", IconsFactory.getSvgIcon(SwordSvg.class, 16, 16, ColorUtil.PRIMARY));
 		_buttons[i++] = createJideSplitButton("Redo the action", IconsFactory.getSvgIcon(SwordSvg.class, 16, 16, ColorUtil.PRIMARY));
 		// 两种状态的按钮
-		_buttons[i++] = createJideToggleSplitButton("Redo the action", IconsFactory.getSvgIcon(SwordSvg.class, 16, 16, ColorUtil.PRIMARY));
+		_buttons[i++] = createJideToggleSplitButton("两种状态的按钮", IconsFactory.getSvgIcon(SwordSvg.class, 16, 16, ColorUtil.PRIMARY));
 		_buttons[i] = createJideSplitButton("Action history", IconsFactory.getSvgIcon(SwordSvg.class, 16, 16, ColorUtil.PRIMARY));
 
 		for (JideSplitButton button : _buttons) {
@@ -83,20 +82,18 @@ public class JideSplitButtonTest extends AbstractDemo {
 		switchPanel.add(style3);
 		style1.setSelected(true);
 
-		ItemListener itemListener = new ItemListener() {
-			public void itemStateChanged(ItemEvent e) {
-				if (style1.isSelected()) {
-					for (JideSplitButton button : _buttons) {
-						button.setButtonStyle(JideSplitButton.TOOLBAR_STYLE);
-					}
-				} else if (style2.isSelected()) {
-					for (JideSplitButton button : _buttons) {
-						button.setButtonStyle(JideSplitButton.TOOLBOX_STYLE);
-					}
-				} else if (style3.isSelected()) {
-					for (JideSplitButton button : _buttons) {
-						button.setButtonStyle(JideSplitButton.FLAT_STYLE);
-					}
+		ItemListener itemListener = e -> {
+			if (style1.isSelected()) {
+				for (JideSplitButton button : _buttons) {
+					button.setButtonStyle(JideSplitButton.TOOLBAR_STYLE);
+				}
+			} else if (style2.isSelected()) {
+				for (JideSplitButton button : _buttons) {
+					button.setButtonStyle(JideSplitButton.TOOLBOX_STYLE);
+				}
+			} else if (style3.isSelected()) {
+				for (JideSplitButton button : _buttons) {
+					button.setButtonStyle(JideSplitButton.FLAT_STYLE);
 				}
 			}
 		};
@@ -160,11 +157,7 @@ public class JideSplitButtonTest extends AbstractDemo {
 			public void actionPerformed(ActionEvent e) {
 			}
 		});
-		button.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				System.out.println("button is clicked");
-			}
-		});
+		button.addActionListener(e -> System.out.println("button is clicked"));
 		button.getPopupMenu().addPopupMenuListener(new PopupMenuListener() {
 			public void popupMenuWillBecomeVisible(PopupMenuEvent e) {
 				System.out.println("menu is clicked");

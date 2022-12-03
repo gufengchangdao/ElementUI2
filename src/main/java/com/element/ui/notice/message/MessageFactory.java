@@ -58,10 +58,6 @@ public class MessageFactory {
 		PopupAnimatorTask<AlertComponent> task = group.createTask(alert, new Point(x, beginY), new Point(x, beginY + 100));
 		if (!isAutoClose) task.setDurationTime(0);
 
-		// 关闭事件
-		if (closeable)
-			alert.setContainer(container, task);
-
 		// 添加组件并启动动画
 		group.startAnimator(task);
 		return task;

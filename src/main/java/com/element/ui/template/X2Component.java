@@ -1,6 +1,8 @@
 package com.element.ui.template;
 
 import com.element.swing.compo.RoundComponent;
+import com.element.util.SwingTestUtil;
+import net.miginfocom.swing.MigLayout;
 
 import javax.swing.*;
 import java.awt.*;
@@ -93,24 +95,21 @@ public class X2Component<L extends JComponent, R extends JComponent> extends Rou
 		if (s == null) return;
 		// 根据类型调整内部组件宽度，组件高度不改变
 		switch (style) {
-			case CONSTANT: {
+			case CONSTANT -> {
 				int w = leftC.getPreferredSize().width + (rightC == null ? 0 : rightC.getPreferredSize().width);
 				centerStrut.setPreferredSize(new Dimension(Math.max(0, s.width - w),
 						centerStrut.getPreferredSize().height));
-				break;
 			}
-			case LEFT_GROW: {
+			case LEFT_GROW -> {
 				int w = rightC == null ? 0 : rightC.getPreferredSize().width;
 				leftC.setPreferredSize(new Dimension(s.width - w,
 						leftC.getPreferredSize().height));
-				break;
 			}
-			case RIGHT_GROW: {
+			case RIGHT_GROW -> {
 				if (rightC == null) break;
 				int w = leftC.getPreferredSize().width;
 				rightC.setPreferredSize(new Dimension(s.width - w,
 						rightC.getPreferredSize().height));
-				break;
 			}
 		}
 	}

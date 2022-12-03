@@ -4,17 +4,18 @@ import com.element.ui.label.MultilineLabel;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 /**
- * A toggle button (JCheckBox or JRadioButton) that can wrap its label to extend to multiple lines. Use CHECKBOX_TYPE or
- * RADIOBUTTON_TYPE to specify the type of toggle button to create.
+ * 一个切换按钮（JCheckBox 或 JRadioButton），可以包装其标签以扩展到多行。使用 CHECKBOX_TYPE 或 RADIOBUTTON_TYPE 指定要创建的切换
+ * 按钮的类型。
  *
  * @author Bao Trang
  */
 public class MultilineToggleButton extends JPanel {
-
-	private JToggleButton _button;
-	private MultilineLabel _label;
+	private final JToggleButton _button;
+	private final MultilineLabel _label;
 
 	public static int CHECKBOX_TYPE = 0;
 	public static int RADIOBUTTON_TYPE = 1;
@@ -34,6 +35,12 @@ public class MultilineToggleButton extends JPanel {
 			_button = new JToggleButton();
 		}
 		_label = new MultilineLabel(labelTxt);
+		_label.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mousePressed(MouseEvent e) {
+				_button.doClick();
+			}
+		});
 		build();
 	}
 
@@ -78,19 +85,6 @@ public class MultilineToggleButton extends JPanel {
 		super.setEnabled(b);
 		_button.setEnabled(b);
 		_label.setEnabled(b);
-	}
-
-	public static void main(String[] args) {
-		JFrame frame = new JFrame();
-		MultilineToggleButton chkCertA = new MultilineToggleButton(MultilineToggleButton.CHECKBOX_TYPE, "Very Long Text Goes Here");
-		MultilineToggleButton radioButton = new MultilineToggleButton(MultilineToggleButton.RADIOBUTTON_TYPE, "Very Long Text");
-
-		frame.setLayout(new BoxLayout(frame.getContentPane(), BoxLayout.Y_AXIS));
-		frame.add(chkCertA);
-		frame.add(radioButton);
-
-		frame.pack();
-		frame.setVisible(true);
 	}
 }
 

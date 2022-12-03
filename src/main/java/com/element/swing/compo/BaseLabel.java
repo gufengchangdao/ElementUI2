@@ -18,7 +18,7 @@ import javax.swing.*;
  * <code>CommandBar</code> supports vertical layout, this is perfect for it. You can also control the rotating direction
  * by calling {@link #setClockwise(boolean)}. By default, it rotates clockwise.
  */
-public class JideLabel extends JLabel implements Alignable, AlignmentSupport {
+public class BaseLabel extends JLabel implements Alignable, AlignmentSupport {
 	private static final String uiClassID = "JideLabelUI";
 	public static final String PROPERTY_CLOCKWISE = "clockwise";
 
@@ -26,26 +26,26 @@ public class JideLabel extends JLabel implements Alignable, AlignmentSupport {
 	private int _orientation;
 
 
-	public JideLabel() {
+	public BaseLabel() {
 	}
 
-	public JideLabel(String text) {
+	public BaseLabel(String text) {
 		super(text);
 	}
 
-	public JideLabel(Icon image, int horizontalAlignment) {
+	public BaseLabel(Icon image, int horizontalAlignment) {
 		super(image, horizontalAlignment);
 	}
 
-	public JideLabel(Icon image) {
+	public BaseLabel(Icon image) {
 		super(image);
 	}
 
-	public JideLabel(String text, int horizontalAlignment) {
+	public BaseLabel(String text, int horizontalAlignment) {
 		super(text, horizontalAlignment);
 	}
 
-	public JideLabel(String text, Icon icon, int horizontalAlignment) {
+	public BaseLabel(String text, Icon icon, int horizontalAlignment) {
 		super(text, icon, horizontalAlignment);
 	}
 

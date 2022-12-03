@@ -7,7 +7,7 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 
 /**
- * 简单的图标按钮，便于图像的设置和获取
+ * 简单的图标按钮，便于图像的设置和获取，与icon不同，可以通过调用{@link #getImage()}获取没有缩放的图标
  */
 public class SimpleIconButton extends JButton {
 	protected BufferedImage image;

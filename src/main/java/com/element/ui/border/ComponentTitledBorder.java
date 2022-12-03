@@ -14,6 +14,13 @@ public class ComponentTitledBorder extends MouseAdapter implements Border, Swing
 	private final Component comp;
 	private final Border border;
 
+	/**
+	 * 创建一个包含组件的边框
+	 *
+	 * @param comp      绘制在边框上的组件
+	 * @param container 要添加边框的组件
+	 * @param border    要设置的边框
+	 */
 	protected ComponentTitledBorder(Component comp, Container container, Border border) {
 		super();
 		this.comp = comp;

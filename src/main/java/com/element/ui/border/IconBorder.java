@@ -1,110 +1,275 @@
+/*
+ * @(#)IconBorder.java 1/11/2012
+ *
+ * Copyright 2002 - 2012 JIDE Software Inc. All rights reserved.
+ */
 package com.element.ui.border;
 
-import com.element.radiance.common.api.icon.SvgIcon;
-import com.element.util.UIUtil;
-
 import javax.swing.*;
-import javax.swing.border.AbstractBorder;
-import javax.swing.border.Border;
+import javax.swing.border.MatteBorder;
 import java.awt.*;
 
 /**
- * 可设置左右图标的边框，因为不同组件对图标需求不一样，这里边框是可变的，调用对应方法即可
+ * conBorder 创建一个边框，在边框的一侧或多侧放置一个图标。例如，如果你想在左侧放置一个图标，你可以将左边距设置为图标的宽度，将顶部、右侧和
+ * 底部边距设置为 0。然后您可以调用setHorizontalIconAlignment(int)并将其设置为 TOP 或 CENTER 或 BOTTOM。
  * <p>
- * 如果修改了组件大小，请手动调用 {@link #adjustIconSize(JComponent)} 更新图标的大小，建议使用该类的自定义组件重写setPreferredSize()方法，像这样：
- * <pre>
- * public void setPreferredSize(Dimension preferredSize) {
- *  super.setPreferredSize(preferredSize);
- *  border.adjustIconSize(this);
- * }
- * </pre>
+ * 在不需要特殊绘画的情况下尝试将图标添加到预先存在的组件时，此边框很有用。例如，在 CellStyle 中使用以用图标装饰单元格渲染器。
  */
-public class IconBorder extends AbstractBorder {
-	/** 绘制边框的边框对象，该类只负责绘制图标，不负责边框，如果不传则使用默认TextField的边框 */
-	private Border border;
-	private SvgIcon leftIcon;
-	private SvgIcon rightIcon;
-	/** 是否现在图标 */
-	private boolean isShowIcon = true;
+public class IconBorder extends MatteBorder {
+	private int _horizontalIconAlignment = -1;
+	private int _verticalIconAlignment = -1;
 
 	/**
-	 * @param icon   图标
-	 * @param isLeft true表示是左侧图标，否则为右侧图标
+	 * Creates an IconBorder with an icon. The right inset is the same as the icon width and 0 for all other insets. The
+	 * vertical icon alignment is set to TOP by default.
+	 *
+	 * @param icon the icon.
 	 */
-	public IconBorder(SvgIcon icon, boolean isLeft) {
-		this.border = UIManager.getBorder("TextField.border");
-		if (isLeft) this.leftIcon = icon;
-		else this.rightIcon = icon;
+	public IconBorder(Icon icon) {
+		super(0, 0, 0, icon.getIconWidth(), icon);
+		_verticalIconAlignment = SwingConstants.TOP;
 	}
 
-	public IconBorder(Border border, SvgIcon leftIcon, SvgIcon rightIcon) {
-		this.border = border;
-		this.leftIcon = leftIcon;
-		this.rightIcon = rightIcon;
+	/**
+	 * Creates an IconBorder with an icon. The right inset is the same as the icon width and 0 for all other insets.
+	 *
+	 * @param icon                  the icon.
+	 * @param verticalIconAlignment the vertical icon alignment.
+	 */
+	public IconBorder(Icon icon, int verticalIconAlignment) {
+		super(0, 0, 0, icon.getIconWidth(), icon);
+		_verticalIconAlignment = verticalIconAlignment;
 	}
 
-	@Override
-	public Insets getBorderInsets(Component c, Insets insets) {
-		Insets i = border == null ? super.getBorderInsets(c, insets) : border.getBorderInsets(c);
-		if (isShowIcon) {
-			if (leftIcon != null) i.left += leftIcon.getIconWidth();
-			if (rightIcon != null) i.right += rightIcon.getIconHeight();
+	/**
+	 * Creates an IconBorder. The icon alignment is set to either TOP or TRAILING depending on value of the insets.
+	 *
+	 * @param borderInsets the insets of the border.
+	 * @param icon         the icon
+	 */
+	public IconBorder(Insets borderInsets, Icon icon) {
+		super(borderInsets, icon);
+		if (borderInsets.right > 0 || borderInsets.left > 0) {
+			_verticalIconAlignment = SwingConstants.TOP;
+		} else if (borderInsets.top > 0 || borderInsets.bottom > 0) {
+			_horizontalIconAlignment = SwingConstants.TRAILING;
 		}
-		return i;
+	}
+
+	/**
+	 * Creates an IconBorder. The icon alignment is set to either TOP or TRAILING depending on value of the insets.
+	 *
+	 * @param top    the top inset of the border
+	 * @param left   the left inset of the border
+	 * @param bottom the bottom inset of the border
+	 * @param right  the right inset of the border
+	 * @param icon   the icon.
+	 */
+	public IconBorder(int top, int left, int bottom, int right, Icon icon) {
+		super(top, left, bottom, right, icon);
+		if (right > 0 || left > 0) {
+			_verticalIconAlignment = SwingConstants.TOP;
+		} else if (top > 0 || bottom > 0) {
+			_horizontalIconAlignment = SwingConstants.TRAILING;
+		}
+	}
+
+	/**
+	 * Gets the icon alignment on the x axis. It is used to paint the icon when the top or bottom insets are not 0.
+	 *
+	 * @return the horizontal icon alignment.
+	 */
+	public int getHorizontalIconAlignment() {
+		return _horizontalIconAlignment;
+	}
+
+	/**
+	 * Sets the alignment of the icon relative to the component contents. This must be one of the following
+	 * SwingConstants: <pre>
+	 * <ul>
+	 *     <li> LEADING: respects the component orientation
+	 *     <li> TRAILING: respects the component orientation
+	 *     <li> LEFT
+	 *     <li> RIGHT
+	 *     <li> CENTER
+	 * </ul>
+	 * </pre>
+	 *
+	 * @param horizontalIconAlignment one of the five SwingConstants listed above.
+	 */
+	public void setHorizontalIconAlignment(int horizontalIconAlignment) {
+		_horizontalIconAlignment = horizontalIconAlignment;
+	}
+
+	/**
+	 * Gets the icon alignment on the y axis. It is used to paint the icon when the left or right insets are not 0.
+	 *
+	 * @return the vertical icon alignment.
+	 */
+	public int getVerticalIconAlignment() {
+		return _verticalIconAlignment;
+	}
+
+	/**
+	 * Sets the alignment of the icon relative to the component contents. This must be one of the following
+	 * SwingConstants: <pre>
+	 * <ul>
+	 *     <li> TOP
+	 *     <li> BOTTOM
+	 *     <li> CENTER
+	 * </ul>
+	 * </pre>
+	 *
+	 * @param verticalIconAlignment one of the three SwingConstants listed above.
+	 */
+	public void setVerticalIconAlignment(int verticalIconAlignment) {
+		_verticalIconAlignment = verticalIconAlignment;
 	}
 
 	@Override
 	public void paintBorder(Component c, Graphics g, int x, int y, int width, int height) {
-		if (border == null) super.paintBorder(c, g, x, y, width, height);
-		else border.paintBorder(c, g, x, y, width, height);
-		Insets insets = getBorderInsets(c);
+		if ((getHorizontalIconAlignment() == -1 && getVerticalIconAlignment() == -1) || tileIcon == null) {
+			super.paintBorder(c, g, x, y, width, height);
+		} else {
+			Insets insets = getBorderInsets(c);
+			Color oldColor = g.getColor();
+			g.translate(x, y);
 
-		if (isShowIcon) {
-			if (leftIcon != null)
-				leftIcon.paintIcon(c, g, x + (insets.left - leftIcon.getIconWidth()) / 2, y + insets.top);
-			if (rightIcon != null)
-				rightIcon.paintIcon(c, g, width - (insets.right + rightIcon.getIconWidth()) / 2, y + insets.top);
-		}
-	}
+			// If the tileIcon failed loading, paint as gray.
+			if (tileIcon != null) {
+				color = (tileIcon.getIconWidth() == -1) ? Color.gray : null;
+			}
 
-	public SvgIcon getLeftIcon() {
-		return leftIcon;
-	}
+			if (color != null) {
+				g.setColor(color);
+				g.fillRect(0, 0, width - insets.right, insets.top);
+				g.fillRect(0, insets.top, insets.left, height - insets.top);
+				g.fillRect(insets.left, height - insets.bottom, width - insets.left, insets.bottom);
+				g.fillRect(width - insets.right, 0, insets.right, height - insets.bottom);
 
-	public void setLeftIcon(SvgIcon leftIcon) {
-		this.leftIcon = leftIcon;
-	}
+			} else if (tileIcon != null) {
 
-	public SvgIcon getRightIcon() {
-		return rightIcon;
-	}
+				int tileW = tileIcon.getIconWidth();
+				int tileH = tileIcon.getIconHeight();
+				int xpos, ypos, startx, starty, iconAlignment;
+				Graphics cg;
 
-	public void setRightIcon(SvgIcon rightIcon) {
-		this.rightIcon = rightIcon;
-	}
+				if (insets.top > 0) {
+					// Paint top matte edge
+					cg = g.create();
+					cg.setClip(0, 0, width, insets.top);
+					startx = insets.left;
+					starty = 0;
+					iconAlignment = getVerticalIconAlignment();
+					if (!c.getComponentOrientation().isLeftToRight()) {
+						if (iconAlignment == SwingConstants.LEADING) {
+							iconAlignment = SwingConstants.RIGHT;
+						} else if (iconAlignment == SwingConstants.TRAILING) {
+							iconAlignment = SwingConstants.LEFT;
+						}
+					}
 
-	public boolean isShowIcon() {
-		return isShowIcon;
-	}
+					switch (iconAlignment) {
+						case SwingConstants.LEADING, SwingConstants.LEFT -> {
+							xpos = startx;
+							ypos = starty;
+						}
+						case SwingConstants.CENTER -> {
+							xpos = startx + (width - tileW) / 2;
+							ypos = starty;
+						}
+						default -> {
+							xpos = startx + width - tileW;
+							ypos = starty;
+						}
+					}
+					tileIcon.paintIcon(c, cg, xpos, ypos);
+					cg.dispose();
+				}
 
-	public void setShowIcon(boolean showIcon) {
-		isShowIcon = showIcon;
-	}
+				if (insets.left > 0) {
+					// Paint left matte edge
+					cg = g.create();
+					cg.setClip(0, insets.top, insets.left, height - insets.top);
+					starty = insets.top;
+					startx = 0;
+					switch (getVerticalIconAlignment()) {
+						case SwingConstants.LEADING, SwingConstants.TOP -> {
+							xpos = startx;
+							ypos = starty;
+						}
+						case SwingConstants.CENTER -> {
+							xpos = startx;
+							ypos = starty + (height - tileH) / 2;
+						}
+						default -> {
+							xpos = startx;
+							ypos = starty + height - tileH;
+						}
+					}
+					tileIcon.paintIcon(c, cg, xpos, ypos);
+					cg.dispose();
+				}
 
-	/**
-	 * 按图标比例调整图标大小， 当修改了组件大小，并且希望图标大小也能改变的话需要调用这个
-	 *
-	 * @param c 应用该边框的对象，需要该对象获取边框大小
-	 */
-	public void adjustIconSize(JComponent c) {
-		Dimension size = c.getPreferredSize();
-		if (leftIcon != null) {
-			Dimension leftIconSize = new Dimension(leftIcon.getIconWidth(), leftIcon.getIconHeight());
-			leftIcon.setDimension(UIUtil.adjustDimensionSize(size, leftIconSize, c.getInsets()));
-		}
-		if (rightIcon != null) {
-			Dimension rightIconSize = new Dimension(rightIcon.getIconWidth(), rightIcon.getIconHeight());
-			rightIcon.setDimension(UIUtil.adjustDimensionSize(size, rightIconSize, c.getInsets()));
+				if (insets.bottom > 0) {
+					// Paint bottom matte edge
+					cg = g.create();
+					cg.setClip(insets.left, height - insets.bottom, width - insets.left, insets.bottom);
+					starty = (height - insets.bottom);
+					startx = insets.left;
+					iconAlignment = getHorizontalIconAlignment();
+					if (!c.getComponentOrientation().isLeftToRight()) {
+						if (iconAlignment == SwingConstants.LEADING) {
+							iconAlignment = SwingConstants.RIGHT;
+						} else if (iconAlignment == SwingConstants.TRAILING) {
+							iconAlignment = SwingConstants.LEFT;
+						}
+					}
+
+					switch (iconAlignment) {
+						case SwingConstants.LEADING, SwingConstants.LEFT -> {
+							xpos = startx;
+							ypos = starty;
+						}
+						case SwingConstants.CENTER -> {
+							xpos = startx + (width - tileW) / 2;
+							ypos = starty;
+						}
+						default -> {
+							xpos = startx + width - tileW;
+							ypos = starty;
+						}
+					}
+					tileIcon.paintIcon(c, cg, xpos, ypos);
+					cg.dispose();
+				}
+
+				if (insets.right > 0) {
+					// Paint right matte edge
+					cg = g.create();
+					cg.setClip(width - insets.right, insets.top, insets.right, height - insets.top - insets.bottom);
+					starty = insets.top;
+					startx = width - insets.right;
+					switch (getVerticalIconAlignment()) {
+						case SwingConstants.LEADING, SwingConstants.TOP -> {
+							xpos = startx;
+							ypos = starty;
+						}
+						case SwingConstants.CENTER -> {
+							xpos = startx;
+							ypos = starty + (height - tileH) / 2;
+						}
+						default -> {
+							xpos = startx;
+							ypos = starty + height - tileH;
+						}
+					}
+					tileIcon.paintIcon(c, cg, xpos, ypos);
+					cg.dispose();
+				}
+			}
+			g.translate(-x, -y);
+			g.setColor(oldColor);
 		}
 	}
 }

@@ -9,10 +9,11 @@ import java.awt.geom.Area;
 import java.awt.image.BufferedImage;
 
 /**
+ * ScrollPaneOverview提供一个滚动窗格内容的缩略图效果，并且根据鼠标选择位置改变滚动窗格视口内容，跳转到点击的位置
+ * <p>
  * 原始代码 http://forums.java.net/jive/thread.jspa?forumID=73&threadID=14674 在“Do whatever you want with this code”许可下
  */
 public class ScrollPaneOverview extends JComponent {
-
 	private static final int MAX_SIZE = 400;
 	private static final int MAX_SCALE = 20;
 
@@ -32,6 +33,12 @@ public class ScrollPaneOverview extends JComponent {
 
 	private Color _selectionBorder = Color.BLACK;
 
+	/**
+	 * 该构造器不为 owner 添加弹出缩略图的监听器，请自行添加监听器并在合适的位置调用{@link #display()}弹出缩略图
+	 *
+	 * @param scrollPane 需要显示缩略图的 JScrollPane
+	 * @param owner      缩略图弹窗的拥有者，决定弹窗的弹出位置
+	 */
 	public ScrollPaneOverview(JScrollPane scrollPane, Component owner) {
 		_scrollPane = scrollPane;
 		_owner = owner;

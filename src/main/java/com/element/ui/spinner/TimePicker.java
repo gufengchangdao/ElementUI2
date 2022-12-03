@@ -1,5 +1,6 @@
 package com.element.ui.spinner;
 
+import com.element.radiance.common.api.icon.SvgIcon;
 import com.element.ui.border.IconBorder;
 import com.element.ui.field.InputAdviceInputField;
 import com.element.ui.field.renderer.CalendarComboBoxRenderer;
@@ -39,7 +40,8 @@ public class TimePicker extends InputAdviceInputField<Calendar> {
 		Insets insets = textField.getInsets();
 		int size = textField.getPreferredSize().height - insets.top - insets.bottom;
 		// 设置时钟图标
-		getTextField().setBorder(new IconBorder(ClockSvg.of(size, size), true));
+		SvgIcon icon = ClockSvg.of(size, size);
+		getTextField().setBorder(new IconBorder(0, icon.getIconWidth(), 0, 0, icon));
 
 		setFunction();
 		// 设置单元格的渲染

@@ -14,8 +14,4 @@ public class ButtonResources {
 	public static ResourceBundle getResourceBundle(Locale locale) {
 		return ResourceBundle.getBundle(BASENAME, locale);
 	}
-
-	public static void main(String[] args) {
-		System.out.println(BASENAME);
-	}
 }

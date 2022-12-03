@@ -11,6 +11,7 @@ import org.jdesktop.swingx.event.DateSelectionListener;
 
 import javax.swing.*;
 import javax.swing.border.Border;
+import javax.swing.border.CompoundBorder;
 import javax.swing.text.Document;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
@@ -37,7 +38,7 @@ public class DatePicker extends BaseInputField implements MouseListener, DateSel
 	private JXMonthView monthView;
 	/** 内部Date转字符串使用，不能让外部调用 */
 	private Calendar calendar = Calendar.getInstance();
-	private IconBorder border;
+	private Border oldBorder;
 	/** 从选择的Calendar到输入框内容的格式化器，如果不提供将使用默认的 */
 	private Function<Calendar, String> formatter;
 
@@ -84,8 +85,9 @@ public class DatePicker extends BaseInputField implements MouseListener, DateSel
 		// 设置图标
 		SvgIcon icon = CalendarSvg.of(16, 16);
 		icon.setColorFilter(color -> ColorUtil.changeAlpha(ColorUtil.PRIMARY, .8f));
-		border = new IconBorder(icon, true);
-		setBorder(border);
+		oldBorder = getBorder();
+		setIcon(icon);
+
 		// 不可编辑，如果要编辑的话还需要一个函数来检验输入是否合法
 		setEditable(false);
 		// 点击输入框展开或隐藏选择器
@@ -206,25 +208,12 @@ public class DatePicker extends BaseInputField implements MouseListener, DateSel
 		}
 	}
 
-	/** 设置是否绘制图片，前提是输入框的Border必须为 IconBorder类型(默认的) */
-	public void setIconShow(boolean isShow) {
-		Border border = getBorder();
-		if (border instanceof IconBorder) {
-			((IconBorder) border).setShowIcon(isShow);
-		}
-	}
-
 	/** 设置左侧图标 */
 	public void setIcon(SvgIcon icon) {
-		Border border = getBorder();
-		if (border instanceof IconBorder) {
-			((IconBorder) border).setLeftIcon(icon);
-		}
-	}
-
-	@Override
-	public void setPreferredSize(Dimension preferredSize) {
-		super.setPreferredSize(preferredSize);
-		border.adjustIconSize(this);
+		IconBorder border = new IconBorder(0, icon.getIconWidth(), 0, 0, icon);
+		border.setHorizontalIconAlignment(LEFT);
+		CompoundBorder b = BorderFactory.createCompoundBorder(oldBorder, border);
+		setBorder(b);
+		repaint();
 	}
 }

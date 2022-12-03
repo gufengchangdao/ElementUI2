@@ -32,9 +32,10 @@ public class AutoResizingTextAreaTest extends AbstractDemo {
 		JPanel panel = new JPanel();
 		panel.setPreferredSize(new Dimension(400, 400));
 		panel.setLayout(new JideBoxLayout(panel, JideBoxLayout.Y_AXIS));
-		panel.add(new JScrollPane(new AutoResizingTextArea("Typing in new line here to see the text area growing " +
-				"automatically. \nMinimum 2 rows and maximum 10 rows", 2, 10, 20)));
+		panel.add(new JScrollPane(new AutoResizingTextArea("在此处输入新行以查看文本区域自动增长“+”。" +
+				"最少 2 行，最多 10 行", 2, 10, 20)));
 		panel.add(Box.createGlue(), JideBoxLayout.VARY);
+		panel.add(new JScrollPane(new JTextArea("普通文本域初始就是20列，固定不变", 10, 20)));
 		return panel;
 	}
 

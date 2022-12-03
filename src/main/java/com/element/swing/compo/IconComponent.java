@@ -1,7 +1,6 @@
 package com.element.swing.compo;
 
 import com.element.radiance.common.api.icon.SvgIcon;
-import com.element.swing.compo.BaseComponent;
 import com.element.ui.border.IconBorder;
 import com.element.util.UIUtil;
 
@@ -35,9 +34,6 @@ public class IconComponent<E extends JComponent> extends BaseComponent {
 	protected void init() throws RuntimeException {
 		setLayout(new BorderLayout());
 		add(component);
-		// if (leftButton != null)
-		// 	add(leftButton,BorderLayout.WEST);
-		// add(rightButton,BorderLayout.EAST);
 	}
 
 

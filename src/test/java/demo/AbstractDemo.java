@@ -28,7 +28,14 @@ import java.util.Locale;
  * A template to create additional demo module.
  */
 abstract public class AbstractDemo implements Demo {
+	static JFrame frame = new JFrame();
+
 	public AbstractDemo() {
+	}
+
+	@Override
+	public String getName() {
+		return Resource.RB.getString("Demo.title");
 	}
 
 	public String getDescription() {
@@ -63,7 +70,7 @@ abstract public class AbstractDemo implements Demo {
 	 * @return frame
 	 */
 	public static JFrame showAsFrame(final Demo demo) {
-		final JFrame frame = new JFrame(demo.getName());
+		frame.setTitle(demo.getName());
 		// 关闭窗口时停止动画
 		frame.addWindowListener(new WindowAdapter() {
 			@Override
@@ -111,6 +118,10 @@ abstract public class AbstractDemo implements Demo {
 		frame.setLocationRelativeTo(null);
 		frame.setVisible(true);
 		frame.toFront();
+		return frame;
+	}
+
+	public static JFrame getFrame() {
 		return frame;
 	}
 

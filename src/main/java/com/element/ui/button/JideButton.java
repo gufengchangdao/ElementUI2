@@ -351,18 +351,10 @@ public class JideButton extends JButton implements Alignable, ButtonStyle, Compo
 	 */
 	public void setBackgroundOfState(int state, Color color) {
 		switch (state) {
-			case ThemePainter.STATE_DEFAULT:
-				setBackground(color);
-				break;
-			case ThemePainter.STATE_ROLLOVER:
-				setRolloverBackground(color);
-				break;
-			case ThemePainter.STATE_SELECTED:
-				setSelectedBackground(color);
-				break;
-			case ThemePainter.STATE_PRESSED:
-				setPressedBackground(color);
-				break;
+			case ThemePainter.STATE_DEFAULT -> setBackground(color);
+			case ThemePainter.STATE_ROLLOVER -> setRolloverBackground(color);
+			case ThemePainter.STATE_SELECTED -> setSelectedBackground(color);
+			case ThemePainter.STATE_PRESSED -> setPressedBackground(color);
 		}
 	}
 
@@ -380,17 +372,13 @@ public class JideButton extends JButton implements Alignable, ButtonStyle, Compo
 	 * @return the foreground for different states.
 	 */
 	public Color getForegroundOfState(int state) {
-		switch (state) {
-			case ThemePainter.STATE_DEFAULT:
-				return getDefaultForeground();
-			case ThemePainter.STATE_ROLLOVER:
-				return getRolloverForeground();
-			case ThemePainter.STATE_SELECTED:
-				return getSelectedForeground();
-			case ThemePainter.STATE_PRESSED:
-				return getPressedForeground();
-		}
-		return null;
+		return switch (state) {
+			case ThemePainter.STATE_DEFAULT -> getDefaultForeground();
+			case ThemePainter.STATE_ROLLOVER -> getRolloverForeground();
+			case ThemePainter.STATE_SELECTED -> getSelectedForeground();
+			case ThemePainter.STATE_PRESSED -> getPressedForeground();
+			default -> null;
+		};
 	}
 
 
@@ -409,18 +397,10 @@ public class JideButton extends JButton implements Alignable, ButtonStyle, Compo
 	 */
 	public void setForegroundOfState(int state, Color color) {
 		switch (state) {
-			case ThemePainter.STATE_DEFAULT:
-				setDefaultForeground(color);
-				break;
-			case ThemePainter.STATE_ROLLOVER:
-				setRolloverForeground(color);
-				break;
-			case ThemePainter.STATE_SELECTED:
-				setSelectedForeground(color);
-				break;
-			case ThemePainter.STATE_PRESSED:
-				setPressedForeground(color);
-				break;
+			case ThemePainter.STATE_DEFAULT -> setDefaultForeground(color);
+			case ThemePainter.STATE_ROLLOVER -> setRolloverForeground(color);
+			case ThemePainter.STATE_SELECTED -> setSelectedForeground(color);
+			case ThemePainter.STATE_PRESSED -> setPressedForeground(color);
 		}
 	}
 }

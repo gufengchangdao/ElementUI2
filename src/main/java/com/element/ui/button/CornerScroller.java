@@ -36,7 +36,9 @@ import java.awt.geom.GeneralPath;
 import java.io.Serializable;
 
 
-/*
+/**
+ * ScrollPaneOverview的一个简单实现，并提供一个默认的图标，点击图标即会弹出缩略图
+ *
  * @author Davide Raccagni
  * @author JIDE Software
  */

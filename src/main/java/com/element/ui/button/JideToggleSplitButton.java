@@ -17,12 +17,10 @@ import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 
 /**
- * An implementation of a two-state JideButton.
- * <p/>
- * <strong>Warning:</strong> {@code SplitButtonGroup} has to be used in place of {@code ButtonGroup} for {@code
- * JideToggleSplitButton}s.
+ * 两种状态的 JideButton 的实现。
+ * <p>
+ * 警告：必须使用 SplitButtonGroup 代替 JideToggleSplitButton 的 ButtonGroup。
  */
-
 public class JideToggleSplitButton extends JideSplitButton implements Accessible, ItemListener {
 	/**
 	 * Creates an initially unselected toggle button without setting the text or image.

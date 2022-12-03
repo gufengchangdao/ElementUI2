@@ -54,20 +54,7 @@ public class EclipseWindowsUtils extends EclipseLookAndFeelExtension {
 
 		final String windowsPackageName = "com.element.plaf.windows.";
 
-		int products = LookAndFeelFactory.getProductsUsed();
-
 		table.put("JidePopupMenuUI", windowsPackageName + "WindowsJidePopupMenuUI");
-		table.put("RangeSliderUI", windowsPackageName + "WindowsRangeSliderUI");
-
-		if ((products & PRODUCT_GRIDS) != 0) {
-			table.put("CellStyleTableHeaderUI", windowsPackageName + "WindowsCellStyleTableHeaderUI");
-			table.put("SortableTableHeaderUI", windowsPackageName + "WindowsSortableTableHeaderUI");
-			table.put("NestedTableHeaderUI", windowsPackageName + "WindowsNestedTableHeaderUI");
-			table.put("EditableTableHeaderUI", windowsPackageName + "WindowsEditableTableHeaderUI");
-			table.put("AutoFilterTableHeaderUI", windowsPackageName + "WindowsAutoFilterTableHeaderUI");
-			table.put("GroupTableHeaderUI", windowsPackageName + "WindowsGroupTableHeaderUI");
-			table.put("ExComboBoxUI", windowsPackageName + "WindowsExComboBoxUI");
-		}
 	}
 
 	/**

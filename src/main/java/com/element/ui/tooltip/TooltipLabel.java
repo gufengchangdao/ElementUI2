@@ -16,7 +16,7 @@ import java.util.concurrent.TimeUnit;
  * <p>
  * 常用于展示鼠标 hover 时的提示信息。
  */
-public class TooltipLabel extends JLabel implements MouseListener, TimingTarget {
+public class TooltipLabel extends JLabel implements MouseListener, TimingTarget, SwingPosition {
 	/** 弹窗工厂，为null时自动创建，不过可以通过传入实现多个对象共享一个factory */
 	private PopupFactory factory;
 	private Popup popup;
@@ -28,30 +28,30 @@ public class TooltipLabel extends JLabel implements MouseListener, TimingTarget 
 	/** 要添加文字提示的组件 */
 	private JComponent c;
 	/** 切角的位置 */
-	private SwingPosition position;
+	private int position;
 	/** 切角组件 */
 	private AngleComponent tooltipC;
 	/** 淡入淡出动画 */
 	private Animator animator;
 
 	/**
-	 * @see #TooltipLabel(JComponent, String, PopupFactory, SwingPosition, Color)
+	 * @see #TooltipLabel(JComponent, String, PopupFactory, int, Color)
 	 */
 	public TooltipLabel(JComponent c, String text, PopupFactory factory) {
-		this(c, text, factory, SwingPosition.TOP_LEFT, null);
+		this(c, text, factory, NORTH_WEST, null);
 	}
 
 	/**
-	 * @see #TooltipLabel(JComponent, String, PopupFactory, SwingPosition, Color)
+	 * @see #TooltipLabel(JComponent, String, PopupFactory, int, Color)
 	 */
 	public TooltipLabel(JComponent c, String text) {
-		this(c, text, new PopupFactory(), SwingPosition.TOP_LEFT, null);
+		this(c, text, new PopupFactory(), NORTH_WEST, null);
 	}
 
 	/**
-	 * @see #TooltipLabel(JComponent, String, PopupFactory, SwingPosition, Color)
+	 * @see #TooltipLabel(JComponent, String, PopupFactory, int, Color)
 	 */
-	public TooltipLabel(JComponent c, String text, SwingPosition position, Color color) {
+	public TooltipLabel(JComponent c, String text, int position, Color color) {
 		this(c, text, new PopupFactory(), position, color);
 	}
 
@@ -62,7 +62,7 @@ public class TooltipLabel extends JLabel implements MouseListener, TimingTarget 
 	 * @param position 切角的位置
 	 * @param color    切角和背景色
 	 */
-	public TooltipLabel(JComponent c, String text, PopupFactory factory, SwingPosition position, Color color) {
+	public TooltipLabel(JComponent c, String text, PopupFactory factory, int position, Color color) {
 		super(text);
 		this.factory = factory;
 		this.c = c;

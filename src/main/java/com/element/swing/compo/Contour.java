@@ -251,12 +251,8 @@ public class Contour extends JComponent implements IContour {
 
 	private static void drawTab(Graphics g, int x, int y, int width, int height, int tabHeight, int tabWidth, int tabLeading, int thick, int side) {
 		switch (side) {
-			case SwingConstants.TOP:
-				drawTopTab(g, x, y, width, height, tabHeight, tabWidth, tabLeading, thick);
-				break;
-			case SwingConstants.BOTTOM:
-				drawBottomTab(g, x, y, width, height, tabHeight, tabWidth, tabLeading, thick);
-				break;
+			case SwingConstants.TOP -> drawTopTab(g, x, y, width, height, tabHeight, tabWidth, tabLeading, thick);
+			case SwingConstants.BOTTOM -> drawBottomTab(g, x, y, width, height, tabHeight, tabWidth, tabLeading, thick);
 		}
 	}
 
@@ -571,21 +567,11 @@ public class Contour extends JComponent implements IContour {
 			}
 		} else {
 			switch (_attachedSide) {
-				case 1:
-					getGlassPane().setCursor(JideCursors.getPredefinedCursor(JideCursors.NORTH_CURSOR));
-					break;
-				case 2:
-					getGlassPane().setCursor(JideCursors.getPredefinedCursor(JideCursors.SOUTH_CURSOR));
-					break;
-				case 4:
-					getGlassPane().setCursor(JideCursors.getPredefinedCursor(JideCursors.EAST_CURSOR));
-					break;
-				case 8:
-					getGlassPane().setCursor(JideCursors.getPredefinedCursor(JideCursors.WEST_CURSOR));
-					break;
-				default:
-					getGlassPane().setCursor(Cursor.getDefaultCursor());
-					break;
+				case 1 -> getGlassPane().setCursor(JideCursors.getPredefinedCursor(JideCursors.NORTH_CURSOR));
+				case 2 -> getGlassPane().setCursor(JideCursors.getPredefinedCursor(JideCursors.SOUTH_CURSOR));
+				case 4 -> getGlassPane().setCursor(JideCursors.getPredefinedCursor(JideCursors.EAST_CURSOR));
+				case 8 -> getGlassPane().setCursor(JideCursors.getPredefinedCursor(JideCursors.WEST_CURSOR));
+				default -> getGlassPane().setCursor(Cursor.getDefaultCursor());
 			}
 		}
 	}

@@ -43,23 +43,8 @@ public class EclipseLookAndFeelExtension extends BasicLookAndFeelExtension {
 
 		final String eclipsePackageName = "com.element.plaf.eclipse.";
 
-		int products = LookAndFeelFactory.getProductsUsed();
-
 		table.put("JideTabbedPaneUI", eclipsePackageName + "EclipseJideTabbedPaneUI");
 		table.put("JideSplitButtonUI", eclipsePackageName + "EclipseJideSplitButtonUI");
 		table.put("GripperUI", eclipsePackageName + "EclipseGripperUI");
-
-		if ((products & PRODUCT_DOCK) != 0) {
-			table.put("SidePaneUI", eclipsePackageName + "EclipseSidePaneUI");
-			table.put("DockableFrameUI", eclipsePackageName + "EclipseDockableFrameUI");
-		}
-
-		if ((products & PRODUCT_COMPONENTS) != 0) {
-			table.put("CollapsiblePaneUI", eclipsePackageName + "EclipseCollapsiblePaneUI");
-		}
-
-		if ((products & PRODUCT_ACTION) != 0) {
-			table.put("CommandBarUI", eclipsePackageName + "EclipseCommandBarUI");
-		}
 	}
 }

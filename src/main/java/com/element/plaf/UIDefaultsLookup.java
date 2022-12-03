@@ -24,8 +24,6 @@ import java.util.logging.Logger;
  * are trying to get.
  */
 public class UIDefaultsLookup {
-	private static Logger LOGGER = Logger.getLogger(UIDefaultsLookup.class.getName());
-
 	private static boolean _debug = false;
 	private static boolean _trace = false;
 
@@ -58,9 +56,6 @@ public class UIDefaultsLookup {
 		if (!(cl instanceof ClassLoader)) {
 			cl = value.getClass().getClassLoader();
 		}
-		if (LOGGER.isLoggable(Level.FINE)) {
-			LOGGER.fine("Put " + key + " " + value + " using ClassLoader: " + cl);
-		}
 		((Map) v).put(cl, value);
 	}
 
@@ -82,29 +77,14 @@ public class UIDefaultsLookup {
 		Object value = UIManager.get(key);
 		log(value, key, null);
 		if (value instanceof Map map && "Theme.painter".equals(key)) {
-			if (LOGGER.isLoggable(Level.FINE)) {
-				LOGGER.fine("Getting " + key + " from a map");
-				for (Object o : map.keySet()) {
-					LOGGER.fine("\t" + o + " => " + map.get(o));
-				}
-			}
 			try {
 				ClassLoader classLoader = getCallerClassLoader();
 				Object o = map.get(classLoader);
 				if (o != null) {
-					if (LOGGER.isLoggable(Level.FINE)) {
-						LOGGER.fine("\tGetting " + o + " using CallerClassLoader" + classLoader);
-					}
 				}
 				while (o == null && classLoader.getParent() != null) {
 					classLoader = classLoader.getParent();
 					o = map.get(classLoader);
-					if (o != null) {
-						if (LOGGER.isLoggable(Level.FINE)) {
-							LOGGER.fine("\tGetting " + o + " using one of the parent ClassLoader " + classLoader);
-						}
-						break;
-					}
 				}
 				if (o != null) return o;
 			} catch (Exception e) {
@@ -112,15 +92,9 @@ public class UIDefaultsLookup {
 			}
 			if (map.size() == 1) {
 				Object o = map.values().iterator().next();
-				if (LOGGER.isLoggable(Level.FINE)) {
-					LOGGER.fine("Failed...getting the only one " + o);
-				}
 				return o;
 			} else {
 				Object o = map.get(LookAndFeelFactory.getUIManagerClassLoader());
-				if (LOGGER.isLoggable(Level.FINE)) {
-					LOGGER.fine("Failed...getting " + o + " using UIManagerClassLoader " + LookAndFeelFactory.getUIManagerClassLoader());
-				}
 				return o;
 			}
 		}

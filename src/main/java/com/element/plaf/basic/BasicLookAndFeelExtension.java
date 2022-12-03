@@ -6,7 +6,6 @@
 
 package com.element.plaf.basic;
 
-import com.element.plaf.LookAndFeelFactory;
 import com.element.plaf.ProductNames;
 
 import javax.swing.*;
@@ -24,14 +23,11 @@ public class BasicLookAndFeelExtension implements ProductNames {
 	 * @param table UIDefaults table
 	 */
 	public static void initClassDefaults(UIDefaults table) {
-		int products = LookAndFeelFactory.getProductsUsed();
-
 		final String basicPackageName = "com.element.plaf.basic.";
 
 		// common
 		table.put("JidePopupMenuUI", basicPackageName + "BasicJidePopupMenuUI");
 		table.put("HeaderBoxUI", basicPackageName + "BasicHeaderBoxUI");
-		table.put("RangeSliderUI", basicPackageName + "BasicRangeSliderUI");
 		table.put("FolderChooserUI", basicPackageName + "BasicFolderChooserUI");
 		table.put("StyledLabelUI", basicPackageName + "BasicStyledLabelUI");
 		table.put("GripperUI", basicPackageName + "BasicGripperUI");
@@ -42,46 +38,5 @@ public class BasicLookAndFeelExtension implements ProductNames {
 		table.put("JideSplitButtonUI", basicPackageName + "BasicJideSplitButtonUI");
 		table.put("JideComboBoxUI", basicPackageName + "BasicJideComboBoxUI");
 		table.put("MeterProgressBarUI", basicPackageName + "MeterProgressBarUI");
-
-		if ((products & PRODUCT_GRIDS) != 0) {
-			// grids
-			table.put("JideTableUI", basicPackageName + "BasicJideTableUI");
-			table.put("NavigableTableUI", basicPackageName + "BasicNavigableTableUI");
-			table.put("CellSpanTableUI", basicPackageName + "BasicCellSpanTableUI");
-			table.put("TreeTableUI", basicPackageName + "BasicTreeTableUI");
-			table.put("HierarchicalTableUI", basicPackageName + "BasicHierarchicalTableUI");
-			table.put("CellStyleTableHeaderUI", basicPackageName + "BasicCellStyleTableHeaderUI");
-			table.put("SortableTableHeaderUI", basicPackageName + "BasicSortableTableHeaderUI");
-			table.put("NestedTableHeaderUI", basicPackageName + "BasicNestedTableHeaderUI");
-			table.put("EditableTableHeaderUI", basicPackageName + "BasicEditableTableHeaderUI");
-			table.put("AutoFilterTableHeaderUI", basicPackageName + "BasicAutoFilterTableHeaderUI");
-			table.put("GroupTableHeaderUI", basicPackageName + "BasicGroupTableHeaderUI");
-			table.put("GroupListUI", basicPackageName + "BasicGroupListUI");
-			table.put("ExComboBoxUI", basicPackageName + "BasicExComboBoxUI");
-		}
-
-		if ((products & PRODUCT_DOCK) != 0) {
-			// dock
-			table.put("SidePaneUI", basicPackageName + "BasicSidePaneUI");
-			table.put("DockableFrameUI", basicPackageName + "BasicDockableFrameUI");
-		}
-
-		if ((products & PRODUCT_COMPONENTS) != 0) {
-			// components
-			table.put("CollapsiblePaneUI", basicPackageName + "BasicCollapsiblePaneUI");
-			table.put("StatusBarSeparatorUI", basicPackageName + "BasicStatusBarSeparatorUI");
-		}
-
-		if ((products & PRODUCT_ACTION) != 0) {
-			// action
-			table.put("CommandBarUI", basicPackageName + "BasicCommandBarUI");
-			table.put("CommandBarSeparatorUI", basicPackageName + "BasicCommandBarSeparatorUI");
-			table.put("ChevronUI", basicPackageName + "BasicChevronUI");
-			table.put("CommandBarTitleBarUI", basicPackageName + "BasicCommandBarTitleBarUI");
-		}
-		if ((products & PRODUCT_TREEMAP) != 0) {
-			// action
-			table.put("TreeMapUI", basicPackageName + "BasicTreeMapUI");
-		}
 	}
 }

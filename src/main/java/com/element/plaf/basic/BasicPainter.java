@@ -2,7 +2,6 @@ package com.element.plaf.basic;
 
 import com.element.color.ColorUtil;
 import com.element.plaf.UIDefaultsLookup;
-import com.element.ui.button.HeaderBox;
 import com.element.ui.button.JideButton;
 import com.element.ui.tabs.JideTabbedPane;
 import com.element.util.UIUtil;
@@ -660,8 +659,6 @@ public class BasicPainter implements SwingConstants, ThemePainter {
 	}
 
 	public void paintHeaderBoxBackground(JComponent c, Graphics g, Rectangle rect, int orientation, int state) {
-		boolean isCellEditor = Boolean.TRUE.equals(c.getClientProperty(HeaderBox.CLIENT_PROPERTY_TABLE_CELL_EDITOR));
-
 		Color baseColor = c.getBackground();
 		if (baseColor instanceof UIResource) {
 			baseColor = UIDefaultsLookup.getColor("HeaderBox.background");
@@ -671,16 +668,11 @@ public class BasicPainter implements SwingConstants, ThemePainter {
 		}
 		if (state == STATE_PRESSED || state == STATE_SELECTED || state == STATE_ROLLOVER) {
 			Color color = ColorUtil.getDerivedColor(baseColor, 0.48f);
-			if (isCellEditor) {
-				g.setColor(color);
-				g.fillRect(rect.x, rect.y, rect.width, rect.height);
-			} else {
-				g.setColor(color);
-				g.fillRoundRect(rect.x, rect.y, rect.width - 1, rect.height - 1, 4, 4);
+			g.setColor(color);
+			g.fillRoundRect(rect.x, rect.y, rect.width - 1, rect.height - 1, 4, 4);
 
-				g.setColor(ColorUtil.getDerivedColor(baseColor, 0.40f));
-				g.drawRoundRect(rect.x, rect.y, rect.width - 1, rect.height - 1, 6, 6);
-			}
+			g.setColor(ColorUtil.getDerivedColor(baseColor, 0.40f));
+			g.drawRoundRect(rect.x, rect.y, rect.width - 1, rect.height - 1, 6, 6);
 
 			g.setColor(ColorUtil.getDerivedColor(baseColor, 0.45f));
 			g.drawLine(rect.x + 1, rect.y + rect.height - 3, rect.x + rect.width - 2, rect.y + rect.height - 3);
@@ -691,28 +683,17 @@ public class BasicPainter implements SwingConstants, ThemePainter {
 			g.setColor(ColorUtil.getDerivedColor(baseColor, 0.40f));
 			g.drawLine(rect.x + 3, rect.y + rect.height - 1, rect.x + rect.width - 4, rect.y + rect.height - 1);
 		} else {
-			if (isCellEditor) {
-				g.setColor(baseColor);
-				g.fillRect(rect.x, rect.y, rect.width - 1, rect.height - 1);
-			} else {
-				g.setColor(baseColor);
-				g.fillRoundRect(rect.x, rect.y, rect.width - 1, rect.height - 1, 2, 2);
+			g.setColor(baseColor);
+			g.fillRoundRect(rect.x, rect.y, rect.width - 1, rect.height - 1, 2, 2);
 
-				g.setColor(ColorUtil.getDerivedColor(baseColor, .42f));
-				g.drawRoundRect(rect.x, rect.y, rect.width - 1, rect.height - 1, 2, 4);
-			}
+			g.setColor(ColorUtil.getDerivedColor(baseColor, .42f));
+			g.drawRoundRect(rect.x, rect.y, rect.width - 1, rect.height - 1, 2, 4);
 
 			g.setColor(ColorUtil.getDerivedColor(baseColor, .48f));
 			g.drawLine(rect.x + 1, rect.y + rect.height - 3, rect.x + rect.width - 2, rect.y + rect.height - 3);
 			g.setColor(ColorUtil.getDerivedColor(baseColor, .47f));
 			g.drawLine(rect.x + 1, rect.y + rect.height - 2, rect.x + rect.width - 2, rect.y + rect.height - 2);
 
-			if (isCellEditor) {
-				g.setColor(new Color(198, 197, 178));
-				g.drawLine(rect.x + rect.width - 3, rect.y + 4, rect.x + rect.width - 3, rect.y + rect.height - 7);
-				g.setColor(Color.WHITE);
-				g.drawLine(rect.x + rect.width - 2, rect.y + 4, rect.x + rect.width - 2, rect.y + rect.height - 7);
-			}
 		}
 	}
 

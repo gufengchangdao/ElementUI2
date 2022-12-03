@@ -10,22 +10,22 @@ import java.util.Vector;
  * <code>JideComboBox</code> is a JCombobox used on JToolBar or CommandBar. It has a flat look which matches with that
  * of JideButton and JideSplitButton.
  */
-public class JideComboBox<E> extends JComboBox<E> {
+public class BaseComboBox<E> extends JComboBox<E> {
 	private static final String uiClassID = "JideComboBoxUI";
 
-	public JideComboBox(ComboBoxModel<E> aModel) {
+	public BaseComboBox(ComboBoxModel<E> aModel) {
 		super(aModel);
 	}
 
-	public JideComboBox(final E[] items) {
+	public BaseComboBox(final E[] items) {
 		super(items);
 	}
 
-	public JideComboBox(Vector<E> items) {
+	public BaseComboBox(Vector<E> items) {
 		super(items);
 	}
 
-	public JideComboBox() {
+	public BaseComboBox() {
 		super();
 	}
 

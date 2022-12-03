@@ -1,6 +1,6 @@
 package com.element.plaf.basic;
 
-import com.element.swing.compo.JideLabel;
+import com.element.swing.compo.BaseLabel;
 import com.element.util.UIUtil;
 
 import javax.swing.*;
@@ -46,8 +46,8 @@ public class BasicJideLabelUI extends BasicLabelUI {
 	public void paint(Graphics g, JComponent c) {
 		if (UIUtil.getOrientationOf(c) == SwingConstants.VERTICAL) {
 			boolean clockwise = true;
-			if (c instanceof JideLabel) {
-				clockwise = ((JideLabel) c).isClockwise();
+			if (c instanceof BaseLabel) {
+				clockwise = ((BaseLabel) c).isClockwise();
 			}
 			paintVertically(g, c, clockwise);
 		} else {
@@ -116,11 +116,11 @@ public class BasicJideLabelUI extends BasicLabelUI {
 
 	public void propertyChange(PropertyChangeEvent e) {
 		super.propertyChange(e);
-		if (JideLabel.PROPERTY_ORIENTATION.equals(e.getPropertyName())) {
+		if (BaseLabel.PROPERTY_ORIENTATION.equals(e.getPropertyName())) {
 			if (e.getSource() instanceof JLabel label) {
 				label.revalidate();
 			}
-		} else if (JideLabel.PROPERTY_CLOCKWISE.equals(e.getPropertyName())) {
+		} else if (BaseLabel.PROPERTY_CLOCKWISE.equals(e.getPropertyName())) {
 			if (e.getSource() instanceof JLabel label) {
 				label.repaint();
 			}

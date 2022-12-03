@@ -8,12 +8,10 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
 public class CloseMouseListener implements MouseListener {
-	private Container container;
-	private JComponent c;
-	private PopupAnimatorTask<?> task;
+	private final JComponent c;
+	private final PopupAnimatorTask<?> task;
 
-	public CloseMouseListener(Container container, JComponent c, PopupAnimatorTask<?> task) {
-		this.container = container;
+	public CloseMouseListener(JComponent c, PopupAnimatorTask<?> task) {
 		this.c = c;
 		this.task = task;
 	}
@@ -23,6 +21,7 @@ public class CloseMouseListener implements MouseListener {
 		if (task != null) {
 			task.startFadeOutAnimator();
 		} else {
+			Container container = c.getParent();
 			if (container == null) return;
 			container.remove(c);
 			Dimension size = c.getPreferredSize();

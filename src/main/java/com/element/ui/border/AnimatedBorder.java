@@ -15,7 +15,7 @@ import java.awt.geom.Point2D;
 import java.util.ArrayList;
 
 /**
- * 获取焦点时带有动画的边框。
+ * 获取焦点时带有边框线条扩展的动画的边框。
  * <p>
  * 支持传入 paint
  */
@@ -30,7 +30,7 @@ public class AnimatedBorder extends EmptyBorder implements ActionListener, Focus
 	private final transient java.util.List<Point2D> points = new ArrayList<>();
 	protected final Path2D borderPath = new Path2D.Double();
 	private Paint borderColor;
-	private JComponent c;
+	private final JComponent c;
 
 	protected AnimatedBorder(JComponent c) {
 		this(c, ColorUtil.PRIMARY);

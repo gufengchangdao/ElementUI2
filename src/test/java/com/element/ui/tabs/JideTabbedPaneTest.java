@@ -7,6 +7,7 @@ import com.element.ui.icons.IconsFactory;
 import com.element.swing.JideIconsFactory;
 import com.element.ui.layout.JideBoxLayout;
 import demo.AbstractDemo;
+import demo.DemoData;
 
 import javax.swing.*;
 import javax.swing.plaf.UIResource;
@@ -485,16 +486,7 @@ public class JideTabbedPaneTest extends AbstractDemo {
 				KeyEvent.VK_J
 		};
 
-		final ImageIcon[] icons = new ImageIcon[]{
-				IconsFactory.getImageIcon(JideTabbedPaneTest.class, "icons/email.gif"),
-				IconsFactory.getImageIcon(JideTabbedPaneTest.class, "icons/calendar.gif"),
-				IconsFactory.getImageIcon(JideTabbedPaneTest.class, "icons/contacts.gif"),
-				IconsFactory.getImageIcon(JideTabbedPaneTest.class, "icons/tasks.gif"),
-				IconsFactory.getImageIcon(JideTabbedPaneTest.class, "icons/notes.gif"),
-				IconsFactory.getImageIcon(JideTabbedPaneTest.class, "icons/folder.gif"),
-				IconsFactory.getImageIcon(JideTabbedPaneTest.class, "icons/shortcut.gif"),
-				IconsFactory.getImageIcon(JideTabbedPaneTest.class, "icons/journal.gif")
-		};
+		final ImageIcon[] icons = DemoData.ICONS;
 
 		for (int i = 0; i < titles.length; i++) {
 			JScrollPane scrollPane = new JScrollPane(new JTextArea());
