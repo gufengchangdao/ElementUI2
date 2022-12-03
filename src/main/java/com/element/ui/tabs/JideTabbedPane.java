@@ -11,7 +11,6 @@ import com.element.plaf.UIDefaultsLookup;
 import com.element.plaf.basic.BasicJideTabbedPaneUI;
 import com.element.plaf.basic.Resource;
 import com.element.swing.Sticky;
-import com.element.swing.StringConverter;
 import com.element.ui.popup.JidePopup;
 import com.element.util.JideFocusTracker;
 import com.element.util.UIUtil;
@@ -26,6 +25,7 @@ import java.util.HashSet;
 import java.util.Hashtable;
 import java.util.Objects;
 import java.util.Set;
+import java.util.function.Function;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -170,7 +170,7 @@ public class JideTabbedPane extends JTabbedPane {
 	/**
 	 * A converter to shorten
 	 */
-	private StringConverter _stringConverter;
+	private Function<String ,String> _stringConverter;
 
 	private boolean _boldActiveTab = false;
 
@@ -1001,7 +1001,7 @@ public class JideTabbedPane extends JTabbedPane {
 	 *
 	 * @return the converter that converts the tab title to the display title.
 	 */
-	public StringConverter getStringConverter() {
+	public Function<String, String> getStringConverter() {
 		return _stringConverter;
 	}
 
@@ -1011,7 +1011,7 @@ public class JideTabbedPane extends JTabbedPane {
 	 * @param stringConverter the StringConverter.
 	 * @see #getStringConverter()
 	 */
-	public void setStringConverter(StringConverter stringConverter) {
+	public void setStringConverter(Function<String,String> stringConverter) {
 		_stringConverter = stringConverter;
 	}
 
@@ -1025,7 +1025,7 @@ public class JideTabbedPane extends JTabbedPane {
 	 */
 	public String getDisplayTitleAt(int index) {
 		if (_stringConverter != null) {
-			return _stringConverter.convert(super.getTitleAt(index));
+			return _stringConverter.apply(super.getTitleAt(index));
 		} else {
 			return super.getTitleAt(index);
 		}

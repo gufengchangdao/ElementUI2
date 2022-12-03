@@ -3,7 +3,11 @@ package com.element.ui.svg.icon.fill;
 import com.element.radiance.common.api.icon.AbstractSvgIcon;
 import com.element.radiance.common.api.icon.SvgIcon;
 import com.element.radiance.common.api.icon.SvgIconUIResource;
+import com.element.swing.EmptyGraphics2D;
+import com.element.util.SwingTestUtil;
+import net.miginfocom.swing.MigLayout;
 
+import javax.swing.*;
 import java.awt.*;
 import java.awt.geom.GeneralPath;
 
@@ -18,11 +22,8 @@ public class SwordSvg extends AbstractSvgIcon {
 
 
 	private void _paint0(Graphics2D g, float origAlpha) {
-// 
 		g.setComposite(AlphaComposite.getInstance(3, origAlpha));
-// _0
 		g.setComposite(AlphaComposite.getInstance(3, origAlpha));
-// _0_0
 		if (generalPath == null) {
 			generalPath = new GeneralPath();
 		} else {
@@ -83,7 +84,6 @@ public class SwordSvg extends AbstractSvgIcon {
 		paint = (colorFilter != null) ? colorFilter.filter(new Color(0, 0, 0, 255)) : new Color(0, 0, 0, 255);
 		g.setPaint(paint);
 		g.fill(shape);
-
 	}
 
 
@@ -91,7 +91,6 @@ public class SwordSvg extends AbstractSvgIcon {
 		float origAlpha = getOrigAlpha(g);
 
 		_paint0(g, origAlpha);
-
 
 		super.innerPaint(g);
 	}

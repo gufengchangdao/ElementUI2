@@ -18,9 +18,7 @@ public class ArrowLeftSvg extends AbstractSvgIcon {
 
 
 	private void _paint0(Graphics2D g, float origAlpha) {
-// 
 		g.setComposite(AlphaComposite.getInstance(3, origAlpha));
-// _0
 		g.setComposite(AlphaComposite.getInstance(3, origAlpha));
 // _0_0
 		paint = (colorFilter != null) ? colorFilter.filter(new Color(0, 0, 0, 255)) : new Color(0, 0, 0, 255);

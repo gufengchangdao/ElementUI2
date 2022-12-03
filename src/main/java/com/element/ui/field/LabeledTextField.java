@@ -6,8 +6,8 @@
 package com.element.ui.field;
 
 import com.element.plaf.UIDefaultsLookup;
-import com.element.swing.Overlayable;
-import com.element.swing.DefaultOverlayable;
+import com.element.swing.overlay.Overlayable;
+import com.element.swing.overlay.DefaultOverlayable;
 import com.element.ui.menu.JidePopupMenu;
 import com.element.util.SelectAllUtil;
 import com.element.util.SystemInfo;

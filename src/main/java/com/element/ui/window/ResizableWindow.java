@@ -5,8 +5,8 @@
  */
 package com.element.ui.window;
 
-import com.element.swing.Resizable;
-import com.element.swing.ResizableSupport;
+import com.element.swing.resize.Resizable;
+import com.element.swing.resize.ResizableSupport;
 import com.element.ui.panel.ResizablePanel;
 
 import javax.swing.*;

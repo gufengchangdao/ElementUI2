@@ -17,7 +17,6 @@ import javax.swing.*;
 import javax.swing.plaf.UIResource;
 import java.awt.*;
 
-
 /**
  * Gripper是一个可以拖动的组件。实际上组件本身不允许你拖动，这取决于使用这个 Gripper 的组件添加鼠标运动侦听器并进行拖动。
  * Gripper 会自行绘制，以便用户可以立即判断它是可拖动的。

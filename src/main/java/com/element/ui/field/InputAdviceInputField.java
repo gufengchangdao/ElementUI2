@@ -1,6 +1,6 @@
 package com.element.ui.field;
 
-import com.element.swing.BaseComponent;
+import com.element.swing.compo.BaseComponent;
 import com.element.ui.field.model.InputComboBoxModel;
 
 import javax.swing.*;

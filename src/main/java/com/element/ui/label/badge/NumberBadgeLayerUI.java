@@ -54,52 +54,50 @@ public class NumberBadgeLayerUI extends LayerUI<NumberBadgeLabel> {
 		return new BadgeIcon(count, Color.WHITE, new Color(0xAA_FF_16_16, true));
 	}
 
-	protected Point getIconBadgeLocation(BadgePosition pos, Icon icon) {
+	protected Point getIconBadgeLocation(int pos, Icon icon) {
 		int x;
 		int y;
 		switch (pos) {
-			case NORTH_WEST:
+			case SwingConstants.NORTH_WEST -> {
 				x = iconRect.x - OFFSET.x;
 				y = iconRect.y - OFFSET.y;
-				break;
-			case NORTH_EAST:
+			}
+			case SwingConstants.NORTH_EAST -> {
 				x = iconRect.x + iconRect.width - icon.getIconWidth() + OFFSET.x;
 				y = iconRect.y - OFFSET.y;
-				break;
-			case SOUTH_WEST:
+			}
+			case SwingConstants.SOUTH_WEST -> {
 				x = iconRect.x - OFFSET.x;
 				y = iconRect.y + iconRect.height - icon.getIconHeight() + OFFSET.y;
-				break;
-			case SOUTH_EAST:
-			default:
+			}
+			default -> {
 				x = iconRect.x + iconRect.width - icon.getIconWidth() + OFFSET.x;
 				y = iconRect.y + iconRect.height - icon.getIconHeight() + OFFSET.y;
-				break;
+			}
 		}
 		return new Point(x, y);
 	}
 
-	protected Point getTextBadgeLocation(BadgePosition pos, Icon icon) {
+	protected Point getTextBadgeLocation(int pos, Icon icon) {
 		int x;
 		int y;
 		switch (pos) {
-			case NORTH_WEST:
+			case SwingConstants.NORTH_WEST -> {
 				x = textRect.x - OFFSET.x;
 				y = textRect.y - OFFSET.y;
-				break;
-			case NORTH_EAST:
+			}
+			case SwingConstants.NORTH_EAST -> {
 				x = textRect.x + textRect.width - icon.getIconWidth() + OFFSET.x;
 				y = textRect.y - OFFSET.y;
-				break;
-			case SOUTH_WEST:
+			}
+			case SwingConstants.SOUTH_WEST -> {
 				x = textRect.x - OFFSET.x;
 				y = textRect.y + textRect.height - icon.getIconHeight() + OFFSET.y;
-				break;
-			case SOUTH_EAST:
-			default:
+			}
+			default -> {
 				x = textRect.x + textRect.width - icon.getIconWidth() + OFFSET.x;
 				y = textRect.y + textRect.height - icon.getIconHeight() + OFFSET.y;
-				break;
+			}
 		}
 		return new Point(x, y);
 	}

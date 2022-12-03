@@ -18,8 +18,6 @@ import java.util.logging.Logger;
 public class DelayUndoManager extends UndoManager {
 	private int _delay = 500;
 	private CompoundEdit _cache;
-
-	private static final Logger LOGGER = Logger.getLogger(DelayUndoManager.class.getName());
 	protected Timer _timer;
 
 	public DelayUndoManager() {
@@ -31,24 +29,12 @@ public class DelayUndoManager extends UndoManager {
 
 
 	/**
-	 * Checks if there are pending edits in the DelayUndoManager.
-	 *
-	 * @return true if there are pending edits. Otherwise false.
-	 */
-	public boolean isCacheEmpty() {
-		return _cache == null;
-	}
-
-	/**
 	 * Commits the cached edit.
 	 */
 	public synchronized void commitCache() {
 		if (_cache != null) {
 			_cache.end();
 			addEditWithoutCaching();
-			if (LOGGER.isLoggable(Level.FINE)) {
-				LOGGER.fine("Commit cache: " + _cache);
-			}
 			_cache = null;
 		}
 	}
@@ -71,9 +57,6 @@ public class DelayUndoManager extends UndoManager {
 	@Override
 	public synchronized boolean addEdit(UndoableEdit anEdit) {
 		if (_cache == null) {
-			if (LOGGER.isLoggable(Level.FINE)) {
-				LOGGER.fine("Create cache: " + anEdit);
-			}
 			_cache = new CompoundEdit();
 			boolean ret = _cache.addEdit(anEdit);
 			if (ret) {
@@ -83,9 +66,6 @@ public class DelayUndoManager extends UndoManager {
 			}
 			return ret;
 		} else {
-			if (LOGGER.isLoggable(Level.FINE)) {
-				LOGGER.fine("Add to cache: " + anEdit);
-			}
 			if (_timer != null) {
 				_timer.restart();
 			}
@@ -141,5 +121,14 @@ public class DelayUndoManager extends UndoManager {
 	public synchronized void discardAllEdits() {
 		super.discardAllEdits();
 		discardCache();
+	}
+
+	/**
+	 * Checks if there are pending edits in the DelayUndoManager.
+	 *
+	 * @return true if there are pending edits. Otherwise false.
+	 */
+	public boolean isCacheEmpty() {
+		return _cache == null;
 	}
 }

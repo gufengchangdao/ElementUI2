@@ -1,7 +1,7 @@
 package com.element.ui.border;
 
 import com.element.swing.SwingPosition;
-import com.element.swing.AngleComponent;
+import com.element.swing.compo.AngleComponent;
 
 import javax.swing.border.Border;
 import java.awt.*;
@@ -12,10 +12,16 @@ import java.awt.geom.GeneralPath;
  * <p>
  * 该边框一般不单独使用，因为含有切角的组件一般都设置了背景色，但是背景色会覆盖边框的绘制，建议使用{@link AngleComponent}
  */
-public class AngleBorder implements Border {
+public class AngleBorder implements Border, SwingPosition {
 	private final GeneralPath generalPath = new GeneralPath();
-	/** 展示方式 */
-	private SwingPosition position;
+	/**
+	 * 展示方式。
+	 * 可选{@link #NORTH}，{@link #NORTH_EAST}，{@link #NORTH_WEST}，
+	 * {@link #SOUTH}，{@link #SOUTH_EAST}，{@link #SOUTH_WEST}，
+	 * {@link #EAST}，{@link #EAST_NORTH}，{@link #EAST_SOUTH}，
+	 * {@link #WEST}，{@link #WEST_NORTH}，{@link #WEST_SOUTH}
+	 */
+	private int position;
 	/** 三角形背景色 */
 	private Color color;
 	/** 等腰三角形的高度，也是边框的边距 */
@@ -25,25 +31,49 @@ public class AngleBorder implements Border {
 	/** 三角形相对默认位置的偏移 */
 	private Point offset = new Point(0, 0);
 
-	public AngleBorder(SwingPosition position, Color color) {
+	/**
+	 * @param position 可选{@link #NORTH}，{@link #NORTH_EAST}，{@link #NORTH_WEST}，
+	 *                 {@link #SOUTH}，{@link #SOUTH_EAST}，{@link #SOUTH_WEST}，
+	 *                 {@link #EAST}，{@link #EAST_NORTH}，{@link #EAST_SOUTH}，
+	 *                 {@link #WEST}，{@link #WEST_NORTH}，{@link #WEST_SOUTH}
+	 */
+	public AngleBorder(int position, Color color) {
 		this.position = position;
 		this.color = color;
 	}
 
-	public AngleBorder(SwingPosition position, Color color, int size) {
+	/**
+	 * @param position 可选{@link #NORTH}，{@link #NORTH_EAST}，{@link #NORTH_WEST}，
+	 *                 {@link #SOUTH}，{@link #SOUTH_EAST}，{@link #SOUTH_WEST}，
+	 *                 {@link #EAST}，{@link #EAST_NORTH}，{@link #EAST_SOUTH}，
+	 *                 {@link #WEST}，{@link #WEST_NORTH}，{@link #WEST_SOUTH}
+	 */
+	public AngleBorder(int position, Color color, int size) {
 		this.position = position;
 		this.color = color;
 		this.size = size;
 	}
 
-	public AngleBorder(SwingPosition position, Color color, int size, int angle) {
+	/**
+	 * @param position 可选{@link #NORTH}，{@link #NORTH_EAST}，{@link #NORTH_WEST}，
+	 *                 {@link #SOUTH}，{@link #SOUTH_EAST}，{@link #SOUTH_WEST}，
+	 *                 {@link #EAST}，{@link #EAST_NORTH}，{@link #EAST_SOUTH}，
+	 *                 {@link #WEST}，{@link #WEST_NORTH}，{@link #WEST_SOUTH}
+	 */
+	public AngleBorder(int position, Color color, int size, int angle) {
 		this.position = position;
 		this.color = color;
 		this.size = size;
 		this.angle = angle;
 	}
 
-	public AngleBorder(SwingPosition position, Color color, int size, int angle, Point offset) {
+	/**
+	 * @param position 可选{@link #NORTH}，{@link #NORTH_EAST}，{@link #NORTH_WEST}，
+	 *                 {@link #SOUTH}，{@link #SOUTH_EAST}，{@link #SOUTH_WEST}，
+	 *                 {@link #EAST}，{@link #EAST_NORTH}，{@link #EAST_SOUTH}，
+	 *                 {@link #WEST}，{@link #WEST_NORTH}，{@link #WEST_SOUTH}
+	 */
+	public AngleBorder(int position, Color color, int size, int angle, Point offset) {
 		this.position = position;
 		this.color = color;
 		this.size = size;
@@ -60,44 +90,44 @@ public class AngleBorder implements Border {
 		// 定位坐标原点
 		double tx = 0, ty = 0;
 		switch (position) {
-			case TOP -> { // 上边
+			case NORTH -> { // 上边
 				tx = width / 2.0 - size;
 			}
-			case TOP_LEFT -> { // 上左
+			case NORTH_WEST -> { // 上左
 				tx = width / 4.0 - size;
 			}
-			case TOP_RIGHT -> { // 上右
+			case NORTH_EAST -> { // 上右
 				tx = width * 3.0 / 4 - size;
 			}
-			case BOTTOM, BOTTOM_LEFT -> { // 下边
+			case SOUTH, SOUTH_WEST -> { // 下边
 				tx = width / 2.0 - size;
 				ty = height - size;
 			}// 下左
-			case BOTTOM_RIGHT -> { // 下右
+			case SOUTH_EAST -> { // 下右
 				tx = width * 3.0 / 4 - size;
 				ty = height - size;
 			}
-			case LEFT -> { // 左边
+			case WEST -> { // 左边
 				tx = 0.3;
 				ty = height / 2.0 - size;
 			}
-			case LEFT_TOP -> {
+			case WEST_NORTH -> {
 				tx = 0.3;
 				ty = height / 4.0 - size;
 			}
-			case LEFT_BOTTOM -> {
+			case WEST_SOUTH -> {
 				tx = 0.3;
 				ty = height * 3.0 / 4 - size;
 			}
-			case RIGHT -> {
+			case EAST -> {
 				tx = width - size * 2 - 0.3; //这是为了消除边框与组件可能存在的缝隙
 				ty = height / 2.0 - size;
 			}
-			case RIGHT_TOP -> {
+			case EAST_NORTH -> {
 				tx = width - size * 2 - 0.4;
 				ty = height / 4.0 - size;
 			}
-			case RIGHT_BOTTOM -> {
+			case EAST_SOUTH -> {
 				tx = width - size * 2 - 0.4;
 				ty = height * 3.0 / 4 - size;
 			}
@@ -117,15 +147,9 @@ public class AngleBorder implements Border {
 		generalPath.lineTo(size * 2, size);
 
 		switch (position) {
-			case BOTTOM, BOTTOM_LEFT, BOTTOM_RIGHT -> {
-				g2d.rotate(Math.toRadians(180), size, size / 2.0);
-			}
-			case LEFT, LEFT_TOP, LEFT_BOTTOM -> {
-				g2d.rotate(Math.toRadians(-90), size, size);
-			}
-			case RIGHT, RIGHT_TOP, RIGHT_BOTTOM -> {
-				g2d.rotate(Math.toRadians(90), size, size);
-			}
+			case SOUTH, SOUTH_WEST, SOUTH_EAST -> g2d.rotate(Math.toRadians(180), size, size / 2.0);
+			case WEST, WEST_NORTH, WEST_SOUTH -> g2d.rotate(Math.toRadians(-90), size, size);
+			case EAST, EAST_NORTH, EAST_SOUTH -> g2d.rotate(Math.toRadians(90), size, size);
 		}
 
 		generalPath.closePath();
@@ -139,10 +163,10 @@ public class AngleBorder implements Border {
 	public Insets getBorderInsets(Component c) {
 		Insets insets = new Insets(0, 0, 0, 0);
 		switch (position) {
-			case TOP, TOP_LEFT, TOP_RIGHT -> insets.top = size;
-			case BOTTOM, BOTTOM_LEFT, BOTTOM_RIGHT -> insets.bottom = size;
-			case LEFT, LEFT_TOP, LEFT_BOTTOM -> insets.left = size;
-			case RIGHT, RIGHT_TOP, RIGHT_BOTTOM -> insets.right = size;
+			case NORTH, NORTH_EAST, NORTH_WEST -> insets.top = size;
+			case SOUTH, SOUTH_WEST, SOUTH_EAST -> insets.bottom = size;
+			case WEST, WEST_NORTH, WEST_SOUTH -> insets.left = size;
+			case EAST, EAST_NORTH, EAST_SOUTH -> insets.right = size;
 		}
 		return insets;
 	}

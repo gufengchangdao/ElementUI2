@@ -5,8 +5,8 @@
  */
 package com.element.util;
 
-import com.element.swing.Searchable;
-import com.element.swing.TextComponentSearchable;
+import com.element.swing.search.Searchable;
+import com.element.swing.search.TextComponentSearchable;
 import com.element.ui.combobox.ComboBoxSearchable;
 import com.element.ui.list.ListSearchable;
 import com.element.ui.table.TableSearchable;

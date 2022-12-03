@@ -1,22 +1,13 @@
 package com.element.swing;
 
+import javax.swing.*;
+
 /**
- * 与 {@link javax.swing.SwingConstants} 8的方向不同，该枚举提供12个方向
+ * SwingConstants的扩展，使得每条边上都有三个方向可以选择
  */
-public enum SwingPosition {
-	TOP,
-	TOP_LEFT,
-	TOP_RIGHT,
-
-	LEFT,
-	LEFT_TOP,
-	LEFT_BOTTOM,
-
-	BOTTOM,
-	BOTTOM_LEFT,
-	BOTTOM_RIGHT,
-
-	RIGHT,
-	RIGHT_TOP,
-	RIGHT_BOTTOM
+public interface SwingPosition extends SwingConstants {
+	int EAST_NORTH = 9;
+	int EAST_SOUTH = 10;
+	int WEST_SOUTH = 11;
+	int WEST_NORTH = 12;
 }

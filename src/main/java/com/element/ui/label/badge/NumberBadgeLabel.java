@@ -11,15 +11,16 @@ import java.util.Objects;
  * 为文本、图标添加整数形式的标记，标记值超过1000时用1K表示
  */
 public class NumberBadgeLabel extends JLabel {
-	private final BadgePosition pos;
+	private final int pos;
 	private final int counter;
 
 	/**
 	 * @param text    文本
-	 * @param pos     标记位置
+	 * @param pos     标记位置，值可以取{@link SwingConstants#NORTH_EAST}、{@link SwingConstants#NORTH_WEST}、
+	 *                {@link SwingConstants#SOUTH_EAST}、{@link SwingConstants#SOUTH_WEST}
 	 * @param counter 标记值
 	 */
-	public NumberBadgeLabel(String text, BadgePosition pos, int counter) {
+	public NumberBadgeLabel(String text, int pos, int counter) {
 		super(text);
 		this.pos = pos;
 		this.counter = counter;
@@ -27,22 +28,19 @@ public class NumberBadgeLabel extends JLabel {
 
 	/**
 	 * @param image   图标
-	 * @param pos     标记位置
+	 * @param pos     标记位置，值可以取{@link SwingConstants#NORTH_EAST}、{@link SwingConstants#NORTH_WEST}、
+	 *                {@link SwingConstants#SOUTH_EAST}、{@link SwingConstants#SOUTH_WEST}
 	 * @param counter 标记值
 	 */
-	public NumberBadgeLabel(Icon image, BadgePosition pos, int counter) {
+	public NumberBadgeLabel(Icon image, int pos, int counter) {
 		super(image);
 		this.pos = pos;
 		this.counter = counter;
 	}
 
-	public BadgePosition getBadgePosition() {
+	public int getBadgePosition() {
 		return pos;
 	}
-
-	// public void setCounter(int counter) {
-	//   this.counter = counter;
-	// }
 
 	public int getCounter() {
 		return counter;

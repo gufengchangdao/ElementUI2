@@ -27,10 +27,10 @@ import java.awt.event.MouseMotionAdapter;
  * </code></pre>
  */
 public class Sticky {
-	private JComponent _target;
+	private final JComponent _target;
 	private static final StickyMouseMotionListener STICKY_MOUSE_MOTION_LISTENER = new StickyMouseMotionListener();
 
-	public Sticky(JList list) {
+	public Sticky(JList<?> list) {
 		_target = list;
 		install();
 	}
@@ -61,32 +61,28 @@ public class Sticky {
 	}
 
 	static private class StickyMouseMotionListener extends MouseMotionAdapter {
-		//
-		// MouseMotionListener:
-		// NOTE: this is added to both the List and ComboBox
-		//
 		@Override
-		public void mouseMoved(MouseEvent anEvent) {
-			if (anEvent.getSource() instanceof JList list) {
-				Point location = anEvent.getPoint();
+		public void mouseMoved(MouseEvent e) {
+			if (e.getSource() instanceof JList<?> list) {
+				Point location = e.getPoint();
 				Rectangle r = new Rectangle();
 				list.computeVisibleRect(r);
 				if (r.contains(location)) {
-					updateListSelectionForEvent(anEvent, list, false);
+					updateListSelectionForEvent(e, list, false);
 				}
-			} else if (anEvent.getSource() instanceof JTree tree) {
-				Point location = anEvent.getPoint();
+			} else if (e.getSource() instanceof JTree tree) {
+				Point location = e.getPoint();
 				Rectangle r = new Rectangle();
 				tree.computeVisibleRect(r);
 				if (r.contains(location)) {
-					updateTreeSelectionForEvent(anEvent, tree, false);
+					updateTreeSelectionForEvent(e, tree, false);
 				}
-			} else if (anEvent.getSource() instanceof JTable table) {
-				Point location = anEvent.getPoint();
+			} else if (e.getSource() instanceof JTable table) {
+				Point location = e.getPoint();
 				Rectangle r = new Rectangle();
 				table.computeVisibleRect(r);
 				if (r.contains(location)) {
-					updateTableSelectionForEvent(anEvent, table, false);
+					updateTableSelectionForEvent(e, table, false);
 				}
 			}
 		}
@@ -96,12 +92,10 @@ public class Sticky {
 	 * A utility method used by the event listeners.  Given a mouse event, it changes the list selection to the list
 	 * item below the mouse.
 	 */
-	private static void updateListSelectionForEvent(MouseEvent anEvent, JList list, boolean shouldScroll) {
-		// XXX - only seems to be called from this class. shouldScroll flag is
-		// never true
-		Point location = anEvent.getPoint();
-		if (list == null)
-			return;
+	private static void updateListSelectionForEvent(MouseEvent e, JList<?> list, boolean shouldScroll) {
+		// XXX - only seems to be called from this class. shouldScroll flag is never true
+		Point location = e.getPoint();
+		if (list == null) return;
 		int index = list.locationToIndex(location);
 		if (index == -1) {
 			if (location.y < 0)
@@ -111,8 +105,7 @@ public class Sticky {
 		}
 		if (list.getSelectedIndex() != index && index >= 0 && index < list.getModel().getSize()) {
 			list.setSelectedIndex(index);
-			if (shouldScroll)
-				list.ensureIndexIsVisible(index);
+			if (shouldScroll) list.ensureIndexIsVisible(index);
 		}
 	}
 

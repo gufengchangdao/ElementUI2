@@ -203,8 +203,10 @@ public abstract class AbstractIntelliHints implements IntelliHints {
 			}
 
 			public void popupMenuWillBecomeInvisible(PopupMenuEvent e) {
-				DelegateAction.restoreAction(getTextComponent(), JComponent.WHEN_FOCUSED, KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0), hideAction);
-				DelegateAction.restoreAction(getTextComponent(), JComponent.WHEN_FOCUSED, KeyStroke.getKeyStroke(KeyEvent.VK_ENTER, 0), acceptAction);
+				DelegateAction.restoreAction(getTextComponent(), JComponent.WHEN_FOCUSED,
+						KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0), hideAction);
+				DelegateAction.restoreAction(getTextComponent(), JComponent.WHEN_FOCUSED,
+						KeyStroke.getKeyStroke(KeyEvent.VK_ENTER, 0), acceptAction);
 			}
 
 			public void popupMenuCanceled(PopupMenuEvent e) {
@@ -315,8 +317,10 @@ public abstract class AbstractIntelliHints implements IntelliHints {
 		}
 		if (updateHints(getContext(), autoPopup)) {
 			if (!isHintsPopupVisible()) {
-				DelegateAction.replaceAction(getTextComponent(), JComponent.WHEN_FOCUSED, KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0), hideAction);
-				DelegateAction.replaceAction(getTextComponent(), JComponent.WHEN_FOCUSED, KeyStroke.getKeyStroke(KeyEvent.VK_ENTER, 0), acceptAction, true);
+				DelegateAction.replaceAction(getTextComponent(), JComponent.WHEN_FOCUSED,
+						KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0), hideAction);
+				DelegateAction.replaceAction(getTextComponent(), JComponent.WHEN_FOCUSED,
+						KeyStroke.getKeyStroke(KeyEvent.VK_ENTER, 0), acceptAction, true);
 			}
 
 			int x = 0;

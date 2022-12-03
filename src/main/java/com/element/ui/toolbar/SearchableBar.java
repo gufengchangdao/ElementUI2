@@ -5,13 +5,12 @@
  */
 package com.element.ui.toolbar;
 
-import com.element.swing.SearchableEvent;
+import com.element.swing.search.SearchableEvent;
 import com.element.plaf.UIDefaultsLookup;
 import com.element.swing.Resource;
-import com.element.swing.Searchable;
-import com.element.swing.SearchableProvider;
-import com.element.swing.WholeWordsSupport;
-import com.element.swing.SearchableBarIconsFactory;
+import com.element.swing.search.Searchable;
+import com.element.swing.search.SearchableProvider;
+import com.element.swing.search.SearchableBarIconsFactory;
 import com.element.ui.layout.JideBoxLayout;
 import com.element.ui.popup.JidePopup;
 import com.element.ui.popup.JidePopupFactory;
@@ -512,19 +511,8 @@ public class SearchableBar extends JToolBar implements SearchableProvider {
 		checkBox.setMnemonic(getResourceString("SearchableBar.wholeWords.mnemonic").charAt(0));
 		checkBox.setRequestFocusEnabled(false);
 		checkBox.setFocusable(false);
-		if (getSearchable() instanceof WholeWordsSupport) {
-			checkBox.setSelected(((WholeWordsSupport) getSearchable()).isWholeWords());
-		} else {
-			checkBox.setSelected(false);
-			checkBox.setEnabled(false);
-		}
-		checkBox.addItemListener(e -> {
-			if (e.getSource() instanceof AbstractButton && getSearchable() instanceof WholeWordsSupport) {
-				((WholeWordsSupport) getSearchable()).setWholeWords(((AbstractButton) e.getSource()).isSelected());
-				addSearchingTextToHistory(getSearchingText());
-				highlightAllOrNext();
-			}
-		});
+		checkBox.setSelected(false);
+		checkBox.setEnabled(false);
 		checkBox.setOpaque(false);
 		return checkBox;
 	}
@@ -567,10 +555,6 @@ public class SearchableBar extends JToolBar implements SearchableProvider {
 		}
 		if ((_visibleButtons & SHOW_MATCHCASE) != 0) {
 			add(_matchCaseCheckBox);
-			add(Box.createHorizontalStrut(2));
-		}
-		if ((_visibleButtons & SHOW_WHOLE_WORDS) != 0 && getSearchable() instanceof WholeWordsSupport) {
-			add(_wholeWordsCheckBox);
 			add(Box.createHorizontalStrut(2));
 		}
 		if ((_visibleButtons & SHOW_REPEATS) != 0) {

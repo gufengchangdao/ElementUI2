@@ -2,7 +2,7 @@ package com.element.ui.others.card;
 
 import com.element.color.ColorUtil;
 import com.element.swing.BoxSize;
-import com.element.swing.BaseComponent;
+import com.element.swing.compo.BaseComponent;
 import org.jdesktop.swingx.border.DropShadowBorder;
 
 import javax.swing.*;

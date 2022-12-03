@@ -3,7 +3,7 @@ package com.element.ui.others.rate;
 import com.element.color.ColorUtil;
 import com.element.color.GradientColorFilter;
 import com.element.radiance.common.api.icon.SvgIcon;
-import com.element.swing.BaseComponent;
+import com.element.swing.compo.BaseComponent;
 import com.element.ui.svg.icon.fill.StarSvg;
 
 import javax.swing.*;

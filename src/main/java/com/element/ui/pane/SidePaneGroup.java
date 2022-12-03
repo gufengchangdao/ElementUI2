@@ -5,8 +5,6 @@
  */
 package com.element.ui.pane;
 
-import com.element.swing.SidePaneEvent;
-import com.element.swing.SidePaneListener;
 import com.element.util.ListenerUtil;
 
 import javax.swing.event.EventListenerList;

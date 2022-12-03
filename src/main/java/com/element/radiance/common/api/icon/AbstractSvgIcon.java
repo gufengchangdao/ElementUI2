@@ -1,5 +1,7 @@
 package com.element.radiance.common.api.icon;
 
+import com.element.swing.EmptyGraphics2D;
+
 import javax.swing.plaf.UIResource;
 import java.awt.*;
 import java.awt.geom.AffineTransform;
@@ -182,6 +184,7 @@ public abstract class AbstractSvgIcon implements SvgIcon {
 	}
 
 	public Shape getShape() {
+		if (shape == null) innerPaint(EmptyGraphics2D.EMPTY_Graphics2D);
 		return shape;
 	}
 }

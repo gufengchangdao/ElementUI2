@@ -5,8 +5,8 @@
  */
 package com.element.ui.table;
 
-import com.element.swing.SearchableEvent;
-import com.element.swing.Searchable;
+import com.element.swing.search.SearchableEvent;
+import com.element.swing.search.Searchable;
 import com.element.util.CompareUtil;
 
 import javax.swing.*;

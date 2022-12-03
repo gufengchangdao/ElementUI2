@@ -1,7 +1,7 @@
 package com.element.ui.list;
 
 import com.element.color.ColorUtil;
-import com.element.swing.BaseComponent;
+import com.element.swing.compo.BaseComponent;
 import com.element.ui.border.RoundBorder;
 import com.element.ui.list.renderer.CheckBoxCellRenderer;
 import org.jdesktop.swingx.JXSearchField;

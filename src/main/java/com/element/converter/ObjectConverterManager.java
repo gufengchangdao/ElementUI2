@@ -6,7 +6,6 @@
 package com.element.converter;
 
 import com.element.converter.impl.*;
-import com.element.range.*;
 import com.element.swing.RegistrationListener;
 import com.element.util.TypeUtil;
 
@@ -462,14 +461,6 @@ public class ObjectConverterManager {
 			registerConverter(short[].class, new DefaultArrayConverter("; ", short.class));
 
 			registerConverter(BigDecimal.class, new BigDecimalConverter());
-
-			registerConverter(NumericRange.class, new RangeConverter(Double.class));
-			registerConverter(IntegerRange.class, new RangeConverter(Integer.class));
-			registerConverter(LongRange.class, new RangeConverter(Long.class));
-			registerConverter(TimeRange.class, new RangeConverter(Date.class));
-			registerConverter(BigDecimalRange.class, new RangeConverter(BigDecimal.class));
-			registerConverter(StringRange.class, new RangeConverter(String.class));
-			registerConverter(BooleanRange.class, new RangeConverter(Boolean.class));
 		} finally {
 			_initing = false;
 			_inited = true;

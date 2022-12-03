@@ -64,29 +64,6 @@ public class UIDefaultsLookup {
 		((Map) v).put(cl, value);
 	}
 
-/*  This is the old method used before JDk8 b87. The getCallerClass(int) is removed in b87 so we can't use it any longer.
-    // Returns the invoker's class loader, or null if none.
-    // NOTE: This must always be invoked when there is exactly one intervening
-    // frame from the core libraries on the stack between this method's
-    // invocation and the desired invoker.
-    static ClassLoader getCallerClassLoader() {
-        Object cl = UIManager.get("ClassLoader");
-        if (cl instanceof ClassLoader) {
-            return (ClassLoader) cl;
-        }
-
-        // NOTE use of more generic Reflection.getCallerClass()
-        Class caller = Reflection.getCallerClass(3);
-        // This can be null if the VM is requesting it
-        if (caller == null) {
-            return null;
-        }
-        // Circumvent security check since this is package-private
-        return caller.getClassLoader();
-    }
-*/
-
-
 	static ClassLoader getCallerClassLoader() {
 		Object cl = UIManager.get("ClassLoader");
 		if (cl instanceof ClassLoader) {

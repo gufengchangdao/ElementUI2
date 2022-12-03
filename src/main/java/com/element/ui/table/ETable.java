@@ -1,6 +1,6 @@
 package com.element.ui.table;
 
-import com.element.swing.BaseTable;
+import com.element.swing.compo.BaseTable;
 import com.element.ui.table.renderer.ETableCellRenderer;
 import com.element.ui.table.renderer.TextFieldCellEditor;
 

@@ -2,7 +2,7 @@ package com.element.ui.navigation.steps;
 
 import com.element.color.ColorUtil;
 import com.element.radiance.common.api.icon.SvgIcon;
-import com.element.swing.BaseComponent;
+import com.element.swing.compo.BaseComponent;
 
 import javax.swing.*;
 import java.awt.*;

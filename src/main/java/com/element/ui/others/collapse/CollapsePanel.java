@@ -1,6 +1,6 @@
 package com.element.ui.others.collapse;
 
-import com.element.swing.BaseComponent;
+import com.element.swing.compo.BaseComponent;
 import org.jdesktop.swingx.VerticalLayout;
 
 import java.util.List;

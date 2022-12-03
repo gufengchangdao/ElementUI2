@@ -10,15 +10,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 /** 节点选择器，每个节点是一个列表 */
-public class ItemSelector extends JWindow implements ActionListener {
-	/** 节点相对于组件(com)的位置 */
-	public enum Position {
-		LEFT,
-		RIGHT,
-		TOP,
-		BOTTOM
-	}
-
+public class ItemSelector extends JWindow implements ActionListener, SwingConstants {
 	/** 选项之间的分割符 */
 	private String separator;
 	/** 当前节点所选项 */
@@ -31,10 +23,26 @@ public class ItemSelector extends JWindow implements ActionListener {
 	/** 上一个节点 */
 	private ItemSelector lastNode;
 
-	private Position position;
+	/**
+	 * 节点位置，可选值有：
+	 * <ul>
+	 *     <li>{@link #LEFT}</li>
+	 *     <li>{@link #RIGHT}</li>
+	 *     <li>{@link #TOP}</li>
+	 *     <li>{@link #BOTTOM}</li>
+	 * </ul>
+	 */
+	private int position;
 
+	/**
+	 * @param data
+	 * @param textField
+	 * @param com
+	 * @param position  节点位置，可选值有：{@link #LEFT},{@link #RIGHT},{@link #TOP},{@link #BOTTOM}
+	 * @param separator
+	 */
 	public ItemSelector(Map<String, ?> data, JTextField textField,
-	                    Component com, Position position, String separator) {
+	                    Component com, int position, String separator) {
 		this.textField = textField;
 		this.com = com;
 		this.lastNode = this;
@@ -55,7 +63,7 @@ public class ItemSelector extends JWindow implements ActionListener {
 			} else if (v instanceof Map) {
 				// 创建子节点，子节点位于当前节点的右边
 				ItemSelector childNode = new ItemSelector((Map<String, ?>) v,
-						textField, this, Position.RIGHT, separator);
+						textField, this, RIGHT, separator);
 				childNode.setLastNode(this);
 				buttons.put(b, childNode);
 			} else {
@@ -71,18 +79,10 @@ public class ItemSelector extends JWindow implements ActionListener {
 	public void adjustPosition() {
 		Point location = com.getLocationOnScreen();
 		switch (position) {
-			case LEFT:
-				setLocation(location.x - com.getPreferredSize().width, location.y);
-				break;
-			case RIGHT:
-				setLocation(location.x + com.getPreferredSize().width, location.y);
-				break;
-			case TOP:
-				setLocation(location.x, location.y - com.getPreferredSize().height);
-				break;
-			case BOTTOM:
-				setLocation(location.x, location.y + com.getPreferredSize().height);
-				break;
+			case LEFT -> setLocation(location.x - com.getPreferredSize().width, location.y);
+			case RIGHT -> setLocation(location.x + com.getPreferredSize().width, location.y);
+			case TOP -> setLocation(location.x, location.y - com.getPreferredSize().height);
+			case BOTTOM -> setLocation(location.x, location.y + com.getPreferredSize().height);
 		}
 	}
 
@@ -205,7 +205,10 @@ public class ItemSelector extends JWindow implements ActionListener {
 		return lastNode;
 	}
 
-	public Position getPosition() {
+	/**
+	 * 节点位置，可选值有：{@link #LEFT},{@link #RIGHT},{@link #TOP},{@link #BOTTOM}
+	 */
+	public int getPosition() {
 		return position;
 	}
 

@@ -5,9 +5,9 @@
  */
 package com.element.ui.combobox;
 
-import com.element.swing.SearchableEvent;
-import com.element.swing.Searchable;
-import com.element.swing.SearchableProvider;
+import com.element.swing.search.SearchableEvent;
+import com.element.swing.search.Searchable;
+import com.element.swing.search.SearchableProvider;
 
 import javax.swing.*;
 import javax.swing.event.ListDataEvent;

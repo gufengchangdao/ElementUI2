@@ -39,7 +39,7 @@ public interface Alignable {
 
 	/**
 	 * Changes the orientation. If the component is a Swing component, the default implementation is this.
-	 * <br><code>JideSwingUtilities.setOrientationOf(this, orientation);<code>
+	 * <br><code>UIUtil.setOrientationOf(this, orientation);<code>
 	 *
 	 * @param orientation the new orientation
 	 */

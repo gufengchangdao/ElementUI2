@@ -2,7 +2,7 @@ package com.element.ui.others.upload;
 
 import com.element.color.ColorUtil;
 import com.element.radiance.common.api.icon.SvgIcon;
-import com.element.swing.BaseComponent;
+import com.element.swing.compo.BaseComponent;
 import com.element.ui.svg.icon.regular.CheckCircleSvg;
 import com.element.ui.svg.icon.regular.FileSvg;
 import com.element.ui.svg.icon.regular.XCircleSvg;

@@ -8,7 +8,7 @@ package com.element.ui.pane;
 
 import com.element.plaf.LookAndFeelFactory;
 import com.element.plaf.UIDefaultsLookup;
-import com.element.swing.Contour;
+import com.element.swing.compo.Contour;
 import com.element.ui.layout.JideBoxLayout;
 import com.element.ui.panel.HeavyweightWrapper;
 

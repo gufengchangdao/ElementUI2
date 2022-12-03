@@ -65,22 +65,6 @@ abstract public class DelegateAction extends AbstractAction {
 		}
 	}
 
-	protected Action getAction() {
-		return _action;
-	}
-
-	protected void setAction(Action action) {
-		_action = action;
-	}
-
-	protected JComponent getTarget() {
-		return _target;
-	}
-
-	protected void setTarget(JComponent target) {
-		_target = target;
-	}
-
 	/**
 	 * Checks if an action can be performed. Returns true if delegateActionPerformed would perform an action. Otherwise
 	 * returns false.
@@ -121,19 +105,24 @@ abstract public class DelegateAction extends AbstractAction {
 		replaceAction(component, condition, component, condition, keyStroke, delegateAction, first);
 	}
 
-	public static void replaceAction(JComponent component, int condition, JComponent target, int targetCondition, KeyStroke keyStroke) {
+	public static void replaceAction(JComponent component, int condition, JComponent target, int targetCondition,
+	                                 KeyStroke keyStroke) {
 		replaceAction(component, condition, target, targetCondition, keyStroke, new PassthroughDelegateAction(), false);
 	}
 
-	public static void replaceAction(JComponent component, int condition, JComponent target, int targetCondition, KeyStroke keyStroke, DelegateAction delegateAction) {
+	public static void replaceAction(JComponent component, int condition, JComponent target, int targetCondition,
+	                                 KeyStroke keyStroke, DelegateAction delegateAction) {
 		replaceAction(component, condition, target, targetCondition, keyStroke, delegateAction, false);
 	}
 
-	public static void replaceAction(JComponent component, int condition, JComponent target, int targetCondition, KeyStroke keyStroke, DelegateAction delegateAction, boolean first) {
+	public static void replaceAction(JComponent component, int condition, JComponent target, int targetCondition,
+	                                 KeyStroke keyStroke, DelegateAction delegateAction, boolean first) {
 		ActionListener action = component.getActionForKeyStroke(keyStroke);
 		if (action != delegateAction && action instanceof Action) {
-			if (!first && action instanceof DelegateAction) {
-				Action childAction = ((DelegateAction) action).getAction();
+			if (!first && action instanceof DelegateAction d) {
+				Action childAction = d.getAction();
+
+				// 判断是否已经有该delegateAction了，有的话直接退出
 				while (childAction != null) {
 					if (childAction == delegateAction) {
 						return;
@@ -144,9 +133,9 @@ abstract public class DelegateAction extends AbstractAction {
 						childAction = null;
 					}
 				}
-				delegateAction.setAction(((DelegateAction) action).getAction());
-				((DelegateAction) action).setAction(delegateAction);
-				delegateAction = (DelegateAction) action;
+				delegateAction.setAction(d.getAction());
+				d.setAction(delegateAction);
+				delegateAction = d;
 			} else {
 				delegateAction.setAction((Action) action);
 			}
@@ -229,5 +218,21 @@ abstract public class DelegateAction extends AbstractAction {
 			parent = action;
 			action = ((DelegateAction) action).getAction();
 		}
+	}
+
+	protected Action getAction() {
+		return _action;
+	}
+
+	protected void setAction(Action action) {
+		_action = action;
+	}
+
+	protected JComponent getTarget() {
+		return _target;
+	}
+
+	protected void setTarget(JComponent target) {
+		_target = target;
 	}
 }

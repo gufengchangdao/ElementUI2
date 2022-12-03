@@ -5,8 +5,6 @@
  */
 package com.element.util;
 
-import com.element.range.TimeRange;
-
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -487,30 +485,6 @@ public class DateUtil {
 		return maxDate;
 	}
 
-	/**
-	 * Returns the range of date in the Calendar list.
-	 *
-	 * @param dates the list of Dates to calculate the maximum.
-	 * @return the range date in the Calendar list.
-	 */
-	public static TimeRange rangeDates(List<Date> dates) {
-		long max = Long.MIN_VALUE;
-		long min = Long.MAX_VALUE;
-		Date minDate = null;
-		Date maxDate = null;
-		for (Date value : dates) {
-			long v = value.getTime();
-			if (v > max) {
-				max = v;
-				maxDate = value;
-			}
-			if (v < min) {
-				min = v;
-				minDate = value;
-			}
-		}
-		return (minDate == null || maxDate == null) ? null : new TimeRange(minDate, maxDate);
-	}
 
 	/**
 	 * Returns the minimum Calendar in the Calendar list.
@@ -548,30 +522,5 @@ public class DateUtil {
 			}
 		}
 		return maxCalendar;
-	}
-
-	/**
-	 * Returns the range of Calendars in the Calendar list.
-	 *
-	 * @param calendars the list of Calendar to calculate the maximum.
-	 * @return the range of calendars in the Calendar list.
-	 */
-	public static TimeRange rangeCalendars(List<Calendar> calendars) {
-		long max = Long.MIN_VALUE;
-		long min = Long.MAX_VALUE;
-		Calendar minCalendar = null;
-		Calendar maxCalendar = null;
-		for (Calendar value : calendars) {
-			long v = value.getTimeInMillis();
-			if (v > max) {
-				max = v;
-				maxCalendar = value;
-			}
-			if (v < min) {
-				min = v;
-				minCalendar = value;
-			}
-		}
-		return (minCalendar == null || maxCalendar == null) ? null : new TimeRange(minCalendar, maxCalendar);
 	}
 }

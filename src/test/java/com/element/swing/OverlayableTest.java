@@ -1,6 +1,9 @@
 package com.element.swing;
 
 import com.element.plaf.LookAndFeelFactory;
+import com.element.swing.overlay.DefaultOverlayable;
+import com.element.swing.overlay.Overlayable;
+import com.element.swing.overlay.OverlayableIconsFactory;
 import com.element.ui.area.OverlayTextArea;
 import com.element.ui.button.JideToggleButton;
 import com.element.ui.button.OverlayRadioButton;

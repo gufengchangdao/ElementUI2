@@ -5,8 +5,8 @@
  */
 package com.element.ui.list;
 
-import com.element.swing.SearchableEvent;
-import com.element.swing.Searchable;
+import com.element.swing.search.SearchableEvent;
+import com.element.swing.search.Searchable;
 
 import javax.swing.*;
 import javax.swing.event.ListDataEvent;
