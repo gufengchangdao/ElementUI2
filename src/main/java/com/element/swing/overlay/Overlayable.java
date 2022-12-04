@@ -13,7 +13,17 @@ import java.awt.*;
  * 通常我们会制作一个实现 Overlayable 接口的组件，尽管这不是必需的。该界面将允许用户添加/删除其他组件作为叠加组件并独立设置它们的位置。
  * <p>
  * 原理是将原组件和叠加在它上面的组件放到创建的面板中进行维护，{@link DefaultOverlayable}就是这样一个面板，提供了许多方法来修改样式。
- * 除此之外原组件必须重写repaint方法，以便在原组件重绘时提醒它上面的组件也进行重绘，因为RepaintManager并没有提供给我们这样一个钩子。
+ * 除此之外原组件必须重写repaint方法，以便在原组件重绘时提醒它上面的组件也进行重绘，因为RepaintManager并没有提供给我们这样一个钩子。像下面
+ * 这样：
+ * <pre>
+ * public void repaint(long tm, int x, int y, int width, int height) {
+ *     super.repaint(tm, x, y, width, height);
+ *     OverlayableUtil.repaintOverlayable(this);
+ * }
+ * </pre>
+ * 需要注意的是，repaintOverlayable会查找该组件的父组件，一直到找到Overlayable实现类，使其重绘，或者一直找到null或非JComponent才停止，
+ * 因为我不喜欢这种递归的方式，所以没有让BaseXXX系列组件重写repaint
+ *
  * <p>
  * 优点：
  * <ol>

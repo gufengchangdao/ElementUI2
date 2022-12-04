@@ -12,12 +12,10 @@ import java.awt.event.ActionListener;
 import java.util.concurrent.TimeUnit;
 
 /**
- * 圆角Switch开关
+ * 圆角Switch开关，该类继承JToggleButton实现
  */
-public class SwitchButton extends JButton implements ActionListener {
-	private boolean isOpen;
+public class SwitchButton extends JToggleButton implements ActionListener {
 	/** 当前背景色，动画使用 */
-	private Color currentColor;
 	private Color closeColor = ColorUtil.DANGER;
 	private Color openColor = ColorUtil.SUCCESS;
 	private Animator animator;
@@ -27,27 +25,31 @@ public class SwitchButton extends JButton implements ActionListener {
 	private int xPosition;
 
 	public SwitchButton() {
+		super();
 		init();
 	}
 
-	public SwitchButton(boolean isOpen) {
-		this.isOpen = isOpen;
+
+	public SwitchButton(boolean isSelected) {
+		super();
+		setSelected(isSelected);
 		init();
 	}
 
-	public SwitchButton(boolean isOpen, Color closeColor, Color openColor) {
-		this.isOpen = isOpen;
+	public SwitchButton(boolean isSelected, Color closeColor, Color openColor) {
+		super();
+		setSelected(isSelected);
 		this.closeColor = closeColor;
 		this.openColor = openColor;
 		init();
 	}
 
 	private void init() {
-		currentColor = isOpen ? openColor : closeColor;
+		setBackground(isSelected() ? openColor : closeColor);
 
 		animator = new Animator.Builder()
 				.setDuration(200, TimeUnit.MILLISECONDS)
-				.addTarget(PropertySetter.getTarget(this, "currentColor", closeColor, openColor))
+				.addTarget(PropertySetter.getTarget(this, "background", closeColor, openColor))
 				.build();
 		addActionListener(this);
 
@@ -66,8 +68,9 @@ public class SwitchButton extends JButton implements ActionListener {
 
 		boolean enabled = isEnabled();
 		// 绘制背景
-		if (enabled) g2.setColor(currentColor);
-		else g2.setColor(new Color(currentColor.getRed(), currentColor.getGreen(), currentColor.getBlue(), 120));
+		if (enabled) g2.setColor(getBackground());
+		else
+			g2.setColor(new Color(getBackground().getRed(), getBackground().getGreen(), getBackground().getBlue(), 120));
 		g2.fillArc(0, 0, size.height, size.height, 90, 180);
 		g2.fillRect(size.height / 2 - 1, 0, Math.max(size.width - size.height + 2, 0), size.height);
 		g2.fillArc(size.width - size.height, 0, size.height, size.height, -90, 180);
@@ -78,30 +81,11 @@ public class SwitchButton extends JButton implements ActionListener {
 		g2.fillOval(xPosition, (size.height - d) / 2, d, d);
 	}
 
-	public boolean isOpen() {
-		return isOpen;
-	}
-
-	public void setOpen(boolean open) {
-		isOpen = open;
-		repaint();
-	}
-
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if (animator.isRunning()) return;
-		isOpen = !isOpen;
-		if (isOpen) animator.start();
+		if (isSelected()) animator.start();
 		else animator.restartReverse();
-		repaint();
-	}
-
-	public Color getCurrentColor() {
-		return currentColor;
-	}
-
-	public void setCurrentColor(Color currentColor) {
-		this.currentColor = currentColor;
 		repaint();
 	}
 
@@ -137,7 +121,7 @@ public class SwitchButton extends JButton implements ActionListener {
 		animator.removeTarget(target);
 		Dimension size = getPreferredSize();
 		int d = (int) (size.height * 0.8); //直径
-		xPosition = isOpen ? (size.width - (size.height + d) / 2) : ((size.height - d) / 2);
+		xPosition = isSelected() ? (size.width - (size.height + d) / 2) : ((size.height - d) / 2);
 		target = PropertySetter.getTarget(this, "xPosition",
 				(size.height - d) / 2, size.width - (size.height + d) / 2);
 		animator.addTarget(target);

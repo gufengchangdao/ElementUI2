@@ -12,6 +12,7 @@ import com.element.plaf.basic.ComponentStateSupport;
 import com.element.plaf.basic.ThemePainter;
 import com.element.swing.Alignable;
 import com.element.swing.AlignmentSupport;
+import org.jdesktop.swingx.JXButton;
 
 import javax.swing.*;
 import java.awt.*;
@@ -20,7 +21,6 @@ import java.awt.*;
  * 当 JideButton 用于工具栏（或 JIDE Action Framework 的命令栏）时，JideButton 是 JButton 的替代品。
  */
 public class JideButton extends JButton implements Alignable, ButtonStyle, ComponentStateSupport, AlignmentSupport {
-
 	private static final String uiClassID = "JideButtonUI";
 
 	/**
@@ -101,7 +101,7 @@ public class JideButton extends JButton implements Alignable, ButtonStyle, Compo
 		if (UIDefaultsLookup.get(uiClassID) == null) {
 			LookAndFeelFactory.installJideExtension();
 		}
-		setUI(UIManager.getUI(this));
+		super.updateUI();
 	}
 
 
