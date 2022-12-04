@@ -36,17 +36,13 @@ public class NotificationFactory {
 		Dimension cs = c.getPreferredSize();
 		int x;
 		if (y == null) y = 10;
-		switch (position) {
-			case SwingConstants.NORTH_EAST://右上角
-				x = size.width - cs.width - 5;
-				break;
-			case SwingConstants.NORTH_WEST://左上角
-				x = 5;
-				break;
-			default:
-				x = (size.width - cs.width) / 2;//正上方
-				break;
-		}
+		x = switch (position) {
+			case SwingConstants.NORTH_EAST ->//右上角
+					size.width - cs.width - 5;
+			case SwingConstants.NORTH_WEST ->//左上角
+					5;
+			default -> (size.width - cs.width) / 2;//正上方
+		};
 		Point p = owner.getLocationOnScreen();
 		x += p.x;
 		y += p.y;

@@ -67,8 +67,7 @@ class ColumnModelPersistence extends JPanel {
 		button.addActionListener(e -> {
 			JComponent b = (JComponent) e.getSource();
 			Container c = b.getTopLevelAncestor();
-			if (c instanceof Window) {
-				Window w = (Window) c;
+			if (c instanceof Window w) {
 				w.dispatchEvent(new WindowEvent(w, WindowEvent.WINDOW_CLOSING));
 			}
 		});

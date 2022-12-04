@@ -85,43 +85,6 @@ public class BasicOffice2003Theme extends Office2003Theme {
 
 		putDefaults(uiDefaults);
 
-		int products = LookAndFeelFactory.getProductsUsed();
-		if ((products & LookAndFeelFactory.PRODUCT_COMPONENTS) != 0) {
-			final int SIZE = 20;
-			final int MASK_SIZE = 11;
-			ImageIcon collapsiblePaneImage = IconsFactory.getImageIcon(Office2003WindowsUtils.class,
-					"icons/collapsible_pane_" + prefix + ".png"); // 20 x 20
-			ImageIcon collapsiblePaneMask = IconsFactory.getImageIcon(Office2003WindowsUtils.class,
-					"icons/collapsible_pane_mask.png"); // 11 x 11
-			ImageIcon normalIcon = IconsFactory.getIcon(null, collapsiblePaneImage, 0, 0, SIZE, SIZE);
-			ImageIcon emphasizedIcon = IconsFactory.getIcon(null, collapsiblePaneImage, SIZE, 0, SIZE, SIZE);
-			ImageIcon downMark = IconsFactory.getIcon(null, collapsiblePaneMask, 0, 0, MASK_SIZE, MASK_SIZE);
-			ImageIcon upMark = IconsFactory.getIcon(null, collapsiblePaneMask, 0, MASK_SIZE, MASK_SIZE, MASK_SIZE);
-			uiDefaults = new Object[]{
-					"CollapsiblePane.contentBackground", ColorUtil.getDerivedColor(color, 0.98f),
-					"CollapsiblePanes.backgroundLt", ColorUtil.getDerivedColor(color, 0.82f),
-					"CollapsiblePanes.backgroundDk", ColorUtil.getDerivedColor(color, 0.78f),
-					"CollapsiblePaneTitlePane.backgroundLt", ColorUtil.getDerivedColor(color, 0.98f),
-					"CollapsiblePaneTitlePane.backgroundDk", ColorUtil.getDerivedColor(color, 0.93f),
-					"CollapsiblePaneTitlePane.foreground", new ColorUIResource(63, 61, 61),
-					"CollapsiblePaneTitlePane.foreground.focus", new ColorUIResource(126, 124, 124),
-					"CollapsiblePaneTitlePane.backgroundLt.emphasized", ColorUtil.getDerivedColor(color, 0.7f),
-					"CollapsiblePaneTitlePane.backgroundDk.emphasized", ColorUtil.getDerivedColor(color, 0.72f),
-					"CollapsiblePaneTitlePane.foreground.emphasized", new ColorUIResource(255, 255, 255),
-					"CollapsiblePaneTitlePane.foreground.focus.emphasized", new ColorUIResource(230, 230, 230),
-
-					"CollapsiblePane.downIcon", IconsFactory.getOverlayIcon(null, normalIcon, downMark, SwingConstants.CENTER),
-					"CollapsiblePane.upIcon", IconsFactory.getOverlayIcon(null, normalIcon, upMark, SwingConstants.CENTER),
-					"CollapsiblePane.downIcon.emphasized", IconsFactory.getOverlayIcon(null, emphasizedIcon, downMark, SwingConstants.CENTER),
-					"CollapsiblePane.upIcon.emphasized", IconsFactory.getOverlayIcon(null, emphasizedIcon, upMark, SwingConstants.CENTER),
-					"CollapsiblePane.upMask", upMark,
-					"CollapsiblePane.downMask", downMark,
-					"CollapsiblePane.titleButtonBackground", normalIcon,
-					"CollapsiblePane.titleButtonBackground.emphasized", emphasizedIcon,
-			};
-			putDefaults(uiDefaults);
-		}
-
 		if (derivedSelectionColor) {
 			Object[] uiDefaultsSelection = new Object[]{
 					"selection.Rollover", selectionColor,

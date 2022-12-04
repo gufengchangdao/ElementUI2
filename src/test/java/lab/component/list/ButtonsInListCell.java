@@ -76,8 +76,7 @@ class CellButtonsMouseListener<E> extends MouseInputAdapter {
 			return;
 		}
 		ListCellRenderer<? super E> lcr = list.getCellRenderer();
-		if (index >= 0 && lcr instanceof ButtonsRenderer) {
-			ButtonsRenderer<?> renderer = (ButtonsRenderer<?>) lcr;
+		if (index >= 0 && lcr instanceof ButtonsRenderer<?> renderer) {
 			JButton button = getButton(list, pt, index);
 			renderer.button = button;
 			if (Objects.nonNull(button)) {
@@ -118,8 +117,7 @@ class CellButtonsMouseListener<E> extends MouseInputAdapter {
 		if (index >= 0) {
 			JButton button = getButton(list, pt, index);
 			ListCellRenderer<? super E> renderer = list.getCellRenderer();
-			if (Objects.nonNull(button) && renderer instanceof ButtonsRenderer) {
-				ButtonsRenderer<?> r = (ButtonsRenderer<?>) renderer;
+			if (Objects.nonNull(button) && renderer instanceof ButtonsRenderer<?> r) {
 				r.pressedIndex = index;
 				r.button = button;
 				rectRepaint(list, list.getCellBounds(index, index));
@@ -135,8 +133,7 @@ class CellButtonsMouseListener<E> extends MouseInputAdapter {
 		if (index >= 0) {
 			JButton button = getButton(list, pt, index);
 			ListCellRenderer<? super E> renderer = list.getCellRenderer();
-			if (Objects.nonNull(button) && renderer instanceof ButtonsRenderer) {
-				ButtonsRenderer<?> r = (ButtonsRenderer<?>) renderer;
+			if (Objects.nonNull(button) && renderer instanceof ButtonsRenderer<?> r) {
 				r.pressedIndex = -1;
 				r.button = null;
 				button.doClick();

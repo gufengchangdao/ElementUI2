@@ -27,12 +27,12 @@ public class SlideshowPanel extends JPanel implements TimingTarget, TransitionTa
 	private int width;
 	private int height;
 	// 默认按钮大小
-	private int buttonWidth = 50;
-	private int buttonHeight = 5;
+	private int buttonWidth;
+	private int buttonHeight;
 	/**
 	 * 每张label停留的时间，单位为毫秒
 	 */
-	private long duration = 1500;
+	private long duration;
 	/**
 	 * 传入的label数据
 	 */

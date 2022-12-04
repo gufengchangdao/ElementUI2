@@ -38,7 +38,7 @@ public class EclipseJideTabbedPaneUI extends VsnetJideTabbedPaneUI {
 			boolean leftToRight = _tabPane.getComponentOrientation().isLeftToRight();
 
 			switch (tabPlacement) {
-				case LEFT:
+				case LEFT -> {
 					if (isSelected) {
 						g.setColor(_lightHighlight);
 						g.drawRect(x + 1, y + 1, w - 1, h - 3);
@@ -66,13 +66,12 @@ public class EclipseJideTabbedPaneUI extends VsnetJideTabbedPaneUI {
 							}
 						}
 					}
-
 					if (isTabTopVisible(tabPlacement)) {
 						g.setColor(_shadow);
 						g.drawLine(x, y, x, y + h - 1); // tab top
 					}
-					break;
-				case RIGHT:
+				}
+				case RIGHT -> {
 					if (isSelected) {
 						g.setColor(_lightHighlight);
 						g.drawRect(x, y + 1, w - 1, h - 3);
@@ -100,13 +99,12 @@ public class EclipseJideTabbedPaneUI extends VsnetJideTabbedPaneUI {
 							}
 						}
 					}
-
 					if (isTabTopVisible(tabPlacement)) {
 						g.setColor(_shadow);
 						g.drawLine(x + w, y, x + w, y + h - 1); // tab top
 					}
-					break;
-				case BOTTOM:
+				}
+				case BOTTOM -> {
 					if (isSelected) {
 						g.setColor(_lightHighlight);
 						g.drawRect(x + 1, y, w - 3, h - 1);
@@ -153,14 +151,12 @@ public class EclipseJideTabbedPaneUI extends VsnetJideTabbedPaneUI {
 
 						}
 					}
-
 					if (isTabTopVisible(tabPlacement)) {
 						g.setColor(_shadow);
 						g.drawLine(x, y + h, x + w - 1, y + h); // tab top
 					}
-					break;
-				case TOP:
-				default:
+				}
+				default -> {
 					if (isSelected) {
 						g.setColor(_lightHighlight);
 						g.drawRect(x + 1, y + 1, w - 3, h);
@@ -206,12 +202,11 @@ public class EclipseJideTabbedPaneUI extends VsnetJideTabbedPaneUI {
 							}
 						}
 					}
-
 					if (isTabTopVisible(tabPlacement)) {
 						g.setColor(_shadow);
 						g.drawLine(x, y, x + w - 1, y); // tab top
 					}
-					break;
+				}
 			}
 			g.setColor(old);
 

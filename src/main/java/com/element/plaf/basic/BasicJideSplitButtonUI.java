@@ -1231,7 +1231,7 @@ public class BasicJideSplitButtonUI extends VsnetMenuUI {
 		Font font = c.getFont();
 		FontMetrics fm = c.getFontMetrics(font);
 		int line1Width = fm.stringWidth(lines[0]);
-		int line2Width = lines.length <= 1 ? 0 : fm.stringWidth(lines[1]);
+		int line2Width = lines.length == 1 ? 0 : fm.stringWidth(lines[1]);
 		int oldMaxWidth = Math.max(line1Width, line2Width);
 		line2Width += extraWidth;
 		int maxWidth = Math.max(line1Width, line2Width);

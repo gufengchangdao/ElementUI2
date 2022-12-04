@@ -146,8 +146,8 @@ public class AccordionContentPanel extends JPanel implements MouseListener {
 		panel.setVisible(!panel.isVisible());
 		label.setIcon(panel.isVisible() ? (iconFill ? fIcon2 : rIcon2) : (iconFill ? fIcon1 : rIcon1));
 		revalidate();
-		if (panel instanceof JPanel panel)
-			panel.scrollRectToVisible(panel.getBounds());
+		if (panel instanceof JPanel p)
+			p.scrollRectToVisible(p.getBounds());
 	}
 
 	@Override

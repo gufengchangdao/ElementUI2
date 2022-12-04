@@ -93,47 +93,29 @@ public final class JRSUIConstants {
 		}
 	}
 
-	static class DoubleValue {
-		@Native
-		protected static final byte TYPE_CODE = 1;
-
-		final double doubleValue;
-
-		DoubleValue(final double doubleValue) {
-			this.doubleValue = doubleValue;
-		}
+	record DoubleValue(double doubleValue) {
+			@Native
+			private static final byte TYPE_CODE = 1;
 
 		public byte getTypeCode() {
-			return TYPE_CODE;
-		}
+				return TYPE_CODE;
+			}
 
-		public void putValueInBuffer(final ByteBuffer buffer) {
-			buffer.putDouble(doubleValue);
-		}
+			public void putValueInBuffer(final ByteBuffer buffer) {
+				buffer.putDouble(doubleValue);
+			}
 
-		public boolean equals(final Object obj) {
-			return (obj instanceof DoubleValue) && (((DoubleValue) obj).doubleValue == doubleValue);
-		}
-
-		public int hashCode() {
-			final long bits = Double.doubleToLongBits(doubleValue);
-			return (int) (bits ^ (bits >>> 32));
-		}
+			public boolean equals(final Object obj) {
+				return (obj instanceof DoubleValue) && (((DoubleValue) obj).doubleValue == doubleValue);
+			}
 
 		public String toString() {
-			return Double.toString(doubleValue);
+				return Double.toString(doubleValue);
+			}
 		}
-	}
 
 
-	static class PropertyEncoding {
-		final long mask;
-		final byte shift;
-
-		PropertyEncoding(final long mask, final byte shift) {
-			this.mask = mask;
-			this.shift = shift;
-		}
+	record PropertyEncoding(long mask, byte shift) {
 	}
 
 	static class Property {
@@ -1073,27 +1055,17 @@ public final class JRSUIConstants {
 	}
 
 	static Hit getHit(final int hit) {
-		switch (hit) {
-			case Hit._none:
-				return Hit.NONE;
-			case Hit._hit:
-				return Hit.HIT;
-
-			case ScrollBarHit._thumb:
-				return ScrollBarHit.THUMB;
-			case ScrollBarHit._trackMin:
-				return ScrollBarHit.TRACK_MIN;
-			case ScrollBarHit._trackMax:
-				return ScrollBarHit.TRACK_MAX;
-			case ScrollBarHit._arrowMin:
-				return ScrollBarHit.ARROW_MIN;
-			case ScrollBarHit._arrowMax:
-				return ScrollBarHit.ARROW_MAX;
-			case ScrollBarHit._arrowMaxInside:
-				return ScrollBarHit.ARROW_MAX_INSIDE;
-			case ScrollBarHit._arrowMinInside:
-				return ScrollBarHit.ARROW_MIN_INSIDE;
-		}
-		return Hit.UNKNOWN;
+		return switch (hit) {
+			case Hit._none -> Hit.NONE;
+			case Hit._hit -> Hit.HIT;
+			case ScrollBarHit._thumb -> ScrollBarHit.THUMB;
+			case ScrollBarHit._trackMin -> ScrollBarHit.TRACK_MIN;
+			case ScrollBarHit._trackMax -> ScrollBarHit.TRACK_MAX;
+			case ScrollBarHit._arrowMin -> ScrollBarHit.ARROW_MIN;
+			case ScrollBarHit._arrowMax -> ScrollBarHit.ARROW_MAX;
+			case ScrollBarHit._arrowMaxInside -> ScrollBarHit.ARROW_MAX_INSIDE;
+			case ScrollBarHit._arrowMinInside -> ScrollBarHit.ARROW_MIN_INSIDE;
+			default -> Hit.UNKNOWN;
+		};
 	}
 }

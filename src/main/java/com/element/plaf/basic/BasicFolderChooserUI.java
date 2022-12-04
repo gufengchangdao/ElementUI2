@@ -279,7 +279,7 @@ public class BasicFolderChooserUI extends BasicFileChooserUI {
 
 				final ResourceBundle resourceBundle = FolderChooserResource.getResourceBundle(Locale.getDefault());
 				String folderName = JOptionPane.showInputDialog(_folderChooser, resourceBundle.getString("FolderChooser.new.folderName"),
-						resourceBundle.getString("FolderChooser.new.title"), JOptionPane.OK_CANCEL_OPTION | JOptionPane.QUESTION_MESSAGE);
+						resourceBundle.getString("FolderChooser.new.title"), JOptionPane.QUESTION_MESSAGE);
 
 				if (folderName != null && folderName.trim().length() > 0) {
 					folderName = eraseBlankInTheEnd(folderName);

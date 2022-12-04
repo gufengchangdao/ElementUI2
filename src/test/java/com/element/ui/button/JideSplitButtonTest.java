@@ -114,36 +114,28 @@ public class JideSplitButtonTest extends AbstractDemo {
 		switchPanel.add(option4);
 
 		option1.setSelected(true);
-		option1.addItemListener(new ItemListener() {
-			public void itemStateChanged(ItemEvent e) {
-				for (JideSplitButton button : _buttons) {
-					button.setButtonEnabled(option1.isSelected());
-				}
+		option1.addItemListener(e -> {
+			for (JideSplitButton button : _buttons) {
+				button.setButtonEnabled(option1.isSelected());
 			}
 		});
 
 		option2.setSelected(true);
-		option2.addItemListener(new ItemListener() {
-			public void itemStateChanged(ItemEvent e) {
-				for (JideSplitButton button : _buttons) {
-					button.setEnabled(option2.isSelected());
-				}
+		option2.addItemListener(e -> {
+			for (JideSplitButton button : _buttons) {
+				button.setEnabled(option2.isSelected());
 			}
 		});
 
-		option3.addItemListener(new ItemListener() {
-			public void itemStateChanged(ItemEvent e) {
-				for (JideSplitButton button : _buttons) {
-					button.setButtonSelected(option3.isSelected());
-				}
+		option3.addItemListener(e -> {
+			for (JideSplitButton button : _buttons) {
+				button.setButtonSelected(option3.isSelected());
 			}
 		});
 
-		option4.addItemListener(new ItemListener() {
-			public void itemStateChanged(ItemEvent e) {
-				for (JideSplitButton button : _buttons) {
-					button.setAlwaysDropdown(option4.isSelected());
-				}
+		option4.addItemListener(e -> {
+			for (JideSplitButton button : _buttons) {
+				button.setAlwaysDropdown(option4.isSelected());
 			}
 		});
 

@@ -126,9 +126,7 @@ public class RoundedCornerTableHeader extends JPanel {
 		@Override
 		public Component getTableCellRendererComponent(JTable table, Object value, boolean selected, boolean focused, int row, int column) {
 			Component c = super.getTableCellRendererComponent(table, value, false, false, row, column);
-			if (value instanceof LocalDate && c instanceof JLabel) {
-				LocalDate d = (LocalDate) value;
-				JLabel l = (JLabel) c;
+			if (value instanceof LocalDate d && c instanceof JLabel l) {
 				l.setText(Objects.toString(d.getDayOfMonth()));
 				l.setVerticalAlignment(SwingConstants.TOP);
 				l.setHorizontalAlignment(SwingConstants.CENTER);
@@ -173,14 +171,11 @@ public class RoundedCornerTableHeader extends JPanel {
 		}
 
 		private Color getDayOfWeekColor(DayOfWeek dow) {
-			switch (dow) {
-				case SUNDAY:
-					return new Color(0xD9_0B_0D);
-				case SATURDAY:
-					return new Color(0x10_4A_90);
-				default:
-					return Color.BLACK;
-			}
+			return switch (dow) {
+				case SUNDAY -> new Color(0xD9_0B_0D);
+				case SATURDAY -> new Color(0x10_4A_90);
+				default -> Color.BLACK;
+			};
 		}
 	}
 
@@ -235,7 +230,7 @@ public class RoundedCornerTableHeader extends JPanel {
 		}
 	}
 
-	class DiagonallySplitCellLayerUI extends LayerUI<JPanel> {
+	static class DiagonallySplitCellLayerUI extends LayerUI<JPanel> {
 		@Override
 		public void paint(Graphics g, JComponent c) {
 			super.paint(g, c);
@@ -322,8 +317,7 @@ class RoundedHeaderRenderer extends DefaultTableCellRenderer {
 		c.setFont(table.getFont());
 		c.setForeground(table.getTableHeader().getForeground());
 		c.setBackground(table.getTableHeader().getBackground());
-		if (c instanceof JLabel) {
-			JLabel l = (JLabel) c;
+		if (c instanceof JLabel l) {
 			l.setText(value.toString());
 			l.setHorizontalAlignment(SwingConstants.CENTER);
 		}

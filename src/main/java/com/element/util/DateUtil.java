@@ -218,6 +218,7 @@ public class DateUtil {
 	 * @param cal the calendar object
 	 * @return true if the calendar object is last month.
 	 */
+	@SuppressWarnings("all")
 	public static boolean isLastMonth(Calendar cal) {
 		Calendar today = Calendar.getInstance();
 		int thisMonth = today.get(Calendar.MONTH);
@@ -284,6 +285,7 @@ public class DateUtil {
 	 * @param cal the calendar object
 	 * @return true if the calendar object is next month.
 	 */
+	@SuppressWarnings("all")
 	public static boolean isNextMonth(Calendar cal) {
 		Calendar today = Calendar.getInstance();
 		int thisMonth = today.get(Calendar.MONTH);

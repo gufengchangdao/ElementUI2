@@ -73,8 +73,7 @@ public class DropdownTableComboBoxTest extends JPanel {
 				c.setBackground(list.getBackground());
 				c.setForeground(list.getForeground());
 			}
-			if (c instanceof JLabel) {
-				JLabel l = (JLabel) c;
+			if (c instanceof JLabel l) {
 				l.setOpaque(true);
 				l.setText(Objects.toString(value.get(0), ""));
 			}

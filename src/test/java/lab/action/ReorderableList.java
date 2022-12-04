@@ -228,7 +228,6 @@ class ListItemListCellRenderer<E extends ListItem> implements ListCellRenderer<E
 }
 
 class ListItem implements Serializable {
-	private static final long serialVersionUID = 1L;
 	public final ImageIcon icon;
 	public final ImageIcon selectedIcon;
 	public final String title;

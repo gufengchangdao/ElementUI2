@@ -23,9 +23,11 @@ public class StyledLabelTest extends AbstractDemo {
 
 	@Override
 	public String getDescription() {
-		return "StyledLabel is an enhanced JLabel to display the text in different colors and font and can decorate with all kinds of line styles.\n" +
-				"Demoed classes:\n" +
-				"com.jidesoft.swing.StyledLabel";
+		return """
+				StyledLabel is an enhanced JLabel to display the text in different colors and font and can decorate \
+				with all kinds of line styles.
+				Demoed classes:
+				com.jidesoft.swing.StyledLabel""";
 	}
 
 	@Override
@@ -95,8 +97,6 @@ public class StyledLabelTest extends AbstractDemo {
 	private JComponent createTablePanel() {
 		JPanel panel = new JPanel(new BorderLayout());
 		DefaultTableModel model = new DefaultTableModel(0, 2) {
-			private static final long serialVersionUID = 922268373343622904L;
-
 			@Override
 			public Class<?> getColumnClass(int columnIndex) {
 				return String.class;

@@ -236,16 +236,13 @@ public class RasterScanner {
 				+ "imageData = " + languageRenderer.getObjectCreation("StringBuilder")
 				+ "(" + encoded.length() + ")" + languageRenderer.getStatementEnd());
 		int imageDataStart = 0;
-		while (true) {
+		do {
 			int chunkLength = Math.min(1000, encoded.length() - imageDataStart);
 			printWriter.println("    imageData.append(\""
 					+ encoded.substring(imageDataStart, imageDataStart + chunkLength)
 					+ "\")" + languageRenderer.getStatementEnd());
 			imageDataStart += 1000;
-			if (imageDataStart > encoded.length()) {
-				break;
-			}
-		}
+		} while (imageDataStart <= encoded.length());
 
 		printWriter.println("    try {");
 		printWriter.println(
@@ -283,7 +280,6 @@ public class RasterScanner {
 		}
 		if (node instanceof RasterImageNode) {
 			scanRasterImageNode((RasterImageNode) node);
-			return;
 		}
 	}
 
@@ -291,7 +287,7 @@ public class RasterScanner {
 		try {
 			ByteArrayOutputStream os = new ByteArrayOutputStream();
 			ImageIO.write(renderedImage, "png", Base64.getEncoder().wrap(os));
-			return os.toString(StandardCharsets.ISO_8859_1.name());
+			return os.toString(StandardCharsets.ISO_8859_1);
 		} catch (final IOException ioe) {
 			throw new UncheckedIOException(ioe);
 		}

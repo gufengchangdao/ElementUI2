@@ -20,12 +20,10 @@ import com.element.plaf.vsnet.VsnetWindowsUtils;
 import com.element.plaf.xerto.XertoMetalUtils;
 import com.element.plaf.xerto.XertoPainter;
 import com.element.plaf.xerto.XertoWindowsUtils;
-import com.element.ui.icons.IconsFactory;
 import com.element.ui.tabs.JideTabbedPane;
 import com.element.util.SystemInfo;
 
 import javax.swing.*;
-import javax.swing.plaf.BorderUIResource;
 import javax.swing.plaf.metal.MetalLookAndFeel;
 import java.beans.PropertyChangeListener;
 import java.lang.reflect.InvocationTargetException;
@@ -496,13 +494,7 @@ public class LookAndFeelFactory implements ProductNames {
 			} catch (NumberFormatException ignored) {
 			}
 			if (_defaultStyle == -1) {
-				int suggestedStyle;
-				try {
-					suggestedStyle = ((LookAndFeelFactory.getProductsUsed() & PRODUCT_ACTION) == 0) ? EXTENSION_STYLE_VSNET_WITHOUT_MENU : EXTENSION_STYLE_VSNET;
-				} catch (UnsupportedOperationException e) {
-					suggestedStyle = ((LookAndFeelFactory.getProductsUsed() & PRODUCT_ACTION) == 0) ? EXTENSION_STYLE_VSNET_WITHOUT_MENU : EXTENSION_STYLE_VSNET;
-				}
-				return suggestedStyle;
+				return EXTENSION_STYLE_VSNET_WITHOUT_MENU;
 			}
 		}
 		return _defaultStyle;
@@ -1011,8 +1003,7 @@ public class LookAndFeelFactory implements ProductNames {
 
 	private static String findDefaultInitializer(String lnfClassName) {
 		if (_defaultInitializers != null) {
-			String s = _defaultInitializers.get(lnfClassName);
-			return s;
+			return _defaultInitializers.get(lnfClassName);
 		}
 		return null;
 	}
@@ -1076,8 +1067,7 @@ public class LookAndFeelFactory implements ProductNames {
 
 	private static String findDefaultCustomizer(String lnfClassName) {
 		if (_defaultCustomizers != null) {
-			String s = _defaultCustomizers.get(lnfClassName);
-			return s;
+			return _defaultCustomizers.get(lnfClassName);
 		}
 		return null;
 	}
@@ -1491,15 +1481,6 @@ public class LookAndFeelFactory implements ProductNames {
 	}
 
 	private static int _productsUsed = -1;
-
-	/**
-	 * TODO 这个方法通过反射加载不同的Project类，但是jide没有公开这些Project类，尚不知道如何修改
-	 *
-	 * @deprecated 没有Product类，这个方法需要修改
-	 */
-	public static int getProductsUsed() {
-		return _productsUsed == -1 ? 0 : _productsUsed;
-	}
 
 	/**
 	 * As of Java 10, com.sun.java.swing.plaf.windows.WindowsClassicLookAndFeel is no longer available on macOS thus

@@ -6,6 +6,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.lang.invoke.MethodHandles;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -193,7 +194,7 @@ final class ZipUtil {
 		// noticeably poor performance in JDK 8
 		// try (Stream<Path> s = Files.walk(srcDir).filter(Files::isRegularFile)) {
 		try (Stream<Path> s = Files.walk(srcDir).filter(f -> f.toFile().isFile())) {
-			List<Path> files = s.collect(Collectors.toList());
+			List<Path> files = s.toList();
 			try (ZipOutputStream zos = new ZipOutputStream(Files.newOutputStream(zip))) {
 				for (Path path : files) {
 					String relativePath = srcDir.relativize(path).toString().replace('\\', '/');
@@ -245,7 +246,7 @@ class TextAreaOutputStream extends OutputStream {
 
 	@Override
 	public void flush() throws IOException {
-		textArea.append(buffer.toString("UTF-8"));
+		textArea.append(buffer.toString(StandardCharsets.UTF_8));
 		buffer.reset();
 	}
 

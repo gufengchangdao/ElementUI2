@@ -12,12 +12,7 @@ import static java.lang.Math.abs;
 /**
  * 用于消息提示的淡出
  */
-public class PopupFadeOutTimingTarget<E extends BaseComponent> implements TimingTarget {
-	private final PopupAnimatorTask<E> task;
-
-	public PopupFadeOutTimingTarget(PopupAnimatorTask<E> task) {
-		this.task = task;
-	}
+public record PopupFadeOutTimingTarget<E extends BaseComponent>(PopupAnimatorTask<E> task) implements TimingTarget {
 
 	@Override
 	public void begin(Animator animator) {
@@ -64,7 +59,5 @@ public class PopupFadeOutTimingTarget<E extends BaseComponent> implements Timing
 		c.validate();
 	}
 
-	public PopupAnimatorTask<E> getTask() {
-		return task;
-	}
+
 }

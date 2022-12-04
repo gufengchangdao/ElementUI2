@@ -189,7 +189,7 @@ public class TextComponentSearchable extends Searchable implements DocumentListe
 					begin.width = end.x - begin.x;
 				}
 				textComponent.scrollRectToVisible(begin);
-			} catch (BadLocationException ble) {
+			} catch (BadLocationException ignored) {
 			}
 		}
 	}
@@ -355,8 +355,7 @@ public class TextComponentSearchable extends Searchable implements DocumentListe
 		if (_text == null) {
 			Document document = ((JTextComponent) _component).getDocument();
 			try {
-				String text = document.getText(0, document.getLength());
-				_text = text;
+				_text = document.getText(0, document.getLength());
 			} catch (BadLocationException e) {
 				return "";
 			}

@@ -20,7 +20,7 @@ import java.util.Objects;
 public final class CalendarViewList extends JPanel {
 	public final Dimension size = new Dimension(70, 26);
 	public final JLabel yearMonthLabel = new JLabel("", SwingConstants.CENTER);
-	public final JList<LocalDate> monthList = new JList<LocalDate>() {
+	public final JList<LocalDate> monthList = new JList<>() {
 		@Override
 		public void updateUI() {
 			setCellRenderer(null);
@@ -60,7 +60,7 @@ public final class CalendarViewList extends JPanel {
 		for (int i = 0; i < DayOfWeek.values().length; i++) {
 			weekModel.add(i, firstDayOfWeek.plus(i));
 		}
-		JList<DayOfWeek> header = new JList<DayOfWeek>(weekModel) {
+		JList<DayOfWeek> header = new JList<>(weekModel) {
 			@Override
 			public void updateUI() {
 				setCellRenderer(null);
@@ -69,8 +69,7 @@ public final class CalendarViewList extends JPanel {
 				setCellRenderer((list, value, index, isSelected, cellHasFocus) -> {
 					Component c = r.getListCellRendererComponent(list, value, index, false, false);
 					c.setBackground(new Color(0xDC_DC_DC));
-					if (c instanceof JLabel) {
-						JLabel l = (JLabel) c;
+					if (c instanceof JLabel l) {
 						l.setHorizontalAlignment(SwingConstants.CENTER);
 						// String s = value.getDisplayName(TextStyle.SHORT_STANDALONE, locale);
 						// l.setText(s.substring(0, Math.min(2, s.length())));
@@ -194,8 +193,7 @@ public final class CalendarViewList extends JPanel {
 		public Component getListCellRendererComponent(JList<? extends LocalDate> list, LocalDate value, int index, boolean isSelected, boolean cellHasFocus) {
 			Component c = renderer.getListCellRendererComponent(
 					list, value, index, isSelected, cellHasFocus);
-			if (c instanceof JLabel) {
-				JLabel l = (JLabel) c;
+			if (c instanceof JLabel l) {
 				l.setOpaque(true);
 				l.setHorizontalAlignment(SwingConstants.CENTER);
 				l.setText(Objects.toString(value.getDayOfMonth()));

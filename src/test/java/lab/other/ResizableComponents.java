@@ -387,26 +387,17 @@ class ResizeMouseListener extends MouseInputAdapter {
 	}
 
 	private Point getLimitedDelta(int cursorType, Rectangle pr, int deltaX, int deltaY) {
-		switch (cursorType) {
-			case Cursor.N_RESIZE_CURSOR:
-				return new Point(0, getDeltaY(deltaY));
-			case Cursor.S_RESIZE_CURSOR:
-				return new Point(0, getDeltaY(deltaY, pr));
-			case Cursor.W_RESIZE_CURSOR:
-				return new Point(getDeltaX(deltaX), 0);
-			case Cursor.E_RESIZE_CURSOR:
-				return new Point(getDeltaX(deltaX, pr), 0);
-			case Cursor.NW_RESIZE_CURSOR:
-				return new Point(getDeltaX(deltaX), getDeltaY(deltaY));
-			case Cursor.SW_RESIZE_CURSOR:
-				return new Point(getDeltaX(deltaX), getDeltaY(deltaY, pr));
-			case Cursor.NE_RESIZE_CURSOR:
-				return new Point(getDeltaX(deltaX, pr), getDeltaY(deltaY));
-			case Cursor.SE_RESIZE_CURSOR:
-				return new Point(getDeltaX(deltaX, pr), getDeltaY(deltaY, pr));
-			default:
-				return new Point(deltaX, deltaY);
-		}
+		return switch (cursorType) {
+			case Cursor.N_RESIZE_CURSOR -> new Point(0, getDeltaY(deltaY));
+			case Cursor.S_RESIZE_CURSOR -> new Point(0, getDeltaY(deltaY, pr));
+			case Cursor.W_RESIZE_CURSOR -> new Point(getDeltaX(deltaX), 0);
+			case Cursor.E_RESIZE_CURSOR -> new Point(getDeltaX(deltaX, pr), 0);
+			case Cursor.NW_RESIZE_CURSOR -> new Point(getDeltaX(deltaX), getDeltaY(deltaY));
+			case Cursor.SW_RESIZE_CURSOR -> new Point(getDeltaX(deltaX), getDeltaY(deltaY, pr));
+			case Cursor.NE_RESIZE_CURSOR -> new Point(getDeltaX(deltaX, pr), getDeltaY(deltaY));
+			case Cursor.SE_RESIZE_CURSOR -> new Point(getDeltaX(deltaX, pr), getDeltaY(deltaY, pr));
+			default -> new Point(deltaX, deltaY);
+		};
 	}
 }
 

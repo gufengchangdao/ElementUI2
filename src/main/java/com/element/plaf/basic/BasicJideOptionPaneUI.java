@@ -567,21 +567,12 @@ public class BasicJideOptionPaneUI extends BasicOptionPaneUI {
 					|| UIDefaultsLookup.getBoolean("OptionPane.bannerBackgroundDirection");
 			if (dk == null && lt != null) {
 				dk = lt;
-				bannerPanel.setGradientPaint(
-						dk != null ? dk : getPainter().getOptionPaneBannerLt(),
-						lt != null ? lt : getPainter().getOptionPaneBannerDk(),
-						direction);
+				bannerPanel.setGradientPaint(dk, lt, direction);
 			} else if (dk != null && lt == null) {
 				lt = dk;
-				bannerPanel.setGradientPaint(
-						dk != null ? dk : getPainter().getOptionPaneBannerLt(),
-						lt != null ? lt : getPainter().getOptionPaneBannerDk(),
-						direction);
-			} else if (dk != null && lt != null) {
-				bannerPanel.setGradientPaint(
-						dk != null ? dk : getPainter().getOptionPaneBannerLt(),
-						lt != null ? lt : getPainter().getOptionPaneBannerDk(),
-						direction);
+				bannerPanel.setGradientPaint(dk, lt, direction);
+			} else if (dk != null) {
+				bannerPanel.setGradientPaint(dk, lt, direction);
 			}
 		}
 

@@ -856,7 +856,6 @@ public class EclipseMenuItemUI extends MenuItemUI {
 		 */
 		if ((acceleratorText == null) || acceleratorText.equals("")) {
 			acceleratorRect.width = acceleratorRect.height = 0;
-			acceleratorText = "";
 		} else {
 			acceleratorRect.width = SwingUtilities.computeStringWidth(fmAccel, acceleratorText);
 			acceleratorRect.height = fmAccel.getHeight();
@@ -869,7 +868,7 @@ public class EclipseMenuItemUI extends MenuItemUI {
 			boolean textIsEmpty = (text == null) || text.equals("");
 			int lsb = 0;
 
-			View v = null;
+			View v;
 			v = (menuItem != null) ? (View) menuItem.getClientProperty("html") : null;
 			if (v != null) {
 				textRect.width = (int) v.getPreferredSpan(View.X_AXIS);
@@ -963,9 +962,8 @@ public class EclipseMenuItemUI extends MenuItemUI {
 	 * level menu (on the menubar).
 	 */
 	private boolean useCheckAndArrow() {
-		boolean b = (!(menuItem instanceof JMenu)) ||
+		return (!(menuItem instanceof JMenu)) ||
 				(!((JMenu) menuItem).isTopLevelMenu());
-		return b;
 	}
 
 	public MenuElement[] getPath() {

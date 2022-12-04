@@ -5,16 +5,21 @@
  */
 package com.element.ui.combobox;
 
+import com.element.converter.ObjectConverterManager;
+
 import javax.swing.*;
 import java.util.Vector;
 
 /**
- * An auto completion combobox. It used {@link AutoCompletion} to make the combobox auto-completing. You can use {@link
- * AutoCompletion} directly to make any combobox auto-completing. This class is just a convenient class if all you need
- * is an auto complete combobox.
- * <p/>
- * Since auto-complete has to listen to the key user types, it has to be editable. If you want to limit user to the list
- * available in the combobox model, you can call {@link #setStrict(boolean)} and set it to true.
+ * 自动完成组合框。它使用{@link AutoCompletion}使组合框自动完成。您可以直接使用{@link AutoCompletion}来使任何组合框自动完成。如果你只
+ * 需要一个自动完成的组合框，这个类只是一个方便的类。
+ * <p>
+ * 由于自动完成必须听取关键用户类型，因此它必须是可编辑的。如果您想将用户限制在组合框模型中可用的列表中，您可以调用
+ * {@link #setStrict(boolean)}并将其设置为 true。
+ * <p>
+ * 注意，对于非String的下拉列表需要做特殊处理，可以解开initComponents()中的注释
+ *
+ * @param <E> 数据类型
  */
 public class AutoCompletionComboBox<E> extends JComboBox<E> {
 	protected AutoCompletion _autoCompletion;
@@ -41,7 +46,30 @@ public class AutoCompletionComboBox<E> extends JComboBox<E> {
 
 	protected void initComponents() {
 		setEditable(true);
+		setSelectedIndex(-1);
 		_autoCompletion = createAutoCompletion();
+
+		// 对于非String类型的数据的处理，如果开发者需要AutoCompletionComboBox可以自己处理非String类型可以打开下面的注释
+		// if (!(getModel().getSelectedItem() instanceof String)) {
+		// 	// 初始化默认转换器，如果已经初始化了方法里不会再初始化的
+		// 	ObjectConverterManager.initDefaultConverter();
+		//
+		// 	// 设置render，修改显示的字符串
+		// 	ListCellRenderer<? super E> oldRender = getRenderer();
+		// 	setRenderer((list, value, index, isSelected, cellHasFocus) -> {
+		// 		Component c = oldRender.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
+		// 		if (c instanceof JLabel)
+		// 			((JLabel) c).setText(ObjectConverterManager.toString(value));
+		// 		return c;
+		// 	});
+		//
+		// 	// 设置Item监听器，监听Item的选择
+		// 	// 我不知道JComboBox是在调用什么方法更新输入框的值的，只能在这里设置监听器，当值更新时重新设置输入框的值了
+		// 	addItemListener(e -> {
+		// 		if (getEditor().getEditorComponent() instanceof JTextField f)
+		// 			EventQueue.invokeLater(() -> f.setText(ObjectConverterManager.toString(e.getItem())));
+		// 	});
+		// }
 	}
 
 	/**
@@ -63,6 +91,12 @@ public class AutoCompletionComboBox<E> extends JComboBox<E> {
 					_preventActionEvent = false;
 				}
 			}
+
+			@Override
+			public String convertElementToString(Object object) {
+				if (object instanceof String) return (String) object;
+				return ObjectConverterManager.toString(object);
+			}
 		});
 	}
 
@@ -72,7 +106,7 @@ public class AutoCompletionComboBox<E> extends JComboBox<E> {
 	 * @return the value of strict property.
 	 */
 	public boolean isStrict() {
-		return getAutoCompletion().isStrict();
+		return _autoCompletion.isStrict();
 	}
 
 	/**
@@ -83,7 +117,7 @@ public class AutoCompletionComboBox<E> extends JComboBox<E> {
 	 * @param strict true or false.
 	 */
 	public void setStrict(boolean strict) {
-		getAutoCompletion().setStrict(strict);
+		_autoCompletion.setStrict(strict);
 	}
 
 	/**
@@ -93,7 +127,7 @@ public class AutoCompletionComboBox<E> extends JComboBox<E> {
 	 * @see #setStrictCompletion(boolean)
 	 */
 	public boolean isStrictCompletion() {
-		return getAutoCompletion().isStrictCompletion();
+		return _autoCompletion.isStrictCompletion();
 	}
 
 	/**
@@ -105,7 +139,7 @@ public class AutoCompletionComboBox<E> extends JComboBox<E> {
 	 * @param strictCompletion
 	 */
 	public void setStrictCompletion(boolean strictCompletion) {
-		getAutoCompletion().setStrictCompletion(strictCompletion);
+		_autoCompletion.setStrictCompletion(strictCompletion);
 	}
 
 	/**

@@ -111,7 +111,7 @@ public class RadianceCommonCortex {
 			default -> FontPolicies.getDefaultPlasticPolicy();
 		};
 
-		return () -> new RadianceFontSet(defaultPolicy.getFontSet());
+		return () -> new RadianceFontSet(defaultPolicy.fontSet());
 	}
 
 	/**
@@ -121,7 +121,7 @@ public class RadianceCommonCortex {
 	 * @return Scaled platform-specific font policy.
 	 */
 	public static FontPolicy getScaledFontPolicy(final float scaleFactor) {
-		final FontSet defaultFontSet = getDefaultFontPolicy().getFontSet();
+		final FontSet defaultFontSet = getDefaultFontPolicy().fontSet();
 		// Create the scaled font set
 		return () -> new ScaledFontSet(defaultFontSet, scaleFactor);
 	}

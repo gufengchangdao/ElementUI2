@@ -51,7 +51,7 @@ public class StyleRange {
 	/** 该范围的长度 */
 	private int _length;
 
-	private float _fontShrinkRatio = 1.5f;
+	private float _fontShrinkRatio;
 
 	/**
 	 * Creates a style range with a specified font style.

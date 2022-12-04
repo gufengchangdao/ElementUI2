@@ -174,12 +174,8 @@ public class RolloverIcon implements Icon {
 	public RolloverIcon(IconRolloverSupport rolloverSupport, int iconType) {
 		_rolloverSupport = rolloverSupport;
 		switch (iconType) {
-			case ICON_EXPANDED:
-				_normalIcon = new DefaultExpandedIcon(rolloverSupport);
-				break;
-			case ICON_COLLAPSED:
-				_normalIcon = new DefaultCollapsedIcon(rolloverSupport);
-				break;
+			case ICON_EXPANDED -> _normalIcon = new DefaultExpandedIcon(rolloverSupport);
+			case ICON_COLLAPSED -> _normalIcon = new DefaultCollapsedIcon(rolloverSupport);
 		}
 		_rolloverIcon = null;
 	}

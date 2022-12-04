@@ -9,18 +9,18 @@ import java.awt.*;
  * ButtonPanel. In addition, it has title, icon, description and parent attribute.
  */
 public abstract class AbstractDialogPage extends AbstractPage {
+	// 属性
+	public static final String TITLE_PROPERTY = "title";
+	public static final String ICON_PROPERTY = "icon";
+	public static final String PAGE_ENABLED_PROPERTY = "pageEnabled";
+	public static final String DESCRIPTION_PROPERTY = "description";
 	protected transient ButtonEvent _buttonEvent = null;
 
-	protected String _title;
-	protected String _description;
-	protected Icon _icon;
-	protected boolean _pageEnabled = true;
-	protected AbstractDialogPage _parentPage;
-
-	public static final String TITLE_PROPERTY = "title";
-	public static final String DESCRIPTION_PROPERTY = "description";
-	public static final String ICON_PROPERTY = "icon";
-	public static final String PROPERTY_PAGE_ENABLED = "enabled";
+	protected String title;
+	protected String description;
+	protected Icon icon;
+	protected boolean pageEnabled = true;
+	protected AbstractDialogPage parentPage;
 
 	private Component _defaultFocusComponent;
 
@@ -36,7 +36,7 @@ public abstract class AbstractDialogPage extends AbstractPage {
 	 * @param title the title of the page
 	 */
 	public AbstractDialogPage(String title) {
-		_title = title;
+		this.title = title;
 	}
 
 	/**
@@ -46,8 +46,8 @@ public abstract class AbstractDialogPage extends AbstractPage {
 	 * @param description the description for the page
 	 */
 	public AbstractDialogPage(String title, String description) {
-		_title = title;
-		_description = description;
+		this.title = title;
+		this.description = description;
 	}
 
 	/**
@@ -57,8 +57,8 @@ public abstract class AbstractDialogPage extends AbstractPage {
 	 * @param icon  the icon of the page
 	 */
 	public AbstractDialogPage(String title, Icon icon) {
-		_title = title;
-		_icon = icon;
+		this.title = title;
+		this.icon = icon;
 	}
 
 	/**
@@ -69,9 +69,9 @@ public abstract class AbstractDialogPage extends AbstractPage {
 	 * @param description the description for the page
 	 */
 	public AbstractDialogPage(String title, String description, Icon icon) {
-		_title = title;
-		_icon = icon;
-		_description = description;
+		this.title = title;
+		this.icon = icon;
+		this.description = description;
 	}
 
 	/**
@@ -83,10 +83,10 @@ public abstract class AbstractDialogPage extends AbstractPage {
 	 * @param parentPage  the parent of the page
 	 */
 	public AbstractDialogPage(String title, String description, Icon icon, AbstractDialogPage parentPage) {
-		_title = title;
-		_icon = icon;
-		_description = description;
-		_parentPage = parentPage;
+		this.title = title;
+		this.icon = icon;
+		this.description = description;
+		this.parentPage = parentPage;
 	}
 
 	/**
@@ -115,8 +115,7 @@ public abstract class AbstractDialogPage extends AbstractPage {
 	 * @since 1.4
 	 */
 	public ButtonListener[] getButtonListeners() {
-		return listenerList.getListeners(
-				ButtonListener.class);
+		return listenerList.getListeners(ButtonListener.class);
 	}
 
 	/**
@@ -168,7 +167,7 @@ public abstract class AbstractDialogPage extends AbstractPage {
 	 * @return the title
 	 */
 	public String getTitle() {
-		return _title;
+		return title;
 	}
 
 	/**
@@ -177,9 +176,9 @@ public abstract class AbstractDialogPage extends AbstractPage {
 	 * @param title the new title
 	 */
 	public void setTitle(String title) {
-		String old = _title;
-		_title = title;
-		firePropertyChange(TITLE_PROPERTY, old, _title);
+		String old = this.title;
+		this.title = title;
+		firePropertyChange(TITLE_PROPERTY, old, this.title);
 	}
 
 	/**
@@ -188,7 +187,7 @@ public abstract class AbstractDialogPage extends AbstractPage {
 	 * @return the icon of the page.
 	 */
 	public Icon getIcon() {
-		return _icon;
+		return icon;
 	}
 
 	/**
@@ -197,9 +196,9 @@ public abstract class AbstractDialogPage extends AbstractPage {
 	 * @param icon the new icon
 	 */
 	public void setIcon(Icon icon) {
-		Icon old = _icon;
-		_icon = icon;
-		firePropertyChange(ICON_PROPERTY, old, _icon);
+		Icon old = this.icon;
+		this.icon = icon;
+		firePropertyChange(ICON_PROPERTY, old, this.icon);
 	}
 
 
@@ -209,7 +208,7 @@ public abstract class AbstractDialogPage extends AbstractPage {
 	 * @return true if the page is enabled. Otherwise false.
 	 */
 	public boolean isPageEnabled() {
-		return _pageEnabled;
+		return pageEnabled;
 	}
 
 	/**
@@ -219,11 +218,11 @@ public abstract class AbstractDialogPage extends AbstractPage {
 	 * @param pageEnabled
 	 */
 	public void setPageEnabled(boolean pageEnabled) {
-		if (_pageEnabled != pageEnabled) {
-			Boolean oldValue = _pageEnabled ? Boolean.TRUE : Boolean.FALSE;
+		if (this.pageEnabled != pageEnabled) {
+			Boolean oldValue = this.pageEnabled ? Boolean.TRUE : Boolean.FALSE;
 			Boolean newValue = pageEnabled ? Boolean.TRUE : Boolean.FALSE;
-			_pageEnabled = pageEnabled;
-			firePropertyChange(PROPERTY_PAGE_ENABLED, oldValue, newValue);
+			this.pageEnabled = pageEnabled;
+			firePropertyChange(PAGE_ENABLED_PROPERTY, oldValue, newValue);
 		}
 	}
 
@@ -233,7 +232,7 @@ public abstract class AbstractDialogPage extends AbstractPage {
 	 * @return the description
 	 */
 	public String getDescription() {
-		return _description;
+		return description;
 	}
 
 	/**
@@ -242,9 +241,9 @@ public abstract class AbstractDialogPage extends AbstractPage {
 	 * @param description the new description
 	 */
 	public void setDescription(String description) {
-		String old = _description;
-		_description = description;
-		firePropertyChange(DESCRIPTION_PROPERTY, old, _description);
+		String old = this.description;
+		this.description = description;
+		firePropertyChange(DESCRIPTION_PROPERTY, old, this.description);
 	}
 
 	/**
@@ -253,7 +252,7 @@ public abstract class AbstractDialogPage extends AbstractPage {
 	 * @return the parent page
 	 */
 	public AbstractDialogPage getParentPage() {
-		return _parentPage;
+		return parentPage;
 	}
 
 	/**
@@ -262,7 +261,7 @@ public abstract class AbstractDialogPage extends AbstractPage {
 	 * @param parentPage the parent page
 	 */
 	public void setParentPage(AbstractDialogPage parentPage) {
-		_parentPage = parentPage;
+		this.parentPage = parentPage;
 	}
 
 	/**
@@ -271,15 +270,15 @@ public abstract class AbstractDialogPage extends AbstractPage {
 	 * @return the full qualified title
 	 */
 	public String getFullTitle() {
-		StringBuilder buffer = new StringBuilder(getTitle());
+		StringBuilder b = new StringBuilder(getTitle());
 		AbstractDialogPage page = this;
 		while (page.getParentPage() != null) {
 			AbstractDialogPage parent = page.getParentPage();
-			buffer.insert(0, ".");
-			buffer.insert(0, parent.getTitle());
+			b.insert(0, ".");
+			b.insert(0, parent.getTitle());
 			page = parent;
 		}
-		return new String(buffer);
+		return new String(b);
 	}
 
 	/**
@@ -306,11 +305,7 @@ public abstract class AbstractDialogPage extends AbstractPage {
 	public void focusDefaultFocusComponent() {
 		final Component focusComponent = getDefaultFocusComponent();
 		if (focusComponent != null) {
-			Runnable runnable = () -> {
-				if (focusComponent != null) {
-					focusComponent.requestFocusInWindow();
-				}
-			};
+			Runnable runnable = focusComponent::requestFocusInWindow;
 			SwingUtilities.invokeLater(runnable);
 		}
 	}

@@ -59,7 +59,7 @@ public class DefaultGnomeFontPolicy implements FontPolicy {
 	}
 
 	@Override
-	public FontSet getFontSet() {
+	public FontSet fontSet() {
 		Object defaultGtkFontName = Toolkit.getDefaultToolkit()
 				.getDesktopProperty("gnome.Gtk/FontName");
 		StringBuilder family = new StringBuilder();
@@ -107,31 +107,8 @@ public class DefaultGnomeFontPolicy implements FontPolicy {
 			family = new StringBuilder("sans");
 		// Font controlFont = new Font(family, style, size);
 
-		Font controlFont = null;
-		// make some black magic with sun-private classes
-		// to better map the logical font name (such as sans)
-		// to an actual font (such as DejaVu Sans).
-		String fcFamilyLC = family.toString().toLowerCase();
-		try {
-			Class<?> fontManagerClass = Class.forName("sun.font.FontManager");
-			Method mapFcMethod = fontManagerClass.getMethod("mapFcName",
-					String.class);
-			Object mapFcMethodResult = mapFcMethod.invoke(null, fcFamilyLC);
-			if (mapFcMethodResult != null) {
-				Method getFontConfigFUIRMethod = fontManagerClass.getMethod(
-						"getFontConfigFUIR", String.class, int.class, int.class);
-				controlFont = (Font) getFontConfigFUIRMethod.invoke(null,
-						fcFamilyLC, style, size);
-			} else {
-				Font font = new FontUIResource(family.toString(), style, size);
-				Method getCompositeFontUIResourceMethod = fontManagerClass
-						.getMethod("getCompositeFontUIResource", Font.class);
-				controlFont = (Font) getCompositeFontUIResourceMethod.invoke(
-						null, font);
-			}
-		} catch (Throwable t) {
-			controlFont = new Font(family.toString(), style, size);
-		}
+		Font controlFont;
+		controlFont = new Font(family.toString(), style, size);
 
 		return FontSets.createDefaultFontSet(controlFont);
 	}
@@ -139,7 +116,7 @@ public class DefaultGnomeFontPolicy implements FontPolicy {
 	public static double getPointsToPixelsRatio() {
 		// for details behind the computations, look in
 		// com.sun.java.swing.plaf.gtk.PangoFonts
-		int dpi = 96;
+		int dpi;
 		Object value = Toolkit.getDefaultToolkit().getDesktopProperty(
 				"gnome.Xft/DPI");
 		if (value instanceof Integer) {

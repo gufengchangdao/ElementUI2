@@ -1,8 +1,6 @@
 package com.element.ui.template;
 
 import com.element.swing.compo.RoundComponent;
-import com.element.util.SwingTestUtil;
-import net.miginfocom.swing.MigLayout;
 
 import javax.swing.*;
 import java.awt.*;

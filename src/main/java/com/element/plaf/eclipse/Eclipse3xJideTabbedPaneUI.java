@@ -9,6 +9,7 @@ package com.element.plaf.eclipse;
 import com.element.plaf.UIDefaultsLookup;
 import com.element.plaf.vsnet.VsnetJideTabbedPaneUI;
 import com.element.ui.tabs.JideTabbedPane;
+import com.element.ui.tabs.JideTabbedPane.NoFocusButton;
 import com.element.util.UIUtil;
 
 import javax.swing.*;
@@ -143,8 +144,8 @@ public class Eclipse3xJideTabbedPaneUI extends VsnetJideTabbedPaneUI {
 						bounds = new Rectangle(_rects[i].x + _rects[i].width - size.width - 16, _rects[i].y + ((_rects[i].height - size.height) >> 1), size.width, size.height);
 					}
 				}
-				if (_closeButtons[i] instanceof JideTabbedPane.NoFocusButton) {
-					((JideTabbedPane.NoFocusButton) _closeButtons[i]).setIndex(i);
+				if (_closeButtons[i] instanceof NoFocusButton) {
+					((NoFocusButton) _closeButtons[i]).setIndex(i);
 				}
 				if (!bounds.equals(_closeButtons[i].getBounds())) {
 					_closeButtons[i].setBounds(bounds);
@@ -213,86 +214,78 @@ public class Eclipse3xJideTabbedPaneUI extends VsnetJideTabbedPaneUI {
 			if (_tabPane.isOpaque()) {
 				g.setColor(_shadow);
 				switch (tabPlacement) {
-					case LEFT:
+					case LEFT -> {
 						if (!isTabLeadingComponentVisible()) {
 							g.fillRect(viewRect.x, viewRect.y + 3, 1, 2);
 							g.fillRect(viewRect.x + 1, viewRect.y + 2, 1, 1);
 							g.fillRect(viewRect.x + 2, viewRect.y + 1, 1, 1);
 							g.fillRect(viewRect.x + 3, viewRect.y, 2, 1);
 						}
-
 						if (isNoneTabTrailingComponentVisible()) {
 							g.fillRect(viewRect.x + 3, viewRect.y + viewRect.height - 1, 2, 1);
 							g.fillRect(viewRect.x + 2, viewRect.y + viewRect.height - 2, 1, 1);
 							g.fillRect(viewRect.x + 1, viewRect.y + viewRect.height - 3, 1, 1);
 							g.fillRect(viewRect.x, viewRect.y + viewRect.height - 5, 1, 2);
 						}
-
 						g.setColor(_tabBackground);
 						g.fillRect(viewRect.x, viewRect.y, 3, 1);
 						g.fillRect(viewRect.x, viewRect.y + 1, 2, 1);
 						g.fillRect(viewRect.x, viewRect.y + 2, 1, 1);
-						break;
-					case RIGHT:
+					}
+					case RIGHT -> {
 						if (!isTabLeadingComponentVisible()) {
 							g.fillRect(viewRect.x + viewRect.width - 5, viewRect.y, 2, 1);
 							g.fillRect(viewRect.x + viewRect.width - 3, viewRect.y + 1, 1, 1);
 							g.fillRect(viewRect.x + viewRect.width - 2, viewRect.y + 2, 1, 1);
 							g.fillRect(viewRect.x + viewRect.width - 1, viewRect.y + 3, 1, 2);
 						}
-
 						if (isNoneTabTrailingComponentVisible()) {
 							g.fillRect(viewRect.x + viewRect.width - 5, viewRect.y + viewRect.height - 1, 2, 1);
 							g.fillRect(viewRect.x + viewRect.width - 3, viewRect.y + viewRect.height - 2, 1, 1);
 							g.fillRect(viewRect.x + viewRect.width - 2, viewRect.y + viewRect.height - 3, 1, 1);
 							g.fillRect(viewRect.x + viewRect.width - 1, viewRect.y + viewRect.height - 5, 1, 2);
 						}
-
 						g.setColor(_tabBackground);
 						g.fillRect(viewRect.x + viewRect.width - 3, viewRect.y, 3, 1);
 						g.fillRect(viewRect.x + viewRect.width - 2, viewRect.y + 1, 2, 1);
 						g.fillRect(viewRect.x + viewRect.width - 1, viewRect.y + 2, 1, 1);
-						break;
-					case BOTTOM:
+					}
+					case BOTTOM -> {
 						if (!isTabLeadingComponentVisible()) {
 							g.fillRect(viewRect.x + 3, viewRect.y + viewRect.height - 1, 2, 1);
 							g.fillRect(viewRect.x + 2, viewRect.y + viewRect.height - 2, 1, 1);
 							g.fillRect(viewRect.x + 1, viewRect.y + viewRect.height - 3, 1, 1);
 							g.fillRect(viewRect.x, viewRect.y + viewRect.height - 5, 1, 2);
 						}
-
 						if (isNoneTabTrailingComponentVisible()) {
 							g.fillRect(viewRect.x + viewRect.width - 5, viewRect.y + viewRect.height - 1, 2, 1);
 							g.fillRect(viewRect.x + viewRect.width - 3, viewRect.y + viewRect.height - 2, 1, 1);
 							g.fillRect(viewRect.x + viewRect.width - 2, viewRect.y + viewRect.height - 3, 1, 1);
 							g.fillRect(viewRect.x + viewRect.width - 1, viewRect.y + viewRect.height - 5, 1, 2);
 						}
-
 						g.setColor(_tabBackground);
 						g.fillRect(viewRect.x, viewRect.y + viewRect.height - 1, 3, 1);
 						g.fillRect(viewRect.x, viewRect.y + viewRect.height - 2, 2, 1);
 						g.fillRect(viewRect.x, viewRect.y + viewRect.height - 3, 1, 1);
-						break;
-					case TOP:
-					default:
+					}
+					default -> {
 						if (!isTabLeadingComponentVisible()) {
 							g.fillRect(viewRect.x + 3, viewRect.y, 2, 1);
 							g.fillRect(viewRect.x + 2, viewRect.y + 1, 1, 1);
 							g.fillRect(viewRect.x + 1, viewRect.y + 2, 1, 1);
 							g.fillRect(viewRect.x, viewRect.y + 3, 1, 2);
 						}
-
 						if (isNoneTabTrailingComponentVisible()) {
 							g.fillRect(viewRect.x + viewRect.width - 5, viewRect.y, 2, 1);
 							g.fillRect(viewRect.x + viewRect.width - 3, viewRect.y + 1, 1, 1);
 							g.fillRect(viewRect.x + viewRect.width - 2, viewRect.y + 2, 1, 1);
 							g.fillRect(viewRect.x + viewRect.width - 1, viewRect.y + 3, 1, 2);
 						}
-
 						g.setColor(_tabBackground);
 						g.fillRect(viewRect.x, viewRect.y, 3, 1);
 						g.fillRect(viewRect.x, viewRect.y + 1, 2, 1);
 						g.fillRect(viewRect.x, viewRect.y + 2, 1, 1);
+					}
 				}
 			}
 		} else {
@@ -401,10 +394,9 @@ public class Eclipse3xJideTabbedPaneUI extends VsnetJideTabbedPaneUI {
 			g.setColor(_lightHighlight);
 			boolean leftToRight = _tabPane.getComponentOrientation().isLeftToRight();
 			switch (tabPlacement) {
-				case LEFT:
+				case LEFT -> {
 					if (!isTabLeadingComponentVisible())
 						y--;
-
 					if (isSelected) {
 						g.setColor(_shadow);
 						g.drawLine(x + 5, y, x + w - 1, y);// top
@@ -450,18 +442,14 @@ public class Eclipse3xJideTabbedPaneUI extends VsnetJideTabbedPaneUI {
 
 						break;
 					}
-
 					if (tabIndex >= _tabPane.getSelectedIndex() || tabIndex == 0)
 						break;
-
 					g.setColor(_shadow);
 					g.drawLine(x, y - 1, x + w - 1, y - 1);// top
-
-					break;
-				case RIGHT:
+				}
+				case RIGHT -> {
 					if (!isTabLeadingComponentVisible())
 						y--;
-
 					if (isSelected) {
 						g.setColor(_shadow);
 
@@ -506,15 +494,12 @@ public class Eclipse3xJideTabbedPaneUI extends VsnetJideTabbedPaneUI {
 
 						break;
 					}
-
 					if (tabIndex >= _tabPane.getSelectedIndex() || tabIndex == 0)
 						break;
-
 					g.setColor(_shadow);
 					g.drawLine(x, y - 1, x + w - 1, y - 1);// top
-
-					break;
-				case BOTTOM:
+				}
+				case BOTTOM -> {
 					if (!isTabLeadingComponentVisible()) {
 						x--;
 					}
@@ -565,22 +550,18 @@ public class Eclipse3xJideTabbedPaneUI extends VsnetJideTabbedPaneUI {
 						}
 						break;
 					}
-
 					if (tabIndex >= _tabPane.getSelectedIndex() || tabIndex == 0)
 						break;
-
 					g.setColor(_shadow);
 					if (leftToRight) {
 						g.drawLine(x, y - 1, x, y + h);// left
 					} else {
 						g.drawLine(x + w - 2, y - 1, x + w - 2, y + h);// left
 					}
-					break;
-				case TOP:
-				default:
+				}
+				default -> {
 					if (!isTabLeadingComponentVisible())
 						x--;
-
 					if (isSelected) {
 						g.setColor(_shadow);
 
@@ -616,7 +597,6 @@ public class Eclipse3xJideTabbedPaneUI extends VsnetJideTabbedPaneUI {
 						g.drawLine(x + w + h - 11, y + h - 1, x + w + h - 9, y + h - 1);
 						break;
 					}
-
 					if (tabIndex > _tabPane.getSelectedIndex()) {
 						g.setColor(_shadow);
 						if (leftToRight) {
@@ -626,17 +606,15 @@ public class Eclipse3xJideTabbedPaneUI extends VsnetJideTabbedPaneUI {
 						}
 						break;
 					}
-
 					if (tabIndex >= _tabPane.getSelectedIndex() || tabIndex == 0)
 						break;
 					g.setColor(_shadow);
-
 					if (leftToRight) {
 						g.drawLine(x, y, x, y + (h - 1));// left
 					} else {
 						g.drawLine(x + w - 2, y, x + w - 2, y + (h - 1));// left
 					}
-					break;
+				}
 			}
 		} else {
 			super.paintTabBorder(g, tabPlacement, tabIndex, x, y, w, h, isSelected);
@@ -667,7 +645,7 @@ public class Eclipse3xJideTabbedPaneUI extends VsnetJideTabbedPaneUI {
 			}
 
 			switch (tabPlacement) {
-				case LEFT: {
+				case LEFT -> {
 					if (!isTabLeadingComponentVisible())
 						y--;
 					int[] xp = {x + w, x + 5, x, x, x + 6, x + w - 6, x + w};
@@ -677,8 +655,7 @@ public class Eclipse3xJideTabbedPaneUI extends VsnetJideTabbedPaneUI {
 					Polygon p = new Polygon(xp, yp, np);
 					UIUtil.fillGradient(g2d, p, background1, background2, false);
 				}
-				break;
-				case RIGHT: {
+				case RIGHT -> {
 					if (!isTabLeadingComponentVisible())
 						y--;
 					int[] xp = {x, x + w - 6, x + w, x + w, x + w - 5, x + 5, x};
@@ -688,8 +665,7 @@ public class Eclipse3xJideTabbedPaneUI extends VsnetJideTabbedPaneUI {
 					Polygon p = new Polygon(xp, yp, np);
 					UIUtil.fillGradient(g2d, p, background2, background1, false);
 				}
-				break;
-				case BOTTOM: {
+				case BOTTOM -> {
 					if (!isTabLeadingComponentVisible())
 						x--;
 					// not box style
@@ -702,9 +678,7 @@ public class Eclipse3xJideTabbedPaneUI extends VsnetJideTabbedPaneUI {
 					Polygon p = new Polygon(xp, yp, np);
 					UIUtil.fillGradient(g2d, p, background2, background1, true);
 				}
-				break;
-				case TOP:
-				default: {
+				default -> {
 					if (!isTabLeadingComponentVisible())
 						x--;
 					int[] xp = {x, x, x + 2, x + 3, x + 6, x + w - 20, x + w - 14,
@@ -715,7 +689,6 @@ public class Eclipse3xJideTabbedPaneUI extends VsnetJideTabbedPaneUI {
 					Polygon p = new Polygon(xp, yp, np);
 					UIUtil.fillGradient(g2d, p, background1, background2, true);
 				}
-				break;
 			}
 		} else {
 			super.paintTabBackground(g, tabPlacement, tabIndex, x, y, w, h, isSelected);
@@ -741,7 +714,7 @@ public class Eclipse3xJideTabbedPaneUI extends VsnetJideTabbedPaneUI {
 
 			int temp = -1;
 			switch (tabPlacement) {
-				case LEFT:
+				case LEFT -> {
 					x += calculateTabAreaWidth(tabPlacement, _runCount, _maxTabWidth);
 					if (isTabLeadingComponentVisible()) {
 						if (_tabLeadingComponent.getSize().width > calculateTabAreaWidth(tabPlacement, _runCount, _maxTabWidth)) {
@@ -756,15 +729,10 @@ public class Eclipse3xJideTabbedPaneUI extends VsnetJideTabbedPaneUI {
 						}
 					}
 					w -= (x - insets.left);
-					break;
-				case RIGHT:
-					w -= calculateTabAreaWidth(tabPlacement, _runCount, _maxTabWidth);
-					break;
-				case BOTTOM:
-					h -= calculateTabAreaHeight(tabPlacement, _runCount, _maxTabHeight);
-					break;
-				case TOP:
-				default:
+				}
+				case RIGHT -> w -= calculateTabAreaWidth(tabPlacement, _runCount, _maxTabWidth);
+				case BOTTOM -> h -= calculateTabAreaHeight(tabPlacement, _runCount, _maxTabHeight);
+				default -> {
 					y += calculateTabAreaHeight(tabPlacement, _runCount, _maxTabHeight);
 					if (isTabLeadingComponentVisible()) {
 						if (_tabLeadingComponent.getSize().height > calculateTabAreaHeight(tabPlacement, _runCount, _maxTabHeight)) {
@@ -779,6 +747,7 @@ public class Eclipse3xJideTabbedPaneUI extends VsnetJideTabbedPaneUI {
 						}
 					}
 					h -= (y - insets.top);
+				}
 			}
 
 			// Fill region behind content area
@@ -802,7 +771,7 @@ public class Eclipse3xJideTabbedPaneUI extends VsnetJideTabbedPaneUI {
 
 
 			switch (tabPlacement) {
-				case LEFT:
+				case LEFT -> {
 					if (r.y < viewRect.y + viewRect.height
 							&& r.y + r.height
 							+ _tabPane.getBoundsAt(selectedIndex).width - 9 > viewRect.y
@@ -825,9 +794,8 @@ public class Eclipse3xJideTabbedPaneUI extends VsnetJideTabbedPaneUI {
 
 					}
 					paintContentBorderLeftEdge(g, tabPlacement, selectedIndex, x, y, w, h);
-					break;
-
-				case RIGHT:
+				}
+				case RIGHT -> {
 					if (r.y < viewRect.y + viewRect.height
 							&& r.y + r.height
 							+ _tabPane.getBoundsAt(selectedIndex).width - 9 > viewRect.y
@@ -848,9 +816,8 @@ public class Eclipse3xJideTabbedPaneUI extends VsnetJideTabbedPaneUI {
 
 					}
 					paintContentBorderRightEdge(g, tabPlacement, selectedIndex, x, y, w, h);
-					break;
-
-				case BOTTOM:
+				}
+				case BOTTOM -> {
 					if (r.x < viewRect.x + viewRect.width
 							&& r.x + r.width
 							+ _tabPane.getBoundsAt(selectedIndex).height
@@ -871,11 +838,8 @@ public class Eclipse3xJideTabbedPaneUI extends VsnetJideTabbedPaneUI {
 
 					}
 					paintContentBorderBottomEdge(g, tabPlacement, selectedIndex, x, y, w, h);
-					break;
-
-				case TOP:
-				default:
-
+				}
+				default -> {
 					if (r.x < viewRect.x + viewRect.width && r.x + r.width + _tabPane.getBoundsAt(selectedIndex).height - 9 > viewRect.x + viewRect.width) {
 						if (selectedIndex != _tabPane.getTabCount() - 1) {
 							viewRect.x += (r.x + r.width + _tabPane.getBoundsAt(selectedIndex).height - 9 - (viewRect.x + viewRect.width));
@@ -890,80 +854,69 @@ public class Eclipse3xJideTabbedPaneUI extends VsnetJideTabbedPaneUI {
 							}
 						}
 					}
-
 					paintContentBorderTopEdge(g, tabPlacement, selectedIndex, x, y, w, h);
-					break;
-
+				}
 			}
 
 			g.setColor(_shadow);
 			if (_tabPane.isTabShown()) {
 				switch (tabPlacement) {
-					case LEFT:
+					case LEFT -> {
 						g.drawLine(width - 1, 0, width - 1, height - 1);
 						g.drawLine(6, 0, width - 1, 0);
 						g.drawLine(6, height - 1, width - 1, height - 1);
 						g.drawLine(0, 6, 0, height - 7);
-
 						g.drawLine(1, height - 6, 1, height - 5);
 						g.drawLine(2, height - 4, 2, height - 4);
 						g.drawLine(3, height - 3, 3, height - 3);
 						g.drawLine(4, height - 2, 5, height - 2);
-
 						g.drawLine(4, 1, 5, 1);
 						g.drawLine(3, 2, 3, 2);
 						g.drawLine(2, 3, 2, 3);
 						g.drawLine(1, 4, 1, 5);
-						break;
-					case RIGHT:
+					}
+					case RIGHT -> {
 						g.drawLine(0, 0, 0, height - 1);
 						g.drawLine(0, 0, width - 7, 0);
 						g.drawLine(0, height - 1, width - 7, height - 1);
 						g.drawLine(width - 1, 6, width - 1, height - 7);
-
 						g.drawLine(width - 2, height - 6, width - 2, height - 5);
 						g.drawLine(width - 3, height - 4, width - 3, height - 4);
 						g.drawLine(width - 4, height - 3, width - 4, height - 3);
 						g.drawLine(width - 5, height - 2, width - 6, height - 2);
-
 						g.drawLine(width - 6, 1, width - 5, 1);
 						g.drawLine(width - 4, 2, width - 4, 2);
 						g.drawLine(width - 3, 3, width - 3, 3);
 						g.drawLine(width - 2, 4, width - 2, 5);
-						break;
-					case BOTTOM:
+					}
+					case BOTTOM -> {
 						g.drawLine(0, 0, width - 1, 0);
 						g.drawLine(0, 0, 0, height - 7);
 						g.drawLine(width - 1, 0, width - 1, height - 7);
 						g.drawLine(6, height - 1, width - 7, height - 1);
-
 						g.drawLine(width - 6, height - 2, width - 5, height - 2);
 						g.drawLine(width - 4, height - 3, width - 4, height - 3);
 						g.drawLine(width - 3, height - 4, width - 3, height - 4);
 						g.drawLine(width - 2, height - 5, width - 2, height - 6);
-
 						g.drawLine(1, height - 6, 1, height - 5);
 						g.drawLine(2, height - 4, 2, height - 4);
 						g.drawLine(3, height - 3, 3, height - 3);
 						g.drawLine(4, height - 2, 5, height - 2);
-						break;
-					case TOP:
-					default:
+					}
+					default -> {
 						g.drawLine(6, 0, width - 7, 0);
 						g.drawLine(0, height - 1, width - 1, height - 1);
 						g.drawLine(width - 1, 6, width - 1, height - 1);
 						g.drawLine(0, 6, 0, height - 1);
-
 						g.drawLine(width - 6, 1, width - 5, 1);
 						g.drawLine(width - 4, 2, width - 4, 2);
 						g.drawLine(width - 3, 3, width - 3, 3);
 						g.drawLine(width - 2, 4, width - 2, 5);
-
 						g.drawLine(4, 1, 5, 1);
 						g.drawLine(3, 2, 3, 2);
 						g.drawLine(2, 3, 2, 3);
 						g.drawLine(1, 4, 1, 5);
-						break;
+					}
 				}
 			} else {
 				g.drawRect(0, 0, width - 1, height - 1);
@@ -1204,101 +1157,21 @@ public class Eclipse3xJideTabbedPaneUI extends VsnetJideTabbedPaneUI {
 			int x, y, w, h;
 			g.setColor(_focus);
 			switch (tabPlacement) {
-				case LEFT:
+				case LEFT, RIGHT -> {
 					x = tabRect.x + 2;
 					y = tabRect.y + 3;
 					w = tabRect.width - 4;
 					h = tabRect.height - 19;
-					break;
-				case RIGHT:
-					x = tabRect.x + 2;
-					y = tabRect.y + 3;
-					w = tabRect.width - 4;
-					h = tabRect.height - 19;
-					break;
-				case BOTTOM:
+				}
+				default -> {
 					x = tabRect.x + 3;
 					y = tabRect.y + 2;
 					w = tabRect.width - 19;
 					h = tabRect.height - 3;
-					break;
-				case TOP:
-				default:
-					x = tabRect.x + 3;
-					y = tabRect.y + 2;
-					w = tabRect.width - 19;
-					h = tabRect.height - 3;
+				}
 			}
 			BasicGraphicsUtils.drawDashedRect(g, x, y, w, h);
 		}
 	}
 
-	@Override
-	protected TabCloseButton createNoFocusButton(int type) {
-		return new Eclipse3xTabCloseButton(type);
-	}
-
-	public class Eclipse3xTabCloseButton extends TabCloseButton {
-		public Eclipse3xTabCloseButton(int type) {
-			super(type);
-		}
-
-		@Override
-		public Dimension getPreferredSize() {
-			return new Dimension(15, 15);
-		}
-
-		@Override
-		protected void paintComponent(Graphics g) {
-			if (!isEnabled()) {
-				setMouseOver(false);
-				setMousePressed(false);
-			}
-			g.setColor(UIDefaultsLookup.getColor("controlShadow").darker());
-			int centerX = getWidth() >> 1;
-			int centerY = getHeight() >> 1;
-			switch (getType()) {
-				case JideTabbedPane.BUTTON_CLOSE:
-					g.drawLine(centerX - 4, centerY - 4, centerX - 2, centerY - 4); // top-left top
-					g.drawLine(centerX - 4, centerY - 4, centerX - 4, centerY - 2); // top-left left
-
-					g.drawLine(centerX - 1, centerY - 3, centerX, centerY - 2); // top-left top-diag
-					g.drawLine(centerX - 3, centerY - 1, centerX - 2, centerY); // top-left left-diag
-
-					g.drawLine(centerX + 3, centerY - 4, centerX + 5, centerY - 4); // top-right top
-					g.drawLine(centerX + 5, centerY - 4, centerX + 5, centerY - 2); // top-right right
-
-					g.drawLine(centerX + 2, centerY - 3, centerX + 1, centerY - 2); // top-right top-diag
-					g.drawLine(centerX + 4, centerY - 1, centerX + 3, centerY); // top-right right-diag
-
-					g.drawLine(centerX - 4, centerY + 5, centerX - 2, centerY + 5); // bottom-left bottom
-					g.drawLine(centerX - 4, centerY + 5, centerX - 4, centerY + 3); // bottom-left left
-
-					g.drawLine(centerX - 1, centerY + 4, centerX, centerY + 3); // bottom-left bottom-diag
-					g.drawLine(centerX - 3, centerY + 2, centerX - 2, centerY + 1); // bottom-left left-diag
-
-					g.drawLine(centerX + 3, centerY + 5, centerX + 5, centerY + 5); // bottom-right bottom
-					g.drawLine(centerX + 5, centerY + 5, centerX + 5, centerY + 3); // bottom-right right
-
-					g.drawLine(centerX + 2, centerY + 4, centerX + 1, centerY + 3); // bottom-right bottom-diag
-					g.drawLine(centerX + 4, centerY + 2, centerX + 3, centerY + 1); // bottom-right right-diag
-
-					if (isMouseOver()) {
-						g.setColor(new Color(252, 160, 160));
-					} else {
-						g.setColor(Color.WHITE);
-					}
-					g.drawLine(centerX - 2, centerY - 3, centerX + 4, centerY + 3);
-					g.drawLine(centerX - 3, centerY - 3, centerX + 4, centerY + 4);
-					g.drawLine(centerX - 3, centerY - 2, centerX + 3, centerY + 4);
-
-					g.drawLine(centerX - 3, centerY + 3, centerX + 3, centerY - 3);
-					g.drawLine(centerX - 3, centerY + 4, centerX + 4, centerY - 3);
-					g.drawLine(centerX - 2, centerY + 4, centerX + 4, centerY - 2);
-					break;
-				default:
-					super.paintComponent(g);
-			}
-		}
-	}
 }

@@ -197,10 +197,9 @@ class SiteComboBoxLayout implements LayoutManager {
 
 	@Override
 	public void layoutContainer(Container parent) {
-		if (!(parent instanceof JComboBox)) {
+		if (!(parent instanceof JComboBox<?> cb)) {
 			return;
 		}
-		JComboBox<?> cb = (JComboBox<?>) parent;
 		Rectangle r = SwingUtilities.calculateInnerArea(cb, null);
 
 		// Arrow Icon JButton

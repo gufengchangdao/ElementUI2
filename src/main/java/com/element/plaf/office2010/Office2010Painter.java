@@ -179,20 +179,8 @@ public class Office2010Painter extends BasicPainter {
 				background = c.getBackground();
 				break;
 			case STATE_ROLLOVER:
-				if (c instanceof ComponentStateSupport) {
-					background = ((ComponentStateSupport) c).getBackgroundOfState(state);
-				}
-				break;
 			case STATE_SELECTED:
-				if (c instanceof ComponentStateSupport) {
-					background = ((ComponentStateSupport) c).getBackgroundOfState(state);
-				}
-				break;
 			case STATE_DISABLE_SELECTED:
-				if (c instanceof ComponentStateSupport) {
-					background = ((ComponentStateSupport) c).getBackgroundOfState(state);
-				}
-				break;
 			case STATE_PRESSED:
 				if (c instanceof ComponentStateSupport) {
 					background = ((ComponentStateSupport) c).getBackgroundOfState(state);
@@ -696,17 +684,14 @@ public class Office2010Painter extends BasicPainter {
 		}
 		Graphics2D g2d = (Graphics2D) g.create();
 		switch (orientation) {
-			case SwingConstants.WEST:
-			case SwingConstants.EAST:
+			case SwingConstants.WEST, SwingConstants.EAST -> {
 				g2d.rotate(-Math.toRadians(90), rect.x, rect.y);
 				g2d.translate(-rect.height, rect.y);
 				//noinspection SuspiciousNameCombination
 				paintButtonBackground(c, g2d, new Rectangle(0, 0, rect.height, rect.width), SwingConstants.HORIZONTAL, state, false);
-				break;
-			case SwingConstants.NORTH:
-			case SwingConstants.SOUTH:
-				paintButtonBackground(c, g2d, rect, SwingConstants.HORIZONTAL, state, false);
-				break;
+			}
+			case SwingConstants.NORTH, SwingConstants.SOUTH ->
+					paintButtonBackground(c, g2d, rect, SwingConstants.HORIZONTAL, state, false);
 		}
 		g2d.dispose();
 	}

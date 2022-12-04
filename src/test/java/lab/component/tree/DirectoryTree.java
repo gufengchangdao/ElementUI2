@@ -50,13 +50,10 @@ public class DirectoryTree extends JPanel {
 						c.setForeground(r.getTextNonSelectionColor());
 						c.setBackground(r.getBackgroundNonSelectionColor());
 					}
-					if (value instanceof DefaultMutableTreeNode && c instanceof JLabel) {
-						DefaultMutableTreeNode node = (DefaultMutableTreeNode) value;
-						JLabel l = (JLabel) c;
+					if (value instanceof DefaultMutableTreeNode node && c instanceof JLabel l) {
 						l.setOpaque(!selected);
 						Object o = node.getUserObject();
-						if (o instanceof File) {
-							File file = (File) o;
+						if (o instanceof File file) {
 							l.setIcon(fileSystemView.getSystemIcon(file));
 							l.setText(fileSystemView.getSystemDisplayName(file));
 							l.setToolTipText(file.getPath());

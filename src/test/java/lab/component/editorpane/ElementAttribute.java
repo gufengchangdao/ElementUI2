@@ -156,7 +156,7 @@ class CustomTooltipEditorPane extends JEditorPane {
 		String title = super.getToolTipText(e);
 		JEditorPane editor = (JEditorPane) e.getComponent();
 		if (!editor.isEditable()) {
-			int pos = editor.getUI().viewToModel(editor, e.getPoint(), bias);
+			int pos = editor.getUI().viewToModel2D(editor, e.getPoint(), bias);
 			// Java 9: int pos = editor.getUI().viewToModel2D(editor, e.getPoint(), bias);
 			if (bias[0] == Position.Bias.Backward && pos > 0) {
 				pos--;
@@ -192,8 +192,7 @@ class TooltipEditorKit extends HTMLEditorKit {
 				AttributeSet attrs = elem.getAttributes();
 				Object name = attrs.getAttribute(AbstractDocument.ElementNameAttribute);
 				Object o = name == null ? attrs.getAttribute(StyleConstants.NameAttribute) : null;
-				if (o instanceof HTML.Tag) {
-					HTML.Tag kind = (HTML.Tag) o;
+				if (o instanceof HTML.Tag kind) {
 					if (kind == HTML.Tag.DIV) {
 						return new BlockView(elem, View.Y_AXIS) {
 							@Override

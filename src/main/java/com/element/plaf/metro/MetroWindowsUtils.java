@@ -41,14 +41,7 @@ public class MetroWindowsUtils extends VsnetWindowsUtils {
 	 */
 	public static void initClassDefaults(UIDefaults table, boolean withMenu) {
 		Office2003WindowsUtils.initClassDefaults(table, withMenu);
-
-		int products = LookAndFeelFactory.getProductsUsed();
-
 		table.put("JideTabbedPaneUI", "com.element.plaf.office2007.Office2007JideTabbedPaneUI");
-
-		if ((products & PRODUCT_DOCK) != 0) {
-			table.put("SidePaneUI", "com.element.plaf.office2007.Office2007SidePaneUI");
-		}
 	}
 
 	/**
@@ -128,74 +121,6 @@ public class MetroWindowsUtils extends VsnetWindowsUtils {
 				"NavigationComponent.selectionBackground", new ColorUIResource(51, 153, 255),
 		};
 		table.putDefaults(uiDefaults);
-
-		int products = LookAndFeelFactory.getProductsUsed();
-
-		if ((products & PRODUCT_COMPONENTS) != 0) {
-			ImageIcon collapsiblePaneImage = IconsFactory.getImageIcon(MetroWindowsUtils.class, "icons/collapsible_pane_vista.gif"); // 12 x 12 x 2
-			final int collapsiblePaneSize = 12;
-
-			uiDefaults = new Object[]{
-					"StatusBar.childrenOpaque", Boolean.FALSE,
-					"StatusBar.border", BorderFactory.createEmptyBorder(2, 0, 2, 0),
-					"MemoryStatusBarItem.fillColor", new ColorUIResource(0xfeba4f),
-
-					"CollapsiblePane.downIcon", IconsFactory.getIcon(null, collapsiblePaneImage, 0, 0, collapsiblePaneSize, collapsiblePaneSize),
-					"CollapsiblePane.upIcon", IconsFactory.getIcon(null, collapsiblePaneImage, 0, collapsiblePaneSize, collapsiblePaneSize, collapsiblePaneSize),
-					"CollapsiblePanes.backgroundLt", new ColorUIResource(0xbfdbff),
-					"CollapsiblePanes.backgroundDk", new ColorUIResource(0xbfdbff),
-			};
-			table.putDefaults(uiDefaults);
-		}
-
-		if ((products & PRODUCT_DOCK) != 0) {
-			ImageIcon titleButtonImage = IconsFactory.getImageIcon(MetroWindowsUtils.class, "icons/title_buttons_metro.gif"); // 10 x 10 x 8
-			final int titleButtonSize = 10;
-
-			uiDefaults = new Object[]{
-					"ContentContainer.background", defaultFormBackground,
-					"SidePane.background", defaultFormBackground,
-
-					"DockableFrame.activeTitleBackground", new ColorUIResource(0xC0D9F0),
-
-					"DockableFrameTitlePane.gripperPainter", gripperPainter,
-
-					"DockableFrameTitlePane.hideIcon", IconsFactory.getIcon(null, titleButtonImage, 0, 0, titleButtonSize, titleButtonSize),
-					"DockableFrameTitlePane.unfloatIcon", IconsFactory.getIcon(null, titleButtonImage, 0, titleButtonSize, titleButtonSize, titleButtonSize),
-					"DockableFrameTitlePane.floatIcon", IconsFactory.getIcon(null, titleButtonImage, 0, 2 * titleButtonSize, titleButtonSize, titleButtonSize),
-					"DockableFrameTitlePane.autohideIcon", IconsFactory.getIcon(null, titleButtonImage, 0, 3 * titleButtonSize, titleButtonSize, titleButtonSize),
-					"DockableFrameTitlePane.stopAutohideIcon", IconsFactory.getIcon(null, titleButtonImage, 0, 4 * titleButtonSize, titleButtonSize, titleButtonSize),
-					"DockableFrameTitlePane.hideAutohideIcon", IconsFactory.getIcon(null, titleButtonImage, 0, 5 * titleButtonSize, titleButtonSize, titleButtonSize),
-					"DockableFrameTitlePane.maximizeIcon", IconsFactory.getIcon(null, titleButtonImage, 0, 6 * titleButtonSize, titleButtonSize, titleButtonSize),
-					"DockableFrameTitlePane.restoreIcon", IconsFactory.getIcon(null, titleButtonImage, 0, 7 * titleButtonSize, titleButtonSize, titleButtonSize),
-
-					"DockableFrameTitlePane.backgroundLt", new ColorUIResource(ColorUtil.getDerivedColor(new Color(0xBFDBFF), .55f)),
-					"DockableFrameTitlePane.backgroundDk", new ColorUIResource(ColorUtil.getDerivedColor(new Color(0xBFDBFF), .45f)),
-					"DockableFrameTitlePane.activeBackgroundLt", new ColorUIResource(ColorUtil.getDerivedColor(new Color(0xFAD8A0), .55f)),
-					"DockableFrameTitlePane.activeBackgroundDk", new ColorUIResource(ColorUtil.getDerivedColor(new Color(0xFAD8A0), .45f)),
-
-					"DockableFrameTitlePane.margin", new InsetsUIResource(1, 6, 0, 6), // gap
-
-					"DockableFrameTitlePane.buttonGap", 2, // gap between buttons
-
-					"DockableFrame.activeTitleForeground", Color.WHITE,
-					"DockableFrame.inactiveTitleForeground", Color.BLACK,
-					"FrameContainer.contentBorderInsets", new InsetsUIResource(0, 0, 0, 0),
-			};
-			table.putDefaults(uiDefaults);
-		}
-		if ((products & PRODUCT_ACTION) != 0) {
-			uiDefaults = new Object[]{
-					"Chevron.alwaysVisible", Boolean.TRUE,
-			};
-			table.putDefaults(uiDefaults);
-		}
-
-		if ((products & PRODUCT_GRIDS) != 0) {
-			uiDefaults = new Object[]{
-			};
-			table.putDefaults(uiDefaults);
-		}
 
 		UIDefaultsLookup.put(table, "Theme.painter", MetroPainter.getInstance());
 

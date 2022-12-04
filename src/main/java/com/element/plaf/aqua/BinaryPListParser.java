@@ -389,67 +389,54 @@ class BinaryPListParser {
 		while ((marker = in.read()) != -1) {
 			//System.out.println("parseObjectTable "+objectTable.size()+": marker="+Integer.toHexString(marker));
 			switch ((marker & 0xf0) >> 4) {
-				case 0: {
+				case 0 -> {
 					parsePrimitive(in, marker & 0xf);
-					break;
 				}
-				case 1: {
+				case 1 -> {
 					int count = 1 << (marker & 0xf);
 					parseInt(in, count);
-					break;
 				}
-				case 2: {
+				case 2 -> {
 					int count = 1 << (marker & 0xf);
 					parseReal(in, count);
-					break;
 				}
-				case 3: {
+				case 3 -> {
 					if ((marker & 0xf) != 3) {
 						throw new IOException("parseObjectTable: illegal marker " + Integer.toBinaryString(marker));
 					}
 					parseDate(in);
-					break;
 				}
-				case 4: {
+				case 4 -> {
 					int count = marker & 0xf;
 					if (count == 15) {
 						count = readCount(in);
 					}
 					parseData(in, count);
-					break;
 				}
-				case 5: {
+				case 5 -> {
 					int count = marker & 0xf;
 					if (count == 15) {
 						count = readCount(in);
 					}
 					parseAsciiString(in, count);
-					break;
 				}
-				case 6: {
+				case 6 -> {
 					int count = marker & 0xf;
 					if (count == 15) {
 						count = readCount(in);
 					}
 					parseUnicodeString(in, count);
-					break;
 				}
-				case 7: {
+				case 7 -> {
 					System.out.println("parseObjectTable: illegal marker " + Integer.toBinaryString(marker));
 					return;
-					// throw new IOException("parseObjectTable: illegal marker "+Integer.toBinaryString(marker));
-					//break;
 				}
-				case 8: {
+				case 8 -> {
 					int count = (marker & 0xf) + 1;
 					System.out.println("uid " + count);
-					break;
 				}
-				case 9: {
-					throw new IOException("parseObjectTable: illegal marker " + Integer.toBinaryString(marker));
-					//break;
-				}
-				case 10: {
+				case 9, 14, 15, 11, 12 -> throw new IOException("parseObjectTable: illegal marker " + Integer.toBinaryString(marker));
+				case 10 -> {
 					int count = marker & 0xf;
 					if (count == 15) {
 						count = readCount(in);
@@ -459,17 +446,8 @@ class BinaryPListParser {
 					} else {
 						parseByteArray(in, count);
 					}
-					break;
 				}
-				case 11: {
-					throw new IOException("parseObjectTable: illegal marker " + Integer.toBinaryString(marker));
-					//break;
-				}
-				case 12: {
-					throw new IOException("parseObjectTable: illegal marker " + Integer.toBinaryString(marker));
-					//break;
-				}
-				case 13: {
+				case 13 -> {
 					int count = marker & 0xf;
 					if (count == 15) {
 						count = readCount(in);
@@ -479,18 +457,8 @@ class BinaryPListParser {
 					} else {
 						parseByteDict(in, count);
 					}
-					break;
-				}
-				case 14: {
-					throw new IOException("parseObjectTable: illegal marker " + Integer.toBinaryString(marker));
-					//break;
-				}
-				case 15: {
-					throw new IOException("parseObjectTable: illegal marker " + Integer.toBinaryString(marker));
-					//break;
 				}
 			}
-			// System.out.println(objectTable.get(objectTable.size() - 1));
 		}
 	}
 
@@ -660,14 +628,9 @@ class BinaryPListParser {
 	 */
 	private void parseReal(DataInputStream in, int count) throws IOException {
 		switch (count) {
-			case 4:
-				objectTable.add(in.readFloat());
-				break;
-			case 8:
-				objectTable.add(in.readDouble());
-				break;
-			default:
-				throw new IOException("parseReal: unsupported byte count:" + count);
+			case 4 -> objectTable.add(in.readFloat());
+			case 8 -> objectTable.add(in.readDouble());
+			default -> throw new IOException("parseReal: unsupported byte count:" + count);
 		}
 	}
 

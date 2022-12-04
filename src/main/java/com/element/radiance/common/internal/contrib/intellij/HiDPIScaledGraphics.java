@@ -236,8 +236,7 @@ class HiDPIScaledGraphics extends Graphics2D {
 
 	@Override
 	public Graphics create() {
-		Graphics g = myPeer.create();
-		return g;
+		return myPeer.create();
 	}
 
 	@Override

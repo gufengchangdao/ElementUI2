@@ -145,8 +145,7 @@ class DnDTree extends JTree {
 					.map(TreePath::getLastPathComponent).orElse(null);
 			DefaultMutableTreeNode targetNode = (DefaultMutableTreeNode) path.getLastPathComponent();
 			TreeNode parent = targetNode.getParent();
-			if (parent instanceof DefaultMutableTreeNode && draggingNode instanceof TreeNode) {
-				DefaultMutableTreeNode ancestor = (DefaultMutableTreeNode) parent;
+			if (parent instanceof DefaultMutableTreeNode ancestor && draggingNode instanceof TreeNode) {
 				if (Arrays.asList(ancestor.getPath()).contains(draggingNode)) {
 					// Trying to drop a parent node to a child node
 					rejectDrag(e);
@@ -175,12 +174,11 @@ class DnDTree extends JTree {
 					.map(TreePath::getLastPathComponent).orElse(null);
 			Point pt = e.getLocation();
 			TreePath path = getPathForLocation(pt.x, pt.y);
-			if (Objects.isNull(path) || !(draggingObject instanceof MutableTreeNode)) {
+			if (Objects.isNull(path) || !(draggingObject instanceof MutableTreeNode draggingNode)) {
 				e.dropComplete(false);
 				return;
 			}
 			// System.out.println("drop path is " + path);
-			MutableTreeNode draggingNode = (MutableTreeNode) draggingObject;
 			DefaultMutableTreeNode targetNode = (DefaultMutableTreeNode) path.getLastPathComponent();
 			if (targetNode.equals(draggingNode)) {
 				// Cannot move the node to the node itself

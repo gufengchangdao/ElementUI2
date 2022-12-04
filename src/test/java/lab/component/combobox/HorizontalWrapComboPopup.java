@@ -78,7 +78,7 @@ public class HorizontalWrapComboPopup extends JPanel {
 	}
 
 	public static JComboBox<Icon> makeComboBox2(ComboBoxModel<Icon> model, Icon proto, int rowCount) {
-		return new JComboBox<Icon>(model) {
+		return new JComboBox<>(model) {
 			private PopupMenuListener listener;
 
 			@Override
@@ -101,9 +101,8 @@ public class HorizontalWrapComboPopup extends JPanel {
 				setRenderer((list, value, index, isSelected, cellHasFocus) -> {
 					Component c = r.getListCellRendererComponent(
 							list, value, index, isSelected, cellHasFocus);
-					if (c instanceof JLabel) {
+					if (c instanceof JLabel l) {
 						// value是一个icon对象，因此设置渲染器正确展示icon
-						JLabel l = (JLabel) c;
 						l.setIcon(value);
 						l.setBorder(BorderFactory.createEmptyBorder());
 					}

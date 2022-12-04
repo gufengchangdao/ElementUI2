@@ -322,9 +322,7 @@ class XMLElement {
 		this.children = new ArrayList();
 		this.entities = entities;
 		this.lineNr = 0;
-		Iterator iter = this.entities.keySet().iterator();
-		while (iter.hasNext()) {
-			Object key = iter.next();
+		for (Object key : this.entities.keySet()) {
 			Object value = this.entities.get(key);
 			if (value instanceof String) {
 				value = ((String) value).toCharArray();
@@ -1608,52 +1606,52 @@ class XMLElement {
 		for (int i = 0; i < str.length(); i += 1) {
 			char ch = str.charAt(i);
 			switch (ch) {
-				case '<':
+				case '<' -> {
 					writer.write('&');
 					writer.write('l');
 					writer.write('t');
 					writer.write(';');
-					break;
-				case '>':
+				}
+				case '>' -> {
 					writer.write('&');
 					writer.write('g');
 					writer.write('t');
 					writer.write(';');
-					break;
-				case '&':
+				}
+				case '&' -> {
 					writer.write('&');
 					writer.write('a');
 					writer.write('m');
 					writer.write('p');
 					writer.write(';');
-					break;
-				case '"':
+				}
+				case '"' -> {
 					writer.write('&');
 					writer.write('q');
 					writer.write('u');
 					writer.write('o');
 					writer.write('t');
 					writer.write(';');
-					break;
-				case '\'':
+				}
+				case '\'' -> {
 					writer.write('&');
 					writer.write('a');
 					writer.write('p');
 					writer.write('o');
 					writer.write('s');
 					writer.write(';');
-					break;
-				default:
-					int unicode = ch;
-					if ((unicode < 32) || (unicode > 126)) {
+				}
+				default -> {
+					if (((int) ch < 32) || ((int) ch > 126)) {
 						writer.write('&');
 						writer.write('#');
 						writer.write('x');
-						writer.write(Integer.toString(unicode, 16));
+						writer.write(Integer.toString(ch, 16));
 						writer.write(';');
 					} else {
 						writer.write(ch);
 					}
+				}
 			}
 		}
 	}
@@ -2080,7 +2078,7 @@ class XMLElement {
 	 */
 	protected void resolveEntity(StringBuffer buf)
 			throws IOException {
-		char ch = '\0';
+		char ch;
 		StringBuilder keyBuf = new StringBuilder();
 		for (; ; ) {
 			ch = this.readChar();

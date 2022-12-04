@@ -154,8 +154,7 @@ class LabelTransferHandler extends TransferHandler {
 	@Override
 	public int getSourceActions(JComponent c) {
 		// System.out.println("getSourceActions");
-		if (c instanceof DragPanel) {
-			DragPanel p = (DragPanel) c;
+		if (c instanceof DragPanel p) {
 			JLabel l = p.draggingLabel;
 			label.setIcon(l.getIcon());
 			label.setText(l.getText());

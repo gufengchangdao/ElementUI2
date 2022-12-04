@@ -1075,9 +1075,8 @@ public class VsnetMenuItemUI extends MenuItemUI {
 	 * level menu (on the menubar).
 	 */
 	protected boolean useCheckAndArrow() {
-		boolean b = (!(menuItem instanceof JMenu)) ||
+		return (!(menuItem instanceof JMenu)) ||
 				(!((JMenu) menuItem).isTopLevelMenu());
-		return b;
 	}
 
 	public MenuElement[] getPath() {
@@ -1292,13 +1291,11 @@ public class VsnetMenuItemUI extends MenuItemUI {
 				case ButtonStyle.BUTTON_STYLE_PROPERTY, "opaque", AbstractButton.CONTENT_AREA_FILLED_CHANGED_PROPERTY -> {
 					JMenuItem lbl = ((JMenuItem) e.getSource());
 					lbl.repaint();
-					break;
 				}
 				case "orientation" -> {
 					JMenuItem lbl = ((JMenuItem) e.getSource());
 					lbl.invalidate();
 					lbl.repaint();
-					break;
 				}
 				case "text", "font", "foreground" -> {
 					// remove the old html view client property if one
@@ -1307,7 +1304,6 @@ public class VsnetMenuItemUI extends MenuItemUI {
 					JMenuItem lbl = ((JMenuItem) e.getSource());
 					String text = lbl.getText();
 					BasicHTML.updateRenderer(lbl, text);
-					break;
 				}
 			}
 		}

@@ -18,7 +18,6 @@ public class MeterProgressBar extends JProgressBar {
 
 	/**
 	 * @see #getUIClassID
-	 * @see #writeObject
 	 */
 	private static final String uiClassID = "MeterProgressBarUI";
 

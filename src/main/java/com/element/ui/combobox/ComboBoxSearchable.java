@@ -5,8 +5,8 @@
  */
 package com.element.ui.combobox;
 
-import com.element.swing.search.SearchableEvent;
 import com.element.swing.search.Searchable;
+import com.element.swing.search.SearchableEvent;
 import com.element.swing.search.SearchableProvider;
 
 import javax.swing.*;
@@ -204,11 +204,15 @@ public class ComboBoxSearchable<E> extends Searchable implements ListDataListene
 	}
 
 	/**
-	 * Converts the element in JCombobox to string. The returned value will be the <code>toString()</code> of whatever
-	 * element that returned from <code>list.getModel().getElementAt(i)</code>.
+	 * 将 JCombobox 中的元素转换为字符串。返回值将是从list.getModel().getElementAt(i)返回的任何元素的toString())。
 	 *
-	 * @param object the object to be converted
-	 * @return the string representing the element in the JComboBox.
+	 * 如果有需要可以重写该方法，并使用Converter来实现转换，例如
+	 * <pre>
+	 *     return ObjectConverterManager.toString(value);
+	 * </pre>
+	 *
+	 * @param object 要转换的对象
+	 * @return 表示 JComboBox 中元素的字符串。
 	 */
 	@Override
 	public String convertElementToString(Object object) {

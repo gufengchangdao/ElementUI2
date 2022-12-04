@@ -30,29 +30,26 @@ public class IntelliHintsTest extends AbstractDemo {
 
 	@Override
 	public String getDescription() {
-		return "This is a demo of IntelliHints components. IntelliHints can display a hint popup in a text field or text area " +
-				"so that user can pick a hint directly while typing.\n" +
-				"\nYou can start to type in those text fields or text area to see how it works. " +
-				"At any time, if you want to see whether there are hints available, you can press DOWN key " +
-				"in text field or CTRL+SPACE in text area.\n" +
-				"\n" +
-				"Demoed classes:\n" +
-				"com.jidesoft.hints.IntelliHints\n" +
-				"com.jidesoft.hints.AbstractIntelliHints\n" +
-				"com.jidesoft.hints.AbstractListIntelliHints\n" +
-				"com.jidesoft.hints.FileIntelliHints\n" +
-				"com.jidesoft.hints.ListDataIntelliHints";
+		return """
+				This is a demo of IntelliHints components. IntelliHints can display a hint popup in a text field or\
+				text area so that user can pick a hint directly while typing.
+
+				You can start to type in those text fields or text area to see how it works. At any time, if you want \
+				to see whether there are hints available, you can press DOWN key in text field or CTRL+SPACE in text area.
+
+				Demoed classes:
+				com.jidesoft.hints.IntelliHints
+				com.jidesoft.hints.AbstractIntelliHints
+				com.jidesoft.hints.AbstractListIntelliHints
+				com.jidesoft.hints.FileIntelliHints
+				com.jidesoft.hints.ListDataIntelliHints""";
 	}
 
 	@Override
 	public Component getOptionsPanel() {
 		JPanel panel = new JPanel(new GridLayout());
 		final JCheckBox applyFileFilter = new JCheckBox("Show \"Program\" Folders/Files Only");
-		applyFileFilter.addItemListener(new ItemListener() {
-			public void itemStateChanged(ItemEvent e) {
-				_applyFileFilter = applyFileFilter.isSelected();
-			}
-		});
+		applyFileFilter.addItemListener(e -> _applyFileFilter = applyFileFilter.isSelected());
 		panel.add(applyFileFilter);
 		return panel;
 	}

@@ -44,7 +44,7 @@ public class ImageSvg extends AbstractSvgIcon {
 			result = ImageIO.read(new ByteArrayInputStream(Base64.getDecoder().decode(imageData.toString())));
 			image519194ea1a59eb678032b0e10b802a3d = new WeakReference<>(result);
 			return result;
-		} catch (IOException ioe) {
+		} catch (IOException ignored) {
 		}
 		return null;
 	}
@@ -73,9 +73,9 @@ public class ImageSvg extends AbstractSvgIcon {
 			Point2D src = new Point2D.Double(0, 0);
 			Point2D dst = new Point2D.Double(0, 0);
 			double startX = rect2D.getX();
-			while (true) {
+			do {
 				double startY = rect2D.getY();
-				while (true) {
+				do {
 					gTiled.translate(startX, startY);
 					Shape shapeTile = null;
 					gTiled.setComposite(AlphaComposite.getInstance(3, origAlpha));
@@ -89,17 +89,11 @@ public class ImageSvg extends AbstractSvgIcon {
 					startY += rect2D.getHeight();
 					src.setLocation(startX, startY);
 					tTiled.transform(src, dst);
-					if (dst.getY() > shape.getBounds().getMaxY()) {
-						break;
-					}
-				}
+				} while (!(dst.getY() > shape.getBounds().getMaxY()));
 				startX += rect2D.getWidth();
 				src.setLocation(startX, startY);
 				tTiled.transform(src, dst);
-				if (dst.getX() > shape.getBounds().getMaxX()) {
-					break;
-				}
-			}
+			} while (!(dst.getX() > shape.getBounds().getMaxX()));
 			gTiled.dispose();
 		}
 		g.setClip(clip);

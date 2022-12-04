@@ -305,7 +305,7 @@ public class Resizable {
 			int corner = getCorner();
 			boolean ltr = getComponentOrientation().isLeftToRight();
 			switch (corner) {
-				case LOWER_RIGHT: {
+				case LOWER_RIGHT -> {
 					g.setColor(UIDefaultsLookup.getColor("controlLtHighlight"));
 					int delta = 0;
 					for (int i = 0; i < count; i++) {
@@ -329,8 +329,7 @@ public class Resizable {
 						}
 					}
 				}
-				break;
-				case UPPER_RIGHT: {
+				case UPPER_RIGHT -> {
 					g.setColor(UIDefaultsLookup.getColor("controlLtHighlight"));
 					int delta = 0;
 					for (int i = 0; i < count; i++) {
@@ -354,8 +353,6 @@ public class Resizable {
 						}
 					}
 				}
-				break;
-
 			}
 			g.setColor(old);
 		}

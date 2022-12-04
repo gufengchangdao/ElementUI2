@@ -12,7 +12,6 @@ import com.element.plaf.basic.ComponentStateSupport;
 import com.element.plaf.basic.ThemePainter;
 import com.element.swing.Alignable;
 import com.element.swing.AlignmentSupport;
-import org.jdesktop.swingx.JXButton;
 
 import javax.swing.*;
 import java.awt.*;

@@ -483,7 +483,7 @@ public class SimpleScrollPane extends JScrollPane implements ChangeListener, Mou
 	public void mouseWheelMoved(MouseWheelEvent e) {
 		if (this.isWheelScrollingEnabled() && e.getScrollAmount() != 0) {
 			boolean scrollingUp = (e.getWheelRotation() >= 0);
-			int direction = SwingConstants.CENTER;
+			int direction;
 
 			if (!this.isButtonVisible(scrollingUp))
 				return;

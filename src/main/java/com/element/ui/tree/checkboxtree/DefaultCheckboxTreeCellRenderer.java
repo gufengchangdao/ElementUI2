@@ -91,7 +91,7 @@ public class DefaultCheckboxTreeCellRenderer extends JPanel implements CheckboxT
 	public Dimension getPreferredSize() {
 		Dimension d_check = this.checkBox.getPreferredSize();
 		Dimension d_label = this.label.getPreferredSize();
-		return new Dimension(d_check.width + d_label.width, (d_check.height < d_label.height ? d_label.height : d_check.height));
+		return new Dimension(d_check.width + d_label.width, (Math.max(d_check.height, d_label.height)));
 	}
 
 	/**

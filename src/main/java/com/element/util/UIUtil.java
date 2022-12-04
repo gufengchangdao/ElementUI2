@@ -25,7 +25,6 @@ import com.element.util.handle.ConditionHandler;
 import com.element.util.handle.GetHandler;
 import com.element.util.handle.Handler;
 import org.apache.batik.ext.awt.geom.Polygon2D;
-import org.w3c.dom.ls.LSOutput;
 
 import javax.accessibility.Accessible;
 import javax.swing.*;
@@ -361,12 +360,11 @@ public class UIUtil implements SwingConstants {
 		if (lineWidth == 0 || w <= 0 || h <= 0)
 			return;
 
-		float t = lineWidth;
-		float t2x = t * 2;
+		float t2x = lineWidth * 2;
 
 		Path2D border = new Path2D.Float(Path2D.WIND_EVEN_ODD);
 		border.append(createComponentRectangle(x, y, w, h, arc), false);
-		border.append(createComponentRectangle(x + t, y + t, w - t2x, h - t2x, innerArc), false);
+		border.append(createComponentRectangle(x + lineWidth, y + lineWidth, w - t2x, h - t2x, innerArc), false);
 		g.fill(border);
 	}
 

@@ -43,7 +43,7 @@ public class JideBoxLayout implements LayoutManager2, Serializable {
 	 */
 	protected int _axis;
 	protected Container _target;
-	private int _gap = 0;
+	private int _gap;
 
 	protected int[] _componentSizes;
 

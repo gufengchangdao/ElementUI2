@@ -215,9 +215,7 @@ abstract public class AbstractDemo implements Demo {
 
 		Locale[] locales = Locale.getAvailableLocales();
 		Arrays.sort(locales, (Comparator) (o1, o2) -> {
-			if (o1 instanceof Locale && o2 instanceof Locale) {
-				Locale l1 = (Locale) o1;
-				Locale l2 = (Locale) o2;
+			if (o1 instanceof Locale l1 && o2 instanceof Locale l2) {
 				return l1.toString().compareTo(l2.toString());
 			}
 			return 0;

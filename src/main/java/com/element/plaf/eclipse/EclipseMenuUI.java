@@ -79,8 +79,8 @@ public class EclipseMenuUI extends EclipseMenuItemUI {
 
 		ButtonModel model = menuItem.getModel();
 		Color oldColor = g.getColor();
-		int menuWidth = 0;
-		int menuHeight = 0;
+		int menuWidth;
+		int menuHeight;
 		if (UIUtil.getOrientationOf(menuItem) == SwingConstants.HORIZONTAL) {
 			menuWidth = menuItem.getWidth();
 			menuHeight = menuItem.getHeight();
@@ -199,11 +199,6 @@ public class EclipseMenuUI extends EclipseMenuItemUI {
 		lastMnemonic = mnemonic;
 	}
 
-	@Override
-	protected void uninstallKeyboardActions() {
-		super.uninstallKeyboardActions();
-	}
-
 	/**
 	 * The ActionMap for BasicMenUI can not be shared, this is subclassed to create a new one for each invocation.
 	 */
@@ -301,7 +296,7 @@ public class EclipseMenuUI extends EclipseMenuItemUI {
 
 	private static class PostAction extends AbstractAction {
 		JMenu menu;
-		boolean force = false;
+		boolean force;
 
 		PostAction(JMenu menu, boolean shouldForce) {
 			this.menu = menu;

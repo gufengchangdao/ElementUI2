@@ -74,10 +74,9 @@ class TreePopupMenu extends JPopupMenu {
 		});
 		add("edit").addActionListener(e -> {
 			Object node = path.getLastPathComponent();
-			if (!(node instanceof DefaultMutableTreeNode)) {
+			if (!(node instanceof DefaultMutableTreeNode leaf)) {
 				return;
 			}
-			DefaultMutableTreeNode leaf = (DefaultMutableTreeNode) node;
 			textField.setText(leaf.getUserObject().toString()); //获取到节点的值设置给输入框
 			JTree tree = (JTree) getInvoker();
 			// 弹窗编辑的对话框
@@ -101,8 +100,7 @@ class TreePopupMenu extends JPopupMenu {
 
 	@Override
 	public void show(Component c, int x, int y) {
-		if (c instanceof JTree) {
-			JTree tree = (JTree) c;
+		if (c instanceof JTree tree) {
 			path = tree.getPathForLocation(x, y);
 			// if (Objects.nonNull(path) && Arrays.asList(tsp).contains(path)) {
 			Optional.ofNullable(path).ifPresent(treePath -> {

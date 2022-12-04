@@ -73,7 +73,7 @@ public class SearchBox extends JPanel {
 		String searchCmd = "open-search-box";
 		getActionMap().put(searchCmd, layout.showHideAction);
 		// Java 10: int modifiers = Toolkit.getDefaultToolkit().getMenuShortcutKeyMaskEx();
-		int modifiers = Toolkit.getDefaultToolkit().getMenuShortcutKeyMask();
+		int modifiers = Toolkit.getDefaultToolkit().getMenuShortcutKeyMaskEx();
 		KeyStroke key = KeyStroke.getKeyStroke(KeyEvent.VK_F, modifiers);
 		getInputMap(WHEN_ANCESTOR_OF_FOCUSED_COMPONENT).put(key, searchCmd);
 
@@ -187,8 +187,7 @@ final class TreeUtil {
 
 	public static void searchTree(JTree tree, TreePath path, String q, java.util.List<TreePath> results) {
 		Object o = path.getLastPathComponent();
-		if (o instanceof TreeNode) {
-			TreeNode node = (TreeNode) o;
+		if (o instanceof TreeNode node) {
 			if (node.toString().startsWith(q)) {
 				results.add(path);
 				tree.expandPath(path.getParentPath());

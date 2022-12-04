@@ -238,6 +238,7 @@ public class BasicStyledLabelUI extends BasicLabelUI implements SwingConstants {
 	 * @param label the StyledLabel
 	 * @return the preferred size.
 	 */
+	@SuppressWarnings("all")
 	protected Dimension getPreferredSize(StyledLabel label) {
 		buildStyledText(label);
 
@@ -360,6 +361,7 @@ public class BasicStyledLabelUI extends BasicLabelUI implements SwingConstants {
 		}
 	}
 
+	@SuppressWarnings("all") //FontStyle抑制
 	private int getLayoutWidth(StyledLabel label, int maxWidth) {
 		int nextRowStartIndex;
 		Font font = getFont(label);
@@ -476,6 +478,7 @@ public class BasicStyledLabelUI extends BasicLabelUI implements SwingConstants {
 		return maxWidth;
 	}
 
+	@SuppressWarnings("all") //FontStyle抑制
 	private int getMaximumWidth(StyledLabel label, int maxWidth, int naturalRowCount, int limitedRows) {
 		int textWidth = label.getWidth() - label.getInsets().left - label.getInsets().right;
 		if (label.getIcon() != null) {
@@ -627,6 +630,7 @@ public class BasicStyledLabelUI extends BasicLabelUI implements SwingConstants {
 		g.setColor(oldColor);
 	}
 
+	@SuppressWarnings("all") //FontStyle抑制
 	private int internalPaintStyledText(StyledLabel label, Graphics g, int textX, int textY, int paintWidth) {
 		int labelHeight = label.getHeight();
 		if (labelHeight <= 0) {
@@ -670,14 +674,13 @@ public class BasicStyledLabelUI extends BasicLabelUI implements SwingConstants {
 			int maxRowHeight = fm.getHeight();
 			int minStartY = fm.getAscent();
 			int horizontalAlignment = label.getHorizontalAlignment();
-			switch (horizontalAlignment) {
-				case LEADING:
-					horizontalAlignment = label.getComponentOrientation().isLeftToRight() ? LEFT : RIGHT;
-					break;
-				case TRAILING:
-					horizontalAlignment = label.getComponentOrientation().isLeftToRight() ? RIGHT : LEFT;
-					break;
-			}
+			horizontalAlignment = switch (horizontalAlignment) {
+				case LEADING -> label.getComponentOrientation().isLeftToRight() ? LEFT : RIGHT;
+				case TRAILING -> label.getComponentOrientation().isLeftToRight() ? RIGHT : LEFT;
+				default -> label.getHorizontalAlignment();
+			};
+
+
 			for (StyledText styledText : _styledTexts) {
 				StyleRange style = styledText.styleRange;
 				int size = (style != null && (style.isSuperscript() || style.isSubscript())) ? Math.round((float) defaultFontSize / style.getFontShrinkRatio()) : defaultFontSize;
@@ -986,6 +989,7 @@ public class BasicStyledLabelUI extends BasicLabelUI implements SwingConstants {
 		}
 	}
 
+	@SuppressWarnings("all") //FontStyle抑制
 	private void paintRow(StyledLabel label, Graphics g, int leftAlignmentX, int thisLineEndX, int rightMostX, int textY, int startOffset, int endOffset, boolean lastRow) {
 		if (g == null) {
 			return;
@@ -1075,11 +1079,10 @@ public class BasicStyledLabelUI extends BasicLabelUI implements SwingConstants {
 			int y = textY;
 
 			if (nextFm2 == null) {
-				int size = (style != null &&
-						(style.isSuperscript() || style.isSubscript())) ? Math.round((float) defaultFontSize / style.getFontShrinkRatio()) : defaultFontSize;
+				int size = style.isSuperscript() || style.isSubscript() ? Math.round((float) defaultFontSize / style.getFontShrinkRatio()) : defaultFontSize;
 
 				font = getFont(label);
-				if (style != null && ((style.getFontStyle() != -1 && font.getStyle() != style.getFontStyle()) || font.getSize() != size)) {
+				if (style.getFontStyle() != -1 && font.getStyle() != style.getFontStyle() || font.getSize() != size) {
 					font = FontUtils.getCachedDerivedFont(font, style.getFontStyle() == -1 ? font.getStyle() : style.getFontStyle(), size);
 					fm2 = label.getFontMetrics(font);
 				} else {
@@ -1159,7 +1162,6 @@ public class BasicStyledLabelUI extends BasicLabelUI implements SwingConstants {
 						}
 					}
 					charDisplayed += s.length();
-					nextRowStartIndex += nextRowStartIndexInSubString;
 				} else {
 					// use this method to clip string
 					s = SwingUtilities.layoutCompoundLabel(label, fm2, s, null, label.getVerticalAlignment(), label.getHorizontalAlignment(),
@@ -1167,7 +1169,6 @@ public class BasicStyledLabelUI extends BasicLabelUI implements SwingConstants {
 					strWidth = fm2.stringWidth(s);
 				}
 			} else if (label.isLineWrap()) {
-				nextRowStartIndex = 0;
 			} else if (i < _styledTexts.size() - 1) {
 				StyledText nextStyledText = _styledTexts.get(i + 1);
 				String nextText = nextStyledText.text;
@@ -1339,23 +1340,15 @@ public class BasicStyledLabelUI extends BasicLabelUI implements SwingConstants {
 		// Translate LEADING/TRAILING values in horizontalAlignment
 		// to LEFT/RIGHT values depending on the components orientation
 		switch (horizontalAlignment) {
-			case LEADING:
-				hAlign = (orientationIsLeftToRight) ? LEFT : RIGHT;
-				break;
-			case TRAILING:
-				hAlign = (orientationIsLeftToRight) ? RIGHT : LEFT;
-				break;
+			case LEADING -> hAlign = (orientationIsLeftToRight) ? LEFT : RIGHT;
+			case TRAILING -> hAlign = (orientationIsLeftToRight) ? RIGHT : LEFT;
 		}
 
 		// Translate LEADING/TRAILING values in horizontalTextPosition
 		// to LEFT/RIGHT values depending on the components orientation
 		switch (horizontalTextPosition) {
-			case LEADING:
-				hTextPos = (orientationIsLeftToRight) ? LEFT : RIGHT;
-				break;
-			case TRAILING:
-				hTextPos = (orientationIsLeftToRight) ? RIGHT : LEFT;
-				break;
+			case LEADING -> hTextPos = (orientationIsLeftToRight) ? LEFT : RIGHT;
+			case TRAILING -> hTextPos = (orientationIsLeftToRight) ? RIGHT : LEFT;
 		}
 
 		return layoutCompoundLabelImpl(c,

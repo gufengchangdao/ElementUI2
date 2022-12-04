@@ -122,28 +122,7 @@ public class BasicJideButtonUI extends JideButtonUI {
 
 		// *** begin optimized defaults install ***
 
-/*	Color currentForeground = b.getForeground();
-	Color currentBackground = b.getBackground();
-	Font currentFont = b.getFont();
-	Border currentBorder = b.getBorder();
-
-	if (currentForeground == null || currentForeground instanceof UIResource) {
-	      b.setForeground(defaultForeground);
-	}
-
-	if (currentBackground == null || currentBackground instanceof UIResource) {
-              b.setBackground(defaultBackground);
-	}
-
-	if (currentFont == null || currentFont instanceof UIResource) {
-	      b.setFont(defaultFont);
-	}
-
-	if (currentBorder == null || currentBorder instanceof UIResource) {
-	      b.setBorder(defaultBorder);
-	} */
-
-		// *** end optimized defaults install ***
+// *** end optimized defaults install ***
 
 		// old code below works for component defaults installation, but it is slow
 		LookAndFeel.installColorsAndFont(b, pp + "background", pp + "foreground", pp + "font");
@@ -537,15 +516,6 @@ public class BasicJideButtonUI extends JideButtonUI {
 		int state = UIUtil.getButtonState(b);
 		switch (state) {
 			case ThemePainter.STATE_SELECTED:
-				UIUtil.paintBackground(g, rect, _highlight, _highlight);
-				g.setColor(_shadowColor);    // inner 3D border
-				g.drawLine(rect.x, rect.y, rect.width - 1, rect.y);
-				g.drawLine(rect.x, rect.y, rect.x, rect.height - 1);
-
-				g.setColor(_lightHighlightColor);     // black drop shadow  __|
-				g.drawLine(rect.x, rect.height - 1, rect.width - 1, rect.height - 1);
-				g.drawLine(rect.width - 1, rect.y, rect.width - 1, rect.height - 1);
-				break;
 			case ThemePainter.STATE_PRESSED:
 				UIUtil.paintBackground(g, rect, _highlight, _highlight);
 				g.setColor(_shadowColor);    // inner 3D border
@@ -556,6 +526,7 @@ public class BasicJideButtonUI extends JideButtonUI {
 				g.drawLine(rect.x, rect.height - 1, rect.width - 1, rect.height - 1);
 				g.drawLine(rect.width - 1, rect.y, rect.width - 1, rect.height - 1);
 				break;
+
 			case ThemePainter.STATE_ROLLOVER:
 				UIUtil.paintBackground(g, rect, _highlight, _highlight);
 				g.setColor(_lightHighlightColor);    // inner 3D border

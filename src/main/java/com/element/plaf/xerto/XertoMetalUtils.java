@@ -53,20 +53,9 @@ public class XertoMetalUtils extends VsnetLookAndFeelExtension {
 	}
 
 	private static void initClassDefaultsForXerto(UIDefaults table) {
-		int products = LookAndFeelFactory.getProductsUsed();
-
 		final String xertoPackageName = "com.element.plaf.xerto.";
 
 		table.put("RangeSliderUI", "com.element.plaf.metal.MetalRangeSliderUI");
-
-		if ((products & PRODUCT_COMPONENTS) != 0) {
-			table.put("CollapsiblePaneUI", xertoPackageName + "XertoCollapsiblePaneUI");
-		}
-
-		if ((products & PRODUCT_DOCK) != 0) {
-			table.put("SidePaneUI", xertoPackageName + "XertoSidePaneUI");
-			table.put("DockableFrameUI", xertoPackageName + "XertoDockableFrameUI");
-		}
 	}
 
 	/**
@@ -181,9 +170,6 @@ public class XertoMetalUtils extends VsnetLookAndFeelExtension {
 		Object defaultLtHighlightColor = UIDefaultsLookup.get("controlLtHighlight");
 		Object activeTitleBackgroundColor = UIDefaultsLookup.get("activeCaption");
 		Object activeTitleTextColor = UIDefaultsLookup.get("activeCaptionText");
-		Object selectionBackgroundColor = defaultShadowColor;
-		Object mdiBackgroundColor = defaultShadowColor;
-		Object menuTextColor = defaultTextColor;
 
 		Object singleLineBorder = new BorderUIResource(BorderFactory.createLineBorder(UIDefaultsLookup.getColor("controlShadow")));
 
@@ -232,7 +218,7 @@ public class XertoMetalUtils extends VsnetLookAndFeelExtension {
 				"JideButton.selectedAndFocusedBackground", selectedAndFocusedButtonColor,
 				"JideButton.focusedBackground", focusedButtonColor,
 				"JideButton.selectedBackground", selectedButtonColor,
-				"JideButton.borderColor", selectionBackgroundColor,
+				"JideButton.borderColor", defaultShadowColor,
 
 				"JideButton.font", controlFont,
 				"JideButton.background", defaultBackgroundColor,
@@ -387,7 +373,7 @@ public class XertoMetalUtils extends VsnetLookAndFeelExtension {
 				"JideSplitButton.border", buttonBorder,
 				"JideSplitButton.borderPainted", Boolean.FALSE,
 				"JideSplitButton.textIconGap", 4,
-				"JideSplitButton.selectionForeground", menuTextColor,
+				"JideSplitButton.selectionForeground", defaultTextColor,
 				"JideSplitButton.focusInputMap", new UIDefaults.LazyInputMap(new Object[]{
 				"SPACE", "pressed",
 				"released SPACE", "released",
@@ -398,233 +384,6 @@ public class XertoMetalUtils extends VsnetLookAndFeelExtension {
 		}),
 		};
 		table.putDefaults(uiDefaults);
-
-		int products = LookAndFeelFactory.getProductsUsed();
-
-		if ((products & PRODUCT_DOCK) != 0) {
-			ImageIcon titleButtonImage = IconsFactory.getImageIcon(XertoWindowsUtils.class, "icons/title_buttons_xerto.gif"); // 10 x 10 x 8
-			final int titleButtonSize = 10;
-
-			FrameBorder frameBorder = new FrameBorder();
-
-			boolean useShadowBorder = "true".equals(System.getProperty("jide.shadeSlidingBorder", "false"));
-
-			Object slidingEastFrameBorder = new SlidingFrameBorder(UIDefaultsLookup.getColor("control"), UIDefaultsLookup.getColor("controlLtHighlight"), UIDefaultsLookup.getColor("controlShadow"), UIDefaultsLookup.getColor("controlDkShadow"),
-					new Insets(1, SlidingFrameBorder.SHADOW_SIZE + 5, 1, 0));
-
-			Object slidingWestFrameBorder = new SlidingFrameBorder(UIDefaultsLookup.getColor("control"), UIDefaultsLookup.getColor("controlLtHighlight"), UIDefaultsLookup.getColor("controlShadow"), UIDefaultsLookup.getColor("controlDkShadow"),
-					new Insets(1, 0, 1, SlidingFrameBorder.SHADOW_SIZE + 5));
-
-			Object slidingNorthFrameBorder = new SlidingFrameBorder(UIDefaultsLookup.getColor("control"), UIDefaultsLookup.getColor("controlLtHighlight"), UIDefaultsLookup.getColor("controlShadow"), UIDefaultsLookup.getColor("controlDkShadow"),
-					new Insets(0, 1, SlidingFrameBorder.SHADOW_SIZE + 5, 1));
-
-			Object slidingSouthFrameBorder = new SlidingFrameBorder(UIDefaultsLookup.getColor("control"), UIDefaultsLookup.getColor("controlLtHighlight"), UIDefaultsLookup.getColor("controlShadow"), UIDefaultsLookup.getColor("controlDkShadow"),
-					new Insets(SlidingFrameBorder.SHADOW_SIZE + 5, 1, 0, 1));
-
-			Object slidingEastFrameBorder2 = new ResizeFrameBorder(UIDefaultsLookup.getColor("control"), UIDefaultsLookup.getColor("controlLtHighlight"), UIDefaultsLookup.getColor("controlShadow"), UIDefaultsLookup.getColor("controlDkShadow"),
-					new Insets(0, 4, 0, 0));
-
-			Object slidingWestFrameBorder2 = new ResizeFrameBorder(UIDefaultsLookup.getColor("control"), UIDefaultsLookup.getColor("controlLtHighlight"), UIDefaultsLookup.getColor("controlShadow"), UIDefaultsLookup.getColor("controlDkShadow"),
-					new Insets(0, 0, 0, 4));
-
-			Object slidingNorthFrameBorder2 = new ResizeFrameBorder(UIDefaultsLookup.getColor("control"), UIDefaultsLookup.getColor("controlLtHighlight"), UIDefaultsLookup.getColor("controlShadow"), UIDefaultsLookup.getColor("controlDkShadow"),
-					new Insets(0, 0, 4, 0));
-
-			Object slidingSouthFrameBorder2 = new ResizeFrameBorder(UIDefaultsLookup.getColor("control"), UIDefaultsLookup.getColor("controlLtHighlight"), UIDefaultsLookup.getColor("controlShadow"), UIDefaultsLookup.getColor("controlDkShadow"),
-					new Insets(4, 0, 0, 0));
-
-			uiDefaults = new Object[]{
-					// dock
-					"Workspace.background", mdiBackgroundColor,
-
-					"SidePane.margin", new InsetsUIResource(1, 1, 1, 1),
-					"SidePane.iconTextGap", 2,
-					"SidePane.textBorderGap", 13,
-					"SidePane.itemGap", 5,
-					"SidePane.groupGap", 13,
-					"SidePane.foreground", defaultDarkShadowColor,
-					"SidePane.background", new ColorUIResource(XertoUtils.getApplicationFrameBackgroundColor()),
-					"SidePane.lineColor", defaultShadowColor,
-					"SidePane.buttonBackground", new ColorUIResource(XertoUtils.getLightControlColor()),
-					"SidePane.selectedButtonBackground", selectedButtonColor,
-					"SidePane.selectedButtonForeground", defaultTextColor,
-					"SidePane.font", controlFont,
-					"SidePane.orientation", 1,
-					"SidePane.showSelectedTabText", Boolean.TRUE,
-					"SidePane.alwaysShowTabText", Boolean.FALSE,
-
-					"DockableFrame.defaultIcon", JideIconsFactory.getImageIcon(JideIconsFactory.DockableFrame.BLANK),
-					"DockableFrame.background", defaultBackgroundColor,
-					"DockableFrame.border", frameBorder,
-					"DockableFrame.floatingBorder", new BorderUIResource(BorderFactory.createLineBorder(XertoUtils.getFrameBorderColor())),
-					"DockableFrame.slidingEastBorder", useShadowBorder ? slidingEastFrameBorder : slidingEastFrameBorder2,
-					"DockableFrame.slidingWestBorder", useShadowBorder ? slidingWestFrameBorder : slidingWestFrameBorder2,
-					"DockableFrame.slidingNorthBorder", useShadowBorder ? slidingNorthFrameBorder : slidingNorthFrameBorder2,
-					"DockableFrame.slidingSouthBorder", useShadowBorder ? slidingSouthFrameBorder : slidingSouthFrameBorder2,
-
-					"DockableFrame.activeTitleBackground", activeTitleBackgroundColor,
-					"DockableFrame.activeTitleForeground", new ColorUIResource(Color.WHITE),
-					"DockableFrame.inactiveTitleBackground", defaultBackgroundColor,
-					"DockableFrame.inactiveTitleForeground", new ColorUIResource(Color.WHITE),
-					"DockableFrame.titleBorder", new BorderUIResource(BorderFactory.createEmptyBorder(1, 0, 1, 0)),
-					"DockableFrame.activeTitleBorderColor", activeTitleBackgroundColor,
-					"DockableFrame.inactiveTitleBorderColor", defaultShadowColor,
-					"DockableFrame.font", controlFont,
-
-					"DockableFrameTitlePane.gripperPainter", gripperPainter,
-					"DockableFrameTitlePane.font", controlFont,
-					"DockableFrameTitlePane.hideIcon", IconsFactory.getIcon(null, titleButtonImage, 0, 0, titleButtonSize, titleButtonSize),
-					"DockableFrameTitlePane.unfloatIcon", IconsFactory.getIcon(null, titleButtonImage, 0, titleButtonSize, titleButtonSize, titleButtonSize),
-					"DockableFrameTitlePane.floatIcon", IconsFactory.getIcon(null, titleButtonImage, 0, 2 * titleButtonSize, titleButtonSize, titleButtonSize),
-					"DockableFrameTitlePane.autohideIcon", IconsFactory.getIcon(null, titleButtonImage, 0, 3 * titleButtonSize, titleButtonSize, titleButtonSize),
-					"DockableFrameTitlePane.stopAutohideIcon", IconsFactory.getIcon(null, titleButtonImage, 0, 4 * titleButtonSize, titleButtonSize, titleButtonSize),
-					"DockableFrameTitlePane.hideAutohideIcon", IconsFactory.getIcon(null, titleButtonImage, 0, 5 * titleButtonSize, titleButtonSize, titleButtonSize),
-					"DockableFrameTitlePane.maximizeIcon", IconsFactory.getIcon(null, titleButtonImage, 0, 6 * titleButtonSize, titleButtonSize, titleButtonSize),
-					"DockableFrameTitlePane.restoreIcon", IconsFactory.getIcon(null, titleButtonImage, 0, 7 * titleButtonSize, titleButtonSize, titleButtonSize),
-					"DockableFrameTitlePane.titleBarComponent", Boolean.FALSE,
-
-					"DockableFrameTitlePane.alwaysShowAllButtons", Boolean.FALSE, // true if show all three buttons no matter if the buttons is available. false if only show buttons which is available
-					"DockableFrameTitlePane.buttonsAlignment", SwingConstants.TRAILING, // trailing or leading
-					"DockableFrameTitlePane.titleAlignment", SwingConstants.LEADING, // trailing or leading or center
-					"DockableFrameTitlePane.buttonGap", 0, // gap between buttons
-					"DockableFrameTitlePane.showIcon", Boolean.TRUE, // show icon or not, the alignment is the same as titleAlignment
-					"DockableFrameTitlePane.margin", new InsetsUIResource(0, 3, 0, 3), // gap
-
-					"Contour.color", new ColorUIResource(136, 136, 136),
-					"Contour.thickness", 4,
-
-					"ContentContainer.background", defaultFormBackground,
-					"ContentContainer.vgap", 3,
-					"ContentContainer.hgap", 3,
-
-					"DockingFramework.changeCursor", Boolean.FALSE,
-
-					"FrameContainer.contentBorderInsets", new InsetsUIResource(0, 0, 0, 0),
-			};
-			table.putDefaults(uiDefaults);
-		}
-
-		if ((products & PRODUCT_COMPONENTS) != 0) {
-			final int SIZE = 12;
-			final int MASK_SIZE = 12;
-			ImageIcon collapsiblePaneImage = IconsFactory.getImageIcon(XertoMetalUtils.class, "icons/collapsible_pane_xerto.png"); // 12 x 12
-			ImageIcon collapsiblePaneMask = IconsFactory.getImageIcon(XertoMetalUtils.class, "icons/collapsible_pane_mask.png"); // 12 x 12
-			ImageIcon normalIcon = IconsFactory.getIcon(null, collapsiblePaneImage, 0, 0, SIZE, SIZE);
-			ImageIcon emphasizedIcon = IconsFactory.getIcon(null, collapsiblePaneImage, SIZE, 0, SIZE, SIZE);
-			ImageIcon downMark = IconsFactory.getIcon(null, collapsiblePaneMask, 0, 0, MASK_SIZE, MASK_SIZE);
-			ImageIcon upMark = IconsFactory.getIcon(null, collapsiblePaneMask, 0, MASK_SIZE, MASK_SIZE, MASK_SIZE);
-
-			ColorUIResource collapsiblePaneBackground = new ColorUIResource(236, 234, 217);
-
-			uiDefaults = new Object[]{
-					// components
-					"CollapsiblePanes.border", new BorderUIResource(BorderFactory.createEmptyBorder(12, 12, 12, 12)),
-					"CollapsiblePanes.gap", 5,
-
-					"CollapsiblePane.background", collapsiblePaneBackground,
-					"CollapsiblePane.contentBackground", defaultLtHighlightColor,
-					"CollapsiblePane.foreground", new ColorUIResource(XertoUtils.getTextColor(collapsiblePaneBackground)),
-					"CollapsiblePane.emphasizedBackground", collapsiblePaneBackground,
-					"CollapsiblePane.emphasizedForeground", new ColorUIResource(XertoUtils.getTextColor(XertoUtils.getEmBaseColor(collapsiblePaneBackground))),
-					"CollapsiblePane.border", new BorderUIResource(BorderFactory.createEmptyBorder(0, 0, 0, 0)),
-
-					"CollapsiblePane.font", controlFont,
-
-					"CollapsiblePane.contentBorder", new BorderUIResource(BorderFactory.createEmptyBorder(8, 10, 8, 10)),
-
-					"CollapsiblePane.titleBorder", new BorderUIResource(BorderFactory.createEmptyBorder()),
-					"CollapsiblePane.titleFont", boldFont,
-
-					"CollapsiblePane.downIcon", IconsFactory.getOverlayIcon(null, normalIcon, downMark, SwingConstants.CENTER),
-					"CollapsiblePane.upIcon", IconsFactory.getOverlayIcon(null, normalIcon, upMark, SwingConstants.CENTER),
-					"CollapsiblePane.downIcon.emphasized", IconsFactory.getOverlayIcon(null, emphasizedIcon, downMark, SwingConstants.CENTER),
-					"CollapsiblePane.upIcon.emphasized", IconsFactory.getOverlayIcon(null, emphasizedIcon, upMark, SwingConstants.CENTER),
-					"CollapsiblePane.titleButtonBackground", normalIcon,
-					"CollapsiblePane.titleButtonBackground.emphasized", emphasizedIcon,
-
-					"StatusBarItem.border", new BorderUIResource(BorderFactory.createEmptyBorder(0, 1, 0, 1)),
-
-					"StatusBar.border", new StatusBarBorder(),
-					"StatusBar.gap", 2,
-					"StatusBar.background", defaultBackgroundColor,
-					"StatusBar.font", controlFont,
-					"MemoryStatusBarItem.fillColor", new ColorUIResource(236, 233, 176),
-
-					"DocumentPane.groupBorder", new BorderUIResource(BorderFactory.createLineBorder(Color.gray)),
-					"DocumentPane.newHorizontalGroupIcon", JideIconsFactory.getImageIcon(JideIconsFactory.WindowMenu.NEW_HORIZONTAL_TAB),
-					"DocumentPane.newVerticalGroupIcon", JideIconsFactory.getImageIcon(JideIconsFactory.WindowMenu.NEW_VERTICAL_TAB),
-					"DocumentPane.boldActiveTab", Boolean.FALSE,
-
-					"OutlookTabbedPane.buttonStyle", JideButton.TOOLBOX_STYLE,
-					"FloorTabbedPane.buttonStyle", JideButton.TOOLBOX_STYLE,
-			};
-			table.putDefaults(uiDefaults);
-		}
-
-		if ((products & PRODUCT_ACTION) != 0) {
-			uiDefaults = new Object[]{
-					// action
-					"CommandBar.font", toolbarFont,
-					"CommandBar.background", commandBarBackground,
-					"CommandBar.foreground", defaultTextColor,
-					"CommandBar.shadow", defaultShadowColor,
-					"CommandBar.darkShadow", defaultDarkShadowColor,
-					"CommandBar.light", defaultHighlightColor,
-					"CommandBar.highlight", defaultLtHighlightColor,
-					"CommandBar.border", new BorderUIResource(BorderFactory.createEmptyBorder(1, 1, 1, 1)),
-					"CommandBar.borderVert", new BorderUIResource(BorderFactory.createEmptyBorder(1, 1, 1, 1)),
-					"CommandBar.borderFloating", new BorderUIResource(BorderFactory.createCompoundBorder(BorderFactory.createLineBorder(UIDefaultsLookup.getColor("activeCaption"), 2),
-					BorderFactory.createEmptyBorder(1, 1, 1, 1))),
-					"CommandBar.ancestorInputMap",
-					new UIDefaults.LazyInputMap(new Object[]{
-							"UP", "navigateUp",
-							"KP_UP", "navigateUp",
-							"DOWN", "navigateDown",
-							"KP_DOWN", "navigateDown",
-							"LEFT", "navigateLeft",
-							"KP_LEFT", "navigateLeft",
-							"RIGHT", "navigateRight",
-							"KP_RIGHT", "navigateRight"
-					}),
-					"CommandBar.titleBarSize", 17,
-					"CommandBar.titleBarButtonGap", 1,
-					"CommandBar.titleBarBackground", activeTitleBackgroundColor,
-					"CommandBar.titleBarForeground", activeTitleTextColor,
-					"CommandBar.titleBarFont", boldFont,
-
-					"CommandBar.separatorSize", 5,
-
-					// *** Separator
-					"CommandBarSeparator.background", XertoUtils.getControlColor(),
-					"CommandBarSeparator.foreground", XertoUtils.getControlMidShadowColor(),
-
-					"Chevron.size", 11,
-			};
-			table.putDefaults(uiDefaults);
-		}
-
-		if ((products & PRODUCT_GRIDS) != 0) {
-			uiDefaults = new Object[]{
-					// grid
-					"NestedTableHeader.cellBorder", UIDefaultsLookup.getBorder("TableHeader.cellBorder"),
-
-					"GroupList.ancestorInputMap", new UIDefaults.LazyInputMap(new Object[]{
-					"TAB", "selectNextGroup",
-					"shift TAB", "selectPreviousGroup",
-			}),
-			};
-			table.putDefaults(uiDefaults);
-		}
-
-		if ((products & PRODUCT_DIFF) != 0) {
-			uiDefaults = new Object[]{
-					"DiffMerge.changed", new ColorUIResource(196, 196, 255),
-					"DiffMerge.deleted", new ColorUIResource(200, 200, 200),
-					"DiffMerge.inserted", new ColorUIResource(196, 255, 196),
-					"DiffMerge.conflicted", new ColorUIResource(255, 153, 153),
-			};
-			table.putDefaults(uiDefaults);
-		}
 
 		UIDefaultsLookup.put(table, "Theme.painter", XertoPainter.getInstance());
 	}

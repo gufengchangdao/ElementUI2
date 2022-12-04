@@ -189,42 +189,42 @@ public class DefaultOverlayable extends JPanel implements Overlayable, Component
 		}
 
 		switch (overlayLocation) {
-			case CENTER:
+			case CENTER -> {
 				cx = bounds.x + (bounds.width - cw) / 2;
 				cy = bounds.y + (bounds.height - ch) / 2;
-				break;
-			case NORTH:
+			}
+			case NORTH -> {
 				cx = bounds.x + (bounds.width - cw) / 2;
 				cy = overlayBounds.y;
-				break;
-			case SOUTH:
+			}
+			case SOUTH -> {
 				cx = bounds.x + (bounds.width - cw) / 2;
 				cy = overlayBounds.y + overlayBounds.height - ch;
-				break;
-			case WEST:
+			}
+			case WEST -> {
 				cx = overlayBounds.x;
 				cy = bounds.y + (bounds.height - ch) / 2;
-				break;
-			case EAST:
+			}
+			case EAST -> {
 				cx = overlayBounds.x + overlayBounds.width - cw;
 				cy = bounds.y + (bounds.height - ch) / 2;
-				break;
-			case NORTH_WEST:
+			}
+			case NORTH_WEST -> {
 				cx = overlayBounds.x;
 				cy = overlayBounds.y;
-				break;
-			case NORTH_EAST:
+			}
+			case NORTH_EAST -> {
 				cx = overlayBounds.x + overlayBounds.width - cw;
 				cy = overlayBounds.y;
-				break;
-			case SOUTH_WEST:
+			}
+			case SOUTH_WEST -> {
 				cx = overlayBounds.x;
 				cy = overlayBounds.y + overlayBounds.height - ch;
-				break;
-			case SOUTH_EAST:
+			}
+			case SOUTH_EAST -> {
 				cx = overlayBounds.x + overlayBounds.width - cw;
 				cy = overlayBounds.y + overlayBounds.height - ch;
-				break;
+			}
 		}
 
 		return new Rectangle(cx, cy, cw, ch);

@@ -13,8 +13,7 @@ import javax.swing.*;
 /**
  * A helper class to contain icons for MultiplePage Dialog component.
  */
-class TreeIconsFactory {
-
+public class TreeIconsFactory {
 	static class CellRenderer {
 		public static final String SELECTED_C16 = "icons/selected-c16.gif";
 		public static final String SELECTED_B16 = "icons/selected-b16.gif";
@@ -31,6 +30,4 @@ class TreeIconsFactory {
 	public static void main(String[] argv) {
 		IconsFactory.generateHTML(TreeIconsFactory.class);
 	}
-
-
 }

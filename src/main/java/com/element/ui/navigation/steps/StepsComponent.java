@@ -23,9 +23,9 @@ public class StepsComponent extends BaseComponent {
 	/** 步骤相关数据列表 */
 	private List<StepInfo> items;
 	/** 当前进行到哪一步了，从零开始。默认为0 */
-	private int currentStep = 0;
+	private int currentStep;
 	/** 已完成的步骤主题色 */
-	private Color achievedColor = ColorUtil.SUCCESS;
+	private Color achievedColor;
 	/** 未开始的步骤主题色 */
 	private Color notStartColor = ColorUtil.PLACEHOLDER_TEXT;
 	/** 正在进行步骤主题色 */

@@ -37,8 +37,12 @@ public class StandardDialogExample4 extends StandardDialog {
 		JTextArea textArea = new MultilineLabel();
 		textArea.setColumns(50);
 		textArea.setRows(20);
-		textArea.setText("This is an example using StandardDialog." +
-				"\n\nIn this example, we create a dialog with some example contents in content area, and a button panel with two buttons and a special check box on the same line as _panes. Please note, it's the ButtonPanel supporting this feature. You can see the source code to find out how we did it.");
+		textArea.setText("""
+				This is an example using StandardDialog.
+
+				In this example, we create a dialog with some example contents in content area, and a button panel with\
+				 two buttons and a special check box on the same line as _panes. Please note, it's the ButtonPanel \
+				 supporting this feature. You can see the source code to find out how we did it.""");
 		panel.add(new JScrollPane(textArea), BorderLayout.CENTER);
 		setInitFocusedComponent(textField);
 		return panel;

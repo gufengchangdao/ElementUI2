@@ -252,14 +252,14 @@ public class BasicPainter implements SwingConstants, ThemePainter {
 		}
 
 		switch (state) {
-			case STATE_DEFAULT:
+			case STATE_DEFAULT -> {
 				background = c.getBackground();
 				if (background == null || background instanceof UIResource) {
 					background = _bk0;
 				}
 				paintBackground(c, g, rect, showBorder ? _borderColor : null, background, orientation);
-				break;
-			case STATE_ROLLOVER:
+			}
+			case STATE_ROLLOVER -> {
 				if (c instanceof ComponentStateSupport) {
 					background = ((ComponentStateSupport) c).getBackgroundOfState(STATE_ROLLOVER);
 				}
@@ -267,8 +267,8 @@ public class BasicPainter implements SwingConstants, ThemePainter {
 					background = _bk1;
 				}
 				paintBackground(c, g, rect, showBorder ? _borderColor : null, background, orientation);
-				break;
-			case STATE_SELECTED:
+			}
+			case STATE_SELECTED -> {
 				if (c instanceof ComponentStateSupport) {
 					background = ((ComponentStateSupport) c).getBackgroundOfState(STATE_SELECTED);
 				}
@@ -276,8 +276,8 @@ public class BasicPainter implements SwingConstants, ThemePainter {
 					background = _bk2;
 				}
 				paintBackground(c, g, rect, showBorder ? _borderColor : null, background, orientation);
-				break;
-			case STATE_DISABLE_SELECTED:
+			}
+			case STATE_DISABLE_SELECTED -> {
 				if (c instanceof ComponentStateSupport) {
 					background = ((ComponentStateSupport) c).getBackgroundOfState(STATE_SELECTED);
 				}
@@ -285,8 +285,8 @@ public class BasicPainter implements SwingConstants, ThemePainter {
 					background = _bk2;
 				}
 				paintBackground(c, g, rect, showBorder ? ColorUtil.toGrayscale(_borderColor) : null, ColorUtil.toGrayscale(background), orientation);
-				break;
-			case STATE_PRESSED:
+			}
+			case STATE_PRESSED -> {
 				if (c instanceof ComponentStateSupport) {
 					background = ((ComponentStateSupport) c).getBackgroundOfState(STATE_PRESSED);
 				}
@@ -294,7 +294,7 @@ public class BasicPainter implements SwingConstants, ThemePainter {
 					background = _bk3;
 				}
 				paintBackground(c, g, rect, showBorder ? _borderColor : null, background, orientation);
-				break;
+			}
 		}
 	}
 
@@ -809,7 +809,7 @@ public class BasicPainter implements SwingConstants, ThemePainter {
 			g.setFont(font);
 			Color oldColor = g.getColor();
 			g.setColor(indexColor);
-			int x = rect.x + rect.width / 2 - (iconWidth + ARROW_TEXT_GAP + textWidth) / 2;
+			int x;
 			int y = rect.y + V_GAP;
 			if (leftToRight) {
 				UIUtil.drawString(g, str, rect.x + rect.width - textWidth - H_GAP, rect.y + yOffset + iconHeight / 2 + 1);
@@ -830,8 +830,8 @@ public class BasicPainter implements SwingConstants, ThemePainter {
 			}
 		} else {
 			if (sortIcon != null) {
-				int x = rect.x + rect.width / 2 - iconWidth / 2;
-				int y = rect.y + V_GAP;
+				int x;
+				int y;
 
 				if (leftToRight) {
 					x = rect.x + rect.width - iconWidth - H_GAP;

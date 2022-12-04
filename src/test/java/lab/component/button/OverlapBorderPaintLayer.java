@@ -93,8 +93,7 @@ public class OverlapBorderPaintLayer extends JPanel {
 			@Override
 			public boolean contains(int x, int y) {
 				Icon i = getIcon();
-				if (i instanceof ArrowToggleButtonIcon) {
-					ArrowToggleButtonIcon icon = (ArrowToggleButtonIcon) i;
+				if (i instanceof ArrowToggleButtonIcon icon) {
 					if (Objects.nonNull(icon.getShape())) {
 						return icon.getShape().contains(x, y);
 					}
@@ -285,10 +284,8 @@ class BreadcrumbLayerUI<V extends Component> extends LayerUI<V> {
 		Shape s = null;
 		if (id == MouseEvent.MOUSE_ENTERED || id == MouseEvent.MOUSE_MOVED) {
 			Component c = e.getComponent();
-			if (c instanceof AbstractButton) {
-				AbstractButton b = (AbstractButton) c;
-				if (b.getIcon() instanceof ArrowToggleButtonIcon) {
-					ArrowToggleButtonIcon icon = (ArrowToggleButtonIcon) b.getIcon();
+			if (c instanceof AbstractButton b) {
+				if (b.getIcon() instanceof ArrowToggleButtonIcon icon) {
 					Rectangle r = c.getBounds();
 					AffineTransform at = AffineTransform.getTranslateInstance(r.x, r.y);
 					s = at.createTransformedShape(icon.getShape());

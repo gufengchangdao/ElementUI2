@@ -79,18 +79,17 @@ public class LocalDateFilterTest extends JPanel {
 	}
 
 	public RowFilter<TableModel, Integer> makeRowFilter(String selected) {
-		switch (selected) {
-			case "within 3 days before":
-				return new LocalDateFilter(realLocalDate.minusDays(3).plusDays(1), realLocalDate, 0);
-			case "within 1 week before":
-				return new LocalDateFilter(realLocalDate.minusWeeks(1).plusDays(1), realLocalDate, 0);
-			case "1 week before and after":
-				return new LocalDateFilter(realLocalDate.minusDays(3), realLocalDate.plusDays(3), 0);
-			case "within 1 week after":
-				return new LocalDateFilter(realLocalDate, realLocalDate.plusWeeks(1).minusDays(1), 0);
-			default:
-				return null;
-		}
+		return switch (selected) {
+			case "within 3 days before" ->
+					new LocalDateFilter(realLocalDate.minusDays(3).plusDays(1), realLocalDate, 0);
+			case "within 1 week before" ->
+					new LocalDateFilter(realLocalDate.minusWeeks(1).plusDays(1), realLocalDate, 0);
+			case "1 week before and after" ->
+					new LocalDateFilter(realLocalDate.minusDays(3), realLocalDate.plusDays(3), 0);
+			case "within 1 week after" ->
+					new LocalDateFilter(realLocalDate, realLocalDate.plusWeeks(1).minusDays(1), 0);
+			default -> null;
+		};
 	}
 
 	private class CalendarTableRenderer extends DefaultTableCellRenderer {
@@ -98,9 +97,7 @@ public class LocalDateFilterTest extends JPanel {
 		public Component getTableCellRendererComponent(JTable table, Object value, boolean selected, boolean focused, int row, int column) {
 			Component c = super.getTableCellRendererComponent(
 					table, value, selected, focused, row, column);
-			if (value instanceof LocalDate && c instanceof JLabel) {
-				LocalDate d = (LocalDate) value;
-				JLabel l = (JLabel) c;
+			if (value instanceof LocalDate d && c instanceof JLabel l) {
 				l.setHorizontalAlignment(SwingConstants.CENTER);
 				l.setText(Objects.toString(d.getDayOfMonth()));
 				if (YearMonth.from(d).equals(YearMonth.from(getCurrentLocalDate()))) {
@@ -118,14 +115,11 @@ public class LocalDateFilterTest extends JPanel {
 		}
 
 		private Color getDayOfWeekColor(DayOfWeek dow) {
-			switch (dow) {
-				case SUNDAY:
-					return new Color(0xFF_DC_DC);
-				case SATURDAY:
-					return new Color(0xDC_DC_FF);
-				default:
-					return Color.WHITE;
-			}
+			return switch (dow) {
+				case SUNDAY -> new Color(0xFF_DC_DC);
+				case SATURDAY -> new Color(0xDC_DC_FF);
+				default -> Color.WHITE;
+			};
 		}
 	}
 
@@ -196,8 +190,7 @@ class LocalDateFilter extends RowFilter<TableModel, Integer> {
 	@Override
 	public boolean include(Entry<? extends TableModel, ? extends Integer> entry) {
 		Object v = entry.getModel().getValueAt(entry.getIdentifier(), column);
-		if (v instanceof LocalDate) {
-			LocalDate date = (LocalDate) v;
+		if (v instanceof LocalDate date) {
 			return !(startDate.isAfter(date) || endDate.isBefore(date));
 		}
 		return false;

@@ -43,7 +43,9 @@ import javax.swing.undo.CannotUndoException;
 import javax.swing.undo.UndoManager;
 import java.awt.*;
 import java.awt.event.ActionEvent;
+import java.awt.event.InputEvent;
 import java.awt.event.KeyEvent;
+import java.awt.geom.Rectangle2D;
 import java.util.HashMap;
 
 public class TextComponentDemo extends JFrame {
@@ -142,12 +144,12 @@ public class TextComponentDemo extends JFrame {
 			SwingUtilities.invokeLater(() -> {
 				if (dot == mark) {  // no selection
 					try {
-						Rectangle caretCoords = textPane.modelToView(dot);
+						Rectangle2D caretCoords = textPane.modelToView2D(dot);
 						//Convert it to view coordinates.
 						setText("caret: text position: " + dot
 								+ ", view location = ["
-								+ caretCoords.x + ", "
-								+ caretCoords.y + "]"
+								+ caretCoords.getX() + ", "
+								+ caretCoords.getY() + "]"
 								+ newline);
 					} catch (BadLocationException ble) {
 						setText("caret: text position: " + dot + newline);
@@ -205,19 +207,19 @@ public class TextComponentDemo extends JFrame {
 		InputMap inputMap = textPane.getInputMap();
 
 		//Ctrl-b to go backward one character
-		KeyStroke key = KeyStroke.getKeyStroke(KeyEvent.VK_B, Event.CTRL_MASK);
+		KeyStroke key = KeyStroke.getKeyStroke(KeyEvent.VK_B, InputEvent.CTRL_DOWN_MASK);
 		inputMap.put(key, DefaultEditorKit.backwardAction);
 
 		//Ctrl-f to go forward one character
-		key = KeyStroke.getKeyStroke(KeyEvent.VK_F, Event.CTRL_MASK);
+		key = KeyStroke.getKeyStroke(KeyEvent.VK_F, InputEvent.CTRL_DOWN_MASK);
 		inputMap.put(key, DefaultEditorKit.forwardAction);
 
 		//Ctrl-p to go up one line
-		key = KeyStroke.getKeyStroke(KeyEvent.VK_P, Event.CTRL_MASK);
+		key = KeyStroke.getKeyStroke(KeyEvent.VK_P, InputEvent.CTRL_DOWN_MASK);
 		inputMap.put(key, DefaultEditorKit.upAction);
 
 		//Ctrl-n to go down one line
-		key = KeyStroke.getKeyStroke(KeyEvent.VK_N, Event.CTRL_MASK);
+		key = KeyStroke.getKeyStroke(KeyEvent.VK_N, InputEvent.CTRL_DOWN_MASK);
 		inputMap.put(key, DefaultEditorKit.downAction);
 	}
 
@@ -338,7 +340,7 @@ public class TextComponentDemo extends JFrame {
 	//The following two methods allow us to find an
 	//action provided by the editor kit by its name.
 	private HashMap<Object, Action> createActionTable(JTextComponent textComponent) {
-		HashMap<Object, Action> actions = new HashMap<Object, Action>();
+		HashMap<Object, Action> actions = new HashMap<>();
 		Action[] actionsArray = textComponent.getActions();
 		for (Action a : actionsArray) {
 			actions.put(a.getValue(Action.NAME), a);

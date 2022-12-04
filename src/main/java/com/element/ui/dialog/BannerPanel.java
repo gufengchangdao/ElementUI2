@@ -22,22 +22,6 @@ import java.beans.PropertyChangeListener;
  * product logo.
  */
 public class BannerPanel extends JPanel {
-	/**
-	 * Title of the banner panel.
-	 */
-	protected String _title;
-
-	/**
-	 * Subtitle or description of the banner panel.
-	 */
-	protected String _subtitle;
-
-	/**
-	 * Icon for the banner panel.
-	 */
-	protected Icon _titleIcon;
-
-
 	public static final String TITLE_PROPERTY = "title";
 	public static final String SUBTITLE_PROPERTY = "subTitle";
 	public static final String ICON_PROPERTY = "icon";
@@ -46,6 +30,20 @@ public class BannerPanel extends JPanel {
 	public static final String PROPERTY_SUBTITLE_FONT = "subTitleFont";
 	public static final String PROPERTY_TITLE_ICON_LOCATION = "titleIconLocation";
 
+	/**
+	 * Title of the banner panel.
+	 */
+	protected String title;
+
+	/**
+	 * Subtitle or description of the banner panel.
+	 */
+	protected String subTitle;
+
+	/**
+	 * Icon for the banner panel.
+	 */
+	protected Icon titleIcon;
 
 	/**
 	 * A component to be placed at position of icon.
@@ -316,7 +314,7 @@ public class BannerPanel extends JPanel {
 	 * @return the title of the banner panel.
 	 */
 	public String getTitle() {
-		return _title;
+		return title;
 	}
 
 	/**
@@ -325,9 +323,9 @@ public class BannerPanel extends JPanel {
 	 * @param title the new title.
 	 */
 	public void setTitle(String title) {
-		String old = _title;
-		_title = title;
-		firePropertyChange(TITLE_PROPERTY, old, _title);
+		String old = this.title;
+		this.title = title;
+		firePropertyChange(TITLE_PROPERTY, old, this.title);
 	}
 
 	/**
@@ -336,7 +334,7 @@ public class BannerPanel extends JPanel {
 	 * @return the subtitle
 	 */
 	public String getSubtitle() {
-		return _subtitle;
+		return subTitle;
 	}
 
 	/**
@@ -345,9 +343,9 @@ public class BannerPanel extends JPanel {
 	 * @param subtitle the new subtitle.
 	 */
 	public void setSubtitle(String subtitle) {
-		String old = _subtitle;
-		_subtitle = subtitle;
-		firePropertyChange(SUBTITLE_PROPERTY, old, _subtitle);
+		String old = subTitle;
+		subTitle = subtitle;
+		firePropertyChange(SUBTITLE_PROPERTY, old, subTitle);
 	}
 
 	/**
@@ -356,7 +354,7 @@ public class BannerPanel extends JPanel {
 	 * @return the title icon
 	 */
 	public Icon getTitleIcon() {
-		return _titleIcon;
+		return titleIcon;
 	}
 
 	/**
@@ -365,9 +363,9 @@ public class BannerPanel extends JPanel {
 	 * @param titleIcon the new titleIcon.
 	 */
 	public void setTitleIcon(Icon titleIcon) {
-		Icon old = _titleIcon;
-		_titleIcon = prepareTitleIcon(titleIcon);
-		firePropertyChange(ICON_PROPERTY, old, _titleIcon);
+		Icon old = this.titleIcon;
+		this.titleIcon = prepareTitleIcon(titleIcon);
+		firePropertyChange(ICON_PROPERTY, old, this.titleIcon);
 	}
 
 

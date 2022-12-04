@@ -16,7 +16,7 @@ import java.util.List;
 
 public class FolderChooserTest extends AbstractDemo {
 	private FolderChooser _folderChooser;
-	private List<String> _recentList = new ArrayList<String>();
+	private List<String> _recentList = new ArrayList<>();
 	private File _currentFolder = null;
 
 	public JTextField _textField;
@@ -38,77 +38,59 @@ public class FolderChooserTest extends AbstractDemo {
 		JPanel switchPanel = new JPanel(new GridLayout(7, 1, 3, 3));
 
 		final JCheckBox showNavigationText = new JCheckBox("Show navigation text field");
-		showNavigationText.addItemListener(new ItemListener() {
-			public void itemStateChanged(ItemEvent e) {
-				_folderChooser.setNavigationFieldVisible(showNavigationText.isSelected());
-			}
-		});
+		showNavigationText.addItemListener(e -> _folderChooser.setNavigationFieldVisible(showNavigationText.isSelected()));
 		showNavigationText.setSelected(_folderChooser.isNavigationFieldVisible());
 
 		final JCheckBox showRecentList = new JCheckBox("Show recent list on the tool bar");
-		showRecentList.addItemListener(new ItemListener() {
-			public void itemStateChanged(ItemEvent e) {
-				_folderChooser.setRecentListVisible(showRecentList.isSelected());
-			}
-		});
+		showRecentList.addItemListener(e -> _folderChooser.setRecentListVisible(showRecentList.isSelected()));
 		showRecentList.setSelected((_folderChooser.isRecentListVisible()));
 
 		final JCheckBox showDeleteButton = new JCheckBox("Show delete button on the tool bar");
-		showDeleteButton.addItemListener(new ItemListener() {
-			public void itemStateChanged(ItemEvent e) {
-				if (showDeleteButton.isSelected()) {
-					_folderChooser.setAvailableButtons(_folderChooser.getAvailableButtons() | FolderChooser.BUTTON_DELETE);
-				} else {
-					_folderChooser.setAvailableButtons(_folderChooser.getAvailableButtons() & ~FolderChooser.BUTTON_DELETE);
-				}
+		showDeleteButton.addItemListener(e -> {
+			if (showDeleteButton.isSelected()) {
+				_folderChooser.setAvailableButtons(_folderChooser.getAvailableButtons() | FolderChooser.BUTTON_DELETE);
+			} else {
+				_folderChooser.setAvailableButtons(_folderChooser.getAvailableButtons() & ~FolderChooser.BUTTON_DELETE);
 			}
 		});
 		showDeleteButton.setSelected((_folderChooser.getAvailableButtons() & ~FolderChooser.BUTTON_DELETE) != 0);
 
 		final JCheckBox showNewButton = new JCheckBox("Show new button on the tool bar");
-		showNewButton.addItemListener(new ItemListener() {
-			public void itemStateChanged(ItemEvent e) {
-				if (showNewButton.isSelected()) {
-					_folderChooser.setAvailableButtons(_folderChooser.getAvailableButtons() | FolderChooser.BUTTON_NEW);
-				} else {
-					_folderChooser.setAvailableButtons(_folderChooser.getAvailableButtons() & ~FolderChooser.BUTTON_NEW);
-				}
+		showNewButton.addItemListener(e -> {
+			if (showNewButton.isSelected()) {
+				_folderChooser.setAvailableButtons(_folderChooser.getAvailableButtons() | FolderChooser.BUTTON_NEW);
+			} else {
+				_folderChooser.setAvailableButtons(_folderChooser.getAvailableButtons() & ~FolderChooser.BUTTON_NEW);
 			}
 		});
 		showNewButton.setSelected((_folderChooser.getAvailableButtons() & ~FolderChooser.BUTTON_NEW) != 0);
 
 		final JCheckBox showRefreshButton = new JCheckBox("Show refresh button on the tool bar");
-		showRefreshButton.addItemListener(new ItemListener() {
-			public void itemStateChanged(ItemEvent e) {
-				if (showRefreshButton.isSelected()) {
-					_folderChooser.setAvailableButtons(_folderChooser.getAvailableButtons() | FolderChooser.BUTTON_REFRESH);
-				} else {
-					_folderChooser.setAvailableButtons(_folderChooser.getAvailableButtons() & ~FolderChooser.BUTTON_REFRESH);
-				}
+		showRefreshButton.addItemListener(e -> {
+			if (showRefreshButton.isSelected()) {
+				_folderChooser.setAvailableButtons(_folderChooser.getAvailableButtons() | FolderChooser.BUTTON_REFRESH);
+			} else {
+				_folderChooser.setAvailableButtons(_folderChooser.getAvailableButtons() & ~FolderChooser.BUTTON_REFRESH);
 			}
 		});
 		showRefreshButton.setSelected((_folderChooser.getAvailableButtons() & ~FolderChooser.BUTTON_REFRESH) != 0);
 
 		final JCheckBox showDesktopButton = new JCheckBox("Show back to desktop button on the tool bar");
-		showDesktopButton.addItemListener(new ItemListener() {
-			public void itemStateChanged(ItemEvent e) {
-				if (showDesktopButton.isSelected()) {
-					_folderChooser.setAvailableButtons(_folderChooser.getAvailableButtons() | FolderChooser.BUTTON_DESKTOP);
-				} else {
-					_folderChooser.setAvailableButtons(_folderChooser.getAvailableButtons() & ~FolderChooser.BUTTON_DESKTOP);
-				}
+		showDesktopButton.addItemListener(e -> {
+			if (showDesktopButton.isSelected()) {
+				_folderChooser.setAvailableButtons(_folderChooser.getAvailableButtons() | FolderChooser.BUTTON_DESKTOP);
+			} else {
+				_folderChooser.setAvailableButtons(_folderChooser.getAvailableButtons() & ~FolderChooser.BUTTON_DESKTOP);
 			}
 		});
 		showDesktopButton.setSelected((_folderChooser.getAvailableButtons() & ~FolderChooser.BUTTON_DESKTOP) != 0);
 
 		final JCheckBox showMyDocumentsButton = new JCheckBox("Show back to my documents button on the tool bar");
-		showMyDocumentsButton.addItemListener(new ItemListener() {
-			public void itemStateChanged(ItemEvent e) {
-				if (showMyDocumentsButton.isSelected()) {
-					_folderChooser.setAvailableButtons(_folderChooser.getAvailableButtons() | FolderChooser.BUTTON_MY_DOCUMENTS);
-				} else {
-					_folderChooser.setAvailableButtons(_folderChooser.getAvailableButtons() & ~FolderChooser.BUTTON_MY_DOCUMENTS);
-				}
+		showMyDocumentsButton.addItemListener(e -> {
+			if (showMyDocumentsButton.isSelected()) {
+				_folderChooser.setAvailableButtons(_folderChooser.getAvailableButtons() | FolderChooser.BUTTON_MY_DOCUMENTS);
+			} else {
+				_folderChooser.setAvailableButtons(_folderChooser.getAvailableButtons() & ~FolderChooser.BUTTON_MY_DOCUMENTS);
 			}
 		});
 		showMyDocumentsButton.setSelected((_folderChooser.getAvailableButtons() & ~FolderChooser.BUTTON_MY_DOCUMENTS) != 0);
@@ -137,9 +119,7 @@ public class FolderChooserTest extends AbstractDemo {
 				int result = _folderChooser.showOpenDialog(button.getTopLevelAncestor());
 				if (result == FolderChooser.APPROVE_OPTION) {
 					_currentFolder = _folderChooser.getSelectedFile();
-					if (_recentList.contains(_currentFolder.toString())) {
-						_recentList.remove(_currentFolder.toString());
-					}
+					_recentList.remove(_currentFolder.toString());
 					_recentList.add(0, _currentFolder.toString());
 					File selectedFile = _folderChooser.getSelectedFile();
 					if (selectedFile != null) {
@@ -157,20 +137,19 @@ public class FolderChooserTest extends AbstractDemo {
 
 	@Override
 	public String getDescription() {
-		return "This is a demo of FolderChooser. \n" +
-				"\n" +
-				"Demoed classes:\n" +
-				"com.jidesoft.swing.FolderChooser";
+		return """
+				This is a demo of FolderChooser.\s
+
+				Demoed classes:
+				com.jidesoft.swing.FolderChooser""";
 	}
 
 
 	public static void main(String[] args) {
-		SwingUtilities.invokeLater(new Runnable() {
-			public void run() {
-				SwingTestUtil.loadSkin();
-				LookAndFeelFactory.installJideExtension();
-				showAsFrame(new FolderChooserTest());
-			}
+		SwingUtilities.invokeLater(() -> {
+			SwingTestUtil.loadSkin();
+			LookAndFeelFactory.installJideExtension();
+			showAsFrame(new FolderChooserTest());
 		});
 
 	}

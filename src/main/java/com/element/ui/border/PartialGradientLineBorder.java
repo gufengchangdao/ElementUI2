@@ -14,7 +14,7 @@ import java.awt.*;
  * 允许您仅在一侧或多侧有渐变线的边框
  */
 public class PartialGradientLineBorder extends AbstractBorder implements PartialSide {
-	private int _sides = ALL;
+	private int _sides;
 	private final Color[] _colors;
 	protected int _thickness;
 

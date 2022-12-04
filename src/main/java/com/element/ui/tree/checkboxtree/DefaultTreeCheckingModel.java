@@ -477,29 +477,22 @@ public class DefaultTreeCheckingModel implements TreeCheckingModel {
 		 * CheckingMode implements togglePath method (cf. the Strategy Pattern).
 		 */
 		switch (mode) {
-			case SIMPLE: {
+			case SIMPLE -> {
 				this.checkingMode = new SimpleTreeCheckingMode(this);
-				break;
 			}
-			case SINGLE: {
+			case SINGLE -> {
 				this.checkingMode = new SingleTreeCheckingMode(this);
-				break;
 			}
-			case PROPAGATE: {
+			case PROPAGATE -> {
 				this.checkingMode = new PropagateTreeCheckingMode(this);
-				break;
 			}
-
-			case PROPAGATE_PRESERVING_CHECK: {
+			case PROPAGATE_PRESERVING_CHECK -> {
 				this.checkingMode = new PropagatePreservingCheckTreeCheckingMode(this);
-				break;
 			}
-			case PROPAGATE_PRESERVING_UNCHECK:
-				this.checkingMode = new PropagatePreservingUncheckTreeCheckingMode(this);
-				break;
-			case PROPAGATE_UP_UNCHECK: {
+			case PROPAGATE_PRESERVING_UNCHECK ->
+					this.checkingMode = new PropagatePreservingUncheckTreeCheckingMode(this);
+			case PROPAGATE_UP_UNCHECK -> {
 				this.checkingMode = new PropagateUpWhiteTreeCheckingMode(this);
-				break;
 			}
 		}
 

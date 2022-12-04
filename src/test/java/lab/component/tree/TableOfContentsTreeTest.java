@@ -332,8 +332,7 @@ class TableOfContentsTree extends JTree {
 		TreePath path = getPathForRow(i);
 		DefaultMutableTreeNode node = (DefaultMutableTreeNode) path.getLastPathComponent();
 		Object o = node.getUserObject();
-		if (o instanceof TableOfContents) {
-			TableOfContents toc = (TableOfContents) o;
+		if (o instanceof TableOfContents toc) {
 			String pn = Integer.toString(toc.page);
 			TreeCellRenderer tcr = getCellRenderer();
 			g2.setPaint(getTextSelectionColor(i, tcr));
@@ -353,8 +352,7 @@ class TableOfContentsTree extends JTree {
 	}
 
 	private Paint getTextSelectionColor(int i, TreeCellRenderer tcr) {
-		if (isSynth && isRowSelected(i) && tcr instanceof DefaultTreeCellRenderer) {
-			DefaultTreeCellRenderer renderer = (DefaultTreeCellRenderer) tcr;
+		if (isSynth && isRowSelected(i) && tcr instanceof DefaultTreeCellRenderer renderer) {
 			return renderer.getTextSelectionColor();
 		} else {
 			return getForeground();

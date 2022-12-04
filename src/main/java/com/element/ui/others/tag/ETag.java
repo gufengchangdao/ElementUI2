@@ -47,21 +47,17 @@ public class ETag extends RoundComponent {
 		label.setForeground(fg);
 		if (buttonPosition != null)
 			switch (buttonPosition) {
-				case NORTH: {
+				case NORTH -> {
 					add(label, SOUTH);
-					break;
 				}
-				case SOUTH: {
+				case SOUTH -> {
 					add(label, NORTH);
-					break;
 				}
-				case EAST: {
+				case EAST -> {
 					add(label, WEST);
-					break;
 				}
-				case WEST: {
+				case WEST -> {
 					add(label, EAST);
-					break;
 				}
 			}
 		else add(label, EAST);

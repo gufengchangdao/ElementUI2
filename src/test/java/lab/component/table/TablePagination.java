@@ -202,10 +202,9 @@ class LinkViewRadioButtonUI extends BasicRadioButtonUI {
 	@SuppressWarnings("PMD.AvoidSynchronizedAtMethodLevel")
 	@Override
 	public synchronized void paint(Graphics g, JComponent c) {
-		if (!(c instanceof AbstractButton)) {
+		if (!(c instanceof AbstractButton b)) {
 			return;
 		}
-		AbstractButton b = (AbstractButton) c;
 		Font f = b.getFont();
 		g.setFont(f);
 

@@ -42,7 +42,7 @@ import java.awt.*;
  */
 public class DefaultMacFontPolicy implements FontPolicy {
 	@Override
-	public FontSet getFontSet() {
+	public FontSet fontSet() {
 		String fontFamily = "Lucida Grande";
 		if (LookUtils.IS_OS_MAC_CATALINA_OR_LATER) {
 			// fontFamily = ".AppleSystemUIFont";
@@ -69,10 +69,7 @@ public class DefaultMacFontPolicy implements FontPolicy {
 //            smallFont = smallFont.deriveFont(attributes);
 		}
 
-		Font titleFont = menuFont;
-		Font messageFont = controlFont;
-		Font windowTitleFont = titleFont;
-		return FontSets.createDefaultFontSet(controlFont, menuFont, titleFont,
-				messageFont, smallFont, windowTitleFont);
+		return FontSets.createDefaultFontSet(controlFont, menuFont, menuFont,
+				controlFont, smallFont, menuFont);
 	}
 }

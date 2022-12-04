@@ -61,8 +61,7 @@ public class HighlightWordInNode extends JPanel {
 
 	public void fireDocumentChangeEvent() {
 		TreeCellRenderer r = tree.getCellRenderer();
-		if (r instanceof HighlightTreeCellRenderer) {
-			HighlightTreeCellRenderer renderer = (HighlightTreeCellRenderer) r;
+		if (r instanceof HighlightTreeCellRenderer renderer) {
 			String q = field.getText();
 			renderer.setQuery(q);
 			TreePath root = tree.getPathForRow(0);

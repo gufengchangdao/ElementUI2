@@ -17,7 +17,7 @@ import java.io.IOException;
 public class EaseInOut extends JPanel {
 	private EaseInOut() {
 		super();
-		Icon icon = null;
+		Icon icon;
 		try {
 			BufferedImage image = ImageIO.read(getClass().getResourceAsStream("/img/beauty.jpg"));
 			image = GraphicsUtilities.createThumbnail(image, 400);

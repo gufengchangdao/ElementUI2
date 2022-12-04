@@ -469,10 +469,7 @@ public class JideTabbedPane extends JTabbedPane {
 		if (_suppressStateChangedEvents)
 			return;
 
-		if (!isAutoFocusOnTabHideClose())
-			clearVisComp();
 		super.fireStateChanged();
-
 	}
 
 
@@ -531,9 +528,6 @@ public class JideTabbedPane extends JTabbedPane {
 		if (contains) {
 			_closableSet.add(c);
 		}
-
-		if (!isAutoFocusOnTabHideClose())
-			clearVisComp();
 	}
 
 	private boolean _autoRequestFocus = true;
@@ -733,11 +727,6 @@ public class JideTabbedPane extends JTabbedPane {
 				super.fireStateChanged();
 			}
 		}
-	}
-
-	@SuppressWarnings({"UnusedDeclaration"})
-	public void processMouseSelection(int tabIndex, MouseEvent e) {
-
 	}
 
 	/**
@@ -1060,9 +1049,6 @@ public class JideTabbedPane extends JTabbedPane {
 		Component c = getComponentAt(index);
 		boolean contains = _closableSet.contains(c);
 
-		if (!isAutoFocusOnTabHideClose())
-			clearVisComp();
-
 		if (contains) {
 			_closableSet.remove(c);
 		}
@@ -1172,11 +1158,6 @@ public class JideTabbedPane extends JTabbedPane {
 //            return compTest;
 //        }
 		return ((tracker != null) ? tracker.getLastFocusedComponent() : null);
-	}
-
-	protected void clearVisComp() {
-		// this is done so that the super removetab and fireselection do not attempt to manage focus
-		// A very dirty hack to access a private variable is jtabpane. Note - this only works on 1.6
 	}
 
 	/**
@@ -1592,18 +1573,10 @@ public class JideTabbedPane extends JTabbedPane {
 			Insets insets = new Insets(0, 0, 0, 0);
 			BasicJideTabbedPaneUI.rotateInsets(contentinsets, insets, tabPlacement);
 			switch (getTabPlacement()) {
-				case TOP:
-					insets.top += getTabHeight();
-					break;
-				case BOTTOM:
-					insets.bottom += getTabHeight();
-					break;
-				case LEFT:
-					insets.left += getTabHeight();
-					break;
-				case RIGHT:
-					insets.right += getTabHeight();
-					break;
+				case TOP -> insets.top += getTabHeight();
+				case BOTTOM -> insets.bottom += getTabHeight();
+				case LEFT -> insets.left += getTabHeight();
+				case RIGHT -> insets.right += getTabHeight();
 			}
 			if (insets.top != 0) {
 				repaintContentBorder(0, 0, getWidth(), insets.top);
@@ -1860,15 +1833,12 @@ public class JideTabbedPane extends JTabbedPane {
 	protected void fireTabEditing(int id, int index, String oldTitle, String newTitle) {
 		if (LOGGER_EVENT.isLoggable(Level.FINE)) {
 			switch (id) {
-				case TabEditingEvent.TAB_EDITING_STARTED:
-					LOGGER_EVENT.fine("TabEditing Started at tab \"" + index + "\"; the current title is " + oldTitle);
-					break;
-				case TabEditingEvent.TAB_EDITING_STOPPED:
-					LOGGER_EVENT.fine("TabEditing Stopped at tab \"" + index + "\"; the old title is " + oldTitle + "; the new title is " + newTitle);
-					break;
-				case TabEditingEvent.TAB_EDITING_CANCELLED:
-					LOGGER_EVENT.fine("TabEditing Cancelled at tab \"" + index + "\"; the current title remains " + oldTitle);
-					break;
+				case TabEditingEvent.TAB_EDITING_STARTED ->
+						LOGGER_EVENT.fine("TabEditing Started at tab \"" + index + "\"; the current title is " + oldTitle);
+				case TabEditingEvent.TAB_EDITING_STOPPED ->
+						LOGGER_EVENT.fine("TabEditing Stopped at tab \"" + index + "\"; the old title is " + oldTitle + "; the new title is " + newTitle);
+				case TabEditingEvent.TAB_EDITING_CANCELLED ->
+						LOGGER_EVENT.fine("TabEditing Cancelled at tab \"" + index + "\"; the current title remains " + oldTitle);
 			}
 		}
 		Object[] listeners = listenerList.getListenerList();
@@ -2239,8 +2209,7 @@ public class JideTabbedPane extends JTabbedPane {
 						focusComponent = comp;
 					}
 					if (focusComponent != null) {
-						final Component theComponent = focusComponent;
-						Runnable runnable = theComponent::requestFocus;
+						Runnable runnable = focusComponent::requestFocus;
 						SwingUtilities.invokeLater(runnable);
 					}
 				}
@@ -2468,7 +2437,6 @@ public class JideTabbedPane extends JTabbedPane {
 							}
 						}
 					}
-					break;
 				}
 				case BUTTON_LIST -> {
 					int x = centerX + 2, y = centerY; // start point. mark as
@@ -2480,7 +2448,6 @@ public class JideTabbedPane extends JTabbedPane {
 					g.drawLine(x - 4, y, x - 1, y);
 					g.drawLine(x - 4, y + 2, x - 1, y + 2);
 					g.drawLine(x - 6, y + 4, x + 1, y + 4);
-					break;
 				}
 			}
 		}

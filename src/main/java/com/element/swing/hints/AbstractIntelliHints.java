@@ -169,8 +169,7 @@ public abstract class AbstractIntelliHints implements IntelliHints {
 			public boolean delegateActionPerformed(ActionEvent e) {
 				JComponent tf = (JComponent) e.getSource();
 				IntelliHints hints = getIntelliHints(tf);
-				if (hints instanceof AbstractIntelliHints) {
-					AbstractIntelliHints aih = (AbstractIntelliHints) hints;
+				if (hints instanceof AbstractIntelliHints aih) {
 					if (tf.isEnabled() && !aih.isHintsPopupVisible()) {
 						aih.showHintsPopup(false);
 						return true;
@@ -520,7 +519,7 @@ public abstract class AbstractIntelliHints implements IntelliHints {
 	 */
 	protected KeyStroke getShowHintsKeyStroke() {
 		if (isMultilineTextComponent()) {
-			return KeyStroke.getKeyStroke(KeyEvent.VK_SPACE, KeyEvent.CTRL_MASK);
+			return KeyStroke.getKeyStroke(KeyEvent.VK_SPACE, KeyEvent.CTRL_DOWN_MASK);
 		} else {
 			return KeyStroke.getKeyStroke(KeyEvent.VK_DOWN, 0);
 		}
@@ -565,7 +564,7 @@ public abstract class AbstractIntelliHints implements IntelliHints {
 	 */
 	public void addShowHintsKeyStroke(KeyStroke keyStroke) {
 		if (_showHintsKeyStrokes == null) {
-			_showHintsKeyStrokes = new ArrayList<KeyStroke>();
+			_showHintsKeyStrokes = new ArrayList<>();
 		}
 		_showHintsKeyStrokes.add(keyStroke);
 		DelegateAction.replaceAction(getTextComponent(), JComponent.WHEN_FOCUSED, keyStroke, _showAction);

@@ -232,14 +232,12 @@ public class SidePaneGroup extends ArrayList<SidePaneItem> {
 						e = new SidePaneEvent(sidePaneItem, id);
 					}
 					switch (e.getID()) {
-						case SidePaneEvent.SIDE_PANE_TAB_SELECTED:
-							((SidePaneListener) listeners[i + 1]).sidePaneTabSelected(e);
-							break;
-						case SidePaneEvent.SIDE_PANE_TAB_DESELECTED:
-							((SidePaneListener) listeners[i + 1]).sidePaneTabDeselected(e);
-							break;
-						default:
-							break;
+						case SidePaneEvent.SIDE_PANE_TAB_SELECTED ->
+								((SidePaneListener) listeners[i + 1]).sidePaneTabSelected(e);
+						case SidePaneEvent.SIDE_PANE_TAB_DESELECTED ->
+								((SidePaneListener) listeners[i + 1]).sidePaneTabDeselected(e);
+						default -> {
+						}
 					}
 				}
 			}

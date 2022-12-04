@@ -497,7 +497,7 @@ public class DemoData {
 					break;
 				}
 				String[] values = line.split("\t");
-				Vector<Object> lineData = new Vector<Object>();
+				Vector<Object> lineData = new Vector<>();
 				lineData.add(values[0]); // category  name
 				lineData.add(values[1]); // product name
 				{

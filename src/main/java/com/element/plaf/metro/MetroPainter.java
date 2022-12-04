@@ -171,20 +171,8 @@ public class MetroPainter extends BasicPainter {
 				background = c.getBackground();
 				break;
 			case STATE_ROLLOVER:
-				if (c instanceof ComponentStateSupport) {
-					background = ((ComponentStateSupport) c).getBackgroundOfState(state);
-				}
-				break;
 			case STATE_SELECTED:
-				if (c instanceof ComponentStateSupport) {
-					background = ((ComponentStateSupport) c).getBackgroundOfState(state);
-				}
-				break;
 			case STATE_DISABLE_SELECTED:
-				if (c instanceof ComponentStateSupport) {
-					background = ((ComponentStateSupport) c).getBackgroundOfState(state);
-				}
-				break;
 			case STATE_PRESSED:
 				if (c instanceof ComponentStateSupport) {
 					background = ((ComponentStateSupport) c).getBackgroundOfState(state);
@@ -559,8 +547,9 @@ public class MetroPainter extends BasicPainter {
 		if (h != 0) {
 			Graphics2D g2d = (Graphics2D) g.create();
 			Paint paint = null;
+			// TODO 这里不明意义的newColors变量，paint的值并没有更新
 			switch (orientation) {
-				case SwingConstants.EAST:
+				case SwingConstants.EAST, SwingConstants.WEST, SwingConstants.NORTH, SwingConstants.SOUTH -> {
 					if (state == ThemePainter.STATE_ROLLOVER) {
 						Color[] newColors = new Color[colors.length];
 						for (int i = 0; i < colors.length; i++) {
@@ -569,37 +558,7 @@ public class MetroPainter extends BasicPainter {
 						}
 					}
 					paint = colors[0];
-					break;
-				case SwingConstants.WEST:
-					if (state == ThemePainter.STATE_ROLLOVER) {
-						Color[] newColors = new Color[colors.length];
-						for (int i = 0; i < colors.length; i++) {
-							Color color = colors[i];
-							newColors[i] = ColorUtil.getDerivedColor(color, 0.60f);
-						}
-					}
-					paint = colors[0];
-					break;
-				case SwingConstants.NORTH:
-					if (state == ThemePainter.STATE_ROLLOVER) {
-						Color[] newColors = new Color[colors.length];
-						for (int i = 0; i < colors.length; i++) {
-							Color color = colors[i];
-							newColors[i] = ColorUtil.getDerivedColor(color, 0.60f);
-						}
-					}
-					paint = colors[0];
-					break;
-				case SwingConstants.SOUTH:
-					if (state == ThemePainter.STATE_ROLLOVER) {
-						Color[] newColors = new Color[colors.length];
-						for (int i = 0; i < colors.length; i++) {
-							Color color = colors[i];
-							newColors[i] = ColorUtil.getDerivedColor(color, 0.60f);
-						}
-					}
-					paint = colors[0];
-					break;
+				}
 			}
 			g2d.setPaint(paint);
 			g2d.fillRect(x, y, w, h);
@@ -671,17 +630,14 @@ public class MetroPainter extends BasicPainter {
 		}
 		Graphics2D g2d = (Graphics2D) g.create();
 		switch (orientation) {
-			case SwingConstants.WEST:
-			case SwingConstants.EAST:
+			case SwingConstants.WEST, SwingConstants.EAST -> {
 				g2d.rotate(-Math.toRadians(90), rect.x, rect.y);
 				g2d.translate(-rect.height, rect.y);
 				//noinspection SuspiciousNameCombination
 				paintButtonBackground(c, g2d, new Rectangle(0, 0, rect.height, rect.width), SwingConstants.HORIZONTAL, state, false);
-				break;
-			case SwingConstants.NORTH:
-			case SwingConstants.SOUTH:
-				paintButtonBackground(c, g2d, rect, SwingConstants.HORIZONTAL, state, false);
-				break;
+			}
+			case SwingConstants.NORTH, SwingConstants.SOUTH ->
+					paintButtonBackground(c, g2d, rect, SwingConstants.HORIZONTAL, state, false);
 		}
 		g2d.dispose();
 	}

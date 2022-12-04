@@ -46,5 +46,5 @@ public interface FontPolicy {
 	 *
 	 * @return a set of fonts used as default for the component.
 	 */
-	FontSet getFontSet();
+	FontSet fontSet();
 }

@@ -44,40 +44,30 @@ public class JideOptionPane extends JOptionPane {
 	public static final String TITLE_PROPERTY = "title";
 
 	public JideOptionPane() {
-		initComponents();
 	}
 
 	public JideOptionPane(Object message) {
 		super(message);
-		initComponents();
 	}
 
 	public JideOptionPane(Object message, int messageType) {
 		super(message, messageType);
-		initComponents();
 	}
 
 	public JideOptionPane(Object message, int messageType, int optionType) {
 		super(message, messageType, optionType);
-		initComponents();
 	}
 
 	public JideOptionPane(Object message, int messageType, int optionType, Icon icon) {
 		super(message, messageType, optionType, icon);
-		initComponents();
 	}
 
 	public JideOptionPane(Object message, int messageType, int optionType, Icon icon, Object[] options) {
 		super(message, messageType, optionType, icon, options);
-		initComponents();
 	}
 
 	public JideOptionPane(Object message, int messageType, int optionType, Icon icon, Object[] options, Object initialValue) {
 		super(message, messageType, optionType, icon, options, initialValue);
-		initComponents();
-	}
-
-	protected void initComponents() {
 	}
 
 	/**
@@ -326,19 +316,13 @@ public class JideOptionPane extends JOptionPane {
 	}
 
 	private static int styleFromMessageType(int messageType) {
-		switch (messageType) {
-			case ERROR_MESSAGE:
-				return JRootPane.ERROR_DIALOG;
-			case QUESTION_MESSAGE:
-				return JRootPane.QUESTION_DIALOG;
-			case WARNING_MESSAGE:
-				return JRootPane.WARNING_DIALOG;
-			case INFORMATION_MESSAGE:
-				return JRootPane.INFORMATION_DIALOG;
-			case PLAIN_MESSAGE:
-			default:
-				return JRootPane.PLAIN_DIALOG;
-		}
+		return switch (messageType) {
+			case ERROR_MESSAGE -> JRootPane.ERROR_DIALOG;
+			case QUESTION_MESSAGE -> JRootPane.QUESTION_DIALOG;
+			case WARNING_MESSAGE -> JRootPane.WARNING_DIALOG;
+			case INFORMATION_MESSAGE -> JRootPane.INFORMATION_DIALOG;
+			default -> JRootPane.PLAIN_DIALOG;
+		};
 	}
 
 	/**

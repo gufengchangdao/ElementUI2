@@ -126,11 +126,6 @@ public class MetalMenuUI extends MetalMenuItemUI {
 		lastMnemonic = mnemonic;
 	}
 
-	@Override
-	protected void uninstallKeyboardActions() {
-		super.uninstallKeyboardActions();
-	}
-
 	/**
 	 * The ActionMap for BasicMenUI can not be shared, this is subclassed to create a new one for each invocation.
 	 */
@@ -229,7 +224,7 @@ public class MetalMenuUI extends MetalMenuItemUI {
 
 	private static class PostAction extends AbstractAction {
 		JMenu menu;
-		boolean force = false;
+		boolean force;
 
 		PostAction(JMenu menu, boolean shouldForce) {
 			this.menu = menu;
@@ -405,10 +400,9 @@ public class MetalMenuUI extends MetalMenuItemUI {
 			}
 
 			// PORTING: add, 3
-			if (!(menuItem instanceof JMenu)) {
+			if (!(menuItem instanceof JMenu menu)) {
 				return;
 			}
-			JMenu menu = (JMenu) menuItem;
 			if (!menu.isEnabled())
 				return;
 			MenuSelectionManager manager =
@@ -729,8 +723,8 @@ public class MetalMenuUI extends MetalMenuItemUI {
 		}
 
 		Color oldColor = g.getColor();
-		int menuWidth = 0;
-		int menuHeight = 0;
+		int menuWidth;
+		int menuHeight;
 		if (UIUtil.getOrientationOf(menuItem) == SwingConstants.HORIZONTAL) {
 			menuWidth = menuItem.getWidth();
 			menuHeight = menuItem.getHeight();

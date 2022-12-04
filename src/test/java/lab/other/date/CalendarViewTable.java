@@ -90,10 +90,8 @@ public final class CalendarViewTable extends JPanel {
 		public Component getTableCellRendererComponent(JTable table, Object value, boolean selected, boolean focused, int row, int column) {
 			Component c = super.getTableCellRendererComponent(
 					table, value, selected, focused, row, column);
-			if (c instanceof JLabel && value instanceof LocalDate) {
-				JLabel l = (JLabel) c;
+			if (c instanceof JLabel l && value instanceof LocalDate d) {
 				l.setHorizontalAlignment(SwingConstants.CENTER);
-				LocalDate d = (LocalDate) value;
 				l.setText(Objects.toString(d.getDayOfMonth()));
 				if (YearMonth.from(d).equals(YearMonth.from(getCurrentLocalDate()))) {
 					l.setForeground(Color.BLACK);
@@ -110,14 +108,11 @@ public final class CalendarViewTable extends JPanel {
 		}
 
 		private Color getDayOfWeekColor(DayOfWeek dow) {
-			switch (dow) {
-				case SUNDAY:
-					return new Color(0xFF_DC_DC);
-				case SATURDAY:
-					return new Color(0xDC_DC_FF);
-				default:
-					return Color.WHITE;
-			}
+			return switch (dow) {
+				case SUNDAY -> new Color(0xFF_DC_DC);
+				case SATURDAY -> new Color(0xDC_DC_FF);
+				default -> Color.WHITE;
+			};
 		}
 	}
 

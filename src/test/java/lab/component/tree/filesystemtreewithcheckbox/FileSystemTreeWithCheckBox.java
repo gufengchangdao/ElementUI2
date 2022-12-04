@@ -219,8 +219,7 @@ class FileTreeCellRenderer implements TreeCellRenderer {
 			checkBox.setEnabled(tree.isEnabled());
 			checkBox.setFont(tree.getFont());
 			Object userObject = ((DefaultMutableTreeNode) value).getUserObject();
-			if (userObject instanceof CheckBoxNode) {
-				CheckBoxNode node = (CheckBoxNode) userObject;
+			if (userObject instanceof CheckBoxNode node) {
 				if (node.getStatus() == Status.INDETERMINATE) {
 					checkBox.setIcon(new IndeterminateIcon());
 				} else {
@@ -268,8 +267,7 @@ class CheckBoxNodeEditor extends AbstractCellEditor implements TreeCellEditor {
 			checkBox.setEnabled(tree.isEnabled());
 			checkBox.setFont(tree.getFont());
 			Object userObject = ((DefaultMutableTreeNode) value).getUserObject();
-			if (userObject instanceof CheckBoxNode) {
-				CheckBoxNode node = (CheckBoxNode) userObject;
+			if (userObject instanceof CheckBoxNode node) {
 				if (node.getStatus() == Status.INDETERMINATE) {
 					checkBox.setIcon(new IndeterminateIcon());
 				} else {
@@ -294,9 +292,8 @@ class CheckBoxNodeEditor extends AbstractCellEditor implements TreeCellEditor {
 
 	@Override
 	public boolean isCellEditable(EventObject e) {
-		if (e instanceof MouseEvent && e.getSource() instanceof JTree) {
+		if (e instanceof MouseEvent && e.getSource() instanceof JTree tree) {
 			Point p = ((MouseEvent) e).getPoint();
-			JTree tree = (JTree) e.getSource();
 			TreePath path = tree.getPathForLocation(p.x, p.y);
 			return Optional.ofNullable(tree.getPathBounds(path)).map(r -> {
 				r.width = checkBox.getPreferredSize().width;

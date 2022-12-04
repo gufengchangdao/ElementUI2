@@ -14,8 +14,6 @@ import java.awt.*;
 import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  * This class simply uses UIManager's get method to lookup the UIDefaults. We used this everywhere in our code so that
@@ -91,11 +89,9 @@ public class UIDefaultsLookup {
 				// ignore
 			}
 			if (map.size() == 1) {
-				Object o = map.values().iterator().next();
-				return o;
+				return map.values().iterator().next();
 			} else {
-				Object o = map.get(LookAndFeelFactory.getUIManagerClassLoader());
-				return o;
+				return map.get(LookAndFeelFactory.getUIManagerClassLoader());
 			}
 		}
 		return value;

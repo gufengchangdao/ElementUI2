@@ -145,7 +145,7 @@ public final class FontPolicies {
 			FontPolicy {
 
 		@Override
-		public FontSet getFontSet() {
+		public FontSet fontSet() {
 			Font windowsControlFont = Fonts.getWindowsControlFont();
 			Font controlFont;
 			controlFont = Objects.requireNonNullElseGet(windowsControlFont, () -> new Font("Dialog", Font.PLAIN, 12));
@@ -164,7 +164,7 @@ public final class FontPolicies {
 	private static final class DefaultWindowsPolicy implements FontPolicy {
 
 		@Override
-		public FontSet getFontSet() {
+		public FontSet fontSet() {
 			Font windowsControlFont = Fonts.getWindowsControlFont();
 			Font controlFont;
 			controlFont = Objects.requireNonNullElseGet(windowsControlFont, () -> new FontSets.DefaultUIResourceFont("Dialog", Font.PLAIN, 12));
@@ -182,17 +182,8 @@ public final class FontPolicies {
 	 * A FontPolicy that returns a fixed FontSet and that ignores the laf name
 	 * and UIDefaults table.
 	 */
-	private static final class FixedPolicy implements FontPolicy {
+		private record FixedPolicy(FontSet fontSet) implements FontPolicy {
 
-		private final FontSet fontSet;
 
-		FixedPolicy(FontSet fontSet) {
-			this.fontSet = fontSet;
-		}
-
-		@Override
-		public FontSet getFontSet() {
-			return fontSet;
-		}
 	}
 }

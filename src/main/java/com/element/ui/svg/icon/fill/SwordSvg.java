@@ -3,11 +3,7 @@ package com.element.ui.svg.icon.fill;
 import com.element.radiance.common.api.icon.AbstractSvgIcon;
 import com.element.radiance.common.api.icon.SvgIcon;
 import com.element.radiance.common.api.icon.SvgIconUIResource;
-import com.element.swing.EmptyGraphics2D;
-import com.element.util.SwingTestUtil;
-import net.miginfocom.swing.MigLayout;
 
-import javax.swing.*;
 import java.awt.*;
 import java.awt.geom.GeneralPath;
 

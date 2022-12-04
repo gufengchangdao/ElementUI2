@@ -15,12 +15,7 @@ import static java.lang.Math.abs;
  *
  * @param <E> 弹窗组件
  */
-public class PopupFadeInTimingTarget<E extends BaseComponent> implements TimingTarget {
-	private final PopupAnimatorTask<E> task;
-
-	public PopupFadeInTimingTarget(PopupAnimatorTask<E> task) {
-		this.task = task;
-	}
+public record PopupFadeInTimingTarget<E extends BaseComponent>(PopupAnimatorTask<E> task) implements TimingTarget {
 
 	@Override
 	public void begin(Animator animator) {
@@ -77,7 +72,5 @@ public class PopupFadeInTimingTarget<E extends BaseComponent> implements TimingT
 		c.validate();
 	}
 
-	public PopupAnimatorTask<E> getTask() {
-		return task;
-	}
+
 }

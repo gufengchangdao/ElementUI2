@@ -20,8 +20,7 @@ public class DesktopIconTaskBar extends JPanel {
 		JToggleButton button = new JToggleButton("InternalFrame.useTaskBar");
 		button.addActionListener(e -> {
 			Object c = e.getSource();
-			if (c instanceof AbstractButton) {
-				AbstractButton b = (AbstractButton) c;
+			if (c instanceof AbstractButton b) {
 				UIManager.put("InternalFrame.useTaskBar", b.isSelected());
 				SwingUtilities.updateComponentTreeUI(getRootPane());
 			}

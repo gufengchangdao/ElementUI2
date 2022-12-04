@@ -124,8 +124,7 @@ class TreeTransferHandler extends TransferHandler {
 			return false;
 		}
 		TransferHandler.DropLocation tdl = support.getDropLocation();
-		if (tdl instanceof JTree.DropLocation) {
-			JTree.DropLocation dl = (JTree.DropLocation) tdl;
+		if (tdl instanceof JTree.DropLocation dl) {
 			int childIndex = dl.getChildIndex();
 			TreePath dest = dl.getPath();
 			DefaultMutableTreeNode parent = (DefaultMutableTreeNode) dest.getLastPathComponent();
@@ -175,8 +174,7 @@ class TreeTransferHandler extends TransferHandler {
 
 	@Override
 	protected void exportDone(JComponent src, Transferable data, int action) {
-		if (action == TransferHandler.MOVE && src instanceof JTree) {
-			JTree tree = (JTree) src;
+		if (action == TransferHandler.MOVE && src instanceof JTree tree) {
 			DefaultTreeModel model = (DefaultTreeModel) tree.getModel();
 			TreePath[] selectionPaths = tree.getSelectionPaths();
 			if (selectionPaths != null) {

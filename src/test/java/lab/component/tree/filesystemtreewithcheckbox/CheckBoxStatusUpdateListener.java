@@ -51,8 +51,7 @@ public final class CheckBoxStatusUpdateListener implements TreeModelListener {
 		// Update the status of all child nodes to be the same as the current node status
 		boolean isOneNodeSelected = Objects.nonNull(children) && children.length == 1;
 		Object current = isOneNodeSelected ? children[0] : model.getRoot();
-		if (current instanceof DefaultMutableTreeNode) {
-			DefaultMutableTreeNode node = (DefaultMutableTreeNode) current;
+		if (current instanceof DefaultMutableTreeNode node) {
 			CheckBoxNode c = (CheckBoxNode) node.getUserObject();
 			updateAllChildrenUserObject(node, c.getStatus());
 			model.nodeChanged(node);
@@ -98,7 +97,7 @@ public final class CheckBoxStatusUpdateListener implements TreeModelListener {
 				.filter(CheckBoxNode.class::isInstance)
 				.map(CheckBoxNode.class::cast)
 				.map(CheckBoxNode::getStatus)
-				.collect(Collectors.toList());
+				.toList();
 
 		Object o = parent.getUserObject();
 		if (o instanceof CheckBoxNode) {

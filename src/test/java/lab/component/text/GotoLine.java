@@ -143,7 +143,7 @@ class LineNumberView extends JComponent {
 
 	private int getLineAtPoint(int y) {
 		Element root = textArea.getDocument().getDefaultRootElement();
-		int pos = textArea.viewToModel(new Point(0, y));
+		int pos = textArea.viewToModel2D(new Point(0, y));
 		// Java 9: int pos = textArea.viewToModel2D(new Point(0, y));
 		return root.getElementIndex(pos);
 	}

@@ -52,21 +52,21 @@ class ButtonPanelLayout implements LayoutManager2, Serializable {
 
 	int _maxWidth; // calculated value by checkRequests
 
-	int _groupGap = 10; // get from L&F or user can set it
+	int _groupGap; // get from L&F or user can set it
 
-	int _buttonGap = 6; // get from L&F or user can set it
+	int _buttonGap; // get from L&F or user can set it
 
-	private int _sizeConstraint = ButtonPanel.NO_LESS_THAN; // get from L&F or user can set it
+	private int _sizeConstraint; // get from L&F or user can set it
 
-	private String _buttonOrder = "ACO"; // get from L&F or user can set it
+	private String _buttonOrder; // get from L&F or user can set it
 
-	private String _oppositeButtonOrder = "H"; // get from L&F or user can set it
+	private String _oppositeButtonOrder; // get from L&F or user can set it
 
 	private int _minButtonWidth = 75;
 
-	private int _axis = X_AXIS; // get from L&F or user can set it
+	private int _axis; // get from L&F or user can set it
 
-	private int _alignment = SwingConstants.TRAILING; // get from L&F or user can set it
+	private int _alignment; // get from L&F or user can set it
 
 	/**
 	 * Creates a layout manager that will lay out components along the given axis.

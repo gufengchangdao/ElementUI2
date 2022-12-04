@@ -92,8 +92,7 @@ class SliderEditor extends AbstractCellEditor implements TableCellEditor {
 		renderer.setOpaque(true);
 		renderer.addChangeListener(e -> {
 			Object o = SwingUtilities.getAncestorOfClass(JTable.class, renderer);
-			if (o instanceof JTable) {
-				JTable table = (JTable) o;
+			if (o instanceof JTable table) {
 				int value = renderer.getValue();
 				if (table.isEditing() && value != prev) {
 					int row = table.convertRowIndexToModel(table.getEditingRow());

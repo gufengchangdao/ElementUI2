@@ -142,8 +142,6 @@ public class CheckBoxListTest extends AbstractDemo {
 
 		final JButton removeSelected = new JButton("Remove Selected Row");
 		removeSelected.addActionListener(new AbstractAction() {
-			private static final long serialVersionUID = 3785843307574034034L;
-
 			public void actionPerformed(ActionEvent e) {
 				int index = _list.getSelectedIndex();
 				if (index != -1) {

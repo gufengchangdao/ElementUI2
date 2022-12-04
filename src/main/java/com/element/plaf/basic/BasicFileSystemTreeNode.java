@@ -9,10 +9,7 @@ import com.element.ui.others.FolderChooser;
 
 import javax.swing.*;
 import java.io.File;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Comparator;
-import java.util.HashMap;
+import java.util.*;
 
 class BasicFileSystemTreeNode extends LazyMutableTreeNode implements Comparable {
 	private FolderChooser _folderChooser;
@@ -81,7 +78,7 @@ class BasicFileSystemTreeNode extends LazyMutableTreeNode implements Comparable 
 				}
 			} catch (Error e) {
 				// catch error like java.lang.InternalError: Unable to bind C:\blah blah\::{20D04FE0-3AEA-1069-A2D8-08002B30309D}\::{3D6BE802-FC0D-4595-A304-E611F97089DC} to parent
-			} catch (Exception e) {
+			} catch (Exception ignored) {
 			}
 			for (File file : files) {
 				BasicFileSystemTreeNode fileTreeNode = BasicFileSystemTreeNode.createFileSystemTreeNode(file, _folderChooser);
@@ -131,7 +128,7 @@ class BasicFileSystemTreeNode extends LazyMutableTreeNode implements Comparable 
 
 		final BasicFileSystemTreeNode that = (BasicFileSystemTreeNode) o;
 
-		return !(_file != null ? !_file.equals(that._file) : that._file != null);
+		return Objects.equals(_file, that._file);
 
 	}
 

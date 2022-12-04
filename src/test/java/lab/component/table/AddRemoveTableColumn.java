@@ -64,8 +64,7 @@ class TableHeaderPopupMenu extends JPopupMenu {
 
 	@Override
 	public void show(Component c, int x, int y) {
-		if (c instanceof JTableHeader) { //如果是在表头组件上右键
-			JTableHeader header = (JTableHeader) c;
+		if (c instanceof JTableHeader header) { //如果是在表头组件上右键
 			header.setDraggedColumn(null);
 			header.repaint();
 			header.getTable().repaint();

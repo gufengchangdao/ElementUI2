@@ -67,18 +67,10 @@ public class QuadristateButtonModel extends DefaultButtonModel {
 	 */
 	public void nextState() {
 		switch (getState()) {
-			case UNCHECKED:
-				setState(State.CHECKED);
-				break;
-			case CHECKED:
-				setState(State.GREY_UNCHECKED);
-				break;
-			case GREY_UNCHECKED:
-				setState(State.GREY_CHECKED);
-				break;
-			case GREY_CHECKED:
-				setState(State.UNCHECKED);
-				break;
+			case UNCHECKED -> setState(State.CHECKED);
+			case CHECKED -> setState(State.GREY_UNCHECKED);
+			case GREY_UNCHECKED -> setState(State.GREY_CHECKED);
+			case GREY_CHECKED -> setState(State.UNCHECKED);
 		}
 	}
 
@@ -89,29 +81,25 @@ public class QuadristateButtonModel extends DefaultButtonModel {
 
 	public void setState(State state) {
 		switch (state) {
-			case UNCHECKED: {
+			case UNCHECKED -> {
 				super.setArmed(false);
 				setPressed(false);
 				setSelected(false);
-				break;
 			}
-			case CHECKED: {
+			case CHECKED -> {
 				super.setArmed(false);
 				setPressed(false);
 				setSelected(true);
-				break;
 			}
-			case GREY_UNCHECKED: {
+			case GREY_UNCHECKED -> {
 				super.setArmed(true);
 				setPressed(true);
 				setSelected(false);
-				break;
 			}
-			case GREY_CHECKED: {
+			case GREY_CHECKED -> {
 				super.setArmed(true);
 				setPressed(true);
 				setSelected(true);
-				break;
 			}
 		}
 	}

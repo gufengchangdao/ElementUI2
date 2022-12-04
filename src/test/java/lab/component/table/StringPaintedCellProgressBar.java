@@ -23,10 +23,9 @@ public class StringPaintedCellProgressBar extends JPanel {
 			TableColumn tc = getColumnModel().getColumn(2);
 			tc.setCellRenderer((tbl, value, isSelected, hasFocus, row, column) -> {
 				String msg;
-				if (value instanceof ProgressValue) {
-					ProgressValue pv = (ProgressValue) value;
-					Integer current = pv.getProgress();
-					Integer lengthOfTask = pv.getLengthOfTask();
+				if (value instanceof ProgressValue pv) {
+					Integer current = pv.progress();
+					Integer lengthOfTask = pv.lengthOfTask();
 					if (current < 0) {
 						msg = "Canceled";
 					} else if (current < lengthOfTask) {
@@ -173,7 +172,7 @@ public class StringPaintedCellProgressBar extends JPanel {
 			}
 			RowSorter<? extends TableModel> sorter = table.getRowSorter();
 			if (sorter instanceof TableRowSorter) {
-				RowFilter<TableModel, Integer> filter = new RowFilter<TableModel, Integer>() {
+				RowFilter<TableModel, Integer> filter = new RowFilter<>() {
 					@Override
 					public boolean include(Entry<? extends TableModel, ? extends Integer> entry) {
 						return !deletedRowSet.contains(entry.getIdentifier());
@@ -249,20 +248,7 @@ class BackgroundTask extends SwingWorker<Integer, ProgressValue> {
 	}
 }
 
-class ProgressValue {
-	private final Integer progress;
-	private final Integer lengthOfTask;
+record ProgressValue(Integer lengthOfTask, Integer progress) {
 
-	protected ProgressValue(Integer lengthOfTask, Integer progress) {
-		this.progress = progress;
-		this.lengthOfTask = lengthOfTask;
-	}
 
-	public Integer getProgress() {
-		return progress;
-	}
-
-	public Integer getLengthOfTask() {
-		return lengthOfTask;
-	}
 }

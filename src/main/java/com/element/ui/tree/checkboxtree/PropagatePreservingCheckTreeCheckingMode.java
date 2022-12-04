@@ -56,27 +56,23 @@ public class PropagatePreservingCheckTreeCheckingMode extends TreeCheckingMode {
 				}
 			} else {
 				switch (this.model.getChildrenChecking(parents[i])) {
-					case HALF_CHECKED: {
+					case HALF_CHECKED -> {
 						this.model.removeFromCheckedPathsSet(parents[i]);
 						this.model.addToGreyedPathsSet(parents[i]);
 						uncheckAll = true;
 						greyAll = true;
-						break;
 					}
-					case ALL_UNCHECKED: {
+					case ALL_UNCHECKED -> {
 						this.model.removeFromCheckedPathsSet(parents[i]);
 						this.model.removeFromGreyedPathsSet(parents[i]);
 						uncheckAll = true;
-						break;
 					}
-					case ALL_CHECKED: {
+					case ALL_CHECKED -> {
 						this.model.addToCheckedPathsSet(parents[i]);
 						this.model.removeFromGreyedPathsSet(parents[i]);
-						break;
 					}
-					case NO_CHILDREN: {
+					case NO_CHILDREN -> {
 						System.err.println("This should not happen (PropagatePreservingCheckTreeCheckingMode)");
-						break;
 					}
 				}
 			}

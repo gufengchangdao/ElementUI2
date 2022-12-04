@@ -130,8 +130,7 @@ class ListItemTransferHandler extends TransferHandler {
 	public int getSourceActions(JComponent c) {
 		// System.out.println("getSourceActions");
 		c.getRootPane().getGlassPane().setCursor(java.awt.dnd.DragSource.DefaultMoveDrop);
-		if (c instanceof JList) {
-			JList<?> source = (JList<?>) c;
+		if (c instanceof JList<?> source) {
 			setDragImage(createDragImage(source));
 			// Point pt = c.getMousePosition();
 			// if (Objects.nonNull(pt)) {
@@ -162,10 +161,9 @@ class ListItemTransferHandler extends TransferHandler {
 	@Override
 	public boolean importData(TransferHandler.TransferSupport info) {
 		TransferHandler.DropLocation tdl = info.getDropLocation();
-		if (!(tdl instanceof JList.DropLocation)) {
+		if (!(tdl instanceof JList.DropLocation dl)) {
 			return false;
 		}
-		JList.DropLocation dl = (JList.DropLocation) tdl;
 		JList<?> target = (JList<?>) info.getComponent();
 		DefaultListModel<Object> listModel = (DefaultListModel<Object>) target.getModel();
 		// boolean insert = dl.isInsert();
@@ -228,11 +226,10 @@ class CompactListItemTransferHandler extends ListItemTransferHandler {
 		// System.out.println("getSourceActions");
 		Component glassPane = c.getRootPane().getGlassPane();
 		glassPane.setCursor(DragSource.DefaultMoveDrop);
-		if (!(c instanceof JList)) {
+		if (!(c instanceof JList<?> source)) {
 			return TransferHandler.NONE;
 		}
 		int cellLabelHeight = 21; // = height(15) + top(2) + bottom(2) + cell.bottom(2)
-		JList<?> source = (JList<?>) c;
 		int w = source.getFixedCellWidth();
 		int h = source.getFixedCellHeight() - cellLabelHeight;
 		// System.out.println(h);

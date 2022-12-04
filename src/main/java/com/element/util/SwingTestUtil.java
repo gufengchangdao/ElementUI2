@@ -37,6 +37,7 @@ public class SwingTestUtil {
 		}
 	}
 
+	@SuppressWarnings("all")
 	public static void setDefaultTimingSource() {
 		try {
 			Class<?> animator = Class.forName("org.jdesktop.core.animation.timing.Animator");

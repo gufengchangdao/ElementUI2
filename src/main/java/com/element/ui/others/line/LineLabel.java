@@ -16,7 +16,7 @@ public class LineLabel extends BaseComponent {
 	public static final int VERTICAL = SwingConstants.VERTICAL;
 
 	/** 线宽，默认为 2 */
-	private int stroke = 2;
+	private int stroke;
 	/** 线条颜色，默认为浅灰色 */
 	public static final Color DEFAULT_COLOR = ColorUtil.PLACEHOLDER_TEXT;
 	/** 直线方向，有HORIZONTAL和VERTICAL两种方式 */

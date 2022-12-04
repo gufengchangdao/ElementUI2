@@ -60,10 +60,11 @@ public class AutoCompletion {
 	private KeyListener _editorKeyListener;
 //    private FocusListener _editorFocusListener;
 
-	private boolean _strict = true;
+	/** 默认不是严格的 */
+	private boolean _strict = false;
 	private boolean _strictCompletion = true;
 	private PropertyChangeListener _propertyChangeListener;
-	private JComboBox _comboBox;
+	private JComboBox<?> _comboBox;
 	private Document _oldDocument;
 
 	/**
@@ -72,11 +73,11 @@ public class AutoCompletion {
 	 */
 	public static final String CLIENT_PROPERTY_AUTO_COMPLETION = "AutoCompletion";
 
-	public AutoCompletion(final JComboBox comboBox) {
-		this(comboBox, new ComboBoxSearchable(comboBox));
+	public AutoCompletion(final JComboBox<?> comboBox) {
+		this(comboBox, new ComboBoxSearchable<>(comboBox));
 	}
 
-	public AutoCompletion(final JComboBox comboBox, Searchable searchable) {
+	public AutoCompletion(final JComboBox<?> comboBox, Searchable searchable) {
 		_searchable = searchable;
 		_propertyChangeListener = e -> {
 			if ("editor".equals(e.getPropertyName())) {
@@ -89,7 +90,7 @@ public class AutoCompletion {
 		_comboBox = comboBox;
 		_searchable.setWildcardEnabled(false);
 		if (_searchable instanceof ComboBoxSearchable) {
-			((ComboBoxSearchable) _searchable).setShowPopupDuringSearching(false);
+			((ComboBoxSearchable<?>) _searchable).setShowPopupDuringSearching(false);
 		}
 		_textComponent = (JTextComponent) comboBox.getEditor().getEditorComponent();
 		installListeners();
@@ -104,7 +105,7 @@ public class AutoCompletion {
 		installListeners();
 	}
 
-	public AutoCompletion(final JTextComponent textComponent, final List list) {
+	public AutoCompletion(final JTextComponent textComponent, final List<?> list) {
 		this(textComponent, new Searchable(new JLabel()) {
 			int _selectIndex = -1;
 
@@ -168,7 +169,7 @@ public class AutoCompletion {
 
 	private void registerSelectionListener(Searchable searchable) {
 		if (searchable.getComponent() instanceof JList) {
-			final JList list = (JList) getSearchable().getComponent();
+			final JList<?> list = (JList<?>) getSearchable().getComponent();
 			list.getSelectionModel().addListSelectionListener(e -> {
 				int index = list.getSelectedIndex();
 				if (index != -1) {

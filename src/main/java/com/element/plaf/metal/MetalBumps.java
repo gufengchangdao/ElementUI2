@@ -168,9 +168,9 @@ class BumpBuffer {
 			return false;
 		}
 
-		if (backColor != null ? !backColor.equals(aBackColor) : aBackColor != null) return false;
-		if (shadowColor != null ? !shadowColor.equals(aShadowColor) : aShadowColor != null) return false;
-		return topColor != null ? topColor.equals(aTopColor) : aTopColor == null;
+		if (!Objects.equals(backColor, aBackColor)) return false;
+		if (!Objects.equals(shadowColor, aShadowColor)) return false;
+		return Objects.equals(topColor, aTopColor);
 	}
 
 	/**

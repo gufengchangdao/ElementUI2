@@ -60,7 +60,7 @@ public class AutoCompletionTest extends AbstractDemo {
 						"AutoCompletion combo box and text field", TitledBorder.LEADING, TitledBorder.ABOVE_TOP),
 				BorderFactory.createEmptyBorder(0, 0, 0, 0)));
 
-		JComboBox autoCompletionComboBox = new AutoCompletionComboBox(_fontNames);
+		JComboBox<String> autoCompletionComboBox = new AutoCompletionComboBox<>(_fontNames);
 		autoCompletionComboBox.setName("AutoCompletion JComboBox (Strict)");
 		autoCompletionComboBox.setToolTipText("AutoCompletion JComboBox (Strict)");
 		panel.add(new JLabel("AutoCompletion JComboBox (Strict)"));
@@ -68,7 +68,7 @@ public class AutoCompletionTest extends AbstractDemo {
 		panel.add(autoCompletionComboBox);
 		panel.add(Box.createVerticalStrut(12), JideBoxLayout.FIX);
 
-		AutoCompletionComboBox autoCompletionComboBoxNotStrict = new AutoCompletionComboBox(_fontNames);
+		AutoCompletionComboBox<String> autoCompletionComboBoxNotStrict = new AutoCompletionComboBox<>(_fontNames);
 		autoCompletionComboBoxNotStrict.setStrict(false);
 		autoCompletionComboBoxNotStrict.setName("AutoCompletion JComboBox (Not strict)");
 		autoCompletionComboBoxNotStrict.setToolTipText("AutoCompletion JComboBox (Not strict)");
@@ -118,7 +118,7 @@ public class AutoCompletionTest extends AbstractDemo {
 		final JTextField fontNameTextField = new JTextField();
 		fontNameTextField.setName("AutoCompletion JTextField with JList");
 		SelectAllUtil.install(fontNameTextField);
-		final JList fontNameList = new JList(_fontNames);
+		final JList<String> fontNameList = new JList<>(_fontNames);
 		fontNameList.setVisibleRowCount(10);
 		new AutoCompletion(fontNameTextField, new ListSearchable<>(fontNameList));
 		panel.add(new JLabel("AutoCompletion JTextField with JList"));

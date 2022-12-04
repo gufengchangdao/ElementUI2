@@ -51,7 +51,6 @@ public class SidePane extends JPanel implements SwingConstants, Accessible {
 
 	/**
 	 * @see #getUIClassID
-	 * @see #readObject
 	 */
 	private static final String uiClassID = "SidePaneUI";
 
@@ -247,18 +246,6 @@ public class SidePane extends JPanel implements SwingConstants, Accessible {
 	 * Java Accessibility API appropriate to side pane user-interface elements.
 	 */
 	protected class AccessibleSidePane extends AccessibleJPanel {
-		/**
-		 * Get the state of this object.
-		 *
-		 * @return an instance of AccessibleStateSet containing the current
-		 * state set of the object
-		 * @see javax.accessibility.AccessibleState
-		 */
-		@Override
-		public AccessibleStateSet getAccessibleStateSet() {
-			return super.getAccessibleStateSet();
-		}
-
 		/**
 		 * Get the role of this object.
 		 *

@@ -169,7 +169,7 @@ public class JideCursors {
 			Dimension bestSize = toolkit.getBestCursorSize(32, 32);
 			int maxColor = toolkit.getMaximumCursorColors();
 			switch (type) {
-				case HSPLIT_CURSOR: {
+				case HSPLIT_CURSOR -> {
 //                    if (bestSize.width != 0 && maxColor > 3) {
 //                        ImageIcon icon = (ImageIcon) UIDefaultsLookup.getIcon("Cursor.hsplit");
 //                        if (icon == null)
@@ -178,7 +178,7 @@ public class JideCursors {
 //                    }
 					return Cursor.getPredefinedCursor(Cursor.E_RESIZE_CURSOR);
 				}
-				case VSPLIT_CURSOR: {
+				case VSPLIT_CURSOR -> {
 //                    if (bestSize.width != 0 && maxColor > 3) {
 //                        ImageIcon icon = (ImageIcon) UIDefaultsLookup.getIcon("Cursor.vsplit");
 //                        if (icon == null)
@@ -187,7 +187,7 @@ public class JideCursors {
 //                    }
 					return Cursor.getPredefinedCursor(Cursor.S_RESIZE_CURSOR);
 				}
-				case DRAG_CURSOR: {
+				case DRAG_CURSOR -> {
 					if (bestSize.width != 0 && maxColor > 3) {
 						ImageIcon icon = (ImageIcon) UIDefaultsLookup.getIcon("Cursor.drag");
 						if (icon == null)
@@ -196,7 +196,7 @@ public class JideCursors {
 					}
 					return Cursor.getDefaultCursor();
 				}
-				case DRAG_STOP_CURSOR: {
+				case DRAG_STOP_CURSOR -> {
 					if (bestSize.width != 0 && maxColor > 3) {
 						ImageIcon icon = (ImageIcon) UIDefaultsLookup.getIcon("Cursor.dragStop");
 						if (icon == null)
@@ -205,7 +205,7 @@ public class JideCursors {
 					}
 					return Cursor.getDefaultCursor();
 				}
-				case DRAG_TEXT_CURSOR: {
+				case DRAG_TEXT_CURSOR -> {
 					if (bestSize.width != 0 && maxColor > 3) {
 						ImageIcon icon = (ImageIcon) UIDefaultsLookup.getIcon("Cursor.dragText");
 						if (icon == null)
@@ -214,7 +214,7 @@ public class JideCursors {
 					}
 					return Cursor.getDefaultCursor();
 				}
-				case DRAG_TEXT_STOP_CURSOR: {
+				case DRAG_TEXT_STOP_CURSOR -> {
 					if (bestSize.width != 0 && maxColor > 3) {
 						ImageIcon icon = (ImageIcon) UIDefaultsLookup.getIcon("Cursor.dragTextStop");
 						if (icon == null)
@@ -223,7 +223,7 @@ public class JideCursors {
 					}
 					return Cursor.getDefaultCursor();
 				}
-				case NORTH_CURSOR: {
+				case NORTH_CURSOR -> {
 					if (bestSize.width != 0 && maxColor > 3) {
 						ImageIcon icon = (ImageIcon) UIDefaultsLookup.getIcon("Cursor.north");
 						if (icon == null)
@@ -232,7 +232,7 @@ public class JideCursors {
 					}
 					return Cursor.getDefaultCursor();
 				}
-				case SOUTH_CURSOR: {
+				case SOUTH_CURSOR -> {
 					if (bestSize.width != 0 && maxColor > 3) {
 						ImageIcon icon = (ImageIcon) UIDefaultsLookup.getIcon("Cursor.south");
 						if (icon == null)
@@ -241,7 +241,7 @@ public class JideCursors {
 					}
 					return Cursor.getDefaultCursor();
 				}
-				case EAST_CURSOR: {
+				case EAST_CURSOR -> {
 					if (bestSize.width != 0 && maxColor > 3) {
 						ImageIcon icon = (ImageIcon) UIDefaultsLookup.getIcon("Cursor.east");
 						if (icon == null)
@@ -250,7 +250,7 @@ public class JideCursors {
 					}
 					return Cursor.getDefaultCursor();
 				}
-				case WEST_CURSOR: {
+				case WEST_CURSOR -> {
 					if (bestSize.width != 0 && maxColor > 3) {
 						ImageIcon icon = (ImageIcon) UIDefaultsLookup.getIcon("Cursor.west");
 						if (icon == null)
@@ -259,7 +259,7 @@ public class JideCursors {
 					}
 					return Cursor.getDefaultCursor();
 				}
-				case TAB_CURSOR: {
+				case TAB_CURSOR -> {
 					if (bestSize.width != 0 && maxColor > 3) {
 						ImageIcon icon = (ImageIcon) UIDefaultsLookup.getIcon("Cursor.tab");
 						if (icon == null)
@@ -268,7 +268,7 @@ public class JideCursors {
 					}
 					return Cursor.getDefaultCursor();
 				}
-				case FLOAT_CURSOR: {
+				case FLOAT_CURSOR -> {
 					if (bestSize.width != 0 && maxColor > 3) {
 						ImageIcon icon = (ImageIcon) UIDefaultsLookup.getIcon("Cursor.float");
 						if (icon == null)
@@ -277,7 +277,7 @@ public class JideCursors {
 					}
 					return Cursor.getDefaultCursor();
 				}
-				case VERTICAL_CURSOR: {
+				case VERTICAL_CURSOR -> {
 					if (bestSize.width != 0 && maxColor > 3) {
 						ImageIcon icon = (ImageIcon) UIDefaultsLookup.getIcon("Cursor.vertical");
 						if (icon == null)
@@ -286,7 +286,7 @@ public class JideCursors {
 					}
 					return Cursor.getDefaultCursor();
 				}
-				case HORIZONTAL_CURSOR: {
+				case HORIZONTAL_CURSOR -> {
 					if (bestSize.width != 0 && maxColor > 3) {
 						ImageIcon icon = (ImageIcon) UIDefaultsLookup.getIcon("Cursor.horizontal");
 						if (icon == null)
@@ -295,7 +295,7 @@ public class JideCursors {
 					}
 					return Cursor.getDefaultCursor();
 				}
-				case DELETE_CURSOR: {
+				case DELETE_CURSOR -> {
 					if (bestSize.width != 0 && maxColor > 3) {
 						ImageIcon icon = (ImageIcon) UIDefaultsLookup.getIcon("Cursor.delete");
 						if (icon == null)
@@ -304,7 +304,7 @@ public class JideCursors {
 					}
 					return Cursor.getDefaultCursor();
 				}
-				case PERCENTAGE_CURSOR: {
+				case PERCENTAGE_CURSOR -> {
 					if (bestSize.width != 0 && maxColor > 3) {
 						ImageIcon icon = (ImageIcon) UIDefaultsLookup.getIcon("Cursor.percentage");
 						if (icon == null)
@@ -313,7 +313,7 @@ public class JideCursors {
 					}
 					return Cursor.getDefaultCursor();
 				}
-				case MOVE_EAST_CURSOR: {
+				case MOVE_EAST_CURSOR -> {
 					if (bestSize.width != 0 && maxColor > 3) {
 						ImageIcon icon = (ImageIcon) UIDefaultsLookup.getIcon("Cursor.moveEast");
 						if (icon == null)
@@ -322,7 +322,7 @@ public class JideCursors {
 					}
 					return Cursor.getDefaultCursor();
 				}
-				case MOVE_WEST_CURSOR: {
+				case MOVE_WEST_CURSOR -> {
 					if (bestSize.width != 0 && maxColor > 3) {
 						ImageIcon icon = (ImageIcon) UIDefaultsLookup.getIcon("Cursor.moveWest");
 						if (icon == null)

@@ -56,6 +56,19 @@ public class PageEvent extends EventObject {
 		_id = id;
 	}
 
+	/**
+	 * Returns a parameter string identifying this event. This method is useful for event logging and for debugging.
+	 *
+	 * @return a string identifying the event and its attributes
+	 */
+	public String paramString() {
+		return switch (_id) {
+			case PAGE_OPENED -> "PAGE_OPENED";
+			case PAGE_CLOSING -> "PAGE_CLOSING";
+			case PAGE_CLOSED -> "PAGE_CLOSED";
+			default -> "PAGE_EVENT_UNKNOWN";
+		};
+	}
 
 	/**
 	 * Returns the event type.
@@ -73,29 +86,6 @@ public class PageEvent extends EventObject {
 	 */
 	public void setID(int id) {
 		_id = id;
-	}
-
-	/**
-	 * Returns a parameter string identifying this event. This method is useful for event logging and for debugging.
-	 *
-	 * @return a string identifying the event and its attributes
-	 */
-	public String paramString() {
-		String typeStr;
-		switch (getID()) {
-			case PAGE_OPENED:
-				typeStr = "PAGE_OPENED";
-				break;
-			case PAGE_CLOSING:
-				typeStr = "PAGE_CLOSING";
-				break;
-			case PAGE_CLOSED:
-				typeStr = "PAGE_CLOSED";
-				break;
-			default:
-				typeStr = "PAGE_EVENT_UNKNOWN";
-		}
-		return typeStr;
 	}
 
 	@Override

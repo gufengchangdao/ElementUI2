@@ -731,42 +731,42 @@ public class IconsFactory {
 		int sw = overlayIcon.getIconWidth();
 		int sh = overlayIcon.getIconHeight();
 		switch (location) {
-			case SwingConstants.CENTER:
+			case SwingConstants.CENTER -> {
 				x = (w - sw) / 2;
 				y = (h - sh) / 2;
-				break;
-			case SwingConstants.NORTH:
+			}
+			case SwingConstants.NORTH -> {
 				x = (w - sw) / 2;
 				y = insets.top;
-				break;
-			case SwingConstants.SOUTH:
+			}
+			case SwingConstants.SOUTH -> {
 				x = (w - sw) / 2;
 				y = h - insets.bottom - sh;
-				break;
-			case SwingConstants.WEST:
+			}
+			case SwingConstants.WEST -> {
 				x = insets.left;
 				y = (h - sh) / 2;
-				break;
-			case SwingConstants.EAST:
+			}
+			case SwingConstants.EAST -> {
 				x = w - insets.right - sw;
 				y = (h - sh) / 2;
-				break;
-			case SwingConstants.NORTH_EAST:
+			}
+			case SwingConstants.NORTH_EAST -> {
 				x = w - insets.right - sw;
 				y = insets.top;
-				break;
-			case SwingConstants.NORTH_WEST:
+			}
+			case SwingConstants.NORTH_WEST -> {
 				x = insets.left;
 				y = insets.top;
-				break;
-			case SwingConstants.SOUTH_WEST:
+			}
+			case SwingConstants.SOUTH_WEST -> {
 				x = insets.left;
 				y = h - insets.bottom - sh;
-				break;
-			case SwingConstants.SOUTH_EAST:
+			}
+			case SwingConstants.SOUTH_EAST -> {
 				x = w - insets.right - sw;
 				y = h - insets.bottom - sh;
-				break;
+			}
 		}
 		return getOverlayIcon(c, icon, overlayIcon, x, y);
 	}
@@ -1053,7 +1053,7 @@ public class IconsFactory {
 		tracker.addImage(image, 1);
 		try {
 			tracker.waitForAll();
-		} catch (Exception e) {
+		} catch (Exception ignored) {
 		}
 		int w = image.getWidth(observer);
 		int h = image.getHeight(observer);
@@ -1172,7 +1172,7 @@ public class IconsFactory {
 			generate(clazz, b, getClassName(clazz.getName()));
 		}
 
-		Field[] fields = aClass.getFields();
+		Field[] fields = aClass.getDeclaredFields();
 		b.append("<p><b>").append(prefix).append("</b></p>\n");
 		b.append("<table class=\"mytable\">\n");
 		b.append("<tr>\n");
@@ -1182,6 +1182,7 @@ public class IconsFactory {
 		b.append("<th>Full Constant Name</th>\n");
 		b.append("</tr>\n");
 		for (Field field : fields) {
+			field.setAccessible(true);
 			try {
 				Object name = field.getName();
 				Object value = field.get(aClass);

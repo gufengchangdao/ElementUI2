@@ -61,18 +61,14 @@ public class ScrollBarOnHoverScroll extends JPanel {
 				return;
 			}
 			switch (e.getID()) {
-				case MouseEvent.MOUSE_ENTERED:
-					expandStart(isDragging);
-					break;
-				case MouseEvent.MOUSE_EXITED:
-					collapseStart(isDragging);
-					break;
-				case MouseEvent.MOUSE_RELEASED:
+				case MouseEvent.MOUSE_ENTERED -> expandStart(isDragging);
+				case MouseEvent.MOUSE_EXITED -> collapseStart(isDragging);
+				case MouseEvent.MOUSE_RELEASED -> {
 					isDragging = false;
 					collapseStart(!e.getComponent().getBounds().contains(e.getPoint()));
-					break;
-				default:
-					break;
+				}
+				default -> {
+				}
 			}
 			l.getView().repaint();
 		}

@@ -1071,16 +1071,10 @@ abstract class SvgBaseTranscoder {
 		for (; !pathIterator.isDone(); pathIterator.next()) {
 			int type = pathIterator.currentSegment(coords);
 			switch (type) {
-				case PathIterator.SEG_CUBICTO:
-					pathPoints.add(new Point2D.Float(coords[4], coords[5]));
-					break;
-				case PathIterator.SEG_QUADTO:
-					pathPoints.add(new Point2D.Float(coords[2], coords[3]));
-					break;
-				case PathIterator.SEG_MOVETO:
-				case PathIterator.SEG_LINETO:
-					pathPoints.add(new Point2D.Float(coords[0], coords[1]));
-					break;
+				case PathIterator.SEG_CUBICTO -> pathPoints.add(new Point2D.Float(coords[4], coords[5]));
+				case PathIterator.SEG_QUADTO -> pathPoints.add(new Point2D.Float(coords[2], coords[3]));
+				case PathIterator.SEG_MOVETO, PathIterator.SEG_LINETO ->
+						pathPoints.add(new Point2D.Float(coords[0], coords[1]));
 			}
 		}
 

@@ -499,7 +499,7 @@ public class MultiplePageDialog extends StandardDialog {
 				_tabbedPane.setEnabledAt(i, page.isPageEnabled());
 				final int index = i;
 				page.addPropertyChangeListener(evt -> {
-					if (AbstractDialogPage.PROPERTY_PAGE_ENABLED.equals(evt.getPropertyName())) {
+					if (AbstractDialogPage.PAGE_ENABLED_PROPERTY.equals(evt.getPropertyName())) {
 						_tabbedPane.setEnabledAt(index, Boolean.TRUE.equals(evt.getNewValue()));
 					} else if (AbstractDialogPage.ICON_PROPERTY.equals(evt.getPropertyName())) {
 						_tabbedPane.setIconAt(index, (Icon) evt.getNewValue());
@@ -612,17 +612,12 @@ public class MultiplePageDialog extends StandardDialog {
 	 * @return the index panel.
 	 */
 	public JComponent createIndexPanel() {
-		switch (_style) {
-			case ICON_STYLE:
-				return createIconPanel();
-			case LIST_STYLE:
-				return createListPanel();
-			case TREE_STYLE:
-				return createTreePanel();
-			case TAB_STYLE:
-			default:
-				return null;
-		}
+		return switch (_style) {
+			case ICON_STYLE -> createIconPanel();
+			case LIST_STYLE -> createListPanel();
+			case TREE_STYLE -> createTreePanel();
+			default -> null;
+		};
 	}
 
 	/**
@@ -1027,7 +1022,7 @@ public class MultiplePageDialog extends StandardDialog {
 				}
 			});
 			optionsPanel.addPropertyChangeListener(evt -> {
-				if (AbstractDialogPage.PROPERTY_PAGE_ENABLED.equals(evt.getPropertyName())) {
+				if (AbstractDialogPage.PAGE_ENABLED_PROPERTY.equals(evt.getPropertyName())) {
 					button.setEnabled(Boolean.TRUE.equals(evt.getNewValue()));
 				} else if (AbstractDialogPage.ICON_PROPERTY.equals(evt.getPropertyName())) {
 					button.setIcon((Icon) evt.getNewValue());

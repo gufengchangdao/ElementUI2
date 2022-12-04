@@ -10,7 +10,7 @@ import java.awt.*;
 import java.awt.event.*;
 
 /**
- * ���ַ���ʵ����ͼ�������ק���ı�
+ * 自动滚动
  */
 public final class AutoScroll extends JPanel {
 	private AutoScroll() {
@@ -104,8 +104,7 @@ class ViewportDragScrollListener extends MouseAdapter implements HierarchyListen
 	public void mouseReleased(MouseEvent e) {
 		Component c = e.getComponent();
 		c.setCursor(DC);
-		if (c instanceof JViewport) {
-			JViewport vport = (JViewport) c;
+		if (c instanceof JViewport vport) {
 			JComponent label = (JComponent) vport.getView();
 			listener = event -> {
 				Point vp = vport.getViewPosition(); // = SwingUtilities.convertPoint(vport, 0, 0, label);
@@ -152,8 +151,7 @@ class ComponentDragScrollListener extends MouseAdapter implements HierarchyListe
 		scroller.removeActionListener(listener);
 		JComponent jc = (JComponent) e.getComponent();
 		Container c = SwingUtilities.getAncestorOfClass(JViewport.class, jc);
-		if (c instanceof JViewport) {
-			JViewport vport = (JViewport) c;
+		if (c instanceof JViewport vport) {
 			Point cp = SwingUtilities.convertPoint(jc, e.getPoint(), vport);
 			int dx = startPt.x - cp.x;
 			int dy = startPt.y - cp.y;
@@ -173,8 +171,7 @@ class ComponentDragScrollListener extends MouseAdapter implements HierarchyListe
 		Component c = e.getComponent();
 		c.setCursor(HC);
 		Container p = SwingUtilities.getUnwrappedParent(c);
-		if (p instanceof JViewport) {
-			JViewport vport = (JViewport) p;
+		if (p instanceof JViewport vport) {
 			startPt.setLocation(SwingUtilities.convertPoint(c, e.getPoint(), vport));
 		}
 	}
@@ -185,8 +182,7 @@ class ComponentDragScrollListener extends MouseAdapter implements HierarchyListe
 		c.setCursor(DC);
 		listener = event -> {
 			Container p = SwingUtilities.getUnwrappedParent(c);
-			if (p instanceof JViewport) {
-				JViewport vport = (JViewport) p;
+			if (p instanceof JViewport vport) {
 				Point vp = vport.getViewPosition();
 				vp.translate(move.x, move.y);
 				((JComponent) c).scrollRectToVisible(new Rectangle(vp, vport.getSize()));

@@ -148,25 +148,16 @@ final class SvgUtils {
 		double[] c = new double[6];
 		while (!pi.isDone()) {
 			switch (pi.currentSegment(c)) {
-				case java.awt.geom.PathIterator.SEG_MOVETO:
-					sb.append(String.format("M%.2f,%.2f ", c[0], c[1]));
-					break;
-				case java.awt.geom.PathIterator.SEG_LINETO:
-					sb.append(String.format("L%.2f,%.2f ", c[0], c[1]));
-					break;
-				case java.awt.geom.PathIterator.SEG_QUADTO:
-					sb.append(String.format("Q%.2f,%.2f,%.2f,%.2f ", c[0], c[1], c[2], c[3]));
-					break;
-				case java.awt.geom.PathIterator.SEG_CUBICTO:
-					sb.append(String.format(
-							"C%.2f,%.2f,%.2f,%.2f,%.2f,%.2f ", c[0], c[1], c[2], c[3], c[4], c[5]));
-					break;
-				case java.awt.geom.PathIterator.SEG_CLOSE:
-					sb.append('Z');
-					break;
-				default:
+				case java.awt.geom.PathIterator.SEG_MOVETO -> sb.append(String.format("M%.2f,%.2f ", c[0], c[1]));
+				case java.awt.geom.PathIterator.SEG_LINETO -> sb.append(String.format("L%.2f,%.2f ", c[0], c[1]));
+				case java.awt.geom.PathIterator.SEG_QUADTO ->
+						sb.append(String.format("Q%.2f,%.2f,%.2f,%.2f ", c[0], c[1], c[2], c[3]));
+				case java.awt.geom.PathIterator.SEG_CUBICTO -> sb.append(String.format(
+						"C%.2f,%.2f,%.2f,%.2f,%.2f,%.2f ", c[0], c[1], c[2], c[3], c[4], c[5]));
+				case java.awt.geom.PathIterator.SEG_CLOSE -> sb.append('Z');
+				default ->
 					// Should never happen
-					throw new InternalError("unrecognized path type");
+						throw new InternalError("unrecognized path type");
 			}
 			pi.next();
 		}

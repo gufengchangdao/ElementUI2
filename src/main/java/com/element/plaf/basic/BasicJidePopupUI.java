@@ -114,9 +114,8 @@ public class BasicJidePopupUI extends PopupUI {
 	}
 
 	ActionMap createActionMap() {
-		ActionMap map = new ActionMapUIResource();
 		// we don't use it right now. Leave it since we might use it later.
-		return map;
+		return new ActionMapUIResource();
 	}
 
 	protected void installComponents() {

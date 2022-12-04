@@ -99,9 +99,7 @@ public class SearchableTest extends AbstractDemo {
 		JPanel treePanel = createTitledPanel(new JLabel("Searchable JTree"), 'E', new JScrollPane(tree));
 		JCheckBox checkbox = new JCheckBox("Recursive");
 		checkbox.setMnemonic('R');
-		checkbox.addItemListener(e -> {
-			treeSearchable.setRecursive(e.getStateChange() == ItemEvent.SELECTED);
-		});
+		checkbox.addItemListener(e -> treeSearchable.setRecursive(e.getStateChange() == ItemEvent.SELECTED));
 		checkbox.setSelected(treeSearchable.isRecursive());
 		treePanel.add(checkbox, BorderLayout.AFTER_LAST_LINE);
 

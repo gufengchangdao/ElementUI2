@@ -225,11 +225,6 @@ public class VsnetMenuUI extends VsnetMenuItemUI {
 		lastMnemonic = mnemonic;
 	}
 
-	@Override
-	protected void uninstallKeyboardActions() {
-		super.uninstallKeyboardActions();
-	}
-
 	/**
 	 * The ActionMap for BasicMenUI can not be shared, this is subclassed to create a new one for each invocation.
 	 */
@@ -340,7 +335,7 @@ public class VsnetMenuUI extends VsnetMenuItemUI {
 
 	protected static class PostAction extends AbstractAction {
 		JMenu menu;
-		boolean force = false;
+		boolean force;
 
 		PostAction(JMenu menu, boolean shouldForce) {
 			this.menu = menu;
@@ -400,12 +395,10 @@ public class VsnetMenuUI extends VsnetMenuItemUI {
 				case ButtonStyle.BUTTON_STYLE_PROPERTY -> {
 					AbstractButton b = (AbstractButton) e.getSource();
 					b.repaint();
-					break;
 				}
 				case "verticalTextPosition", "horizontalTextPosition" -> {
 					AbstractButton b = (AbstractButton) e.getSource();
 					b.updateUI();
-					break;
 				}
 			}
 		}

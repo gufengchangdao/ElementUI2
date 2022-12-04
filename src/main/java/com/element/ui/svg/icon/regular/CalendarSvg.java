@@ -24,7 +24,7 @@ public class CalendarSvg extends AbstractSvgIcon {
 		g.setComposite(AlphaComposite.getInstance(3, origAlpha));
 // _0_0
 		paint = (colorFilter != null) ? colorFilter.filter(new Color(0, 0, 0, 255)) : new Color(0, 0, 0, 255);
-		stroke = new BasicStroke(2.0f, 1, 1, 4.0f, null, 0.0f);
+		stroke = new BasicStroke(2.0f, BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND, 4.0f, null, 0.0f);
 		if (generalPath == null) {
 			generalPath = new GeneralPath();
 		} else {

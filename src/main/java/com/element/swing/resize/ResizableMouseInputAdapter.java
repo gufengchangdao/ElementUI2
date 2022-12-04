@@ -190,24 +190,12 @@ public class ResizableMouseInputAdapter extends MouseInputAdapter {
 		boolean ltr = _resizable.getComponent().getComponentOrientation().isLeftToRight();
 		if (!ltr) {
 			switch (_resizeCorner) {
-				case Resizable.UPPER_LEFT:
-					actualResizeCorner = Resizable.UPPER_RIGHT;
-				case Resizable.UPPER_RIGHT:
-					actualResizeCorner = Resizable.UPPER_LEFT;
-				case Resizable.LOWER_LEFT:
-					actualResizeCorner = Resizable.LOWER_RIGHT;
-				case Resizable.LOWER_RIGHT:
-					actualResizeCorner = Resizable.LOWER_LEFT;
-				case Resizable.LEFT:
-					actualResizeCorner = Resizable.RIGHT;
-				case Resizable.RIGHT:
-					actualResizeCorner = Resizable.LEFT;
+				case Resizable.UPPER_LEFT, Resizable.UPPER_RIGHT, Resizable.LOWER_LEFT, Resizable.LOWER_RIGHT, Resizable.LEFT, Resizable.RIGHT ->
+						actualResizeCorner = Resizable.LEFT;
 			}
 		}
 		int snapGridSize = _resizable.getSnapGridSize();
 		switch (actualResizeCorner) {
-			case RESIZE_NONE:
-				return;
 			case Resizable.UPPER:
 				if (_startingBounds.height + deltaY < min.height)
 					deltaY = -(_startingBounds.height - min.height);

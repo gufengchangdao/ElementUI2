@@ -43,8 +43,7 @@ public class MaskFilter extends RGBImageFilter {
 	public static Image createImage(Image i, Color oldColor, Color newColor) {
 		MaskFilter filter = MaskFilter.getInstance(oldColor, newColor);
 		ImageProducer prod = new FilteredImageSource(i.getSource(), filter);
-		Image image = Toolkit.getDefaultToolkit().createImage(prod);
-		return image;
+		return Toolkit.getDefaultToolkit().createImage(prod);
 	}
 
 	/**

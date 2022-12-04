@@ -109,30 +109,17 @@ public class SearchableEvent extends AWTEvent {
 	 */
 	@Override
 	public String paramString() {
-		String typeStr;
-		switch (id) {
-			case SEARCHABLE_START:
-				typeStr = "SEARCHABLE_START: searchingText = \"" + _searchingText + "\"";
-				break;
-			case SEARCHABLE_END:
-				typeStr = "SEARCHABLE_END";
-				break;
-			case SEARCHABLE_MATCH:
-				typeStr = "SEARCHABLE_MATCH: searchingText = \"" + _searchingText + "\" matchingText = \"" + _matchingText + "\"";
-				break;
-			case SEARCHABLE_NOMATCH:
-				typeStr = "SEARCHABLE_NOMATCH: searchingText = \"" + _searchingText + "\"";
-				break;
-			case SEARCHABLE_CHANGE:
-				typeStr = "SEARCHABLE_CHANGE: searchingText = \"" + _searchingText + "\" oldSearchingText = \"" + _oldSearchingText + "\"";
-				break;
-			case SEARCHABLE_MODEL_CHANGE:
-				typeStr = "SEARCHABLE_MODEL";
-				break;
-			default:
-				typeStr = "SEARCHABLE_UNKNOWN";
-		}
-		return typeStr;
+		return switch (id) {
+			case SEARCHABLE_START -> "SEARCHABLE_START: searchingText = \"" + _searchingText + "\"";
+			case SEARCHABLE_END -> "SEARCHABLE_END";
+			case SEARCHABLE_MATCH ->
+					"SEARCHABLE_MATCH: searchingText = \"" + _searchingText + "\" matchingText = \"" + _matchingText + "\"";
+			case SEARCHABLE_NOMATCH -> "SEARCHABLE_NOMATCH: searchingText = \"" + _searchingText + "\"";
+			case SEARCHABLE_CHANGE ->
+					"SEARCHABLE_CHANGE: searchingText = \"" + _searchingText + "\" oldSearchingText = \"" + _oldSearchingText + "\"";
+			case SEARCHABLE_MODEL_CHANGE -> "SEARCHABLE_MODEL";
+			default -> "SEARCHABLE_UNKNOWN";
+		};
 	}
 
 

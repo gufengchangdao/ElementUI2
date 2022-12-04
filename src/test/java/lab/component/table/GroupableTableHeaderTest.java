@@ -10,6 +10,7 @@ import java.awt.*;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.io.Serial;
 import java.util.List;
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
@@ -112,10 +113,12 @@ class GroupableTableHeader extends JTableHeader {
 		return new ArrayList<>();
 	}
 
+	@Serial
 	private void writeObject(ObjectOutputStream stream) throws IOException {
 		stream.defaultWriteObject();
 	}
 
+	@Serial
 	private void readObject(ObjectInputStream stream) throws IOException, ClassNotFoundException {
 		stream.defaultReadObject();
 	}
@@ -292,8 +295,7 @@ class ColumnGroup {
 		Component c = r.getTableCellRendererComponent(table, getHeaderValue(), false, false, -1, -1);
 		int width = 0;
 		for (Object obj : list) {
-			if (obj instanceof TableColumn) {
-				TableColumn tc = (TableColumn) obj;
+			if (obj instanceof TableColumn tc) {
 				width += tc.getWidth();
 			} else {
 				width += ((ColumnGroup) obj).getSize(header).width;

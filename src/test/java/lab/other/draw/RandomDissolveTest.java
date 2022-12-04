@@ -33,7 +33,7 @@ public class RandomDissolveTest extends JPanel {
 
 	private BufferedImage makeImage(String path) {
 		URL url = Thread.currentThread().getContextClassLoader().getResource(path);
-		Icon icon = null;
+		Icon icon;
 		try {
 			icon = new ImageIcon(ImageIO.read(new File("src/main/java/RandomDissolve/src/java/" + path)));
 		} catch (IOException e) {

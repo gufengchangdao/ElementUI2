@@ -400,7 +400,7 @@ public class CheckBoxListWithSelectable extends JList implements ItemSelectable 
 	}
 
 	/**
-	 * Gets the selected objects. This is different from {@link #getSelectedValues()} which is a JList's feature. The
+	 * Gets the selected objects. This is different from {@link #getSelectedValuesList()} which is a JList's feature. The
 	 * List returned from this method contains the objects that is checked in the CheckBoxList.
 	 *
 	 * @return the selected objects.

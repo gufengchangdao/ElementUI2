@@ -37,17 +37,15 @@ public class MarqueePaneTest extends AbstractDemo {
 	public Component getOptionsPanel() {
 		JPanel panel = new JPanel(new GridLayout(0, 1, 5, 5));
 		JCheckBox freezeCheckBox = new JCheckBox("Freeze Auto Scrolling");
-		freezeCheckBox.addItemListener(new ItemListener() {
-			public void itemStateChanged(ItemEvent e) {
-				if (e.getStateChange() == ItemEvent.SELECTED) {
-					_horizonMarqueeLeft.stopAutoScrolling();
-					_verticalMarqueeUp.stopAutoScrolling();
-					_verticalMarqueeDown.stopAutoScrolling();
-				} else {
-					_horizonMarqueeLeft.startAutoScrolling();
-					_verticalMarqueeUp.startAutoScrolling();
-					_verticalMarqueeDown.startAutoScrolling();
-				}
+		freezeCheckBox.addItemListener(e -> {
+			if (e.getStateChange() == ItemEvent.SELECTED) {
+				_horizonMarqueeLeft.stopAutoScrolling();
+				_verticalMarqueeUp.stopAutoScrolling();
+				_verticalMarqueeDown.stopAutoScrolling();
+			} else {
+				_horizonMarqueeLeft.startAutoScrolling();
+				_verticalMarqueeUp.startAutoScrolling();
+				_verticalMarqueeDown.startAutoScrolling();
 			}
 		});
 		panel.add(freezeCheckBox);

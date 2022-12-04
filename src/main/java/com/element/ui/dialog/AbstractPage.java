@@ -7,29 +7,26 @@ package com.element.ui.dialog;
 
 import javax.swing.*;
 import java.awt.*;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
- * AbstractPage is an abstract base class that provides functionality to defer populating a JPanel object until it is
- * actually viewed. This is very useful when using CardLayout and tab panel views which have several pages. Delaying the
- * construction means it will start up fast. Sometimes delay means never.
- * <p/>
- * If subclasses choose to override any of the following methods, it is their responsibility to ensure their overridden
- * methods call the parent's method first. The methods are:
- * <p/>
- * <ul> <li>public void paint (Graphics) <li>public void paintComponents(Graphics) <li>public void paintAll (Graphics)
- * <li>public void repaint () <li>public void repaint (long) <li>public void repaint (int, int, int, int) <li>public
- * void repaint (long, int, int, int, int) <li>public void update (Graphics) </ul>
- * <p/>
- * <p/>
- * By default, if any of the methods is called, the panel will be populated. However user can setInvokeCondition() to
- * customize when the panel be populated. See javadoc of setInvokeContion() for details.
- * <p/>
- * The idea of the lazy panel is from an article on JavaWorld at http://www.javaworld.com/javatips/jw-javatip90_p.html.
- * The credit should be given to Mark Roulo. We modified the code he provided in the article to add additional things as
- * we need. Things added are <ul> <li> Added setInvokeCondition() <li> Added addPageListener(), removePageListener() etc
- * so that subclass can fire {@link PageEvent} </ul>
+ * AbstractPage 是一个抽象基类，它提供了延迟填充 JPanel 对象直到它真正可见。这在使用具有多个页面的 CardLayout 和选项卡面板视图时非常有
+ * 用。延迟构建意味着它将快速启动。
+ * <p>
+ * 如果子类选择覆盖以下任何方法，则它们有责任确保其覆盖的方法首先调用父类的方法。这些方法是：
+ *
+ * <ul>
+ *     <li>public void paint (Graphics)
+ *     <li>public void paintComponents(Graphics)
+ *     <li>public void paintAll (Graphics)
+ *     <li>public void repaint ()
+ *     <li>public void repaint (long)
+ *     <li>public void repaint (int, int, int, int)
+ *     <li>public void repaint (long, int, int, int, int)
+ *     <li>public void update (Graphics)
+ * </ul>
+ * <p>
+ * 默认情况下，如果调用任何方法，面板将被填充。但是，用户可以 setInvokeCondition() 来自定义何时填充面板。有关详细信息，请参阅
+ * setInvokeCondition() 的 javadoc。
  */
 public abstract class AbstractPage extends JPanel implements Laziness {
 	/**
@@ -78,39 +75,15 @@ public abstract class AbstractPage extends JPanel implements Laziness {
 	// Some versions of Swing called paint() before
 	// the components were added to their containers.
 
-	private static final Logger LOGGER_EVENT = Logger.getLogger(PageEvent.class.getName());
-
 	/**
 	 * Creates an AbstractPage.
 	 */
 	protected AbstractPage() {
 	}
 
-	/**
-	 * Gets the invoke condition. Invoke condition defines how lazy the page is. By default, the lazyInitialize() will
-	 * be called on any update, paint or repaint method. However you can change the invoke condition to INVOKE_ON_PAINT.
-	 * If so, lazyInitialize() will be called only when paint() method is called. You can even set the invoke condition
-	 * to INVOKE_ON_NONE. If so, you will be responsible to call lazyInitialize() since none of those methods methods
-	 * mentioned above will call lazyInitialize().
-	 *
-	 * @return the invocation condition
-	 */
-	public int getInvokeCondition() {
-		return _invokeCondition;
-	}
-
-	/**
-	 * Sets the invoke condition.
-	 *
-	 * @param invokeCondition the invoke condition.
-	 */
-	public void setInvokeCondition(int invokeCondition) {
-		_invokeCondition = invokeCondition;
-	}
-
 	@Override
 	public void invalidate() {
-		if ((getInvokeCondition() & INVOKE_ON_VALIDATE) != 0) {
+		if ((_invokeCondition & INVOKE_ON_VALIDATE) != 0) {
 			initialize();
 		}
 		super.invalidate();
@@ -118,7 +91,7 @@ public abstract class AbstractPage extends JPanel implements Laziness {
 
 	@Override
 	public void revalidate() {
-		if ((getInvokeCondition() & INVOKE_ON_VALIDATE) != 0) {
+		if ((_invokeCondition & INVOKE_ON_VALIDATE) != 0) {
 			initialize();
 		}
 		super.revalidate();
@@ -126,34 +99,31 @@ public abstract class AbstractPage extends JPanel implements Laziness {
 
 	@Override
 	public void paint(Graphics g) {
-		if ((getInvokeCondition() & INVOKE_ON_PAINT) != 0) {
+		if ((_invokeCondition & INVOKE_ON_PAINT) != 0) {
 			initialize();
 		}
-
 		super.paint(g);
 	}
 
 	@Override
 	public void paintAll(Graphics g) {
-		if ((getInvokeCondition() & INVOKE_ON_PAINT) != 0) {
+		if ((_invokeCondition & INVOKE_ON_PAINT) != 0) {
 			initialize();
 		}
-
 		super.paintAll(g);
 	}
 
 	@Override
 	public void paintComponents(Graphics g) {
-		if ((getInvokeCondition() & INVOKE_ON_PAINT) != 0) {
+		if ((_invokeCondition & INVOKE_ON_PAINT) != 0) {
 			initialize();
 		}
-
 		super.paintComponents(g);
 	}
 
 	@Override
 	public void repaint() {
-		if ((getInvokeCondition() & INVOKE_ON_REPAINT) != 0) {
+		if ((_invokeCondition & INVOKE_ON_REPAINT) != 0) {
 			initialize();
 		}
 		super.repaint();
@@ -161,7 +131,7 @@ public abstract class AbstractPage extends JPanel implements Laziness {
 
 	@Override
 	public void repaint(long l) {
-		if ((getInvokeCondition() & INVOKE_ON_REPAINT) != 0) {
+		if ((_invokeCondition & INVOKE_ON_REPAINT) != 0) {
 			initialize();
 		}
 		super.repaint(l);
@@ -169,7 +139,7 @@ public abstract class AbstractPage extends JPanel implements Laziness {
 
 	@Override
 	public void repaint(int i1, int i2, int i3, int i4) {
-		if ((getInvokeCondition() & INVOKE_ON_REPAINT) != 0) {
+		if ((_invokeCondition & INVOKE_ON_REPAINT) != 0) {
 			initialize();
 		}
 		super.repaint(i1, i2, i3, i4);
@@ -177,16 +147,15 @@ public abstract class AbstractPage extends JPanel implements Laziness {
 
 	@Override
 	public void repaint(long l, int i1, int i2, int i3, int i4) {
-		if ((getInvokeCondition() & INVOKE_ON_REPAINT) != 0) {
+		if ((_invokeCondition & INVOKE_ON_REPAINT) != 0) {
 			initialize();
 		}
-
 		super.repaint(l, i1, i2, i3, i4);
 	}
 
 	@Override
 	public void update(Graphics g) {
-		if ((getInvokeCondition() & INVOKE_ON_UPDATE) != 0) {
+		if ((_invokeCondition & INVOKE_ON_UPDATE) != 0) {
 			initialize();
 		}
 		super.update(g);
@@ -240,8 +209,7 @@ public abstract class AbstractPage extends JPanel implements Laziness {
 	 * @return all of the <code>PageListener</code>s added, or an empty array if no listeners have been added
 	 */
 	public PageListener[] getPageListeners() {
-		return listenerList.getListeners(
-				PageListener.class);
+		return listenerList.getListeners(PageListener.class);
 	}
 
 	/**
@@ -268,26 +236,10 @@ public abstract class AbstractPage extends JPanel implements Laziness {
 			source = this;
 		}
 
-		if (LOGGER_EVENT.isLoggable(Level.FINE)) {
-			switch (id) {
-				case PageEvent.PAGE_OPENED:
-					LOGGER_EVENT.fine("Page \"" + this + " is opened, source is " + source.getClass().getName());
-					break;
-				case PageEvent.PAGE_CLOSING:
-					LOGGER_EVENT.fine("Page \"" + this + " is closing, source is " + source.getClass().getName());
-					break;
-				case PageEvent.PAGE_CLOSED:
-					LOGGER_EVENT.fine("Page \"" + this + " is closed, source is " + source.getClass().getName());
-					break;
-				default:
-					break;
-			}
-		}
-
 		Object[] listeners = listenerList.getListenerList();
+		_pageEvent = new PageEvent(source, id);
 		for (int i = listeners.length - 2; i >= 0; i -= 2) {
 			if (listeners[i] == PageListener.class) {
-				_pageEvent = new PageEvent(source, id);
 				((PageListener) listeners[i + 1]).pageEventFired(_pageEvent);
 			}
 		}
@@ -313,5 +265,28 @@ public abstract class AbstractPage extends JPanel implements Laziness {
 	public boolean allowClosing() {
 		return _allowClosing;
 	}
+
+	/**
+	 * Gets the invoke condition. Invoke condition defines how lazy the page is. By default, the lazyInitialize() will
+	 * be called on any update, paint or repaint method. However you can change the invoke condition to INVOKE_ON_PAINT.
+	 * If so, lazyInitialize() will be called only when paint() method is called. You can even set the invoke condition
+	 * to INVOKE_ON_NONE. If so, you will be responsible to call lazyInitialize() since none of those methods methods
+	 * mentioned above will call lazyInitialize().
+	 *
+	 * @return the invocation condition
+	 */
+	public int getInvokeCondition() {
+		return _invokeCondition;
+	}
+
+	/**
+	 * Sets the invoke condition.
+	 *
+	 * @param invokeCondition the invoke condition.
+	 */
+	public void setInvokeCondition(int invokeCondition) {
+		_invokeCondition = invokeCondition;
+	}
+
 }
 

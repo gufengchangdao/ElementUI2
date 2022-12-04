@@ -419,7 +419,7 @@ public class JideBorderLayout implements LayoutManager2, Serializable {
 	 */
 	public Component getLayoutComponent(Container target, Object constraints) {
 		boolean ltr = target.getComponentOrientation().isLeftToRight();
-		Component result = null;
+		Component result;
 
 		if (NORTH.equals(constraints)) {
 			result = (firstLine != null) ? firstLine : north;
@@ -498,7 +498,7 @@ public class JideBorderLayout implements LayoutManager2, Serializable {
 			Dimension dim = new Dimension(0, 0);
 
 			boolean ltr = target.getComponentOrientation().isLeftToRight();
-			Component c = null;
+			Component c;
 
 			if ((c = getChild(CENTER, ltr)) != null) {
 				Dimension d = c.getMinimumSize();
@@ -552,7 +552,7 @@ public class JideBorderLayout implements LayoutManager2, Serializable {
 			Dimension dim = new Dimension(0, 0);
 
 			boolean ltr = target.getComponentOrientation().isLeftToRight();
-			Component c = null;
+			Component c;
 
 			if ((c = getChild(CENTER, ltr)) != null) {
 				Dimension d = c.getPreferredSize();
@@ -708,22 +708,22 @@ public class JideBorderLayout implements LayoutManager2, Serializable {
 	private Component getChild(String key, boolean ltr) {
 		Component result = null;
 
-		if (key.equals(NORTH)) {
-			result = (firstLine != null) ? firstLine : north;
-		} else if (key.equals(SOUTH)) {
-			result = (lastLine != null) ? lastLine : south;
-		} else if (key.equals(WEST)) {
-			result = ltr ? firstItem : lastItem;
-			if (result == null) {
-				result = west;
+		switch (key) {
+			case NORTH -> result = (firstLine != null) ? firstLine : north;
+			case SOUTH -> result = (lastLine != null) ? lastLine : south;
+			case WEST -> {
+				result = ltr ? firstItem : lastItem;
+				if (result == null) {
+					result = west;
+				}
 			}
-		} else if (key.equals(EAST)) {
-			result = ltr ? lastItem : firstItem;
-			if (result == null) {
-				result = east;
+			case EAST -> {
+				result = ltr ? lastItem : firstItem;
+				if (result == null) {
+					result = east;
+				}
 			}
-		} else if (key.equals(CENTER)) {
-			result = center;
+			case CENTER -> result = center;
 		}
 		if (result != null && !result.isVisible()) {
 			result = null;

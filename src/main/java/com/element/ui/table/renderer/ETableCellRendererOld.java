@@ -21,13 +21,6 @@ public class ETableCellRendererOld extends DefaultTableCellRenderer {
 	/** 是否显示边框 */
 	private boolean isContainBorder;
 
-	public ETableCellRendererOld() {
-		init();
-	}
-
-	private void init() {
-	}
-
 	@Override
 	public Component getTableCellRendererComponent(JTable table, Object value,
 	                                               boolean isSelected, boolean hasFocus,

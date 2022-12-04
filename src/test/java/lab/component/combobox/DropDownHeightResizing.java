@@ -57,7 +57,7 @@ public class DropDownHeightResizing extends JPanel {
 	private JComboBox<String> makeComboBox(Font[] fonts, JList<String> list, JPopupMenu popup) {
 		DefaultComboBoxModel<String> m2 = new DefaultComboBoxModel<>();
 		Stream.of(fonts).map(Font::getFontName).forEach(m2::addElement);
-		JComboBox<String> combo = new JComboBox<String>(m2) {
+		JComboBox<String> combo = new JComboBox<>(m2) {
 			private transient PopupMenuListener handler;
 
 			@Override

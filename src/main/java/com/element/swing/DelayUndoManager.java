@@ -8,8 +8,6 @@ package com.element.swing;
 
 import javax.swing.*;
 import javax.swing.undo.*;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  * An undo manager that aggregates UndoableEdits into one CompoundEdit if they are executed very close to each other. By

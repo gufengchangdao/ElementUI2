@@ -116,11 +116,6 @@ public class CheckBoxList extends JList {
 		}
 	}
 
-	@Override
-	public void updateUI() {
-		super.updateUI();
-	}
-
 	/**
 	 * Initialize the CheckBoxList.
 	 */

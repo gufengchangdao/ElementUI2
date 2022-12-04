@@ -63,7 +63,6 @@ public class FishEyeTableTest extends JPanel {
 }
 
 class FishEyeRowContext implements Serializable {
-	private static final long serialVersionUID = 1L;
 	public final int height;
 	public final Font font;
 	public final Color color;

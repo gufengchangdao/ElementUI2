@@ -34,155 +34,93 @@ import java.util.*;
  * A basic L&f implementation of JideTabbedPaneUI
  */
 public class BasicJideTabbedPaneUI extends JideTabbedPaneUI implements SwingConstants, DocumentListener {
-
 	// pixels
 	protected int _tabRectPadding;// distance from tab rect to icon/text
-
 	protected int _closeButtonMarginHorizon; // when tab is on top or bottom, and each tab has close button, the gap around the close button
-
 	protected int _closeButtonMarginVertical;// when tab is on left or right, and each tab has close button, the gap around the close button
-
 	protected int _textMarginVertical;// tab area and text area gap
-
 	protected int _noIconMargin;// gap around text area when there is no icon
-
 	protected int _iconMargin;// distance from icon to tab rect start x
-
 	protected int _textPadding;// distance from text to tab rect start
-
 	protected int _buttonSize;// scroll button size
-
 	protected int _buttonMargin;// scroll button margin
-
 	protected int _fitStyleBoundSize;// margin for the whole tab area
-
 	protected int _fitStyleFirstTabMargin;// the first tab position
-
 	protected int _fitStyleIconMinWidth;// minimum width to display icon
-
 	protected int _fitStyleTextMinWidth;// minimum width to display text
-
 	protected int _compressedStyleNoIconRectSize;// tab size when there is no icon and tab not selected
-
 	protected int _compressedStyleIconMargin;// margin around icon
-
 	protected int _compressedStyleCloseButtonMarginHorizon;// the close button margin on the left or right when the tab is on the top or bottom
-
 	protected int _compressedStyleCloseButtonMarginVertical;// the close button margin on the top or bottom when the tab is on the left or right
-
 	protected int _fixedStyleRectSize;// tab rect size
-
 	protected int _closeButtonMargin;// margin around close button
-
 	protected int _gripLeftMargin;// left margin
-
 	protected int _closeButtonMarginSize;// margin around the close button
-
 	protected int _closeButtonLeftMargin;// the close button gap when the tab is on the left
-
 	protected int _closeButtonRightMargin;// the close button gap when the tab is on the right
 
-
 	protected Component _tabLeadingComponent = null;
-
 	protected Component _tabTrailingComponent = null;
-
 	protected JideTabbedPane _tabPane;
-
 	protected Font _selectedTabFont;
 	protected Color _tabBackground;
-
 	protected Color _background;
-
 	protected Color _highlight;
-
 	protected Color _lightHighlight;
-
 	protected Color _shadow;
-
 	protected Color _darkShadow;
-
 	protected Color _focus;
-
 	protected Color _inactiveTabForeground;
 	protected Color _inactiveSelectedTabForeground;
 	protected Color _activeTabForeground;
 	protected Color _tabListBackground;
-
 	protected Color _selectedColor;
 	protected Color _activeBackground;
-
 	protected int _textIconGap;
-
 	protected int _tabRunOverlay;
-
 	protected boolean _showIconOnTab;
-
 	protected boolean _showCloseButtonOnTab;
-
 	protected int _closeButtonAlignment = SwingConstants.TRAILING;
-
 	protected Insets _tabInsets;
-
 	protected Insets _selectedTabPadInsets;
-
 	protected Insets _tabAreaInsets;
-
 	protected boolean _ignoreContentBorderInsetsIfNoTabs;
 
 	// Transient variables (recalculated each time TabbedPane is laid out)
 
 	protected int[] _tabRuns = new int[10];
-
 	protected int _runCount = 0;
-
 	protected int _selectedRun = -1;
-
 	protected Rectangle[] _rects = new Rectangle[0];
 	protected int _additionalWidth = 0;
-
 	protected int _maxTabHeight;
-
 	protected int _maxTabWidth;
-
 	protected int _gripperWidth = 6;
-
 	protected int _gripperHeight = 6;
 
 	// Listeners
 
 	protected ChangeListener _tabChangeListener;
 	protected FocusListener _tabFocusListener;
-
 	protected PropertyChangeListener _propertyChangeListener;
 	protected ChangeListener _tabModelChangeListener;
-
 	protected MouseListener _mouseListener;
-
 	protected MouseMotionListener _mousemotionListener;
-
 	protected MouseWheelListener _mouseWheelListener;
 
 	// PENDING(api): See comment for ContainerHandler
 	private ContainerListener _containerListener;
-
 	private ComponentListener _componentListener;
 
 	// Private instance data
-
 	private Insets _currentTabInsets = new Insets(0, 0, 0, 0);
-
 	private Insets _currentPadInsets = new Insets(0, 0, 0, 0);
-
 	private Insets _currentTabAreaInsets = new Insets(2, 4, 0, 4);
-
 	private Insets _currentContentBorderInsets = new Insets(3, 0, 0, 0);
-
 	private Component visibleComponent;
 
 	// PENDING(api): See comment for ContainerHandler
 	private Vector htmlViews;
-
 	private Hashtable _mnemonicToIndexMap;
 
 	/**
@@ -190,7 +128,6 @@ public class BasicJideTabbedPaneUI extends JideTabbedPaneUI implements SwingCons
 	 * initMnemonics.
 	 */
 	private InputMap _mnemonicInputMap;
-
 	// For use when tabLayoutPolicy = SCROLL_TAB_LAYOUT
 	public ScrollableTabSupport _tabScroller;
 
@@ -205,25 +142,18 @@ public class BasicJideTabbedPaneUI extends JideTabbedPaneUI implements SwingCons
 	// PENDING: This wouldn't be necessary if JTabbedPane had a better
 	// way of notifying listeners when the count changed.
 	protected int _tabCount;
-
 	protected JButton[] _closeButtons;
-
 	// UI creation
-
 	private ThemePainter _painter;
-
-	private com.element.plaf.basic.Painter _gripperPainter;
-
+	private Painter _gripperPainter;
 	private DropTargetListener _dropListener;
 	private boolean _layouted;
-
 	public DropTarget _dt;
 
 	// the left margin of the first tab according to the style
 	public static final int DEFAULT_LEFT_MARGIN = 0;
 	public static final int OFFICE2003_LEFT_MARGIN = 18;
 	public static final int EXCEL_LEFT_MARGIN = 6;
-
 
 	protected int _rectSizeExtend = 0;//when the style is eclipse,
 	//we should extend the size of the rects for hold the title
@@ -287,56 +217,55 @@ public class BasicJideTabbedPaneUI extends JideTabbedPaneUI implements SwingCons
 
 	public void installColorTheme() {
 		switch (getTabShape()) {
-			case JideTabbedPane.SHAPE_EXCEL:
+			case JideTabbedPane.SHAPE_EXCEL -> {
 				_selectColor1 = _darkShadow;
 				_selectColor2 = _lightHighlight;
 				_selectColor3 = _shadow;
 				_unselectColor1 = _darkShadow;
 				_unselectColor2 = _lightHighlight;
 				_unselectColor3 = _shadow;
-				break;
-			case JideTabbedPane.SHAPE_WINDOWS:
-			case JideTabbedPane.SHAPE_WINDOWS_SELECTED:
+			}
+			case JideTabbedPane.SHAPE_WINDOWS, JideTabbedPane.SHAPE_WINDOWS_SELECTED -> {
 				_selectColor1 = _lightHighlight;
 				_selectColor2 = _shadow;
 				_selectColor3 = _defaultTabBorderShadowColor;
 				_unselectColor1 = _selectColor1;
 				_unselectColor2 = _selectColor2;
 				_unselectColor3 = _selectColor3;
-				break;
-			case JideTabbedPane.SHAPE_VSNET:
+			}
+			case JideTabbedPane.SHAPE_VSNET -> {
 				_selectColor1 = _shadow;
 				_selectColor2 = _shadow;
 				_unselectColor1 = _selectColor1;
-				break;
-			case JideTabbedPane.SHAPE_ROUNDED_VSNET:
+			}
+			case JideTabbedPane.SHAPE_ROUNDED_VSNET -> {
 				_selectColor1 = _shadow;
 				_selectColor2 = _selectColor1;
 				_unselectColor1 = _selectColor1;
-				break;
-			case JideTabbedPane.SHAPE_FLAT:
+			}
+			case JideTabbedPane.SHAPE_FLAT -> {
 				_selectColor1 = _shadow;
 				_unselectColor1 = _selectColor1;
-				break;
-			case JideTabbedPane.SHAPE_ROUNDED_FLAT:
+			}
+			case JideTabbedPane.SHAPE_ROUNDED_FLAT -> {
 				_selectColor1 = _shadow;
 				_selectColor2 = _shadow;
 				_unselectColor1 = _selectColor1;
 				_unselectColor2 = _selectColor2;
-				break;
-			case JideTabbedPane.SHAPE_BOX:
+			}
+			case JideTabbedPane.SHAPE_BOX -> {
 				_selectColor1 = _shadow;
 				_selectColor2 = _lightHighlight;
 				_unselectColor1 = getPainter().getControlShadow();
 				_unselectColor2 = _lightHighlight;
-				break;
-			case JideTabbedPane.SHAPE_OFFICE2003:
-			default:
+			}
+			default -> {
 				_selectColor1 = _shadow;
 				_selectColor2 = _lightHighlight;
 				_unselectColor1 = _shadow;
 				_unselectColor2 = null;
 				_unselectColor3 = null;
+			}
 		}
 
 	}
@@ -373,7 +302,8 @@ public class BasicJideTabbedPaneUI extends JideTabbedPaneUI implements SwingCons
 	protected LayoutManager createLayoutManager() {
 		if (_tabPane.getTabLayoutPolicy() == JideTabbedPane.SCROLL_TAB_LAYOUT) {
 			return new TabbedPaneScrollLayout();
-		} else { /* WRAP_TAB_LAYOUT */
+		}
+		else { /* WRAP_TAB_LAYOUT */
 			return new TabbedPaneLayout();
 		}
 	}
@@ -426,7 +356,8 @@ public class BasicJideTabbedPaneUI extends JideTabbedPaneUI implements SwingCons
 		}
 		if (scrollableTabLayoutEnabled()) {
 			_tabScroller.tabPanel.add(_tabContainer);
-		} else {
+		}
+		else {
 			_tabPane.add(_tabContainer);
 		}
 	}
@@ -463,7 +394,8 @@ public class BasicJideTabbedPaneUI extends JideTabbedPaneUI implements SwingCons
 		if (scrollableTabLayoutEnabled()) {
 //             _tabContainer.remove(_tabScroller.croppedEdge);
 			_tabScroller.tabPanel.remove(_tabContainer);
-		} else {
+		}
+		else {
 			_tabPane.remove(_tabContainer);
 		}
 		_tabContainer = null;
@@ -491,7 +423,8 @@ public class BasicJideTabbedPaneUI extends JideTabbedPaneUI implements SwingCons
 			_activeTabForeground = UIDefaultsLookup.getColor("JideTabbedPane.foreground"); // text is black
 			_selectedColor = _lightHighlight;
 			_activeBackground = _lightHighlight;
-		} else {
+		}
+		else {
 			_background = UIDefaultsLookup.getColor("JideTabbedPane.background");
 			_tabBackground = UIDefaultsLookup.getColor("JideTabbedPane.tabAreaBackground");
 			_inactiveTabForeground = UIDefaultsLookup.getColor("JideTabbedPane.unselectedTabTextForeground");
@@ -766,7 +699,8 @@ public class BasicJideTabbedPaneUI extends JideTabbedPaneUI implements SwingCons
 	InputMap getInputMap(int condition) {
 		if (condition == JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT) {
 			return (InputMap) UIDefaultsLookup.get("JideTabbedPane.ancestorInputMap");
-		} else if (condition == JComponent.WHEN_FOCUSED) {
+		}
+		else if (condition == JComponent.WHEN_FOCUSED) {
 			return (InputMap) UIDefaultsLookup.get("JideTabbedPane.focusInputMap");
 		}
 		return null;
@@ -850,7 +784,7 @@ public class BasicJideTabbedPaneUI extends JideTabbedPaneUI implements SwingCons
 		if (_mnemonicToIndexMap == null) {
 			initMnemonics();
 		}
-		_mnemonicInputMap.put(KeyStroke.getKeyStroke(mnemonic, InputEvent.ALT_MASK), "setSelectedIndex");
+		_mnemonicInputMap.put(KeyStroke.getKeyStroke(mnemonic, InputEvent.ALT_DOWN_MASK), "setSelectedIndex");
 		_mnemonicToIndexMap.put(mnemonic, index);
 	}
 
@@ -1016,13 +950,15 @@ public class BasicJideTabbedPaneUI extends JideTabbedPaneUI implements SwingCons
 			Rectangle gripperRect = new Rectangle(tabRect);
 			if (leftToRight) {
 				gripperRect.x += _gripLeftMargin;
-			} else {
+			}
+			else {
 				gripperRect.x = tabRect.x + tabRect.width - _gripLeftMargin - _gripperWidth;
 			}
 			gripperRect.width = _gripperWidth;
 			if (_gripperPainter != null) {
 				_gripperPainter.paint(_tabPane, g, gripperRect, SwingConstants.HORIZONTAL, isSelected ? ThemePainter.STATE_SELECTED : ThemePainter.STATE_DEFAULT);
-			} else {
+			}
+			else {
 				getPainter().paintGripper(_tabPane, g, gripperRect, SwingConstants.HORIZONTAL, isSelected ? ThemePainter.STATE_SELECTED : ThemePainter.STATE_DEFAULT);
 			}
 		}
@@ -1035,7 +971,8 @@ public class BasicJideTabbedPaneUI extends JideTabbedPaneUI implements SwingCons
 					tempTabRect.x += buttonWidth;
 				}
 				tempTabRect.width -= buttonWidth;
-			} else {
+			}
+			else {
 				int buttonHeight = _closeButtons[tabIndex].getPreferredSize().height + _closeButtonLeftMargin + _closeButtonRightMargin;
 				if (_closeButtonAlignment == SwingConstants.LEADING) {
 					tempTabRect.y += buttonHeight;
@@ -1050,14 +987,17 @@ public class BasicJideTabbedPaneUI extends JideTabbedPaneUI implements SwingCons
 		if (isSelected) {
 			if (_tabPane.getSelectedTabFont() != null) {
 				font = _tabPane.getSelectedTabFont();
-			} else {
+			}
+			else {
 				if (_tabPane.getFont() instanceof UIResource) {
 					font = _selectedTabFont;
-				} else {
+				}
+				else {
 					font = _tabPane.getFont();
 				}
 			}
-		} else {
+		}
+		else {
 			font = _tabPane.getFont();
 		}
 
@@ -1180,8 +1120,7 @@ public class BasicJideTabbedPaneUI extends JideTabbedPaneUI implements SwingCons
 	                                 boolean isSelected,
 	                                 int x, int y) {
 		switch (tabPlacement) {
-			case LEFT:
-			case RIGHT:
+			case LEFT, RIGHT -> {
 				int xx = x;
 				g.setColor(_shadow);
 				while (xx <= x + _rects[tabIndex].width) {
@@ -1191,10 +1130,8 @@ public class BasicJideTabbedPaneUI extends JideTabbedPaneUI implements SwingCons
 					}
 					xx += CROP_SEGMENT;
 				}
-				break;
-			case TOP:
-			case BOTTOM:
-			default:
+			}
+			default -> {
 				int yy = y;
 				g.setColor(_shadow);
 				while (yy <= y + _rects[tabIndex].height) {
@@ -1204,6 +1141,7 @@ public class BasicJideTabbedPaneUI extends JideTabbedPaneUI implements SwingCons
 					}
 					yy += CROP_SEGMENT;
 				}
+			}
 		}
 	}
 
@@ -1249,7 +1187,8 @@ public class BasicJideTabbedPaneUI extends JideTabbedPaneUI implements SwingCons
 					}
 				}
 			}
-		} else {// tabplacement is left or right
+		}
+		else {// tabplacement is left or right
 			iconRect.y = tabRect.y + _iconMargin;
 			textRect.y = (icon != null ? iconRect.y + iconRect.height + _textIconGap : tabRect.y + _textPadding);
 			iconRect.x = tabRect.x + 2;
@@ -1276,7 +1215,8 @@ public class BasicJideTabbedPaneUI extends JideTabbedPaneUI implements SwingCons
 		if (icon != null && iconRect.width >= icon.getIconWidth()) {
 			if (tabPlacement == TOP || tabPlacement == BOTTOM) {
 				icon.paintIcon(_tabPane, g, iconRect.x, iconRect.y);
-			} else {
+			}
+			else {
 				if (iconRect.height < _rects[tabIndex].height - _gripperHeight) {
 					icon.paintIcon(_tabPane, g, iconRect.x, iconRect.y);
 				}
@@ -1291,7 +1231,8 @@ public class BasicJideTabbedPaneUI extends JideTabbedPaneUI implements SwingCons
 		Graphics2D g2d = (Graphics2D) g.create();
 		if (isSelected && _tabPane.isBoldActiveTab()) {
 			g2d.setFont(font.deriveFont(Font.BOLD));
-		} else {
+		}
+		else {
 			g2d.setFont(font);
 		}
 
@@ -1304,7 +1245,8 @@ public class BasicJideTabbedPaneUI extends JideTabbedPaneUI implements SwingCons
 			while (SwingUtilities.computeStringWidth(metrics, actualText) > textRect.width) {
 				actualText = actualText.substring(0, actualText.length() - 1);
 			}
-		} else {
+		}
+		else {
 			if (textRect.height <= 0)
 				return;
 
@@ -1323,7 +1265,8 @@ public class BasicJideTabbedPaneUI extends JideTabbedPaneUI implements SwingCons
 		if (v != null) {
 			// html
 			v.paint(g2d, textRect);
-		} else {
+		}
+		else {
 			// plain text
 			int mnemIndex = _tabPane.getDisplayedMnemonicIndexAt(tabIndex);
 			Component comp = null;
@@ -1338,26 +1281,32 @@ public class BasicJideTabbedPaneUI extends JideTabbedPaneUI implements SwingCons
 			if (_tabPane.isEnabled() && _tabPane.isEnabledAt(tabIndex)) {
 				if (color == null && colorProvider != null && colorProvider.getForegroundAt(tabIndex) != null) {
 					g2d.setColor(colorProvider.getForegroundAt(tabIndex));
-				} else {
+				}
+				else {
 					if (color == null) {
 						color = _tabPane.getForegroundAt(tabIndex);
 					}
 					if (isSelected && showFocusIndicator()) {
 						if (!(color instanceof ColorUIResource)) {
 							g2d.setColor(color);
-						} else {
+						}
+						else {
 							g2d.setColor(_activeTabForeground);
 						}
-					} else if (isSelected) {
+					}
+					else if (isSelected) {
 						if (!(color instanceof ColorUIResource)) {
 							g2d.setColor(color);
-						} else {
+						}
+						else {
 							g2d.setColor(_inactiveSelectedTabForeground);
 						}
-					} else {
+					}
+					else {
 						if (!(color instanceof ColorUIResource)) {
 							g2d.setColor(color);
-						} else {
+						}
+						else {
 							g2d.setColor(_inactiveTabForeground);
 						}
 					}
@@ -1365,13 +1314,15 @@ public class BasicJideTabbedPaneUI extends JideTabbedPaneUI implements SwingCons
 
 				if (tabPlacement == TOP || tabPlacement == BOTTOM) {
 					UIUtil.drawStringUnderlineCharAt(_tabPane, g2d, actualText, mnemIndex, textRect.x, textRect.y + metrics.getAscent());
-				} else {// draw string from top to bottom
+				}
+				else {// draw string from top to bottom
 					AffineTransform old = g2d.getTransform();
 					g2d.translate(textRect.x, textRect.y);
 					if (tabPlacement == RIGHT) {
 						g2d.rotate(Math.PI / 2);
 						g2d.translate(0, -textRect.width);
-					} else {
+					}
+					else {
 						g2d.rotate(-Math.PI / 2);
 						g2d.translate(-textRect.height + metrics.getHeight() / 2 + _rectSizeExtend, 0); // no idea why i need 7 here
 					}
@@ -1379,19 +1330,22 @@ public class BasicJideTabbedPaneUI extends JideTabbedPaneUI implements SwingCons
 							((textRect.width - metrics.getHeight()) / 2) + metrics.getAscent());
 					g2d.setTransform(old);
 				}
-			} else { // tab disabled
+			}
+			else { // tab disabled
 				if (tabPlacement == TOP || tabPlacement == BOTTOM) {
 					g2d.setColor(_tabPane.getBackgroundAt(tabIndex).brighter());
 					UIUtil.drawStringUnderlineCharAt(_tabPane, g2d, actualText, mnemIndex, textRect.x, textRect.y + metrics.getAscent());
 					g2d.setColor(_tabPane.getBackgroundAt(tabIndex).darker());
 					UIUtil.drawStringUnderlineCharAt(_tabPane, g2d, actualText, mnemIndex, textRect.x - 1, textRect.y + metrics.getAscent() - 1);
-				} else {// draw string from top to bottom
+				}
+				else {// draw string from top to bottom
 					AffineTransform old = g2d.getTransform();
 					g2d.translate(textRect.x, textRect.y);
 					if (tabPlacement == RIGHT) {
 						g2d.rotate(Math.PI / 2);
 						g2d.translate(0, -textRect.width);
-					} else {
+					}
+					else {
 						g2d.rotate(-Math.PI / 2);
 						g2d.translate(-textRect.height + metrics.getHeight() / 2 + _rectSizeExtend, 0); // no idea why i need 7 here
 					}
@@ -1464,7 +1418,8 @@ public class BasicJideTabbedPaneUI extends JideTabbedPaneUI implements SwingCons
 					&& tabIndex == _indexMouseOver && !isSelected && _tabPane.isEnabledAt(_indexMouseOver)) {
 				paintTabBorderMouseOver(g, tabPlacement, tabIndex, x, y, w, h, isSelected);
 			}
-		} else if (tabShape == JideTabbedPane.SHAPE_WINDOWS_SELECTED) {
+		}
+		else if (tabShape == JideTabbedPane.SHAPE_WINDOWS_SELECTED) {
 			if (_mouseEnter && tabIndex == _indexMouseOver && !isSelected && _tabPane.isEnabledAt(_indexMouseOver)) {
 				paintTabBorderMouseOver(g, tabPlacement, tabIndex, x, y, w, h, isSelected);
 			}
@@ -1507,7 +1462,9 @@ public class BasicJideTabbedPaneUI extends JideTabbedPaneUI implements SwingCons
 						g.drawLine(x + 4 + i, y - 2 - i, x + 4 + i, y - 2 - i);
 					}
 
-				} else {
+				}
+				else {
+					// bottom
 					if (tabIndex == 0) {
 						g.setColor(_unselectColor1);
 
@@ -1540,14 +1497,8 @@ public class BasicJideTabbedPaneUI extends JideTabbedPaneUI implements SwingCons
 							g.setColor(getPainter().getControlDk());
 						}
 
-						if (_unselectColor3 != null) {
-							g.setColor(_unselectColor3);
-
-							g.drawLine(x + 2, y + h - 4, x + w - 1, y + h - 4);// bottom
-							g.drawLine(x + 1, y + h - 5, x + 1, y + h - 5);// bottom
-							// arc
-						}
-					} else {
+					}
+					else {
 						g.setColor(_unselectColor1);
 
 						g.drawLine(x, y + 3, x, y + h - 5);// left
@@ -1570,12 +1521,13 @@ public class BasicJideTabbedPaneUI extends JideTabbedPaneUI implements SwingCons
 
 						}
 
-						if (_unselectColor3 != null) {
-							g.setColor(_unselectColor3);
+					}
+					if (_unselectColor3 != null) {
+						g.setColor(_unselectColor3);
 
-							g.drawLine(x + 2, y + h - 4, x + w - 1, y + h - 4);// bottom
-							g.drawLine(x + 1, y + h - 5, x + 1, y + h - 5);
-						}
+						g.drawLine(x + 2, y + h - 4, x + w - 1, y + h - 4);// bottom
+						g.drawLine(x + 1, y + h - 5, x + 1, y + h - 5);// bottom
+						// arc
 					}
 				}
 				break;
@@ -1608,7 +1560,8 @@ public class BasicJideTabbedPaneUI extends JideTabbedPaneUI implements SwingCons
 					for (int i = 0; i < w - 4; i++) {// top
 						g.drawLine(x + w - 5 - i, y - i, x + w - 5 - i, y - i);
 					}
-				} else {
+				}
+				else {
 					if (tabIndex == 0) {
 						g.setColor(_unselectColor1);
 
@@ -1649,7 +1602,8 @@ public class BasicJideTabbedPaneUI extends JideTabbedPaneUI implements SwingCons
 							g.drawLine(x + w - 3, y + h - 2, x, y + h - 2);// bottom
 
 						}
-					} else {
+					}
+					else {
 						g.setColor(_unselectColor1);
 
 						g.drawLine(x + w - 1, y + 5, x + w - 1, y + h - 3);// right
@@ -1721,7 +1675,8 @@ public class BasicJideTabbedPaneUI extends JideTabbedPaneUI implements SwingCons
 									- 3 - i);
 						}
 
-					} else {
+					}
+					else {
 						if (tabIndex == 0) {
 							g.setColor(_unselectColor1);
 
@@ -1769,7 +1724,8 @@ public class BasicJideTabbedPaneUI extends JideTabbedPaneUI implements SwingCons
 								g.drawLine(x + w - 3, y + h - 2, x + w - 3, y + h - 2);
 								g.drawLine(x + w - 2, y + h - 3, x + w - 2, y);// right
 							}
-						} else {
+						}
+						else {
 							g.setColor(_unselectColor1);
 
 							g.drawLine(x + 5, y + h - 1, x + w - 3, y + h - 1);// bottom
@@ -1803,7 +1759,8 @@ public class BasicJideTabbedPaneUI extends JideTabbedPaneUI implements SwingCons
 							}
 						}
 					}
-				} else {
+				}
+				else {
 					if (isSelected) {// the tab is selected
 						g.setColor(_selectColor1);
 
@@ -1838,7 +1795,8 @@ public class BasicJideTabbedPaneUI extends JideTabbedPaneUI implements SwingCons
 						for (int i = 3; i < h - 2; i++) {// right
 							g.drawLine(x + w - 3 + i, y + h - 3 - i, x + w - 3 + i, y + h - 3 - i);
 						}
-					} else {
+					}
+					else {
 						if (tabIndex == 0) {
 							g.setColor(_unselectColor1);
 
@@ -1883,7 +1841,8 @@ public class BasicJideTabbedPaneUI extends JideTabbedPaneUI implements SwingCons
 								g.drawLine(x + 2, y + h - 2, x + 2, y + h - 2);
 								g.drawLine(x + 1, y + h - 3, x + 1, y);// left
 							}
-						} else {
+						}
+						else {
 							g.setColor(_unselectColor1);
 
 							g.drawLine(x + w - 6, y + h - 1, x + 2, y + h - 1);// bottom
@@ -1955,7 +1914,8 @@ public class BasicJideTabbedPaneUI extends JideTabbedPaneUI implements SwingCons
 						for (int i = 3; i < h - 2; i++) {
 							g.drawLine(x + 2 - i, y + 2 + i, x + 2 - i, y + 2 + i);
 						}
-					} else {
+					}
+					else {
 						if (tabIndex == 0) {
 							g.setColor(_unselectColor1);
 
@@ -1997,7 +1957,8 @@ public class BasicJideTabbedPaneUI extends JideTabbedPaneUI implements SwingCons
 								g.drawLine(x + w - 3, y + 1, x + w - 3, y + 1);
 								g.drawLine(x + w - 2, y + 2, x + w - 2, y + h - 1);// right
 							}
-						} else {
+						}
+						else {
 							g.setColor(_unselectColor1);
 
 							g.drawLine(x + 3, y + 1, x + 4, y + 1);// left arc
@@ -2028,7 +1989,8 @@ public class BasicJideTabbedPaneUI extends JideTabbedPaneUI implements SwingCons
 							}
 						}
 					}
-				} else {
+				}
+				else {
 					if (isSelected) {// the tab is selected
 						g.setColor(_selectColor1);
 
@@ -2062,7 +2024,8 @@ public class BasicJideTabbedPaneUI extends JideTabbedPaneUI implements SwingCons
 						for (int i = 3; i < h - 2; i++) {
 							g.drawLine(x + w - 3 + i, y + 2 + i, x + w - 3 + i, y + 2 + i);
 						}
-					} else {
+					}
+					else {
 						if (tabIndex == 0) {
 							g.setColor(_unselectColor1);
 
@@ -2103,7 +2066,8 @@ public class BasicJideTabbedPaneUI extends JideTabbedPaneUI implements SwingCons
 								g.drawLine(x + 2, y + 1, x + 2, y + 1);
 								g.drawLine(x + 1, y + 2, x + 1, y + h - 1);// left
 							}
-						} else {
+						}
+						else {
 							g.setColor(_unselectColor1);
 
 							g.drawLine(x + w - 4, y + 1, x + w - 5, y + 1);// right arc
@@ -2170,7 +2134,8 @@ public class BasicJideTabbedPaneUI extends JideTabbedPaneUI implements SwingCons
 							g.drawLine(x + 2 + j, y + h - 4 + i, x + 3 + j, y + h - 4 + i);
 						}
 					}
-				} else {
+				}
+				else {
 					if (tabIndex == 0) {
 						g.setColor(_unselectColor1);
 						g.drawLine(x, y + 5, x, y + h - 5);// left
@@ -2197,7 +2162,8 @@ public class BasicJideTabbedPaneUI extends JideTabbedPaneUI implements SwingCons
 								g.drawLine(x + 2 + j, y + h - 4 + i, x + 3 + j, y + h - 4 + i);
 							}
 						}
-					} else if (tabIndex == _tabPane.getSelectedIndex() - 1) {
+					}
+					else if (tabIndex == _tabPane.getSelectedIndex() - 1) {
 						g.setColor(_unselectColor1);
 						g.drawLine(x, y + 5, x, y + h - 5);// left
 						for (int i = 0, j = 0; i < 4; i++, j = j + 2) {// top
@@ -2223,7 +2189,8 @@ public class BasicJideTabbedPaneUI extends JideTabbedPaneUI implements SwingCons
 								g.drawLine(x + 2 + j, y + h - 4 + i, x + 3 + j, y + h - 4 + i);
 							}
 						}
-					} else if (tabIndex != _tabPane.getSelectedIndex() - 1) {
+					}
+					else if (tabIndex != _tabPane.getSelectedIndex() - 1) {
 						g.setColor(_unselectColor1);
 						g.drawLine(x, y + 5, x, y + h - 5);// left
 						for (int i = 0, j = 0; i < 4; i++, j = j + 2) {// top
@@ -2277,7 +2244,8 @@ public class BasicJideTabbedPaneUI extends JideTabbedPaneUI implements SwingCons
 							g.drawLine(x + w - 3 - j, y + h - 4 + i, x + w - 4 - j, y + h - 4 + i);
 						}
 					}
-				} else {
+				}
+				else {
 					if (tabIndex == 0) {
 						g.setColor(_unselectColor1);
 						g.drawLine(x + w - 1, y + 5, x + w - 1, y + h - 5);// right
@@ -2308,7 +2276,8 @@ public class BasicJideTabbedPaneUI extends JideTabbedPaneUI implements SwingCons
 								g.drawLine(x + w - 3 - j, y + h - 4 + i, x + w - 4 - j, y + h - 4 + i);
 							}
 						}
-					} else if (tabIndex == _tabPane.getSelectedIndex() - 1) {
+					}
+					else if (tabIndex == _tabPane.getSelectedIndex() - 1) {
 						g.setColor(_unselectColor1);
 						g.drawLine(x + w - 1, y + 5, x + w - 1, y + h - 5);// right
 						for (int i = 0, j = 0; i < 4; i++, j += 2) {// top
@@ -2337,7 +2306,8 @@ public class BasicJideTabbedPaneUI extends JideTabbedPaneUI implements SwingCons
 								g.drawLine(x + w - 3 - j, y + h - 4 + i, x + w - 4 - j, y + h - 4 + i);
 							}
 						}
-					} else if (tabIndex != _tabPane.getSelectedIndex() - 1) {
+					}
+					else if (tabIndex != _tabPane.getSelectedIndex() - 1) {
 						g.setColor(_unselectColor1);
 						g.drawLine(x + w - 1, y + 5, x + w - 1, y + h - 5);// right
 						for (int i = 0, j = 0; i < 4; i++, j += 2) {// top
@@ -2396,7 +2366,8 @@ public class BasicJideTabbedPaneUI extends JideTabbedPaneUI implements SwingCons
 							g.drawLine(x + w - 5 + i, y + h - 3 - j, x + w - 5 + i, y + h - 4 - j);
 						}
 					}
-				} else {
+				}
+				else {
 					if ((leftToRight && tabIndex == 0) || (!leftToRight && tabIndex == _tabPane.getTabCount() - 1)) {
 						g.setColor(_unselectColor1);
 						g.drawLine(x + 5, y + h - 1, x + w - 5, y + h - 1);// bottom
@@ -2422,7 +2393,8 @@ public class BasicJideTabbedPaneUI extends JideTabbedPaneUI implements SwingCons
 								g.drawLine(x + w - 5 + i, y + h - 3 - j, x + w - 5 + i, y + h - 4 - j);
 							}
 						}
-					} else if (tabIndex == _tabPane.getSelectedIndex() + (leftToRight ? -1 : 1)) {
+					}
+					else if (tabIndex == _tabPane.getSelectedIndex() + (leftToRight ? -1 : 1)) {
 						g.setColor(_unselectColor1);
 						g.drawLine(x + 5, y + h - 1, x + w - 6, y + h - 1);// bottom
 						for (int i = 0, j = 0; i < 5; i++, j += 2) {// left
@@ -2446,7 +2418,8 @@ public class BasicJideTabbedPaneUI extends JideTabbedPaneUI implements SwingCons
 								g.drawLine(x + w - 5 + i, y + h - 3 - j, x + w - 5 + i, y + h - 4 - j);
 							}
 						}
-					} else if (tabIndex != _tabPane.getSelectedIndex() + (leftToRight ? -1 : 1)) {
+					}
+					else if (tabIndex != _tabPane.getSelectedIndex() + (leftToRight ? -1 : 1)) {
 						g.setColor(_unselectColor1);
 						g.drawLine(x + 5, y + h - 1, x + w - 6, y + h - 1);// bottom
 						for (int i = 0, j = 0; i < 5; i++, j += 2) {// left
@@ -2501,7 +2474,8 @@ public class BasicJideTabbedPaneUI extends JideTabbedPaneUI implements SwingCons
 							g.drawLine(x + w - 5 + i, y + 2 + j, x + w - 5 + i, y + 3 + j);
 						}
 					}
-				} else {
+				}
+				else {
 					if ((leftToRight && tabIndex == 0) || (!leftToRight && tabIndex == _tabPane.getTabCount() - 1)) {
 						g.setColor(_unselectColor1);
 						g.drawLine(x + 5, y, x + w - 5, y);// top
@@ -2525,7 +2499,8 @@ public class BasicJideTabbedPaneUI extends JideTabbedPaneUI implements SwingCons
 								g.drawLine(x + w - 5 + i, y + 2 + j, x + w - 5 + i, y + 3 + j);
 							}
 						}
-					} else if (tabIndex == _tabPane.getSelectedIndex() + (leftToRight ? -1 : 1)) {
+					}
+					else if (tabIndex == _tabPane.getSelectedIndex() + (leftToRight ? -1 : 1)) {
 						g.setColor(_unselectColor1);
 						g.drawLine(x + 5, y, x + w - 5, y);// top
 						for (int i = 0, j = 0; i < 5; i++, j += 2) {// left
@@ -2549,7 +2524,8 @@ public class BasicJideTabbedPaneUI extends JideTabbedPaneUI implements SwingCons
 								g.drawLine(x + w - 5 + i, y + 2 + j, x + w - 5 + i, y + 3 + j);
 							}
 						}
-					} else if (tabIndex != _tabPane.getSelectedIndex() + (leftToRight ? -1 : 1)) {
+					}
+					else if (tabIndex != _tabPane.getSelectedIndex() + (leftToRight ? -1 : 1)) {
 						g.setColor(_unselectColor1);
 						g.drawLine(x + 5, y, x + w - 5, y);// top
 						for (int i = 0, j = 0; i < 5; i++, j += 2) {// left
@@ -2599,7 +2575,8 @@ public class BasicJideTabbedPaneUI extends JideTabbedPaneUI implements SwingCons
 						g.setColor(_selectColor3);
 						g.drawLine(x, y + h, x, y + h);// bottom arc
 						g.drawLine(x + 1, y + h + 1, x + w - 1, y + h + 1);// bottom
-					} else {
+					}
+					else {
 						if (tabIndex > _tabPane.getSelectedIndex()) {
 							g.setColor(_unselectColor1);
 							g.drawLine(x, y + 2, x, y + h - 3);// left
@@ -2614,7 +2591,8 @@ public class BasicJideTabbedPaneUI extends JideTabbedPaneUI implements SwingCons
 							g.setColor(_unselectColor3);
 							g.drawLine(x + 2, y + h - 2, x + 2, y + h - 2);// bottom arc
 							g.drawLine(x + 3, y + h - 1, x + w - 1, y + h - 1);// bottom
-						} else if (tabIndex < _tabPane.getSelectedIndex()) {
+						}
+						else if (tabIndex < _tabPane.getSelectedIndex()) {
 							g.setColor(_unselectColor1);
 							g.drawLine(x, y + 3, x, y + h - 2);// left
 							g.drawLine(x + 1, y + 2, x + 1, y + 2);// top arc
@@ -2630,7 +2608,8 @@ public class BasicJideTabbedPaneUI extends JideTabbedPaneUI implements SwingCons
 							g.drawLine(x + 3, y + h, x + w - 1, y + h);// bottom
 						}
 					}
-				} else {
+				}
+				else {
 					if (isSelected) {
 						g.setColor(_selectColor1);
 						g.drawLine(x - 2, y + 1, x - 2, y + h - 1);// left
@@ -2646,7 +2625,8 @@ public class BasicJideTabbedPaneUI extends JideTabbedPaneUI implements SwingCons
 						g.setColor(_selectColor3);
 						g.drawLine(x + 1, y - 2, x + w - 1, y - 2);// top
 						g.drawLine(x + 1, y + h + 2, x + w - 1, y + h + 2);// bottom
-					} else {
+					}
+					else {
 						if (tabIndex > _tabPane.getSelectedIndex()) {
 							g.setColor(_unselectColor1);
 							g.drawLine(x, y + 2, x, y + h - 4);// left
@@ -2654,7 +2634,8 @@ public class BasicJideTabbedPaneUI extends JideTabbedPaneUI implements SwingCons
 							g.drawLine(x + 2, y, x + w - 1, y);// top
 							g.drawLine(x + 1, y + h - 3, x + 1, y + h - 3);// bottom arc
 							g.drawLine(x + 2, y + h - 2, x + w - 1, y + h - 2);// bottom
-						} else if (tabIndex < _tabPane.getSelectedIndex()) {
+						}
+						else if (tabIndex < _tabPane.getSelectedIndex()) {
 							g.setColor(_unselectColor1);
 							g.drawLine(x, y + 4, x, y + h - 2);// left
 							g.drawLine(x + 1, y + 3, x + 1, y + 3);// top arc
@@ -2680,7 +2661,8 @@ public class BasicJideTabbedPaneUI extends JideTabbedPaneUI implements SwingCons
 						g.drawLine(x + w + 1, y + 1, x + w + 1, y + h - 1);// right
 						g.drawLine(x + w, y + h, x + w, y + h);// bottom arc
 						g.drawLine(x + w - 1, y + h + 1, x, y + h + 1);// bottom
-					} else {
+					}
+					else {
 						if (tabIndex > _tabPane.getSelectedIndex()) {
 							g.setColor(_unselectColor1);
 							g.drawLine(x + w - 3, y, x, y);// top
@@ -2694,7 +2676,8 @@ public class BasicJideTabbedPaneUI extends JideTabbedPaneUI implements SwingCons
 							g.drawLine(x + w - 1, y + 2, x + w - 1, y + h - 3);// right
 							g.drawLine(x + w - 2, y + h - 2, x + w - 2, y + h - 2);// bottom arc
 							g.drawLine(x + w - 3, y + h - 1, x, y + h - 1);// bottom
-						} else if (tabIndex < _tabPane.getSelectedIndex()) {
+						}
+						else if (tabIndex < _tabPane.getSelectedIndex()) {
 							g.setColor(_unselectColor1);
 							g.drawLine(x + w - 3, y + 1, x, y + 1);// top
 
@@ -2709,7 +2692,8 @@ public class BasicJideTabbedPaneUI extends JideTabbedPaneUI implements SwingCons
 							g.drawLine(x + w - 3, y + h, x, y + h);// bottom
 						}
 					}
-				} else {
+				}
+				else {
 					if (isSelected) {
 						g.setColor(_selectColor1);
 						g.drawLine(x + w + 1, y + 1, x + w + 1, y + h - 1);// right
@@ -2725,7 +2709,8 @@ public class BasicJideTabbedPaneUI extends JideTabbedPaneUI implements SwingCons
 						g.setColor(_selectColor3);
 						g.drawLine(x + w - 2, y - 2, x, y - 2);// top
 						g.drawLine(x + w - 2, y + h + 2, x, y + h + 2);// bottom
-					} else {
+					}
+					else {
 						if (tabIndex > _tabPane.getSelectedIndex()) {
 							g.setColor(_unselectColor1);
 							g.drawLine(x + w - 1, y + 2, x + w - 1, y + h - 4);// right
@@ -2733,7 +2718,8 @@ public class BasicJideTabbedPaneUI extends JideTabbedPaneUI implements SwingCons
 							g.drawLine(x + w - 2, y + h - 3, x + w - 2, y + h - 3);// bottom arc
 							g.drawLine(x + w - 3, y, x, y);// top
 							g.drawLine(x + w - 3, y + h - 2, x, y + h - 2);// bottom
-						} else if (tabIndex < _tabPane.getSelectedIndex()) {
+						}
+						else if (tabIndex < _tabPane.getSelectedIndex()) {
 							g.setColor(_unselectColor1);
 							g.drawLine(x + w - 1, y + 4, x + w - 1, y + h - 2);// right
 							g.drawLine(x + w - 2, y + 3, x + w - 2, y + 3);// top arc
@@ -2759,7 +2745,8 @@ public class BasicJideTabbedPaneUI extends JideTabbedPaneUI implements SwingCons
 						g.drawLine(x + 1, y + h + 1, x + w - 2, y + h + 1);// bottom
 						g.drawLine(x + w - 1, y + h, x + w - 1, y + h);// right arc
 						g.drawLine(x + w, y + h - 1, x + w, y - 1);// right
-					} else {
+					}
+					else {
 						if (tabIndex > _tabPane.getSelectedIndex()) {
 							g.setColor(_unselectColor1);
 							g.drawLine(x, y + h - 2, x, y + h - 2);// left arc
@@ -2773,7 +2760,8 @@ public class BasicJideTabbedPaneUI extends JideTabbedPaneUI implements SwingCons
 							g.drawLine(x + 1, y + h - 1, x + w - 4, y + h - 1);// bottom
 							g.drawLine(x + w - 3, y + h - 2, x + w - 3, y + h - 2);// right arc
 							g.drawLine(x + w - 2, y + h - 3, x + w - 2, y - 1);// right
-						} else if (tabIndex < _tabPane.getSelectedIndex()) {
+						}
+						else if (tabIndex < _tabPane.getSelectedIndex()) {
 							g.setColor(_unselectColor1);
 							g.drawLine(x + 2, y + h - 2, x + 2, y + h - 2);// left arc
 							g.drawLine(x + 1, y + h - 3, x + 1, y);// left
@@ -2788,7 +2776,8 @@ public class BasicJideTabbedPaneUI extends JideTabbedPaneUI implements SwingCons
 							g.drawLine(x + w, y + h - 3, x + w, y);// right
 						}
 					}
-				} else {
+				}
+				else {
 					if (isSelected) {
 						g.setColor(_selectColor1);
 						g.drawLine(x + 1, y + h + 1, x + w, y + h + 1);// bottom
@@ -2804,7 +2793,8 @@ public class BasicJideTabbedPaneUI extends JideTabbedPaneUI implements SwingCons
 						g.setColor(_selectColor3);
 						g.drawLine(x - 1, y + h - 2, x - 1, y);// left
 						g.drawLine(x + w + 2, y + h - 2, x + w + 2, y);// right
-					} else {
+					}
+					else {
 						if (tabIndex > _tabPane.getSelectedIndex()) {
 							g.setColor(_unselectColor1);
 							g.drawLine(x + 3, y + h - 1, x + w - 3, y + h - 1);// bottom
@@ -2812,7 +2802,8 @@ public class BasicJideTabbedPaneUI extends JideTabbedPaneUI implements SwingCons
 							g.drawLine(x + w - 1, y + h - 3, x + w - 1, y - 1);// right
 							g.drawLine(x + 2, y + h - 2, x + 2, y + h - 2);// left arc
 							g.drawLine(x + 1, y + h - 3, x + 1, y);// left
-						} else if (tabIndex < _tabPane.getSelectedIndex()) {
+						}
+						else if (tabIndex < _tabPane.getSelectedIndex()) {
 							g.setColor(_unselectColor1);
 							g.drawLine(x + 3, y + h - 1, x + w - 3, y + h - 1);// bottom
 							g.drawLine(x + w - 2, y + h - 2, x + w - 2, y + h - 2);// right arc
@@ -2838,7 +2829,8 @@ public class BasicJideTabbedPaneUI extends JideTabbedPaneUI implements SwingCons
 						g.setColor(_selectColor3);
 						g.drawLine(x + w + 2, y - 1, x + w + 2, y - 1);// right arc
 						g.drawLine(x + w + 3, y, x + w + 3, y + h - 1);// right
-					} else {
+					}
+					else {
 						if (tabIndex > _tabPane.getSelectedIndex()) {
 							g.setColor(_unselectColor1);
 							g.drawLine(x + 2, y + 1, x + 2, y + 1); // left arc
@@ -2851,7 +2843,8 @@ public class BasicJideTabbedPaneUI extends JideTabbedPaneUI implements SwingCons
 							g.setColor(_unselectColor3);
 							g.drawLine(x + w - 1, y + 1, x + w - 1, y + 1);// right arc
 							g.drawLine(x + w, y + 2, x + w, y + h - 1);// right
-						} else if (tabIndex < _tabPane.getSelectedIndex()) {
+						}
+						else if (tabIndex < _tabPane.getSelectedIndex()) {
 							g.setColor(_unselectColor1);
 							g.drawLine(x + 2, y + 1, x + 2, y + 1); // left arc
 							g.drawLine(x + 1, y + 2, x + 1, y + h - 1); // left
@@ -2865,7 +2858,8 @@ public class BasicJideTabbedPaneUI extends JideTabbedPaneUI implements SwingCons
 							g.drawLine(x + w, y + 2, x + w, y + h - 1);// right
 						}
 					}
-				} else {
+				}
+				else {
 					if (isSelected) {
 						g.setColor(_selectColor1);
 						g.drawLine(x + 1, y - 2, x + w, y - 2); // top
@@ -2881,7 +2875,8 @@ public class BasicJideTabbedPaneUI extends JideTabbedPaneUI implements SwingCons
 						g.setColor(_selectColor3);
 						g.drawLine(x - 1, y + 1, x - 1, y + h - 1);// left
 						g.drawLine(x + w + 2, y + 1, x + w + 2, y + h - 1);// right
-					} else {
+					}
+					else {
 						if (tabIndex > _tabPane.getSelectedIndex()) {
 							g.setColor(_unselectColor1);
 							g.drawLine(x + 1, y + 2, x + 1, y + h - 1); // left
@@ -2889,7 +2884,8 @@ public class BasicJideTabbedPaneUI extends JideTabbedPaneUI implements SwingCons
 							g.drawLine(x + 3, y, x + w - 3, y); // top
 							g.drawLine(x + w - 2, y + 1, x + w - 2, y + 1);// right arc
 							g.drawLine(x + w - 1, y + 2, x + w - 1, y + h - 1);// right
-						} else if (tabIndex < _tabPane.getSelectedIndex()) {
+						}
+						else if (tabIndex < _tabPane.getSelectedIndex()) {
 							g.setColor(_unselectColor1);
 							g.drawLine(x + 1, y + 2, x + 1, y + h - 1); // left
 							g.drawLine(x + 2, y + 1, x + 2, y + 1); // left arc
@@ -2907,64 +2903,59 @@ public class BasicJideTabbedPaneUI extends JideTabbedPaneUI implements SwingCons
 	                                       int x, int y, int w, int h, boolean isSelected) {
 		if (getTabShape() == JideTabbedPane.SHAPE_WINDOWS) {
 			switch (tabPlacement) {
-				case LEFT:
+				case LEFT -> {
 					if (tabIndex > _tabPane.getSelectedIndex()) {
 						y = y - 2;
 					}
-
 					g.setColor(_selectColor1);
 					g.drawLine(x, y + 4, x, y + h - 2);
 					g.drawLine(x + 1, y + 3, x + 1, y + 3);
 					g.drawLine(x + 2, y + 2, x + 2, y + 2);
 					g.drawLine(x + 1, y + h - 1, x + 1, y + h - 1);
 					g.drawLine(x + 2, y + h, x + 2, y + h);
-
 					g.setColor(_selectColor2);
 					g.drawLine(x + 1, y + 4, x + 1, y + h - 2);
 					g.drawLine(x + 2, y + 3, x + 2, y + h - 1);
-					break;
-				case RIGHT:
+				}
+				case RIGHT -> {
 					if (tabIndex > _tabPane.getSelectedIndex()) {
 						y = y - 2;
 					}
-
 					g.setColor(_selectColor1);
 					g.drawLine(x + w - 1, y + 4, x + w - 1, y + h - 2);
 					g.drawLine(x + w - 2, y + 3, x + w - 2, y + 3);
 					g.drawLine(x + w - 3, y + 2, x + w - 3, y + 2);
 					g.drawLine(x + w - 2, y + h - 1, x + w - 2, y + h - 1);
 					g.drawLine(x + w - 3, y + h, x + w - 3, y + h);
-
 					g.setColor(_selectColor2);
 					g.drawLine(x + w - 2, y + 4, x + w - 2, y + h - 2);
 					g.drawLine(x + w - 3, y + 3, x + w - 3, y + h - 1);
-					break;
-				case BOTTOM:
+				}
+				case BOTTOM -> {
 					g.setColor(_selectColor1);
 					g.drawLine(x + 3, y + h - 1, x + w - 3, y + h - 1);
 					g.drawLine(x + 2, y + h - 2, x + 2, y + h - 2);
 					g.drawLine(x + 1, y + h - 3, x + 1, y + h - 3);
 					g.drawLine(x + w - 2, y + h - 2, x + w - 2, y + h - 2);
 					g.drawLine(x + w - 1, y + h - 3, x + w - 1, y + h - 3);
-
 					g.setColor(_selectColor2);
 					g.drawLine(x + 3, y + h - 2, x + w - 3, y + h - 2);
 					g.drawLine(x + 2, y + h - 3, x + w - 2, y + h - 3);
-					break;
-				case TOP:
-				default:
+				}
+				default -> {
 					g.setColor(_selectColor1);
 					g.drawLine(x + 3, y, x + w - 3, y);
 					g.drawLine(x + 2, y + 1, x + 2, y + 1);
 					g.drawLine(x + 1, y + 2, x + 1, y + 2);
 					g.drawLine(x + w - 2, y + 1, x + w - 2, y + 1);
 					g.drawLine(x + w - 1, y + 2, x + w - 1, y + 2);
-
 					g.setColor(_selectColor2);
 					g.drawLine(x + 3, y + 1, x + w - 3, y + 1);
 					g.drawLine(x + 2, y + 2, x + w - 2, y + 2);
+				}
 			}
-		} else if (getTabShape() == JideTabbedPane.SHAPE_WINDOWS_SELECTED) {
+		}
+		else if (getTabShape() == JideTabbedPane.SHAPE_WINDOWS_SELECTED) {
 			switch (tabPlacement) {
 				case LEFT:
 					if (getColorTheme() == JideTabbedPane.COLOR_THEME_WINXP) {
@@ -2986,7 +2977,8 @@ public class BasicJideTabbedPaneUI extends JideTabbedPaneUI implements SwingCons
 						g.setColor(_selectColor3);
 						g.drawLine(x + 3, y + 2, x + w - 1, y + 2);
 						g.drawLine(x + 3, y + h, x + w - 1, y + h);
-					} else {
+					}
+					else {
 						if (tabIndex > _tabPane.getSelectedIndex()) {
 							y = y - 1;
 						}
@@ -3025,7 +3017,8 @@ public class BasicJideTabbedPaneUI extends JideTabbedPaneUI implements SwingCons
 						g.setColor(_selectColor3);
 						g.drawLine(x + w - 4, y + 2, x, y + 2);
 						g.drawLine(x + w - 4, y + h, x, y + h);
-					} else {
+					}
+					else {
 						if (tabIndex > _tabPane.getSelectedIndex()) {
 							y = y - 1;
 						}
@@ -3060,7 +3053,8 @@ public class BasicJideTabbedPaneUI extends JideTabbedPaneUI implements SwingCons
 						g.setColor(_selectColor3);
 						g.drawLine(x + 1, y, x + 1, y + h - 4); // left
 						g.drawLine(x + w - 1, y, x + w - 1, y + h - 4);// right
-					} else {
+					}
+					else {
 						if (tabIndex > _tabPane.getSelectedIndex()) {
 							x = x - 2;
 						}
@@ -3096,7 +3090,8 @@ public class BasicJideTabbedPaneUI extends JideTabbedPaneUI implements SwingCons
 						g.setColor(_selectColor3);
 						g.drawLine(x + 1, y + 3, x + 1, y + h - 1); // left
 						g.drawLine(x + w - 1, y + 3, x + w - 1, y + h - 1);// right
-					} else {
+					}
+					else {
 						if (tabIndex > _tabPane.getSelectedIndex()) {
 							x = x - 1;
 						}
@@ -3129,11 +3124,13 @@ public class BasicJideTabbedPaneUI extends JideTabbedPaneUI implements SwingCons
 
 					g.setColor(_selectColor2);
 					g.drawLine(x, y + h - 1, x + w - 1, y + h - 1);// bottom
-				} else {
+				}
+				else {
 					g.setColor(_unselectColor1);
 					if (tabIndex > _tabPane.getSelectedIndex()) {
 						g.drawLine(x + 2, y + h - 2, x + w - 2, y + h - 2);// bottom
-					} else if (tabIndex < _tabPane.getSelectedIndex() && tabIndex != 0) {
+					}
+					else if (tabIndex < _tabPane.getSelectedIndex() && tabIndex != 0) {
 						g.drawLine(x + 2, y, x + w - 2, y);// top
 					}
 				}
@@ -3146,11 +3143,13 @@ public class BasicJideTabbedPaneUI extends JideTabbedPaneUI implements SwingCons
 					g.setColor(_selectColor2);
 					g.drawLine(x + w - 1, y, x + w - 1, y + h - 2);// left
 					g.drawLine(x, y + h - 1, x + w - 1, y + h - 1);// bottom
-				} else {
+				}
+				else {
 					g.setColor(_unselectColor1);
 					if (tabIndex > _tabPane.getSelectedIndex()) {
 						g.drawLine(x + 1, y + h - 2, x + w - 3, y + h - 2);// bottom
-					} else if (tabIndex < _tabPane.getSelectedIndex() && tabIndex != 0) {
+					}
+					else if (tabIndex < _tabPane.getSelectedIndex() && tabIndex != 0) {
 						g.drawLine(x + 1, y, x + w - 3, y);// top
 					}
 				}
@@ -3163,18 +3162,22 @@ public class BasicJideTabbedPaneUI extends JideTabbedPaneUI implements SwingCons
 					g.setColor(_selectColor2);
 					g.drawLine(x, y + h - 1, x + w - 1, y + h - 1); // bottom
 					g.drawLine(x + w - 1, y, x + w - 1, y + h - 2); // right
-				} else {
+				}
+				else {
 					g.setColor(_unselectColor1);
 					if (leftToRight) {
 						if (tabIndex > _tabPane.getSelectedIndex()) {
 							g.drawLine(x + w - 2, y + 2, x + w - 2, y + h - 2); // right
-						} else if (tabIndex < _tabPane.getSelectedIndex() && tabIndex != 0) {
+						}
+						else if (tabIndex < _tabPane.getSelectedIndex() && tabIndex != 0) {
 							g.drawLine(x, y + 2, x, y + h - 2); // left
 						}
-					} else {
+					}
+					else {
 						if (tabIndex > _tabPane.getSelectedIndex()) {
 							g.drawLine(x, y + 2, x, y + h - 2); // left
-						} else if (tabIndex < _tabPane.getSelectedIndex() && tabIndex != _tabPane.getTabCount() - 1) {
+						}
+						else if (tabIndex < _tabPane.getSelectedIndex() && tabIndex != _tabPane.getTabCount() - 1) {
 							g.drawLine(x + w - 2, y + 2, x + w - 2, y + h - 2); // right
 						}
 					}
@@ -3189,18 +3192,22 @@ public class BasicJideTabbedPaneUI extends JideTabbedPaneUI implements SwingCons
 
 					g.setColor(_selectColor2);
 					g.drawLine(x + w - 1, y, x + w - 1, y + h - 1); // right
-				} else {
+				}
+				else {
 					g.setColor(_unselectColor1);
 					if (leftToRight) {
 						if (tabIndex > _tabPane.getSelectedIndex()) {
 							g.drawLine(x + w - 2, y + 2, x + w - 2, y + h - 2); // right
-						} else if (tabIndex < _tabPane.getSelectedIndex() && tabIndex != 0) {
+						}
+						else if (tabIndex < _tabPane.getSelectedIndex() && tabIndex != 0) {
 							g.drawLine(x, y + 2, x, y + h - 2); // left
 						}
-					} else {
+					}
+					else {
 						if (tabIndex > _tabPane.getSelectedIndex()) {
 							g.drawLine(x, y + 2, x, y + h - 2); // left
-						} else if (tabIndex < _tabPane.getSelectedIndex() && tabIndex != _tabPane.getTabCount() - 1) {
+						}
+						else if (tabIndex < _tabPane.getSelectedIndex() && tabIndex != _tabPane.getTabCount() - 1) {
 							g.drawLine(x + w - 2, y + 2, x + w - 2, y + h - 2); // right
 						}
 					}
@@ -3221,11 +3228,13 @@ public class BasicJideTabbedPaneUI extends JideTabbedPaneUI implements SwingCons
 					g.drawLine(x, y + 2, x, y + h - 3);// left
 					g.drawLine(x + 1, y + h - 2, x + 1, y + h - 2);// bottom-left
 					g.drawLine(x + 2, y + h - 1, x + w - 1, y + h - 1);// bottom
-				} else {
+				}
+				else {
 					g.setColor(_unselectColor1);
 					if (tabIndex > _tabPane.getSelectedIndex()) {
 						g.drawLine(x + 2, y + h - 2, x + w - 2, y + h - 2);// bottom
-					} else if (tabIndex < _tabPane.getSelectedIndex() && tabIndex != 0) {
+					}
+					else if (tabIndex < _tabPane.getSelectedIndex() && tabIndex != 0) {
 						g.drawLine(x + 2, y + 1, x + w - 2, y + 1);// top
 					}
 				}
@@ -3238,11 +3247,13 @@ public class BasicJideTabbedPaneUI extends JideTabbedPaneUI implements SwingCons
 					g.drawLine(x + w - 1, y + 2, x + w - 1, y + h - 3);// left
 					g.drawLine(x + w - 2, y + h - 2, x + w - 2, y + h - 2);// bottom-left
 					g.drawLine(x, y + h - 1, x + w - 3, y + h - 1);// bottom
-				} else {
+				}
+				else {
 					g.setColor(_unselectColor1);
 					if (tabIndex > _tabPane.getSelectedIndex()) {
 						g.drawLine(x + 1, y + h - 2, x + w - 3, y + h - 2);// bottom
-					} else if (tabIndex < _tabPane.getSelectedIndex() && tabIndex != 0) {
+					}
+					else if (tabIndex < _tabPane.getSelectedIndex() && tabIndex != 0) {
 						g.drawLine(x + 1, y + 1, x + w - 3, y + 1);// top
 					}
 				}
@@ -3255,18 +3266,22 @@ public class BasicJideTabbedPaneUI extends JideTabbedPaneUI implements SwingCons
 					g.drawLine(x + 2, y + h - 1, x + w - 3, y + h - 1); // bottom
 					g.drawLine(x + w - 2, y + h - 2, x + w - 2, y + h - 2); // bottom-right
 					g.drawLine(x + w - 1, y, x + w - 1, y + h - 3); // right
-				} else {
+				}
+				else {
 					g.setColor(_unselectColor1);
 					if (leftToRight) {
 						if (tabIndex > _tabPane.getSelectedIndex()) {
 							g.drawLine(x + w - 2, y + 2, x + w - 2, y + h - 2); // right
-						} else if (tabIndex < _tabPane.getSelectedIndex() && tabIndex != 0) {
+						}
+						else if (tabIndex < _tabPane.getSelectedIndex() && tabIndex != 0) {
 							g.drawLine(x, y + 2, x, y + h - 2); // left
 						}
-					} else {
+					}
+					else {
 						if (tabIndex > _tabPane.getSelectedIndex()) {
 							g.drawLine(x, y + 2, x, y + h - 2); // left
-						} else if (tabIndex < _tabPane.getSelectedIndex() && tabIndex != _tabPane.getTabCount() - 1) {
+						}
+						else if (tabIndex < _tabPane.getSelectedIndex() && tabIndex != _tabPane.getTabCount() - 1) {
 							g.drawLine(x + w - 2, y + 2, x + w - 2, y + h - 2); // right
 						}
 					}
@@ -3281,18 +3296,22 @@ public class BasicJideTabbedPaneUI extends JideTabbedPaneUI implements SwingCons
 					g.drawLine(x + 2, y, x + w - 3, y); // top
 					g.drawLine(x + w - 3, y, x + w - 1, y + 2); // top-left
 					g.drawLine(x + w - 1, y + 2, x + w - 1, y + h - 1); // right
-				} else {
+				}
+				else {
 					g.setColor(_unselectColor1);
 					if (leftToRight) {
 						if (tabIndex > _tabPane.getSelectedIndex()) {
 							g.drawLine(x + w - 2, y + 2, x + w - 2, y + h - 2); // right
-						} else if (tabIndex < _tabPane.getSelectedIndex() && tabIndex != 0) {
+						}
+						else if (tabIndex < _tabPane.getSelectedIndex() && tabIndex != 0) {
 							g.drawLine(x, y + 2, x, y + h - 2); // left
 						}
-					} else {
+					}
+					else {
 						if (tabIndex > _tabPane.getSelectedIndex()) {
 							g.drawLine(x, y + 2, x, y + h - 2); // left
-						} else if (tabIndex < _tabPane.getSelectedIndex() && tabIndex != _tabPane.getTabCount() - 1) {
+						}
+						else if (tabIndex < _tabPane.getSelectedIndex() && tabIndex != _tabPane.getTabCount() - 1) {
 							g.drawLine(x + w - 2, y + 2, x + w - 2, y + h - 2); // right
 						}
 					}
@@ -3308,15 +3327,18 @@ public class BasicJideTabbedPaneUI extends JideTabbedPaneUI implements SwingCons
 				if (isSelected) {
 					g.setColor(_selectColor1);
 					g.drawRect(x, y, w, h);
-				} else {
+				}
+				else {
 					g.setColor(_unselectColor1);
 					if (tabIndex > _tabPane.getSelectedIndex()) {
 						if (tabIndex == _tabPane.getTabCount() - 1) {
 							g.drawRect(x, y, w, h - 1);
-						} else {
+						}
+						else {
 							g.drawRect(x, y, w, h);
 						}
-					} else if (tabIndex < _tabPane.getSelectedIndex()) {
+					}
+					else if (tabIndex < _tabPane.getSelectedIndex()) {
 						g.drawRect(x, y, w, h);
 					}
 				}
@@ -3325,15 +3347,18 @@ public class BasicJideTabbedPaneUI extends JideTabbedPaneUI implements SwingCons
 				if (isSelected) {
 					g.setColor(_selectColor1);
 					g.drawRect(x - 1, y, w, h);
-				} else {
+				}
+				else {
 					g.setColor(_unselectColor1);
 					if (tabIndex > _tabPane.getSelectedIndex()) {
 						if (tabIndex == _tabPane.getTabCount() - 1) {
 							g.drawRect(x - 1, y, w, h - 1);
-						} else {
+						}
+						else {
 							g.drawRect(x - 1, y, w, h);
 						}
-					} else if (tabIndex < _tabPane.getSelectedIndex()) {
+					}
+					else if (tabIndex < _tabPane.getSelectedIndex()) {
 						g.drawRect(x - 1, y, w, h);
 					}
 				}
@@ -3342,7 +3367,8 @@ public class BasicJideTabbedPaneUI extends JideTabbedPaneUI implements SwingCons
 				if (isSelected) {
 					g.setColor(_selectColor1);
 					g.drawRect(x, y - 1, w, h);
-				} else {
+				}
+				else {
 					g.setColor(_unselectColor1);
 					g.drawRect(x, y - 1, w, h);
 				}
@@ -3352,7 +3378,8 @@ public class BasicJideTabbedPaneUI extends JideTabbedPaneUI implements SwingCons
 				if (isSelected) {
 					g.setColor(_selectColor1);
 					g.drawRect(x, y, w, h);
-				} else {
+				}
+				else {
 					g.setColor(_unselectColor1);
 					g.drawRect(x, y, w, h);
 				}
@@ -3374,7 +3401,8 @@ public class BasicJideTabbedPaneUI extends JideTabbedPaneUI implements SwingCons
 //                    g.drawLine(x, y + 1, x, y + 1);
 					g.drawLine(x + 1, y + h - 1, x + 1, y + h - 1);
 //                    g.drawLine(x + 1, y + h, x + 1, y + h);
-				} else {
+				}
+				else {
 					if (tabIndex > _tabPane.getSelectedIndex()) {
 						g.setColor(_unselectColor1);
 						g.drawLine(x + 2, y, x + w - 1, y);
@@ -3382,7 +3410,8 @@ public class BasicJideTabbedPaneUI extends JideTabbedPaneUI implements SwingCons
 						if (tabIndex == _tabPane.getTabCount() - 1) {
 							g.drawLine(x + 2, y + h - 1, x + w - 1, y + h - 1);
 							g.drawLine(x, y + 2, x, y + h - 3);
-						} else {
+						}
+						else {
 							g.drawLine(x + 2, y + h, x + w - 1, y + h);
 							g.drawLine(x, y + 2, x, y + h - 2);
 						}
@@ -3394,11 +3423,13 @@ public class BasicJideTabbedPaneUI extends JideTabbedPaneUI implements SwingCons
 						if (tabIndex == _tabPane.getTabCount() - 1) {
 							g.drawLine(x, y + h - 2, x, y + h - 2);
 							g.drawLine(x + 1, y + h - 1, x + 1, y + h - 1);
-						} else {
+						}
+						else {
 							g.drawLine(x, y + h - 1, x, y + h - 1);
 							g.drawLine(x + 1, y + h, x + 1, y + h);
 						}
-					} else if (tabIndex < _tabPane.getSelectedIndex()) {
+					}
+					else if (tabIndex < _tabPane.getSelectedIndex()) {
 						g.setColor(_unselectColor1);
 						g.drawLine(x + 2, y, x + w - 1, y);
 						g.drawLine(x + 2, y + h, x + w - 1, y + h);
@@ -3424,7 +3455,8 @@ public class BasicJideTabbedPaneUI extends JideTabbedPaneUI implements SwingCons
 //                    g.drawLine(x + w - 1, y + 1, x + w - 1, y + 1);
 //                    g.drawLine(x + w - 1, y + h - 1, x + w - 1, y + h - 1);
 					g.drawLine(x + w - 2, y + h - 1, x + w - 2, y + h - 1);
-				} else {
+				}
+				else {
 					if (tabIndex > _tabPane.getSelectedIndex()) {
 						g.setColor(_unselectColor1);
 						g.drawLine(x, y, x + w - 3, y);
@@ -3432,7 +3464,8 @@ public class BasicJideTabbedPaneUI extends JideTabbedPaneUI implements SwingCons
 						if (tabIndex == _tabPane.getTabCount() - 1) {
 							g.drawLine(x, y + h - 1, x + w - 3, y + h - 1);
 							g.drawLine(x + w - 1, y + 2, x + w - 1, y + h - 3);
-						} else {
+						}
+						else {
 							g.drawLine(x, y + h, x + w - 3, y + h);
 							g.drawLine(x + w - 1, y + 2, x + w - 1, y + h - 2);
 						}
@@ -3444,11 +3477,13 @@ public class BasicJideTabbedPaneUI extends JideTabbedPaneUI implements SwingCons
 						if (tabIndex == _tabPane.getTabCount() - 1) {
 							g.drawLine(x + w - 2, y + h - 2, x + w - 2, y + h - 2);
 //                            g.drawLine(x + w - 2, y + h - 1, x + w - 2, y + h - 1);
-						} else {
+						}
+						else {
 //                            g.drawLine(x + w - 1, y + h - 1, x + w - 1, y + h - 1);
 							g.drawLine(x + w - 2, y + h - 1, x + w - 2, y + h - 1);
 						}
-					} else if (tabIndex < _tabPane.getSelectedIndex()) {
+					}
+					else if (tabIndex < _tabPane.getSelectedIndex()) {
 						g.setColor(_unselectColor1);
 						g.drawLine(x, y, x + w - 3, y);
 						g.drawLine(x, y + h, x + w - 3, y + h);
@@ -3474,7 +3509,8 @@ public class BasicJideTabbedPaneUI extends JideTabbedPaneUI implements SwingCons
 //                    g.drawLine(x + 1, y + h - 1, x + 1, y + h - 1);
 //                    g.drawLine(x + w - 1, y + h - 1, x + w - 1, y + h - 1);
 					g.drawLine(x + w - 1, y + h - 2, x + w - 1, y + h - 2);
-				} else {
+				}
+				else {
 					if (tabIndex > _tabPane.getSelectedIndex()) {
 						g.setColor(_unselectColor1);
 						g.drawLine(x, y, x, y + h - 3);
@@ -3482,7 +3518,8 @@ public class BasicJideTabbedPaneUI extends JideTabbedPaneUI implements SwingCons
 						if (tabIndex == _tabPane.getTabCount() - 1) {
 							g.drawLine(x + 2, y + h - 1, x + w - 3, y + h - 1);
 							g.drawLine(x + w - 1, y, x + w - 1, y + h - 3);
-						} else {
+						}
+						else {
 							g.drawLine(x + 2, y + h - 1, x + w - 2, y + h - 1);
 							g.drawLine(x + w, y, x + w, y + h - 3);
 						}
@@ -3494,11 +3531,13 @@ public class BasicJideTabbedPaneUI extends JideTabbedPaneUI implements SwingCons
 						if (tabIndex == _tabPane.getTabCount() - 1) {
 //                            g.drawLine(x + w - 2, y + h - 1, x + w - 2, y + h - 1);
 							g.drawLine(x + w - 2, y + h - 2, x + w - 2, y + h - 2);
-						} else {
+						}
+						else {
 //                            g.drawLine(x + w - 1, y + h - 1, x + w - 1, y + h - 1);
 							g.drawLine(x + w - 1, y + h - 2, x + w - 1, y + h - 2);
 						}
-					} else if (tabIndex < _tabPane.getSelectedIndex()) {
+					}
+					else if (tabIndex < _tabPane.getSelectedIndex()) {
 						g.setColor(_unselectColor1);
 						g.drawLine(x, y, x, y + h - 3);
 						g.drawLine(x + 2, y + h - 1, x + w - 2, y + h - 1);
@@ -3524,7 +3563,8 @@ public class BasicJideTabbedPaneUI extends JideTabbedPaneUI implements SwingCons
 					g.drawLine(x, y + 2, x + 2, y); // top-left
 					g.drawLine(x + w - 2, y, x + w, y + 2);
 //                    g.drawLine(x + w, y + 1, x + w, y + 1);
-				} else {
+				}
+				else {
 					if (tabIndex > _tabPane.getSelectedIndex()) {
 						g.setColor(_unselectColor1);
 						g.drawLine(x, y + h - 1, x, y + 2);
@@ -3532,7 +3572,8 @@ public class BasicJideTabbedPaneUI extends JideTabbedPaneUI implements SwingCons
 						if (tabIndex == _tabPane.getTabCount() - 1) {
 							g.drawLine(x + 2, y, x + w - 3, y);
 							g.drawLine(x + w - 1, y + 2, x + w - 1, y + h - 1);
-						} else {
+						}
+						else {
 							g.drawLine(x + 2, y, x + w - 2, y);
 							g.drawLine(x + w, y + 2, x + w, y + h - 1);
 						}
@@ -3542,10 +3583,12 @@ public class BasicJideTabbedPaneUI extends JideTabbedPaneUI implements SwingCons
 
 						if (tabIndex == _tabPane.getTabCount() - 1) {
 							g.drawLine(x + w - 3, y, x + w - 1, y + 2);
-						} else {
+						}
+						else {
 							g.drawLine(x + w - 2, y, x + w, y + 2);
 						}
-					} else if (tabIndex < _tabPane.getSelectedIndex()) {
+					}
+					else if (tabIndex < _tabPane.getSelectedIndex()) {
 						g.setColor(_unselectColor1);
 						g.drawLine(x, y + h - 1, x, y + 2);
 						g.drawLine(x + 2, y, x + w - 2, y);
@@ -3571,7 +3614,8 @@ public class BasicJideTabbedPaneUI extends JideTabbedPaneUI implements SwingCons
 			g.setColor(_selectColor2);
 			g.drawLine(x + w - 1, y, x + w - 1, y + h - 1);// right
 			g.drawLine(x, y + h - 1, x + w - 1, y + h - 1);// bottom
-		} else {
+		}
+		else {
 			if (tabIndex != _tabPane.getSelectedIndex() - 1) {
 				switch (tabPlacement) {
 					case LEFT:
@@ -3591,7 +3635,8 @@ public class BasicJideTabbedPaneUI extends JideTabbedPaneUI implements SwingCons
 
 							g.setColor(_unselectColor2);
 							g.drawLine(x + w + 1, y + 2, x + w + 1, y + h - 2);// right
-						} else {
+						}
+						else {
 							g.setColor(_unselectColor1);
 							g.drawLine(x, y + 2, x, y + h - 2);// right
 
@@ -3649,7 +3694,8 @@ public class BasicJideTabbedPaneUI extends JideTabbedPaneUI implements SwingCons
 					int[] yp = {y, y, y + 2, y + 5, y + h - 5, y + h - 2, y + h - 2};
 					int np = yp.length;
 					tabRegion = new Polygon(xp, yp, np);
-				} else {// tabIndex != 0
+				}
+				else {// tabIndex != 0
 					int[] xp = {x + w, x + 2, x, x, x + 3, x + w};
 					int[] yp = {y - w + 2 + 2, y + 2, y + 5, y + h - 5, y + h - 2, y + h - 2};
 					int np = yp.length;
@@ -3662,7 +3708,8 @@ public class BasicJideTabbedPaneUI extends JideTabbedPaneUI implements SwingCons
 					int[] yp = {y, y, y + 2, y + 5, y + h - 5, y + h - 2, y + h - 2};
 					int np = yp.length;
 					tabRegion = new Polygon(xp, yp, np);
-				} else {
+				}
+				else {
 					int[] xp = {x, x + w - 3, x + w - 1, x + w - 1, x + w - 3, x};
 					int[] yp = {y - w + 2 + 2, y + 2, y + 5, y + h - 5, y + h - 2, y + h - 2};
 					int np = yp.length;
@@ -3675,7 +3722,8 @@ public class BasicJideTabbedPaneUI extends JideTabbedPaneUI implements SwingCons
 					int[] yp = {y, y + h - 5, y + h - 1, y + h - 1, y + h - 5, y};
 					int np = yp.length;
 					tabRegion = new Polygon(xp, yp, np);
-				} else {
+				}
+				else {
 					int[] xp = {x, x, x + 2, x + w - 5, x + w - 1, x + w - 1 + (tabIndex == 0 || isSelected ? h - 5 : 0)};
 					int[] yp = {y, y + h - 5, y + h - 1, y + h - 1, y + h - 5, y};
 					int np = yp.length;
@@ -3689,7 +3737,8 @@ public class BasicJideTabbedPaneUI extends JideTabbedPaneUI implements SwingCons
 					int[] yp = {y + h, y + 3, y + 1, y + 1, y + 3, y + h};
 					int np = yp.length;
 					tabRegion = new Polygon(xp, yp, np);
-				} else {
+				}
+				else {
 					int[] xp = {x, x, x + 2, x + w - 5, x + w - 1, x + w - 1 + (tabIndex == 0 || isSelected ? h - 5 : 0)};
 					int[] yp = {y + h, y + 3, y + 1, y + 1, y + 3, y + h};
 					int np = yp.length;
@@ -3710,13 +3759,15 @@ public class BasicJideTabbedPaneUI extends JideTabbedPaneUI implements SwingCons
 						int[] yp = {y - 5, y + 5, y + h - 5, y + h + 6};
 						int np = yp.length;
 						tabRegion = new Polygon(xp, yp, np);
-					} else {
+					}
+					else {
 						int[] xp = {x + w, x + 9, x, x, x + w};
 						int[] yp = {y + 8, y + 2, y + 6, y + h - 5, y + h + 6};
 						int np = yp.length;
 						tabRegion = new Polygon(xp, yp, np);
 					}
-				} else {
+				}
+				else {
 					int[] xp = {x + w, x, x, x + w};
 					int[] yp = {y - 5, y + 5, y + h - 5, y + h + 6};
 					int np = yp.length;
@@ -3730,14 +3781,16 @@ public class BasicJideTabbedPaneUI extends JideTabbedPaneUI implements SwingCons
 						int[] yp = {y - 5, y + 5, y + h - 5, y + h + 6};
 						int np = yp.length;
 						tabRegion = new Polygon(xp, yp, np);
-					} else {
+					}
+					else {
 						int[] xp = {x, x + w - 10, x + w - 1, x + w - 1, x};
 						int[] yp = {y + 8, y + 2, y + 6, y + h - 5,
 								y + h + 6};
 						int np = yp.length;
 						tabRegion = new Polygon(xp, yp, np);
 					}
-				} else {
+				}
+				else {
 					int[] xp = {x, x + w - 1, x + w - 1, x};
 					int[] yp = {y - 5, y + 5, y + h - 4, y + h + 6};
 					int np = yp.length;
@@ -3751,13 +3804,15 @@ public class BasicJideTabbedPaneUI extends JideTabbedPaneUI implements SwingCons
 						int[] yp = {y, y + h - 1, y + h - 1, y};
 						int np = yp.length;
 						tabRegion = new Polygon(xp, yp, np);
-					} else {
+					}
+					else {
 						int[] xp = {x + 7, x + 1, x + 5, x + w - 5, x + w + 5};
 						int[] yp = {y, y + h - 10, y + h - 1, y + h - 1, y};
 						int np = yp.length;
 						tabRegion = new Polygon(xp, yp, np);
 					}
-				} else {
+				}
+				else {
 					int[] xp = {x - 5, x + 5, x + w - 5, x + w + 5};
 					int[] yp = {y, y + h - 1, y + h - 1, y};
 					int np = yp.length;
@@ -3772,13 +3827,15 @@ public class BasicJideTabbedPaneUI extends JideTabbedPaneUI implements SwingCons
 						int[] yp = {y + h, y, y, y + h};
 						int np = yp.length;
 						tabRegion = new Polygon(xp, yp, np);
-					} else {
+					}
+					else {
 						int[] xp = {x + 7, x + 1, x + 6, x + w - 5, x + w + 5};
 						int[] yp = {y + h, y + 9, y, y, y + h};
 						int np = yp.length;
 						tabRegion = new Polygon(xp, yp, np);
 					}
-				} else {
+				}
+				else {
 					int[] xp = {x - 6, x + 5, x + w - 5, x + w + 5};
 					int[] yp = {y + h, y, y, y + h};
 					int np = yp.length;
@@ -3798,7 +3855,8 @@ public class BasicJideTabbedPaneUI extends JideTabbedPaneUI implements SwingCons
 					int[] yp = {y - 1, y - 1, y + 1, y + h + 2, y + h + 2};
 					int np = yp.length;
 					tabRegion = new Polygon(xp, yp, np);
-				} else {
+				}
+				else {
 					if (tabIndex < _tabPane.getSelectedIndex()) {
 						y = y + 1;
 						int[] xp = {x + w, x + 2, x, x, x + w};
@@ -3806,7 +3864,8 @@ public class BasicJideTabbedPaneUI extends JideTabbedPaneUI implements SwingCons
 								y + h - 1};
 						int np = yp.length;
 						tabRegion = new Polygon(xp, yp, np);
-					} else {
+					}
+					else {
 						int[] xp = {x + w, x + 2, x, x, x + w};
 						int[] yp = {y + 1, y + 1, y + 3, y + h - 2,
 								y + h - 2};
@@ -3822,7 +3881,8 @@ public class BasicJideTabbedPaneUI extends JideTabbedPaneUI implements SwingCons
 					int[] yp = {y - 1, y - 1, y + 1, y + h + 2, y + h + 2};
 					int np = yp.length;
 					tabRegion = new Polygon(xp, yp, np);
-				} else {
+				}
+				else {
 					if (tabIndex < _tabPane.getSelectedIndex()) {
 						y = y + 1;
 						int[] xp = {x, x + w - 3, x + w - 1, x + w - 1, x};
@@ -3830,7 +3890,8 @@ public class BasicJideTabbedPaneUI extends JideTabbedPaneUI implements SwingCons
 								y + h - 1};
 						int np = yp.length;
 						tabRegion = new Polygon(xp, yp, np);
-					} else {
+					}
+					else {
 						int[] xp = {x, x + w - 2, x + w - 1, x + w - 1, x};
 						int[] yp = {y + 1, y + 1, y + 3, y + h - 2,
 								y + h - 2};
@@ -3845,7 +3906,8 @@ public class BasicJideTabbedPaneUI extends JideTabbedPaneUI implements SwingCons
 					int[] yp = {y + h, y, y - 2, y - 2, y + h};
 					int np = yp.length;
 					tabRegion = new Polygon(xp, yp, np);
-				} else {
+				}
+				else {
 					int[] xp = {x + 1, x + 1, x + 1, x + w - 1, x + w - 1};
 					int[] yp = {y + h - 1, y + 2, y, y, y + h - 1};
 					int np = yp.length;
@@ -3859,7 +3921,8 @@ public class BasicJideTabbedPaneUI extends JideTabbedPaneUI implements SwingCons
 					int[] yp = {y + h + 1, y, y - 2, y - 2, y + h + 1};
 					int np = yp.length;
 					tabRegion = new Polygon(xp, yp, np);
-				} else {
+				}
+				else {
 					int[] xp = {x + 1, x + 1, x + 3, x + w - 1, x + w - 1};
 					int[] yp = {y + h, y + 2, y, y, y + h};
 					int np = yp.length;
@@ -3876,58 +3939,58 @@ public class BasicJideTabbedPaneUI extends JideTabbedPaneUI implements SwingCons
 		Polygon polygon;
 
 		switch (tabPlacement) {
-			case LEFT:
+			case LEFT -> {
 				if (tabIndex < _tabPane.getSelectedIndex()) {
 
-					int[] xp = {x + w, x + 2, x, x, x + 2, x + w};
-					int[] yp = {y + 2, y + 2, y + 4, y + h - 1, y + h,
+					int xp[] = {x + w, x + 2, x, x, x + 2, x + w};
+					int yp[] = {y + 2, y + 2, y + 4, y + h - 1, y + h,
 							y + h};
 					int np = yp.length;
 					polygon = new Polygon(xp, yp, np);
 
 				} else {// tabIndex > _tabPane.getSelectedIndex()
 
-					int[] xp = {x + w, x + 2, x, x, x + 2, x + w};
-					int[] yp = {y + 1, y + 1, y + 3, y + h - 3,
+					int xp[] = {x + w, x + 2, x, x, x + 2, x + w};
+					int yp[] = {y + 1, y + 1, y + 3, y + h - 3,
 							y + h - 2, y + h - 2};
 					int np = yp.length;
 					polygon = new Polygon(xp, yp, np);
 
 				}
 				UIUtil.fillGradient(g2d, polygon, backgroundUnselectedColorStart, backgroundUnselectedColorEnd, false);
-				break;
-			case RIGHT:
+			}
+			case RIGHT -> {
 				if (tabIndex < _tabPane.getSelectedIndex()) {
-					int[] xp = {x, x + w - 3, x + w - 1, x + w - 1,
+					int xp[] = {x, x + w - 3, x + w - 1, x + w - 1,
 							x + w - 3, x};
-					int[] yp = {y + 2, y + 2, y + 4, y + h - 1, y + h,
+					int yp[] = {y + 2, y + 2, y + 4, y + h - 1, y + h,
 							y + h};
 					int np = yp.length;
 					polygon = new Polygon(xp, yp, np);
 				} else {
-					int[] xp = {x, x + w - 2, x + w - 1, x + w - 1,
+					int xp[] = {x, x + w - 2, x + w - 1, x + w - 1,
 							x + w - 3, x};
-					int[] yp = {y + 1, y + 1, y + 3, y + h - 3,
+					int yp[] = {y + 1, y + 1, y + 3, y + h - 3,
 							y + h - 2, y + h - 2};
 					int np = yp.length;
 					polygon = new Polygon(xp, yp, np);
 				}
 				UIUtil.fillGradient(g2d, polygon, backgroundUnselectedColorEnd, backgroundUnselectedColorStart, false);
-				break;
-			case BOTTOM:
-				int[] xp = {x + 1, x + 1, x + 1, x + w - 1, x + w - 1};
-				int[] yp = {y + h - 2, y + 2, y, y, y + h - 2};
+			}
+			case BOTTOM -> {
+				int xp[] = {x + 1, x + 1, x + 1, x + w - 1, x + w - 1};
+				int yp[] = {y + h - 2, y + 2, y, y, y + h - 2};
 				int np = yp.length;
 				polygon = new Polygon(xp, yp, np);
 				UIUtil.fillGradient(g2d, polygon, backgroundUnselectedColorEnd, backgroundUnselectedColorStart, true);
-				break;
-			case TOP:
-			default:
-				int[] xp1 = {x + 1, x + 1, x + 3, x + w - 1, x + w - 1};
-				int[] yp1 = {y + h, y + 2, y, y, y + h};
+			}
+			default -> {
+				int xp1[] = {x + 1, x + 1, x + 3, x + w - 1, x + w - 1};
+				int yp1[] = {y + h, y + 2, y, y, y + h};
 				int np1 = yp1.length;
 				polygon = new Polygon(xp1, yp1, np1);
 				UIUtil.fillGradient(g2d, polygon, backgroundUnselectedColorStart, backgroundUnselectedColorEnd, true);
+			}
 		}
 	}
 
@@ -3937,23 +4000,22 @@ public class BasicJideTabbedPaneUI extends JideTabbedPaneUI implements SwingCons
 		int[] xp;
 		int[] yp;
 		switch (tabPlacement) {
-			case LEFT:
+			case LEFT -> {
 				xp = new int[]{x + 1, x + 1, x + w, x + w};
 				yp = new int[]{y + h - 1, y + 1, y + 1, y + h - 1};
-				break;
-			case RIGHT:
+			}
+			case RIGHT -> {
 				xp = new int[]{x, x, x + w - 1, x + w - 1};
 				yp = new int[]{y + h - 1, y + 1, y + 1, y + h - 1};
-				break;
-			case BOTTOM:
+			}
+			case BOTTOM -> {
 				xp = new int[]{x + 1, x + 1, x + w - 1, x + w - 1};
 				yp = new int[]{y + h - 1, y, y, y + h - 1};
-				break;
-			case TOP:
-			default:
+			}
+			default -> {
 				xp = new int[]{x + 1, x + 1, x + w - 1, x + w - 1};
 				yp = new int[]{y + h, y + 1, y + 1, y + h};
-				break;
+			}
 		}
 		int np = yp.length;
 		tabRegion = new Polygon(xp, yp, np);
@@ -3962,30 +4024,30 @@ public class BasicJideTabbedPaneUI extends JideTabbedPaneUI implements SwingCons
 	@SuppressWarnings({"UnusedDeclaration"})
 	protected void paintFlatTabBackground(Graphics g, int tabPlacement, int tabIndex, int x, int y, int w, int h, boolean isSelected) {
 		switch (tabPlacement) {
-			case LEFT:
-				int[] xp1 = {x + 1, x + 1, x + w, x + w};
-				int[] yp1 = {y + h, y + 1, y + 1, y + h};
+			case LEFT -> {
+				int xp1[] = {x + 1, x + 1, x + w, x + w};
+				int yp1[] = {y + h, y + 1, y + 1, y + h};
 				int np1 = yp1.length;
 				tabRegion = new Polygon(xp1, yp1, np1);
-				break;
-			case RIGHT:
-				int[] xp2 = {x, x, x + w - 1, x + w - 1};
-				int[] yp2 = {y + h, y + 1, y + 1, y + h};
+			}
+			case RIGHT -> {
+				int xp2[] = {x, x, x + w - 1, x + w - 1};
+				int yp2[] = {y + h, y + 1, y + 1, y + h};
 				int np2 = yp2.length;
 				tabRegion = new Polygon(xp2, yp2, np2);
-				break;
-			case BOTTOM:
-				int[] xp3 = {x + 1, x + 1, x + w, x + w};
-				int[] yp3 = {y + h - 1, y, y, y + h - 1};
+			}
+			case BOTTOM -> {
+				int xp3[] = {x + 1, x + 1, x + w, x + w};
+				int yp3[] = {y + h - 1, y, y, y + h - 1};
 				int np3 = yp3.length;
 				tabRegion = new Polygon(xp3, yp3, np3);
-				break;
-			case TOP:
-			default:
-				int[] xp4 = {x, x + 1, x + w, x + w};
-				int[] yp4 = {y + h, y + 1, y + 1, y + h};
+			}
+			default -> {
+				int xp4[] = {x, x + 1, x + w, x + w};
+				int yp4[] = {y + h, y + 1, y + 1, y + h};
 				int np4 = yp4.length;
 				tabRegion = new Polygon(xp4, yp4, np4);
+			}
 		}
 	}
 
@@ -4026,7 +4088,7 @@ public class BasicJideTabbedPaneUI extends JideTabbedPaneUI implements SwingCons
 		}
 
 		switch (tabPlacement) {
-			case LEFT:
+			case LEFT -> {
 				int tabAreaWidth = calculateTabAreaWidth(tabPlacement, _runCount, _maxTabWidth);
 				if (isTabLeadingComponentVisible()) {
 					if (lsize.width > tabAreaWidth) {
@@ -4042,21 +4104,20 @@ public class BasicJideTabbedPaneUI extends JideTabbedPaneUI implements SwingCons
 					paintTabAreaBackground(g, new Rectangle(x, y, tabAreaWidth, h), tabPlacement);
 				x += tabAreaWidth;
 				w -= (x - insets.left);
-				break;
-			case RIGHT:
+			}
+			case RIGHT -> {
 				int areaWidth = calculateTabAreaWidth(tabPlacement, _runCount, _maxTabWidth);
 				if (scrollableTabLayoutEnabled())
 					paintTabAreaBackground(g, new Rectangle(x, y, areaWidth, h), tabPlacement);
 				w -= areaWidth;
-				break;
-			case BOTTOM:
+			}
+			case BOTTOM -> {
 				int areaHeight = calculateTabAreaHeight(tabPlacement, _runCount, _maxTabHeight);
 				if (scrollableTabLayoutEnabled())
 					paintTabAreaBackground(g, new Rectangle(x, y, w, areaHeight), tabPlacement);
 				h -= areaHeight;
-				break;
-			case TOP:
-			default:
+			}
+			default -> {
 				int tabAreaHeight = calculateTabAreaHeight(tabPlacement, _runCount, _maxTabHeight);
 				if (isTabLeadingComponentVisible()) {
 					if (lsize.height > tabAreaHeight) {
@@ -4072,6 +4133,7 @@ public class BasicJideTabbedPaneUI extends JideTabbedPaneUI implements SwingCons
 					paintTabAreaBackground(g, new Rectangle(x, y, w, tabAreaHeight), tabPlacement);
 				y += tabAreaHeight;
 				h -= (y - insets.top);
+			}
 		}
 
 		if (getTabShape() != JideTabbedPane.SHAPE_BOX) {
@@ -4080,20 +4142,10 @@ public class BasicJideTabbedPaneUI extends JideTabbedPaneUI implements SwingCons
 			paintContentBorder(g, x, y, w, h);
 
 			switch (tabPlacement) {
-				case LEFT:
-					paintContentBorderLeftEdge(g, tabPlacement, selectedIndex, x, y, w, h);
-					break;
-				case RIGHT:
-					paintContentBorderRightEdge(g, tabPlacement, selectedIndex, x, y, w, h);
-					break;
-				case BOTTOM:
-					paintContentBorderBottomEdge(g, tabPlacement, selectedIndex, x, y, w, h);
-					break;
-				case TOP:
-				default:
-					paintContentBorderTopEdge(g, tabPlacement, selectedIndex, x, y, w, h);
-					break;
-
+				case LEFT -> paintContentBorderLeftEdge(g, tabPlacement, selectedIndex, x, y, w, h);
+				case RIGHT -> paintContentBorderRightEdge(g, tabPlacement, selectedIndex, x, y, w, h);
+				case BOTTOM -> paintContentBorderBottomEdge(g, tabPlacement, selectedIndex, x, y, w, h);
+				default -> paintContentBorderTopEdge(g, tabPlacement, selectedIndex, x, y, w, h);
 			}
 		}
 
@@ -4123,7 +4175,8 @@ public class BasicJideTabbedPaneUI extends JideTabbedPaneUI implements SwingCons
 	protected Color getBorderEdgeColor() {
 		if ("true".equals(System.getProperty("shadingtheme", "false"))) {
 			return _shadow;
-		} else {
+		}
+		else {
 			return _lightHighlight;
 		}
 	}
@@ -4156,7 +4209,8 @@ public class BasicJideTabbedPaneUI extends JideTabbedPaneUI implements SwingCons
 				/*(selRect.y + selRect.height + 1 < y) ||*/
 				(selRect.x < x || selRect.x > x + w)) {
 			g.drawLine(x, y, x + w - 1, y);
-		} else {
+		}
+		else {
 			// Break line to show visual connection to selected tab
 			g.drawLine(x, y, selRect.x, y);
 			if (!getBorderEdgeColor().equals(_lightHighlight)) {
@@ -4164,17 +4218,20 @@ public class BasicJideTabbedPaneUI extends JideTabbedPaneUI implements SwingCons
 					g.drawLine(selRect.x + selRect.width - 1, y,
 							selRect.x + selRect.width - 1, y);
 					g.drawLine(selRect.x + selRect.width, y, x + w - 1, y);
-				} else {
+				}
+				else {
 					g.drawLine(x + w - 2, y, x + w - 1, y);
 				}
-			} else {
+			}
+			else {
 				if (selRect.x + selRect.width < x + w - 2) {
 					g.setColor(_darkShadow);
 					g.drawLine(selRect.x + selRect.width - 1, y,
 							selRect.x + selRect.width - 1, y);
 					g.setColor(_lightHighlight);
 					g.drawLine(selRect.x + selRect.width, y, x + w - 1, y);
-				} else {
+				}
+				else {
 					g.setColor(_selectedColor == null ?
 							_tabPane.getBackground() : _selectedColor);
 					g.drawLine(x + w - 2, y, x + w - 1, y);
@@ -4209,7 +4266,8 @@ public class BasicJideTabbedPaneUI extends JideTabbedPaneUI implements SwingCons
 				(selRect.x < x || selRect.x > x + w)) {
 			g.setColor(getBorderEdgeColor());
 			g.drawLine(x, y + h - 1, x + w - 2, y + h - 1);
-		} else {
+		}
+		else {
 			if (!getBorderEdgeColor().equals(_lightHighlight)) {
 				g.setColor(getBorderEdgeColor());
 				g.drawLine(x, y + h - 1, selRect.x - 1, y + h - 1);
@@ -4217,7 +4275,8 @@ public class BasicJideTabbedPaneUI extends JideTabbedPaneUI implements SwingCons
 				if (selRect.x + selRect.width < x + w - 2) {
 					g.drawLine(selRect.x + selRect.width - 1, y + h - 1, x + w - 2, y + h - 1); // dark line to the end
 				}
-			} else {
+			}
+			else {
 				// Break line to show visual connection to selected tab
 				g.setColor(_darkShadow); // dark line at the beginning
 				g.drawLine(x, y + h - 1, selRect.x - 1, y + h - 1);
@@ -4255,7 +4314,8 @@ public class BasicJideTabbedPaneUI extends JideTabbedPaneUI implements SwingCons
 						_closeButtons[i].setBounds(0, 0, 0, 0);
 						continue;
 					}
-				} else {
+				}
+				else {
 					if (i >= _rects.length) {
 						_closeButtons[i].setBounds(0, 0, 0, 0);
 						continue;
@@ -4278,25 +4338,31 @@ public class BasicJideTabbedPaneUI extends JideTabbedPaneUI implements SwingCons
 							if (i > _tabPane.getSelectedIndex() && (JideTabbedPane.SHAPE_ROUNDED_VSNET == _tabPane.getTabShape() || JideTabbedPane.SHAPE_VSNET == _tabPane.getTabShape())) {
 								bounds.x--;
 							}
-						} else {
+						}
+						else {
 							bounds = new Rectangle(_rects[i].x + _closeButtonLeftMargin + getTabGap(), _rects[i].y + (_rects[i].height - size.height) / 2, size.width, size.height);
 						}
-					} else /*if (_tabPane.getTabPlacement() == JideTabbedPane.LEFT || _tabPane.getTabPlacement() == JideTabbedPane.RIGHT)*/ {
+					}
+					else /*if (_tabPane.getTabPlacement() == JideTabbedPane.LEFT || _tabPane.getTabPlacement() == JideTabbedPane.RIGHT)*/ {
 						bounds = new Rectangle(_rects[i].x + (_rects[i].width - size.width) / 2, _rects[i].y + _rects[i].height - size.height - _closeButtonRightMargin, size.width, size.height);
 						bounds.y -= getTabGap();
 					}
-				} else {
+				}
+				else {
 					if (_tabPane.getTabPlacement() == JideTabbedPane.TOP || _tabPane.getTabPlacement() == JideTabbedPane.BOTTOM) {
 						if (leftToRight) {
 							bounds = new Rectangle(_rects[i].x + _closeButtonLeftMargin + getTabGap(), _rects[i].y + (_rects[i].height - size.height) / 2, size.width, size.height);
-						} else {
+						}
+						else {
 							bounds = new Rectangle(_rects[i].x + _rects[i].width - size.width - _closeButtonRightMargin,
 									_rects[i].y + (_rects[i].height - size.height) / 2, size.width, size.height);
 							bounds.x -= getTabGap();
 						}
-					} else if (_tabPane.getTabPlacement() == JideTabbedPane.LEFT) {
+					}
+					else if (_tabPane.getTabPlacement() == JideTabbedPane.LEFT) {
 						bounds = new Rectangle(_rects[i].x + (_rects[i].width - size.width) / 2, _rects[i].y + _closeButtonLeftMargin, size.width, size.height);
-					} else /*if (_tabPane.getTabPlacement() == JideTabbedPane.RIGHT)*/ {
+					}
+					else /*if (_tabPane.getTabPlacement() == JideTabbedPane.RIGHT)*/ {
 						bounds = new Rectangle(_rects[i].x + (_rects[i].width - size.width) / 2 - 2, _rects[i].y + _closeButtonLeftMargin, size.width, size.height);
 					}
 				}
@@ -4308,7 +4374,8 @@ public class BasicJideTabbedPaneUI extends JideTabbedPaneUI implements SwingCons
 				}
 				if (_tabPane.getSelectedIndex() == i) {
 					_closeButtons[i].setBackground(_selectedColor == null ? _tabPane.getBackgroundAt(i) : _selectedColor);
-				} else {
+				}
+				else {
 					_closeButtons[i].setBackground(_tabPane.getBackgroundAt(i));
 				}
 			}
@@ -4360,10 +4427,12 @@ public class BasicJideTabbedPaneUI extends JideTabbedPaneUI implements SwingCons
 				if (horizontalTab && bounds.x != 0) {
 					if (isRTL) {
 						firstButtonPos = Math.max(firstButtonPos, bounds.x);
-					} else {
+					}
+					else {
 						firstButtonPos = Math.min(firstButtonPos, bounds.x);
 					}
-				} else if (!horizontalTab && bounds.y != 0) {
+				}
+				else if (!horizontalTab && bounds.y != 0) {
 					firstButtonPos = Math.min(firstButtonPos, bounds.y);
 				}
 			}
@@ -4373,10 +4442,12 @@ public class BasicJideTabbedPaneUI extends JideTabbedPaneUI implements SwingCons
 			if (horizontalTab && bounds.x != 0) {
 				if (isRTL) {
 					firstButtonPos = Math.max(firstButtonPos, bounds.x);
-				} else {
+				}
+				else {
 					firstButtonPos = Math.min(firstButtonPos, bounds.x);
 				}
-			} else if (!horizontalTab && bounds.y != 0) {
+			}
+			else if (!horizontalTab && bounds.y != 0) {
 				firstButtonPos = Math.min(firstButtonPos, bounds.y);
 			}
 		}
@@ -4384,7 +4455,8 @@ public class BasicJideTabbedPaneUI extends JideTabbedPaneUI implements SwingCons
 			if ((isRTL && x <= firstButtonPos) || (!isRTL && x >= firstButtonPos)) {
 				return -1;
 			}
-		} else {
+		}
+		else {
 			if (y >= firstButtonPos) {
 				return -1;
 			}
@@ -4436,7 +4508,8 @@ public class BasicJideTabbedPaneUI extends JideTabbedPaneUI implements SwingCons
 			dest.x = _rects[tabIndex].x + vpp.x - (((tabPlacement == TOP || tabPlacement == BOTTOM) && !_tabPane.getComponentOrientation().isLeftToRight()) ? -viewp.x : viewp.x);
 			dest.y = _rects[tabIndex].y + vpp.y - viewp.y;
 
-		} else { // WRAP_TAB_LAYOUT
+		}
+		else { // WRAP_TAB_LAYOUT
 			dest.x = _rects[tabIndex].x;
 			dest.y = _rects[tabIndex].y;
 		}
@@ -4480,7 +4553,8 @@ public class BasicJideTabbedPaneUI extends JideTabbedPaneUI implements SwingCons
 		int tabPlacement = _tabPane.getTabPlacement();
 		if (tabPlacement == TOP || tabPlacement == BOTTOM) {
 			return _rects[0].contains(_rects[0].x + 1, y);
-		} else {
+		}
+		else {
 			return _rects[0].contains(x, _rects[0].y + 1);
 		}
 	}
@@ -4500,7 +4574,8 @@ public class BasicJideTabbedPaneUI extends JideTabbedPaneUI implements SwingCons
 		boolean needConvert = false;
 		if (!useX || _tabPane.getComponentOrientation().isLeftToRight()) {
 			System.arraycopy(_rects, 0, rects, 0, _rects.length);
-		} else {
+		}
+		else {
 			needConvert = true;
 			for (int i = 0; i < _rects.length; i++) {
 				rects[i] = new Rectangle(_rects[_rects.length - 1 - i]);
@@ -4518,7 +4593,8 @@ public class BasicJideTabbedPaneUI extends JideTabbedPaneUI implements SwingCons
 			if (useX) {
 				minLoc = rects[current].x;
 				maxLoc = minLoc + rects[current].width;
-			} else {
+			}
+			else {
 				minLoc = rects[current].y;
 				maxLoc = minLoc + rects[current].height;
 			}
@@ -4528,13 +4604,15 @@ public class BasicJideTabbedPaneUI extends JideTabbedPaneUI implements SwingCons
 					int tabIndex = Math.max(0, current - 1);
 					return needConvert ? rects.length - 1 - tabIndex : tabIndex;
 				}
-			} else if (want >= maxLoc) {
+			}
+			else if (want >= maxLoc) {
 				min = current;
 				if (max - min <= 1) {
 					int tabIndex = Math.max(current + 1, tabCount - 1);
 					return needConvert ? rects.length - 1 - tabIndex : tabIndex;
 				}
-			} else {
+			}
+			else {
 				return needConvert ? rects.length - 1 - current : current;
 			}
 		}
@@ -4660,7 +4738,8 @@ public class BasicJideTabbedPaneUI extends JideTabbedPaneUI implements SwingCons
 			if (v != null) {
 				// html
 				height += (int) v.getPreferredSpan(View.Y_AXIS);
-			} else {
+			}
+			else {
 				// plain text
 				height += metrics.getHeight();
 			}
@@ -4671,7 +4750,8 @@ public class BasicJideTabbedPaneUI extends JideTabbedPaneUI implements SwingCons
 				height = Math.max(height, icon.getIconHeight());
 			}
 			height += tabInsets.top + tabInsets.bottom + 2;
-		} else {
+		}
+		else {
 			Icon icon = _tabPane.getIconForTab(tabIndex);
 			Insets tabInsets = getTabInsets(tabPlacement, tabIndex);
 			height = tabInsets.top + tabInsets.bottom + 3;
@@ -4683,7 +4763,8 @@ public class BasicJideTabbedPaneUI extends JideTabbedPaneUI implements SwingCons
 			if (v != null) {
 				// html
 				height += (int) v.getPreferredSpan(View.X_AXIS);
-			} else {
+			}
+			else {
 				// plain text
 				String title = getCurrentDisplayTitleAt(_tabPane, tabIndex);
 				height += SwingUtilities.computeStringWidth(metrics, title);
@@ -4699,7 +4780,8 @@ public class BasicJideTabbedPaneUI extends JideTabbedPaneUI implements SwingCons
 					if (_tabPane.getSelectedIndex() == tabIndex) {
 						height += _closeButtons[tabIndex].getPreferredSize().height + _closeButtonRightMargin + _closeButtonLeftMargin;
 					}
-				} else {
+				}
+				else {
 					height += _closeButtons[tabIndex].getPreferredSize().height + _closeButtonRightMargin + _closeButtonLeftMargin;
 				}
 			}
@@ -4738,7 +4820,8 @@ public class BasicJideTabbedPaneUI extends JideTabbedPaneUI implements SwingCons
 			if (v != null) {
 				// html
 				width += (int) v.getPreferredSpan(View.X_AXIS);
-			} else {
+			}
+			else {
 				// plain text
 				String title = getCurrentDisplayTitleAt(_tabPane, tabIndex);
 //                while (title == null || title.length() < 3)
@@ -4756,13 +4839,15 @@ public class BasicJideTabbedPaneUI extends JideTabbedPaneUI implements SwingCons
 					if (_tabPane.getSelectedIndex() == tabIndex) {
 						width += _closeButtons[tabIndex].getPreferredSize().width + _closeButtonRightMargin + _closeButtonLeftMargin;
 					}
-				} else {
+				}
+				else {
 					width += _closeButtons[tabIndex].getPreferredSize().width + _closeButtonRightMargin + _closeButtonLeftMargin;
 				}
 			}
 
 //            width += _tabRectPadding;
-		} else {
+		}
+		else {
 			Component tabComponent = _tabPane.getTabComponentAt(tabIndex);
 			if (tabComponent != null) {
 				Insets tabInsets = getTabInsets(tabPlacement, tabIndex);
@@ -4773,7 +4858,8 @@ public class BasicJideTabbedPaneUI extends JideTabbedPaneUI implements SwingCons
 			if (v != null) {
 				// html
 				width += (int) v.getPreferredSpan(View.Y_AXIS);
-			} else {
+			}
+			else {
 				// plain text
 				width += metrics.getHeight();
 			}
@@ -4847,10 +4933,12 @@ public class BasicJideTabbedPaneUI extends JideTabbedPaneUI implements SwingCons
 		if (selectedIndex == tab) {
 			if (_tabPane.getSelectedTabFont() != null) {
 				font = _tabPane.getSelectedTabFont();
-			} else {
+			}
+			else {
 				font = _selectedTabFont;
 			}
-		} else {
+		}
+		else {
 			font = _tabPane.getFont();
 		}
 
@@ -4885,21 +4973,18 @@ public class BasicJideTabbedPaneUI extends JideTabbedPaneUI implements SwingCons
 			case LEFT:
 			case RIGHT:
 				switch (direction) {
-					case NORTH:
-						selectPreviousTabInRun(current);
-						break;
-					case SOUTH:
-						selectNextTabInRun(current);
-						break;
-					case WEST:
+					case NORTH -> selectPreviousTabInRun(current);
+					case SOUTH -> selectNextTabInRun(current);
+					case WEST -> {
 						offset = getTabRunOffset(tabPlacement, tabCount, current, false);
 						selectAdjacentRunTab(tabPlacement, current, offset);
-						break;
-					case EAST:
+					}
+					case EAST -> {
 						offset = getTabRunOffset(tabPlacement, tabCount, current, true);
 						selectAdjacentRunTab(tabPlacement, current, offset);
-						break;
-					default:
+					}
+					default -> {
+					}
 				}
 				break;
 			case BOTTOM:
@@ -4917,14 +5002,16 @@ public class BasicJideTabbedPaneUI extends JideTabbedPaneUI implements SwingCons
 					case EAST:
 						if (leftToRight) {
 							selectNextTabInRun(current);
-						} else {
+						}
+						else {
 							selectPreviousTabInRun(current);
 						}
 						break;
 					case WEST:
 						if (leftToRight) {
 							selectPreviousTabInRun(current);
-						} else {
+						}
+						else {
 							selectNextTabInRun(current);
 						}
 						break;
@@ -4978,18 +5065,12 @@ public class BasicJideTabbedPaneUI extends JideTabbedPaneUI implements SwingCons
 		}
 		int newIndex;
 		Rectangle r = _rects[tabIndex];
-		switch (tabPlacement) {
-			case LEFT:
-			case RIGHT:
-				newIndex = getTabAtLocation(r.x + (r.width >> 1) + offset,
-						r.y + (r.height >> 1));
-				break;
-			case BOTTOM:
-			case TOP:
-			default:
-				newIndex = getTabAtLocation(r.x + (r.width >> 1),
-						r.y + (r.height >> 1) + offset);
-		}
+		newIndex = switch (tabPlacement) {
+			case LEFT, RIGHT -> getTabAtLocation(r.x + (r.width >> 1) + offset,
+					r.y + (r.height >> 1));
+			default -> getTabAtLocation(r.x + (r.width >> 1),
+					r.y + (r.height >> 1) + offset);
+		};
 		if (newIndex != -1) {
 			while (!_tabPane.isEnabledAt(newIndex) && newIndex != tabIndex) {
 				newIndex = getNextTabIndex(newIndex);
@@ -5003,7 +5084,7 @@ public class BasicJideTabbedPaneUI extends JideTabbedPaneUI implements SwingCons
 		int run = getRunForTab(tabCount, tabIndex);
 		int offset;
 		switch (tabPlacement) {
-			case LEFT: {
+			case LEFT -> {
 				if (run == 0) {
 					offset = (forward ?
 							-(calculateTabAreaWidth(tabPlacement, _runCount, _maxTabWidth) - _maxTabWidth) :
@@ -5016,9 +5097,8 @@ public class BasicJideTabbedPaneUI extends JideTabbedPaneUI implements SwingCons
 				} else {
 					offset = (forward ? _maxTabWidth : -_maxTabWidth);
 				}
-				break;
 			}
-			case RIGHT: {
+			case RIGHT -> {
 				if (run == 0) {
 					offset = (forward ?
 							_maxTabWidth :
@@ -5030,9 +5110,8 @@ public class BasicJideTabbedPaneUI extends JideTabbedPaneUI implements SwingCons
 				} else {
 					offset = (forward ? _maxTabWidth : -_maxTabWidth);
 				}
-				break;
 			}
-			case BOTTOM: {
+			case BOTTOM -> {
 				if (run == 0) {
 					offset = (forward ?
 							_maxTabHeight :
@@ -5044,10 +5123,8 @@ public class BasicJideTabbedPaneUI extends JideTabbedPaneUI implements SwingCons
 				} else {
 					offset = (forward ? _maxTabHeight : -_maxTabHeight);
 				}
-				break;
 			}
-			case TOP:
-			default: {
+			default -> {
 				if (run == 0) {
 					offset = (forward ?
 							-(calculateTabAreaHeight(tabPlacement, _runCount, _maxTabHeight) - _maxTabHeight) :
@@ -5066,7 +5143,7 @@ public class BasicJideTabbedPaneUI extends JideTabbedPaneUI implements SwingCons
 
 	protected int getPreviousTabIndex(int base) {
 		int tabIndex = (base - 1 >= 0 ? base - 1 : _tabPane.getTabCount() - 1);
-		return (tabIndex >= 0 ? tabIndex : 0);
+		return (Math.max(tabIndex, 0));
 	}
 
 	protected int getNextTabIndex(int base) {
@@ -5099,7 +5176,7 @@ public class BasicJideTabbedPaneUI extends JideTabbedPaneUI implements SwingCons
 
 	protected int getPreviousTabRun(int baseRun) {
 		int runIndex = (baseRun - 1 >= 0 ? baseRun - 1 : _runCount - 1);
-		return (runIndex >= 0 ? runIndex : 0);
+		return (Math.max(runIndex, 0));
 	}
 
 	protected int getNextTabRun(int baseRun) {
@@ -5116,30 +5193,30 @@ public class BasicJideTabbedPaneUI extends JideTabbedPaneUI implements SwingCons
 		}
 
 		switch (targetPlacement) {
-			case LEFT:
+			case LEFT -> {
 				targetInsets.top = topInsets.left;
 				targetInsets.left = topInsets.top;
 				targetInsets.bottom = topInsets.right;
 				targetInsets.right = topInsets.bottom;
-				break;
-			case BOTTOM:
+			}
+			case BOTTOM -> {
 				targetInsets.top = topInsets.bottom;
 				targetInsets.left = topInsets.left;
 				targetInsets.bottom = topInsets.top;
 				targetInsets.right = topInsets.right;
-				break;
-			case RIGHT:
+			}
+			case RIGHT -> {
 				targetInsets.top = topInsets.left;
 				targetInsets.left = topInsets.bottom;
 				targetInsets.bottom = topInsets.right;
 				targetInsets.right = topInsets.top;
-				break;
-			case TOP:
-			default:
+			}
+			default -> {
 				targetInsets.top = topInsets.top;
 				targetInsets.left = topInsets.left;
 				targetInsets.bottom = topInsets.bottom;
 				targetInsets.right = topInsets.right;
+			}
 		}
 	}
 
@@ -5148,10 +5225,15 @@ public class BasicJideTabbedPaneUI extends JideTabbedPaneUI implements SwingCons
 		Component lastFocused = _tabPane.getLastFocusedComponent(visibleComponent);
 		if (lastFocused != null && lastFocused.requestFocusInWindow()) {
 			return true;
-		} else if (UIUtil.passesFocusabilityTest(visibleComponent)) { //  visibleComponent.isFocusTraversable()) {
+		}
+		else if (UIUtil.passesFocusabilityTest(visibleComponent)) { //  visibleComponent.isFocusTraversable()) {
 			UIUtil.compositeRequestFocus(visibleComponent);
 			return true;
-		} else return visibleComponent != null && visibleComponent.requestFocusInWindow();
+		}
+		else if (visibleComponent != null && visibleComponent.requestFocusInWindow()) {
+			return true;
+		}
+		return false;
 	}
 
 	private static class RightAction extends AbstractAction {
@@ -5209,7 +5291,8 @@ public class BasicJideTabbedPaneUI extends JideTabbedPaneUI implements SwingCons
 			int tabPlacement = pane.getTabPlacement();
 			if (tabPlacement == TOP || tabPlacement == BOTTOM) {
 				ui.navigateSelectedTab(WEST);
-			} else {
+			}
+			else {
 				ui.navigateSelectedTab(NORTH);
 			}
 		}
@@ -5222,7 +5305,8 @@ public class BasicJideTabbedPaneUI extends JideTabbedPaneUI implements SwingCons
 			int tabPlacement = pane.getTabPlacement();
 			if (tabPlacement == TOP || tabPlacement == BOTTOM) {
 				ui.navigateSelectedTab(EAST);
-			} else {
+			}
+			else {
 				ui.navigateSelectedTab(SOUTH);
 			}
 		}
@@ -5271,18 +5355,6 @@ public class BasicJideTabbedPaneUI extends JideTabbedPaneUI implements SwingCons
 		}
 	}
 
-	/**
-	 * Creates a button.
-	 *
-	 * @param type the button type
-	 * @return the button
-	 * @deprecated replaced by {@link JideTabbedPane#createNoFocusButton(int)}
-	 */
-	@Deprecated
-	protected TabCloseButton createNoFocusButton(int type) {
-		return new TabCloseButton(type);
-	}
-
 	private JButton createButton(int type) {
 		return _tabPane.createNoFocusButton(type);
 	}
@@ -5290,9 +5362,7 @@ public class BasicJideTabbedPaneUI extends JideTabbedPaneUI implements SwingCons
 	private static class ScrollTabsForwardAction extends AbstractAction {
 		public ScrollTabsForwardAction() {
 			super();
-
-			putValue(Action.SHORT_DESCRIPTION,
-					Resource.getResourceBundle(Locale.getDefault()).getString(BUTTON_NAME_SCROLL_FORWARD));
+			putValue(Action.SHORT_DESCRIPTION, Resource.getResourceBundle(Locale.getDefault()).getString(BUTTON_NAME_SCROLL_FORWARD));
 		}
 
 		public void actionPerformed(ActionEvent e) {
@@ -5300,7 +5370,8 @@ public class BasicJideTabbedPaneUI extends JideTabbedPaneUI implements SwingCons
 			Object src = e.getSource();
 			if (src instanceof JTabbedPane) {
 				pane = (JTabbedPane) src;
-			} else if (src instanceof JideTabbedPane.NoFocusButton) {
+			}
+			else if (src instanceof JideTabbedPane.NoFocusButton) {
 				pane = (JTabbedPane) SwingUtilities.getAncestorOfClass(JTabbedPane.class, (JideTabbedPane.NoFocusButton) src);
 			}
 
@@ -5325,7 +5396,8 @@ public class BasicJideTabbedPaneUI extends JideTabbedPaneUI implements SwingCons
 			Object src = e.getSource();
 			if (src instanceof JTabbedPane) {
 				pane = (JTabbedPane) src;
-			} else if (src instanceof JideTabbedPane.NoFocusButton) {
+			}
+			else if (src instanceof JideTabbedPane.NoFocusButton) {
 				pane = (JTabbedPane) SwingUtilities.getAncestorOfClass(JTabbedPane.class, (JideTabbedPane.NoFocusButton) src);
 			}
 
@@ -5351,7 +5423,8 @@ public class BasicJideTabbedPaneUI extends JideTabbedPaneUI implements SwingCons
 			Object src = e.getSource();
 			if (src instanceof JTabbedPane) {
 				pane = (JTabbedPane) src;
-			} else if (src instanceof JideTabbedPane.NoFocusButton) {
+			}
+			else if (src instanceof JideTabbedPane.NoFocusButton) {
 				pane = (JTabbedPane) SwingUtilities.getAncestorOfClass(JTabbedPane.class, (JideTabbedPane.NoFocusButton) src);
 			}
 
@@ -5361,7 +5434,8 @@ public class BasicJideTabbedPaneUI extends JideTabbedPaneUI implements SwingCons
 				if (ui.scrollableTabLayoutEnabled()) {
 					if (((JideTabbedPane) pane).isTabListPopupVisible()) {
 						((JideTabbedPane) pane).hideTabListPopup();
-					} else {
+					}
+					else {
 						ui._tabScroller.createPopup(pane.getTabPlacement());
 					}
 				}
@@ -5393,13 +5467,16 @@ public class BasicJideTabbedPaneUI extends JideTabbedPaneUI implements SwingCons
 			boolean closeSelected = false;
 			if (src instanceof JideTabbedPane) {
 				pane = (JideTabbedPane) src;
-			} else if (src instanceof JideTabbedPane.NoFocusButton && ((JideTabbedPane.NoFocusButton) src).getParent() instanceof JideTabbedPane) {
+			}
+			else if (src instanceof JideTabbedPane.NoFocusButton && ((JideTabbedPane.NoFocusButton) src).getParent() instanceof JideTabbedPane) {
 				pane = (JideTabbedPane) ((JideTabbedPane.NoFocusButton) src).getParent();
 				closeSelected = true;
-			} else if (src instanceof JideTabbedPane.NoFocusButton && ((JideTabbedPane.NoFocusButton) src).getParent() instanceof ScrollableTabPanel) {
+			}
+			else if (src instanceof JideTabbedPane.NoFocusButton && ((JideTabbedPane.NoFocusButton) src).getParent() instanceof ScrollableTabPanel) {
 				pane = (JideTabbedPane) SwingUtilities.getAncestorOfClass(JideTabbedPane.class, (JideTabbedPane.NoFocusButton) src);
 				closeSelected = false;
-			} else {
+			}
+			else {
 				return; // shouldn't happen
 			}
 
@@ -5416,7 +5493,8 @@ public class BasicJideTabbedPaneUI extends JideTabbedPaneUI implements SwingCons
 				// also the AWT documentation pooh-pooh this. (for good reason)
 				if (compSrc != null)
 					e2 = new ActionEvent(compSrc, e.getID(), e.getActionCommand(), e.getWhen(), e.getModifiers());
-			} else if ("middleMouseButtonClicked".equals(e.getActionCommand())) {
+			}
+			else if ("middleMouseButtonClicked".equals(e.getActionCommand())) {
 				index = e.getID();
 				Component compSrc = index != -1 ? pane.getComponentAt(index) : pane.getSelectedComponent();
 				// note - We create a new action because we could be in the middle of a chain and
@@ -5429,7 +5507,8 @@ public class BasicJideTabbedPaneUI extends JideTabbedPaneUI implements SwingCons
 			if (pane.getCloseAction() != null) {
 				e2 = new ActionEvent(e2.getSource(), e2.getID(), (String) pane.getCloseAction().getValue(Action.ACTION_COMMAND_KEY), e2.getWhen(), e2.getModifiers());
 				pane.getCloseAction().actionPerformed(e2);
-			} else {
+			}
+			else {
 				if ("middleMouseButtonClicked".equals(e.getActionCommand())) {
 					index = e.getID();
 					if (index >= 0)
@@ -5441,7 +5520,8 @@ public class BasicJideTabbedPaneUI extends JideTabbedPaneUI implements SwingCons
 					if (pane.getSelectedIndex() >= 0) {
 						((BasicJideTabbedPaneUI) pane.getUI())._tabScroller.tabPanel.scrollIndexToVisible(pane.getSelectedIndex());
 					}
-				} else if (closeSelected) {
+				}
+				else if (closeSelected) {
 					if (pane.getSelectedIndex() >= 0)
 						pane.removeTabAt(pane.getSelectedIndex());
 					if (pane.getTabCount() == 0) {
@@ -5451,7 +5531,8 @@ public class BasicJideTabbedPaneUI extends JideTabbedPaneUI implements SwingCons
 					if (pane.getSelectedIndex() >= 0) {
 						((BasicJideTabbedPaneUI) pane.getUI())._tabScroller.tabPanel.scrollIndexToVisible(pane.getSelectedIndex());
 					}
-				} else if (src instanceof JideTabbedPane.NoFocusButton) {
+				}
+				else if (src instanceof JideTabbedPane.NoFocusButton) {
 					int i = ((JideTabbedPane.NoFocusButton) src).getIndex();
 					if (i != -1) {
 
@@ -5514,7 +5595,8 @@ public class BasicJideTabbedPaneUI extends JideTabbedPaneUI implements SwingCons
 			if (scrollableTabLayoutEnabled()) {
 				_tabScroller.tabPanel.repaint();
 //                _tabScroller.updateView();
-			} else {
+			}
+			else {
 				_tabPane.repaint(getBounds());
 			}
 		}
@@ -5563,7 +5645,7 @@ public class BasicJideTabbedPaneUI extends JideTabbedPaneUI implements SwingCons
 					for (int i = 0; i < _tabPane.getTabCount(); i++) {
 						Component component = _tabPane.getComponentAt(i);
 						if (component != null) {
-							Dimension size = zeroSize;
+							Dimension size;
 							size = minimum ? component.getMinimumSize() :
 									component.getPreferredSize();
 
@@ -5594,23 +5676,18 @@ public class BasicJideTabbedPaneUI extends JideTabbedPaneUI implements SwingCons
 				}
 
 				switch (tabPlacement) {
-					case LEFT:
-					case RIGHT:
+					case LEFT, RIGHT -> {
 						height = Math.max(height, (minimum ? 0 : calculateMaxTabHeight(tabPlacement)) + tabAreaInsets.top + tabAreaInsets.bottom);
 						tabExtent = calculateTabAreaWidth(tabPlacement, _runCount, _maxTabWidth);
-
 						if (isTabLeadingComponentVisible()) {
 							tabExtent = Math.max(lsize.width, tabExtent);
 						}
 						if (isTabTrailingComponentVisible()) {
 							tabExtent = Math.max(tsize.width, tabExtent);
 						}
-
 						width += tabExtent;
-						break;
-					case TOP:
-					case BOTTOM:
-					default:
+					}
+					default -> {
 						if (_tabPane.getTabResizeMode() == JideTabbedPane.RESIZE_MODE_FIT) {
 							width = Math.max(width, (_tabPane.getTabCount() << 2) +
 									tabAreaInsets.left + tabAreaInsets.right);
@@ -5618,7 +5695,6 @@ public class BasicJideTabbedPaneUI extends JideTabbedPaneUI implements SwingCons
 							width = Math.max(width, (minimum ? 0 : calculateMaxTabWidth(tabPlacement)) +
 									tabAreaInsets.left + tabAreaInsets.right);
 						}
-
 						if (_tabPane.isTabShown()) {
 							tabExtent = calculateTabAreaHeight(tabPlacement, _runCount, _maxTabHeight);
 
@@ -5631,6 +5707,7 @@ public class BasicJideTabbedPaneUI extends JideTabbedPaneUI implements SwingCons
 
 							height += tabExtent;
 						}
+					}
 				}
 			}
 			return new Dimension(width + insets.left + insets.right,
@@ -5700,7 +5777,8 @@ public class BasicJideTabbedPaneUI extends JideTabbedPaneUI implements SwingCons
 						// The last tab was removed, so remove the component
 						setVisibleComponent(null);
 					}
-				} else {
+				}
+				else {
 					int cx, cy, cw, ch;
 					int totalTabWidth = 0;
 					int totalTabHeight = 0;
@@ -5730,26 +5808,26 @@ public class BasicJideTabbedPaneUI extends JideTabbedPaneUI implements SwingCons
 
 					if (numChildren > 0) {
 						switch (tabPlacement) {
-							case LEFT:
+							case LEFT -> {
 								totalTabWidth = calculateTabAreaWidth(tabPlacement, _runCount, _maxTabWidth);
 								cx = insets.left + totalTabWidth + contentInsets.left;
 								cy = insets.top + contentInsets.top;
-								break;
-							case RIGHT:
+							}
+							case RIGHT -> {
 								totalTabWidth = calculateTabAreaWidth(tabPlacement, _runCount, _maxTabWidth);
 								cx = insets.left + contentInsets.left;
 								cy = insets.top + contentInsets.top;
-								break;
-							case BOTTOM:
+							}
+							case BOTTOM -> {
 								totalTabHeight = calculateTabAreaHeight(tabPlacement, _runCount, _maxTabHeight);
 								cx = insets.left + contentInsets.left;
 								cy = insets.top + contentInsets.top;
-								break;
-							case TOP:
-							default:
+							}
+							default -> {
 								totalTabHeight = calculateTabAreaHeight(tabPlacement, _runCount, _maxTabHeight);
 								cx = insets.left + contentInsets.left;
 								cy = insets.top + totalTabHeight + contentInsets.top;
+							}
 						}
 
 						cw = bounds.width - totalTabWidth -
@@ -5768,11 +5846,13 @@ public class BasicJideTabbedPaneUI extends JideTabbedPaneUI implements SwingCons
 								int tabContainerY = 0;
 								if (tabPlacement == BOTTOM) {
 									tabContainerY = bounds.height - tabContainerHeight;
-								} else if (tabPlacement == RIGHT) {
+								}
+								else if (tabPlacement == RIGHT) {
 									tabContainerX = bounds.width - tabContainerWidth;
 								}
 								child.setBounds(tabContainerX, tabContainerY, tabContainerWidth, tabContainerHeight);
-							} else {
+							}
+							else {
 								child.setBounds(cx, cy, cw, ch);
 							}
 						}
@@ -5845,31 +5925,30 @@ public class BasicJideTabbedPaneUI extends JideTabbedPaneUI implements SwingCons
 			//
 			int calculatedMaxTabHeight = calculateMaxTabHeight(tabPlacement);
 			switch (tabPlacement) {
-				case LEFT:
+				case LEFT -> {
 					_maxTabWidth = calculateMaxTabWidth(tabPlacement);
 					x = insets.left + tabAreaInsets.left;
 					y = insets.top + tabAreaInsets.top;
 					returnAt = size.height - (insets.bottom + tabAreaInsets.bottom);
-					break;
-				case RIGHT:
+				}
+				case RIGHT -> {
 					_maxTabWidth = calculateMaxTabWidth(tabPlacement);
 					x = size.width - insets.right - tabAreaInsets.right - _maxTabWidth;
 					y = insets.top + tabAreaInsets.top;
 					returnAt = size.height - (insets.bottom + tabAreaInsets.bottom);
-					break;
-				case BOTTOM:
+				}
+				case BOTTOM -> {
 					_maxTabHeight = calculatedMaxTabHeight;
 					x = insets.left + tabAreaInsets.left;
 					y = size.height - insets.bottom - tabAreaInsets.bottom - _maxTabHeight;
 					returnAt = size.width - (insets.right + tabAreaInsets.right);
-					break;
-				case TOP:
-				default:
+				}
+				default -> {
 					_maxTabHeight = calculatedMaxTabHeight;
 					x = insets.left + tabAreaInsets.left;
 					y = insets.top + tabAreaInsets.top;
 					returnAt = size.width - (insets.right + tabAreaInsets.right);
-					break;
+				}
 			}
 
 			tabRunOverlay = getTabRunOverlay(tabPlacement);
@@ -5891,7 +5970,8 @@ public class BasicJideTabbedPaneUI extends JideTabbedPaneUI implements SwingCons
 					// Tabs on TOP or BOTTOM....
 					if (i > 0) {
 						rect.x = _rects[i - 1].x + _rects[i - 1].width;
-					} else {
+					}
+					else {
 						_tabRuns[0] = 0;
 						_runCount = 1;
 						_maxTabWidth = 0;
@@ -5915,11 +5995,13 @@ public class BasicJideTabbedPaneUI extends JideTabbedPaneUI implements SwingCons
 					rect.y = y;
 					rect.height = _maxTabHeight/* - 2 */;
 
-				} else {
+				}
+				else {
 					// Tabs on LEFT or RIGHT...
 					if (i > 0) {
 						rect.y = _rects[i - 1].y + _rects[i - 1].height;
-					} else {
+					}
+					else {
 						_tabRuns[0] = 0;
 						_runCount = 1;
 						_maxTabHeight = 0;
@@ -5978,10 +6060,12 @@ public class BasicJideTabbedPaneUI extends JideTabbedPaneUI implements SwingCons
 					}
 					if (tabPlacement == BOTTOM) {
 						y -= (_maxTabHeight - tabRunOverlay);
-					} else {
+					}
+					else {
 						y += (_maxTabHeight - tabRunOverlay);
 					}
-				} else {
+				}
+				else {
 					for (j = start; j <= end; j++) {
 						rect = _rects[j];
 						rect.x = x;
@@ -5992,7 +6076,8 @@ public class BasicJideTabbedPaneUI extends JideTabbedPaneUI implements SwingCons
 					}
 					if (tabPlacement == RIGHT) {
 						x -= (_maxTabWidth - tabRunOverlay);
-					} else {
+					}
+					else {
 						x += (_maxTabWidth - tabRunOverlay);
 					}
 				}
@@ -6020,7 +6105,9 @@ public class BasicJideTabbedPaneUI extends JideTabbedPaneUI implements SwingCons
 		protected void rotateTabRuns(int tabPlacement, int selectedRun) {
 			for (int i = 0; i < selectedRun; i++) {
 				int save = _tabRuns[0];
-				if (_runCount - 1 >= 0) System.arraycopy(_tabRuns, 1, _tabRuns, 0, _runCount - 1);
+				for (int j = 1; j < _runCount; j++) {
+					_tabRuns[j - 1] = _tabRuns[j];
+				}
 				_tabRuns[_runCount - 1] = save;
 			}
 		}
@@ -6052,7 +6139,8 @@ public class BasicJideTabbedPaneUI extends JideTabbedPaneUI implements SwingCons
 				if (!verticalTabRuns) {
 					end = _rects[last].x + _rects[last].width;
 					prevLastLen = (int) (_maxTabWidth * weight);
-				} else {
+				}
+				else {
 					end = _rects[last].y + _rects[last].height;
 					prevLastLen = (int) (_maxTabHeight * weight * 2);
 				}
@@ -6065,25 +6153,29 @@ public class BasicJideTabbedPaneUI extends JideTabbedPaneUI implements SwingCons
 					_tabRuns[run] = prevLast;
 					if (!verticalTabRuns) {
 						_rects[prevLast].x = start;
-					} else {
+					}
+					else {
 						_rects[prevLast].y = start;
 					}
 					for (int i = prevLast + 1; i <= last; i++) {
 						if (!verticalTabRuns) {
 							_rects[i].x = _rects[i - 1].x + _rects[i - 1].width;
-						} else {
+						}
+						else {
 							_rects[i].y = _rects[i - 1].y + _rects[i - 1].height;
 						}
 					}
 
-				} else if (run == _runCount - 1) {
+				}
+				else if (run == _runCount - 1) {
 					// no more room left in last run, so we're done!
 					keepAdjusting = false;
 				}
 				if (run - 1 > 0) {
 					// check previous run next...
 					run -= 1;
-				} else {
+				}
+				else {
 					// check last run again...but require a higher ratio
 					// of extraspace-to-tabsize because we don't want to
 					// end up with too many tabs on the last run!
@@ -6108,7 +6200,8 @@ public class BasicJideTabbedPaneUI extends JideTabbedPaneUI implements SwingCons
 					pastRect.width += Math.round((float) pastRect.width * factor);
 				}
 				lastRect.width = max - lastRect.x;
-			} else {
+			}
+			else {
 				int runHeight = (lastRect.y + lastRect.height) - _rects[start].y;
 				int deltaHeight = max - (lastRect.y + lastRect.height);
 				float factor = (float) deltaHeight / (float) runHeight;
@@ -6169,7 +6262,8 @@ public class BasicJideTabbedPaneUI extends JideTabbedPaneUI implements SwingCons
 					setVisibleComponent(null);
 				}
 
-			} else {
+			}
+			else {
 				Component selectedComponent = selectedIndex >= _tabPane.getTabCount() ? null : _tabPane.getComponentAt(selectedIndex); // check for range because of a change in JDK1.6-rc-b89
 				boolean shouldChangeFocus = false;
 
@@ -6206,13 +6300,12 @@ public class BasicJideTabbedPaneUI extends JideTabbedPaneUI implements SwingCons
 
 				if (numChildren > 0) {
 					switch (tabPlacement) {
-						case LEFT:
+						case LEFT -> {
 							// calculate tab area bounds
 							tw = calculateTabAreaHeight(TOP, _runCount, _maxTabWidth);
 							th = bounds.height - insets.top - insets.bottom;
 							tx = insets.left;
 							ty = insets.top;
-
 							if (isTabLeadingComponentVisible()) {
 								ty += lsize.height;
 								th -= lsize.height;
@@ -6234,15 +6327,14 @@ public class BasicJideTabbedPaneUI extends JideTabbedPaneUI implements SwingCons
 							cy = insets.top + contentInsets.top;
 							cw = bounds.width - insets.left - insets.right - tw - contentInsets.left - contentInsets.right;
 							ch = bounds.height - insets.top - insets.bottom - contentInsets.top - contentInsets.bottom;
-							break;
-						case RIGHT:
+						}
+						case RIGHT -> {
 							// calculate tab area bounds
 							tw = calculateTabAreaHeight(TOP, _runCount,
 									_maxTabWidth);
 							th = bounds.height - insets.top - insets.bottom;
 							tx = bounds.width - insets.right - tw;
 							ty = insets.top;
-
 							if (isTabLeadingComponentVisible()) {
 								ty += lsize.height;
 								th -= lsize.height;
@@ -6266,15 +6358,14 @@ public class BasicJideTabbedPaneUI extends JideTabbedPaneUI implements SwingCons
 							cy = insets.top + contentInsets.top;
 							cw = bounds.width - insets.left - insets.right - tw - contentInsets.left - contentInsets.right;
 							ch = bounds.height - insets.top - insets.bottom - contentInsets.top - contentInsets.bottom;
-							break;
-						case BOTTOM:
+						}
+						case BOTTOM -> {
 							// calculate tab area bounds
 							tw = bounds.width - insets.left - insets.right;
 							th = calculateTabAreaHeight(tabPlacement, _runCount,
 									_maxTabHeight);
 							tx = insets.left;
 							ty = bounds.height - insets.bottom - th;
-
 							if (leftToRight) {
 								if (isTabLeadingComponentVisible()) {
 									tx += lsize.width;
@@ -6319,9 +6410,8 @@ public class BasicJideTabbedPaneUI extends JideTabbedPaneUI implements SwingCons
 							cw = bounds.width - insets.left - insets.right
 									- contentInsets.left - contentInsets.right;
 							ch = bounds.height - insets.top - insets.bottom - th - contentInsets.top - contentInsets.bottom;
-							break;
-						case TOP:
-						default:
+						}
+						default -> {
 							// calculate tab area bounds
 							tw = bounds.width - insets.left - insets.right;
 							th = calculateTabAreaHeight(tabPlacement, _runCount,
@@ -6333,7 +6423,6 @@ public class BasicJideTabbedPaneUI extends JideTabbedPaneUI implements SwingCons
 								tx += tabAreaInsets.left;
 								tw -= tabAreaInsets.left + tabAreaInsets.right;
 							}
-
 							if (leftToRight) {
 								if (isTabLeadingComponentVisible()) {
 									tx += lsize.width;
@@ -6373,6 +6462,7 @@ public class BasicJideTabbedPaneUI extends JideTabbedPaneUI implements SwingCons
 							cy = insets.top + th + contentInsets.top;
 							cw = bounds.width - insets.left - insets.right - contentInsets.left - contentInsets.right;
 							ch = bounds.height - insets.top - insets.bottom - th - contentInsets.top - contentInsets.bottom;
+						}
 					}
 
 //                    if (tabPlacement == JideTabbedPane.TOP || tabPlacement == JideTabbedPane.BOTTOM) {
@@ -6405,8 +6495,7 @@ public class BasicJideTabbedPaneUI extends JideTabbedPaneUI implements SwingCons
 							int vh = th;
 							int numberOfButtons = getNumberOfTabButtons();
 							switch (tabPlacement) {
-								case LEFT:
-								case RIGHT:
+								case LEFT, RIGHT -> {
 									int totalTabHeight = _rects[tabCount - 1].y + _rects[tabCount - 1].height;
 									if ((totalTabHeight > th && _tabPane.getTabCount() > 1) || isShowTabButtons()) {
 										if (!isShowTabButtons()) numberOfButtons += 3;
@@ -6424,14 +6513,11 @@ public class BasicJideTabbedPaneUI extends JideTabbedPaneUI implements SwingCons
 										vh = Math.max(th - _buttonSize * numberOfButtons, 0);
 										tabButtonsVisible = false;
 									}
-
 									if (vh + getLayoutSize() < th - _buttonSize * numberOfButtons) {
 										vh += getLayoutSize();
 									}
-									break;
-								case BOTTOM:
-								case TOP:
-								default:
+								}
+								default -> {
 									int totalTabWidth = 0;
 									if (_rects.length > 0) {
 										if (leftToRight) {
@@ -6470,7 +6556,7 @@ public class BasicJideTabbedPaneUI extends JideTabbedPaneUI implements SwingCons
 											vx -= getLayoutSize();
 										}
 									}
-									break;
+								}
 							}
 							if (_tabTrailingComponent != null && _tabPane.isHideTrailingWhileNoButtons()) {
 								_tabTrailingComponent.setVisible(tabButtonsVisible);
@@ -6480,14 +6566,17 @@ public class BasicJideTabbedPaneUI extends JideTabbedPaneUI implements SwingCons
 								if (!leftToRight && (tabPlacement == TOP || tabPlacement == BOTTOM)) {
 									if (getTabResizeMode() == JideTabbedPane.RESIZE_MODE_FIT) {
 										viewport.setViewPosition(new Point(0, 0));
-									} else if (!_layouted) {
+									}
+									else if (!_layouted) {
 										_tabScroller.setLeadingTabIndex(tabPlacement, 0);
 									}
 								}
-							} finally {
+							}
+							finally {
 								_layouted = true;
 							}
-						} else if (child instanceof JideTabbedPane.NoFocusButton scrollbutton) {
+						}
+						else if (child instanceof JideTabbedPane.NoFocusButton scrollbutton) {
 							if (_tabPane.isTabShown() && (scrollbutton.getType() != JideTabbedPane.BUTTON_CLOSE || !isShowCloseButtonOnTab())) {
 								Dimension bsize = scrollbutton.getPreferredSize();
 								int bx = 0;
@@ -6497,8 +6586,7 @@ public class BasicJideTabbedPaneUI extends JideTabbedPaneUI implements SwingCons
 								boolean visible = false;
 
 								switch (tabPlacement) {
-									case LEFT:
-									case RIGHT:
+									case LEFT, RIGHT -> {
 										int totalTabHeight = _rects[tabCount - 1].y + _rects[tabCount - 1].height;
 										if (_tabPane.isTabShown() && (isShowTabButtons() || (totalTabHeight > th && _tabPane.getTabCount() > 1))) {
 											int dir = scrollbutton.getType();//NoFocusButton.BUTTON_EAST : NoFocusButton.BUTTON_WEST;
@@ -6566,10 +6654,8 @@ public class BasicJideTabbedPaneUI extends JideTabbedPaneUI implements SwingCons
 												}
 											}
 										}
-										break;
-									case TOP:
-									case BOTTOM:
-									default:
+									}
+									default -> {
 										int totalTabWidth = 0;
 										if (_rects.length > 0) {
 											if (leftToRight) {
@@ -6649,7 +6735,7 @@ public class BasicJideTabbedPaneUI extends JideTabbedPaneUI implements SwingCons
 												bx += tsize.width;
 											}
 										}
-										temp = -1;
+										int temp = -1;
 										if (isTabLeadingComponentVisible()) {
 											if (lsize.height >= _rects[0].height) {
 												if (tabPlacement == TOP) {
@@ -6670,21 +6756,24 @@ public class BasicJideTabbedPaneUI extends JideTabbedPaneUI implements SwingCons
 												}
 											}
 										}
-
+									}
 								}
 
 								child.setVisible(visible);
 								if (visible) {
 									child.setBounds(bx, by, bw, bh);
 								}
-							} else {
+							}
+							else {
 								scrollbutton.setBounds(0, 0, 0, 0);
 							}
-						} else if (child != _tabPane.getTabLeadingComponent() && child != _tabPane.getTabTrailingComponent()) {
+						}
+						else if (child != _tabPane.getTabLeadingComponent() && child != _tabPane.getTabTrailingComponent()) {
 							if (_tabPane.isShowTabContent()) {
 								// All content children...
 								child.setBounds(cx, cy, cw, ch);
-							} else {
+							}
+							else {
 								child.setBounds(0, 0, 0, 0);
 							}
 						}
@@ -6693,75 +6782,52 @@ public class BasicJideTabbedPaneUI extends JideTabbedPaneUI implements SwingCons
 					if (leftToRight) {
 						if (isTabLeadingComponentVisible()) {
 							switch (_tabPane.getTabPlacement()) {
-								case LEFT:
-									_tabLeadingComponent.setBounds(tx + tw - lsize.width, ty - lsize.height, lsize.width, lsize.height);
-									break;
-								case RIGHT:
-									_tabLeadingComponent.setBounds(tx, ty - lsize.height, lsize.width, lsize.height);
-									break;
-								case BOTTOM:
-									_tabLeadingComponent.setBounds(tx - lsize.width, ty, lsize.width, lsize.height);
-									break;
-								case TOP:
-								default:
-									_tabLeadingComponent.setBounds(tx - lsize.width, ty + th - lsize.height, lsize.width, lsize.height);
-									break;
+								case LEFT ->
+										_tabLeadingComponent.setBounds(tx + tw - lsize.width, ty - lsize.height, lsize.width, lsize.height);
+								case RIGHT ->
+										_tabLeadingComponent.setBounds(tx, ty - lsize.height, lsize.width, lsize.height);
+								case BOTTOM ->
+										_tabLeadingComponent.setBounds(tx - lsize.width, ty, lsize.width, lsize.height);
+								default ->
+										_tabLeadingComponent.setBounds(tx - lsize.width, ty + th - lsize.height, lsize.width, lsize.height);
 							}
 
 						}
 
 						if (isTabTrailingComponentVisible()) {
 							switch (_tabPane.getTabPlacement()) {
-								case LEFT:
-									_tabTrailingComponent.setBounds(tx + tw - tsize.width, ty + th, tsize.width, tsize.height);
-									break;
-								case RIGHT:
-									_tabTrailingComponent.setBounds(tx, ty + th, tsize.width, tsize.height);
-									break;
-								case BOTTOM:
-									_tabTrailingComponent.setBounds(tx + tw, ty, tsize.width, tsize.height);
-									break;
-								case TOP:
-								default:
-									_tabTrailingComponent.setBounds(tx + tw, ty + th - tsize.height, tsize.width, tsize.height);
-									break;
+								case LEFT ->
+										_tabTrailingComponent.setBounds(tx + tw - tsize.width, ty + th, tsize.width, tsize.height);
+								case RIGHT -> _tabTrailingComponent.setBounds(tx, ty + th, tsize.width, tsize.height);
+								case BOTTOM -> _tabTrailingComponent.setBounds(tx + tw, ty, tsize.width, tsize.height);
+								default ->
+										_tabTrailingComponent.setBounds(tx + tw, ty + th - tsize.height, tsize.width, tsize.height);
 							}
 						}
-					} else {
+					}
+					else {
 						if (isTabTrailingComponentVisible()) {
 							switch (_tabPane.getTabPlacement()) {
-								case LEFT:
-									_tabTrailingComponent.setBounds(tx + tw - tsize.width, ty - tsize.height, tsize.width, tsize.height);
-									break;
-								case RIGHT:
-									_tabTrailingComponent.setBounds(tx, ty - tsize.height, tsize.width, tsize.height);
-									break;
-								case BOTTOM:
-									_tabTrailingComponent.setBounds(tx - tsize.width, ty, tsize.width, tsize.height);
-									break;
-								case TOP:
-								default:
-									_tabTrailingComponent.setBounds(tx - tsize.width, ty + th - tsize.height, tsize.width, tsize.height);
-									break;
+								case LEFT ->
+										_tabTrailingComponent.setBounds(tx + tw - tsize.width, ty - tsize.height, tsize.width, tsize.height);
+								case RIGHT ->
+										_tabTrailingComponent.setBounds(tx, ty - tsize.height, tsize.width, tsize.height);
+								case BOTTOM ->
+										_tabTrailingComponent.setBounds(tx - tsize.width, ty, tsize.width, tsize.height);
+								default ->
+										_tabTrailingComponent.setBounds(tx - tsize.width, ty + th - tsize.height, tsize.width, tsize.height);
 							}
 
 						}
 
 						if (isTabLeadingComponentVisible()) {
 							switch (_tabPane.getTabPlacement()) {
-								case LEFT:
-									_tabLeadingComponent.setBounds(tx + tw - lsize.width, ty + th, lsize.width, lsize.height);
-									break;
-								case RIGHT:
-									_tabLeadingComponent.setBounds(tx, ty + th, lsize.width, lsize.height);
-									break;
-								case BOTTOM:
-									_tabLeadingComponent.setBounds(tx + tw, ty, lsize.width, lsize.height);
-									break;
-								case TOP:
-								default:
-									_tabLeadingComponent.setBounds(tx + tw, ty + th - lsize.height, lsize.width, lsize.height);
-									break;
+								case LEFT ->
+										_tabLeadingComponent.setBounds(tx + tw - lsize.width, ty + th, lsize.width, lsize.height);
+								case RIGHT -> _tabLeadingComponent.setBounds(tx, ty + th, lsize.width, lsize.height);
+								case BOTTOM -> _tabLeadingComponent.setBounds(tx + tw, ty, lsize.width, lsize.height);
+								default ->
+										_tabLeadingComponent.setBounds(tx + tw, ty + th - lsize.height, lsize.width, lsize.height);
 							}
 						}
 					}
@@ -6786,7 +6852,8 @@ public class BasicJideTabbedPaneUI extends JideTabbedPaneUI implements SwingCons
 									Rectangle buttonRect = button.getBounds();
 									button.setBounds(trailingCompRect.x + offset + buttonRect.x - firstButtonRect.x, buttonRect.y, buttonRect.width, buttonRect.height);
 								}
-							} else {
+							}
+							else {
 								_tabTrailingComponent.setBounds(new Rectangle(trailingCompRect.x, firstButtonRect.y, trailingCompRect.width, trailingCompRect.height));
 								int offset = _tabTrailingComponent.getHeight() - (lastButtonRect.y + lastButtonRect.height - firstButtonRect.y);
 								for (JButton button : buttons) {
@@ -6838,8 +6905,7 @@ public class BasicJideTabbedPaneUI extends JideTabbedPaneUI implements SwingCons
 
 			int calculatedMaxTabHeight = calculateMaxTabHeight(tabPlacement);
 			switch (tabPlacement) {
-				case LEFT:
-				case RIGHT:
+				case LEFT, RIGHT -> {
 					_maxTabWidth = calculateMaxTabWidth(tabPlacement);
 					if (isTabLeadingComponentVisible()) {
 						if (tabPlacement == RIGHT) {
@@ -6855,10 +6921,8 @@ public class BasicJideTabbedPaneUI extends JideTabbedPaneUI implements SwingCons
 							}
 						}
 					}
-					break;
-				case BOTTOM:
-				case TOP:
-				default:
+				}
+				default -> {
 					_maxTabHeight = calculatedMaxTabHeight;
 					if (isTabLeadingComponentVisible()) {
 						if (tabPlacement == BOTTOM) {
@@ -6874,6 +6938,7 @@ public class BasicJideTabbedPaneUI extends JideTabbedPaneUI implements SwingCons
 							}
 						}
 					}
+				}
 			}
 
 			_runCount = 0;
@@ -6896,12 +6961,14 @@ public class BasicJideTabbedPaneUI extends JideTabbedPaneUI implements SwingCons
 					// Tabs on TOP or BOTTOM....
 					if (i > 0) {
 						rect.x = _rects[i - 1].x + _rects[i - 1].width;
-					} else {
+					}
+					else {
 						_tabRuns[0] = 0;
 						_maxTabWidth = 0;
 						if (getTabShape() != JideTabbedPane.SHAPE_BOX) {
 							rect.x = x + getLeftMargin();// give the first tab arrow angle extra space
-						} else {
+						}
+						else {
 							rect.x = x;
 						}
 					}
@@ -6938,16 +7005,19 @@ public class BasicJideTabbedPaneUI extends JideTabbedPaneUI implements SwingCons
 						}
 					}
 					rect.height = calculatedMaxTabHeight;///* - 2 */;
-				} else {
+				}
+				else {
 					// Tabs on LEFT or RIGHT...
 					if (i > 0) {
 						rect.y = _rects[i - 1].y + _rects[i - 1].height;
-					} else {
+					}
+					else {
 						_tabRuns[0] = 0;
 						_maxTabHeight = 0;
 						if (getTabShape() != JideTabbedPane.SHAPE_BOX) {
 							rect.y = y + getLeftMargin();// give the first tab arrow angle extra space
-						} else {
+						}
+						else {
 							rect.y = y;
 						}
 					}
@@ -7007,7 +7077,8 @@ public class BasicJideTabbedPaneUI extends JideTabbedPaneUI implements SwingCons
 //                        _rects[i].x -= getLeftMargin();
 //                    }
 				}
-			} else {
+			}
+			else {
 				_additionalWidth = 0; // always 0 for LTR because the first _rects element already contains the width for the decoration
 			}
 
@@ -7049,14 +7120,16 @@ public class BasicJideTabbedPaneUI extends JideTabbedPaneUI implements SwingCons
 				totalHeight -= lsize.height;
 			}
 
-		} else {
+		}
+		else {
 //            totalWidth = r.x + r.width;
 			for (Rectangle rect : _rects) {
 				totalWidth += rect.width;
 			}
 			if (ltr) {
 				totalWidth += _rects[0].x;
-			} else {
+			}
+			else {
 				totalWidth += leftMargin;
 			}
 
@@ -7073,7 +7146,8 @@ public class BasicJideTabbedPaneUI extends JideTabbedPaneUI implements SwingCons
 				if (getTabShape() != JideTabbedPane.SHAPE_BOX) {
 					availHeight = (int) size.getHeight() - _fitStyleBoundSize
 							- insets.top - insets.bottom - leftMargin - getTabRightPadding();// give the first tab extra space
-				} else {
+				}
+				else {
 					availHeight = (int) size.getHeight() - _fitStyleBoundSize
 							- insets.top - insets.bottom;
 				}
@@ -7102,19 +7176,22 @@ public class BasicJideTabbedPaneUI extends JideTabbedPaneUI implements SwingCons
 						Rectangle tabRect = _rects[k];
 						if (getTabShape() != JideTabbedPane.SHAPE_BOX) {
 							tabRect.y = totalHeight + leftMargin;// give the first tab extra space
-						} else {
+						}
+						else {
 							tabRect.y = totalHeight;
 						}
 						totalHeight += tabRect.height;
 					}
 				}
 
-			} else {
+			}
+			else {
 				int availWidth;
 				if (getTabShape() != JideTabbedPane.SHAPE_BOX) {
 					availWidth = (int) size.getWidth() - _fitStyleBoundSize
 							- insets.left - insets.right - leftMargin - getTabRightPadding();
-				} else {
+				}
+				else {
 					availWidth = (int) size.getWidth() - _fitStyleBoundSize
 							- insets.left - insets.right;
 				}
@@ -7146,7 +7223,8 @@ public class BasicJideTabbedPaneUI extends JideTabbedPaneUI implements SwingCons
 					if (tabWidth < _fitStyleIconMinWidth + gripperWidth
 							&& tabWidth > _fitStyleFirstTabMargin + gripperWidth) // cannot
 						// hold any icon but gripper
-						tabWidth = _fitStyleFirstTabMargin + gripperWidth;
+					{
+					}
 
 					tryTabSpacer.reArrange(_rects, insets, availWidth);
 				}
@@ -7156,7 +7234,8 @@ public class BasicJideTabbedPaneUI extends JideTabbedPaneUI implements SwingCons
 					Rectangle tabRect = _rects[k];
 					if (getTabShape() != JideTabbedPane.SHAPE_BOX) {
 						tabRect.x = totalWidth + leftMargin;// give the first tab extra space when the style is not box style
-					} else {
+					}
+					else {
 						tabRect.x = totalWidth;
 					}
 					totalWidth += tabRect.width;
@@ -7190,7 +7269,8 @@ public class BasicJideTabbedPaneUI extends JideTabbedPaneUI implements SwingCons
 					totalHeight = _rects[k].y + _rects[k].height;
 				}
 
-			} else {
+			}
+			else {
 				for (int k = 0; k < tabCount; k++) {
 					int oldWidth = _rects[k].width;
 					_rects[k].width = _fixedStyleRectSize;
@@ -7206,7 +7286,8 @@ public class BasicJideTabbedPaneUI extends JideTabbedPaneUI implements SwingCons
 					if (k != 0) {
 						if (ltr) {
 							_rects[k].x = _rects[k - 1].x + _rects[k - 1].width;
-						} else {
+						}
+						else {
 							_rects[k].x = _rects[k - 1].x - _rects[k - 1].width;
 						}
 					}
@@ -7222,7 +7303,8 @@ public class BasicJideTabbedPaneUI extends JideTabbedPaneUI implements SwingCons
 					if (k != _tabPane.getSelectedIndex()) {
 						if (!_tabPane.isShowIconsOnTab() && !_tabPane.isUseDefaultShowIconsOnTab()) {
 							_rects[k].height = _compressedStyleNoIconRectSize;
-						} else {
+						}
+						else {
 							Icon icon = _tabPane.getIconForTab(k);
 							_rects[k].height = (icon == null ? 0 : icon.getIconHeight()) + _compressedStyleIconMargin;
 						}
@@ -7240,14 +7322,16 @@ public class BasicJideTabbedPaneUI extends JideTabbedPaneUI implements SwingCons
 
 				}
 
-			} else {
+			}
+			else {
 				for (int k = 0; k < tabCount; k++) {
 					int oldWidth = _rects[k].width;
 					if (k != _tabPane.getSelectedIndex()) {
 						if (!_tabPane.isShowIconsOnTab()
 								&& !_tabPane.isUseDefaultShowIconsOnTab()) {
 							_rects[k].width = _compressedStyleNoIconRectSize;
-						} else {
+						}
+						else {
 							Icon icon = _tabPane.getIconForTab(k);
 							_rects[k].width = (icon == null ? 0 : icon.getIconWidth()) + _compressedStyleIconMargin;
 						}
@@ -7265,7 +7349,8 @@ public class BasicJideTabbedPaneUI extends JideTabbedPaneUI implements SwingCons
 					if (k != 0) {
 						if (ltr) {
 							_rects[k].x = _rects[k - 1].x + _rects[k - 1].width;
-						} else {
+						}
+						else {
 							_rects[k].x = _rects[k - 1].x - _rects[k - 1].width;
 						}
 					}
@@ -7283,7 +7368,8 @@ public class BasicJideTabbedPaneUI extends JideTabbedPaneUI implements SwingCons
 			if (isTabLeadingComponentVisible()) {
 				totalWidth += lsize.width;
 			}
-		} else {
+		}
+		else {
 			totalHeight += getLayoutSize();
 
 			if (isTabLeadingComponentVisible()) {
@@ -7374,18 +7460,14 @@ public class BasicJideTabbedPaneUI extends JideTabbedPaneUI implements SwingCons
 			Dimension preferredSize = popup.getPreferredSize();
 			Rectangle bounds = listButton.getBounds();
 			switch (tabPlacement) {
-				case TOP:
-					popup.show(_tabPane, bounds.x + bounds.width - preferredSize.width, bounds.y + bounds.height);
-					break;
-				case BOTTOM:
-					popup.show(_tabPane, bounds.x + bounds.width - preferredSize.width, bounds.y - preferredSize.height);
-					break;
-				case LEFT:
-					popup.show(_tabPane, bounds.x + bounds.width, bounds.y + bounds.height - preferredSize.height);
-					break;
-				case RIGHT:
-					popup.show(_tabPane, bounds.x - preferredSize.width, bounds.y + bounds.height - preferredSize.height);
-					break;
+				case TOP ->
+						popup.show(_tabPane, bounds.x + bounds.width - preferredSize.width, bounds.y + bounds.height);
+				case BOTTOM ->
+						popup.show(_tabPane, bounds.x + bounds.width - preferredSize.width, bounds.y - preferredSize.height);
+				case LEFT ->
+						popup.show(_tabPane, bounds.x + bounds.width, bounds.y + bounds.height - preferredSize.height);
+				case RIGHT ->
+						popup.show(_tabPane, bounds.x - preferredSize.width, bounds.y + bounds.height - preferredSize.height);
 			}
 		}
 
@@ -7402,12 +7484,14 @@ public class BasicJideTabbedPaneUI extends JideTabbedPaneUI implements SwingCons
 					if (viewRect.width >= viewSize.width - viewRect.x) {
 						return; // no room left to scroll
 					}
-				} else {
+				}
+				else {
 					if (viewRect.x <= 0) {
 						return;
 					}
 				}
-			} else { // tabPlacement == LEFT || tabPlacement == RIGHT
+			}
+			else { // tabPlacement == LEFT || tabPlacement == RIGHT
 				if (viewRect.height >= viewSize.height - viewRect.y) {
 					return;
 				}
@@ -7429,8 +7513,7 @@ public class BasicJideTabbedPaneUI extends JideTabbedPaneUI implements SwingCons
 			Rectangle viewRect = viewport.getViewRect();
 
 			switch (tabPlacement) {
-				case TOP:
-				case BOTTOM:
+				case TOP, BOTTOM -> {
 					tabViewPosition.y = 0;
 					if (_tabPane.getComponentOrientation().isLeftToRight()) {
 						tabViewPosition.x = leadingTabIndex == 0 ? 0 : _rects[leadingTabIndex].x;
@@ -7467,13 +7550,10 @@ public class BasicJideTabbedPaneUI extends JideTabbedPaneUI implements SwingCons
 							tabViewPosition.x = tempRects[leadingTabIndex].x + tempRects[leadingTabIndex].width + (leadingTabIndex == 0 ? _additionalWidth : 0) - viewRect.width;
 						}
 					}
-
-					break;
-				case LEFT:
-				case RIGHT:
+				}
+				case LEFT, RIGHT -> {
 					tabViewPosition.x = 0;
 					tabViewPosition.y = leadingTabIndex == 0 ? 0 : _rects[leadingTabIndex].y;
-
 					if ((viewSize.height - tabViewPosition.y) < viewRect.height) {
 						tabViewPosition.y = viewSize.height - viewRect.height;
 //                        // We've scrolled to the end, so adjust the viewport size
@@ -7482,7 +7562,7 @@ public class BasicJideTabbedPaneUI extends JideTabbedPaneUI implements SwingCons
 //                                viewSize.height - tabViewPosition.y);
 //                        viewport.setExtentSize(extentSize);
 					}
-					break;
+				}
 			}
 			viewport.setViewPosition(tabViewPosition);
 			_tabPane.repaint();
@@ -7508,7 +7588,8 @@ public class BasicJideTabbedPaneUI extends JideTabbedPaneUI implements SwingCons
 				if (leadingTabIndex < 0) {
 					leadingTabIndex = 0;
 				}
-			} else {
+			}
+			else {
 				leadingTabIndex = getClosestTab(viewRect.x, viewRect.y);
 			}
 
@@ -7533,20 +7614,20 @@ public class BasicJideTabbedPaneUI extends JideTabbedPaneUI implements SwingCons
 
 			Insets contentInsets = getContentBorderInsets(tabPlacement);
 			int checkX;
-			if (_rects.length > 0) {
+			if(_rects.length > 0) {
 				Rectangle rect = _rects[0];
 				switch (tabPlacement) {
-					case LEFT:
+					case LEFT -> {
 						_tabPane.repaint(vpRect.x + vpRect.width, vpRect.y, contentInsets.left, vpRect.height);
 						scrollBackwardButton.setEnabled(viewRect.y > 0 || leadingTabIndex > 0);
 						scrollForwardButton.setEnabled(leadingTabIndex < tabCount - 1 && viewSize.height - viewRect.y > viewRect.height);
-						break;
-					case RIGHT:
+					}
+					case RIGHT -> {
 						_tabPane.repaint(vpRect.x - contentInsets.right, vpRect.y, contentInsets.right, vpRect.height);
 						scrollBackwardButton.setEnabled(viewRect.y > 0 || leadingTabIndex > 0);
 						scrollForwardButton.setEnabled(leadingTabIndex < tabCount - 1 && viewSize.height - viewRect.y > viewRect.height);
-						break;
-					case BOTTOM:
+					}
+					case BOTTOM -> {
 						_tabPane.repaint(vpRect.x, vpRect.y - contentInsets.bottom, vpRect.width, contentInsets.bottom);
 						if (_tabPane.getComponentOrientation().isLeftToRight()) {
 							scrollBackwardButton.setEnabled(viewRect.x > 0 || leadingTabIndex > 0);
@@ -7561,9 +7642,8 @@ public class BasicJideTabbedPaneUI extends JideTabbedPaneUI implements SwingCons
 							}
 							scrollForwardButton.setEnabled(enabled);
 						}
-						break;
-					case TOP:
-					default:
+					}
+					default -> {
 						_tabPane.repaint(vpRect.x, vpRect.y + vpRect.height, vpRect.width, contentInsets.top);
 						if (_tabPane.getComponentOrientation().isLeftToRight()) {
 							scrollBackwardButton.setEnabled(viewRect.x > 0 || leadingTabIndex > 0);
@@ -7578,6 +7658,7 @@ public class BasicJideTabbedPaneUI extends JideTabbedPaneUI implements SwingCons
 							}
 							scrollForwardButton.setEnabled(enabled);
 						}
+					}
 				}
 			}
 
@@ -7619,7 +7700,7 @@ public class BasicJideTabbedPaneUI extends JideTabbedPaneUI implements SwingCons
 		 * Gets the background color of this component.
 		 *
 		 * @return this component's background color; if this component does not have a background color, the background
-		 * color of its parent is returned
+		 *         color of its parent is returned
 		 */
 		@Override
 		public Color getBackground() {
@@ -7656,7 +7737,7 @@ public class BasicJideTabbedPaneUI extends JideTabbedPaneUI implements SwingCons
 
 		@Override
 		public Dimension getPreferredSize() {
-			if (_rects == null || _rects.length <= 0) {
+			if (_rects == null || _rects.length == 0) {
 				return new Dimension(0, 0);
 			}
 			if (_tabPane != null && (_tabPane.getTabPlacement() == TOP || _tabPane.getTabPlacement() == BOTTOM)) {
@@ -7668,7 +7749,8 @@ public class BasicJideTabbedPaneUI extends JideTabbedPaneUI implements SwingCons
 					return new Dimension(_rects[0].x + _rects[0].width + getLeftMargin(),
 							_rects[0].y + _rects[0].height);
 				}
-			} else {
+			}
+			else {
 				return new Dimension(_rects[0].x + _rects[0].width, _rects[_rects.length - 1].y + _rects[_rects.length - 1].height);
 			}
 		}
@@ -7696,7 +7778,8 @@ public class BasicJideTabbedPaneUI extends JideTabbedPaneUI implements SwingCons
 			if (_tabPane.isOpaque()) {
 				if (getTabShape() == JideTabbedPane.SHAPE_BOX) {
 					g.setColor(UIDefaultsLookup.getColor("JideTabbedPane.selectedTabBackground"));
-				} else {
+				}
+				else {
 					g.setColor(UIDefaultsLookup.getColor("JideTabbedPane.tabAreaBackground"));
 				}
 				g.fillRect(0, 0, getWidth(), getHeight());
@@ -7741,330 +7824,6 @@ public class BasicJideTabbedPaneUI extends JideTabbedPaneUI implements SwingCons
 	protected Color _closeButtonColor = Color.BLACK;
 	protected Color _popupColor = Color.BLACK;
 
-	/**
-	 * Close button on the tab.
-	 *
-	 * @deprecated replaced by {@link JideTabbedPane.NoFocusButton}
-	 */
-	@Deprecated
-	public class TabCloseButton extends JButton implements MouseMotionListener, MouseListener, UIResource {
-		/**
-		 * @deprecated replaced by {@link JideTabbedPane#BUTTON_CLOSE}
-		 */
-		@Deprecated
-		public static final int CLOSE_BUTTON = 0;
-		/**
-		 * @deprecated replaced by {@link JideTabbedPane#BUTTON_EAST}
-		 */
-		@Deprecated
-		public static final int EAST_BUTTON = 1;
-		/**
-		 * @deprecated replaced by {@link JideTabbedPane#BUTTON_WEST}
-		 */
-		@Deprecated
-		public static final int WEST_BUTTON = 2;
-		/**
-		 * @deprecated replaced by {@link JideTabbedPane#BUTTON_NORTH}
-		 */
-		@Deprecated
-		public static final int NORTH_BUTTON = 3;
-		/**
-		 * @deprecated replaced by {@link JideTabbedPane#BUTTON_SOUTH}
-		 */
-		@Deprecated
-		public static final int SOUTH_BUTTON = 4;
-		/**
-		 * @deprecated replaced by {@link JideTabbedPane#BUTTON_LIST}
-		 */
-		@Deprecated
-		public static final int LIST_BUTTON = 5;
-		private int _type;
-		private int _index = -1;
-		private boolean _mouseOver = false;
-		private boolean _mousePressed = false;
-
-		/**
-		 * Resets the UI property to a value from the current look and feel.
-		 *
-		 * @see JComponent#updateUI
-		 */
-		@Override
-		public void updateUI() {
-			super.updateUI();
-			setMargin(new Insets(0, 0, 0, 0));
-			setBorder(BorderFactory.createEmptyBorder());
-			setFocusPainted(false);
-			setFocusable(false);
-			setRequestFocusEnabled(false);
-			String name = getName();
-			if (name != null) setToolTipText(getResourceString(name));
-		}
-
-		public TabCloseButton() {
-			this(JideTabbedPane.BUTTON_CLOSE);
-		}
-
-		public TabCloseButton(int type) {
-			addMouseMotionListener(this);
-			addMouseListener(this);
-			setFocusPainted(false);
-			setFocusable(false);
-			setType(type);
-		}
-
-		@Override
-		public Dimension getPreferredSize() {
-			return new Dimension(16, 16);
-		}
-
-		@Override
-		public Dimension getMinimumSize() {
-			return new Dimension(5, 5);
-		}
-
-		public int getIndex() {
-			return _index;
-		}
-
-		public void setIndex(int index) {
-			_index = index;
-		}
-
-		@Override
-		public Dimension getMaximumSize() {
-			return new Dimension(Integer.MAX_VALUE, Integer.MAX_VALUE);
-		}
-
-		@Override
-		protected void paintComponent(Graphics g) {
-			if (!isEnabled()) {
-				setMouseOver(false);
-				setMousePressed(false);
-			}
-			if (isMouseOver() && isMousePressed()) {
-				g.setColor(UIDefaultsLookup.getColor("controlDkShadow"));
-				g.drawLine(0, 0, getWidth() - 1, 0);
-				g.drawLine(0, getHeight() - 2, 0, 1);
-				g.setColor(UIDefaultsLookup.getColor("control"));
-				g.drawLine(getWidth() - 1, 1, getWidth() - 1, getHeight() - 2);
-				g.drawLine(getWidth() - 1, getHeight() - 1, 0, getHeight() - 1);
-			} else if (isMouseOver()) {
-				g.setColor(UIDefaultsLookup.getColor("control"));
-				g.drawLine(0, 0, getWidth() - 1, 0);
-				g.drawLine(0, getHeight() - 2, 0, 1);
-				g.setColor(UIDefaultsLookup.getColor("controlDkShadow"));
-				g.drawLine(getWidth() - 1, 1, getWidth() - 1, getHeight() - 2);
-				g.drawLine(getWidth() - 1, getHeight() - 1, 0, getHeight() - 1);
-			}
-			g.setColor(UIDefaultsLookup.getColor("controlShadow").darker());
-			int centerX = getWidth() >> 1;
-			int centerY = getHeight() >> 1;
-			int type = getType();
-			if ((_tabPane.getTabPlacement() == TOP || _tabPane.getTabPlacement() == BOTTOM) && !_tabPane.getComponentOrientation().isLeftToRight()) {
-				if (type == EAST_BUTTON) {
-					type = WEST_BUTTON;
-				} else if (type == WEST_BUTTON) {
-					type = EAST_BUTTON;
-				}
-			}
-			switch (type) {
-				case CLOSE_BUTTON:
-					if (isEnabled()) {
-						g.drawLine(centerX - 3, centerY - 3, centerX + 3, centerY + 3);
-						g.drawLine(centerX - 4, centerY - 3, centerX + 2, centerY + 3);
-						g.drawLine(centerX + 3, centerY - 3, centerX - 3, centerY + 3);
-						g.drawLine(centerX + 2, centerY - 3, centerX - 4, centerY + 3);
-					} else {
-						g.drawLine(centerX - 3, centerY - 3, centerX + 3, centerY + 3);
-						g.drawLine(centerX + 3, centerY - 3, centerX - 3, centerY + 3);
-					}
-					break;
-				case EAST_BUTTON:
-					//
-					// |
-					// ||
-					// |||
-					// ||||
-					// ||||*
-					// ||||
-					// |||
-					// ||
-					// |
-					//
-				{
-					if (_tabPane.getTabPlacement() == TOP || _tabPane.getTabPlacement() == BOTTOM) {
-						int x = centerX + 2, y = centerY; // start point. mark as * above
-						if (isEnabled()) {
-							g.drawLine(x - 4, y - 4, x - 4, y + 4);
-							g.drawLine(x - 3, y - 3, x - 3, y + 3);
-							g.drawLine(x - 2, y - 2, x - 2, y + 2);
-							g.drawLine(x - 1, y - 1, x - 1, y + 1);
-							g.drawLine(x, y, x, y);
-						} else {
-							g.drawLine(x - 4, y - 4, x, y);
-							g.drawLine(x - 4, y - 4, x - 4, y + 4);
-							g.drawLine(x - 4, y + 4, x, y);
-						}
-
-					} else {
-						int x = centerX + 3, y = centerY - 2; // start point. mark as * above
-						if (isEnabled()) {
-							g.drawLine(x - 8, y, x, y);
-							g.drawLine(x - 7, y + 1, x - 1, y + 1);
-							g.drawLine(x - 6, y + 2, x - 2, y + 2);
-							g.drawLine(x - 5, y + 3, x - 3, y + 3);
-							g.drawLine(x - 4, y + 4, x - 4, y + 4);
-						} else {
-							g.drawLine(x - 8, y, x, y);
-							g.drawLine(x - 8, y, x - 4, y + 4);
-							g.drawLine(x - 4, y + 4, x, y);
-						}
-					}
-				}
-				break;
-				case WEST_BUTTON: {
-					//
-					// |
-					// ||
-					// |||
-					// ||||
-					// *||||
-					// ||||
-					// |||
-					// ||
-					// |
-					//
-					{
-						if (_tabPane.getTabPlacement() == TOP || _tabPane.getTabPlacement() == BOTTOM) {
-							int x = centerX - 3, y = centerY; // start point. mark as * above
-							if (isEnabled()) {
-								g.drawLine(x, y, x, y);
-								g.drawLine(x + 1, y - 1, x + 1, y + 1);
-								g.drawLine(x + 2, y - 2, x + 2, y + 2);
-								g.drawLine(x + 3, y - 3, x + 3, y + 3);
-								g.drawLine(x + 4, y - 4, x + 4, y + 4);
-							} else {
-								g.drawLine(x, y, x + 4, y - 4);
-								g.drawLine(x, y, x + 4, y + 4);
-								g.drawLine(x + 4, y - 4, x + 4, y + 4);
-							}
-						} else {
-
-							int x = centerX - 5, y = centerY + 3; // start point. mark as * above
-							if (isEnabled()) {
-								g.drawLine(x, y, x + 8, y);
-								g.drawLine(x + 1, y - 1, x + 7, y - 1);
-								g.drawLine(x + 2, y - 2, x + 6, y - 2);
-								g.drawLine(x + 3, y - 3, x + 5, y - 3);
-								g.drawLine(x + 4, y - 4, x + 4, y - 4);
-							} else {
-								g.drawLine(x, y, x + 8, y);
-								g.drawLine(x, y, x + 4, y - 4);
-								g.drawLine(x + 8, y, x + 4, y - 4);
-							}
-						}
-					}
-					break;
-				}
-				case LIST_BUTTON: {
-					int x = centerX + 2, y = centerY; // start point. mark as
-					// * above
-					g.drawLine(x - 6, y - 4, x - 6, y + 4);
-					g.drawLine(x + 1, y - 4, x + 1, y + 4);
-					g.drawLine(x - 6, y - 4, x + 1, y - 4);
-					g.drawLine(x - 4, y - 2, x - 1, y - 2);
-					g.drawLine(x - 4, y, x - 1, y);
-					g.drawLine(x - 4, y + 2, x - 1, y + 2);
-					g.drawLine(x - 6, y + 4, x + 1, y + 4);
-					break;
-				}
-			}
-		}
-
-		@Override
-		public boolean isFocusable() {
-			return false;
-		}
-
-		@Override
-		public void requestFocus() {
-		}
-
-		@Override
-		public boolean isOpaque() {
-			return false;
-		}
-
-		public boolean scrollsForward() {
-			return getType() == EAST_BUTTON || getType() == SOUTH_BUTTON;
-		}
-
-		public void mouseDragged(MouseEvent e) {
-		}
-
-		public void mouseMoved(MouseEvent e) {
-			if (!isEnabled()) return;
-			setMouseOver(true);
-			repaint();
-		}
-
-		public void mouseClicked(MouseEvent e) {
-			if (!isEnabled()) return;
-			setMouseOver(true);
-			setMousePressed(false);
-		}
-
-		public void mousePressed(MouseEvent e) {
-			if (!isEnabled()) return;
-			setMousePressed(true);
-			repaint();
-		}
-
-		public void mouseReleased(MouseEvent e) {
-			if (!isEnabled()) return;
-			setMousePressed(false);
-			setMouseOver(false);
-		}
-
-		public void mouseEntered(MouseEvent e) {
-			if (!isEnabled()) return;
-			setMouseOver(true);
-			repaint();
-		}
-
-		public void mouseExited(MouseEvent e) {
-			if (!isEnabled()) return;
-			setMouseOver(false);
-			setMousePressed(false);
-			repaint();
-			_tabScroller.tabPanel.repaint();
-		}
-
-		public int getType() {
-			return _type;
-		}
-
-		public void setType(int type) {
-			_type = type;
-		}
-
-		public boolean isMouseOver() {
-			return _mouseOver;
-		}
-
-		public void setMouseOver(boolean mouseOver) {
-			_mouseOver = mouseOver;
-		}
-
-		public boolean isMousePressed() {
-			return _mousePressed;
-		}
-
-		public void setMousePressed(boolean mousePressed) {
-			_mousePressed = mousePressed;
-		}
-	}
-
 // Controller: event listeners
 
 	/**
@@ -8078,31 +7837,37 @@ public class BasicJideTabbedPaneUI extends JideTabbedPaneUI implements SwingCons
 			if ("mnemonicAt".equals(name)) {
 				updateMnemonics();
 				pane.repaint();
-			} else if ("displayedMnemonicIndexAt".equals(name)) {
+			}
+			else if ("displayedMnemonicIndexAt".equals(name)) {
 				pane.repaint();
-			} else if (name.equals("indexForTitle")) {
+			}
+			else if (name.equals("indexForTitle")) {
 				int index = (Integer) e.getNewValue();
 				String title = getCurrentDisplayTitleAt(_tabPane, index);
 				if (BasicHTML.isHTMLString(title)) {
 					if (htmlViews == null) { // Initialize vector
 						htmlViews = createHTMLVector();
-					} else { // Vector already exists
+					}
+					else { // Vector already exists
 						View v = BasicHTML.createHTMLView(_tabPane, title);
 						htmlViews.setElementAt(v, index);
 					}
-				} else {
+				}
+				else {
 					if (htmlViews != null && htmlViews.elementAt(index) != null) {
 						htmlViews.setElementAt(null, index);
 					}
 				}
 				updateMnemonics();
 
-				if (scrollableTabLayoutEnabled() && (_tabPane.getTabPlacement() == EAST || _tabPane.getTabPlacement() == WEST || _tabPane.getComponentOrientation().isLeftToRight())) {
+				if (scrollableTabLayoutEnabled() && (_tabPane.getTabPlacement() == SwingConstants.RIGHT
+						|| _tabPane.getTabPlacement() == SwingConstants.LEFT || _tabPane.getComponentOrientation().isLeftToRight())) {
 					_tabScroller.viewport.setViewSize(new Dimension(
 							_tabPane.getWidth(), _tabScroller.viewport.getViewSize().height));
 					ensureActiveTabIsVisible(false);
 				}
-			} else if (name.equals("indexForTabComponent")) {
+			}
+			else if (name.equals("indexForTabComponent")) {
 				if (_tabContainer != null) {
 					_tabContainer.removeUnusedTabComponents();
 				}
@@ -8110,31 +7875,40 @@ public class BasicJideTabbedPaneUI extends JideTabbedPaneUI implements SwingCons
 				if (c != null) {
 					if (_tabContainer == null) {
 						installTabContainer();
-					} else {
+					}
+					else {
 						_tabContainer.add(c);
 					}
 				}
 				_tabPane.revalidate();
 				_tabPane.repaint();
 //                calculatedBaseline = false;
-			} else if (name.equals("tabLayoutPolicy")) {
+			}
+			else if (name.equals("tabLayoutPolicy")) {
 				_tabPane.updateUI();
-			} else if (name.equals("closeTabAction")) {
+			}
+			else if (name.equals("closeTabAction")) {
 				updateCloseAction();
-			} else if (name.equals(JideTabbedPane.PROPERTY_DRAG_OVER_DISABLED)) {
+			}
+			else if (name.equals(JideTabbedPane.PROPERTY_DRAG_OVER_DISABLED)) {
 				_tabPane.updateUI();
-			} else if (name.equals(JideTabbedPane.PROPERTY_TAB_COLOR_PROVIDER)) {
+			}
+			else if (name.equals(JideTabbedPane.PROPERTY_TAB_COLOR_PROVIDER)) {
 				_tabPane.repaint();
-			} else if (name.equals("locale")) {
+			}
+			else if (name.equals("locale")) {
 				_tabPane.updateUI();
-			} else if (name.equals(JideTabbedPane.BOLDACTIVETAB_PROPERTY)) {
+			}
+			else if (name.equals(JideTabbedPane.BOLDACTIVETAB_PROPERTY)) {
 				getTabPanel().invalidate();
 				_tabPane.invalidate();
-				if (scrollableTabLayoutEnabled() && (_tabPane.getTabPlacement() == EAST || _tabPane.getTabPlacement() == WEST || _tabPane.getComponentOrientation().isLeftToRight())) {
+				if (scrollableTabLayoutEnabled() && (_tabPane.getTabPlacement() == SwingConstants.RIGHT
+						|| _tabPane.getTabPlacement() == SwingConstants.LEFT || _tabPane.getComponentOrientation().isLeftToRight())) {
 					_tabScroller.viewport.setViewSize(new Dimension(_tabPane.getWidth(), _tabScroller.viewport.getViewSize().height));
 					ensureActiveTabIsVisible(true);
 				}
-			} else if (name.equals(JideTabbedPane.PROPERTY_TAB_LEADING_COMPONENT)) {
+			}
+			else if (name.equals(JideTabbedPane.PROPERTY_TAB_LEADING_COMPONENT)) {
 				ensureCurrentLayout();
 				if (_tabLeadingComponent != null) {
 					_tabLeadingComponent.setVisible(false);
@@ -8146,7 +7920,8 @@ public class BasicJideTabbedPaneUI extends JideTabbedPaneUI implements SwingCons
 					_tabPane.add(_tabLeadingComponent);
 				}
 				_tabScroller.tabPanel.updateUI();
-			} else if (name.equals(JideTabbedPane.PROPERTY_TAB_TRAILING_COMPONENT)) {
+			}
+			else if (name.equals(JideTabbedPane.PROPERTY_TAB_TRAILING_COMPONENT)) {
 				ensureCurrentLayout();
 				if (_tabTrailingComponent != null) {
 					_tabTrailingComponent.setVisible(false);
@@ -8158,7 +7933,8 @@ public class BasicJideTabbedPaneUI extends JideTabbedPaneUI implements SwingCons
 					_tabTrailingComponent.setVisible(true);
 				}
 				_tabScroller.tabPanel.updateUI();
-			} else if (name.equals(JideTabbedPane.SHRINK_TAB_PROPERTY) ||
+			}
+			else if (name.equals(JideTabbedPane.SHRINK_TAB_PROPERTY) ||
 					name.equals(JideTabbedPane.HIDE_IF_ONE_TAB_PROPERTY) ||
 					name.equals(JideTabbedPane.SHOW_TAB_AREA_PROPERTY) ||
 					name.equals(JideTabbedPane.SHOW_TAB_CONTENT_PROPERTY) ||
@@ -8178,9 +7954,11 @@ public class BasicJideTabbedPaneUI extends JideTabbedPaneUI implements SwingCons
 					ensureCloseButtonCreated();
 				}
 				_tabPane.updateUI();
-			} else if (name.equals("__index_to_remove__")) {
+			}
+			else if (name.equals("__index_to_remove__")) {
 				setVisibleComponent(null);
-			} else if (name.equals("componentOrientation")) {
+			}
+			else if (name.equals("componentOrientation")) {
 				if (_tabPane != null) {
 					if (_tabCount != _tabPane.getTabCount()) {
 						_tabCount = _tabPane.getTabCount();
@@ -8270,28 +8048,27 @@ public class BasicJideTabbedPaneUI extends JideTabbedPaneUI implements SwingCons
 							_tabPane.requestFocus();
 //                            }
 						}
-					} else {
+					}
+					else {
 						_tabPane.setSelectedIndex(tabIndex);
 						if (_tabPane == null) {
 							return; // in case the user invoked some APIs to cause updateUI() being invoked
 						}
-						_tabPane.processMouseSelection(tabIndex, e);
 						final Component comp = _tabPane.getComponentAt(tabIndex);
-
-						Component lastFocused = _tabPane.getLastFocusedComponent(comp);
-						if (lastFocused != null) {
-							// this code works in JDK6 but on JDK5
+							Component lastFocused = _tabPane.getLastFocusedComponent(comp);
+							if (lastFocused != null) {
+								// this code works in JDK6 but on JDK5
 //                                if (!lastFocused.requestFocusInWindow()) {
-							lastFocused.requestFocus();
+								lastFocused.requestFocus();
 //                                }
-						} else {
-							// first try to find a default component.
-							boolean foundInTab = UIUtil.compositeRequestFocus(comp);
-							if (!foundInTab) { // && !_tabPane.requestFocusInWindow()) {
-								_tabPane.requestFocus();
 							}
-						}
-
+							else {
+								// first try to find a default component.
+								boolean foundInTab = UIUtil.compositeRequestFocus(comp);
+								if (!foundInTab) { // && !_tabPane.requestFocusInWindow()) {
+									_tabPane.requestFocus();
+								}
+							}
 					}
 				}
 			}
@@ -8308,12 +8085,14 @@ public class BasicJideTabbedPaneUI extends JideTabbedPaneUI implements SwingCons
 				// 0 and tabCount-1
 				_tabPane.setSelectedIndex(
 						Math.min(_tabPane.getTabCount() - 1, Math.max(0, _tabPane.getSelectedIndex() + e.getWheelRotation())));
-			} else if (scrollableTabLayoutEnabled() && e.getWheelRotation() != 0) {
+			}
+			else if (scrollableTabLayoutEnabled() && e.getWheelRotation() != 0) {
 				if (e.getWheelRotation() > 0) {
 					for (int i = 0; i < e.getScrollAmount(); i++) {
 						_tabScroller.scrollForward(_tabPane.getTabPlacement());
 					}
-				} else if (e.getWheelRotation() < 0) {
+				}
+				else if (e.getWheelRotation() < 0) {
 					for (int i = 0; i < e.getScrollAmount(); i++) {
 						_tabScroller.scrollBackward(_tabPane.getTabPlacement());
 					}
@@ -8324,7 +8103,8 @@ public class BasicJideTabbedPaneUI extends JideTabbedPaneUI implements SwingCons
 
 	private class ComponentHandler implements ComponentListener {
 		public void componentResized(ComponentEvent e) {
-			if (scrollableTabLayoutEnabled() && (_tabPane.getTabPlacement() == EAST || _tabPane.getTabPlacement() == WEST || _tabPane.getComponentOrientation().isLeftToRight())) {
+			if (scrollableTabLayoutEnabled() && (_tabPane.getTabPlacement() == RIGHT
+					|| _tabPane.getTabPlacement() == LEFT || _tabPane.getComponentOrientation().isLeftToRight())) {
 				_tabScroller.viewport.setViewSize(new Dimension(_tabPane.getWidth(), _tabScroller.viewport.getViewSize().height));
 				ensureActiveTabIsVisible(true);
 			}
@@ -8388,11 +8168,13 @@ public class BasicJideTabbedPaneUI extends JideTabbedPaneUI implements SwingCons
 			if (isHTML) {
 				if (htmlViews == null) { // Initialize vector
 					htmlViews = createHTMLVector();
-				} else { // Vector already exists
+				}
+				else { // Vector already exists
 					View v = BasicHTML.createHTMLView(tp, title);
 					htmlViews.insertElementAt(v, index);
 				}
-			} else { // Not HTML
+			}
+			else { // Not HTML
 				if (htmlViews != null) { // Add placeholder
 					htmlViews.insertElementAt(null, index);
 				} // else nada!
@@ -8451,7 +8233,8 @@ public class BasicJideTabbedPaneUI extends JideTabbedPaneUI implements SwingCons
 				String title = getCurrentDisplayTitleAt(_tabPane, i);
 				if (BasicHTML.isHTMLString(title)) {
 					htmlViews.addElement(BasicHTML.createHTMLView(_tabPane, title));
-				} else {
+				}
+				else {
 					htmlViews.addElement(null);
 				}
 			}
@@ -8525,7 +8308,8 @@ public class BasicJideTabbedPaneUI extends JideTabbedPaneUI implements SwingCons
 				freeWidth -= currentTabWidth;
 				if (++startTab < tabCount - 1) {
 					currentTabWidth = tabs[startTab].width;
-				} else {
+				}
+				else {
 					tabs[startTab].width = worstWidth;
 					return;
 				}
@@ -8536,7 +8320,8 @@ public class BasicJideTabbedPaneUI extends JideTabbedPaneUI implements SwingCons
 				for (int i = startTab; i < tabCount; i++) {
 					tabs[i].width = worstWidth;
 				}
-			} else if (startTab < tabCount - 1) {
+			}
+			else if (startTab < tabCount - 1) {
 				bestfit(tabs, freeWidth, startTab);
 			}
 		}
@@ -8616,7 +8401,8 @@ public class BasicJideTabbedPaneUI extends JideTabbedPaneUI implements SwingCons
 			if (_tabPane.getTabPlacement() == LEFT || _tabPane.getTabPlacement() == RIGHT || _tabPane.getComponentOrientation().isLeftToRight()) {
 				_tabPane.revalidate();
 				_tabPane.repaintTabAreaAndContentBorder();
-			} else {
+			}
+			else {
 				_tabPane.repaint();
 			}
 		}
@@ -8625,7 +8411,8 @@ public class BasicJideTabbedPaneUI extends JideTabbedPaneUI implements SwingCons
 	protected boolean isShowCloseButtonOnTab() {
 		if (_tabPane.isUseDefaultShowCloseButtonOnTab()) {
 			return _showCloseButtonOnTab;
-		} else return _tabPane.isShowCloseButtonOnTab();
+		}
+		else return _tabPane.isShowCloseButtonOnTab();
 	}
 
 	protected boolean isShowCloseButton() {
@@ -8636,7 +8423,8 @@ public class BasicJideTabbedPaneUI extends JideTabbedPaneUI implements SwingCons
 		if (isShowCloseButton() && isShowCloseButtonOnTab() && scrollableTabLayoutEnabled()) {
 			if (_closeButtons == null) {
 				_closeButtons = new JButton[_tabPane.getTabCount()];
-			} else if (_closeButtons.length > _tabPane.getTabCount()) {
+			}
+			else if (_closeButtons.length > _tabPane.getTabCount()) {
 				JButton[] temp = new JButton[_tabPane.getTabCount()];
 				System.arraycopy(_closeButtons, 0, temp, 0, temp.length);
 				for (int i = temp.length; i < _closeButtons.length; i++) {
@@ -8644,7 +8432,8 @@ public class BasicJideTabbedPaneUI extends JideTabbedPaneUI implements SwingCons
 					_tabScroller.tabPanel.remove(tabCloseButton);
 				}
 				_closeButtons = temp;
-			} else if (_closeButtons.length < _tabPane.getTabCount()) {
+			}
+			else if (_closeButtons.length < _tabPane.getTabCount()) {
 				JButton[] temp = new JButton[_tabPane.getTabCount()];
 				System.arraycopy(_closeButtons, 0, temp, 0, _closeButtons.length);
 				_closeButtons = temp;
@@ -8785,7 +8574,8 @@ public class BasicJideTabbedPaneUI extends JideTabbedPaneUI implements SwingCons
 				Rectangle tabRect = _tabPane.getBoundsAt(_editingTab);
 				getTabPanel().repaint(tabRect.x, tabRect.y,
 						tabRect.width, tabRect.height);
-			} else {
+			}
+			else {
 				getTabPanel().repaint();
 			}
 
@@ -8835,7 +8625,8 @@ public class BasicJideTabbedPaneUI extends JideTabbedPaneUI implements SwingCons
 		Font font;
 		if (_tabPane.getSelectedTabFont() != null) {
 			font = _tabPane.getSelectedTabFont();
-		} else {
+		}
+		else {
 			font = _tabPane.getFont();
 		}
 		if (_tabPane.isBoldActiveTab() && font.getStyle() != Font.BOLD) {
@@ -8854,7 +8645,8 @@ public class BasicJideTabbedPaneUI extends JideTabbedPaneUI implements SwingCons
 				_oldPostfix = "</B>" + _oldPostfix;
 			}
 			e.setText(title);
-		} else {
+		}
+		else {
 			_oldPrefix = "";
 			_oldPostfix = "";
 			e.setText(_oldValue);
@@ -8893,7 +8685,8 @@ public class BasicJideTabbedPaneUI extends JideTabbedPaneUI implements SwingCons
 			iconRect.x = tabRect.x + _iconMargin;
 			textRect.x = (icon != null ? iconRect.x + iconRect.width + _textIconGap : tabRect.x + _textPadding);
 			textRect.width += 2;
-		} else {
+		}
+		else {
 			iconRect.y = tabRect.y + _iconMargin;
 			textRect.y = (icon != null ? iconRect.y + iconRect.height + _textIconGap : tabRect.y + _textPadding);
 			iconRect.x = tabRect.x + 2;
@@ -8965,7 +8758,8 @@ public class BasicJideTabbedPaneUI extends JideTabbedPaneUI implements SwingCons
 			setOpaque(false);
 //            setBorder(BorderFactory.createEmptyBorder());
 			setBorder(BorderFactory
-					.createCompoundBorder(BorderFactory.createLineBorder(Color.BLACK, 1, true),
+					.createCompoundBorder(
+							BorderFactory.createLineBorder(Color.BLACK, 1, true),
 							BorderFactory.createEmptyBorder(0, 2, 0, 2)));
 		}
 
@@ -9024,7 +8818,6 @@ public class BasicJideTabbedPaneUI extends JideTabbedPaneUI implements SwingCons
 
 	private class DragOverTimer extends Timer implements ActionListener {
 		private int _index;
-
 		public DragOverTimer(int index) {
 			super(500, null);
 			_index = index;
@@ -9041,7 +8834,8 @@ public class BasicJideTabbedPaneUI extends JideTabbedPaneUI implements SwingCons
 					_tabPane.requestFocusInWindow();
 					_tabPane.repaint(getTabBounds(_tabPane, _index));
 				}
-			} else {
+			}
+			else {
 				if (_tabPane.isRequestFocusEnabled()) {
 					_tabPane.requestFocusInWindow();
 				}
@@ -9071,14 +8865,17 @@ public class BasicJideTabbedPaneUI extends JideTabbedPaneUI implements SwingCons
 			if (tabIndex >= 0 && _tabPane.isEnabledAt(tabIndex)) {
 				if (tabIndex == _tabPane.getSelectedIndex()) {
 					// selected already, do nothing
-				} else if (tabIndex == _index) {
+				}
+				else if (tabIndex == _index) {
 					// same tab, timer has started
-				} else {
+				}
+				else {
 					stopTimer();
 					startTimer(tabIndex);
 					_index = tabIndex; // save the index
 				}
-			} else {
+			}
+			else {
 				stopTimer();
 			}
 			dtde.rejectDrag();
@@ -9111,37 +8908,21 @@ public class BasicJideTabbedPaneUI extends JideTabbedPaneUI implements SwingCons
 
 	protected int getTabLabelShiftX(int tabPlacement, int tabIndex, boolean isSelected) {
 		Rectangle tabRect = _rects[tabIndex];
-		int nudge;
-		switch (tabPlacement) {
-			case LEFT:
-				nudge = isSelected ? -1 : 1;
-				break;
-			case RIGHT:
-				nudge = isSelected ? 1 : -1;
-				break;
-			case BOTTOM:
-			case TOP:
-			default:
-				nudge = tabRect.width % 2;
-		}
+		int nudge = switch (tabPlacement) {
+			case LEFT -> isSelected ? -1 : 1;
+			case RIGHT -> isSelected ? 1 : -1;
+			default -> tabRect.width % 2;
+		};
 		return nudge;
 	}
 
 	protected int getTabLabelShiftY(int tabPlacement, int tabIndex, boolean isSelected) {
 		Rectangle tabRect = _rects[tabIndex];
-		int nudge;
-		switch (tabPlacement) {
-			case BOTTOM:
-				nudge = isSelected ? 1 : -1;
-				break;
-			case LEFT:
-			case RIGHT:
-				nudge = tabRect.height % 2;
-				break;
-			case TOP:
-			default:
-				nudge = isSelected ? -1 : 1;
-		}
+		int nudge = switch (tabPlacement) {
+			case BOTTOM -> isSelected ? 1 : -1;
+			case LEFT, RIGHT -> tabRect.height % 2;
+			default -> isSelected ? -1 : 1;
+		};
 		return nudge;
 	}
 
@@ -9154,30 +8935,30 @@ public class BasicJideTabbedPaneUI extends JideTabbedPaneUI implements SwingCons
 			int x, y, w, h;
 			g.setColor(_focus);
 			switch (tabPlacement) {
-				case LEFT:
+				case LEFT -> {
 					x = tabRect.x + 3;
 					y = tabRect.y + 3;
 					w = tabRect.width - 5;
 					h = tabRect.height - 6 - getTabGap();
-					break;
-				case RIGHT:
+				}
+				case RIGHT -> {
 					x = tabRect.x + 2;
 					y = tabRect.y + 3;
 					w = tabRect.width - 5;
 					h = tabRect.height - 6 - getTabGap();
-					break;
-				case BOTTOM:
+				}
+				case BOTTOM -> {
 					x = tabRect.x + 3;
 					y = tabRect.y + 2;
 					w = tabRect.width - 6 - getTabGap();
 					h = tabRect.height - 5;
-					break;
-				case TOP:
-				default:
+				}
+				default -> {
 					x = tabRect.x + 3;
 					y = tabRect.y + 3;
 					w = tabRect.width - 6 - getTabGap();
 					h = tabRect.height - 5;
+				}
 			}
 			BasicGraphicsUtils.drawDashedRect(g, x, y, w, h);
 		}
@@ -9215,9 +8996,11 @@ public class BasicJideTabbedPaneUI extends JideTabbedPaneUI implements SwingCons
 	protected int getLeftMargin() {
 		if (getTabShape() == JideTabbedPane.SHAPE_OFFICE2003) {
 			return OFFICE2003_LEFT_MARGIN;
-		} else if (getTabShape() == JideTabbedPane.SHAPE_EXCEL) {
+		}
+		else if (getTabShape() == JideTabbedPane.SHAPE_EXCEL) {
 			return EXCEL_LEFT_MARGIN;
-		} else {
+		}
+		else {
 			return DEFAULT_LEFT_MARGIN;
 		}
 	}
@@ -9225,7 +9008,8 @@ public class BasicJideTabbedPaneUI extends JideTabbedPaneUI implements SwingCons
 	protected int getTabGap() {
 		if (getTabShape() == JideTabbedPane.SHAPE_OFFICE2003) {
 			return 4;
-		} else {
+		}
+		else {
 			return 0;
 		}
 	}
@@ -9234,14 +9018,18 @@ public class BasicJideTabbedPaneUI extends JideTabbedPaneUI implements SwingCons
 		int tabShape = getTabShape();
 		if (tabShape == JideTabbedPane.SHAPE_EXCEL) {
 			return EXCEL_LEFT_MARGIN;
-		} else if (tabShape == JideTabbedPane.SHAPE_ECLIPSE3X) {
+		}
+		else if (tabShape == JideTabbedPane.SHAPE_ECLIPSE3X) {
 			return 15;
-		} else if (_tabPane.getTabShape() == JideTabbedPane.SHAPE_FLAT || _tabPane.getTabShape() == JideTabbedPane.SHAPE_ROUNDED_FLAT) {
+		}
+		else if (_tabPane.getTabShape() == JideTabbedPane.SHAPE_FLAT || _tabPane.getTabShape() == JideTabbedPane.SHAPE_ROUNDED_FLAT) {
 			return 2;
-		} else if (tabShape == JideTabbedPane.SHAPE_WINDOWS
+		}
+		else if (tabShape == JideTabbedPane.SHAPE_WINDOWS
 				|| tabShape == JideTabbedPane.SHAPE_WINDOWS_SELECTED) {
 			return 6;
-		} else {
+		}
+		else {
 			return 0;
 		}
 	}
@@ -9249,7 +9037,8 @@ public class BasicJideTabbedPaneUI extends JideTabbedPaneUI implements SwingCons
 	protected int getTabRightPadding() {
 		if (getTabShape() == JideTabbedPane.SHAPE_EXCEL) {
 			return 4;
-		} else {
+		}
+		else {
 			return 0;
 		}
 	}
@@ -9257,7 +9046,8 @@ public class BasicJideTabbedPaneUI extends JideTabbedPaneUI implements SwingCons
 	protected MouseListener createMouseListener() {
 		if (getTabShape() == JideTabbedPane.SHAPE_WINDOWS || getTabShape() == JideTabbedPane.SHAPE_WINDOWS_SELECTED || _tabPane.isShowCloseButtonOnMouseOver()) {
 			return new RolloverMouseHandler();
-		} else {
+		}
+		else {
 			return new MouseHandler();
 		}
 	}
@@ -9269,7 +9059,8 @@ public class BasicJideTabbedPaneUI extends JideTabbedPaneUI implements SwingCons
 	protected MouseMotionListener createMouseMotionListener() {
 		if (getTabShape() == JideTabbedPane.SHAPE_WINDOWS || getTabShape() == JideTabbedPane.SHAPE_WINDOWS_SELECTED || _tabPane.isShowCloseButtonOnMouseOver()) {
 			return new RolloverMouseMotionHandler();
-		} else {
+		}
+		else {
 			return new MouseMotionHandler();
 		}
 	}
@@ -9288,7 +9079,7 @@ public class BasicJideTabbedPaneUI extends JideTabbedPaneUI implements SwingCons
 
 	}
 
-	public class DefaultMouseHandler extends MouseHandler {
+	public class DefaultMouseHandler extends BasicJideTabbedPaneUI.MouseHandler {
 		@Override
 		public void mousePressed(MouseEvent e) {
 			super.mousePressed(e);
@@ -9326,7 +9117,7 @@ public class BasicJideTabbedPaneUI extends JideTabbedPaneUI implements SwingCons
 
 	}
 
-	public class RolloverMouseHandler extends MouseHandler {
+	public class RolloverMouseHandler extends BasicJideTabbedPaneUI.MouseHandler {
 		@Override
 		public void mouseEntered(MouseEvent e) {
 			super.mouseEntered(e);
@@ -9354,17 +9145,14 @@ public class BasicJideTabbedPaneUI extends JideTabbedPaneUI implements SwingCons
 	}
 
 	protected boolean isTabTopVisible(int tabPlacement) {
-		switch (tabPlacement) {
-			case LEFT:
-			case RIGHT:
-				return (isTabLeadingComponentVisible() && _tabLeadingComponent.getPreferredSize().width > calculateMaxTabWidth(tabPlacement)) ||
-						(isTabTrailingComponentVisible() && _tabTrailingComponent.getPreferredSize().width > calculateMaxTabWidth(tabPlacement));
-			case TOP:
-			case BOTTOM:
-			default:
-				return (isTabLeadingComponentVisible() && _tabLeadingComponent.getPreferredSize().height > calculateMaxTabHeight(tabPlacement)) ||
-						(isTabTrailingComponentVisible() && _tabTrailingComponent.getPreferredSize().height > calculateMaxTabHeight(tabPlacement));
-		}
+		return switch (tabPlacement) {
+			case LEFT, RIGHT ->
+					(isTabLeadingComponentVisible() && _tabLeadingComponent.getPreferredSize().width > calculateMaxTabWidth(tabPlacement)) ||
+							(isTabTrailingComponentVisible() && _tabTrailingComponent.getPreferredSize().width > calculateMaxTabWidth(tabPlacement));
+			default ->
+					(isTabLeadingComponentVisible() && _tabLeadingComponent.getPreferredSize().height > calculateMaxTabHeight(tabPlacement)) ||
+							(isTabTrailingComponentVisible() && _tabTrailingComponent.getPreferredSize().height > calculateMaxTabHeight(tabPlacement));
+		};
 	}
 
 	protected boolean showFocusIndicator() {

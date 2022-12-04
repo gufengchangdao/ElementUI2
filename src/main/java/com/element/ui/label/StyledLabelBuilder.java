@@ -301,7 +301,7 @@ public class StyledLabelBuilder {
 				continue;
 			}
 			switch (text[i]) {
-				case '{':
+				case '{' -> {
 					ParsedStyleResult result = parseStylePart(text, i + 1, builder);
 					if (result == null) {
 						labelText.append(text[i]);
@@ -316,13 +316,9 @@ public class StyledLabelBuilder {
 								result.additionalStyle, result.lineColor));
 					}
 					i = Math.max(i, result.endOffset);
-					break;
-				case '\\':
-					escaped = true;
-					break;
-				default:
-					labelText.append(text[i]);
-					break;
+				}
+				case '\\' -> escaped = true;
+				default -> labelText.append(text[i]);
 			}
 		}
 		label.setText(labelText.toString());
@@ -331,7 +327,7 @@ public class StyledLabelBuilder {
 	private static boolean isGlobalConfiguration(StyledLabel label, char[] text, int offset) {
 		String globalString = new String(text, offset, text.length - offset);
 		String[] subStringsLevel0 = globalString.split(",");
-		if (subStringsLevel0.length <= 0 || subStringsLevel0[0] == null) {
+		if (subStringsLevel0.length == 0 || subStringsLevel0[0] == null) {
 			return false;
 		}
 		int defaultRows = 1;
@@ -340,7 +336,7 @@ public class StyledLabelBuilder {
 		int preferredWidth = 0;
 		for (String subStringLevel0 : subStringsLevel0) {
 			String[] subStrings = subStringLevel0.split(":");
-			if (subStrings.length <= 0 || subStrings[0] == null) {
+			if (subStrings.length == 0 || subStrings[0] == null) {
 				return false;
 			}
 			String property = subStrings[0].trim().toLowerCase();
@@ -371,7 +367,7 @@ public class StyledLabelBuilder {
 						}
 					}
 				}
-				if (subStrings.length >= 4 && subStrings[3].trim().length() > 0) {
+				if (subStrings.length == 4 && subStrings[3].trim().length() > 0) {
 					try {
 						maxRows = Integer.parseInt(subStrings[3]);
 					} catch (NumberFormatException e) {
@@ -422,14 +418,14 @@ public class StyledLabelBuilder {
 
 	private static ParsedStyleResult parseStylePart(char[] text, int start, StyledLabelBuilder builder) {
 		ParsedStyleResult result = new ParsedStyleResult();
-		int findIndex, i = start;
+		int findIndex;
 		// find end of text first
-		findIndex = findNext(text, ':', i);
+		findIndex = findNext(text, ':', start);
 		int indexMatchingBracket = findMatchingBracket(text, start);
 		if (findIndex < 0 || findIndex > indexMatchingBracket) {
 			return null;
 		}
-		result.text = createTrimmedString(text, i, findIndex - 1);
+		result.text = createTrimmedString(text, start, findIndex - 1);
 		return parseStyleAnnotation(text, findIndex + 1, builder, result);
 	}
 

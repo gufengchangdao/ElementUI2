@@ -1080,7 +1080,7 @@ public class SearchableBar extends JToolBar implements SearchableProvider {
 		if (_searchHistory == null) {
 			_searchHistory = new ArrayList<>();
 		}
-		if (_searchHistory.size() <= 0) {
+		if (_searchHistory.size() == 0) {
 			_searchHistory.add(searchingText);
 			DefaultComboBoxModel model = new DefaultComboBoxModel();
 			model.addElement(searchingText);

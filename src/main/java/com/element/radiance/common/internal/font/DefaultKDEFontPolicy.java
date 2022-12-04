@@ -80,7 +80,7 @@ public class DefaultKDEFontPolicy implements FontPolicy {
 	private static FontSet fontSet = null;
 
 	@Override
-	public synchronized FontSet getFontSet() {
+	public synchronized FontSet fontSet() {
 		if (fontSet == null) {
 			fontSet = getInternalFontSet();
 		}
@@ -90,15 +90,15 @@ public class DefaultKDEFontPolicy implements FontPolicy {
 	private FontSet getInternalFontSet() {
 
 		// size is the most important, then family and then style
-		int commonSize = 10;
-		int menuSize = 10;
-		int titleSize = 10;
-		int commonStyle = Font.PLAIN;
-		int menuStyle = Font.PLAIN;
-		int titleStyle = Font.BOLD;
-		String commonFamily = SANS_SERIF;
-		String menuFamily = SANS_SERIF;
-		String titleFamily = SANS_SERIF;
+		int commonSize;
+		int menuSize;
+		int titleSize;
+		int commonStyle;
+		int menuStyle;
+		int titleStyle;
+		String commonFamily;
+		String menuFamily;
+		String titleFamily;
 
 		// size is the most important, then family and then style
 
@@ -209,9 +209,9 @@ public class DefaultKDEFontPolicy implements FontPolicy {
 
 		// <editor-fold defaultstate="collapsed" desc=" dpi settings ">
 
-		double dcommonSize = commonSize;
-		double dmenuSize = menuSize;
-		double dtitleSize = titleSize;
+		double dcommonSize;
+		double dmenuSize;
+		double dtitleSize;
 
 		int dpi;
 		try {
@@ -331,7 +331,7 @@ public class DefaultKDEFontPolicy implements FontPolicy {
 		StringBuilder sb = new StringBuilder();
 		// size same as inside BufferedReader code
 		char[] buffer = new char[8192];
-		int read = 0;
+		int read;
 		while ((read = in.read(buffer)) >= 0) {
 			sb.append(buffer, 0, read);
 		}

@@ -33,9 +33,9 @@ public class LocaleUtil {
 	 */
 	public static String getCancelString(Locale locale) {
 		String text = UIDefaultsLookup.getString("OptionPane.cancelButtonText", locale);
-		if (text == null || text.length() <= 0) {
+		if (text == null || text.length() == 0) {
 			text = UIDefaultsLookup.getString("ColorChooser.cancelText");
-			if (text == null || text.length() <= 0) {
+			if (text == null || text.length() == 0) {
 				text = ButtonResources.getResourceBundle(locale).getString("Button.cancel");
 			}
 		}
@@ -51,7 +51,7 @@ public class LocaleUtil {
 	 */
 	public static String getYesString(Locale locale) {
 		String text = UIDefaultsLookup.getString("OptionPane.yesButtonText", locale);
-		if (text == null || text.length() <= 0) {
+		if (text == null || text.length() == 0) {
 			text = ButtonResources.getResourceBundle(locale).getString("Button.yes");
 		}
 		return text;
@@ -66,7 +66,7 @@ public class LocaleUtil {
 	 */
 	public static String getNoString(Locale locale) {
 		String text = UIDefaultsLookup.getString("OptionPane.noButtonText", locale);
-		if (text == null || text.length() <= 0) {
+		if (text == null || text.length() == 0) {
 			text = ButtonResources.getResourceBundle(locale).getString("Button.no");
 		}
 		return text;

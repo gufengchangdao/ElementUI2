@@ -17,7 +17,7 @@ public class Divider extends BaseComponent {
 	private JLabel label;
 	/** 设置分割线文案的位置，从上到下，从左到右的百分比位置 */
 	private float position = 0.5f;
-	private boolean isHorizontal = true;
+	private boolean isHorizontal;
 	private int gap = 5;
 	private int length;
 	private int stroke = 1;

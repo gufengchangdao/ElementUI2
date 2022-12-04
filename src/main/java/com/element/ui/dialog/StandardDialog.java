@@ -194,21 +194,6 @@ abstract public class StandardDialog extends JDialog implements ButtonNames {
 	}
 
 	/**
-	 * @deprecated As of JDK version 1.5, replaced by {@link Component#setVisible(boolean)
-	 * Component.setVisible(boolean)}.
-	 */
-	@Override
-	@Deprecated
-	public void show() {
-		try {
-			initialize();
-		} catch (Exception e) {
-			throw new RuntimeException(e);
-		}
-		super.show();
-	}
-
-	/**
 	 * Force the initComponent() method implemented in the child class to be called. If this method is called more than
 	 * once on a given object, all calls but the first do nothing.
 	 */

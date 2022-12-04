@@ -76,7 +76,7 @@ public abstract class AbstractListIntelliHints<E> extends AbstractIntelliHints {
 	 * @return the list.
 	 */
 	protected JList<E> createList() {
-		return new JList<E>() {
+		return new JList<>() {
 			@Override
 			public int getVisibleRowCount() {
 				int size = getModel().getSize();

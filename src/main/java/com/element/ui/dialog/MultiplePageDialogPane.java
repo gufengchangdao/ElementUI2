@@ -312,7 +312,7 @@ public class MultiplePageDialogPane extends StandardDialogPane {
 				_tabbedPane.setEnabledAt(i, page.isPageEnabled());
 				final int index = i;
 				page.addPropertyChangeListener(evt -> {
-					if (AbstractDialogPage.PROPERTY_PAGE_ENABLED.equals(evt.getPropertyName())) {
+					if (AbstractDialogPage.PAGE_ENABLED_PROPERTY.equals(evt.getPropertyName())) {
 						_tabbedPane.setEnabledAt(index, Boolean.TRUE.equals(evt.getNewValue()));
 					} else if (AbstractDialogPage.ICON_PROPERTY.equals(evt.getPropertyName())) {
 						_tabbedPane.setIconAt(index, (Icon) evt.getNewValue());
@@ -421,17 +421,12 @@ public class MultiplePageDialogPane extends StandardDialogPane {
 	 * @return the index panel.
 	 */
 	public JComponent createIndexPanel() {
-		switch (_style) {
-			case ICON_STYLE:
-				return createIconPanel();
-			case LIST_STYLE:
-				return createListPanel();
-			case TREE_STYLE:
-				return createTreePanel();
-			case TAB_STYLE:
-			default:
-				return null;
-		}
+		return switch (_style) {
+			case ICON_STYLE -> createIconPanel();
+			case LIST_STYLE -> createListPanel();
+			case TREE_STYLE -> createTreePanel();
+			default -> null;
+		};
 	}
 
 	/**
@@ -531,11 +526,10 @@ public class MultiplePageDialogPane extends StandardDialogPane {
 				Set<String> set = _titleNodeMap.keySet();
 				Vector<String> toBeRemoved = new Vector<>();
 				for (String o : set) {
-					String title = o;
-					if (_pageList.getPageByFullTitle(title) == null) {
-						DefaultMutableTreeNode treeNode = (DefaultMutableTreeNode) _titleNodeMap.get(title);
+					if (_pageList.getPageByFullTitle(o) == null) {
+						DefaultMutableTreeNode treeNode = (DefaultMutableTreeNode) _titleNodeMap.get(o);
 						if (treeNode != null) {
-							toBeRemoved.add(title);
+							toBeRemoved.add(o);
 							DefaultMutableTreeNode parentNode = (DefaultMutableTreeNode) treeNode.getParent();
 							if (parentNode != null) {
 								int index = parentNode.getIndex(treeNode);
@@ -832,7 +826,7 @@ public class MultiplePageDialogPane extends StandardDialogPane {
 				}
 			});
 			optionsPanel.addPropertyChangeListener(evt -> {
-				if (AbstractDialogPage.PROPERTY_PAGE_ENABLED.equals(evt.getPropertyName())) {
+				if (AbstractDialogPage.PAGE_ENABLED_PROPERTY.equals(evt.getPropertyName())) {
 					button.setEnabled(Boolean.TRUE.equals(evt.getNewValue()));
 				} else if (AbstractDialogPage.ICON_PROPERTY.equals(evt.getPropertyName())) {
 					button.setIcon((Icon) evt.getNewValue());

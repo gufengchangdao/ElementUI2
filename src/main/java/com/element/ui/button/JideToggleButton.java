@@ -268,7 +268,7 @@ public class JideToggleButton extends JideButton implements Accessible {
 			_itemListener = event -> {
 				fireItemStateChanged(event);
 				Action action = getAction();
-				if (action != null && hasSelectedKey(action)) {
+				if (hasSelectedKey(action)) {
 					boolean selected = isSelected();
 					boolean isActionSelected = isSelected(action);
 					if (isActionSelected != selected) {

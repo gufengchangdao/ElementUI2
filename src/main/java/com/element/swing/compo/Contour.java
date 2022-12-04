@@ -33,7 +33,7 @@ public class Contour extends JComponent implements IContour {
 	/**
 	 * width of the contour.
 	 */
-	private int _thickness = 4;
+	private int _thickness;
 
 	/**
 	 * the width of tab if in tab-docked mode.

@@ -45,18 +45,5 @@ public class VsnetLookAndFeelExtension extends BasicLookAndFeelExtension {
 		// common
 		table.put("JideTabbedPaneUI", vsnetPackageName + "VsnetJideTabbedPaneUI");
 		table.put("GripperUI", vsnetPackageName + "VsnetGripperUI");
-
-		int products = LookAndFeelFactory.getProductsUsed();
-
-		if ((products & PRODUCT_DOCK) != 0) {
-			// dock
-			table.put("SidePaneUI", vsnetPackageName + "VsnetSidePaneUI");
-			table.put("DockableFrameUI", vsnetPackageName + "VsnetDockableFrameUI");
-		}
-
-		if ((products & PRODUCT_COMPONENTS) != 0) {
-			// components
-			table.put("CollapsiblePaneUI", vsnetPackageName + "VsnetCollapsiblePaneUI");
-		}
 	}
 }

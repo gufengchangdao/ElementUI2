@@ -23,47 +23,45 @@ public class Office2003JideTabbedPaneUI extends VsnetJideTabbedPaneUI {
 			return;
 
 		switch (getTabShape()) {
-			case JideTabbedPane.SHAPE_ROUNDED_FLAT:
+			case JideTabbedPane.SHAPE_ROUNDED_FLAT -> {
 				_selectColor1 = getPainter().getControlShadow();
 				_selectColor2 = getPainter().getControlShadow();
 				_unselectColor1 = _selectColor1;
 				_unselectColor2 = _selectColor2;
-				break;
-			case JideTabbedPane.SHAPE_BOX:
+			}
+			case JideTabbedPane.SHAPE_BOX -> {
 				_selectColor1 = getPainter().getControlShadow();
 				_selectColor2 = getPainter().getControlShadow();
 				_unselectColor1 = getPainter().getControlShadow();
 				_unselectColor2 = _lightHighlight;
-				break;
-			case JideTabbedPane.SHAPE_EXCEL:
+			}
+			case JideTabbedPane.SHAPE_EXCEL -> {
 				_selectColor1 = getPainter().getControlShadow();
 				_selectColor2 = null;
 				_selectColor3 = null;
 				_unselectColor1 = getPainter().getControlShadow();
 				_unselectColor2 = null;
 				_unselectColor3 = null;
-				break;
-			case JideTabbedPane.SHAPE_WINDOWS:
-			case JideTabbedPane.SHAPE_WINDOWS_SELECTED:
+			}
+			case JideTabbedPane.SHAPE_WINDOWS, JideTabbedPane.SHAPE_WINDOWS_SELECTED -> {
 				_selectColor1 = _lightHighlight;
 				_selectColor2 = getPainter().getControlDk();
 				_selectColor3 = getPainter().getControlShadow();
 				_unselectColor1 = _selectColor1;
 				_unselectColor2 = _selectColor2;
 				_unselectColor3 = _selectColor3;
-				break;
-			case JideTabbedPane.SHAPE_VSNET:
+			}
+			case JideTabbedPane.SHAPE_VSNET -> {
 				_selectColor1 = getPainter().getControlShadow();
 				_selectColor2 = getPainter().getControlShadow();
 				_unselectColor1 = getPainter().getControlShadow();
-				break;
-			case JideTabbedPane.SHAPE_OFFICE2003:
-			default:
+			}
+			default -> {
 				_selectColor1 = getPainter().getControlShadow();
 				_unselectColor1 = getPainter().getControlShadow();
 				_unselectColor2 = _lightHighlight;
 				_unselectColor3 = getPainter().getControlDk();
-				break;
+			}
 		}
 
 		installBackgroundColor();
@@ -97,8 +95,8 @@ public class Office2003JideTabbedPaneUI extends VsnetJideTabbedPaneUI {
 		if (_tabPane.isOpaque()) {
 			int width = c.getWidth();
 			int height = c.getHeight();
-			int h = 0;
-			int w = 0;
+			int h;
+			int w;
 			Graphics2D g2d = (Graphics2D) g;
 
 			if (_tabPane.getTabCount() > 0) {

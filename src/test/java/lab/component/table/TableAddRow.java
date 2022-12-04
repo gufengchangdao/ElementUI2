@@ -76,7 +76,7 @@ class RowDataModel extends DefaultTableModel {
 	private int number;
 
 	public void addRowData(RowData t) {
-		Object[] obj = {number, t.getName(), t.getComment()};
+		Object[] obj = {number, t.name(), t.comment()};
 		super.addRow(obj);
 		number++;
 	}
@@ -101,35 +101,13 @@ class RowDataModel extends DefaultTableModel {
 		return COLUMN_ARRAY[column].columnName;
 	}
 
-	private static class ColumnContext {
-		public final String columnName;
-		public final Class<?> columnClass;
-		public final boolean isEditable;
-
-		protected ColumnContext(String columnName, Class<?> columnClass, boolean isEditable) {
-			this.columnName = columnName;
-			this.columnClass = columnClass;
-			this.isEditable = isEditable;
-		}
+	private record ColumnContext(String columnName, Class<?> columnClass, boolean isEditable) {
 	}
 }
 
-class RowData {
-	private final String name;
-	private final String comment;
+record RowData(String name, String comment) {
 
-	protected RowData(String name, String comment) {
-		this.name = name;
-		this.comment = comment;
-	}
 
-	public String getName() {
-		return name;
-	}
-
-	public String getComment() {
-		return comment;
-	}
 }
 
 class TablePopupMenu extends JPopupMenu {

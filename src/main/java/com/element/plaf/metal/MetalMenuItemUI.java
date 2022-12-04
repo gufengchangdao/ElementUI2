@@ -523,8 +523,8 @@ public class MetalMenuItemUI extends MenuItemUI {
 		JMenuItem b = (JMenuItem) c;
 		ButtonModel model = b.getModel();
 
-		int menuWidth = 0;
-		int menuHeight = 0;
+		int menuWidth;
+		int menuHeight;
 
 		if (UIUtil.getOrientationOf(menuItem) == SwingConstants.HORIZONTAL) {
 			//   Dimension size = b.getSize();
@@ -823,7 +823,6 @@ public class MetalMenuItemUI extends MenuItemUI {
 		 */
 		if ((acceleratorText == null) || acceleratorText.equals("")) {
 			acceleratorRect.width = acceleratorRect.height = 0;
-			acceleratorText = "";
 		} else {
 			acceleratorRect.width = SwingUtilities.computeStringWidth(fmAccel, acceleratorText);
 			acceleratorRect.height = fmAccel.getHeight();
@@ -922,9 +921,8 @@ public class MetalMenuItemUI extends MenuItemUI {
 	 * level menu (on the menubar).
 	 */
 	private boolean useCheckAndArrow() {
-		boolean b = (!(menuItem instanceof JMenu)) ||
+		return (!(menuItem instanceof JMenu)) ||
 				(!((JMenu) menuItem).isTopLevelMenu());
-		return b;
 	}
 
 	public MenuElement[] getPath() {

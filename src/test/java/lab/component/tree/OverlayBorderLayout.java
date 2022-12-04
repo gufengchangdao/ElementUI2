@@ -63,7 +63,7 @@ public class OverlayBorderLayout extends JPanel {
 		searchBox.setVisible(false);
 
 		Timer animator = new Timer(5, handler);
-		int modifiers = Toolkit.getDefaultToolkit().getMenuShortcutKeyMask();
+		int modifiers = Toolkit.getDefaultToolkit().getMenuShortcutKeyMaskEx();
 		// Java 10: int modifiers = Toolkit.getDefaultToolkit().getMenuShortcutKeyMaskEx();
 		InputMap im = p.getInputMap(WHEN_ANCESTOR_OF_FOCUSED_COMPONENT);
 		im.put(KeyStroke.getKeyStroke(KeyEvent.VK_F, modifiers), "open-searchbox");
@@ -214,8 +214,7 @@ class FindNextAction extends AbstractAction {
 
 	private static void searchTree(JTree tree, TreePath path, String q, java.util.List<TreePath> results) {
 		Object o = path.getLastPathComponent();
-		if (o instanceof TreeNode) {
-			TreeNode node = (TreeNode) o;
+		if (o instanceof TreeNode node) {
 			if (node.toString().startsWith(q)) {
 				results.add(path);
 				tree.expandPath(path.getParentPath());

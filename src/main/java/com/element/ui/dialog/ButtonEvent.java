@@ -184,38 +184,17 @@ public class ButtonEvent extends EventObject {
 	 * @return a string identifying the event and its attributes
 	 */
 	public String paramString() {
-		String typeStr;
-		switch (getID()) {
-			case SHOW_BUTTON:
-				typeStr = "SHOW_BUTTON";
-				break;
-			case HIDE_BUTTON:
-				typeStr = "HIDE_BUTTON";
-				break;
-			case ENABLE_BUTTON:
-				typeStr = "ENABLE_BUTTON";
-				break;
-			case DISABLE_BUTTON:
-				typeStr = "DISABLE_BUTTON";
-				break;
-			case CHANGE_BUTTON_TEXT:
-				typeStr = "CHANGE_BUTTON_TEXT";
-				break;
-			case CHANGE_BUTTON_MNEMONIC:
-				typeStr = "CHANGE_BUTTON_MNEMONIC";
-				break;
-			case CHANGE_BUTTON_TOOLTIP:
-				typeStr = "CHANGE_BUTTON_TOOLTIP";
-				break;
-			case CHANGE_BUTTON_FOCUS:
-				typeStr = "CHANGE_BUTTON_FOCUS";
-				break;
-			case SET_DEFAULT_BUTTON:
-				typeStr = "SET_DEFAULT_BUTTON";
-				break;
-			default:
-				typeStr = "BUTTON_EVENT_UNKNOWN";
-		}
-		return typeStr;
+		return switch (getID()) {
+			case SHOW_BUTTON -> "SHOW_BUTTON";
+			case HIDE_BUTTON -> "HIDE_BUTTON";
+			case ENABLE_BUTTON -> "ENABLE_BUTTON";
+			case DISABLE_BUTTON -> "DISABLE_BUTTON";
+			case CHANGE_BUTTON_TEXT -> "CHANGE_BUTTON_TEXT";
+			case CHANGE_BUTTON_MNEMONIC -> "CHANGE_BUTTON_MNEMONIC";
+			case CHANGE_BUTTON_TOOLTIP -> "CHANGE_BUTTON_TOOLTIP";
+			case CHANGE_BUTTON_FOCUS -> "CHANGE_BUTTON_FOCUS";
+			case SET_DEFAULT_BUTTON -> "SET_DEFAULT_BUTTON";
+			default -> "BUTTON_EVENT_UNKNOWN";
+		};
 	}
 }

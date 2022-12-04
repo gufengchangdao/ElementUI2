@@ -129,16 +129,7 @@ class FileModel extends DefaultTableModel {
 		return COLUMN_ARRAY[column].columnName;
 	}
 
-	private static class ColumnContext {
-		public final String columnName;
-		public final Class<?> columnClass;
-		public final boolean isEditable;
-
-		protected ColumnContext(String columnName, Class<?> columnClass, boolean isEditable) {
-			this.columnName = columnName;
-			this.columnClass = columnClass;
-			this.isEditable = isEditable;
-		}
+	private record ColumnContext(String columnName, Class<?> columnClass, boolean isEditable) {
 	}
 }
 

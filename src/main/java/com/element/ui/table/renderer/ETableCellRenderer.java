@@ -51,9 +51,9 @@ public class ETableCellRenderer extends JLabel implements TableCellRenderer {
 	                                               boolean isSelected, boolean hasFocus,
 	                                               int row, int column) {
 		// 根据优先级逐个判断单元格状态，并设置其信息
-		Color fg = null;
+		Color fg;
 		Color bg = null;
-		Border bor = null;
+		Border bor;
 		JTable.DropLocation dropLocation = table.getDropLocation();
 		if (dropLocation != null
 				&& !dropLocation.isInsertRow()

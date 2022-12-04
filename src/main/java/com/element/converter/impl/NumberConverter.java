@@ -72,15 +72,11 @@ public abstract class NumberConverter extends ObjectConverter {
 		// format on userObject has a higher priority.
 		try {
 			if (context == null || context.getUserObject() == null || !(context.getUserObject() instanceof NumberFormat format)) {
-				if (object instanceof Number && ((Number) object).doubleValue() == Double.NaN) {
-					return "";
-				} else {
-					String text = getNumberFormat().format(object);
-					if (isAvoidNegativeZero()) {
-						text = trimNegativeSign(text);
-					}
-					return text;
+				String text = getNumberFormat().format(object);
+				if (isAvoidNegativeZero()) {
+					text = trimNegativeSign(text);
 				}
+				return text;
 			} else {
 				String text = format.format(object);
 				if (isAvoidNegativeZero()) {
