@@ -18,6 +18,5 @@ public interface ButtonListener extends EventListener {
 	 *
 	 * @param e a ButtonEvent object
 	 */
-	void buttonEventFired(ButtonEvent e);
+	void buttonStateChangeListener(ButtonEvent e);
 }
-

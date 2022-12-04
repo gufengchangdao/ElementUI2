@@ -156,7 +156,7 @@ public abstract class AbstractDialogPage extends AbstractPage {
 					_buttonEvent.setButtonName(buttonName);
 					_buttonEvent.setUserObject(userObject);
 				}
-				((ButtonListener) listeners[i + 1]).buttonEventFired(_buttonEvent);
+				((ButtonListener) listeners[i + 1]).buttonStateChangeListener(_buttonEvent);
 			}
 		}
 	}

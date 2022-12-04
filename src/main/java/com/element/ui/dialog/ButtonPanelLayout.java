@@ -9,6 +9,7 @@ package com.element.ui.dialog;
 import javax.swing.*;
 import java.awt.*;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.Vector;
@@ -36,17 +37,17 @@ class ButtonPanelLayout implements LayoutManager2, Serializable {
 	 */
 	public static final int PAGE_AXIS = 3;
 
-	private Container _target;
+	private final Container _target;
 
 	private transient SizeRequirements[] _xChildren;
 	private transient SizeRequirements[] _yChildren;
 	private transient SizeRequirements _xTotal;
 	private transient SizeRequirements _yTotal;
 
-	private List<Component> _affirmativeButtons = new Vector<>(13);
-	private List<Component> _cancelButtons = new Vector<>(13);
-	private List<Component> _helpButtons = new Vector<>(13);
-	private List<Component> _otherButtons = new Vector<>(13);
+	private final List<Component> _affirmativeButtons = new ArrayList<>(13);
+	private final List<Component> _cancelButtons = new ArrayList<>(13);
+	private final List<Component> _helpButtons = new ArrayList<>(13);
+	private final List<Component> _otherButtons = new ArrayList<>(13);
 
 	int _minWidth; // calculated value by checkRequests
 

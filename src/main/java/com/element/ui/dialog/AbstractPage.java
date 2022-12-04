@@ -240,7 +240,7 @@ public abstract class AbstractPage extends JPanel implements Laziness {
 		_pageEvent = new PageEvent(source, id);
 		for (int i = listeners.length - 2; i >= 0; i -= 2) {
 			if (listeners[i] == PageListener.class) {
-				((PageListener) listeners[i + 1]).pageEventFired(_pageEvent);
+				((PageListener) listeners[i + 1]).pageEventListener(_pageEvent);
 			}
 		}
 	}

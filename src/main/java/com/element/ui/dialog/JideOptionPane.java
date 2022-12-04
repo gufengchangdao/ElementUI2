@@ -31,7 +31,6 @@ import java.util.Locale;
 public class JideOptionPane extends JOptionPane {
 	private Object _title;
 	private Object _details;
-//    private boolean _bannerVisible = true;
 
 	/**
 	 * Bound property name for <code>details</code>.
@@ -81,11 +80,13 @@ public class JideOptionPane extends JOptionPane {
 	 * @param newType the type of the option pane.
 	 */
 	@Override
+	@SuppressWarnings("all") //CLOSE_OPTION允许
 	public void setOptionType(int newType) {
 		if (newType != DEFAULT_OPTION && newType != YES_NO_OPTION &&
 				newType != YES_NO_CANCEL_OPTION && newType != OK_CANCEL_OPTION
 				&& newType != CLOSE_OPTION)
-			throw new RuntimeException("JOptionPane: option type must be one of JOptionPane.DEFAULT_OPTION, JOptionPane.YES_NO_OPTION, JOptionPane.YES_NO_CANCEL_OPTION or JOptionPane.OK_CANCEL_OPTION");
+			throw new RuntimeException("JOptionPane: option type must be one of JOptionPane.DEFAULT_OPTION, " +
+					"JOptionPane.YES_NO_OPTION, JOptionPane.YES_NO_CANCEL_OPTION or JOptionPane.OK_CANCEL_OPTION");
 
 		int oldType = optionType;
 
@@ -175,14 +176,6 @@ public class JideOptionPane extends JOptionPane {
 			updateUI();
 		}
 	}
-
-	//    public boolean isBannerVisible() {
-//        return _bannerVisible;
-//    }
-//
-//    public void setBannerVisible(boolean bannerVisible) {
-//        _bannerVisible = bannerVisible;
-//    }
 
 	/**
 	 * Shows a question-message dialog requesting input from the user. The dialog uses the default frame, which usually

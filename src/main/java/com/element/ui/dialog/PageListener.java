@@ -18,6 +18,6 @@ public interface PageListener extends EventListener {
 	 *
 	 * @param e a PageEvent object
 	 */
-	void pageEventFired(PageEvent e);
+	void pageEventListener(PageEvent e);
 }
 

@@ -22,7 +22,6 @@ import java.lang.reflect.Method;
  * A resizable undecorated dialog.
  */
 public class ResizableDialog extends JDialog implements ResizableSupport {
-
 	private ResizablePanel _resizablePanel;
 	private boolean _routingKeyStrokes;
 
@@ -130,7 +129,7 @@ public class ResizableDialog extends JDialog implements ResizableSupport {
 				// check if the root pane of the source component has any registered action
 				if (e.getSource() instanceof JComponent) {
 					JRootPane rootPane = ((JComponent) e.getSource()).getRootPane();
-					Class componentClass = rootPane.getClass();
+					Class<?> componentClass = rootPane.getClass();
 					while (componentClass != JComponent.class && componentClass != null) {
 						componentClass = componentClass.getSuperclass();
 					}

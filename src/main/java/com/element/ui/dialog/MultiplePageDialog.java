@@ -87,7 +87,7 @@ public class MultiplePageDialog extends StandardDialog {
 
 	private TreeCellRenderer _treeCellRenderer;
 
-	private ListCellRenderer _listCellRenderer;
+	private ListCellRenderer<Object> _listCellRenderer;
 	private JTabbedPane _tabbedPane;
 
 	private String _initialPageTitle;
@@ -881,42 +881,6 @@ public class MultiplePageDialog extends StandardDialog {
 		return new MutableTreeNodeEx(dialogPage);
 	}
 
-/*
-    private void removePage(AbstractDialogPage dialogPage, final DefaultMutableTreeNode root, boolean fireEvent) {
-        if (dialogPage == null) {
-            return;
-        }
-
-        DefaultMutableTreeNode treeNode = (DefaultMutableTreeNode) _titleNodeMap.get(dialogPage.getFullTitle());
-
-        if (treeNode == null) {
-            return;
-        }
-
-        if (treeNode.getChildCount() > 0) {
-            throw new IllegalArgumentException("Please remove all children pages before removing parent page \"" + dialogPage.getFullTitle() + "\"");
-        }
-        _titleNodeMap.remove(dialogPage.getFullTitle());
-        if (dialogPage.getParentPage() == null) {
-            int index = root.getIndex(treeNode);
-            root.remove(treeNode);
-            if (fireEvent) {
-                ((DefaultTreeModel) _tree.getModel()).nodesWereRemoved(root, new int[]{index}, new Object[]{treeNode});
-            }
-        }
-        else {
-            DefaultMutableTreeNode parentNode = (DefaultMutableTreeNode) _titleNodeMap.get(dialogPage.getParentPage().getFullTitle());
-            if (parentNode != null) {
-                int index = parentNode.getIndex(treeNode);
-                parentNode.remove(treeNode);
-                if (fireEvent) {
-                    ((DefaultTreeModel) _tree.getModel()).nodesWereRemoved(parentNode, new int[]{index}, new Object[]{treeNode});
-                }
-            }
-        }
-    }
-*/
-
 	private JComponent createListPanel() {
 		final DefaultListModel listModel = new DefaultListModel();
 		for (int i = 0; i < _pageList.getPageCount(); i++) {
@@ -1207,7 +1171,7 @@ public class MultiplePageDialog extends StandardDialog {
 	 *
 	 * @return the list cell renderer.
 	 */
-	protected ListCellRenderer getListCellRenderer() {
+	protected ListCellRenderer<Object> getListCellRenderer() {
 		return _listCellRenderer;
 	}
 
@@ -1225,7 +1189,7 @@ public class MultiplePageDialog extends StandardDialog {
 	 *
 	 * @return the list cell renderer.
 	 */
-	protected ListCellRenderer createListCellRenderer() {
+	protected ListCellRenderer<Object> createListCellRenderer() {
 		if (getListCellRenderer() == null) {
 			setListCellRenderer(new DialogPageListCellRenderer());
 		}

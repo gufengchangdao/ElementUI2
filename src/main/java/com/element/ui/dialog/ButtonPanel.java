@@ -49,13 +49,13 @@ public class ButtonPanel extends JPanel implements ButtonListener, ButtonNames {
 	 * The button will produce a cancel action. Typical cancel button is Cancel. This constant is used as constraint
 	 * parameter in {@link #addButton(AbstractButton, Object)} method.
 	 */
-	public static final String CANCEL_BUTTON = "CANCEL";
+	public static final String CANCEL_BUTTON = CANCEL;
 
 	/**
 	 * The button will open some help windows. This constant is used as constraint parameter in {@link
 	 * #addButton(AbstractButton, Object)} method.
 	 */
-	public static final String HELP_BUTTON = "HELP";
+	public static final String HELP_BUTTON = HELP;
 
 	/**
 	 * The button will produce an alternative action different neither an affirmative or cancel action. Typical
@@ -360,7 +360,7 @@ public class ButtonPanel extends JPanel implements ButtonListener, ButtonNames {
 		_layout.setMinButtonWidth(minButtonWidth);
 	}
 
-	public void buttonEventFired(ButtonEvent e) {
+	public void buttonStateChangeListener(ButtonEvent e) {
 		if (e.getID() == ButtonEvent.CLEAR_DEFAULT_BUTTON) {
 			JRootPane rootPane = getRootPane();
 			if (rootPane != null && rootPane.getDefaultButton() != null) {

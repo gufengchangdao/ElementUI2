@@ -13,12 +13,7 @@ import java.awt.*;
  */
 class DialogPageListCellRenderer extends DefaultListCellRenderer {
 	@Override
-	public Component getListCellRendererComponent(
-			JList list,
-			Object value,
-			int index,
-			boolean isSelected,
-			boolean cellHasFocus) {
+	public Component getListCellRendererComponent(JList list, Object value, int index, boolean isSelected, boolean cellHasFocus) {
 		if (value instanceof AbstractDialogPage page) {
 			return super.getListCellRendererComponent(list, page.getTitle(), index, isSelected, cellHasFocus);
 		} else {

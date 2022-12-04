@@ -14,7 +14,7 @@ import java.util.List;
 /**
  * A list of AbstractDialogPage or its subclasses. It is used by MultiplePageDialog and Wizard.
  */
-public class PageList extends DefaultComboBoxModel {
+public class PageList extends DefaultComboBoxModel<AbstractDialogPage> {
 	/**
 	 * If you know the full title of any page, use this method to get the actual page from the list.
 	 *
@@ -23,7 +23,7 @@ public class PageList extends DefaultComboBoxModel {
 	 */
 	public AbstractDialogPage getPageByFullTitle(String title) {
 		for (int i = 0; i < getSize(); i++) {
-			AbstractDialogPage page = (AbstractDialogPage) getElementAt(i);
+			AbstractDialogPage page = getElementAt(i);
 			if (page.getFullTitle().equals(title)) {
 				return page;
 			}
@@ -39,7 +39,7 @@ public class PageList extends DefaultComboBoxModel {
 	 */
 	public int getPageIndexByFullTitle(String title) {
 		for (int i = 0; i < getSize(); i++) {
-			AbstractDialogPage page = (AbstractDialogPage) getElementAt(i);
+			AbstractDialogPage page = getElementAt(i);
 			if (page.getFullTitle().equals(title)) {
 				return i;
 			}
@@ -104,7 +104,7 @@ public class PageList extends DefaultComboBoxModel {
 	 * @return the page.
 	 */
 	public AbstractDialogPage getPage(int i) {
-		return (AbstractDialogPage) getElementAt(i);
+		return getElementAt(i);
 	}
 
 	/**
