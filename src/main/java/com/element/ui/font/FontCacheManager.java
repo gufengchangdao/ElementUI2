@@ -16,11 +16,11 @@ import java.util.Map;
  * 在这个类中，我们有字体和派生字体的全局映射。运行很长时间后，它可能会很大。
  * 在这种情况下，您需要使用 {@link #clearDerivedFontCache()} 显式清除此类中的字体缓存。
  */
-public class FontUtils {
+public class FontCacheManager {
 	private static class FontAttribute {
-		private Font _font;
-		private int _style;
-		private float _size;
+		private final Font _font;
+		private final int _style;
+		private final float _size;
 
 		FontAttribute(Font font, int style, float size) {
 			_font = font;
@@ -29,24 +29,11 @@ public class FontUtils {
 		}
 
 		public boolean equals(Object o) {
-			if (this == o) {
-				return true;
-			}
-			if (!(o instanceof FontAttribute that)) {
-				return false;
-			}
-
-			if (Float.compare(that._size, _size) != 0) {
-				return false;
-			}
-			if (_style != that._style) {
-				return false;
-			}
-			if (_font == null || !_font.equals(that._font)) {
-				return false;
-			}
-
-			return true;
+			if (this == o) return true;
+			if (!(o instanceof FontAttribute that)) return false;
+			if (Float.compare(that._size, _size) != 0) return false;
+			if (_style != that._style) return false;
+			return _font != null && _font.equals(that._font);
 		}
 
 		public int hashCode() {

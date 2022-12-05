@@ -1,6 +1,6 @@
 package com.element.ui.others.badge;
 
-import com.element.ui.label.badge.BadgeLabel;
+import com.element.ui.label.BadgeLabel;
 
 import javax.swing.*;
 import java.awt.*;

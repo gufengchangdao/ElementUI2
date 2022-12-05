@@ -6,7 +6,7 @@
 package com.element.plaf.basic;
 
 import com.element.plaf.UIDefaultsLookup;
-import com.element.ui.font.FontUtils;
+import com.element.ui.font.FontCacheManager;
 import com.element.ui.label.StyleRange;
 import com.element.ui.label.StyledLabel;
 import com.element.util.UIUtil;
@@ -259,7 +259,7 @@ public class BasicStyledLabelUI extends BasicLabelUI implements SwingConstants {
 				font = getFont(label);
 				int styleHeight = fm.getHeight();
 				if (style != null && ((style.getFontStyle() != -1 && font.getStyle() != style.getFontStyle()) || font.getSize() != size)) {
-					font = FontUtils.getCachedDerivedFont(font, style.getFontStyle() == -1 ? font.getStyle() : style.getFontStyle(), size);
+					font = FontCacheManager.getCachedDerivedFont(font, style.getFontStyle() == -1 ? font.getStyle() : style.getFontStyle(), size);
 					fm2 = label.getFontMetrics(font);
 					styleHeight = fm2.getHeight();
 				}
@@ -303,7 +303,7 @@ public class BasicStyledLabelUI extends BasicLabelUI implements SwingConstants {
 					continue;
 				}
 				if (style != null && ((style.getFontStyle() != -1 && font.getStyle() != style.getFontStyle()) || font.getSize() != size)) {
-					font = FontUtils.getCachedDerivedFont(font, style.getFontStyle() == -1 ? font.getStyle() : style.getFontStyle(), size);
+					font = FontCacheManager.getCachedDerivedFont(font, style.getFontStyle() == -1 ? font.getStyle() : style.getFontStyle(), size);
 					fm2 = label.getFontMetrics(font);
 					width += fm2.stringWidth(s);
 				} else {
@@ -385,7 +385,7 @@ public class BasicStyledLabelUI extends BasicLabelUI implements SwingConstants {
 
 			font = getFont(label); // cannot omit this one
 			if (style != null && ((style.getFontStyle() != -1 && font.getStyle() != style.getFontStyle()) || font.getSize() != size)) {
-				font = FontUtils.getCachedDerivedFont(font, style.getFontStyle() == -1 ? font.getStyle() : style.getFontStyle(), size);
+				font = FontCacheManager.getCachedDerivedFont(font, style.getFontStyle() == -1 ? font.getStyle() : style.getFontStyle(), size);
 				fm2 = label.getFontMetrics(font);
 			} else {
 				fm2 = fm;
@@ -514,7 +514,7 @@ public class BasicStyledLabelUI extends BasicLabelUI implements SwingConstants {
 			int size = (style != null && (style.isSuperscript() || style.isSubscript())) ? Math.round((float) defaultFontSize / style.getFontShrinkRatio()) : defaultFontSize;
 			font = getFont(label);
 			if (style != null && ((style.getFontStyle() != -1 && font.getStyle() != style.getFontStyle()) || font.getSize() != size)) {
-				font = FontUtils.getCachedDerivedFont(font, style.getFontStyle() == -1 ? font.getStyle() : style.getFontStyle(), size);
+				font = FontCacheManager.getCachedDerivedFont(font, style.getFontStyle() == -1 ? font.getStyle() : style.getFontStyle(), size);
 				fm2 = label.getFontMetrics(font);
 			} else {
 				fm2 = fm;
@@ -687,7 +687,7 @@ public class BasicStyledLabelUI extends BasicLabelUI implements SwingConstants {
 
 				font = getFont(label);
 				if (style != null && ((style.getFontStyle() != -1 && font.getStyle() != style.getFontStyle()) || font.getSize() != size)) {
-					font = FontUtils.getCachedDerivedFont(font, style.getFontStyle() == -1 ? font.getStyle() : style.getFontStyle(), size);
+					font = FontCacheManager.getCachedDerivedFont(font, style.getFontStyle() == -1 ? font.getStyle() : style.getFontStyle(), size);
 					fm2 = label.getFontMetrics(font);
 					maxRowHeight = Math.max(maxRowHeight, fm2.getHeight());
 					minStartY = Math.max(minStartY, fm2.getAscent());
@@ -750,7 +750,7 @@ public class BasicStyledLabelUI extends BasicLabelUI implements SwingConstants {
 
 					font = getFont(label);
 					if (style != null && ((style.getFontStyle() != -1 && font.getStyle() != style.getFontStyle()) || font.getSize() != size)) {
-						font = FontUtils.getCachedDerivedFont(font, style.getFontStyle() == -1 ? font.getStyle() : style.getFontStyle(), size);
+						font = FontCacheManager.getCachedDerivedFont(font, style.getFontStyle() == -1 ? font.getStyle() : style.getFontStyle(), size);
 						fm2 = label.getFontMetrics(font);
 					} else {
 						fm2 = fm;
@@ -864,7 +864,7 @@ public class BasicStyledLabelUI extends BasicLabelUI implements SwingConstants {
 
 					font = getFont(label);
 					if (nextStyle != null && ((nextStyle.getFontStyle() != -1 && font.getStyle() != nextStyle.getFontStyle()) || font.getSize() != size)) {
-						font = FontUtils.getCachedDerivedFont(font, nextStyle.getFontStyle() == -1 ? font.getStyle() : nextStyle.getFontStyle(), size);
+						font = FontCacheManager.getCachedDerivedFont(font, nextStyle.getFontStyle() == -1 ? font.getStyle() : nextStyle.getFontStyle(), size);
 						nextFm2 = label.getFontMetrics(font);
 					} else {
 						nextFm2 = fm;
@@ -1083,7 +1083,7 @@ public class BasicStyledLabelUI extends BasicLabelUI implements SwingConstants {
 
 				font = getFont(label);
 				if (style.getFontStyle() != -1 && font.getStyle() != style.getFontStyle() || font.getSize() != size) {
-					font = FontUtils.getCachedDerivedFont(font, style.getFontStyle() == -1 ? font.getStyle() : style.getFontStyle(), size);
+					font = FontCacheManager.getCachedDerivedFont(font, style.getFontStyle() == -1 ? font.getStyle() : style.getFontStyle(), size);
 					fm2 = label.getFontMetrics(font);
 				} else {
 					fm2 = fm;
@@ -1178,7 +1178,7 @@ public class BasicStyledLabelUI extends BasicLabelUI implements SwingConstants {
 
 				font = getFont(label);
 				if (nextStyle != null && ((nextStyle.getFontStyle() != -1 && font.getStyle() != nextStyle.getFontStyle()) || font.getSize() != size)) {
-					font = FontUtils.getCachedDerivedFont(font, nextStyle.getFontStyle() == -1 ? font.getStyle() : nextStyle.getFontStyle(), size);
+					font = FontCacheManager.getCachedDerivedFont(font, nextStyle.getFontStyle() == -1 ? font.getStyle() : nextStyle.getFontStyle(), size);
 					nextFm2 = label.getFontMetrics(font);
 				} else {
 					nextFm2 = fm;

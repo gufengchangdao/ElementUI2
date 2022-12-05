@@ -11,23 +11,22 @@ import java.util.List;
 import java.util.*;
 
 /**
- * <code>StyledLabelBuilder</code> is a quick way to define StyledLabel. It provides two ways to handle the creation and
- * modification of StyleLabels.
- * <p/>
- * The first is to use it as a builder (thus the name). This way is preferred if you want to create a StyledLabel with a
- * specific format and partially generic content. Example:
- * <pre><code>StyledLabel label = new StyledLabelBuilder()
+ * StyledLabelBuilder是一种快速定义 StyledLabel 的方法。它提供了两种方法来处理 StyleLabel 的创建和修改。
+ * <p>
+ * 第一种是将其用作构建器（因此得名）。如果您想创建具有特定格式和部分通用内容的 StyledLabel，则首选这种方式。例子：
+ * <pre><code>
+ * StyledLabel label = new StyledLabelBuilder()
  * 	.add(file.getName())
  * 	.add(" (", Font.BOLD)
  * 	.add(file.getPath(), "italic") // using annotation style - see section two for information about annotations
  * 	.add(")", Font.BOLD)
- * 	.createLabel();</code></pre>
- * This code would be used to create a label like "something.txt (/temp/something.txt)" with some styling (the braces
- * would be bold, the path would be italic). In case you find yourself reusing a specific style quite often in such a
- * label you might consider to create a style for it. This can be done with the help of the {@link #register}-methods.
- * As an example, the code above could be rewritten like this (though it only pays off when used for creation of longer
- * styles):
- * <pre><code>StyledLabelBuilder builder = new StyledLabelBuilder()
+ * 	.createLabel();
+ * 	</code></pre>
+ * 此代码将用于创建带有某些样式的标签，如“something.txt (/temp/something.txt)”（大括号为粗体，路径为斜体）。如果您发现自己经常在这样的
+ * 标签中重复使用特定样式，您可能会考虑为其创建一个样式。这可以在register方法的帮助下完成。例如，上面的代码可以这样重写（尽管它只有在用于创
+ * 建更长的样式时才有用）：
+ * <pre><code>
+ * StyledLabelBuilder builder = new StyledLabelBuilder()
  * 	.register("OPERATOR", Font.BOLD, new Color(0x000052)) // use parameters
  * 	.register("PATH", "italic, f:#0000CD"); // or style annotations
  * StyledLabel label = builder
@@ -35,76 +34,79 @@ import java.util.*;
  * 	.add(" (", "OPERATOR")
  * 	.add(file.getPath(), "PATH,underlined") // use a style + style annotation
  * 	.add(")", "OPERATOR")
- * 	.createLabel();</code></pre>
- * Note that we're using different font colors this time. It pays off as soon as you want to modify a specific group of
- * text parts or as your styles start to get more complicated. The {@link #clear()}-method is very useful if you want to
- * use these styles. Instead of re-creating a new builder each time, you can use the clear-method to clear the internal
- * buffer of text without removing the previously defined styles.
- * <p/>
- * Let's have an example (we're going to reuse the code from above!):
- * <pre><code>builder.clear();
+ * 	.createLabel();
+ * 	</code></pre>
+ * 请注意，我们这次使用了不同的字体颜色。一旦您想要修改一组特定的文本部分或当您的样式开始变得更加复杂时，它就会得到回报。如果您想使用这些样式，
+ * {@link #clear()}方法非常有用。不必每次都重新创建一个新的构建器，您可以使用 clear 方法清除文本的内部缓冲区，而无需删除先前定义的样式。
+ * <p>
+ * 让我们举个例子（我们将重用上面的代码！）：
+ * <pre><code>
+ * builder.clear();
  * builder
  * 	.add(file.getName())
  * 	.add(" (", "OPERATOR")
  * 	.add(file.getPath(), "PATH")
  * 	.add(")", "OPERATOR")
- *  .configure(label);</code></pre>
- * <p/>
- * Please be noted that you need escape the ":" in your text string when necessary. For example, "{00:00:00:BOLD}" need
- * to be changed as "{00\\:00\\:00:BOLD}.
- * <p/>
- * If we were using Java 5, we could also do this:
- * <pre><code>// no need to call {@link #clear()} this time
- * builder.configure(label, String.format("%s ({%s:PATH})", file.getName(), file.getPath()));</code></pre>
- * <p/>
- * Each of the {@link #add} and {@link #register} methods is the same as using the corresponding StyleRange-constructor
- * directly (except that you don't have to care about its start and length).
- * <p/>
- * The second, even more advanced, way to use this class is in combination with an annotated string. Using the static
- * {@link #setStyledText} or {@link #createStyledLabel} methods you can create a fully styled label from just on string.
- * This is ideal if you need the string to be configurable or locale-specific. The usage is even more easy than the
- * builder-approach: <code>StyledLabel label = StyledLabelBuilder.createStyledLabel("I'm your {first:bold} styled
- * {label:italic}!");</code> In the above example, the resulting label would have a a bold "first" and an italic
- * "label". Each annotation is started by a "{" and ended by a "}". The text you want to be styled accordingly is
- * separated from its annotations by a ":". If your text needs to contain a ":" itself, you need to escape it using the
- * "\" character. The same goes for "{" that are not supposed to start an annotation. You don't need to escape the "}"
- * at all. If it is used within the annotated string it'll be ignored. It only counts after the annotation separator
- * (":"). There are multiply annotations available. Each annotation offers a shortcut made up from one or two of their
- * characters. For example: We used "bold" and "italic" in the example above, but we could've used "b" and "i" instead.
- * It is also possible to combine multiple styles by separating them with a ",". As an example: <code>{This text is
- * bold, italic and blue:b,i,f:blue}</code> Instead of writing "b,i" you can also write "bi" or "bolditalic". This
- * example brings us to colors. They've to be started with "f" or "font" for the font-color or "l" or "line" for the
- * line-color or "b" or "background" for the background color. There are a lot of ways to specify a color. You may use
- * its HTML name (as I did in the above example) or any of these: f:(0,0,255) f:#00F l:#0000FF l:0x0000FF The "#00F"
- * notation is just like it is in CSS. It is the same as if you had written "#0000FF". You can get and modify the map of
- * color-names the parser is using with the static {@link #getColorNamesMap()}-method.
- * <p/>
- * You saw some styles above. Here is a complete list of styles and its shortcut.
- * <p/>
- * <b>Font styles</b> <ul> <li>plain or p <li>bold or b <li>italic or i <li>bolditalic or bi </ul> <b>Additional
- * styles</b> <ul> <li>strike or s <li>doublestrike or ds <li>waved or w <li>underlined or u <li>dotted or d
- * <li>superscript or sp <li>subscript or sb </ul> <b>Global flags</b>: You can enable global flags by using "@" at the
- * end of the String. <ul> <li>rows or row or r: it can take up to three parameters separately ":". The first one is
- * preferred rows, the second one is minimum rows and the last one is the maximum rows. </ul>
- * <p/>
+ *  .configure(label);
+ * </code></pre>
+ * <p>
+ * 请注意，必要时您需要对文本字符串中的“:”进行转义。例如，“{00:00:00:BOLD}”需要更改为“{00\\:00\\:00:BOLD}。
+ * <p>
+ * 每个{@link #add} 和 {@link #register}都与直接使用相应的 StyleRange-constructor 相同（除此您不必关心它的开始和长度）。
+ * <p>
+ * 第二种甚至更高级的使用此类的方法是结合带注释的字符串。使用静态setStyledText或{@link #createStyledLabel}方法，您可以仅从字符串创建完全样式化的
+ * 标签。如果您需要字符串是可配置的或特定于区域设置的，这是理想的选择。用法比构建器方法更简单：
+ * <pre><code>
+ *  StyledLabel label = StyledLabelBuilder.createStyledLabel("I'm your {first:bold} styled {label:italic}!");
+ * </code></pre>
+ * <p>
+ * 在上面的示例中，生成的标签将有一个粗体“first”和一个斜体“label”。每个注解都以“{”开始，以“}”结束。您想要设置相应样式的文本通过“:”与其注
+ * 释分开。如果您的文本本身需要包含“:”，则需要使用“\”字符对其进行转义。不应该开始注释的“{”也是如此。您根本不需要转义“}”。如果它在带注释的字
+ * 符串中使用，它将被忽略。它仅在注释分隔符（“:”）之后计算。有多个注释可用。每个注释都提供了一个由一个或两个字符组成的快捷方式。例如：我们在
+ * 上面的示例中使用了“粗体”和“斜体”，但我们可以使用“b”和“i”来代替。也可以通过用“,”分隔多个样式来组合它们。例如：
+ * {This text is bold, italic and blue:b,i,f:blue}
+ * 除了写“b,i”你也可以写“bi”或“bolditalic”。这个例子给我们带来了颜色。字体颜色必须以“f”或“font”开头，线条颜色必须以“l”或“line”开头，背
+ * 景颜色必须以“b”或“background”开头。有很多方法可以指定颜色。您可以使用它的 HTML 名称（如我在上面的示例中所做的那样）或以下任何名称：
+ * f:(0,0,255) f:#00F l:#0000FF l:0x0000FF
+ * “#00F”符号就像它在CSS。就好像你写了“#0000FF”一样。您可以使用静态{@link #getColorNamesMap()}方法获取和修改解析器正在使用的颜色名称映射。
+ * <p>
+ * 你在上面看到了一些样式。这是样式及其快捷方式的完整列表。
+ * <p>
+ * 字体样式
+ * <ul>
+ *     <li>plain or p
+ *     <li>bold or b
+ *     <li>italic or i
+ *     <li>bolditalic or bi<b>Additional styles</b>
+ *     <li>strike or s
+ *     <li>doublestrike or ds
+ *     <li>waved or w
+ *     <li>underlined or u
+ *     <li>dotted or d
+ *     <li>superscript or sp
+ *     <li>subscript or sb
+ * </ul>
+ *
+ * <b>Global flags</b>: 您可以通过在字符串末尾使用“@”来启用全局标志。
+ * rows or row or r: 它最多可以带三个参数分别为: 第一个是首选行，第二个是最小行，最后一个是最大行。
  *
  * @author Patrick Gotthardt
  */
 public class StyledLabelBuilder {
-	private StringBuffer buffer;
-	private List ranges;
+	private final StringBuilder builder;
+	private final List<StyleRange> ranges;
 	private int start;
-	private Map styles;
+	private final Map<String, StyleRange> styles;
 
 	public StyledLabelBuilder() {
-		buffer = new StringBuffer();
-		ranges = new ArrayList();
-		styles = new HashMap();
+		builder = new StringBuilder();
+		ranges = new ArrayList<>();
+		styles = new HashMap<>();
 		start = 0;
 	}
 
 	public void clear() {
-		buffer.delete(0, buffer.length());
+		builder.delete(0, builder.length());
 		ranges.clear();
 		start = 0;
 	}
@@ -161,10 +163,8 @@ public class StyledLabelBuilder {
 		return this;
 	}
 
-	//
-
 	public StyledLabelBuilder add(String text) {
-		buffer.append(text);
+		builder.append(text);
 		start += text.length();
 		return this;
 	}
@@ -209,8 +209,8 @@ public class StyledLabelBuilder {
 		return add(text);
 	}
 
-	public StyledLabelBuilder add(String text, String style) {
-		StyleRange range = (StyleRange) styles.get(style);
+	public StyledLabelBuilder add(String text,String style) {
+		StyleRange range = styles.get(style);
 		// not a stored style, thus it might be an annotation
 		if (range == null) {
 			ParsedStyleResult result = parseStyleAnnotation(style.toCharArray(), 0, this);
@@ -235,10 +235,9 @@ public class StyledLabelBuilder {
 	}
 
 	public StyledLabel configure(StyledLabel label) {
-		label.setText(buffer.toString());
-		int size = ranges.size();
-		for (Object range : ranges) {
-			label.addStyleRange((StyleRange) range);
+		label.setText(builder.toString());
+		for (StyleRange range : ranges) {
+			label.addStyleRange(range);
 		}
 		return label;
 	}
@@ -341,7 +340,7 @@ public class StyledLabelBuilder {
 			}
 			String property = subStrings[0].trim().toLowerCase();
 			if ("rows".equals(property) || "row".equals(property) || "r".equals(property)) {
-				if (subStrings.length > 4 || subStrings.length < 1) {
+				if (subStrings.length > 4) {
 					return false;
 				}
 				if (subStrings.length >= 2 && subStrings[1].trim().length() > 0) {
@@ -550,7 +549,7 @@ public class StyledLabelBuilder {
 				} else if (style.equals("subscript") || style.equals("sb")) {
 					result.additionalStyle |= StyleRange.STYLE_SUBSCRIPT;
 				} else if (builder != null && builder.styles.containsKey(style)) {
-					StyleRange range = (StyleRange) builder.styles.get(style);
+					StyleRange range = builder.styles.get(style);
 					result.fontStyle = range.getFontStyle();
 					result.fontColor = range.getFontColor();
 					result.backgroundColor = range.getBackgroundColor();
@@ -599,7 +598,7 @@ public class StyledLabelBuilder {
 			case '0':
 				return new Color(Integer.parseInt(str.substring(2), 16));
 			default:
-				return (Color) colorNamesMap.get(str);
+				return colorNamesMap.get(str);
 		}
 	}
 
@@ -634,16 +633,16 @@ public class StyledLabelBuilder {
 		return colorShorthandTable[c - '0'];
 	}
 
-	private static int[] colorShorthandTable = {
+	private static final int[] colorShorthandTable = {
 			0x00, 0x11, 0x22, 0x33, 0x44, 0x55, 0x66,
 			0x77, 0x88, 0x99, 0xAA, 0xBB, 0xCC, 0xDD,
 			0xEE, 0xFF
 	};
 
-	private static Map colorNamesMap;
+	private static final Map<String, Color> colorNamesMap;
 
 	static {
-		colorNamesMap = new TreeMap();
+		colorNamesMap = new TreeMap<>();
 		colorNamesMap.put("white", new Color(0xFFFFFF));
 		colorNamesMap.put("lightGray", new Color(0xC0C0C0));
 		colorNamesMap.put("gray", new Color(0x808080));
@@ -659,28 +658,28 @@ public class StyledLabelBuilder {
 		colorNamesMap.put("blue", new Color(0x0000FF));
 	}
 
-	public static Map getColorNamesMap() {
+	public static Map<String, Color> getColorNamesMap() {
 		return colorNamesMap;
 	}
 
 	private static String createTrimmedString(char[] text, int start, int end) {
-		for (; (text[start] == ' ' || text[start] == '\t') && start < text.length; start++) ;
-		for (; (text[end] == ' ' || text[end] == '\t') && start < end; end--) ;
+		for (; start < text.length && (text[start] == ' ' || text[start] == '\t'); start++) ;
+		for (; start < end && (text[end] == ' ' || text[end] == '\t'); end--) ;
 		// need to remove escape chars
 		if (end >= start) {
-			StringBuilder buffer = new StringBuilder(end - start);
+			StringBuilder b = new StringBuilder(end - start);
 			boolean escaped = false;
 			for (int i = start; i <= end; i++) {
 				if (text[i] == '\\' && !escaped) {
 					escaped = true;
 				} else {
-					buffer.append(text[i]);
+					b.append(text[i]);
 					if (escaped) {
 						escaped = false;
 					}
 				}
 			}
-			return buffer.toString();
+			return b.toString();
 		} else {
 			return "";
 		}

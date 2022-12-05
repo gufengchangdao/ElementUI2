@@ -14,6 +14,7 @@ import java.awt.*;
 
 /**
  * 普通 JLabel 不能有多行。如果你想要多行标签，你可以使用这个类。
+ * 使用HTML也能自动换行，但渲染比较耗时，只是为了换行的话建议使用该类，使用HTML的JLabel与JTextArea性能差了20~30倍
  */
 public class MultilineLabel extends JTextArea {
 	public MultilineLabel() {

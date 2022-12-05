@@ -22,7 +22,6 @@ import java.lang.reflect.Method;
  * A resizable undecorated frame.
  */
 public class ResizableFrame extends JFrame implements ResizableSupport {
-
 	protected ResizablePanel _resizablePanel;
 	private boolean _routingKeyStrokes;
 

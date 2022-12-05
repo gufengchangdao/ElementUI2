@@ -10,10 +10,8 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ComponentEvent;
 import java.awt.event.ComponentListener;
-import java.util.Hashtable;
+import java.util.*;
 import java.util.List;
-import java.util.Map;
-import java.util.Vector;
 
 /**
  * DefaultOverlayable是使用 JPanel 作为基础组件的Overlayable的默认实现。
@@ -48,7 +46,7 @@ public class DefaultOverlayable extends JPanel implements Overlayable, Component
 	private void initComponents() {
 		setLayout(null);
 		_overlayComponents = new Vector<>();
-		_overlayLocations = new Hashtable<>();
+		_overlayLocations = new HashMap<>();
 	}
 
 	/**

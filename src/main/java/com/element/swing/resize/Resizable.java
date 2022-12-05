@@ -21,7 +21,6 @@ import java.awt.*;
  * doesn't work as expected for some layouts, you can override one of all of the three methods to make it working.
  */
 public class Resizable {
-
 	public static final int NONE = 0x0;
 	public static final int UPPER_LEFT = 0x1;
 	public static final int UPPER = 0x2;

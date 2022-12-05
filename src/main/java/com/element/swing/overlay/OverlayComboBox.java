@@ -32,5 +32,4 @@ public class OverlayComboBox<E> extends JComboBox<E> {
 		super.repaint(tm, x, y, width, height);
 		OverlayableUtil.repaintOverlayable(this);
 	}
-
 }

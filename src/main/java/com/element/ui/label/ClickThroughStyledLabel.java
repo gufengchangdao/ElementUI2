@@ -23,7 +23,6 @@ import java.awt.event.MouseEvent;
  * on it for important decision in your code.
  */
 public class ClickThroughStyledLabel extends StyledLabel implements MouseInputListener {
-
 	private Component _target;
 
 	public ClickThroughStyledLabel() {

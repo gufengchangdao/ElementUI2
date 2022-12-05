@@ -14,21 +14,17 @@ import java.awt.*;
 import java.awt.event.MouseEvent;
 
 /**
- * <tt>ClickThroughLabel</tt> is a special JLabel that will retarget all mouse events to specified target component.
- * <p/>
- * For example, you need to paint some text on a JComponent. Usually you can call Java2D paint text method and paint the
- * text. However the other way to do it is to add JLabel to JComponent and JLabel will not only paint the text but also
- * an optional icon which is better. However if you had mouse listener added to JComponent, the mouse listener will not
- * receive any mouse events when mouse clicks on the JLabel. By using this <tt>ClickThroughLabel</tt>, mouse event will
- * be passed to underlying JComponent.
- * <p/>
- * Please note, we didn't pass all mouse events. In most cases, MOUSE_EXITED and MOUSE_ENTERED doesn't make sense to
- * pass through. However there are cases, for example when the JLabel is at the border of JComponent, you may expect
- * MOUSE_ENTERED event on JComponent but it will not happen. So please be aware of those cases so that you don't depend
- * on it for important decision in your code.
+ * lickThroughLabel是一个特殊的 JLabel，它将所有鼠标事件重新定位到指定的目标组件。
+ * <p>
+ * 例如，您需要在 JComponent 上绘制一些文本。通常你可以调用 Java2D 的 paint text 方法来绘制文本。然而，另一种方法是将 JLabel 添加到
+ * JComponent，JLabel 不仅会绘制文本，还会绘制一个更好的可选图标。但是，如果您将鼠标侦听器添加到 JComponent，则当鼠标单击 JLabel 时，鼠
+ * 标侦听器将不会接收任何鼠标事件。通过使用此ClickThroughLabel ，鼠标事件将传递到底层 JComponent。
+ * <p>
+ * 请注意，我们没有传递所有鼠标事件。在大多数情况下，通过 MOUSE_EXITED 和 MOUSE_ENTERED 是没有意义的。但是有些情况下，例如当 JLabel
+ * 位于 JComponent 的边界时，您可能期望 JComponent 上发生 MOUSE_ENTERED 事件，但它不会发生。所以请注意这些情况，这样您就不会依赖它来
+ * 做出代码中的重要决定。
  */
 public class ClickThroughLabel extends JLabel implements MouseInputListener {
-
 	private Component _target;
 
 	public ClickThroughLabel() {

@@ -34,11 +34,6 @@ public interface Demo extends Serializable {
 	Class<?>[] getDemoSource();
 
 	/**
-	 * 获取演示源代码的文件夹。
-	 */
-	String getDemoFolder();
-
-	/**
 	 * 处理演示。演示关闭时将调用它。
 	 */
 	void dispose();

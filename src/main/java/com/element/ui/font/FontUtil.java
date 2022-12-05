@@ -3,6 +3,7 @@ package com.element.ui.font;
 import com.element.plaf.WindowsDesktopProperty;
 import com.element.util.SystemInfo;
 import org.apache.batik.ext.swing.Resources;
+import org.intellij.lang.annotations.MagicConstant;
 
 import javax.swing.*;
 import javax.swing.plaf.FontUIResource;

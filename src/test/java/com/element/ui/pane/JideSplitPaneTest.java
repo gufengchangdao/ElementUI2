@@ -68,11 +68,6 @@ public class JideSplitPaneTest extends AbstractDemo {
 		return switchPanel;
 	}
 
-	@Override
-	public String getDemoFolder() {
-		return "B5.JideSplitPane";
-	}
-
 	public static void main(String[] args) {
 		SwingUtilities.invokeLater(() -> {
 			SwingTestUtil.loadSkin();
@@ -85,7 +80,7 @@ public class JideSplitPaneTest extends AbstractDemo {
 	private static JideSplitPane createSplitPane() {
 		JTree tree = new JTree();
 		JTable table = new JTable(new DefaultTableModel(10, 3));
-		JList list = new JList(new Object[]{"A", "B", "C", "D", "E", "F", "G", "H", "I",}) {
+		JList<String> list = new JList<>(new String[]{"A", "B", "C", "D", "E", "F", "G", "H", "I",}) {
 			@Override
 			public Dimension getPreferredScrollableViewportSize() {
 				Dimension size = super.getPreferredScrollableViewportSize();

@@ -1,4 +1,7 @@
-package com.element.ui.label.badge;
+package com.element.ui.label;
+
+import com.element.util.OverlayableUtil;
+import org.jetbrains.annotations.Nullable;
 
 import javax.swing.*;
 import java.awt.*;
@@ -8,10 +11,10 @@ import static com.element.util.UIUtil.resetRenderingHints;
 import static com.element.util.UIUtil.setRenderingHints;
 
 /**
- * 标记
+ * 标记，支持叠加
  */
 public class BadgeLabel extends JLabel {
-	public BadgeLabel(String text, Color bg, Color fg) {
+	public BadgeLabel(@Nullable("为null时绘制圆点") String text, Color bg, Color fg) {
 		super(text, CENTER);
 		setBackground(bg);
 		setForeground(fg);
@@ -25,6 +28,12 @@ public class BadgeLabel extends JLabel {
 			s.height += 6;
 			setPreferredSize(s);
 		}
+	}
+
+	@Override
+	public void repaint(long tm, int x, int y, int width, int height) {
+		super.repaint(tm, x, y, width, height);
+		OverlayableUtil.repaintOverlayable(this);
 	}
 
 	@Override

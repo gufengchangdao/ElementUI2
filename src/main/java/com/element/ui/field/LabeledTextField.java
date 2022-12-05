@@ -14,6 +14,7 @@ import com.element.ui.menu.JidePopupMenu;
 import com.element.util.SelectAllUtil;
 import com.element.util.SystemInfo;
 import com.element.util.UIUtil;
+import org.jetbrains.annotations.Nullable;
 
 import javax.swing.*;
 import javax.swing.border.Border;

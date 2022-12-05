@@ -179,7 +179,7 @@ abstract public class AbstractDemo implements Demo {
 			if (source.length > 0) {
 				nameList.add(Resource.RB.getString("Demo.source"));
 				JPanel panel = new JPanel(new BorderLayout(4, 4));
-				StringBuilder sourceFiles = new StringBuilder(MessageFormat.format(Resource.RB.getString("Demo.location"), "examples/" + demo.getDemoFolder()));
+				StringBuilder sourceFiles = new StringBuilder(MessageFormat.format(Resource.RB.getString("Demo.location"), "test/java/"));
 				for (String s : source) {
 					sourceFiles.append("\n  - ");
 					sourceFiles.append(s);
@@ -248,10 +248,6 @@ abstract public class AbstractDemo implements Demo {
 	 */
 	public Class<?>[] getDemoSource() {
 		return new Class[]{getClass()};
-	}
-
-	public String getDemoFolder() {
-		return "";
 	}
 
 	public static JButton createBrowseSourceCodeButton(final JFrame frame, final Demo demo) {

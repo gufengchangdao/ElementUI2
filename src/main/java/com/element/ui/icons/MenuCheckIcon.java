@@ -14,15 +14,14 @@ import java.awt.*;
 import java.io.Serializable;
 
 /**
- * Icon wrapper class for check icons. The only thing this class does is to check the selection before it really paints
- * its wrapped icon. The reason we provide this class is that similar mechanism resides in Swing and we cannot override it.
- * So if we just update the UI with normal icons, the icon could be displayed unexpectedly. With this icon wrapper class,
- * you can get exactly the same behavior with Swing default icons.
+ * 检查图标的图标包装类。只有图标绘制在按钮上并且按钮是选中状态才绘制。
+ * 这个类唯一做的就是在它真正绘制它的包装图标之前检查选择。我们提供此类的原因是类似的机制存在于 Swing 中，我们无法覆
+ * 盖它。因此，如果我们只是用普通图标更新 UI，图标可能会意外显示。使用这个图标包装器类，您可以获得与 Swing 默认图标完全相同的行为。
  */
 public class MenuCheckIcon implements Icon, UIResource, Serializable {
-	private ImageIcon _icon;
+	private final Icon _icon;
 
-	public MenuCheckIcon(ImageIcon icon) {
+	public MenuCheckIcon(Icon icon) {
 		if (icon == null) {
 			throw new IllegalArgumentException("The icon should not be null.");
 		}
@@ -30,19 +29,16 @@ public class MenuCheckIcon implements Icon, UIResource, Serializable {
 	}
 
 	public int getIconHeight() {
-		return getIcon().getIconHeight();
+		return _icon.getIconHeight();
 	}
 
 	public int getIconWidth() {
-		return getIcon().getIconWidth();
+		return _icon.getIconWidth();
 	}
 
 	public void paintIcon(Component c, Graphics g, int x, int y) {
-		Icon icon = getIcon();
 		if (c instanceof AbstractButton b) {
-			if (b.isSelected()) {
-				icon.paintIcon(c, g, x, y);
-			}
+			if (b.isSelected()) _icon.paintIcon(c, g, x, y);
 		}
 	}
 

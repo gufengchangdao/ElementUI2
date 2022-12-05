@@ -6,14 +6,14 @@ import java.awt.font.GlyphVector;
 
 /**
  * 带有描边的标签类
- * <p>
- * 虽然继承JLabel就可以了，但为了省事，这里直接继承JLabel
  */
 public class StrokeLabel extends JLabel {
-	private String text;
 	private int strokeWidth = 1;
 	private Color strokeColor = Color.RED;
 	private Shape shape;
+
+	public StrokeLabel() {
+	}
 
 	public StrokeLabel(String text, int horizontalAlignment) {
 		super(text, horizontalAlignment);
@@ -34,21 +34,17 @@ public class StrokeLabel extends JLabel {
 	 */
 	public StrokeLabel(String text, Font font, Color fontColor, int strokeWidth, Color strokeColor) {
 		super(text);
-		this.text = text;
 		this.strokeWidth = strokeWidth;
 		this.strokeColor = strokeColor;
 		setFont(font);
 		setForeground(fontColor);
 	}
 
-	public StrokeLabel() {
-	}
-
 	@Override
 	protected void paintComponent(Graphics g) {
 		if (shape == null) {
 			Font f = getFont();
-			GlyphVector v = f.createGlyphVector(getFontMetrics(f).getFontRenderContext(), text);
+			GlyphVector v = f.createGlyphVector(getFontMetrics(f).getFontRenderContext(), getText());
 			shape = v.getOutline();
 		}
 		Rectangle bounds = shape.getBounds();
@@ -65,17 +61,6 @@ public class StrokeLabel extends JLabel {
 		g2.setColor(strokeColor);
 		g2.setStroke(new BasicStroke(strokeWidth));
 		g2.draw(shape);
-	}
-
-	@Override
-	public String getText() {
-		return text;
-	}
-
-	@Override
-	public void setText(String text) {
-		this.text = text;
-		repaint();
 	}
 
 	public int getStrokeWidth() {

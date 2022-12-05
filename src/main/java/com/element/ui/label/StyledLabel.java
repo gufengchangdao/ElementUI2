@@ -11,6 +11,7 @@ import com.element.plaf.basic.BasicStyledLabelUI;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Vector;
 
@@ -178,7 +179,7 @@ public class StyledLabel extends JLabel {
 
 	private List<StyleRange> internalGetStyleRanges() {
 		if (_styleRanges == null) {
-			_styleRanges = new Vector<>();
+			_styleRanges = new ArrayList<>();
 		}
 		return _styleRanges;
 	}
