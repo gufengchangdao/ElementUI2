@@ -24,7 +24,6 @@ public class BasicLookAndFeelExtension implements ProductNames {
 	 */
 	public static void initClassDefaults(UIDefaults table) {
 		final String basicPackageName = "com.element.plaf.basic.";
-
 		// common
 		table.put("JidePopupMenuUI", basicPackageName + "BasicJidePopupMenuUI");
 		table.put("HeaderBoxUI", basicPackageName + "BasicHeaderBoxUI");

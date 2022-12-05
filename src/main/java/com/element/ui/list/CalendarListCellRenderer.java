@@ -1,4 +1,4 @@
-package com.element.ui.field.renderer;
+package com.element.ui.list;
 
 import javax.swing.*;
 import javax.swing.border.Border;
@@ -9,7 +9,7 @@ import java.io.Serializable;
 import java.util.Calendar;
 import java.util.function.Function;
 
-public class CalendarComboBoxRenderer extends JLabel implements ListCellRenderer<Calendar>, Serializable, Function<Calendar, String> {
+public class CalendarListCellRenderer extends JLabel implements ListCellRenderer<Calendar>, Serializable, Function<Calendar, String> {
 	/** 默认格式化器是例如 13:51 这样的结构 */
 	private Function<Calendar, String> formatter = this;
 	/**
@@ -21,13 +21,13 @@ public class CalendarComboBoxRenderer extends JLabel implements ListCellRenderer
 	/**
 	 * 构造一个BasicComboBoxRenderer的新实例。
 	 */
-	public CalendarComboBoxRenderer() {
+	public CalendarListCellRenderer() {
 		super();
 		setOpaque(true);
 		setBorder(getNoFocusBorder());
 	}
 
-	public CalendarComboBoxRenderer(Function<Calendar, String> formatter) {
+	public CalendarListCellRenderer(Function<Calendar, String> formatter) {
 		super();
 		this.formatter = formatter;
 		setOpaque(true);

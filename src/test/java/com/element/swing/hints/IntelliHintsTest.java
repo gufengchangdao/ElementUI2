@@ -1,9 +1,6 @@
-package com.element.hints;
+package com.element.swing.hints;
 
 import com.element.plaf.LookAndFeelFactory;
-import com.element.swing.hints.AbstractListIntelliHints;
-import com.element.swing.hints.FileIntelliHints;
-import com.element.swing.hints.ListDataIntelliHints;
 import com.element.ui.layout.JideBoxLayout;
 import com.element.util.SelectAllUtil;
 import com.element.util.SwingTestUtil;
@@ -13,8 +10,6 @@ import org.jdesktop.swingx.JXTable;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
-import java.awt.event.ItemEvent;
-import java.awt.event.ItemListener;
 import java.math.BigInteger;
 import java.util.List;
 import java.util.Vector;

@@ -9,13 +9,14 @@ import javax.swing.text.JTextComponent;
 import java.util.AbstractList;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Vector;
 
 /**
  * <code>ListDataIntelliHints</code> is a concrete implementation of {@link IntelliHints}. It
  * provides hints from a known list of data. It is similar to auto complete text field except the list will be filtered
  * depending on what user types in so far.
  */
-public class ListDataIntelliHints<T> extends AbstractListIntelliHints {
+public class ListDataIntelliHints<T> extends AbstractListIntelliHints<T> {
 	private boolean _caseSensitive = false;
 	private List<T> _completionList;
 
@@ -75,10 +76,8 @@ public class ListDataIntelliHints<T> extends AbstractListIntelliHints {
 		for (T o : getCompletionList()) {
 			if (compare(context, o)) possibleHints.add(o);
 		}
-
-		Object[] objects = possibleHints.toArray();
-		setListData(objects);
-		return objects.length > 0;
+		setListData(new Vector<>(possibleHints));
+		return possibleHints.size() > 0;
 	}
 
 	/**

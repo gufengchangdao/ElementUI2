@@ -27,7 +27,6 @@ public class AutoCompletionComboBoxTest extends AbstractDemo {
 
 		Color[] colors = {ColorUtil.WARNING, ColorUtil.PRIMARY, ColorUtil.INFO, ColorUtil.BORDER_LEVEL1};
 		AutoCompletionComboBox<Color> autoCompletionComboBox = new AutoCompletionComboBox<>(colors);
-		// 初始化默认转换器，如果已经初始化了方法里不会再初始化的
 
 		// 设置render，修改显示的字符串
 		ListCellRenderer<? super Color> oldRender = autoCompletionComboBox.getRenderer();
@@ -54,6 +53,7 @@ public class AutoCompletionComboBoxTest extends AbstractDemo {
 		EventQueue.invokeLater(() -> {
 			SwingTestUtil.loadSkin();
 			LookAndFeelFactory.installJideExtension();
+			// 初始化默认转换器，如果已经初始化了方法里不会再初始化的
 			ObjectConverterManager.initDefaultConverter();
 			showAsFrame(new AutoCompletionComboBoxTest());
 		});

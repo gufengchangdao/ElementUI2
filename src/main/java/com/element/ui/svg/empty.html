@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>图标列表</title>
+    <style>
+        body {
+            font-family: "Trebuchet MS", Verdana, Arial, Helvetica, sans-serif;
+            background: #E6EAE9;
+        }
+
+        .mytable {
+            margin: 10px;
+            border-spacing: 0;
+            border-collapse: collapse;
+        }
+
+        tr {
+            background: #fff;
+            color: #4f6b72;
+        }
+
+        th {
+            font: bold 18px "Trebuchet MS", Verdana, Arial, Helvetica, sans-serif;
+            color: #fff;
+            border-right: 1px solid #C1DAD7;
+            border-bottom: 1px solid #C1DAD7;
+            border-top: 1px solid #C1DAD7;
+            letter-spacing: 2px;
+            text-align: left;
+            padding: 6px 6px 6px 12px;
+            background: #0098a2 no-repeat;
+        }
+
+        td {
+            border-right: 1px solid #C1DAD7;
+            border-bottom: 1px solid #C1DAD7;
+            font-size: 16px;
+            padding: 6px 6px 6px 12px;
+        }
+
+        .tr1 {
+            background-color: #269fa7;
+            color: white;
+        }
+
+        .tr2 {
+            background-color: white;
+        }
+    </style>
+</head>
+<body>
+<p><b>D:\MyRoom\ProjectCollection\JAVA\ElementUI2\src\main\java\com\element\ui\svg\empty 目录下</b></p>
+<table class="mytable">
+    <tr>
+        <th>Svg Filename</th>
+        <th>Image</th>
+        <th>Class Name</th>
+    </tr>
+    <tr>
+        <td>empty-img-simple.svg</td>
+        <td><img src="empty/empty-img-simple.svg"></td>
+        <td>EmptyImgSimpleSvg.java</td>
+    </tr>
+    <tr>
+        <td>empty-image.svg</td>
+        <td><img src="empty/empty-image.svg"></td>
+        <td>EmptyImageSvg.java</td>
+    </tr>
+    <tr>
+        <td>empty-img-gray.svg</td>
+        <td><img src="empty/empty-img-gray.svg"></td>
+        <td>EmptyImgGraySvg.java</td>
+    </tr>
+</table>
+<br>
+<script>
+    let aTr = document.getElementsByTagName("tr");
+    for (let i = 1; i < aTr.length; i++) {
+        aTr[i].onmouseover = function () {
+            aTr[i].className = "tr1";
+        }
+        aTr[i].onmouseout = function () {
+            aTr[i].className = "tr2";
+        }
+    }
+
+    filespec = "C:/path/myfile.txt"
+    var fso, s = filespec;
+    fso = new ActiveXObject("Scripting.FileSystemObject");
+    if (fso.FileExists(filespec)) s += " 文件存在.";
+    elses += " 文件不存在.";
+    alert(s);
+
+
+</script>
+</body>
+</html>

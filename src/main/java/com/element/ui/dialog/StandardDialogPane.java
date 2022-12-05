@@ -15,7 +15,7 @@ import java.awt.event.KeyEvent;
 
 /**
  * StandardDialogPane is the content pane of StandardDialog. It can also be used when you want the template of StandardDialog but you don't want to use JDialog. <UL> <LI> Introduce laziness. The
- * content will not be filled until pack() or show() be called. <LI> Default action and cancel action. User can set default action and cancel action of this dialog. By default, ENTER key will trigger
+ * content will not be filled until pack() be called. <LI> Default action and cancel action. User can set default action and cancel action of this dialog. By default, ENTER key will trigger
  * the default action and ESC key will trigger the cancel action and set the dialog result to RESULT_CANCELLED. <LI> Divide the whole ContentPane of the dialog into three parts - content panel, button
  * panel and banner panel. By default, they are added to CENTER, SOUTH and NORTH of a BorderLayout respectively. There isn't anything special about this. However if all your dialogs use this pattern,
  * it will automatically make the user interface more consistent. </UL>

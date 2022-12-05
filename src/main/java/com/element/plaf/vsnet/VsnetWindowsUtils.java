@@ -50,12 +50,6 @@ public class VsnetWindowsUtils extends VsnetLookAndFeelExtension {
 	 */
 	public static void initClassDefaults(UIDefaults table) {
 		VsnetLookAndFeelExtension.initClassDefaults(table);
-
-		final String windowsPackageName = "com.element.plaf.windows.";
-
-		// common
-		table.put("JidePopupMenuUI", windowsPackageName + "WindowsJidePopupMenuUI");
-		table.put("RangeSliderUI", windowsPackageName + "WindowsRangeSliderUI");
 	}
 
 	/**

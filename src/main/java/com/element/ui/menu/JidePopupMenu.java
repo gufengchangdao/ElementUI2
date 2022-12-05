@@ -63,6 +63,7 @@ public class JidePopupMenu extends JPopupMenu implements Scrollable {
 		if (UIDefaultsLookup.get(getUIClassID()) == null) {
 			LookAndFeelFactory.installJideExtension();
 		}
+
 		setUI((PopupMenuUI) UIManager.getUI(this));
 	}
 

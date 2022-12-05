@@ -1,65 +1,91 @@
 package com.element.ui.spinner;
 
+import com.element.color.ColorUtil;
+import com.element.converter.ObjectConverterManager;
 import com.element.radiance.common.api.icon.SvgIcon;
 import com.element.ui.border.IconBorder;
-import com.element.ui.field.InputAdviceInputField;
-import com.element.ui.field.renderer.CalendarComboBoxRenderer;
+import com.element.ui.combobox.AutoCompletionComboBox;
+import com.element.ui.icons.IconsFactory;
 import com.element.ui.svg.icon.regular.ClockSvg;
 
 import javax.swing.*;
+import javax.swing.border.Border;
 import java.awt.*;
 import java.util.Calendar;
-import java.util.List;
-import java.util.function.Function;
+import java.util.Vector;
 
 /**
- * 时间选择器，用于选择或输入时间
+ * 时间选择器，用于选择或输入时间。
+ * <p>
+ * 使用默认的类型转换器将Calendar转为String，如果需要自定义格式化，参考{@link ObjectConverterManager}
  */
-public class TimePicker extends InputAdviceInputField<Calendar> {
-	private Function<Calendar, String> formatter;
+public class TimePicker extends AutoCompletionComboBox<Calendar> {
+	private Icon icon;
+	private Border oldBorder;
 
-	/**
-	 * 带输入建议的输入框
-	 *
-	 * @param columns 用于计算首选宽度的列数;如果columns被设置为零，首选宽度将是组件实现的自然结果
-	 * @param data    建议列表
-	 */
-	public TimePicker(int columns, List<Calendar> data) {
-		super(columns, data);
+	public TimePicker() {
 		init();
 	}
 
-	public TimePicker(int columns, List<Calendar> data, Function<Calendar, String> formatter) {
-		super(columns, data);
-		this.formatter = formatter;
+	public TimePicker(Vector<Calendar> items) {
+		super(items);
+		init();
+	}
+
+	public TimePicker(Calendar[] items) {
+		super(items);
+		init();
+	}
+
+	public TimePicker(ComboBoxModel<Calendar> aModel) {
+		super(aModel);
 		init();
 	}
 
 	private void init() {
-		JTextField textField = getTextField();
-		Insets insets = textField.getInsets();
-		int size = textField.getPreferredSize().height - insets.top - insets.bottom;
-		// 设置时钟图标
-		SvgIcon icon = ClockSvg.of(size, size);
-		getTextField().setBorder(new IconBorder(0, icon.getIconWidth(), 0, 0, icon));
+		oldBorder = getBorder();
 
-		setFunction();
-		// 设置单元格的渲染
-		if (formatter != null) getComboBox().setRenderer(new CalendarComboBoxRenderer(formatter));
-		else getComboBox().setRenderer(new CalendarComboBoxRenderer());
+		int size = (int) (getPreferredSize().height * 0.75);
+		icon = IconsFactory.getSvgIcon(ClockSvg.class, size, size, ColorUtil.PRIMARY);
+		setIcon(icon);
+
+		// 初始化默认转换器，如果已经初始化了方法里不会再初始化的
+		ObjectConverterManager.initDefaultConverter();
+
+		// 设置render，修改显示的字符串
+		ListCellRenderer<? super Calendar> oldRender = getRenderer();
+		setRenderer((list, value, index, isSelected, cellHasFocus) -> {
+			Component c = oldRender.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
+			if (c instanceof JLabel)
+				((JLabel) c).setText(ObjectConverterManager.toString(value));
+			return c;
+		});
+
+		// 设置Item监听器，监听Item的选择
+		addItemListener(e -> {
+			if (getEditor().getEditorComponent() instanceof JTextField f)
+				EventQueue.invokeLater(() -> f.setText(ObjectConverterManager.toString(e.getItem())));
+		});
 	}
 
-	private void setFunction() {
-		// 点击选项时将Calendar对象转为字符串写入输入框
-		setParseTextFunction(this::calendarFormatter);
-		// 输入框输入时判断是否有相近的选项
-		setContainsFunction((calendar, s) -> calendarFormatter(calendar).contains(s));
+	/**
+	 * 设置图标
+	 *
+	 * @param icon 左侧图标
+	 */
+	public void setIcon(Icon icon) {
+		IconBorder newBorder = new IconBorder(0, icon.getIconWidth() + 4, 0, 0, icon);
+		newBorder.setVerticalIconAlignment(SwingConstants.CENTER);
+		setBorder(BorderFactory.createCompoundBorder(oldBorder, newBorder));
 	}
 
-	public String calendarFormatter(Calendar val) {
-		if (val == null) return "空";
-		if (formatter != null)
-			return formatter.apply(val);
-		return String.format("%02d:%02d", val.get(Calendar.HOUR_OF_DAY), val.get(Calendar.MINUTE));
+	@Override
+	public void setPreferredSize(Dimension preferredSize) {
+		super.setPreferredSize(preferredSize);
+		// 图标大小自适应
+		if (icon instanceof SvgIcon s) {
+			int size = (int) (preferredSize.height * 0.75);
+			s.setDimension(new Dimension(size, size));
+		}
 	}
 }

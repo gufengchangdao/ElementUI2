@@ -51,10 +51,6 @@ public class EclipseWindowsUtils extends EclipseLookAndFeelExtension {
 	 */
 	public static void initClassDefaults(UIDefaults table) {
 		EclipseLookAndFeelExtension.initClassDefaults(table);
-
-		final String windowsPackageName = "com.element.plaf.windows.";
-
-		table.put("JidePopupMenuUI", windowsPackageName + "WindowsJidePopupMenuUI");
 	}
 
 	/**

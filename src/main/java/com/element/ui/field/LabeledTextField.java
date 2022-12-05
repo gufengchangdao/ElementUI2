@@ -5,9 +5,11 @@
  */
 package com.element.ui.field;
 
+import com.element.color.ColorUtil;
 import com.element.plaf.UIDefaultsLookup;
-import com.element.swing.overlay.Overlayable;
 import com.element.swing.overlay.DefaultOverlayable;
+import com.element.swing.overlay.OverlayTextField;
+import com.element.swing.overlay.Overlayable;
 import com.element.ui.menu.JidePopupMenu;
 import com.element.util.SelectAllUtil;
 import com.element.util.SystemInfo;
@@ -24,11 +26,19 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
 /**
- * <code>LabeledTextField</code> is a combo component which includes text field and an optional JLabel in the front and
- * another optional AbstractButton at the end.
+ * LabeledTextField是一个组合组件，它在前面包含文本字段和一个可选的 JLabel，在末尾包含另一个可选的 AbstractButton。标签支持菜单，输入
+ * 框支持提示文本。
+ * <p>
+ * 直接使用支持左侧label和输入框，其他功能默认不开启。建议使用时继承该类，提供更强大的功能，你可以选择性地重写下面的方法
+ * <ul>
+ *     <li>{@link #createButton()} 创建右侧按钮</li>
+ *     <li>{@link #getHintText()} 输入框提示文本</li>
+ *     <li>{@link #customizePopupMenu(JPopupMenu)} 定制菜单内容</li>
+ *     <li>{@link #getPopupMenuCustomizer()} 结合输入框定制菜单和输入框</li>
+ * </ul>
+ * 上面是经常重写的方法，如果有需求其他方法也可以进行重写
  */
 public class LabeledTextField extends JPanel {
-
 	protected JTextField _textField;
 	protected JLabel _label;
 	protected AbstractButton _button;
@@ -69,53 +79,53 @@ public class LabeledTextField extends JPanel {
 		if (_label != null) {
 			_label.addMouseListener(new MouseAdapter() {
 				@Override
-				public void mouseClicked(MouseEvent e) {
-				}
-
-				@Override
 				public void mousePressed(MouseEvent e) {
 					showContextMenu();
 				}
-
-				@Override
-				public void mouseReleased(MouseEvent e) {
-				}
 			});
 		}
+
 		_button = createButton();
 		_textField = createTextField();
 		initLayout(_label, _textField, _button);
-		setContextMenuKeyStroke(KeyStroke.getKeyStroke(KeyEvent.VK_DOWN, KeyEvent.ALT_DOWN_MASK));
+		_contextMenuKeyStroke = KeyStroke.getKeyStroke(KeyEvent.VK_DOWN, KeyEvent.ALT_DOWN_MASK);
 		registerContextMenuKeyStroke(getContextMenuKeyStroke());
 		updateUI();
 	}
 
 	private void registerContextMenuKeyStroke(KeyStroke keyStroke) {
 		if (keyStroke != null) {
-			registerKeyboardAction(e -> showContextMenu(), keyStroke, JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT);
+			_textField.getInputMap().put(keyStroke, new AbstractAction() {
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					showContextMenu();
+				}
+			});
 		}
 	}
 
 	private void unregisterContextMenuKeyStroke(KeyStroke keyStroke) {
 		if (keyStroke != null)
-			unregisterKeyboardAction(keyStroke);
+			_textField.getInputMap().remove(keyStroke);
 	}
 
 	/**
 	 * Shows the context menu.
 	 */
 	protected void showContextMenu() {
-		if (isEnabled()) {
-			JPopupMenu menu = createContextMenu();
-			customizePopupMenu(menu);
-			PopupMenuCustomizer customizer = getPopupMenuCustomizer();
-			if (customizer != null && menu != null) {
-				customizer.customize(this, menu);
-			}
-			if (menu != null && menu.getComponentCount() > 0) {
-				Point location = calculateContextMenuLocation();
-				UIUtil.showPopupMenu(menu, this, location.x, location.y);
-			}
+		if (!isEnabled()) return;
+
+		JPopupMenu menu = createContextMenu();
+		// 定制menu内容
+		customizePopupMenu(menu);
+		// 根据输入框内容定制menu
+		PopupMenuCustomizer customizer = getPopupMenuCustomizer();
+		if (customizer != null && menu != null) {
+			customizer.customize(this, menu);
+		}
+		if (menu != null && menu.getComponentCount() > 0) {
+			Point location = calculateContextMenuLocation();
+			UIUtil.showPopupMenu(menu, this, location.x, location.y);
 		}
 	}
 
@@ -140,23 +150,22 @@ public class LabeledTextField extends JPanel {
 	}
 
 	/**
-	 * Setup the layout of the components. By default, we used a border layout with label first, field in the center and
-	 * button last.
+	 * 设置组件的布局。默认情况下，我们使用的边框布局首先是标签，中间是输入框，最后是按钮。该方法也会为输入框添加提示标签
 	 *
-	 * @param label  the label
-	 * @param field  the text field.
-	 * @param button the button
+	 * @param label  左侧标签
+	 * @param field  中间输入框
+	 * @param button 右侧按钮
 	 */
 	protected void initLayout(final JLabel label, final JTextField field, final AbstractButton button) {
 		setLayout(new BorderLayout(3, 3));
 		if (label != null) {
-			add(label, BorderLayout.BEFORE_LINE_BEGINS);
+			add(label, BorderLayout.LINE_START);
 		}
 		_hintLabel = new JLabel(getHintText());
 		_hintLabel.setOpaque(false);
 		Color foreground = UIDefaultsLookup.getColor("Label.disabledForeground");
 		if (foreground == null) {
-			foreground = Color.GRAY;
+			foreground = ColorUtil.PLACEHOLDER_TEXT;
 		}
 		_hintLabel.setForeground(foreground);
 		_hintOverlayable = new DefaultOverlayable(field, _hintLabel, DefaultOverlayable.LEADING);
@@ -231,10 +240,9 @@ public class LabeledTextField extends JPanel {
 	 * @return a text field.
 	 */
 	protected JTextField createTextField() {
-		JTextField textField = new OverlayTextField();
+		JTextField textField = new OverlayTextField(20);
 		SelectAllUtil.install(textField);
 		UIUtil.setComponentTransparent(textField);
-		textField.setColumns(20);
 		return textField;
 	}
 
@@ -260,15 +268,16 @@ public class LabeledTextField extends JPanel {
 		} else {
 			setBorder(BorderFactory.createCompoundBorder(BorderFactory.createEtchedBorder(EtchedBorder.LOWERED), BorderFactory.createEmptyBorder(2, 2, 2, 2)));
 		}
+
 		if (isEnabled()) {
 			LookAndFeel.installColors(this, "TextField.background", "TextField.foreground");
 		} else {
 			LookAndFeel.installColors(this, "TextField.disableBackground", "TextField.inactiveForeground");
 		}
+
 		if (textFieldBorder != null && _textField != null) {
 			_textField.setBorder(BorderFactory.createEmptyBorder());
 		}
-		setEnabled(isEnabled());
 	}
 
 	/**
@@ -288,9 +297,7 @@ public class LabeledTextField extends JPanel {
 	 * @return the label.
 	 */
 	protected JLabel createLabel() {
-		JLabel label = new JLabel(_icon);
-		label.setText(_labelText);
-		return label;
+		return new JLabel(_labelText, _icon, SwingConstants.CENTER);
 	}
 
 	/**
@@ -367,8 +374,8 @@ public class LabeledTextField extends JPanel {
 	 * @param columns the number of columns for this text field.
 	 */
 	public void setColumns(int columns) {
-		if (getTextField() != null) {
-			getTextField().setColumns(columns);
+		if (_textField != null) {
+			_textField.setColumns(columns);
 		}
 	}
 
@@ -378,8 +385,8 @@ public class LabeledTextField extends JPanel {
 	 * @param text the new text in this TextField.
 	 */
 	public void setText(String text) {
-		if (getTextField() != null) {
-			getTextField().setText(text);
+		if (_textField != null) {
+			_textField.setText(text);
 		}
 	}
 
@@ -389,8 +396,8 @@ public class LabeledTextField extends JPanel {
 	 * @return the text in this TextField.
 	 */
 	public String getText() {
-		if (getTextField() != null) {
-			return getTextField().getText();
+		if (_textField != null) {
+			return _textField.getText();
 		} else {
 			return null;
 		}
@@ -467,8 +474,7 @@ public class LabeledTextField extends JPanel {
 			if (value instanceof Integer) {
 				return (Integer) value;
 			}
-		} catch (NoSuchMethodException | IllegalAccessException | InvocationTargetException e) {
-			// ignore
+		} catch (NoSuchMethodException | IllegalAccessException | InvocationTargetException ignored) {
 		}
 		return -1;
 	}

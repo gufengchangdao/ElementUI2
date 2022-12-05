@@ -4,7 +4,7 @@
  * Copyright 2002 - 2007 JIDE Software Inc. All rights reserved.
  */
 
-package com.element.ui.button;
+package com.element.swing.overlay;
 
 import com.element.util.OverlayableUtil;
 
