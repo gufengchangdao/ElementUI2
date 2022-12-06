@@ -13,7 +13,7 @@ import com.element.ui.dialog.ButtonPanel;
 import com.element.ui.button.ButtonResources;
 import com.element.ui.dialog.JideOptionPane;
 import com.element.ui.layout.JideBoxLayout;
-import com.element.ui.nullc.NullPanel;
+import com.element.swing.nullc.NullPanel;
 import com.element.ui.panel.PaintPanel;
 import com.element.util.LocaleUtil;
 

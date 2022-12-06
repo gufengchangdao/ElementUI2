@@ -161,7 +161,7 @@ public class FolderToolBar extends JToolBar {
 		}
 
 		_desktopBtn = new NoFocusButton(new ToolBarAction(null,
-				SystemInfo.isWindows() ? _fsv.getSystemIcon(_fsv.getHomeDirectory()) : BasicFolderChooserIconsFactory.getImageIcon(BasicFolderChooserIconsFactory.ToolBar.HOME)) {
+				SystemInfo.isWindows() ? _fsv.getSystemIcon(_fsv.getHomeDirectory()) : BasicFolderChooserIconsFactory.ToolBar.HOME) {
 			public void actionPerformed(ActionEvent e) {
 				desktopButtonClicked();
 			}
@@ -183,7 +183,7 @@ public class FolderToolBar extends JToolBar {
 			add(_myDocumentsBtn);
 		}
 		// dredge up appropriate icons
-		Icon deleteIcon = BasicFolderChooserIconsFactory.getImageIcon(BasicFolderChooserIconsFactory.ToolBar.DELETE);
+		Icon deleteIcon = BasicFolderChooserIconsFactory.ToolBar.DELETE;
 
 		_deleteFolderBtn = new NoFocusButton(new ToolBarAction(null, deleteIcon) {
 			public void actionPerformed(ActionEvent e) {
@@ -194,7 +194,7 @@ public class FolderToolBar extends JToolBar {
 		_deleteFolderBtn.setToolTipText(resourceBundle.getString(DELETE_BUTTON_NAME));
 		_deleteFolderBtn.setName(DELETE_BUTTON_NAME);
 
-		Icon newFolderIcon = BasicFolderChooserIconsFactory.getImageIcon(BasicFolderChooserIconsFactory.ToolBar.NEW);
+		Icon newFolderIcon = BasicFolderChooserIconsFactory.ToolBar.NEW;
 		_newFolderBtn = new NoFocusButton(new ToolBarAction(null, newFolderIcon) {
 			public void actionPerformed(ActionEvent e) {
 				newFolderButtonClicked();
@@ -204,7 +204,7 @@ public class FolderToolBar extends JToolBar {
 		_newFolderBtn.setToolTipText(resourceBundle.getString(NEW_BUTTON_NAME));
 		_newFolderBtn.setName(NEW_BUTTON_NAME);
 
-		Icon refreshIcon = BasicFolderChooserIconsFactory.getImageIcon(BasicFolderChooserIconsFactory.ToolBar.REFRESH);
+		Icon refreshIcon = BasicFolderChooserIconsFactory.ToolBar.REFRESH;
 		_refreshBtn = new NoFocusButton(new ToolBarAction(null, refreshIcon) {
 			public void actionPerformed(ActionEvent e) {
 				refreshButtonClicked();

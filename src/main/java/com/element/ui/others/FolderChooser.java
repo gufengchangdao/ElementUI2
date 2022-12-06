@@ -18,13 +18,15 @@ import java.util.Comparator;
 import java.util.List;
 
 /**
- * <code>FolderChooser</code> provides a simple mechanism for the user to choose a folder.
- * <p/>
- * In addition to supporting the basic folder choosing function, it also supports create new folder, delete an existing
- * folder. Another useful feature is recent list. It allows you to set a list of recent selected folders so that user
- * can choose them directly instead of navigating to it in the file system tree.
- * <p/>
- * The following code pops up a folder chooser for user to choose a folder.
+ * FolderChooser为用户选择文件夹提供了一种简单的机制。
+ * <p>
+ * 除了支持基本的文件夹选择功能外，还支持
+ * <ul>
+ *     <li>创建新文件夹、删除已有文件夹</li>
+ *     <li>最近列表。它允许您设置最近选择的文件夹列表，以便用户可以直接选择它们，而不是在文件系统树中导航到它</li>
+ * </ul>
+ * <p>
+ * 以下代码弹出文件夹选择器供用户选择文件夹。
  * <pre>
  *    FolderChooser chooser = new FolderChooser();
  *    int returnVal = chooser.showOpenDialog(parent);

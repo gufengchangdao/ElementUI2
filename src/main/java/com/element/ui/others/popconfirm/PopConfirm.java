@@ -4,7 +4,7 @@ import com.element.color.ColorUtil;
 import com.element.swing.SwingPosition;
 import com.element.swing.compo.AngleComponent;
 import com.element.ui.button.ButtonFactory;
-import com.element.ui.template.Y2CNCCComponent;
+import com.element.swing.template.Y2CNCCComponent;
 import org.jdesktop.core.animation.timing.Animator;
 import org.jdesktop.core.animation.timing.TimingTarget;
 

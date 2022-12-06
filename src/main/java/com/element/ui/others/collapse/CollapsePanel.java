@@ -11,7 +11,7 @@ import java.util.List;
  * 通过折叠面板收纳内容区域
  */
 public class CollapsePanel extends BaseComponent {
-	private List<CollapseItem> items;
+	private final List<CollapseItem> items;
 	// private
 
 	public CollapsePanel(List<CollapseItem> items) {

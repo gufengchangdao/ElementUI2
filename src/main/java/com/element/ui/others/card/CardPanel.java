@@ -13,6 +13,8 @@ import java.util.List;
  * 卡片
  * <p>
  * 将信息聚合在卡片容器中展示。
+ *
+ * @param <E> 列表项类型
  */
 public class CardPanel<E> extends BaseComponent {
 	/** 卡片标题 */
@@ -20,7 +22,7 @@ public class CardPanel<E> extends BaseComponent {
 	/** 标题右边的按钮组 */
 	private List<JButton> buttons;
 	/** 列表内容 */
-	private JList<E> list;
+	private final JList<E> list;
 
 	public CardPanel(String title, List<JButton> buttons, JList<E> list) {
 		this(title, buttons, list, true);

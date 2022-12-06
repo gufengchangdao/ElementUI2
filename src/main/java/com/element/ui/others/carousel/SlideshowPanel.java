@@ -36,7 +36,7 @@ public class SlideshowPanel extends JPanel implements TimingTarget, TransitionTa
 	/**
 	 * 传入的label数据
 	 */
-	private List<? extends JComponent> coms;
+	private final List<? extends JComponent> coms;
 	private JButton[] buttons;
 	private JPanel componentsPanel;
 	private int currentLabelIndex;

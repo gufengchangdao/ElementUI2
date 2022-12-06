@@ -22,7 +22,6 @@ public class JideScrollPaneLayout extends ScrollPaneLayout implements JideScroll
 	 */
 	protected JViewport _rowFoot;
 
-
 	/**
 	 * The row sub column header componeng.  Default is <code>null</code>.
 	 *
@@ -1093,6 +1092,5 @@ public class JideScrollPaneLayout extends ScrollPaneLayout implements JideScroll
 	 * The UI resource version of <code>ScrollPaneLayout</code>.
 	 */
 	static class UIResource extends JideScrollPaneLayout implements javax.swing.plaf.UIResource {
-
 	}
 }

@@ -3,7 +3,7 @@ package com.element.ui.notice.notification;
 import com.element.color.ColorUtil;
 import com.element.ui.button.IconButton;
 import com.element.ui.others.tag.TagFactory;
-import com.element.ui.template.Y4CCNCCRComponent;
+import com.element.swing.template.Y4CCNCCRComponent;
 
 import javax.swing.*;
 import java.awt.*;

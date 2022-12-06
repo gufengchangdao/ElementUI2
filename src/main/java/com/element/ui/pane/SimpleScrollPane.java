@@ -21,7 +21,6 @@ import java.awt.event.*;
  * do the scrolling.
  */
 public class SimpleScrollPane extends JScrollPane implements ChangeListener, MouseWheelListener {
-
 	private AbstractButton _scrollUpButton;
 	private AbstractButton _scrollDownButton;
 

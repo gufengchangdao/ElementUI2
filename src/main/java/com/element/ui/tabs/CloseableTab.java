@@ -3,7 +3,7 @@ package com.element.ui.tabs;
 import com.element.color.ColorUtil;
 import com.element.ui.button.IconButton;
 import com.element.ui.others.tag.TagFactory;
-import com.element.ui.template.X2Component;
+import com.element.swing.template.X2Component;
 
 import javax.swing.*;
 import java.awt.event.MouseEvent;

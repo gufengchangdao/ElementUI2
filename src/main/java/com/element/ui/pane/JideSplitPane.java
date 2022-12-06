@@ -20,13 +20,11 @@ import java.util.Arrays;
 import java.util.Map;
 
 /**
- * <code>JideSplitPane</code> is used to divide multiple <code>Component</code>s.
- * <p/>
- * These <code>Component</code>s in a split pane can be aligned left to right using
- * <code>JideSplitPane.HORIZONTAL_SPLIT</code>, or top to bottom using <code>JideSplitPane.VERTICAL_SPLIT</code>.
+ * JideSplitPane用于分割多个Component 。
+ * <p>
+ * 拆分窗格中的这些Component可以使用JideSplitPane.HORIZONTAL_SPLIT从左到右对齐，或者使用JideSplitPane.VERTICAL_SPLIT从上到下对齐。
  */
 public class JideSplitPane extends JPanel implements ContainerListener, ComponentListener, Accessible {
-
 	/**
 	 * The divider used for non-continuous layout is added to the split pane with this object.
 	 */

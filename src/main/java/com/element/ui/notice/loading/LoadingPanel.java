@@ -18,7 +18,7 @@ import java.awt.image.BufferedImage;
  */
 public class LoadingPanel<E extends JComponent> extends JComponent {
 	/** 中间动画组件 */
-	private E loadingComponent;
+	private final E loadingComponent;
 	/** 模糊变暗后的背景图 */
 	private BufferedImage image;
 	private StackBlurFilter blurFilter;

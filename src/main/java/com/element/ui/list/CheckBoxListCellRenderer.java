@@ -7,8 +7,8 @@
 package com.element.ui.list;
 
 import com.element.swing.Resource;
-import com.element.ui.nullc.NullCheckBox;
-import com.element.ui.nullc.NullLabel;
+import com.element.swing.nullc.NullCheckBox;
+import com.element.swing.nullc.NullLabel;
 
 import javax.swing.*;
 import javax.swing.border.Border;

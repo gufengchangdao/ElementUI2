@@ -13,7 +13,7 @@ import java.io.IOException;
 import java.util.*;
 
 /**
- * 为指定目录下的SVG图片生成一个表格，供预览使用
+ * 为指定目录下的SVG图片生成一个表格，供预览使用。建议添加了SVG矢量图后及时更新一下，便于直观的看到项目中可用的SVG
  */
 public class SvgHtmlFactory extends JFrame {
 	JXTextField dirField = new JXTextField("SVG图片所在目录");

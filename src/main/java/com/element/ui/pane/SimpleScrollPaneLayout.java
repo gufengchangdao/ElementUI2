@@ -32,16 +32,12 @@ class SimpleScrollPaneLayout extends ScrollPaneLayout {
 
 	@Override
 	public void addLayoutComponent(String s, Component c) {
-		if (SimpleScrollPane.SCROLL_UP_BUTTON.equals(s)) {
-			_scrollUp = (AbstractButton) addSingletonComponent(_scrollUp, c);
-		} else if (SimpleScrollPane.SCROLL_DOWN_BUTTON.equals(s)) {
-			_scrollDown = (AbstractButton) addSingletonComponent(_scrollDown, c);
-		} else if (SimpleScrollPane.SCROLL_LEFT_BUTTON.equals(s)) {
-			_scrollLeft = (AbstractButton) addSingletonComponent(_scrollLeft, c);
-		} else if (SimpleScrollPane.SCROLL_RIGHT_BUTTON.equals(s)) {
-			_scrollRight = (AbstractButton) addSingletonComponent(_scrollRight, c);
-		} else {
-			super.addLayoutComponent(s, c);
+		switch (s){
+			case SimpleScrollPane.SCROLL_UP_BUTTON -> _scrollUp = (AbstractButton) addSingletonComponent(_scrollUp, c);
+			case SimpleScrollPane.SCROLL_DOWN_BUTTON -> _scrollDown = (AbstractButton) addSingletonComponent(_scrollDown, c);
+			case SimpleScrollPane.SCROLL_LEFT_BUTTON -> _scrollLeft = (AbstractButton) addSingletonComponent(_scrollLeft, c);
+			case SimpleScrollPane.SCROLL_RIGHT_BUTTON -> _scrollRight = (AbstractButton) addSingletonComponent(_scrollRight, c);
+			default -> super.addLayoutComponent(s, c);
 		}
 	}
 
@@ -227,7 +223,7 @@ class SimpleScrollPaneLayout extends ScrollPaneLayout {
 			minWidth = Math.max(minWidth, size.width);
 		}
 
-		if (_scrollLeft != null && _scrollLeft != null && hsbPolicy != HORIZONTAL_SCROLLBAR_NEVER) {
+		if (_scrollLeft != null && hsbPolicy != HORIZONTAL_SCROLLBAR_NEVER) {
 			Dimension size = new Dimension(0, Math.max(_scrollLeft.getMinimumSize().height, _scrollRight.getMinimumSize().height));
 			size.width += _scrollLeft.isVisible() ? _scrollLeft.getMinimumSize().width : 0;
 			size.width += _scrollRight.isVisible() ? _scrollRight.getMinimumSize().width : 0;

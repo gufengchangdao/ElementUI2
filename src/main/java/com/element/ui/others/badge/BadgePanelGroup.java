@@ -1,7 +1,8 @@
 package com.element.ui.others.badge;
 
+import com.element.swing.overlay.DefaultOverlayable;
 import com.element.ui.label.BadgeLabel;
-import com.element.ui.template.C2PLPGroup;
+import com.element.swing.template.C2PLPGroup;
 
 import javax.swing.*;
 import java.awt.*;
@@ -9,7 +10,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * 使用层次面板实现的标记
+ * 使用层次面板实现的标记。
+ * <p>
+ * 原理是将组件都绘制在分层面板中，建议使用{@link DefaultOverlayable} 后者功能更强大
  * <p>
  * 支持操作：标记增删改查
  */

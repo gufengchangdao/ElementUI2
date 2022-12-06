@@ -4,19 +4,23 @@ import com.element.animator.popup.PopupAnimatorGroup;
 import com.element.animator.popup.PopupAnimatorTask;
 import com.element.ui.alert.AlertComponent;
 import com.element.ui.alert.AlertFactory;
-import com.element.ui.template.X2Component;
+import com.element.swing.template.X2Component;
 
-import javax.swing.*;
 import java.awt.*;
 
 /**
  * 消息提示简化操作
  */
 public class MessageFactory {
-	private JComponent container;
+	private Container container;
 	private PopupAnimatorGroup<AlertComponent> group;
 
-	public MessageFactory(JComponent container) {
+	/**
+	 * 为指定的容器创建实例，弹出的消息在容器中居中
+	 *
+	 * @param container 消息需要居中的容器
+	 */
+	public MessageFactory(Container container) {
 		this.container = container;
 		group = new PopupAnimatorGroup<>(container);
 	}
@@ -53,7 +57,7 @@ public class MessageFactory {
 	                                                     int beginY,
 	                                                     boolean closeable, boolean isAutoClose) {
 		// 坐标属性
-		int x = (container.getRootPane().getPreferredSize().width - alert.getPreferredSize().width) / 2;
+		int x = (container.getPreferredSize().width - alert.getPreferredSize().width) / 2;
 
 		PopupAnimatorTask<AlertComponent> task = group.createTask(alert, new Point(x, beginY), new Point(x, beginY + 100));
 		if (!isAutoClose) task.setDurationTime(0);
