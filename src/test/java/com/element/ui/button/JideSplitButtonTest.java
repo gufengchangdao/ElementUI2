@@ -3,6 +3,7 @@ package com.element.ui.button;
 import com.element.color.ColorUtil;
 import com.element.plaf.LookAndFeelFactory;
 import com.element.ui.icons.IconsFactory;
+import com.element.ui.menu.TopLevelMenuContainer;
 import com.element.ui.svg.icon.fill.SwordSvg;
 import com.element.util.SwingTestUtil;
 import com.element.util.WrapperUtil;
@@ -13,7 +14,6 @@ import javax.swing.event.PopupMenuEvent;
 import javax.swing.event.PopupMenuListener;
 import java.awt.*;
 import java.awt.event.ActionEvent;
-import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 
 public class JideSplitButtonTest extends AbstractDemo {
@@ -149,6 +149,7 @@ public class JideSplitButtonTest extends AbstractDemo {
 			public void actionPerformed(ActionEvent e) {
 			}
 		});
+
 		button.addActionListener(e -> System.out.println("button is clicked"));
 		button.getPopupMenu().addPopupMenuListener(new PopupMenuListener() {
 			public void popupMenuWillBecomeVisible(PopupMenuEvent e) {

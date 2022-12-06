@@ -3,7 +3,7 @@
  *
  * Copyright 2002 - 2005 JIDE Software Inc. All rights reserved.
  */
-package com.element.ui.listener;
+package com.element.swing;
 
 import javax.swing.event.MouseInputListener;
 import java.awt.event.MouseEvent;
@@ -12,7 +12,7 @@ import java.awt.event.MouseEvent;
  * 鼠标事件监听器集合，将多个监听器为一体
  */
 class MouseInputListeners implements MouseInputListener {
-	private MouseInputListener[] _mouseInputListeners;
+	private final MouseInputListener[] _mouseInputListeners;
 
 	public MouseInputListeners(MouseInputListener[] mouseInputListeners) {
 		_mouseInputListeners = mouseInputListeners;

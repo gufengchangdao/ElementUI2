@@ -2368,4 +2368,46 @@ public class UIUtil implements SwingConstants {
 		return hasFocus;
 	}
 
+	/**
+	 * This method can be used to fix two JDK bugs. One is to fix the row height is wrong when the first element in the
+	 * model is null or empty string. The second bug is only on JDK1.4.2 where the vertical scroll bar is shown even all
+	 * rows are visible. To use it, you just need to override JList#getPreferredScrollableViewportSize and call this
+	 * method.
+	 * <pre><code>
+	 * public Dimension getPreferredScrollableViewportSize() {
+	 *    return JideSwingUtilities.adjustPreferredScrollableViewportSize(this, super.getPreferredScrollableViewportSize());
+	 * }
+	 * <p/>
+	 * </code></pre>
+	 *
+	 * @param list                the JList
+	 * @param defaultViewportSize the default viewport size from JList#getPreferredScrollableViewportSize().
+	 * @return the adjusted size.
+	 */
+	public static Dimension adjustPreferredScrollableViewportSize(JList<?> list, Dimension defaultViewportSize) {
+		// workaround the bug that the list is tiny when the first element is empty
+		Rectangle cellBonds = list.getCellBounds(0, 0);
+		if (cellBonds != null && cellBonds.height < 3) {
+			ListCellRenderer renderer = list.getCellRenderer();
+			if (renderer != null) {
+				Component c = renderer.getListCellRendererComponent(list, "DUMMY STRING", 0, false, false);
+				if (c != null) {
+					Dimension preferredSize = c.getPreferredSize();
+					if (preferredSize != null) {
+						int height = preferredSize.height;
+						if (height < 3) {
+							try {
+								height = list.getCellBounds(1, 1).height;
+							}
+							catch (Exception e) {
+								height = 16;
+							}
+						}
+						list.setFixedCellHeight(height);
+					}
+				}
+			}
+		}
+		return defaultViewportSize;
+	}
 }

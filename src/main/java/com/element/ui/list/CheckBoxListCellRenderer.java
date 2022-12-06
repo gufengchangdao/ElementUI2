@@ -92,27 +92,6 @@ public class CheckBoxListCellRenderer extends JPanel implements ListCellRenderer
 				_checkBox.setSelected(selectionModel.isSelectedIndex(index));
 			}
 			actualValue = value;
-		} else if (list instanceof CheckBoxListWithSelectable) {
-			if (value instanceof Selectable) {
-				_checkBox.setSelected(((Selectable) value).isSelected());
-				boolean enabled = list.isEnabled() && ((Selectable) value).isEnabled() && ((CheckBoxListWithSelectable) list).isCheckBoxEnabled();
-				if (!enabled && !isSelected) {
-					setForeground(getBackground().darker());
-				}
-				_checkBox.setEnabled(enabled);
-			} else {
-				boolean enabled = list.isEnabled();
-				if (!enabled && !isSelected) {
-					setForeground(getBackground().darker());
-				}
-				_checkBox.setEnabled(enabled);
-			}
-
-			if (value instanceof DefaultSelectable) {
-				actualValue = ((DefaultSelectable) value).getObject();
-			} else {
-				actualValue = value;
-			}
 		} else {
 			throw new IllegalArgumentException("CheckBoxListCellRenderer should only be used for CheckBoxList.");
 		}
@@ -126,11 +105,6 @@ public class CheckBoxListCellRenderer extends JPanel implements ListCellRenderer
 				((JLabel) listCellRendererComponent).setText(v);
 			}
 
-			if (list instanceof CheckBoxListWithSelectable) {
-				if (!((CheckBoxListWithSelectable) list).isCheckBoxVisible(index)) {
-					return listCellRendererComponent;
-				}
-			}
 			if (list instanceof CheckBoxList) {
 				if (!((CheckBoxList) list).isCheckBoxVisible(index)) {
 					return listCellRendererComponent;

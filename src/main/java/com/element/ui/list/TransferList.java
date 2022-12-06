@@ -3,7 +3,6 @@ package com.element.ui.list;
 import com.element.color.ColorUtil;
 import com.element.swing.compo.BaseComponent;
 import com.element.ui.border.RoundBorder;
-import com.element.ui.list.renderer.CheckBoxCellRenderer;
 import org.jdesktop.swingx.JXSearchField;
 import org.jdesktop.swingx.VerticalLayout;
 
@@ -18,8 +17,6 @@ import java.util.stream.IntStream;
  * 穿梭框
  */
 public class TransferList extends BaseComponent implements ActionListener {
-	private JComponent box1 = (JComponent) Box.createVerticalStrut(6);
-	private JComponent box2 = (JComponent) Box.createVerticalStrut(6);
 	/** 标题复选框 */
 	private JCheckBox titleCheckBox;
 	/** 标题右侧计数标签 */
@@ -99,6 +96,8 @@ public class TransferList extends BaseComponent implements ActionListener {
 			list.setCellRenderer(new CheckBoxCellRenderer());
 		}
 
+		JComponent box1 = (JComponent) Box.createVerticalStrut(6);
+		JComponent box2 = (JComponent) Box.createVerticalStrut(6);
 		box1.setOpaque(true);
 		Color color = UIManager.getColor("List.background");
 		box1.setBackground(color);
@@ -202,5 +201,4 @@ public class TransferList extends BaseComponent implements ActionListener {
 		System.out.println(list.getParent());
 		scrollPane.setPreferredSize(size);
 	}
-
 }

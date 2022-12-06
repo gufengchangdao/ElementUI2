@@ -9,14 +9,14 @@ import java.io.Serializable;
 import java.util.Calendar;
 import java.util.function.Function;
 
-public class CalendarListCellRenderer extends JLabel implements ListCellRenderer<Calendar>, Serializable, Function<Calendar, String> {
+public class CalendarListCellRenderer extends JLabel
+		implements ListCellRenderer<Calendar>, Serializable, Function<Calendar, String> {
 	/** 默认格式化器是例如 13:51 这样的结构 */
 	private Function<Calendar, String> formatter = this;
 	/**
 	 * 一个空的边界。此字段可能不会被使用。要改变这个渲染器使用的边框，直接使用setBorder方法设置它
 	 */
 	protected static Border noFocusBorder = new EmptyBorder(1, 1, 1, 1);
-	private static final Border SAFE_NO_FOCUS_BORDER = new EmptyBorder(1, 1, 1, 1);
 
 	/**
 	 * 构造一个BasicComboBoxRenderer的新实例。
@@ -34,13 +34,8 @@ public class CalendarListCellRenderer extends JLabel implements ListCellRenderer
 		setBorder(getNoFocusBorder());
 	}
 
-	@SuppressWarnings("removal")
 	private static Border getNoFocusBorder() {
-		if (System.getSecurityManager() != null) {
-			return SAFE_NO_FOCUS_BORDER;
-		} else {
 			return noFocusBorder;
-		}
 	}
 
 	public Dimension getPreferredSize() {
@@ -104,7 +99,6 @@ public class CalendarListCellRenderer extends JLabel implements ListCellRenderer
 	 * has been added to the <code>java.beans</code> package.
 	 * Please see {@link java.beans.XMLEncoder}.
 	 */
-	@SuppressWarnings("serial") // Same-version serialization only
 	public static class UIResource extends BasicComboBoxRenderer implements javax.swing.plaf.UIResource {
 		/**
 		 * Constructs a {@code UIResource}.
@@ -112,6 +106,4 @@ public class CalendarListCellRenderer extends JLabel implements ListCellRenderer
 		public UIResource() {
 		}
 	}
-
-
 }

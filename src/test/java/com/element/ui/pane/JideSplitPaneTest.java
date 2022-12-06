@@ -74,7 +74,6 @@ public class JideSplitPaneTest extends AbstractDemo {
 			LookAndFeelFactory.installJideExtension();
 			showAsFrame(new JideSplitPaneTest());
 		});
-
 	}
 
 	private static JideSplitPane createSplitPane() {

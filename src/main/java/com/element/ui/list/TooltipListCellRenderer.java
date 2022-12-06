@@ -1,4 +1,4 @@
-package com.element.ui.list.renderer;
+package com.element.ui.list;
 
 import javax.swing.*;
 import java.awt.*;

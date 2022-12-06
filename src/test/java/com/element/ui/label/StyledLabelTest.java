@@ -146,9 +146,10 @@ public class StyledLabelTest extends AbstractDemo {
 				return new Dimension(300, 100);
 			}
 		};
-		list.setCellRenderer(new StyledListCellRenderer() {
+		list.setCellRenderer(new StyledListCellRenderer<>() {
 			@Override
-			protected void customizeStyledLabel(JList list, Object value, int index, boolean isSelected, boolean cellHasFocus) {
+			protected void customizeStyledLabel(JList<? extends String> list, Object value, int index,
+			                                    boolean isSelected, boolean cellHasFocus) {
 				super.customizeStyledLabel(list, value, index, isSelected, cellHasFocus);
 				String text = getText();
 				setBorder(BorderFactory.createEmptyBorder(0, 2, 0, 2));

@@ -21,8 +21,8 @@ import java.io.Serializable;
  * override {@link #customizeStyledLabel(JList, Object, int, boolean, boolean)} method. If your overridden
  * method, you can call setStyleRange() or setStyleRanges() based on the item value, if it is leaf etc information.
  */
-public class StyledListCellRenderer extends StyledLabel
-		implements ListCellRenderer, Serializable {
+public class StyledListCellRenderer<E> extends StyledLabel
+		implements ListCellRenderer<E>, Serializable {
 
 	protected static Border noFocusBorder;
 
@@ -38,37 +38,37 @@ public class StyledListCellRenderer extends StyledLabel
 		setBorder(noFocusBorder);
 	}
 
-
-	public Component getListCellRendererComponent(JList list, Object value, int index, boolean isSelected, boolean cellHasFocus) {
-		applyComponentOrientation(list.getComponentOrientation());
-		if (isSelected) {
-			setBackground(list.getSelectionBackground());
-			setForeground(list.getSelectionForeground());
-		} else {
-			setBackground(list.getBackground());
-			setForeground(list.getForeground());
-		}
-
-		setIgnoreColorSettings(isSelected);
-		customizeStyledLabel(list, value, index, isSelected, cellHasFocus);
-
-		setEnabled(list.isEnabled());
-		setFont(list.getFont());
-
-		Border border = null;
-		if (cellHasFocus) {
+	@Override
+	public Component getListCellRendererComponent(JList<? extends E> list, E value, int index, boolean isSelected, boolean cellHasFocus) {
+			applyComponentOrientation(list.getComponentOrientation());
 			if (isSelected) {
-				border = UIDefaultsLookup.getBorder("List.focusSelectedCellHighlightBorder");
+				setBackground(list.getSelectionBackground());
+				setForeground(list.getSelectionForeground());
+			} else {
+				setBackground(list.getBackground());
+				setForeground(list.getForeground());
 			}
-			if (border == null) {
-				border = UIDefaultsLookup.getBorder("List.focusCellHighlightBorder");
-			}
-		} else {
-			border = noFocusBorder;
-		}
-		setBorder(border);
 
-		return this;
+			setIgnoreColorSettings(isSelected);
+			customizeStyledLabel(list, value, index, isSelected, cellHasFocus);
+
+			setEnabled(list.isEnabled());
+			setFont(list.getFont());
+
+			Border border = null;
+			if (cellHasFocus) {
+				if (isSelected) {
+					border = UIDefaultsLookup.getBorder("List.focusSelectedCellHighlightBorder");
+				}
+				if (border == null) {
+					border = UIDefaultsLookup.getBorder("List.focusCellHighlightBorder");
+				}
+			} else {
+				border = noFocusBorder;
+			}
+			setBorder(border);
+
+			return this;
 	}
 
 	/**
@@ -80,7 +80,7 @@ public class StyledListCellRenderer extends StyledLabel
 	 * @param isSelected
 	 * @param cellHasFocus
 	 */
-	protected void customizeStyledLabel(JList list, Object value, int index, boolean isSelected, boolean cellHasFocus) {
+	protected void customizeStyledLabel(JList<? extends E> list, Object value, int index, boolean isSelected, boolean cellHasFocus) {
 		clearStyleRanges();
 		if (value instanceof Icon) {
 			setIcon((Icon) value);
@@ -235,7 +235,7 @@ public class StyledListCellRenderer extends StyledLabel
 	 * version of Swing.  As of 1.4, support for long term storage of all JavaBeans<sup><font size="-2">TM</font></sup>
 	 * has been added to the <code>java.beans</code> package. Please see {@link java.beans.XMLEncoder}.
 	 */
-	public static class UIResource extends StyledListCellRenderer
+	public class UIResource extends StyledListCellRenderer<E>
 			implements javax.swing.plaf.UIResource {
 	}
 

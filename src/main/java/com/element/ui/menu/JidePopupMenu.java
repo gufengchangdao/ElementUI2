@@ -24,7 +24,6 @@ import java.awt.*;
  * the scroll pane will scroll up and down so that you can still get to all menu items.
  */
 public class JidePopupMenu extends JPopupMenu implements Scrollable {
-
 	private static final String uiClassID = "JidePopupMenuUI";
 	private static final String uiClassIDAlternative = "PopupMenuUI";
 

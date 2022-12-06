@@ -12,8 +12,8 @@ import java.awt.event.MouseListener;
 /**
  * 子菜单带有返回按钮的菜单项，一般作为二级或更高级菜单使用
  */
-public class ReturnJMenu extends JMenu implements MouseListener {
-	public static final SvgIcon icon = CaretLeftSvg.of(16, 16);
+public class ReturnJMenu extends JideMenu implements MouseListener {
+	public static final SvgIcon icon = CaretLeftSvg.of(10, 10);
 
 	public ReturnJMenu(String s) {
 		super(s);

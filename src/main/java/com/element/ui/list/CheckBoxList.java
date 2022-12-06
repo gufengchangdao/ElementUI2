@@ -7,6 +7,7 @@ package com.element.ui.list;
 
 
 import com.element.util.ListenerUtil;
+import com.element.util.UIUtil;
 
 import javax.swing.*;
 import javax.swing.event.ListDataEvent;
@@ -22,7 +23,8 @@ import java.util.List;
 import java.util.*;
 
 /**
- * CheckBoxList是一个特殊的 JList，它使用 JCheckBox 作为列表元素。除了常规的 JList 功能外，它还允许您通过选中复选框来选择列表中的任意数量的元素。
+ * CheckBoxList是一个特殊的 JList，它使用 JCheckBox 作为列表元素。除了常规的 JList 功能外，它还允许您通过选中复选框来选择列表中的任意数
+ * 量的元素。
  * <p>
  * 要选择一个元素，用户可以用鼠标单击复选框，或突出显示行并按空格键切换选择。
  * <p>
@@ -41,7 +43,7 @@ import java.util.*;
  * 用 addListSelectionListener 询问 getCheckBoxListSelectionModel()。旧实现将选择状态保持在 ListModel 中的 Selectable 对象。
  * 新实现也具有与CheckBoxTree相同的设计。
  */
-public class CheckBoxList extends JList {
+public class CheckBoxList extends JList<Object> {
 	protected CheckBoxListCellRenderer _listCellRenderer;
 
 	public static final String PROPERTY_CHECKBOX_ENABLED = "checkBoxEnabled";
@@ -54,7 +56,14 @@ public class CheckBoxList extends JList {
 	protected Handler _handler;
 
 	/**
-	 * CheckBoxList 的默认所有条目。因为这个对象可以被添加到List中，我没办法把该类泛型化
+	 * @deprecated replaced by {@link #ALL_ENTRY}
+	 */
+	@Deprecated
+	public static final String ALL = "(All)";
+	/**
+	 * The default all entry for CheckBoxList.
+	 *
+	 * @since 3.4.1
 	 */
 	public static final Object ALL_ENTRY = new AllEntry();
 
@@ -116,6 +125,11 @@ public class CheckBoxList extends JList {
 		}
 	}
 
+	@Override
+	public void updateUI() {
+		super.updateUI();
+	}
+
 	/**
 	 * Initialize the CheckBoxList.
 	 */
@@ -171,7 +185,8 @@ public class CheckBoxList extends JList {
 		if (_listCellRenderer != null) {
 			_listCellRenderer.setActualListRenderer(getActualCellRenderer());
 			return _listCellRenderer;
-		} else {
+		}
+		else {
 			return super.getCellRenderer();
 		}
 	}
@@ -206,10 +221,12 @@ public class CheckBoxList extends JList {
 			if (bounds != null) {
 				if (_list.getComponentOrientation().isLeftToRight()) {
 					return e.getX() < bounds.x + hotspot;
-				} else {
+				}
+				else {
 					return e.getX() > bounds.x + bounds.width - hotspot;
 				}
-			} else {
+			}
+			else {
 				return false;
 			}
 		}
@@ -317,12 +334,14 @@ public class CheckBoxList extends JList {
 						}
 						if (selected && selectionModel.isSelectedIndex(index)) {
 							selectionModel.removeSelectionInterval(index, index);
-						} else if (!selected && !selectionModel.isSelectedIndex(index)) {
+						}
+						else if (!selected && !selectionModel.isSelectedIndex(index)) {
 							selectionModel.addSelectionInterval(index, index);
 						}
 					}
 				}
-			} finally {
+			}
+			finally {
 				selectionModel.setValueIsAdjusting(false);
 				selectionModel.addListSelectionListener(this);
 				_list.repaint();
@@ -347,7 +366,8 @@ public class CheckBoxList extends JList {
 					selectionModel.removeSelectionInterval(index, index);
 				else
 					selectionModel.addSelectionInterval(index, index);
-			} finally {
+			}
+			finally {
 				selectionModel.addListSelectionListener(this);
 				_list.repaint();
 			}
@@ -456,7 +476,7 @@ public class CheckBoxList extends JList {
 	/**
 	 * Sets the value of property clickInCheckBoxOnly.
 	 *
-	 * @param clickInCheckBoxOnly see {@Link #isClickInCheckBoxOnly} for more information.
+	 * @param clickInCheckBoxOnly see {@link #isClickInCheckBoxOnly} for more information.
 	 */
 	public void setClickInCheckBoxOnly(boolean clickInCheckBoxOnly) {
 		if (clickInCheckBoxOnly != _clickInCheckBoxOnly) {
@@ -581,7 +601,8 @@ public class CheckBoxList extends JList {
 					listSelectionModel.addSelectionInterval(indice, indice);
 				}
 			}
-		} finally {
+		}
+		finally {
 			listSelectionModel.setValueIsAdjusting(false);
 		}
 	}
@@ -707,12 +728,12 @@ public class CheckBoxList extends JList {
 					setCheckBoxListSelectedIndex(i);
 					if (shouldScroll)
 						ensureIndexIsVisible(i);
-					repaint();  /* FIX-ME setSelectedIndex does not redraw all the time with the basic l&f**/
+					repaint();  /** FIX-ME setSelectedIndex does not redraw all the time with the basic l&f**/
 					return;
 				}
 			setCheckBoxListSelectedIndex(-1);
 		}
-		repaint(); /* FIX-ME setSelectedIndex does not redraw all the time with the basic l&f**/
+		repaint(); /** FIX-ME setSelectedIndex does not redraw all the time with the basic l&f**/
 	}
 
 	/**
@@ -731,16 +752,17 @@ public class CheckBoxList extends JList {
 					addCheckBoxListSelectedIndex(i);
 					if (shouldScroll)
 						ensureIndexIsVisible(i);
-					repaint();  /* FIX-ME setSelectedIndex does not redraw all the time with the basic l&f**/
+					repaint();  /** FIX-ME setSelectedIndex does not redraw all the time with the basic l&f**/
 					return;
 				}
-		} else {
+		}
+		else {
 			for (i = 0, c = model.getSize(); i < c; i++) {
 				if (model.getElementAt(i) == null) {
 					addCheckBoxListSelectedIndex(i);
 					if (shouldScroll)
 						ensureIndexIsVisible(i);
-					repaint();  /* FIX-ME setSelectedIndex does not redraw all the time with the basic l&f**/
+					repaint();  /** FIX-ME setSelectedIndex does not redraw all the time with the basic l&f**/
 					return;
 				}
 			}
@@ -815,7 +837,7 @@ public class CheckBoxList extends JList {
 					removeCheckBoxListSelectedIndex(i);
 					if (shouldScroll)
 						ensureIndexIsVisible(i);
-					repaint();  /* FIX-ME setSelectedIndex does not redraw all the time with the basic l&f**/
+					repaint();  /** FIX-ME setSelectedIndex does not redraw all the time with the basic l&f**/
 					return;
 				}
 		}
@@ -841,5 +863,12 @@ public class CheckBoxList extends JList {
 		if (getModel().getSize() > 0) {
 			getCheckBoxListSelectionModel().removeIndexInterval(0, getModel().getSize() - 1);
 		}
+	}
+
+	@Override
+	public Dimension getPreferredScrollableViewportSize() {
+		Dimension size = super.getPreferredScrollableViewportSize();
+		return size != null && size.width > 0 && size.height > 0 ?
+				UIUtil.adjustPreferredScrollableViewportSize(this, size) : size;
 	}
 }

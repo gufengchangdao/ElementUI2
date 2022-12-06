@@ -3,10 +3,9 @@
  *
  * Copyright 2002 - 2004 JIDE Software Inc. All rights reserved.
  */
-package com.element.ui.list;
+package com.element.swing.search;
 
-import com.element.swing.search.SearchableEvent;
-import com.element.swing.search.Searchable;
+import com.element.ui.list.CheckBoxListCellRenderer;
 
 import javax.swing.*;
 import javax.swing.event.ListDataEvent;

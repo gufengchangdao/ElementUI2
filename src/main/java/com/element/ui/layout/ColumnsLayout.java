@@ -4,6 +4,9 @@ import java.awt.*;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+/**
+ * 24栏布局管理器
+ */
 public class ColumnsLayout implements LayoutManager2 {
 	/** 约束数据 */
 	private HashMap<Component, Integer> cons = new HashMap<>();

@@ -12,7 +12,8 @@ import java.awt.event.FocusListener;
  * 仅供内部使用
  *
  * <p>名称:       JideFocusTracker</p>
- * <p>说明: 此类用于管理焦点。它将<b>为 highestComponent 及其任何子组件注册焦点侦听器</b>。这允许将 focusListeners 绑定到此适配器，然后所有焦点事件都可以通过它进行路由。</p>
+ * <p>说明: 此类用于管理焦点。它将<b>为 highestComponent 及其任何子组件注册焦点侦听器</b>。这允许将 focusListeners 绑定到此适配器，然后
+ * 所有焦点事件都可以通过它进行路由。</p>
  */
 public class JideFocusTracker {
 	protected Component compHighest;

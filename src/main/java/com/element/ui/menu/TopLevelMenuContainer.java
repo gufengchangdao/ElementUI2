@@ -6,10 +6,11 @@
 package com.element.ui.menu;
 
 /**
- * A markup interface to indicate this is a top level menu or command bar. The original Swing code used JMenuBar to
- * determine if it is TopLeveMenu. However since we introduced CommandBar, this criteria is not correct anymore. The new
- * condition is if a container implements TopLevelMenuContainer, the children in that container is top level menu. If
- * isMenuBar returns true, it means the container is really a menu bar, just like JMenuBar.
+ * 指示这是顶级菜单或命令栏的标记界面。原始的Swing代码使用JMenuBar来判断它是否是TopLeveMenu。但是，由于我们引入了 CommandBar，此标准不再
+ * 正确。新条件是如果容器实现 TopLevelMenuContainer，则该容器中的子项是顶级菜单。如果 isMenuBar 返回 true，则表示该容器确实是一个菜单栏，
+ * 就像 JMenuBar 一样。
+ *
+ * @deprecated JIDE定义的接口，我不知道这个接口如何使用，并且尚未发现为什么问题，未来可能会删除
  */
 public interface TopLevelMenuContainer {
 	/**

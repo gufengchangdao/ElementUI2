@@ -10,8 +10,6 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
 /**
- * 文字链接
- * <p>
  * 文字超链接
  */
 public class LinkButton extends JButton implements MouseListener {

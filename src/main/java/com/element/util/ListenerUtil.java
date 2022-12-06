@@ -296,7 +296,6 @@ public class ListenerUtil {
 	}
 
 	private static boolean isListenerRegistered(Object[] objects, Class t, EventListener l) {
-		// TODO 为什么这么遍历？百思不得其解
 		for (int i = objects.length - 2; i >= 0; i -= 2) {
 			if ((objects[i] == t) && (objects[i + 1].equals(l))) {
 				return true;

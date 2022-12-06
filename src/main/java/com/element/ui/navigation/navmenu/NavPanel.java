@@ -9,6 +9,8 @@ import java.util.Map;
 
 /**
  * 导航面板，控制着多个多级导航的绘制
+ *
+ * @deprecated 存在一些问题，不建议使用，未来可能会使用JMenuBar重新实现，可以先使用{@link com.element.ui.button.JideSplitButton} 来代替
  */
 public class NavPanel<E> extends JPanel {
 	// private List<NavBuilder<E>> list = new ArrayList<>();
