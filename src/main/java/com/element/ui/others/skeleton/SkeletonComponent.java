@@ -1,7 +1,7 @@
 package com.element.ui.others.skeleton;
 
 import com.element.color.ColorUtil;
-import com.element.swing.compo.BaseComponent;
+import com.element.swing.base.BaseComponent;
 import com.element.util.UIUtil;
 
 import javax.swing.*;

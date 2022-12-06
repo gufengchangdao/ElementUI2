@@ -1,7 +1,7 @@
 package com.element.ui.button;
 
 import com.element.radiance.common.api.icon.SvgIcon;
-import com.element.swing.compo.BaseComponent;
+import com.element.swing.base.BaseComponent;
 
 import java.awt.*;
 import java.awt.event.MouseEvent;

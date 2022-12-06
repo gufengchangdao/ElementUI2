@@ -1,4 +1,4 @@
-package com.element.swing.compo;
+package com.element.swing.base;
 
 import com.element.swing.BoxSize;
 import com.element.util.UIUtil;
@@ -18,6 +18,7 @@ import static java.lang.Math.abs;
  * <ul>
  *     <li>支持设置边框值</li>
  *     <li>支持设置不透明度，默认不透明度为 1</li>
+ *     <li>支持设置paint，即可以设置渐变色，同时设置了paint和background时，以paint为优先</li>
  *     <li>圆角背景绘制，需要组件为非不透明并且设置了背景色</li>
  * </ul>
  */
@@ -29,6 +30,8 @@ public class BaseComponent extends JComponent {
 	private float opacity = 1f;
 	private BufferedImage image;
 	private BoxSize boxSize = BoxSize.BORDER_SIZE;
+	/** 背景渐变色 */
+	private Paint backgroundPaint;
 	// 只要保证子组件都是非不透明的，就可以使其重绘的时候使容器也进行重绘
 	// static {
 	// 	RepaintManager.setCurrentManager(new RepaintManager() {
@@ -107,9 +110,10 @@ public class BaseComponent extends JComponent {
 
 		Graphics2D g2 = (Graphics2D) gr;
 		// 背景
-		if (getBackground() != null && isOpaque()) {
+		if (backgroundPaint != null || getBackground() != null && isOpaque()) {
 			Object[] oldRender = UIUtil.setRenderingHints(gr);
-			g2.setColor(getBackground());
+			if (backgroundPaint != null) g2.setPaint(backgroundPaint);
+			else g2.setPaint(getBackground());
 
 			if (boxSize == BoxSize.BORDER_SIZE) {
 				g2.fillRoundRect(0, 0, getWidth(), getHeight(), radius, radius);
@@ -172,5 +176,14 @@ public class BaseComponent extends JComponent {
 
 	public void setBoxSize(BoxSize boxSize) {
 		this.boxSize = boxSize;
+	}
+
+	public Paint getBackgroundPaint() {
+		return backgroundPaint;
+	}
+
+	public void setBackgroundPaint(Paint backgroundPaint) {
+		this.backgroundPaint = backgroundPaint;
+		repaint();
 	}
 }

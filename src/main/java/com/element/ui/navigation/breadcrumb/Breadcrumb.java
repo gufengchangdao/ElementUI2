@@ -1,7 +1,7 @@
 package com.element.ui.navigation.breadcrumb;
 
 import com.element.color.ColorUtil;
-import com.element.swing.compo.BaseComponent;
+import com.element.swing.base.BaseComponent;
 
 import javax.swing.*;
 import java.awt.*;

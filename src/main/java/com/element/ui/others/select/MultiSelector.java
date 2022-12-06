@@ -1,7 +1,7 @@
 package com.element.ui.others.select;
 
 import com.element.color.ColorUtil;
-import com.element.swing.compo.BaseComponent;
+import com.element.swing.base.BaseComponent;
 import org.jdesktop.swingx.WrapLayout;
 
 import javax.swing.*;

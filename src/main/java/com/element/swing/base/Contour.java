@@ -3,7 +3,7 @@
  *
  * Copyright 2002 JIDE Software Inc. All rights reserved.
  */
-package com.element.swing.compo;
+package com.element.swing.base;
 
 import com.element.plaf.UIDefaultsLookup;
 import com.element.swing.IContour;

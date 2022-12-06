@@ -15,7 +15,7 @@ import com.element.ui.label.StyledLabelBuilder;
 import com.element.ui.layout.JideBorderLayout;
 import com.element.ui.layout.JideBoxLayout;
 import com.element.ui.pane.JideSplitPane;
-import com.element.ui.panel.InfiniteProgressPanel;
+import com.element.ui.notice.loading.InfiniteProgressPanel;
 import com.element.ui.popup.JidePopup;
 import com.element.util.OverlayableUtil;
 import com.element.util.SwingTestUtil;

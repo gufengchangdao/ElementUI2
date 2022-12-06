@@ -8,7 +8,7 @@ package com.element.ui.pane;
 
 import com.element.plaf.LookAndFeelFactory;
 import com.element.plaf.UIDefaultsLookup;
-import com.element.swing.compo.Contour;
+import com.element.swing.base.Contour;
 import com.element.ui.layout.JideBoxLayout;
 import com.element.ui.panel.HeavyweightWrapper;
 
@@ -1452,7 +1452,7 @@ public class JideSplitPane extends JPanel implements ContainerListener, Componen
 	}
 
 	private static class JideSplitPaneHeavyweightWrapper extends HeavyweightWrapper {
-		public JideSplitPaneHeavyweightWrapper(Component component) {
+		public JideSplitPaneHeavyweightWrapper(JComponent component) {
 			super(component);
 		}
 	}

@@ -1,4 +1,4 @@
-package com.element.swing.compo;
+package com.element.swing.base;
 
 import com.element.util.UIUtil;
 
@@ -17,7 +17,7 @@ import java.awt.geom.RoundRectangle2D;
  */
 public class RoundComponent extends BaseComponent {
 	private int arcSize;
-	private JComponent component;
+	private final JComponent component;
 	private boolean isPaintedBorder = true;
 	private Color borderColor;
 	private Color background;

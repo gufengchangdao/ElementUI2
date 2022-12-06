@@ -19,7 +19,9 @@
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  */
-package com.element.ui.panel;
+package com.element.ui.notice.loading;
+
+import com.element.swing.base.BaseComponent;
 
 import javax.swing.*;
 import java.awt.*;
@@ -30,18 +32,33 @@ import java.awt.geom.Area;
 import java.awt.geom.Point2D;
 import java.awt.geom.Rectangle2D;
 
-public class InfiniteProgressPanel extends JComponent implements ActionListener {
+/**
+ * 线性加载面板，多个矩形绕圆心旋转布局，动画开始后矩形轮流交替变为深色。
+ * <p>
+ * 该面板不会为组件设置大小，因此你需要手动设置面板大小，加载动画会绘制在面板中间。
+ * 例如：
+ * <pre>
+ * 	 InfiniteProgressPanel progressPanel = new InfiniteProgressPanel(5);
+ * 	 progressPanel.setPreferredSize(new Dimension(100, 100));
+ * 	 JButton b = new JButton("开始");
+ * 	 b.addActionListener(e -> {
+ * 	   if (progressPanel.isRunning()) progressPanel.stop();
+ * 	   else progressPanel.start();
+ *   });
+ * </pre>
+ */
+public class InfiniteProgressPanel extends BaseComponent implements ActionListener {
 	private static final int DEFAULT_NUMBER_OF_BARS = 12;
 
 	private int numBars;
 	private double dScale = 1.2d;
 
-	private Area[] bars;
+	private final Area[] bars;
 	private Rectangle barsBounds;
 	private Rectangle barsScreenBounds = null;
 	private AffineTransform centerAndScaleTransform = null;
 	private final Timer timer = new Timer(1000 / 16, this);
-	private Color[] colors;
+	private final Color[] colors;
 	private int colorOffset = 0;
 	private boolean tempHide = false;
 
@@ -49,6 +66,11 @@ public class InfiniteProgressPanel extends JComponent implements ActionListener 
 		this(1);
 	}
 
+	/**
+	 * 创建加载面板
+	 *
+	 * @param ratio 控制矩形的大小
+	 */
 	public InfiniteProgressPanel(double ratio) {
 		this.numBars = DEFAULT_NUMBER_OF_BARS;
 
@@ -56,7 +78,12 @@ public class InfiniteProgressPanel extends JComponent implements ActionListener 
 
 		// build bars
 		bars = buildTicker(numBars, ratio);
-
+		int w = 0, h = 0;
+		for (Area bar : bars) {
+			Rectangle bounds = bar.getBounds();
+			w = Math.max(w, bounds.x + bounds.width);
+			h = Math.max(h, bounds.y + bounds.height);
+		}
 		// calculate bars bounding rectangle
 		barsBounds = new Rectangle();
 		for (Area bar : bars) {
@@ -69,9 +96,6 @@ public class InfiniteProgressPanel extends JComponent implements ActionListener 
 			colors[i] = new Color(channel, channel, channel);
 			colors[numBars + i] = colors[i];
 		}
-
-		// set cursor
-		//setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
 
 		// set opaque
 		setOpaque(true);
@@ -103,10 +127,8 @@ public class InfiniteProgressPanel extends JComponent implements ActionListener 
 		setOpaque(false);
 		// capture
 		if (i_bIsVisible) {
-			// start anim
 			timer.start();
 		} else {
-			// stop anim
 			timer.stop();
 		}
 		super.setVisible(i_bIsVisible);
@@ -135,23 +157,22 @@ public class InfiniteProgressPanel extends JComponent implements ActionListener 
 	 */
 	@Override
 	protected void paintComponent(Graphics g) {
-		if (!tempHide) {
-			Rectangle oClip = g.getClipBounds();
+		if (tempHide) return;
 
-			if (isOpaque()) {
-				g.setColor(getBackground());
-				g.fillRect(oClip.x, oClip.y, oClip.width, oClip.height);
-			}
+		Rectangle oClip = g.getClipBounds();
+		if (isOpaque()) {
+			g.setColor(getBackground());
+			g.fillRect(oClip.x, oClip.y, oClip.width, oClip.height);
+		}
 
-			// move to center
-			Graphics2D g2 = (Graphics2D) g.create();
-			g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-			g2.transform(centerAndScaleTransform);
-			// draw ticker
-			for (int i = 0; i < bars.length; i++) {
-				g2.setColor(colors[i + colorOffset]);
-				g2.fill(bars[i]);
-			}
+		// move to center
+		Graphics2D g2 = (Graphics2D) g.create();
+		g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+		g2.transform(centerAndScaleTransform);
+		// draw ticker
+		for (int i = 0; i < bars.length; i++) {
+			g2.setColor(colors[i + colorOffset]);
+			g2.fill(bars[i]);
 		}
 	}
 
@@ -187,23 +208,7 @@ public class InfiniteProgressPanel extends JComponent implements ActionListener 
 	 * Builds a bar.
 	 */
 	private static Area buildPrimitive(double ratio) {
-//        Rectangle2D.Double body = new Rectangle2D.Double(6, 0, 30, 12);
-//        Ellipse2D.Double head = new Ellipse2D.Double(0, 0, 12, 12);
-//        Ellipse2D.Double tail = new Ellipse2D.Double(30, 0, 12, 12);
-//        Rectangle2D.Double body = new Rectangle2D.Double(3, 0, 15, 6);
-//        Ellipse2D.Double head = new Ellipse2D.Double(0, 0, 6, 6);
-//        Ellipse2D.Double tail = new Ellipse2D.Double(15, 0, 6, 6);
-//        Rectangle2D.Double body = new Rectangle2D.Double(2, 0, 10, 4);
-//        Ellipse2D.Double head = new Ellipse2D.Double(0, 0, 4, 4);
-//        Ellipse2D.Double tail = new Ellipse2D.Double(10, 0, 4, 4);
 		Rectangle2D.Double body = new Rectangle2D.Double(2 * ratio, 0, 4 * ratio, ratio);
-//        Ellipse2D.Double head = new Ellipse2D.Double(0, 0, 2, 2);
-//        Ellipse2D.Double tail = new Ellipse2D.Double(5, 0, 2, 2);
-
-
-		//        tick.add(new Area(head));
-//        tick.add(new Area(tail));
-//
 		return new Area(body);
 	}
 
@@ -213,5 +218,9 @@ public class InfiniteProgressPanel extends JComponent implements ActionListener 
 
 	public void stop() {
 		setVisible(false);
+	}
+
+	public boolean isRunning() {
+		return timer.isRunning();
 	}
 }

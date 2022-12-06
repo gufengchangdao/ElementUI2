@@ -671,7 +671,8 @@ public class UIUtil implements SwingConstants {
 
 	/**
 	 * 使用指定的 startColor 和 endColor 填充渐变。这是填充渐变的快速版本，它不仅可以利用硬件加速，还可以缓存 GradientPaint 并重用它。
-	 * 注意：原理是缓存渐变色的矩形并在需要的时候裁剪，这导致裁剪带来的锯齿问题无法很好的解决，如果不是为了速度不建议使用。
+	 * <p>
+	 * 注意：原理是缓存渐变色的矩形并在需要的时候裁剪，这导致裁剪带来的锯齿问题无法很好的解决，绘制非矩形时不建议使用。
 	 * <p>
 	 * 我们还保留了使用普通 GradientPaint 绘制渐变的选项。为此，只需将系统属性“normalGradientPaint”设置为“true”，该属性值不存在时默认
 	 * 为false。
@@ -2398,8 +2399,7 @@ public class UIUtil implements SwingConstants {
 						if (height < 3) {
 							try {
 								height = list.getCellBounds(1, 1).height;
-							}
-							catch (Exception e) {
+							} catch (Exception e) {
 								height = 16;
 							}
 						}

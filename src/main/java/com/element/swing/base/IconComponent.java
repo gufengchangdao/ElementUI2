@@ -1,4 +1,4 @@
-package com.element.swing.compo;
+package com.element.swing.base;
 
 import com.element.radiance.common.api.icon.SvgIcon;
 import com.element.ui.border.IconBorder;

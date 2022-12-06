@@ -14,27 +14,21 @@ import java.awt.event.ComponentListener;
 
 /**
  * HeavyweightWrapper is a special heavyweight Panel that can hold another component.
- * <p/>
- * It's package local right now. Whenever it is ready, we will make it public.
  */
 public class HeavyweightWrapper extends Panel {
-	private Component _component;
+	private JComponent _component;
 	private boolean _heavyweight;
-	final private Dimension MIN_DIM = new Dimension(0, 0);
+	private final static Dimension MIN_DIM = new Dimension(0, 0);
 
-	public HeavyweightWrapper(Component component) {
+	public HeavyweightWrapper(JComponent component) {
 		this(component, false);
 	}
 
-	@Override
-	public Dimension getMinimumSize() {
-		return MIN_DIM;
-	}
-
-	public HeavyweightWrapper(Component component, boolean heavyweight) {
+	public HeavyweightWrapper(JComponent component, boolean heavyweight) {
 		_component = component;
+		_heavyweight = heavyweight;
 		if (_component != null) {
-			((JComponent) _component).putClientProperty("HeavyweightWrapper", this);
+			_component.putClientProperty("HeavyweightWrapper", this);
 			_component.addComponentListener(new ComponentListener() {
 				public void componentResized(ComponentEvent e) {
 				}
@@ -53,28 +47,17 @@ public class HeavyweightWrapper extends Panel {
 		}
 		setLayout(new BorderLayout());
 		setVisible(false);
-		_heavyweight = heavyweight;
-	}
-
-	public boolean isHeavyweight() {
-		return _heavyweight;
-	}
-
-	public void setHeavyweight(boolean heavyweight) {
-		_heavyweight = heavyweight;
 	}
 
 	public void delegateAdd(Container parent, Object constraints) {
 		UIUtil.removeFromParentWithFocusTransfer(_component);
 
-		if (isHeavyweight()) {
+		if (_heavyweight) {
 			if (_component.getParent() != this) {
 				add(_component);
-//                System.out.println("added component");
 			}
-			if (this.getParent() != parent) {
+			if (getParent() != parent) {
 				parent.add(this, constraints);
-//                System.out.println("added parent");
 			}
 		} else {
 			parent.add(_component, constraints);
@@ -84,17 +67,16 @@ public class HeavyweightWrapper extends Panel {
 	public void delegateRemove(Container parent) {
 		UIUtil.removeFromParentWithFocusTransfer(_component);
 
-		if (isHeavyweight()) {
+		if (_heavyweight) {
 			remove(_component);
 			parent.remove(this);
-//            System.out.println("removed");
 		} else {
 			parent.remove(_component);
 		}
 	}
 
 	public void delegateSetVisible(boolean visible) {
-		if (isHeavyweight()) {
+		if (_heavyweight) {
 			this.setVisible(visible);
 			_component.setVisible(visible);
 		} else {
@@ -103,7 +85,7 @@ public class HeavyweightWrapper extends Panel {
 	}
 
 	public void delegateSetBounds(Rectangle bounds) {
-		if (isHeavyweight()) {
+		if (_heavyweight) {
 			this.setBounds(bounds);
 			_component.setBounds(0, 0, bounds.width, bounds.height);
 		} else {
@@ -112,7 +94,7 @@ public class HeavyweightWrapper extends Panel {
 	}
 
 	public void delegateSetBounds(int x, int y, int width, int height) {
-		if (isHeavyweight()) {
+		if (_heavyweight) {
 			this.setBounds(x, y, width, height);
 			_component.setBounds(0, 0, width, height);
 		} else {
@@ -121,7 +103,7 @@ public class HeavyweightWrapper extends Panel {
 	}
 
 	public void delegateSetLocation(int x, int y) {
-		if (isHeavyweight()) {
+		if (_heavyweight) {
 			this.setLocation(x, y);
 			_component.setLocation(0, 0);
 		} else {
@@ -130,7 +112,7 @@ public class HeavyweightWrapper extends Panel {
 	}
 
 	public void delegateSetLocation(Point p) {
-		if (isHeavyweight()) {
+		if (_heavyweight) {
 			this.setLocation(p);
 			_component.setLocation(0, 0);
 		} else {
@@ -143,12 +125,12 @@ public class HeavyweightWrapper extends Panel {
 	}
 
 	public void delegateSetNull() {
-		((JComponent) _component).putClientProperty("HeavyweightWrapper", null);
+		_component.putClientProperty("HeavyweightWrapper", null);
 		_component = null;
 	}
 
 	public Container delegateGetParent() {
-		if (isHeavyweight()) {
+		if (_heavyweight) {
 			return getParent();
 		} else {
 			return _component.getParent();
@@ -156,7 +138,7 @@ public class HeavyweightWrapper extends Panel {
 	}
 
 	public boolean delegateIsVisible() {
-		if (isHeavyweight()) {
+		if (_heavyweight) {
 			return isVisible();
 		} else {
 			return _component.isVisible();
@@ -164,7 +146,7 @@ public class HeavyweightWrapper extends Panel {
 	}
 
 	public Rectangle delegateGetBounds() {
-		if (isHeavyweight()) {
+		if (_heavyweight) {
 			return getBounds();
 		} else {
 			return _component.getBounds();
@@ -172,7 +154,7 @@ public class HeavyweightWrapper extends Panel {
 	}
 
 	public void delegateRepaint() {
-		if (isHeavyweight()) {
+		if (_heavyweight) {
 			repaint();
 			_component.repaint();
 		} else {
@@ -180,11 +162,24 @@ public class HeavyweightWrapper extends Panel {
 		}
 	}
 
-	public Component getComponent() {
+	public JComponent getComponent() {
 		return _component;
 	}
 
-	public void setComponent(Component component) {
+	public void setComponent(JComponent component) {
 		_component = component;
+	}
+
+	public boolean isHeavyweight() {
+		return _heavyweight;
+	}
+
+	public void setHeavyweight(boolean heavyweight) {
+		_heavyweight = heavyweight;
+	}
+
+	@Override
+	public Dimension getMinimumSize() {
+		return MIN_DIM;
 	}
 }

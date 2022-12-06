@@ -1,4 +1,4 @@
-package com.element.swing.compo;
+package com.element.swing.base;
 
 import javax.swing.*;
 import java.awt.*;

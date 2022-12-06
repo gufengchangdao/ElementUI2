@@ -1,6 +1,6 @@
 package com.element.ui.others.line;
 
-import com.element.swing.compo.BaseComponent;
+import com.element.swing.base.BaseComponent;
 import net.miginfocom.swing.MigLayout;
 
 import javax.swing.*;

@@ -8,13 +8,13 @@ package com.element.plaf.basic;
 
 import com.element.color.ColorUtil;
 import com.element.plaf.UIDefaultsLookup;
+import com.element.swing.base.BasePanel;
 import com.element.ui.dialog.ButtonNames;
 import com.element.ui.dialog.ButtonPanel;
 import com.element.ui.button.ButtonResources;
 import com.element.ui.dialog.JideOptionPane;
 import com.element.ui.layout.JideBoxLayout;
 import com.element.swing.nullc.NullPanel;
-import com.element.ui.panel.PaintPanel;
 import com.element.util.LocaleUtil;
 
 import javax.swing.*;
@@ -537,7 +537,7 @@ public class BasicJideOptionPaneUI extends BasicOptionPaneUI {
 	}
 
 	protected Container createBannerArea() {
-		PaintPanel bannerPanel = new PaintPanel() {
+		BasePanel bannerPanel = new BasePanel() {
 			@Override
 			public Dimension getPreferredSize() {
 				Dimension preferredSize = super.getPreferredSize();
@@ -555,11 +555,14 @@ public class BasicJideOptionPaneUI extends BasicOptionPaneUI {
 		return bannerPanel;
 	}
 
-	protected void customizeBannerArea(PaintPanel bannerPanel) {
+	protected void customizeBannerArea(BasePanel bannerPanel) {
 		Paint paint = (Paint) UIDefaultsLookup.get("OptionPane.bannerBackgroundPaint");
 
 		if (paint != null) {
-			bannerPanel.setBackgroundPaint(paint);
+			bannerPanel.setBackgroundPainter((g, object, width, height) -> {
+				g.setPaint(paint);
+				g.fillRect(0,0,width,height);
+			});
 		} else {
 			Color dk = UIDefaultsLookup.getColor("OptionPane.bannerBackgroundDk");
 			Color lt = UIDefaultsLookup.getColor("OptionPane.bannerBackgroundLt");

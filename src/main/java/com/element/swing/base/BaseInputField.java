@@ -1,4 +1,4 @@
-package com.element.swing.compo;
+package com.element.swing.base;
 
 import com.element.color.ColorUtil;
 import com.element.ui.font.FontUtil;

@@ -1,6 +1,6 @@
 package com.element.plaf.basic;
 
-import com.element.swing.compo.BaseLabel;
+import com.element.swing.base.BaseLabel;
 import com.element.util.UIUtil;
 
 import javax.swing.*;

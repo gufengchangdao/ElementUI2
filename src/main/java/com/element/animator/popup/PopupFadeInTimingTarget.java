@@ -1,6 +1,6 @@
 package com.element.animator.popup;
 
-import com.element.swing.compo.BaseComponent;
+import com.element.swing.base.BaseComponent;
 import org.jdesktop.core.animation.timing.Animator;
 import org.jdesktop.core.animation.timing.TimingTarget;
 

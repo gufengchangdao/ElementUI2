@@ -1,6 +1,6 @@
 package com.element.swing.template;
 
-import com.element.swing.compo.RoundComponent;
+import com.element.swing.base.RoundComponent;
 
 import javax.swing.*;
 import java.awt.*;

@@ -1,7 +1,7 @@
 package com.element.ui.list;
 
 import com.element.color.ColorUtil;
-import com.element.swing.compo.BaseComponent;
+import com.element.swing.base.BaseComponent;
 import com.element.ui.border.RoundBorder;
 import org.jdesktop.swingx.JXSearchField;
 import org.jdesktop.swingx.VerticalLayout;
