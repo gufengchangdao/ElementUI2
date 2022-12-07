@@ -9,11 +9,9 @@ package com.element.ui.tabs;
 import java.awt.*;
 
 /**
- * A Color Provider to provide background and foreground for both {@link JideTabbedPane} and {@link SidePaneItem}.
+ * A Color Provider to provide background and foreground for both {@link JideTabbedPane}.
  * <p/>
- * It has higher priority than {@link JideTabbedPane#getTabColorProvider()}. However, if {@link SidePaneItem#setBackground(Color)}
- * or {@link SidePaneItem#setForeground(Color)} is invoked, the settings in {@link SidePaneItem} will be respected
- * instead of the color returned by this class.
+ * It has higher priority than {@link JideTabbedPane#getTabColorProvider()}.
  */
 public interface TabColorProvider {
 	/**

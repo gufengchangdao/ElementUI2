@@ -5,7 +5,7 @@ import com.element.ui.border.PartialEtchedBorder;
 import com.element.ui.border.PartialSide;
 import com.element.ui.layout.JideBoxLayout;
 import com.element.swing.search.ListSearchable;
-import com.element.ui.tree.TreeSearchable;
+import com.element.swing.search.TreeSearchable;
 import com.element.util.SelectAllUtil;
 import com.element.util.SwingTestUtil;
 import demo.AbstractDemo;

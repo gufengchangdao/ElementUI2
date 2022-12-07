@@ -3,7 +3,7 @@
  *
  * Copyright 2002 - 2004 JIDE Software Inc. All rights reserved.
  */
-package com.element.ui.table;
+package com.element.swing.search;
 
 import com.element.swing.search.SearchableEvent;
 import com.element.swing.search.Searchable;

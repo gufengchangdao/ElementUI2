@@ -9,7 +9,7 @@ import java.awt.*;
 import java.awt.event.*;
 
 /**
- * 添加JTabbedPane事件，可双击修改tab
+ * 添加JTabbedPane事件，可双击修改tab名
  * <p>
  * 示例：
  * <pre>

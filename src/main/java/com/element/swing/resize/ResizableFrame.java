@@ -1,13 +1,9 @@
 /*
- * @(#)ResizableWindow.java 2/18/2005
+ * @(#)ResizableFrame.java 10/22/2005
  *
  * Copyright 2002 - 2005 JIDE Software Inc. All rights reserved.
  */
-package com.element.ui.window;
-
-import com.element.swing.resize.Resizable;
-import com.element.swing.resize.ResizableSupport;
-import com.element.ui.panel.ResizablePanel;
+package com.element.swing.resize;
 
 import javax.swing.*;
 import javax.swing.border.Border;
@@ -19,34 +15,28 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
 /**
- * A resizable window.
+ * A resizable undecorated frame.
  */
-public class ResizableWindow extends JWindow implements ResizableSupport {
-
-	private ResizablePanel _resizablePanel;
+public class ResizableFrame extends JFrame implements ResizableSupport {
+	protected ResizablePanel _resizablePanel;
 	private boolean _routingKeyStrokes;
 
-	public ResizableWindow() {
+	public ResizableFrame() throws HeadlessException {
 		initComponents();
 	}
 
-	public ResizableWindow(Frame owner) {
-		super(owner);
-		initComponents();
-	}
-
-	public ResizableWindow(GraphicsConfiguration gc) {
+	public ResizableFrame(GraphicsConfiguration gc) {
 		super(gc);
 		initComponents();
 	}
 
-	public ResizableWindow(Window owner) {
-		super(owner);
+	public ResizableFrame(String title) throws HeadlessException {
+		super(title);
 		initComponents();
 	}
 
-	public ResizableWindow(Window owner, GraphicsConfiguration gc) {
-		super(owner, gc);
+	public ResizableFrame(String title, GraphicsConfiguration gc) {
+		super(title, gc);
 		initComponents();
 	}
 
@@ -54,37 +44,39 @@ public class ResizableWindow extends JWindow implements ResizableSupport {
 	 * Initializes the resizable window.
 	 */
 	protected void initComponents() {
+		setUndecorated(true);
+
 		_resizablePanel = new ResizablePanel() {
 			@Override
 			protected Resizable createResizable() {
 				return new Resizable(this) {
 					@Override
 					public void resizing(int resizeDir, int newX, int newY, int newW, int newH) {
-						Container container = ResizableWindow.this.getContentPane();
+						Container container = ResizableFrame.this.getContentPane();
 						container.setPreferredSize(new Dimension(newW, newH));
-						ResizableWindow.this.setBounds(newX, newY, newW, newH);
-						ResizableWindow.this.resizing();
+						if (ResizableFrame.this.isUndecorated()) {
+							ResizableFrame.this.setBounds(newX, newY, newW, newH);
+						}
+						ResizableFrame.this.resizing();
 					}
 
 
 					@Override
 					public void beginResizing(int resizeCorner) {
 						super.beginResizing(resizeCorner);
-						ResizableWindow.this.beginResizing();
+						ResizableFrame.this.beginResizing();
 					}
 
 					@Override
 					public void endResizing(int resizeCorner) {
 						super.endResizing(resizeCorner);
-						ResizableWindow.this.endResizing();
+						ResizableFrame.this.endResizing();
 					}
-
 
 					@Override
 					public boolean isTopLevel() {
 						return true;
 					}
-
 				};
 			}
 
@@ -184,6 +176,4 @@ public class ResizableWindow extends JWindow implements ResizableSupport {
 	public boolean isRoutingKeyStrokes() {
 		return _routingKeyStrokes;
 	}
-
-
 }

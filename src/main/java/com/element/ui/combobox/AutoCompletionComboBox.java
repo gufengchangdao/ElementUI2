@@ -6,6 +6,7 @@
 package com.element.ui.combobox;
 
 import com.element.converter.ObjectConverterManager;
+import com.element.swing.search.ComboBoxSearchable;
 
 import javax.swing.*;
 import java.util.Vector;

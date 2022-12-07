@@ -14,10 +14,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.Arrays;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.Vector;
 import java.util.zip.GZIPInputStream;
@@ -26,6 +23,21 @@ import java.util.zip.GZIPInputStream;
  * 演示伪造的数据
  */
 public class DemoData {
+	public static String getArticle() {
+		try (InputStream inputStream = DemoData.class.getResourceAsStream("benghuai.txt")) {
+			if (inputStream == null) return "benghuai.txt 文件没有找到";
+			try (BufferedReader br = new BufferedReader(new InputStreamReader(inputStream))) {
+				String s;
+				StringBuilder b = new StringBuilder();
+				while ((s = br.readLine()) != null)
+					b.append(s).append("\n");
+				return b.toString();
+			}
+		} catch (IOException e) {
+			return "benghuai.txt 文件没有找到";
+		}
+	}
+
 	public static final String LONG_TEXT = """
 			……德莉莎，我的那些「老朋友」们，赤鸢仙人、理之律者……他们是真正的好人，一定会帮助你走出一条属于自己的道路。
 			而「比安卡」，我最后的学生啊……我操弄了你的人生，规划了你的命途，一边对你付出栽培的真情，一边又把你当作棋子予取予求。你知道吗……\s
@@ -476,67 +488,10 @@ public class DemoData {
 	};
 
 
-	public static Vector[] getProductReportsData(int repeats, int maxRows) {
-		try {
-			InputStream resource = DemoData.class.getClassLoader().getResourceAsStream("ProductReports.txt.gz");
-			if (resource == null) {
-				return null;
-			}
-			InputStream in = new GZIPInputStream(resource);
-			BufferedReader reader = new BufferedReader(new InputStreamReader(in, StandardCharsets.UTF_8));
-			Vector<Vector<Object>> data = new Vector<>();
-
-			String columnsLine = reader.readLine(); // skip first line
-			String[] columnValues = columnsLine.split("\t");
-			Vector<String> columnNames = new Vector<>(Arrays.asList(columnValues));
-
-			int count = 0;
-			do {
-				String line = reader.readLine();
-				if (line == null || line.length() == 0) {
-					break;
-				}
-				String[] values = line.split("\t");
-				Vector<Object> lineData = new Vector<>();
-				lineData.add(values[0]); // category  name
-				lineData.add(values[1]); // product name
-				{
-					String value = values[2];
-					if (value.startsWith("$")) {
-						float f = Float.parseFloat(value.substring(1));
-						lineData.add(f); // product amount
-					}
-				}
-				{
-					String value = values[3];
-					try {
-						SimpleDateFormat format = new SimpleDateFormat("MM/dd/yyyy hh:mm:ss");
-						Date date = format.parse(value);
-						lineData.add(date); // order date
-					} catch (ParseException e) {
-						e.printStackTrace();
-					}
-				}
-				for (int i = 0; i < repeats; i++) {
-					data.add(lineData);
-				}
-				count++;
-				if (maxRows > 0 && count > maxRows) {
-					break;
-				}
-			}
-			while (true);
-			return new Vector[]{data, columnNames};
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		return null;
-	}
-
 	public static TreeModel createSongTreeModel() {
 		DefaultMutableTreeNode root = new DefaultMutableTreeNode("Songs");
 		DefaultTreeModel treeModel = new DefaultTreeModel(root);
-		HashMap<String, DefaultMutableTreeNode> albums = new HashMap();
+		HashMap<String, DefaultMutableTreeNode> albums = new HashMap<>();
 
 		try {
 			InputStream resource = DemoData.class.getClassLoader().getResourceAsStream("Library.txt.gz");
@@ -583,7 +538,7 @@ public class DemoData {
 
 	public static TableModel createSongTableModel() {
 		try {
-			InputStream resource = DemoData.class.getClassLoader().getResourceAsStream("Library.txt.gz");
+			InputStream resource = DemoData.class.getResourceAsStream("Library.txt.gz");
 			if (resource == null) {
 				return null;
 			}

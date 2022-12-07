@@ -12,8 +12,8 @@ import com.element.plaf.UIDefaultsLookup;
 import com.element.swing.resize.Resizable;
 import com.element.swing.resize.ResizableSupport;
 import com.element.ui.pane.JideScrollPane;
-import com.element.ui.panel.ResizablePanel;
-import com.element.ui.window.ResizableWindow;
+import com.element.swing.resize.ResizablePanel;
+import com.element.swing.resize.ResizableWindow;
 import com.element.util.UIUtil;
 import com.element.util.handle.Handler;
 

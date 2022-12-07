@@ -26,7 +26,6 @@ import javax.swing.tree.TreePath;
  * @author Boldrini
  */
 public class PropagatePreservingUncheckTreeCheckingMode extends TreeCheckingMode {
-
 	PropagatePreservingUncheckTreeCheckingMode(DefaultTreeCheckingModel model) {
 		super(model);
 	}

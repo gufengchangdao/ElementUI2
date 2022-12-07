@@ -1,5 +1,7 @@
 package com.element.ui.tabs.hoverclosetab;
 
+import com.element.ui.notice.message.MessageFactory;
+
 import javax.swing.*;
 import java.awt.*;
 
@@ -7,6 +9,7 @@ import java.awt.*;
  * 关闭图标
  */
 public class CloseTabIcon implements Icon {
+
 	@Override
 	public void paintIcon(Component c, Graphics g, int x, int y) {
 		Graphics2D g2 = (Graphics2D) g.create();

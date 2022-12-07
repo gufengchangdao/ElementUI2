@@ -18,9 +18,9 @@ import java.util.TimeZone;
  * #getValue()}.
  */
 public class DateSpinner extends JSpinner {
-	public DefaultFormatter _formatter;
-	public DateEditor _timeEditor;
-	public DateFormat _format;
+	private DefaultFormatter _formatter;
+	private DateEditor _timeEditor;
+	private DateFormat _format;
 
 	/**
 	 * Creates a date spinner using locale default as the format string.
@@ -46,11 +46,7 @@ public class DateSpinner extends JSpinner {
 	 */
 	public DateSpinner(String format, Date date) {
 		super(new SpinnerDateModel(date, null, null, Calendar.DAY_OF_MONTH));
-//        setBorder(BorderFactory.createEmptyBorder());
-//        setOpaque(true);
-
 		setFormat(format);
-
 		customizeSpinner();
 	}
 
@@ -207,5 +203,17 @@ public class DateSpinner extends JSpinner {
 	 */
 	public boolean isLenient() {
 		return _format.isLenient();
+	}
+
+	public DefaultFormatter get_formatter() {
+		return _formatter;
+	}
+
+	public DateEditor get_timeEditor() {
+		return _timeEditor;
+	}
+
+	public DateFormat get_format() {
+		return _format;
 	}
 }

@@ -19,6 +19,7 @@ import javax.swing.plaf.ColorUIResource;
 import javax.swing.tree.DefaultTreeCellRenderer;
 import javax.swing.tree.TreePath;
 import java.awt.*;
+import java.util.Objects;
 
 /**
  * A renderer for the CheckboxTree. This implementation decorates a
@@ -31,13 +32,13 @@ import java.awt.*;
  * @author bigagli
  */
 public class DefaultCheckboxTreeCellRenderer extends JPanel implements CheckboxTreeCellRenderer {
-
 	/**
 	 * Loads an ImageIcon from the file iconFile, searching it in the classpath.
 	 */
 	protected static ImageIcon loadIcon(String iconFile) {
 		try {
-			return new ImageIcon(DefaultCheckboxTreeCellRenderer.class.getClassLoader().getResource(iconFile));
+			return new ImageIcon(Objects.requireNonNull(
+					DefaultCheckboxTreeCellRenderer.class.getClassLoader().getResource(iconFile)));
 		} catch (NullPointerException npe) {// did not find the resource
 			return null;
 		}

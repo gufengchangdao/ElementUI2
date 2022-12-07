@@ -1,5 +1,11 @@
 package com.element.ui.tabs.hoverclosetab;
 
+import com.element.color.ColorUtil;
+import com.element.ui.icons.IconsFactory;
+import com.element.ui.others.tag.TagFactory;
+import com.element.ui.svg.icon.fill.XCircleSvg;
+import com.element.ui.svg.icon.regular.XSvg;
+
 import javax.swing.*;
 import java.awt.*;
 
@@ -11,6 +17,7 @@ class TabPanel extends JPanel {
 
 	public TabPanel(JTabbedPane pane, String title, Component content) {
 		this(pane, title, content, new CloseTabIcon());
+		// this(pane, title, content, IconsFactory.getSvgIcon(XSvg.class,12,12,ColorUtil.DANGER));
 	}
 
 	public TabPanel(JTabbedPane pane, String title, Component content, Icon icon) {
@@ -29,6 +36,7 @@ class TabPanel extends JPanel {
 			@Override
 			public Dimension getPreferredSize() {
 				Dimension dim = super.getPreferredSize();
+				// 按钮可见时，减去按钮的宽度
 				int bw = button.isVisible() ? button.getPreferredSize().width : 0;
 				return new Dimension(dim.width - bw, dim.height);
 			}

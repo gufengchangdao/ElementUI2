@@ -10,8 +10,6 @@ import com.element.regex.DefaultWildcardSupport;
 import com.element.regex.WildcardSupport;
 import com.element.swing.Resource;
 import com.element.ui.popup.JidePopup;
-import com.element.ui.table.TableSearchable;
-import com.element.ui.tree.TreeSearchable;
 import com.element.util.CompareUtil;
 import com.element.util.ListenerUtil;
 import com.element.util.SearchableUtil;

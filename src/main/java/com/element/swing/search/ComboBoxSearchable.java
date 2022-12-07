@@ -3,7 +3,7 @@
  *
  * Copyright 2002 - 2004 JIDE Software Inc. All rights reserved.
  */
-package com.element.ui.combobox;
+package com.element.swing.search;
 
 import com.element.swing.search.Searchable;
 import com.element.swing.search.SearchableEvent;

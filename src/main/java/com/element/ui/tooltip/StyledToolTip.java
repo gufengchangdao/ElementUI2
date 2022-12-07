@@ -14,9 +14,16 @@ import javax.swing.border.Border;
 import java.awt.*;
 
 /**
- * A Tooltip that could receives StyledLabel annotations.
- *
- * @since 3.3.4
+ * 可以接收 StyledLabel 注释的工具提示。
+ * <p>
+ * 使用方式例如：
+ * <pre>
+ * JButton b = new JButton("按钮") {
+ *   public JToolTip createToolTip() {
+ *     return new StyledToolTip();
+ *   }
+ * };
+ * </pre>
  */
 public class StyledToolTip extends JToolTip {
 	private final StyledLabel label = new StyledLabel();

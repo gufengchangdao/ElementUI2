@@ -9,6 +9,9 @@ import java.awt.*;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * 支持斑马线、指定行高亮、边框类型等
+ */
 public class ETableCellRenderer extends JLabel implements TableCellRenderer {
 	private Color backgroundColor = Color.WHITE;
 	private Color stripeColor;
@@ -28,7 +31,6 @@ public class ETableCellRenderer extends JLabel implements TableCellRenderer {
 	public static final Border border2 = BorderFactory.createMatteBorder(0, 0, 1, 1, ColorUtil.BORDER_LEVEL3);
 	/** 获得焦点的单元格 */
 	public static final Border focusBorder = BorderFactory.createMatteBorder(0, 0, 1, 0, Color.BLACK);
-
 
 	public ETableCellRenderer() {
 		this(false, false, new HashMap<>());

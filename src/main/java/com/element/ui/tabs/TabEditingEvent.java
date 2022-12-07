@@ -10,7 +10,7 @@ public class TabEditingEvent extends AWTEvent {
 	public static final int TAB_EDITING_STOPPED = TAB_EDITING_STARTED + 1;
 	public static final int TAB_EDITING_CANCELLED = TAB_EDITING_STOPPED + 1;
 
-	private int _tabIndex;
+	private final int _tabIndex;
 	private String _oldTitle;
 	private String _newTitle;
 

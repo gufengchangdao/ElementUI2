@@ -2,6 +2,7 @@ package com.element.ui.tooltip;
 
 import com.element.swing.SwingPosition;
 import com.element.swing.base.AngleComponent;
+import com.element.ui.label.StyledLabel;
 import org.jdesktop.core.animation.timing.Animator;
 import org.jdesktop.core.animation.timing.TimingTarget;
 
@@ -12,13 +13,13 @@ import java.awt.event.MouseListener;
 import java.util.concurrent.TimeUnit;
 
 /**
- * 文字提示
+ * 具体淡入淡出动画的文字提示，使用StyledLabel实现
  * <p>
  * 常用于展示鼠标 hover 时的提示信息。
  */
-public class TooltipLabel extends JLabel implements MouseListener, TimingTarget, SwingPosition {
+public class TooltipLabel extends StyledLabel implements MouseListener, TimingTarget, SwingPosition {
 	/** 弹窗工厂，为null时自动创建，不过可以通过传入实现多个对象共享一个factory */
-	private PopupFactory factory;
+	private final PopupFactory factory;
 	private Popup popup;
 	/** 动画播放过程中判断淡入淡出的变量 */
 	private boolean isShouldHidePopup = false;
@@ -26,13 +27,13 @@ public class TooltipLabel extends JLabel implements MouseListener, TimingTarget,
 	private Point p;
 
 	/** 要添加文字提示的组件 */
-	private JComponent c;
+	private final JComponent c;
 	/** 切角的位置 */
-	private int position;
+	private final int position;
 	/** 切角组件 */
 	private AngleComponent tooltipC;
 	/** 淡入淡出动画 */
-	private Animator animator;
+	private final Animator animator;
 
 	/**
 	 * @see #TooltipLabel(JComponent, String, PopupFactory, int, Color)
@@ -124,7 +125,6 @@ public class TooltipLabel extends JLabel implements MouseListener, TimingTarget,
 
 		p = e.getLocationOnScreen();
 		Point l = e.getLocationOnScreen();
-		// TODO 给该组件添加过渡动画
 		popup = factory.getPopup(c, tooltipC, l.x, l.y + 13);
 		popup.show();
 		animator.start();

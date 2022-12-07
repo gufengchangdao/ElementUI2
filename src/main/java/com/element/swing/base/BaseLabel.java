@@ -4,21 +4,19 @@ import com.element.plaf.LookAndFeelFactory;
 import com.element.plaf.UIDefaultsLookup;
 import com.element.swing.Alignable;
 import com.element.swing.AlignmentSupport;
+import org.jdesktop.swingx.JXLabel;
 
 import javax.swing.*;
 
 /**
- * Just like <code>JideButton</code> comparing to <code>JButton</code>, <code>JideLabel</code> is like
- * <code>JLabel</code> except it is used on <code>JToolBar</code> or <code>CommandBar</code>. However it doesn't look
- * any different from a regular <code>JLabel</code> unless you override "JideLabel.foreground", "JideLabel.background",
- * or "JideLabel.font" etc UIDefaults.
- * <p/>
- * <code>JideLabel</code> also can be used in a vertical layout. If you call {@link #setOrientation(int)} and set it to
- * {@link SwingConstants#VERTICAL}, the text and icon on the label will be laid out vertically. As
- * <code>CommandBar</code> supports vertical layout, this is perfect for it. You can also control the rotating direction
- * by calling {@link #setClockwise(boolean)}. By default, it rotates clockwise.
+ * 就像JideButton与JButton相比，BaseLabel与JLabel类似，只是它用在JToolBar或CommandBar上。然而，它看起来与常规JLabel没有任何不同，
+ * 除非您覆盖“JideLabel.foreground”、“JideLabel.background”或“JideLabel.font”等 UIDefaults。
+ * <p>
+ * BaseLabel也可以用于垂直布局。如果调用{@link #setOrientation(int)}并将其设置为{@link SwingConstants#VERTICAL}，标签上的文本和
+ * 图标将垂直放置。由于CommandBar支持垂直布局，这非常适合它。您还可以通过调用{@link #setClockwise(boolean)}来控制旋转方向。默认情况下，
+ * 它顺时针旋转。
  */
-public class BaseLabel extends JLabel implements Alignable, AlignmentSupport {
+public class BaseLabel extends JXLabel implements Alignable, AlignmentSupport {
 	private static final String uiClassID = "JideLabelUI";
 	public static final String PROPERTY_CLOCKWISE = "clockwise";
 

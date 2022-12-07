@@ -33,8 +33,6 @@ public class PropagateUpWhiteTreeCheckingMode extends TreeCheckingMode {
 		// check is propagated to children
 		this.model.checkSubTree(path);
 		// check all the ancestors with subtrees checked
-		TreePath[] parents = new TreePath[path.getPathCount()];
-		parents[0] = path;
 		TreePath parentPath = path;
 		// uncheck is propagated to parents, too
 		while ((parentPath = parentPath.getParentPath()) != null) {

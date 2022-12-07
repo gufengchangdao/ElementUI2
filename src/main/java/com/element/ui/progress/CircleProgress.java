@@ -17,7 +17,7 @@ import java.awt.geom.Rectangle2D;
  *     <li>中间label设置</li>
  * </ul>
  * <p>
- * 注意，label和 string 无法同时显示，只有在 label 为 null时可以显示 string
+ * 注意，label和 string 不会同时显示，只有在 label 为 null时可以显示 string
  */
 public class CircleProgress extends JProgressBar {
 	/** 线宽 */

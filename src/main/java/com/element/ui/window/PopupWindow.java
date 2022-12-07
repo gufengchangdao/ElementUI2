@@ -13,8 +13,8 @@ import javax.swing.event.PopupMenuEvent;
 import javax.swing.event.PopupMenuListener;
 import java.awt.*;
 import java.awt.event.*;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Vector;
 
 /**
  * PopupWindow class
@@ -24,16 +24,15 @@ import java.util.Vector;
  * This class is copied from http://forum.java.sun.com/thread.jsp?forum=57&thread=230866 with some minor modifications.
  */
 public class PopupWindow {
-
 	/**
 	 * A list of event listeners for this component.
 	 */
 	protected EventListenerList listenerList = new EventListenerList();
 
 	private JWindow _delegate;
-	private Container _container;
-	private List _grabbed = new Vector();
-	private List _excluded = new Vector();
+	private final Container _container;
+	private final List<Component> _grabbed = new ArrayList<>();
+	private final List<Component> _excluded = new ArrayList<>();
 	private WindowListener _windowListener;
 	private ComponentListener _componentListener;
 	private ContainerListener _containerListener;
@@ -119,24 +118,24 @@ public class PopupWindow {
 		grabContainers();
 
 		// set popup window focus and register esc key
-//        _delegate.toFront();
-//        _delegate.requestFocus();
+		// _delegate.toFront();
+		// _delegate.requestFocus();
 
 		// JDK 1.3 Porting Hint
 		// Replace by AWTEventListener
-// Following Block is for JDK 1.3
-//        _keyEventDispatcher = new AWTEventListener() {
-//            public void eventDispatched(AWTEvent e) {
-//                if (e instanceof KeyEvent) {
-//                    if (((KeyEvent) e).getKeyCode() == KeyEvent.VK_ESCAPE) {
-//                        hide();
-//                    }
-//                }
-//            }
-//        };
-//        Toolkit.getDefaultToolkit().addAWTEventListener(_keyEventDispatcher, AWTEvent.KEY_EVENT_MASK);
+		// Following Block is for JDK 1.3
+		// _keyEventDispatcher = new AWTEventListener() {
+		// 	public void eventDispatched(AWTEvent e) {
+		// 		if (e instanceof KeyEvent) {
+		// 			if (((KeyEvent) e).getKeyCode() == KeyEvent.VK_ESCAPE) {
+		// 				hide();
+		// 			}
+		// 		}
+		// 	}
+		// };
+		// Toolkit.getDefaultToolkit().addAWTEventListener(_keyEventDispatcher, AWTEvent.KEY_EVENT_MASK);
 
-// Following Block is for JDK 1.4
+		// Following Block is for JDK 1.4
 		_keyEventDispatcher = e -> {
 			if (e.getKeyCode() == KeyEvent.VK_ESCAPE) {
 				hide();
@@ -259,13 +258,13 @@ public class PopupWindow {
 				if (isExcludedComponent(comp)) {
 					continue;
 				}
-//                // TODO: this is not the right way to do things. Leave it for future enhancement to popup panel
-//                // don't hide popup when button of abstract combobox is pressed so that that button can toggle visibility of popup panel
-//                if(comp instanceof AbstractButton && comp.getParent() instanceof AbstractComboBox) {
-//                    if(_delegate.isAncestorOf(((AbstractComboBox) comp.getParent()).getPopupPanel())) {
-//                        continue;
-//                    }
-//                }
+				// TODO: this is not the right way to do things. Leave it for future enhancement to popup panel
+				// don't hide popup when button of abstract combobox is pressed so that that button can toggle visibility of popup panel
+				// if (comp instanceof AbstractButton && comp.getParent() instanceof AbstractComboBox) {
+				// 	if (_delegate.isAncestorOf(((AbstractComboBox) comp.getParent()).getPopupPanel())) {
+				// 		continue;
+				// 	}
+				// }
 				comp.addMouseListener(_mouseListener);
 				_grabbed.add(comp);
 				if (comp instanceof Container cont) {
@@ -279,8 +278,7 @@ public class PopupWindow {
 	}
 
 	void releaseContainers() {
-		for (Object o : _grabbed) {
-			Component c = (Component) o;
+		for (Component c : _grabbed) {
 			if (c instanceof Window) {
 				((Window) c).removeWindowListener(_windowListener);
 				c.removeComponentListener(_componentListener);

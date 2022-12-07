@@ -7,10 +7,10 @@ package com.element.util;
 
 import com.element.swing.search.Searchable;
 import com.element.swing.search.TextComponentSearchable;
-import com.element.ui.combobox.ComboBoxSearchable;
+import com.element.swing.search.ComboBoxSearchable;
 import com.element.swing.search.ListSearchable;
-import com.element.ui.table.TableSearchable;
-import com.element.ui.tree.TreeSearchable;
+import com.element.swing.search.TableSearchable;
+import com.element.swing.search.TreeSearchable;
 
 import javax.swing.*;
 import javax.swing.text.JTextComponent;

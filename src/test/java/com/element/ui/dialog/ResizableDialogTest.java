@@ -1,6 +1,7 @@
 package com.element.ui.dialog;
 
 import com.element.plaf.LookAndFeelFactory;
+import com.element.swing.resize.ResizableDialog;
 import com.element.util.SwingTestUtil;
 import demo.AbstractDemo;
 import demo.DemoData;

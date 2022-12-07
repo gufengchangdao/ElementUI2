@@ -21,10 +21,7 @@ import javax.swing.plaf.UIResource;
 import java.awt.*;
 import java.awt.event.*;
 import java.beans.PropertyChangeListener;
-import java.util.HashSet;
-import java.util.Hashtable;
-import java.util.Objects;
-import java.util.Set;
+import java.util.*;
 import java.util.function.Function;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -44,7 +41,6 @@ import java.util.logging.Logger;
  * </ul>
  */
 public class JideTabbedPane extends JTabbedPane {
-
 	private boolean _hideOneTab = false;
 
 	private boolean _showTabButtons = false;
@@ -177,9 +173,9 @@ public class JideTabbedPane extends JTabbedPane {
 	/**
 	 * The Set for the tab closable. If there is an entry in the Set, it means the tab is NOT closable.
 	 */
-	private Set<Object> _closableSet = new HashSet<>();
+	private final Set<Component> _closableSet = new HashSet<>();
 
-	private Hashtable<Component, Object> _pageLastFocusTrackers = new Hashtable<>();
+	private final HashMap<Component, PageLastFocusTracker> _pageLastFocusTrackers = new HashMap<>();
 
 	private Font _selectedTabFont;
 
@@ -251,7 +247,7 @@ public class JideTabbedPane extends JTabbedPane {
 	// show close button on active tab only
 	private boolean _showCloseButtonOnSelectedTab = false;
 
-	private ListCellRenderer _tabListCellRenderer;
+	private ListCellRenderer<Object> _tabListCellRenderer;
 
 	private Insets _contentBorderInsets;
 	private Insets _tabAreaInsets;
@@ -514,7 +510,7 @@ public class JideTabbedPane extends JTabbedPane {
 		Component oldComponent = getComponentAt(index);
 		if (oldComponent != null) {
 			// JTabbedPane allows a null c, but doesn't really support it.
-			PageLastFocusTracker tracker = (PageLastFocusTracker) _pageLastFocusTrackers.get(oldComponent);
+			PageLastFocusTracker tracker = _pageLastFocusTrackers.get(oldComponent);
 			_pageLastFocusTrackers.remove(oldComponent);
 			if (tracker != null) {
 				tracker.setHighestComponent(null); // Clear its listeners
@@ -1054,7 +1050,7 @@ public class JideTabbedPane extends JTabbedPane {
 		}
 		if (c != null) {
 			// JTabbedPane allows a null c, but doesn't really support it.
-			PageLastFocusTracker tracker = (PageLastFocusTracker) _pageLastFocusTrackers.get(c);
+			PageLastFocusTracker tracker = _pageLastFocusTrackers.get(c);
 			_pageLastFocusTrackers.remove(c);
 			if (tracker != null) {
 				tracker.setHighestComponent(null); // Clear its listeners
@@ -1115,7 +1111,7 @@ public class JideTabbedPane extends JTabbedPane {
 		firePropertyChange(TAB_CLOSABLE_PROPERTY, !closable, closable);
 	}
 
-	protected Hashtable getPageLastFocusTrackers() {
+	protected HashMap<Component, PageLastFocusTracker> getPageLastFocusTrackers() {
 		return _pageLastFocusTrackers;
 	}
 
@@ -1132,8 +1128,7 @@ public class JideTabbedPane extends JTabbedPane {
 		}
 //        System.out.println("---JideTabbedPane.getLastFocusedComponent()" + pageComponent);
 
-		PageLastFocusTracker tracker = (PageLastFocusTracker) (
-				getPageLastFocusTrackers().get(pageComponent));
+		PageLastFocusTracker tracker = getPageLastFocusTrackers().get(pageComponent);
 
 //        System.out.println("---JideTabbedPane.getLastFocusedComponent()" + componentReturn);
 //        if (false) {
@@ -1447,7 +1442,7 @@ public class JideTabbedPane extends JTabbedPane {
 		Color getTopBackgroundAt(int tabIndex);
 	}
 
-	private static Color[] ONENOTE_COLORS = {
+	private static final Color[] ONENOTE_COLORS = {
 			new Color(138, 168, 228), // blue
 			new Color(238, 149, 151), // pink
 			new Color(180, 158, 222), // purple
@@ -1631,7 +1626,7 @@ public class JideTabbedPane extends JTabbedPane {
 	 * @return the tab list cell renderer.
 	 * @see #setTabListCellRenderer(ListCellRenderer)
 	 */
-	public ListCellRenderer getTabListCellRenderer() {
+	public ListCellRenderer<Object> getTabListCellRenderer() {
 		return Objects.requireNonNullElseGet(_tabListCellRenderer, TabListCellRenderer::new);
 	}
 
@@ -1698,7 +1693,7 @@ public class JideTabbedPane extends JTabbedPane {
 	 *
 	 * @param tabListCellRenderer the cell renderer
 	 */
-	public void setTabListCellRenderer(ListCellRenderer tabListCellRenderer) {
+	public void setTabListCellRenderer(ListCellRenderer<Object> tabListCellRenderer) {
 		_tabListCellRenderer = tabListCellRenderer;
 	}
 
@@ -2006,7 +2001,7 @@ public class JideTabbedPane extends JTabbedPane {
 		panel.setOpaque(true);
 		panel.setBorder(BorderFactory.createEmptyBorder(3, 3, 3, 3));
 
-		JList list = createTabList(panel.getInsets());
+		JList<JideTabbedPane> list = createTabList(panel.getInsets());
 		JScrollPane scroller = new JScrollPane(list);
 		scroller.setBorder(BorderFactory.createEmptyBorder());
 		scroller.getViewport().setOpaque(false);
@@ -2100,8 +2095,8 @@ public class JideTabbedPane extends JTabbedPane {
 	 * @return the created list instance.
 	 * @since 3.2.2
 	 */
-	protected JList createTabList(Insets insets) {
-		final JList list = new JList() {
+	protected JList<JideTabbedPane> createTabList(Insets insets) {
+		final JList<JideTabbedPane> list = new JList<>() {
 			// override this method to disallow deselect by ctrl-click
 			@Override
 			public void removeSelectionInterval(int index0, int index1) {
@@ -2134,7 +2129,7 @@ public class JideTabbedPane extends JTabbedPane {
 				return preferredSize;
 			}
 		};
-		DefaultListModel listModel = new DefaultListModel();
+		DefaultListModel<JideTabbedPane> listModel = new DefaultListModel<>();
 
 		// drop down menu items
 		int selectedIndex = getSelectedIndex();
@@ -2173,7 +2168,7 @@ public class JideTabbedPane extends JTabbedPane {
 		return list;
 	}
 
-	private void componentSelected(JList list) {
+	private void componentSelected(JList<JideTabbedPane> list) {
 		int tabIndex = list.getSelectedIndex();
 		if (tabIndex != -1 && isEnabledAt(tabIndex)) {
 			if (tabIndex == getSelectedIndex() && UIUtil.isAncestorOfFocusOwner(this)) {

@@ -6,6 +6,7 @@
 package com.element.ui.combobox;
 
 import com.element.swing.DelegateAction;
+import com.element.swing.search.ComboBoxSearchable;
 import com.element.swing.search.Searchable;
 import com.element.util.AudioUtil;
 import com.element.util.CompareUtil;

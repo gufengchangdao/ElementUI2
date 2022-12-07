@@ -23,7 +23,6 @@ import javax.swing.tree.TreePath;
  * @author Lorenzo Bigagli
  */
 public class NullTreeCheckingModel implements TreeCheckingModel {
-
 	private final static NullTreeCheckingModel singleton;
 
 	static {

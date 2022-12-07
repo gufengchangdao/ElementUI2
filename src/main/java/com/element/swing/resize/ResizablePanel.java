@@ -3,7 +3,7 @@
  *
  * Copyright 2002 - 2005 JIDE Software Inc. All rights reserved.
  */
-package com.element.ui.panel;
+package com.element.swing.resize;
 
 import com.element.plaf.UIDefaultsLookup;
 import com.element.swing.resize.Resizable;

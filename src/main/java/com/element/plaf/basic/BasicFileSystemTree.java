@@ -6,7 +6,7 @@
 package com.element.plaf.basic;
 
 import com.element.ui.others.FolderChooser;
-import com.element.ui.tree.TreeSearchable;
+import com.element.swing.search.TreeSearchable;
 import com.element.util.UIUtil;
 
 import javax.swing.*;

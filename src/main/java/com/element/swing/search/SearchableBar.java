@@ -3,14 +3,10 @@
  *
  * Copyright 2002 - 2005 JIDE Software Inc. All rights reserved.
  */
-package com.element.ui.toolbar;
+package com.element.swing.search;
 
-import com.element.swing.search.SearchableEvent;
 import com.element.plaf.UIDefaultsLookup;
 import com.element.swing.Resource;
-import com.element.swing.search.Searchable;
-import com.element.swing.search.SearchableProvider;
-import com.element.swing.search.SearchableBarIconsFactory;
 import com.element.ui.layout.JideBoxLayout;
 import com.element.ui.popup.JidePopup;
 import com.element.ui.popup.JidePopupFactory;
@@ -76,12 +72,12 @@ import java.util.Locale;
  * <p/>
  */
 public class SearchableBar extends JToolBar implements SearchableProvider {
-	private Searchable _searchable;
+	private final Searchable _searchable;
 
 	protected JLabel _statusLabel;
 	protected JLabel _leadingLabel;
 	protected JTextField _textField;
-	protected JComboBox _comboBox;
+	protected JComboBox<String> _comboBox;
 
 	protected AbstractButton _closeButton;
 	protected AbstractButton _findPrevButton;
@@ -254,7 +250,7 @@ public class SearchableBar extends JToolBar implements SearchableProvider {
 		});
 		_textField.setColumns(13);
 		DocumentListener listener = new DocumentListener() {
-			private Timer timer = new Timer(_searchable.getSearchingDelay(), e -> highlightAllOrNext());
+			private final Timer timer = new Timer(_searchable.getSearchingDelay(), e -> highlightAllOrNext());
 
 			public void insertUpdate(DocumentEvent e) {
 				startTimer();
@@ -350,8 +346,8 @@ public class SearchableBar extends JToolBar implements SearchableProvider {
 	 * @return a combo box.
 	 * @since 3.4.1
 	 */
-	protected JComboBox createComboBox() {
-		JComboBox comboBox = new JComboBox();
+	protected JComboBox<String> createComboBox() {
+		JComboBox<String> comboBox = new JComboBox<>();
 		comboBox.setEditable(true);
 		return comboBox;
 	}
@@ -573,7 +569,7 @@ public class SearchableBar extends JToolBar implements SearchableProvider {
 	 * <p/>
 	 * Even you set it to true, after the customer press previous or next button, this flag will be cleared.
 	 *
-	 * @return true if all matches are highlighted. Otherwise false.
+	 * @return true if all matches are highlighted. Otherwise, false.
 	 */
 	public boolean isHighlightAll() {
 		return _highlightsButton.isSelected();
@@ -808,7 +804,7 @@ public class SearchableBar extends JToolBar implements SearchableProvider {
 			_searchHistory = new ArrayList<>();
 			_searchHistory.addAll(Arrays.asList(searchHistory));
 		}
-		DefaultComboBoxModel model = new DefaultComboBoxModel();
+		DefaultComboBoxModel<String> model = new DefaultComboBoxModel<>();
 		if (_searchHistory != null) {
 			for (int i = _searchHistory.size() - 1; i >= 0; i--) {
 				model.addElement(_searchHistory.get(i));
@@ -823,7 +819,7 @@ public class SearchableBar extends JToolBar implements SearchableProvider {
 	 * Gets the maximum search history length.
 	 *
 	 * @return the maximum search history length.
-	 * @see {@link #setMaxHistoryLength(int)}
+	 * @see #setMaxHistoryLength(int)
 	 * @since 3.4.1
 	 */
 	public int getMaxHistoryLength() {
@@ -1082,7 +1078,7 @@ public class SearchableBar extends JToolBar implements SearchableProvider {
 		}
 		if (_searchHistory.size() == 0) {
 			_searchHistory.add(searchingText);
-			DefaultComboBoxModel model = new DefaultComboBoxModel();
+			DefaultComboBoxModel<String> model = new DefaultComboBoxModel<>();
 			model.addElement(searchingText);
 			_comboBox.setModel(model);
 			return;
@@ -1095,7 +1091,7 @@ public class SearchableBar extends JToolBar implements SearchableProvider {
 		if (getMaxHistoryLength() > 0 && _searchHistory.size() > getMaxHistoryLength()) {
 			_searchHistory.remove(0);
 		}
-		DefaultComboBoxModel model = new DefaultComboBoxModel();
+		DefaultComboBoxModel<String> model = new DefaultComboBoxModel<>();
 		for (int i = _searchHistory.size() - 1; i >= 0; i--) {
 			model.addElement(_searchHistory.get(i));
 		}

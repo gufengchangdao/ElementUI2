@@ -35,7 +35,6 @@ import java.util.Vector;
 //  however cause nullPointerException (setTreeModel calls clearChecking...) 
 //  Fix, either allowing or banning null tree models.
 public class DefaultTreeCheckingModel implements TreeCheckingModel {
-
 	private final static TreeModel NULL_TREE_MODEL = new TreeModel() {
 
 		public void addTreeModelListener(TreeModelListener l) {
@@ -112,20 +111,15 @@ public class DefaultTreeCheckingModel implements TreeCheckingModel {
 		}
 	}
 
-	private HashSet<TreePath> checkedPathsSet;
-
+	private final HashSet<TreePath> checkedPathsSet;
 	protected TreeCheckingMode checkingMode;
-
-	private HashSet<TreePath> disabledPathsSet;
-
-	private HashSet<TreePath> greyedPathsSet;
+	private final HashSet<TreePath> disabledPathsSet;
+	private final HashSet<TreePath> greyedPathsSet;
 
 	/** Event listener list. */
 	protected EventListenerList listenerList = new EventListenerList();
-
 	protected TreeModel model;
-
-	private PropagateCheckingListener propagateCheckingListener;
+	private final PropagateCheckingListener propagateCheckingListener;
 
 	/**
 	 * Creates a DefaultTreeCheckingModel with PropagateTreeCheckingMode.

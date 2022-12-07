@@ -1,16 +1,21 @@
 package com.element.ui.tabs;
 
 import com.element.color.ColorUtil;
+import com.element.swing.template.X2Component;
 import com.element.ui.button.IconButton;
 import com.element.ui.others.tag.TagFactory;
-import com.element.swing.template.X2Component;
 
 import javax.swing.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
 /**
- * 含有关闭按钮的tab组件
+ * 自定义含有关闭按钮的tab组件。
+ * 使用方式：
+ * <pre>
+ *  tb.add("Tab1", new JTextArea("Tab1"));
+ *  tb.setTabComponentAt(0, new CloseableTab(tb));
+ * </pre>
  */
 public class CloseableTab extends X2Component<JLabel, IconButton> implements MouseListener {
 	private final JTabbedPane pane;

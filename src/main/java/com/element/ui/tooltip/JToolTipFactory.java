@@ -12,7 +12,6 @@ import java.awt.*;
  * 此类创建 JTooltip 组件的实例。它提供了一种一致的方法来创建自定义工具提示，而无需覆盖创建工具提示的 JIDE 组件
  */
 public class JToolTipFactory {
-
 	private static JToolTipFactory _tooltipFactory;
 
 	/**

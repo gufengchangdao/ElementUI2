@@ -5,6 +5,9 @@ import javax.swing.plaf.LayerUI;
 import java.awt.*;
 import java.awt.event.MouseEvent;
 
+/**
+ * TranslucentScroll使用
+ */
 public class ScrollBarOnHoverScroll extends JPanel {
 	public final JPanel scrollBar = new JPanel();
 	public final Timer expand = new Timer(10, e -> scrollBar.revalidate());
