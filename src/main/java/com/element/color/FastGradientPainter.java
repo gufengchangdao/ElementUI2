@@ -98,7 +98,6 @@ public class FastGradientPainter {
 			JPanel p = SwingTestUtil.init(new MigLayout());
 			Shape shape = SwordSvg.of(50, 50).getShape();
 
-			System.out.println("shape = " + shape);
 			p.add(new JLabel() {
 				@Override
 				protected void paintComponent(Graphics g) {

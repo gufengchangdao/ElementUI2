@@ -39,11 +39,6 @@ public class MetalMenuUI extends MetalMenuItemUI {
 	 */
 	private InputMap selectedWindowInputMap;
 
-	/* diagnostic aids -- should be false for production builds. */
-	private static final boolean TRACE = false; // trace creates and disposes
-	private static final boolean VERBOSE = false; // show reuse hits/misses
-	private static final boolean DEBUG = false;  // show bad params, misc.
-
 	private static boolean crossMenuMnemonic = true;
 
 	private boolean isMouseOver = false;
@@ -560,9 +555,6 @@ public class MetalMenuUI extends MetalMenuItemUI {
 		 * Opens the SubMenu
 		 */
 		public void menuKeyTyped(MenuKeyEvent e) {
-			if (DEBUG) {
-				System.out.println("in BasicMenuUI.menuKeyTyped for " + menuItem.getText());
-			}
 			if (!crossMenuMnemonic) {
 				JPopupMenu pm = getActivePopupMenu();
 				if (pm != null && pm != menuItem.getParent()) {
@@ -595,9 +587,6 @@ public class MetalMenuUI extends MetalMenuItemUI {
 		 * into BasicPopupMenuUI. See 4670831
 		 */
 		public void menuKeyPressed(MenuKeyEvent e) {
-			if (DEBUG) {
-				System.out.println("in BasicMenuUI.menuKeyPressed for " + menuItem.getText());
-			}
 			// Handle the case for Escape or Enter...
 			char keyChar = e.getKeyChar();
 			if (!Character.isLetterOrDigit(keyChar))

@@ -39,7 +39,7 @@ public class ExtWindowsDesktopProperty implements UIDefaults.ActiveValue {
 	/**
 	 * Key used to lookup value from desktop.
 	 */
-	private String[] keys;
+	private final String[] keys;
 	/**
 	 * Value to return.
 	 */
@@ -47,12 +47,12 @@ public class ExtWindowsDesktopProperty implements UIDefaults.ActiveValue {
 	/**
 	 * Fallback value in case we get null from desktop.
 	 */
-	private Object[] fallback;
+	private final Object[] fallback;
 
 	/**
 	 * Convert color to another color
 	 */
-	private ConvertListener listener;
+	private final ConvertListener listener;
 	/**
 	 * Toolkit.
 	 */
@@ -219,9 +219,8 @@ public class ExtWindowsDesktopProperty implements UIDefaults.ActiveValue {
 	 * As there is typically only one Toolkit, the PropertyChangeListener is handled via a WeakReference so as not to
 	 * pin down the DesktopProperty.
 	 */
-	private static class WeakPCL extends WeakReference
-			implements PropertyChangeListener {
-		private Toolkit kit;
+	private static class WeakPCL extends WeakReference implements PropertyChangeListener {
+		private final Toolkit kit;
 
 		WeakPCL(Object target, Toolkit kit) {
 			super(target);

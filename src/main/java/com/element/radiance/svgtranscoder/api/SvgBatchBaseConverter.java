@@ -44,8 +44,8 @@ public abstract class SvgBatchBaseConverter {
 		for (String arg : args) {
 			String[] split = arg.split("=");
 			if (split.length != 2) {
-				System.out.println("Argument '" + arg + "' unsupported");
-				System.out.println(CHECK_DOCUMENTATION);
+				System.err.println("Argument '" + arg + "' unsupported");
+				System.err.println(CHECK_DOCUMENTATION);
 				System.exit(1);
 			}
 			if (split[0].compareTo(argumentName) == 0) {
@@ -98,7 +98,5 @@ public abstract class SvgBatchBaseConverter {
 				t.printStackTrace(System.err);
 			}
 		}
-
-		System.out.println();
 	}
 }

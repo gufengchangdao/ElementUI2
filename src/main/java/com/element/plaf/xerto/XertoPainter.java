@@ -20,7 +20,6 @@ import java.awt.*;
  * Please note, this class is an internal class which is meant to be used by other JIDE classes only. Future version might break your build if you use it.
  */
 public class XertoPainter extends BasicPainter {
-
 	private static XertoPainter _instance;
 	private static final ImageIcon SELECTED = IconsFactory.getImageIcon(XertoPainter.class, "icons/selected.gif");
 	private static final ImageIcon SELECTED_C = IconsFactory.getImageIcon(XertoPainter.class, "icons/selected_c.gif");

@@ -103,7 +103,7 @@ class CachedLookAndFeel extends LookAndFeel {
 		}
 
 		try {
-			Class lafFactory = newLoader.loadClass("com.element.plaf.LookAndFeelFactory");
+			Class<?> lafFactory = newLoader.loadClass("com.element.plaf.LookAndFeelFactory");
 			Method installJideExtension = lafFactory.getDeclaredMethod("installJideExtension", int.class);
 			int style = LookAndFeelFactory.getDefaultStyle();
 			UIManager.put(LookAndFeelFactory.JIDE_EXTENSION_INSTALLED, null); // force population
@@ -121,7 +121,7 @@ class CachedLookAndFeel extends LookAndFeel {
 		installJideExtension(currentLoader, true);
 	}
 
-	private static void removeCachedClass(UIDefaults defaults, Class componentUIClass) {
+	private static void removeCachedClass(UIDefaults defaults, Class<?> componentUIClass) {
 		if (componentUIClass != null) {
 			// remove className <--> class definition
 			defaults.remove(componentUIClass.getName());
@@ -142,7 +142,7 @@ class CachedLookAndFeel extends LookAndFeel {
 			// classloader and will cause ClassCastException later on.
 			// http://bugs.sun.com/bugdatabase/view_bug.do?bug_id=4675772
 			String className = (String) defaults.get(target.getUIClassID());
-			Class componentUIClass = className != null ? (Class) defaults.get(className) : null;
+			Class<?> componentUIClass = className != null ? (Class<?>) defaults.get(className) : null;
 			ClassLoader componentUIClassLoader = componentUIClass != null ? componentUIClass.getClassLoader() : null;
 
 			ClassLoader targetClassLoader = target.getClass().getClassLoader();

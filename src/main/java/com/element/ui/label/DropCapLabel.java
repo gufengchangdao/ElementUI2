@@ -36,10 +36,8 @@ public class DropCapLabel extends JLabel {
 		Rectangle rect = SwingUtilities.calculateInnerArea(this, null);
 		float x0 = rect.x;
 		float y0 = rect.y;
-		System.out.println(rect);
 		Font font = getFont();
 		String txt = getText();
-		System.out.println(getWidth());
 		// 设置第一个字，使其放大 fold 倍
 		FontRenderContext frc = g2.getFontRenderContext();
 		Shape shape = new TextLayout(txt.substring(0, 1), font, frc).getOutline(null);

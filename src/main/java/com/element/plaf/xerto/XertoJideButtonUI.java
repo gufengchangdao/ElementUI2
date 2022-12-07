@@ -12,9 +12,6 @@ import javax.swing.*;
 import javax.swing.plaf.ComponentUI;
 import java.awt.*;
 
-/**
- *
- */
 public class XertoJideButtonUI extends BasicJideButtonUI {
 	private static WindowsButtonUI _buttonUI = new WindowsButtonUI();
 

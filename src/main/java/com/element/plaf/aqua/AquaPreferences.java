@@ -60,7 +60,6 @@ class AquaPreferences {
 			prefs = new HashMap();
 			loadGlobalPreferences();
 		}
-		//System.out.println("Preferences.get("+key+"):"+prefs.get(key));
 		return prefs.get(key);
 	}
 
@@ -97,7 +96,6 @@ class AquaPreferences {
 						key = xml2.getContent();
 					} else {
 						if (key != null) {
-							//System.out.println("Preferences "+key+"="+xml2.getContent());
 							prefs.put(key, xml2.getContent());
 						}
 						key = null;

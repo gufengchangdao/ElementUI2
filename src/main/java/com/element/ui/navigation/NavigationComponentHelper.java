@@ -56,7 +56,6 @@ abstract public class NavigationComponentHelper extends MouseInputAdapter implem
 		int row = rowAtPoint(e.getPoint());
 		if (row != -1) {
 			Rectangle bounds = getRowBounds(row);
-			System.out.println(bounds);
 			if (c instanceof JTree) {
 				int maxIconSize = bounds != null ? bounds.height : ((JTree) c).getRowHeight();
 				if (_mousePosition != null) {

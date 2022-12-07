@@ -42,13 +42,16 @@ import java.util.*;
  * </pre></code>
  * <p>
  * {@link #installJideExtension()} 方法将检查您设置的 L&F 类型以及您使用的操作系统，并决定它将安装哪种类型的 JIDE 扩展。这是规则。
- * 操作系统：Windows Vista 或 Windows 7，L&F：Windows L&F => OFFICE2007_STYLE
- * 操作系统：带有 XP 主题的 Windows XP，L&F：Windows L&F => OFFICE2003_STYLE
- * 操作系统：任何 Windows，L&F：Windows L&F => VSNET_STYLE
- * 操作系统：Linux，L&F：任何基于 Metal L&F 的 L&F => VSNET_STYLE
- * 操作系统：Mac OS X，L&F：Aqua L&F => AQUA_STYLE
- * 操作系统：任何操作系统，L&F：Quaqua L&F => AQUA_STYLE
- * 否则=> VSNET_STYLE
+ * <ul>
+ *     <li>操作系统：Windows Vista 或 Windows 7，L&F：Windows L&F => OFFICE2007_STYLE</li>
+ *     <li>操作系统：带有 XP 主题的 Windows XP，L&F：Windows L&F => OFFICE2003_STYLE</li>
+ *     <li>操作系统：任何 Windows，L&F：Windows L&F => VSNET_STYLE</li>
+ *     <li>操作系统：Linux，L&F：任何基于 Metal L&F 的 L&F => VSNET_STYLE</li>
+ *     <li>操作系统：Mac OS X，L&F：Aqua L&F => AQUA_STYLE</li>
+ *     <li>操作系统：任何操作系统，L&F：Quaqua L&F => AQUA_STYLE</li>
+ *     <li>否则=> VSNET_STYLE</li>
+ * </ul>
+ * <p>
  * 还有另一个 {@link #installJideExtension(int)}，它采用 int 样式参数。 你可以传入
  * <ul>
  *     <li>{@link LookAndFeelFactory#EXTENSION_STYLE_VSNET}</li>
@@ -106,105 +109,40 @@ import java.util.*;
  * LookAndFeelFactory.installDefaultLookAndFeelAndExtension(); // or installJideExtension()
  * </pre></code>
  */
-public class LookAndFeelFactory implements ProductNames {
-	/**
-	 * Class name of Windows L&F provided in Sun JDK.
-	 */
-	public static final String WINDOWS_CLASSIC_LNF = "com.sun.java.swing.plaf.windows.WindowsClassicLookAndFeel";
-
-	/**
-	 * Class name of Metal L&F provided in Sun JDK.
-	 */
+public class LookAndFeelFactory {
+	/** Class name of Metal L&F provided in Sun JDK. */
 	public static final String METAL_LNF = "javax.swing.plaf.metal.MetalLookAndFeel";
-
-	/**
-	 * Class name of Synth L&F provided in Sun JDK.
-	 */
+	/** Class name of Synth L&F provided in Sun JDK. */
 	public static final String SYNTH_LNF = "javax.swing.plaf.synth.SynthLookAndFeel";
-
-	/**
-	 * Class name of Aqua L&F provided in Apple Mac OS X JDK.
-	 */
+	/** Class name of Aqua L&F provided in Apple Mac OS X JDK. */
 	public static final String AQUA_LNF = "apple.laf.AquaLookAndFeel";
-
-	/**
-	 * Class name of Aqua L&F provided in Apple Mac OS X JDK. This is the new package since Java Update 6.
-	 */
+	/** Class name of Aqua L&F provided in Apple Mac OS X JDK. This is the new package since Java Update 6. */
 	public static final String AQUA_LNF_6 = "com.apple.laf.AquaLookAndFeel";
-
-	/**
-	 * Class name of Quaqua L&F.
-	 */
+	/** Class name of Quaqua L&F. */
 	public static final String QUAQUA_LNF = "ch.randelshofer.quaqua.QuaquaLookAndFeel";
-
-	/**
-	 * Class name of Alloy L&F.
-	 */
+	/** Class name of Alloy L&F. */
 	public static final String ALLOY_LNF = "com.incors.plaf.alloy.AlloyLookAndFeel";
-
-	/**
-	 * Class name of Synthetica L&F.
-	 */
+	/** Class name of Synthetica L&F. */
 	public static final String SYNTHETICA_LNF = "de.javasoft.plaf.synthetica.SyntheticaLookAndFeel";
 
 	public static final String SYNTHETICA_LNF_PREFIX = "de.javasoft.plaf.synthetica.Synthetica";
-
-	/**
-	 * Class name of Plastic3D L&F.
-	 */
+	/** Class name of Plastic3D L&F. */
 	public static final String PLASTIC3D_LNF = "com.jgoodies.looks.plastic.Plastic3DLookAndFeel";
-
-	/**
-	 * Class name of Plastic3D L&F after JGoodies Look 1.3 release.
-	 *
-	 * @deprecated replaced by PLASTIC3D_LNF
-	 */
-	@Deprecated
-	public static final String PLASTIC3D_LNF_1_3 = "com.jgoodies.looks.plastic.Plastic3DLookAndFeel";
-
-	/**
-	 * Class name of PlasticXP L&F.
-	 */
+	/** Class name of PlasticXP L&F. */
 	public static final String PLASTICXP_LNF = "com.jgoodies.looks.plastic.PlasticXPLookAndFeel";
-
-	/**
-	 * Class name of Tonic L&F.
-	 */
+	/** Class name of Tonic L&F. */
 	public static final String TONIC_LNF = "com.digitprop.tonic.TonicLookAndFeel";
-
-	/**
-	 * Class name of A03 L&F.
-	 */
+	/** Class name of A03 L&F. */
 	public static final String A03_LNF = "a03.swing.plaf.A03LookAndFeel";
-
-	/**
-	 * Class name of Darcula L&F.
-	 */
+	/** Class name of Darcula L&F. */
 	public static final String DARCULA_LNF = "com.bulenkov.darcula.DarculaLaf";
-
-	/**
-	 * Class name of Pgs L&F.
-	 */
+	/** Class name of Pgs L&F. */
 	public static final String PGS_LNF = "com.pagosoft.plaf.PgsLookAndFeel";
-
-	/**
-	 * Class name of GTK L&F provided by Sun JDK.
-	 */
-	public static final String GTK_LNF = "com.sun.java.swing.plaf.gtk.GTKLookAndFeel";
-
-	/**
-	 * Class name of Motif L&F provided by Sun JDK.
-	 */
-	public static final String MOTIF_LNF = "com.sun.java.swing.plaf.motif.MotifLookAndFeel";
-
-	/**
-	 * Class name of Bizlaf L&F provided by Centigrade.
-	 */
+	/** Class name of Bizlaf L&F provided by Centigrade. */
 	public static final String BIZ_LNF = "de.centigrade.bizlaf.BizLookAndFeel";
 
 	/**
-	 * The name of Nimbus L&F. We didn't create a constant for Nimbus is because the package name will be changed in
-	 * JDK7 release
+	 * The name of Nimbus L&F. We didn't create a constant for Nimbus is because the package name will be changed in JDK7 release
 	 */
 	public static final String NIMBUS_LNF_NAME = "NimbusLookAndFeel";
 
@@ -433,6 +371,7 @@ public class LookAndFeelFactory implements ProductNames {
 
 	private static int _style = -1;
 	private static int _defaultStyle = -1;
+	/** 当前注册的外观 */
 	private static LookAndFeel _lookAndFeel;
 	private static PropertyChangeListener _listener;
 
@@ -468,8 +407,9 @@ public class LookAndFeelFactory implements ProductNames {
 		void initialize(UIDefaults defaults);
 	}
 
-	private static final List<UIDefaultsCustomizer> _uiDefaultsCustomizers = new Vector<>();
-	private static final List<UIDefaultsInitializer> _uiDefaultsInitializers = new Vector<>();
+	private static final List<UIDefaultsCustomizer> _uiDefaultsCustomizers = new ArrayList<>();
+	/** 所有 UIDefaults 初始值设定项 */
+	private static final List<UIDefaultsInitializer> _uiDefaultsInitializers = new ArrayList<>();
 	private static Map<String, String> _installedLookAndFeels = new HashMap<>();
 	private static boolean _loadLookAndFeelClass = true;
 
@@ -604,8 +544,10 @@ public class LookAndFeelFactory implements ProductNames {
 			return;
 		}
 
+		// 解决菜单快捷键映射的问题
 		workAroundSwingIssues();
 
+		// 监听外观的改变，如果外观改变，UIDefaults值会被覆盖，需要重新调用该方法(可能是在组件的updateUI方法里或者手动调用)
 		if (_listener == null) {
 			_listener = evt -> {
 				if ("lookAndFeel".equals(evt.getPropertyName())) {
@@ -618,23 +560,24 @@ public class LookAndFeelFactory implements ProductNames {
 
 		_style = style;
 		uiDefaults.put(JIDE_STYLE_INSTALLED, _style);
-
 		_lookAndFeel = lnf;
-		UIDefaultsInitializer[] initializers = getUIDefaultsInitializers();
-		for (UIDefaultsInitializer initializer : initializers) {
+
+		// 安装开发者自定义的初始值设定项
+		for (UIDefaultsInitializer initializer : _uiDefaultsInitializers) {
 			if (initializer != null) {
 				initializer.initialize(uiDefaults);
 			}
 		}
 
+		// 根据当前外观进行初始化(如果开发者注册了关于该外观的初始化器)
 		initialize(lnf.getClass().getName(), uiDefaults);
 
+		// 根据当前的外观定制不同的UI
 		if ((lnf.getClass().getName().equals(ALLOY_LNF) && isAlloyLnfInstalled())
 				|| (lnf.getClass().getName().equals(PLASTIC3D_LNF) && isPlastic3DLnfInstalled())
 				|| (lnf.getClass().getName().equals(PLASTICXP_LNF) && isPlasticXPLnfInstalled())
 				|| (lnf.getClass().getName().equals(PGS_LNF) && isPgsLnfInstalled())
 				|| (lnf.getClass().getName().equals(TONIC_LNF) && isTonicLnfInstalled())) {
-
 			switch (style) {
 				case EXTENSION_STYLE_OFFICE2007 -> {
 					VsnetWindowsUtils.initComponentDefaults(uiDefaults);
@@ -737,6 +680,7 @@ public class LookAndFeelFactory implements ProductNames {
 				throw new RuntimeException(e);
 			}
 		} else {
+			// 没有记录的外观
 			switch (style) {
 				case EXTENSION_STYLE_OFFICE2007:
 					if (SystemInfo.isWindows()) {
@@ -806,6 +750,7 @@ public class LookAndFeelFactory implements ProductNames {
 					break;
 				case EXTENSION_STYLE_VSNET_WITHOUT_MENU:
 					if (SystemInfo.isWindows()) {
+						// 没有设置样式，并且安装了其他外观就会安装下面的UI
 						VsnetWindowsUtils.initClassDefaults(uiDefaults);
 						VsnetWindowsUtils.initComponentDefaults(uiDefaults);
 					} else {
@@ -836,8 +781,10 @@ public class LookAndFeelFactory implements ProductNames {
 
 		uiDefaults.put(JIDE_EXTENSION_INSTALLED, Boolean.TRUE);
 
+		// 根据当前外观定制组件值(如果开发者注册了关于该外观的定制器)
 		customize(lnf.getClass().getName(), uiDefaults);
 
+		// 安装开发者自定义的定制器
 		UIDefaultsCustomizer[] customizers = getUIDefaultsCustomizers();
 		for (UIDefaultsCustomizer customizer : customizers) {
 			if (customizer != null) {
@@ -846,12 +793,14 @@ public class LookAndFeelFactory implements ProductNames {
 		}
 	}
 
+	// 解决菜单组件没有DOWN快捷键映射的问题
 	private static void workAroundSwingIssues() {
 		Object o = UIManager.get("PopupMenu.selectedWindowInputMapBindings.RightToLeft");
 		if (o instanceof Object[] mapArray) {
 			for (Object item : mapArray) {
 				if ("DOWN".equals(item)) {
-					return; // maybe Swing fixed the bug later, no need to work around any more.
+					// jdk17下: 也许 Swing 之后修复了该错误，无需再解决。或者是安装的外观已经含有DOWN了
+					return;
 				}
 			}
 			Object[] newMapArray = new Object[mapArray.length + 14];
@@ -875,14 +824,16 @@ public class LookAndFeelFactory implements ProductNames {
 		}
 	}
 
+	/** 针对指定外观的组件值初始化器 */
 	private static Map<String, String> _defaultInitializers;
+	/** 针对指定外观的组件值定制器 */
 	private static Map<String, String> _defaultCustomizers;
 
 	/**
-	 * Registers a UIDefaultsInitializer with a L&F. Note that you can only register one initializer for a L&F.
+	 * 使用 L&F 注册 UIDefaultsInitializer。请注意，您只能为 L&F 注册一个初始化程序。
 	 *
-	 * @param lnfClassName         full class name of the L&F
-	 * @param initializerClassName full class name of the UIDefaultInitializer
+	 * @param lnfClassName         L&F 的完整类名
+	 * @param initializerClassName UIDefaultInitializer 的完整类名，该类应该是{@link UIDefaultsInitializer} 的实现类
 	 */
 	public static void registerDefaultInitializer(String lnfClassName, String initializerClassName) {
 		if (_defaultInitializers == null) {
@@ -944,30 +895,35 @@ public class LookAndFeelFactory implements ProductNames {
 		}
 	}
 
+	/**
+	 * 对给定的外观类名初始化(如果开发者对该外观已经注册初始化器的话)，该方法会从该类找到LookAndFeel类(不包含)，分别在初始化器中查找，有一个
+	 * 类符合就会初始化。
+	 */
 	private static void initialize(String lnfClassName, UIDefaults uiDefaults) {
-		Vector<String> lookup = new Vector<>();
-		Vector<String> classLookup = new Vector<>();
-		classLookup.insertElementAt(lnfClassName, 0);
+		LinkedList<String> classLookup = new LinkedList<>(); //LookAndFeel的子类全类名直到 lnfClassName
+		LinkedList<String> lookup = new LinkedList<>(); //classLookup列表存储全类名，lookup存储去掉前缀和后缀的外观名
+		classLookup.addFirst(lnfClassName);
 		String lnf = guessLookAndFeelName(lnfClassName);
-		if (lnf != null && lnf.trim().length() > 0) lookup.insertElementAt(lnf, 0);
+		if (lnf != null && lnf.trim().length() > 0)
+			lookup.addFirst(lnf);
 		try {
 			Class<?> clazz = Class.forName(lnfClassName);
-			while (clazz != null) {
+			while (true) {
 				Class<?> superclass = clazz.getSuperclass();
 				if (superclass != null && LookAndFeel.class.isAssignableFrom(superclass)) {
 					lnfClassName = superclass.getName();
 				} else {
 					break;
 				}
-				classLookup.insertElementAt(lnfClassName, 0);
+				classLookup.addFirst(lnfClassName);
 				lnf = guessLookAndFeelName(lnfClassName);
-				if (lnf != null && lnf.trim().length() > 0) lookup.insertElementAt(lnf, 0);
+				if (lnf != null && lnf.trim().length() > 0) lookup.addFirst(lnf);
 				clazz = superclass;
 			}
-		} catch (ClassNotFoundException e) {
-			// ignore
+		} catch (ClassNotFoundException ignored) {
 		}
 
+		// 如果用户对外观注册了初始化器，这里就需要进行初始化
 		for (String s : classLookup) {
 			String initializer = findDefaultInitializer(s);
 			if (initializer != null) {
@@ -977,12 +933,16 @@ public class LookAndFeelFactory implements ProductNames {
 
 		for (String s : lookup) {
 			String initializer = getDefaultInitializer(s);
-			if (initializer != null) {
-				invokeInitialize(uiDefaults, initializer);
-			}
+			invokeInitialize(uiDefaults, initializer);
 		}
 	}
 
+	/**
+	 * 使用开发者提供的初始化类对组件值进行初始化
+	 *
+	 * @param uiDefaults  组件的默认值表
+	 * @param initializer 开发者注册的初始化类，该类应该是 {@link UIDefaultsInitializer} 的实现类
+	 */
 	private static void invokeInitialize(UIDefaults uiDefaults, String initializer) {
 		try {
 			Class<?> clazz = Class.forName(initializer);
@@ -992,8 +952,7 @@ public class LookAndFeelFactory implements ProductNames {
 		} catch (NoSuchMethodException | InvocationTargetException | InstantiationException |
 		         IllegalAccessException e) {
 			e.printStackTrace();
-		} catch (ClassNotFoundException e) {
-			// ignore
+		} catch (ClassNotFoundException ignored) {
 		}
 	}
 
@@ -1001,6 +960,7 @@ public class LookAndFeelFactory implements ProductNames {
 		return "com.element.plaf." + lnf.toLowerCase() + "." + lnf + "Initializer";
 	}
 
+	/** 根据外观类名查找用户注册的初始化器类类名 */
 	private static String findDefaultInitializer(String lnfClassName) {
 		if (_defaultInitializers != null) {
 			return _defaultInitializers.get(lnfClassName);
@@ -1072,6 +1032,7 @@ public class LookAndFeelFactory implements ProductNames {
 		return null;
 	}
 
+	/** 通过外观的全类名获取外观名，只能判断后缀是LookAndFeel、Laf和Lnf的 */
 	private static String guessLookAndFeelName(String lnfClassName) {
 		int start = lnfClassName.lastIndexOf(".") + 1;
 		if (lnfClassName.endsWith("LookAndFeel")) {
@@ -1138,9 +1099,9 @@ public class LookAndFeelFactory implements ProductNames {
 		_installedLookAndFeels.put(lnfName, installed ? LAF_INSTALLED : LAF_NOT_INSTALLED);
 	}
 
-	private static Class loadLnfClass(String lnfName) {
+	private static Class<?> loadLnfClass(String lnfName) {
 		try {
-			Class clazz = getUIManagerClassLoader().loadClass(lnfName);
+			Class<?> clazz = getUIManagerClassLoader().loadClass(lnfName);
 			Map<String, String> map = new HashMap<>(_installedLookAndFeels);
 			map.put(lnfName, LAF_INSTALLED);
 			_installedLookAndFeels = map;
@@ -1153,11 +1114,11 @@ public class LookAndFeelFactory implements ProductNames {
 		}
 	}
 
-	private static boolean isAssignableFrom(String lnfName, Class cls) {
+	private static boolean isAssignableFrom(String lnfName, Class<?> cls) {
 		if (lnfName.equals(cls.getName())) {
 			return true;
 		}
-		Class cl = loadLnfClass(lnfName);
+		Class<?> cl = loadLnfClass(lnfName);
 		return cl != null && cl.isAssignableFrom(cls);
 	}
 
@@ -1196,15 +1157,6 @@ public class LookAndFeelFactory implements ProductNames {
 	 */
 	public static boolean isBizlafLnfInstalled() {
 		return isLnfInstalled(BIZ_LNF);
-	}
-
-	/**
-	 * Returns whether GTK L&F is in classpath
-	 *
-	 * @return <tt>true</tt> GTK L&F is in classpath, <tt>false</tt> otherwise
-	 */
-	public static boolean isGTKLnfInstalled() {
-		return isLnfInstalled(GTK_LNF);
 	}
 
 	/**
@@ -1381,15 +1333,6 @@ public class LookAndFeelFactory implements ProductNames {
 	}
 
 	/**
-	 * Gets all UIDefaults initializers.
-	 *
-	 * @return an array of UIDefaults initializers.
-	 */
-	public static UIDefaultsInitializer[] getUIDefaultsInitializers() {
-		return _uiDefaultsInitializers.toArray(new UIDefaultsInitializer[0]);
-	}
-
-	/**
 	 * Adds your own UIDefaults initializer. This initializer will be called before installJideExtension() is called.
 	 * <p/>
 	 * Here is how you use it. For example, we use the color of UIDefault "activeCaption" to get the active title color
@@ -1423,7 +1366,6 @@ public class LookAndFeelFactory implements ProductNames {
 		_uiDefaultsInitializers.remove(uiDefaultsInitializer);
 	}
 
-	@SuppressWarnings({"UseOfSystemOutOrSystemErr"})
 	public static void verifyDefaults(UIDefaults table, Object[] keyValueList) {
 		for (int i = 0, max = keyValueList.length; i < max; i += 2) {
 			Object value = keyValueList[i + 1];
@@ -1478,46 +1420,6 @@ public class LookAndFeelFactory implements ProductNames {
 				table.put(keyValueArray[i], value);
 			}
 		}
-	}
-
-	private static int _productsUsed = -1;
-
-	/**
-	 * As of Java 10, com.sun.java.swing.plaf.windows.WindowsClassicLookAndFeel is no longer available on macOS thus
-	 * "instanceof WindowsClassicLookAndFeel" directives will result in a NoClassDefFoundError during runtime. This method
-	 * was introduced to avoid this exception.
-	 *
-	 * @param lnf
-	 * @return true if it is a WindowsClassicLookAndFeel.
-	 */
-	public static boolean isWindowsClassicLookAndFeel(LookAndFeel lnf) {
-		if (lnf == null) {
-			return false;
-		} else {
-			try {
-				Class<?> c = Class.forName(WINDOWS_CLASSIC_LNF);
-				return c.isInstance(lnf);
-			} catch (ClassNotFoundException | NoClassDefFoundError ignore) {
-				// if it is not possible to load the Windows LnF class, the
-				// given lnf instance cannot be an instance of the Windows
-				// LnF class
-				return false;
-			}
-		}
-	}
-
-	/**
-	 * Sets the products you will use. This is needed so that LookAndFeelFactory knows what UIDefault to initialize. For
-	 * example, if you use only JIDE Docking Framework and JIDE Grids, you should call
-	 * <code>setProductUsed(ProductNames.PRODUCT_DOCK | ProductNames.PRODUCT_GRIDS)</code> so that we don't initialize
-	 * UIDefaults needed by any other products. If you use this class as part of JIDE Common Layer open source project,
-	 * you should call <code>setProductUsed(ProductNames.PRODUCT_COMMON)</code>. If you want to use all JIDE products,
-	 * you should call <code>setProductUsed(ProductNames.PRODUCT_ALL)</code>
-	 *
-	 * @param productsUsed a bit-wise OR of product values defined in {@link ProductNames}.
-	 */
-	public static void setProductsUsed(int productsUsed) {
-		_productsUsed = productsUsed;
 	}
 
 	/**

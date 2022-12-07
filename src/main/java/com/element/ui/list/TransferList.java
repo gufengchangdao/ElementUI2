@@ -198,7 +198,6 @@ public class TransferList extends BaseComponent implements ActionListener {
 		this.listHeight = listHeight;
 		Dimension size = list.getPreferredSize();
 		size.height = listHeight;
-		System.out.println(list.getParent());
 		scrollPane.setPreferredSize(size);
 	}
 }

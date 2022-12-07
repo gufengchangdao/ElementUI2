@@ -38,8 +38,6 @@ public class VsnetMenuUI extends VsnetMenuItemUI {
 
 	private int lastMnemonic = 0;
 
-	private static final boolean DEBUG = false;  // show bad params, misc.
-
 	private static boolean crossMenuMnemonic = true;
 
 	private boolean isMouseOver = false;
@@ -676,9 +674,6 @@ public class VsnetMenuUI extends VsnetMenuItemUI {
 		 * Opens the SubMenu
 		 */
 		public void menuKeyTyped(MenuKeyEvent e) {
-			if (DEBUG) {
-				System.out.println("in BasicMenuUI.menuKeyTyped for " + menuItem.getText());
-			}
 			if (!crossMenuMnemonic) {
 				JPopupMenu pm = getActivePopupMenu();
 				if (pm != null && pm != menuItem.getParent()) {
@@ -692,7 +687,7 @@ public class VsnetMenuUI extends VsnetMenuItemUI {
 			MenuElement[] path = e.getPath();
 			if (lower((char) key) == lower(e.getKeyChar())) {
 				JPopupMenu popupMenu = ((JMenu) menuItem).getPopupMenu();
-				ArrayList newList = new ArrayList(Arrays.asList(path));
+				ArrayList<MenuElement> newList = new ArrayList<>(Arrays.asList(path));
 				newList.add(popupMenu);
 				MenuElement[] sub = popupMenu.getSubElements();
 				if (sub.length > 0) {
@@ -700,7 +695,7 @@ public class VsnetMenuUI extends VsnetMenuItemUI {
 				}
 				MenuSelectionManager manager = e.getMenuSelectionManager();
 				MenuElement[] newPath = new MenuElement[0];
-				newPath = (MenuElement[]) newList.toArray(newPath);
+				newPath = newList.toArray(newPath);
 				manager.setSelectedPath(newPath);
 				e.consume();
 			}
@@ -711,9 +706,6 @@ public class VsnetMenuUI extends VsnetMenuItemUI {
 		 * into BasicPopupMenuUI. See 4670831
 		 */
 		public void menuKeyPressed(MenuKeyEvent e) {
-			if (DEBUG) {
-				System.out.println("in BasicMenuUI.menuKeyPressed for " + menuItem.getText());
-			}
 			// Handle the case for Escape or Enter...
 			char keyChar = e.getKeyChar();
 			if (!Character.isLetterOrDigit(keyChar))

@@ -17,7 +17,7 @@ class BasicFileSystemTreeCellRenderer extends DefaultTreeCellRenderer {
 			try {
 				label.setIcon(fileTreeNode.getIcon());
 			} catch (Exception e) {
-				System.out.println(fileTreeNode.getFile().getAbsolutePath());
+				System.err.println(fileTreeNode.getFile().getAbsolutePath());
 			}
 			return label;
 		}
