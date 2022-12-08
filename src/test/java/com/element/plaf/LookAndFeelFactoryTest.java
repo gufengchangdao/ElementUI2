@@ -18,12 +18,11 @@ public class LookAndFeelFactoryTest extends AbstractDemo {
 			SwingTestUtil.loadSkin();
 			LookAndFeelFactory.installJideExtension();
 			// LookAndFeelFactory.registerDefaultInitializer("com.formdev.flatlaf.FlatLightLaf",);
-
 			showAsFrame(new LookAndFeelFactoryTest());
 		});
 	}
 }
 
-class Init{
+class Init {
 
 }

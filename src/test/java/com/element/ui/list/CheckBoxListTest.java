@@ -12,7 +12,7 @@ import java.awt.event.ActionEvent;
 
 public class CheckBoxListTest extends AbstractDemo {
 	private CheckBoxList _list;
-	private DefaultListModel _model;
+	private DefaultListModel<Object> _model;
 
 	public String getName() {
 		return "CheckBoxList Demo";

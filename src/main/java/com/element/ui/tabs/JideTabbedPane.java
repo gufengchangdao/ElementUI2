@@ -21,7 +21,10 @@ import javax.swing.plaf.UIResource;
 import java.awt.*;
 import java.awt.event.*;
 import java.beans.PropertyChangeListener;
-import java.util.*;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Objects;
+import java.util.Set;
 import java.util.function.Function;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -166,7 +169,7 @@ public class JideTabbedPane extends JTabbedPane {
 	/**
 	 * A converter to shorten
 	 */
-	private Function<String ,String> _stringConverter;
+	private Function<String, String> _stringConverter;
 
 	private boolean _boldActiveTab = false;
 
@@ -996,7 +999,7 @@ public class JideTabbedPane extends JTabbedPane {
 	 * @param stringConverter the StringConverter.
 	 * @see #getStringConverter()
 	 */
-	public void setStringConverter(Function<String,String> stringConverter) {
+	public void setStringConverter(Function<String, String> stringConverter) {
 		_stringConverter = stringConverter;
 	}
 

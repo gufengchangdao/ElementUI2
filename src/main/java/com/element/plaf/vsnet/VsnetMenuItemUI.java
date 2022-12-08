@@ -1001,27 +1001,27 @@ public class VsnetMenuItemUI extends MenuItemUI {
 		// 		textRect.x = viewRect.x + defaultShadowWidth + textIconGap;
 		// 	}
 		// } else {
-        //        if (icon != null) {
-        //            if (isDownArrowVisible(menuItem.getParent())) {
-        //                iconRect.x = 3;
-        //            }
-        //            else {
-        //                iconRect.x = menuItem.getInsets().left;
-        //            }
-        //            if (text != null && !text.equals("")) {
-        //                textRect.x = iconRect.x + iconRect.width + textIconGap;
-        //            }
-        //        }
-        //        else {
-        //            if (text != null && !text.equals("")) {
-        //                if (isDownArrowVisible(menuItem.getParent())) {
-        //                    textRect.x = 3;
-        //                }
-        //                else {
-        //                    textRect.x = menuItem.getInsets().left;
-        //                }
-        //            }
-        //        }
+		//        if (icon != null) {
+		//            if (isDownArrowVisible(menuItem.getParent())) {
+		//                iconRect.x = 3;
+		//            }
+		//            else {
+		//                iconRect.x = menuItem.getInsets().left;
+		//            }
+		//            if (text != null && !text.equals("")) {
+		//                textRect.x = iconRect.x + iconRect.width + textIconGap;
+		//            }
+		//        }
+		//        else {
+		//            if (text != null && !text.equals("")) {
+		//                if (isDownArrowVisible(menuItem.getParent())) {
+		//                    textRect.x = 3;
+		//                }
+		//                else {
+		//                    textRect.x = menuItem.getInsets().left;
+		//                }
+		//            }
+		//        }
 		// }
 
 		// Position the Accelerator text rect
@@ -1062,10 +1062,10 @@ public class VsnetMenuItemUI extends MenuItemUI {
 			arrowIconRect.x = viewRect.width - arrowIconRect.width - arrowIconRect.x;
 		}
 
-       // System.out.println("Layout: text=" + menuItem.getText() + "\n\tv="
-       //         + viewRect + "\n\tc=" + checkIconRect + "\n\ti="
-       //         + iconRect + "\n\tt=" + textRect + "\n\tacc="
-       //         + acceleratorRect + "\n\ta=" + arrowIconRect + "\n");
+		// System.out.println("Layout: text=" + menuItem.getText() + "\n\tv="
+		//         + viewRect + "\n\tc=" + checkIconRect + "\n\ti="
+		//         + iconRect + "\n\tt=" + textRect + "\n\tacc="
+		//         + acceleratorRect + "\n\ta=" + arrowIconRect + "\n");
 
 		return text;
 	}

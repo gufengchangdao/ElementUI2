@@ -6,7 +6,6 @@
 
 package com.element.plaf.vsnet;
 
-import com.element.plaf.LookAndFeelFactory;
 import com.element.plaf.basic.BasicLookAndFeelExtension;
 
 import javax.swing.*;

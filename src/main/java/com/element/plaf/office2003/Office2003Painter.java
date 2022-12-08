@@ -1,14 +1,12 @@
 package com.element.plaf.office2003;
 
 import com.element.color.ColorUtil;
-import com.element.plaf.LookAndFeelFactory;
 import com.element.plaf.UIDefaultsLookup;
 import com.element.plaf.XPUtils;
 import com.element.plaf.basic.BasicPainter;
 import com.element.plaf.basic.ComponentStateSupport;
 import com.element.plaf.basic.ThemePainter;
 import com.element.ui.button.JideButton;
-import com.element.ui.icons.IconsFactory;
 import com.element.ui.tabs.JideTabbedPane;
 import com.element.util.SystemInfo;
 import com.element.util.UIUtil;

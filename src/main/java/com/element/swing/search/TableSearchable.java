@@ -5,8 +5,6 @@
  */
 package com.element.swing.search;
 
-import com.element.swing.search.SearchableEvent;
-import com.element.swing.search.Searchable;
 import com.element.util.CompareUtil;
 
 import javax.swing.*;

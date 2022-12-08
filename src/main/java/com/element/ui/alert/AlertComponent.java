@@ -4,9 +4,10 @@ import com.element.animator.popup.PopupAnimatorTask;
 import com.element.animator.popup.listener.CloseMouseListener;
 import com.element.color.ColorUtil;
 import com.element.radiance.common.api.icon.SvgIcon;
+import com.element.swing.template.X2Component;
 import com.element.ui.button.IconButton;
 import com.element.ui.others.tag.TagFactory;
-import com.element.swing.template.X2Component;
+import org.jetbrains.annotations.Nullable;
 
 import javax.swing.*;
 import java.awt.*;
@@ -37,7 +38,7 @@ public class AlertComponent extends X2Component<JLabel, IconButton> {
 	 * @param style    增量类型，默认为 {@link GrowStyle#CONSTANT}
 	 * @param insets   外边距
 	 */
-	public AlertComponent(SvgIcon icon,
+	public AlertComponent(@Nullable SvgIcon icon,
 	                      String text, Color c,
 	                      boolean closable,
 	                      GrowStyle style, Insets insets) {
@@ -48,7 +49,7 @@ public class AlertComponent extends X2Component<JLabel, IconButton> {
 			icon.setColorFilter(color -> c);
 			label = new JLabel(text, icon, JLabel.LEFT);
 		} else {
-			label = new JLabel("成功提示的文案", JLabel.LEFT);
+			label = new JLabel(text, JLabel.LEFT);
 		}
 		label.setForeground(c);
 

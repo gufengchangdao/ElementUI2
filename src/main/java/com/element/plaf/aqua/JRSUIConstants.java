@@ -94,25 +94,25 @@ public final class JRSUIConstants {
 	}
 
 	record DoubleValue(double doubleValue) {
-			@Native
-			private static final byte TYPE_CODE = 1;
+		@Native
+		private static final byte TYPE_CODE = 1;
 
 		public byte getTypeCode() {
-				return TYPE_CODE;
-			}
+			return TYPE_CODE;
+		}
 
-			public void putValueInBuffer(final ByteBuffer buffer) {
-				buffer.putDouble(doubleValue);
-			}
+		public void putValueInBuffer(final ByteBuffer buffer) {
+			buffer.putDouble(doubleValue);
+		}
 
-			public boolean equals(final Object obj) {
-				return (obj instanceof DoubleValue) && (((DoubleValue) obj).doubleValue == doubleValue);
-			}
+		public boolean equals(final Object obj) {
+			return (obj instanceof DoubleValue) && (((DoubleValue) obj).doubleValue == doubleValue);
+		}
 
 		public String toString() {
-				return Double.toString(doubleValue);
-			}
+			return Double.toString(doubleValue);
 		}
+	}
 
 
 	record PropertyEncoding(long mask, byte shift) {

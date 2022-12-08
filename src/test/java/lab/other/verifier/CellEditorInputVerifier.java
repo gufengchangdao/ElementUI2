@@ -170,3 +170,4 @@ class NumberFormatterFactory extends DefaultFormatterFactory {
 		super(FORMATTER, FORMATTER, FORMATTER);
 	}
 }
+

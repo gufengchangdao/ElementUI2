@@ -18,8 +18,8 @@ public class TagFactory {
 	 * @param fg   主题色
 	 * @return 初始化后的标签
 	 */
-	public static ETag createDefaultTag(String text, Color fg) {
-		return new ETag(text, fg, ColorUtil.blend(fg, Color.WHITE, 0.85f),
+	public static Tag createDefaultTag(String text, Color fg) {
+		return new Tag(text, fg, ColorUtil.blend(fg, Color.WHITE, 0.85f),
 				null, null);
 	}
 
@@ -30,8 +30,8 @@ public class TagFactory {
 	 * @param fg   主题色
 	 * @return 初始化后的标签
 	 */
-	public static ETag createIconTag(String text, Color fg) {
-		return new ETag(text, fg, ColorUtil.blend(fg, Color.WHITE, 0.85f),
+	public static Tag createIconTag(String text, Color fg) {
+		return new Tag(text, fg, ColorUtil.blend(fg, Color.WHITE, 0.85f),
 				createCloseButton(fg), BorderLayout.EAST);
 	}
 

@@ -6,10 +6,11 @@
 package com.element.plaf.office2003;
 
 import com.element.color.ColorUtil;
-import com.element.plaf.*;
-import com.element.ui.icons.IconsFactory;
+import com.element.plaf.ExtWindowsDesktopProperty;
+import com.element.plaf.UIDefaultsLookup;
+import com.element.plaf.WindowsDesktopProperty;
+import com.element.plaf.XPUtils;
 
-import javax.swing.*;
 import javax.swing.plaf.ColorUIResource;
 import java.awt.*;
 

@@ -2,6 +2,7 @@ package com.element.ui.others.skeleton;
 
 import com.element.color.ColorUtil;
 import com.element.swing.base.BaseComponent;
+import com.element.swing.base.RoundComponent;
 import com.element.util.UIUtil;
 
 import javax.swing.*;
@@ -12,7 +13,7 @@ import java.awt.*;
  * <p>
  * 在需要等待加载内容的位置设置一个骨架屏，某些场景下比 Loading 的视觉效果更好。
  */
-public class SkeletonComponent extends BaseComponent {
+public class SkeletonComponent extends RoundComponent {
 	public static JComponent createHorizontalStrut(int width) {
 		SkeletonComponent c = new SkeletonComponent();
 		c.setMinimumSize(new Dimension(width, 0));

@@ -1,8 +1,10 @@
 package com.element.ui.dialog;
 
+import com.element.color.ColorUtil;
 import com.element.plaf.UIDefaultsLookup;
-import com.element.swing.JideIconsFactory;
+import com.element.ui.icons.IconsFactory;
 import com.element.ui.label.MultilineLabel;
+import com.element.ui.svg.icon.fill.SwordSvg;
 
 import javax.swing.*;
 import javax.swing.border.BevelBorder;
@@ -19,7 +21,7 @@ public class StandardDialogExample3 extends StandardDialog {
 		BannerPanel headerPanel1 = new BannerPanel("This is a BannerPanel",
 				"BannerPanel is very useful to display a title, a description and an icon. It can be used in " +
 						"dialog to show some help information or display a product logo in a nice way.",
-				JideIconsFactory.getImageIcon(JideIconsFactory.JIDE32));
+				IconsFactory.getSvgIcon(SwordSvg.class, 50, 50, ColorUtil.PRIMARY));
 		headerPanel1.setBackground(Color.WHITE);
 		headerPanel1.setBorder(BorderFactory.createBevelBorder(BevelBorder.LOWERED));
 		return headerPanel1;

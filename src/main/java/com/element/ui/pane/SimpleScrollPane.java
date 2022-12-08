@@ -6,8 +6,13 @@
 
 package com.element.ui.pane;
 
+import com.element.color.ColorUtil;
 import com.element.ui.button.JideButton;
-import com.element.swing.JideIconsFactory;
+import com.element.ui.icons.IconsFactory;
+import com.element.ui.svg.icon.fill.CaretDownSvg;
+import com.element.ui.svg.icon.fill.CaretLeftSvg;
+import com.element.ui.svg.icon.fill.CaretRightSvg;
+import com.element.ui.svg.icon.fill.CaretUpSvg;
 
 import javax.swing.*;
 import javax.swing.event.ChangeEvent;
@@ -205,10 +210,14 @@ public class SimpleScrollPane extends JScrollPane implements ChangeListener, Mou
 		public ScrollButton(int type) {
 			_type = type;
 			switch (type) {
-				case SwingConstants.NORTH -> setIcon(JideIconsFactory.getImageIcon(JideIconsFactory.Arrow.UP));
-				case SwingConstants.SOUTH -> setIcon(JideIconsFactory.getImageIcon(JideIconsFactory.Arrow.DOWN));
-				case SwingConstants.WEST -> setIcon(JideIconsFactory.getImageIcon(JideIconsFactory.Arrow.LEFT));
-				case SwingConstants.EAST -> setIcon(JideIconsFactory.getImageIcon(JideIconsFactory.Arrow.RIGHT));
+				case SwingConstants.NORTH ->
+						setIcon(IconsFactory.getSvgIcon(CaretUpSvg.class, 12, 12, ColorUtil.COMMON_TEXT));
+				case SwingConstants.SOUTH ->
+						setIcon(IconsFactory.getSvgIcon(CaretDownSvg.class, 12, 12, ColorUtil.COMMON_TEXT));
+				case SwingConstants.WEST ->
+						setIcon(IconsFactory.getSvgIcon(CaretLeftSvg.class, 12, 12, ColorUtil.COMMON_TEXT));
+				case SwingConstants.EAST ->
+						setIcon(IconsFactory.getSvgIcon(CaretRightSvg.class, 12, 12, ColorUtil.COMMON_TEXT));
 			}
 			addActionListener(this);
 			addMouseListener(this);

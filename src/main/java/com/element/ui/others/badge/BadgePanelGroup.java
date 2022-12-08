@@ -1,13 +1,15 @@
 package com.element.ui.others.badge;
 
 import com.element.swing.overlay.DefaultOverlayable;
-import com.element.ui.label.BadgeLabel;
 import com.element.swing.template.C2PLPGroup;
+import com.element.ui.label.BadgeLabel;
 
 import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
+
+// TODO 实现不调用pack也能正确显示标记
 
 /**
  * 使用层次面板实现的标记。

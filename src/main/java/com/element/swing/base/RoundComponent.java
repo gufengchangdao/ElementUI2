@@ -81,7 +81,8 @@ public class RoundComponent extends BaseComponent {
 			// 绘制边框的时候取消掉裁剪，防止边框也被裁剪了
 			Object[] oldRender = UIUtil.setRenderingHints(g2);
 			g2.setClip(null);
-			g2.setColor(borderColor);
+			if (getBackgroundPaint() != null) g2.setPaint(getBackgroundPaint());
+			else g2.setColor(borderColor);
 			g2.drawRoundRect(1, 1, getWidth() - 2, getHeight() - 2,
 					arcSize == -1 ? h : arcSize, arcSize == -1 ? h : arcSize);
 			UIUtil.resetRenderingHints(g2, oldRender);

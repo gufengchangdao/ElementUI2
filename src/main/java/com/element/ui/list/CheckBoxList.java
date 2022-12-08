@@ -185,8 +185,7 @@ public class CheckBoxList extends JList<Object> {
 		if (_listCellRenderer != null) {
 			_listCellRenderer.setActualListRenderer(getActualCellRenderer());
 			return _listCellRenderer;
-		}
-		else {
+		} else {
 			return super.getCellRenderer();
 		}
 	}
@@ -221,12 +220,10 @@ public class CheckBoxList extends JList<Object> {
 			if (bounds != null) {
 				if (_list.getComponentOrientation().isLeftToRight()) {
 					return e.getX() < bounds.x + hotspot;
-				}
-				else {
+				} else {
 					return e.getX() > bounds.x + bounds.width - hotspot;
 				}
-			}
-			else {
+			} else {
 				return false;
 			}
 		}
@@ -334,14 +331,12 @@ public class CheckBoxList extends JList<Object> {
 						}
 						if (selected && selectionModel.isSelectedIndex(index)) {
 							selectionModel.removeSelectionInterval(index, index);
-						}
-						else if (!selected && !selectionModel.isSelectedIndex(index)) {
+						} else if (!selected && !selectionModel.isSelectedIndex(index)) {
 							selectionModel.addSelectionInterval(index, index);
 						}
 					}
 				}
-			}
-			finally {
+			} finally {
 				selectionModel.setValueIsAdjusting(false);
 				selectionModel.addListSelectionListener(this);
 				_list.repaint();
@@ -366,8 +361,7 @@ public class CheckBoxList extends JList<Object> {
 					selectionModel.removeSelectionInterval(index, index);
 				else
 					selectionModel.addSelectionInterval(index, index);
-			}
-			finally {
+			} finally {
 				selectionModel.addListSelectionListener(this);
 				_list.repaint();
 			}
@@ -601,8 +595,7 @@ public class CheckBoxList extends JList<Object> {
 					listSelectionModel.addSelectionInterval(indice, indice);
 				}
 			}
-		}
-		finally {
+		} finally {
 			listSelectionModel.setValueIsAdjusting(false);
 		}
 	}
@@ -755,8 +748,7 @@ public class CheckBoxList extends JList<Object> {
 					repaint();  /** FIX-ME setSelectedIndex does not redraw all the time with the basic l&f**/
 					return;
 				}
-		}
-		else {
+		} else {
 			for (i = 0, c = model.getSize(); i < c; i++) {
 				if (model.getElementAt(i) == null) {
 					addCheckBoxListSelectedIndex(i);

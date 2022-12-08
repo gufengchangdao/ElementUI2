@@ -6,7 +6,10 @@ import demo.AbstractDemo;
 import net.miginfocom.swing.MigLayout;
 
 import javax.swing.*;
+import javax.swing.text.DefaultFormatterFactory;
+import javax.swing.text.NumberFormatter;
 import java.awt.*;
+import java.text.NumberFormat;
 
 public class LineNumberViewTest extends AbstractDemo {
 
@@ -20,7 +23,7 @@ public class LineNumberViewTest extends AbstractDemo {
 				全部不能观看推荐更换其他浏览器""");
 		JScrollPane scroll = new JScrollPane(textArea);
 		scroll.setRowHeaderView(new LineNumberView(textArea));
-		p.add(scroll,"growx,growy");
+		p.add(scroll, "growx,growy");
 
 		return p;
 	}

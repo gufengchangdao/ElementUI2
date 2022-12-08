@@ -16,14 +16,14 @@ public class ScrollableButtonPanelTest extends AbstractDemo {
 		JPanel p = new JPanel(new MigLayout("fill"));
 
 		ScrollableButtonPanel buttonPanel = new ScrollableButtonPanel(SwingConstants.VERTICAL);
-		buttonPanel.addButton(ButtonFactory.createDefaultButton(ButtonNames.CANCEL, ColorUtil.PRIMARY),ButtonPanel.CANCEL);
-		buttonPanel.addButton(ButtonFactory.createDefaultButton(ButtonNames.HELP, ColorUtil.PRIMARY),ButtonPanel.HELP);
+		buttonPanel.addButton(ButtonFactory.createDefaultButton(ButtonNames.CANCEL, ColorUtil.PRIMARY), ButtonPanel.CANCEL);
+		buttonPanel.addButton(ButtonFactory.createDefaultButton(ButtonNames.HELP, ColorUtil.PRIMARY), ButtonPanel.HELP);
 		for (int i = 0; i < 10; i++) {
-			buttonPanel.addButton(ButtonFactory.createDefaultButton("按钮" + i, ColorUtil.PRIMARY),ButtonPanel.OTHER_BUTTON);
+			buttonPanel.addButton(ButtonFactory.createDefaultButton("按钮" + i, ColorUtil.PRIMARY), ButtonPanel.OTHER_BUTTON);
 		}
 
-		p.add(new JScrollPane(buttonPanel),"growx, growy");
-		p.setPreferredSize(new Dimension(400,300));
+		p.add(new JScrollPane(buttonPanel), "growx, growy");
+		p.setPreferredSize(new Dimension(400, 300));
 		return p;
 	}
 

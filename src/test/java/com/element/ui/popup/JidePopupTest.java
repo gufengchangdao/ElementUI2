@@ -9,7 +9,8 @@ import demo.AbstractDemo;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.KeyEvent;
 
 public class JidePopupTest extends AbstractDemo {
 	private JidePopup _popup;
@@ -21,7 +22,7 @@ public class JidePopupTest extends AbstractDemo {
 
 	@Override
 	public String getDescription() {
-		return """
+		return """  
 				JidePopup is a popup that is detachable, dragable, resizable, autohide when timeout or clicks outside.
 
 				Demoed classes:
@@ -104,8 +105,8 @@ public class JidePopupTest extends AbstractDemo {
 		ideaPopup.setMovable(false);
 		JPanel ideaPanel = new JPanel(new BorderLayout());
 		ideaPanel.setBorder(BorderFactory.createEmptyBorder(4, 2, 2, 2));
-		final JComboBox<String> comboBox = new JComboBox<>(new String[]{"卡莲","符华","德丽莎","姬子","布洛妮娅","芽衣",
-				"琪亚娜","八重樱","丽塔","莉莉娅","罗莎莉娅","希儿","幽兰黛尔","明日香"});
+		final JComboBox<String> comboBox = new JComboBox<>(new String[]{"卡莲", "符华", "德丽莎", "姬子", "布洛妮娅", "芽衣",
+				"琪亚娜", "八重樱", "丽塔", "莉莉娅", "罗莎莉娅", "希儿", "幽兰黛尔", "明日香"});
 		SearchableUtil.installSearchable(comboBox);
 		ideaPanel.add(new JLabel("<HTML><B>选择角色名:</B></HTML>"), BorderLayout.BEFORE_FIRST_LINE);
 		ideaPanel.add(comboBox);

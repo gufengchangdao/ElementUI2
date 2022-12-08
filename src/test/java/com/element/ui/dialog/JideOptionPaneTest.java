@@ -1,10 +1,12 @@
 package com.element.ui.dialog;
 
+import com.element.color.ColorUtil;
 import com.element.plaf.LookAndFeelFactory;
 import com.element.plaf.UIDefaultsLookup;
 import com.element.plaf.basic.ThemePainter;
-import com.element.swing.JideIconsFactory;
+import com.element.ui.icons.IconsFactory;
 import com.element.ui.layout.JideBoxLayout;
+import com.element.ui.svg.icon.fill.SwordSvg;
 import com.element.util.LocaleUtil;
 import com.element.util.SwingTestUtil;
 import demo.AbstractDemo;
@@ -41,7 +43,7 @@ public class JideOptionPaneTest extends AbstractDemo {
 			defaults.put("OptionPaneUI", "com.element.plaf.basic.BasicJideOptionPaneUI");
 
 			defaults.put("OptionPane.showBanner", Boolean.TRUE); // show banner or not. default is true
-			defaults.put("OptionPane.bannerIcon", JideIconsFactory.getImageIcon(JideIconsFactory.JIDE50));
+			defaults.put("OptionPane.bannerIcon", IconsFactory.getSvgIcon(SwordSvg.class, 50, 50, ColorUtil.PRIMARY));
 			defaults.put("OptionPane.bannerFontSize", 13);
 			defaults.put("OptionPane.bannerFontStyle", Font.BOLD);
 			defaults.put("OptionPane.bannerMaxCharsPerLine", 60);

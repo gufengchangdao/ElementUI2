@@ -13,7 +13,6 @@ import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Vector;
 
 /**
  * StyledLabel是一种特殊的 JLabel，可以显示不同样式的文本。它是介于 JLabel 和 JTextPane 之间的组件。

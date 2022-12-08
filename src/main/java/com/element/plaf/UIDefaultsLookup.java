@@ -74,7 +74,7 @@ public class UIDefaultsLookup {
 	public static Object get(Object key) {
 		Object value = UIManager.get(key);
 		log(value, key, null);
-		if (value instanceof Map<?,?> map && "Theme.painter".equals(key)) {
+		if (value instanceof Map<?, ?> map && "Theme.painter".equals(key)) {
 			try {
 				ClassLoader classLoader = getCallerClassLoader();
 				Object o = map.get(classLoader);

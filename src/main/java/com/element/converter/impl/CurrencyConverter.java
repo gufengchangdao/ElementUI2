@@ -7,7 +7,6 @@
 package com.element.converter.impl;
 
 import com.element.converter.ConverterContext;
-import com.element.converter.impl.NumberFormatConverter;
 
 import java.text.NumberFormat;
 import java.util.Locale;

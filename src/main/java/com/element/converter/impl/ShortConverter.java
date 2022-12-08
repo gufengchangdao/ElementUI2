@@ -6,7 +6,6 @@
 package com.element.converter.impl;
 
 import com.element.converter.ConverterContext;
-import com.element.converter.impl.NumberConverter;
 
 import java.text.DecimalFormat;
 import java.text.NumberFormat;

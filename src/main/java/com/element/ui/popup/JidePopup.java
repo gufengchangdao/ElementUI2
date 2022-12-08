@@ -10,10 +10,10 @@ import com.element.plaf.LookAndFeelFactory;
 import com.element.plaf.PopupUI;
 import com.element.plaf.UIDefaultsLookup;
 import com.element.swing.resize.Resizable;
-import com.element.swing.resize.ResizableSupport;
-import com.element.ui.pane.JideScrollPane;
 import com.element.swing.resize.ResizablePanel;
+import com.element.swing.resize.ResizableSupport;
 import com.element.swing.resize.ResizableWindow;
+import com.element.ui.pane.JideScrollPane;
 import com.element.util.UIUtil;
 import com.element.util.handle.Handler;
 

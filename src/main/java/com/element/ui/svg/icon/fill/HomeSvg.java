@@ -4,14 +4,9 @@ import com.element.radiance.common.api.icon.AbstractSvgIcon;
 import com.element.radiance.common.api.icon.SvgIcon;
 import com.element.radiance.common.api.icon.SvgIconUIResource;
 
-import javax.imageio.ImageIO;
 import java.awt.*;
-import java.awt.geom.*;
-import java.awt.image.BufferedImage;
-import java.io.ByteArrayInputStream;
-import java.io.IOException;
-import java.lang.ref.WeakReference;
-import java.util.Base64;
+import java.awt.geom.AffineTransform;
+import java.awt.geom.GeneralPath;
 
 public class HomeSvg extends AbstractSvgIcon {
 	/**
@@ -22,60 +17,58 @@ public class HomeSvg extends AbstractSvgIcon {
 		this.height = (int) getOrigHeight();
 	}
 
-	
 
-	private void _paint0(Graphics2D g,float origAlpha) {
+	private void _paint0(Graphics2D g, float origAlpha) {
 // 
-g.setComposite(AlphaComposite.getInstance(3, 1.0f * origAlpha));
-transformsStack.push(g.getTransform());
-g.transform(new AffineTransform(0.015625f, 0.0f, 0.0f, 0.015625f, -0.0f, -0.0f));
+		g.setComposite(AlphaComposite.getInstance(3, 1.0f * origAlpha));
+		transformsStack.push(g.getTransform());
+		g.transform(new AffineTransform(0.015625f, 0.0f, 0.0f, 0.015625f, -0.0f, -0.0f));
 // _0
-g.setComposite(AlphaComposite.getInstance(3, 1.0f * origAlpha));
+		g.setComposite(AlphaComposite.getInstance(3, 1.0f * origAlpha));
 // _0_0
-if (generalPath == null) {
-   generalPath = new GeneralPath();
-} else {
-   generalPath.reset();
-}
-generalPath.moveTo(902.268f, 514.39f);
-generalPath.lineTo(511.236f, 216.342f);
-generalPath.lineTo(120.203f, 514.39f);
-generalPath.lineTo(64.037f, 440.70203f);
-generalPath.lineTo(511.236f, 99.843f);
-generalPath.lineTo(958.43396f, 440.70203f);
-generalPath.closePath();
-shape = generalPath;
-paint = (colorFilter != null) ? colorFilter.filter(new Color(244, 86, 86, 255)) : new Color(244, 86, 86, 255);
-g.setPaint(paint);
-g.fill(shape);
-g.setComposite(AlphaComposite.getInstance(3, 1.0f * origAlpha));
+		if (generalPath == null) {
+			generalPath = new GeneralPath();
+		} else {
+			generalPath.reset();
+		}
+		generalPath.moveTo(902.268f, 514.39f);
+		generalPath.lineTo(511.236f, 216.342f);
+		generalPath.lineTo(120.203f, 514.39f);
+		generalPath.lineTo(64.037f, 440.70203f);
+		generalPath.lineTo(511.236f, 99.843f);
+		generalPath.lineTo(958.43396f, 440.70203f);
+		generalPath.closePath();
+		shape = generalPath;
+		paint = (colorFilter != null) ? colorFilter.filter(new Color(244, 86, 86, 255)) : new Color(244, 86, 86, 255);
+		g.setPaint(paint);
+		g.fill(shape);
+		g.setComposite(AlphaComposite.getInstance(3, 1.0f * origAlpha));
 // _0_1
-if (generalPath == null) {
-   generalPath = new GeneralPath();
-} else {
-   generalPath.reset();
-}
-generalPath.moveTo(513.985f, 329.359f);
-generalPath.lineTo(192.0f, 565.269f);
-generalPath.lineTo(192.0f, 833.00397f);
-generalPath.curveTo(192.0f, 862.683f, 216.589f, 887.0f, 246.268f, 887.0f);
-generalPath.lineTo(413.0f, 887.0f);
-generalPath.lineTo(413.0f, 623.0f);
-generalPath.lineTo(608.0f, 623.0f);
-generalPath.lineTo(608.0f, 887.0f);
-generalPath.lineTo(776.93f, 887.0f);
-generalPath.curveTo(806.609f, 887.0f, 830.0f, 862.683f, 830.0f, 833.004f);
-generalPath.lineTo(830.0f, 565.269f);
-generalPath.lineTo(513.985f, 329.35898f);
-generalPath.closePath();
-shape = generalPath;
-paint = (colorFilter != null) ? colorFilter.filter(new Color(189, 204, 212, 255)) : new Color(189, 204, 212, 255);
-g.setPaint(paint);
-g.fill(shape);
-g.setTransform(transformsStack.pop());
+		if (generalPath == null) {
+			generalPath = new GeneralPath();
+		} else {
+			generalPath.reset();
+		}
+		generalPath.moveTo(513.985f, 329.359f);
+		generalPath.lineTo(192.0f, 565.269f);
+		generalPath.lineTo(192.0f, 833.00397f);
+		generalPath.curveTo(192.0f, 862.683f, 216.589f, 887.0f, 246.268f, 887.0f);
+		generalPath.lineTo(413.0f, 887.0f);
+		generalPath.lineTo(413.0f, 623.0f);
+		generalPath.lineTo(608.0f, 623.0f);
+		generalPath.lineTo(608.0f, 887.0f);
+		generalPath.lineTo(776.93f, 887.0f);
+		generalPath.curveTo(806.609f, 887.0f, 830.0f, 862.683f, 830.0f, 833.004f);
+		generalPath.lineTo(830.0f, 565.269f);
+		generalPath.lineTo(513.985f, 329.35898f);
+		generalPath.closePath();
+		shape = generalPath;
+		paint = (colorFilter != null) ? colorFilter.filter(new Color(189, 204, 212, 255)) : new Color(189, 204, 212, 255);
+		g.setPaint(paint);
+		g.fill(shape);
+		g.setTransform(transformsStack.pop());
 
-}
-
+	}
 
 
 	protected void innerPaint(Graphics2D g) {

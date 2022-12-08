@@ -435,7 +435,8 @@ class BinaryPListParser {
 					int count = (marker & 0xf) + 1;
 					System.out.println("uid " + count);
 				}
-				case 9, 14, 15, 11, 12 -> throw new IOException("parseObjectTable: illegal marker " + Integer.toBinaryString(marker));
+				case 9, 14, 15, 11, 12 ->
+						throw new IOException("parseObjectTable: illegal marker " + Integer.toBinaryString(marker));
 				case 10 -> {
 					int count = marker & 0xf;
 					if (count == 15) {

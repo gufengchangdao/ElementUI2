@@ -32,10 +32,8 @@ package com.element.radiance.common.internal.font;
 import com.element.radiance.common.api.font.FontPolicy;
 import com.element.radiance.common.api.font.FontSet;
 
-import javax.swing.plaf.FontUIResource;
 import java.awt.*;
 import java.awt.geom.AffineTransform;
-import java.lang.reflect.Method;
 import java.util.StringTokenizer;
 
 /**

@@ -3,7 +3,6 @@ package com.element.ui.button;
 import com.element.color.ColorUtil;
 import com.element.plaf.LookAndFeelFactory;
 import com.element.ui.icons.IconsFactory;
-import com.element.ui.menu.TopLevelMenuContainer;
 import com.element.ui.svg.icon.fill.SwordSvg;
 import com.element.util.SwingTestUtil;
 import com.element.util.WrapperUtil;
@@ -52,7 +51,9 @@ public class JideSplitButtonTest extends AbstractDemo {
 			panel.add(button);
 		}
 
-		return WrapperUtil.createTopPanel(panel);
+		JPanel p = new JPanel();
+		p.add(panel);
+		return p;
 	}
 
 	public static void main(String[] args) {

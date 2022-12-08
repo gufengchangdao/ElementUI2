@@ -7,7 +7,6 @@ import com.element.ui.layout.JideBoxLayout;
 import com.element.ui.svg.icon.fill.SwordSvg;
 import com.element.util.SwingTestUtil;
 import demo.AbstractDemo;
-import net.miginfocom.swing.MigLayout;
 
 import javax.swing.*;
 import javax.swing.border.TitledBorder;

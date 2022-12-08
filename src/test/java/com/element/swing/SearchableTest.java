@@ -1,10 +1,10 @@
 package com.element.swing;
 
 import com.element.plaf.LookAndFeelFactory;
-import com.element.ui.layout.JideBoxLayout;
-import com.element.ui.pane.JideSplitPane;
 import com.element.swing.search.TableSearchable;
 import com.element.swing.search.TreeSearchable;
+import com.element.ui.layout.JideBoxLayout;
+import com.element.ui.pane.JideSplitPane;
 import com.element.util.SearchableUtil;
 import com.element.util.SwingTestUtil;
 import demo.AbstractDemo;

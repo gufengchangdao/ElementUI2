@@ -81,7 +81,6 @@ import static com.element.util.ImageUtil.createScaledCompositeInstance;
  * 用 Toolkit.getDefaultToolkit().createImage 方法来创建图像文件。
  */
 public class IconsFactory {
-
 	static final double DEGREE_90 = Math.PI * 0.5;
 	/** 空图像图标，作为不会抛出异常方法的返回值 */
 	public static ImageIcon EMPTY_ICON = new ImageIcon() {

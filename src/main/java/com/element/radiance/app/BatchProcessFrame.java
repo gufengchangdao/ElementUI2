@@ -1,10 +1,10 @@
 package com.element.radiance.app;
 
 import com.element.color.ColorUtil;
-import com.element.swing.base.BaseInputField;
 import com.element.ui.button.ButtonFactory;
 import com.element.util.SwingTestUtil;
 import net.miginfocom.swing.MigLayout;
+import org.jdesktop.swingx.JXTextField;
 
 import javax.swing.*;
 import java.awt.*;
@@ -12,6 +12,8 @@ import java.io.File;
 
 /**
  * 批量处理SVG
+ * <p>
+ * 有些标签可省的属性SVG里面没写，但是这会导致这些SVG解析失败，因此需要手动对报错的SVG报错的标签加上这些属性，缺失的属性会在文本域中打印
  */
 public class BatchProcessFrame extends JFrame {
 	private JFileChooser fc;
@@ -49,15 +51,18 @@ public class BatchProcessFrame extends JFrame {
 	private void initComponent() {
 		fc = new JFileChooser();
 		// 上部分
-		dirField = new BaseInputField(35, "目录或文件名");//目录或文件名
+		dirField = new JXTextField("目录或文件名");
+		dirField.setColumns(35);
 		dirButton = new JButton("选择svg所在目录或文件");
 		dirButton.setPreferredSize(new Dimension(160, 25));
 
-		targetField = new BaseInputField(35, "文件生成目录");//生成目录
+		targetField = new JXTextField("文件生成目录");//生成目录
+		targetField.setColumns(35);
 		targetButton = new JButton("选择生成目录");
 		targetButton.setPreferredSize(new Dimension(160, 25));
 
-		packageField = new BaseInputField(35, "类所在包名，例如 com.component");//类所在包名
+		packageField = new JXTextField("类所在包名，例如 com.component");//类所在包名
+		packageField.setColumns(35);
 
 		// 中部分
 

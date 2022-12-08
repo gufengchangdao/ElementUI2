@@ -12,7 +12,7 @@ public class HeaderBoxTest extends AbstractDemo {
 	@Override
 	public Component getDemoPanel() {
 		HeaderBox headerBox = new HeaderBox();
-		headerBox.setPreferredSize(new Dimension(100,40));
+		headerBox.setPreferredSize(new Dimension(100, 40));
 		return headerBox;
 	}
 

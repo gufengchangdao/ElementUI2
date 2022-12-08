@@ -2,17 +2,17 @@ package com.element.ui.others.picket;
 
 import com.element.color.ColorUtil;
 import com.element.radiance.common.api.icon.SvgIcon;
-import com.element.swing.base.BaseInputField;
 import com.element.ui.border.IconBorder;
 import com.element.ui.svg.icon.regular.CalendarSvg;
 import org.jdesktop.swingx.JXMonthView;
+import org.jdesktop.swingx.JXTextField;
 import org.jdesktop.swingx.event.DateSelectionEvent;
 import org.jdesktop.swingx.event.DateSelectionListener;
+import org.jdesktop.swingx.prompt.BuddySupport;
 
 import javax.swing.*;
 import javax.swing.border.Border;
 import javax.swing.border.CompoundBorder;
-import javax.swing.text.Document;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -29,7 +29,7 @@ import java.util.function.Function;
  * <p>
  * 这个类与JXDatePicker有些相像，JXDatePicker支持输入，这里类还没实现，但是比那个好看
  */
-public class DatePicker extends BaseInputField implements MouseListener, DateSelectionListener {
+public class DatePicker extends JXTextField implements MouseListener, DateSelectionListener {
 	private PopupFactory popupFactory;
 	private Popup popup;
 	/** 当前是否有弹出窗口 */
@@ -46,28 +46,18 @@ public class DatePicker extends BaseInputField implements MouseListener, DateSel
 		init();
 	}
 
-	public DatePicker(String text) {
-		super(text);
+	public DatePicker(String promptText) {
+		super(promptText);
 		init();
 	}
 
-	public DatePicker(int columns) {
-		super(columns, "选择日期");
+	public DatePicker(String promptText, Color promptForeground) {
+		super(promptText, promptForeground);
 		init();
 	}
 
-	public DatePicker(int columns, String placeholder) {
-		super(columns, placeholder);
-		init();
-	}
-
-	public DatePicker(String text, int columns) {
-		super(text, columns);
-		init();
-	}
-
-	public DatePicker(Document doc, String text, int columns) {
-		super(doc, text, columns);
+	public DatePicker(String promptText, Color promptForeground, Color promptBackground) {
+		super(promptText, promptForeground, promptBackground);
 		init();
 	}
 
@@ -81,13 +71,11 @@ public class DatePicker extends BaseInputField implements MouseListener, DateSel
 		// monthView.setFlaggedDates(cal1.getTime(), cal2.getTime(), new Date());
 
 		popupFactory = new PopupFactory();
-
 		// 设置图标
 		SvgIcon icon = CalendarSvg.of(16, 16);
 		icon.setColorFilter(color -> ColorUtil.changeAlpha(ColorUtil.PRIMARY, .8f));
 		oldBorder = getBorder();
 		setIcon(icon);
-
 		// 不可编辑，如果要编辑的话还需要一个函数来检验输入是否合法
 		setEditable(false);
 		// 点击输入框展开或隐藏选择器
@@ -210,10 +198,7 @@ public class DatePicker extends BaseInputField implements MouseListener, DateSel
 
 	/** 设置左侧图标 */
 	public void setIcon(SvgIcon icon) {
-		IconBorder border = new IconBorder(0, icon.getIconWidth(), 0, 0, icon);
-		border.setHorizontalIconAlignment(LEFT);
-		CompoundBorder b = BorderFactory.createCompoundBorder(oldBorder, border);
-		setBorder(b);
-		repaint();
+		removeAllBuddies();
+		addBuddy(new JLabel(icon), BuddySupport.Position.LEFT);
 	}
 }

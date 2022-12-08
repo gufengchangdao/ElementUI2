@@ -6,7 +6,7 @@
 package com.element.plaf.basic;
 
 import com.element.plaf.UIDefaultsLookup;
-import com.element.ui.font.FontCacheManager;
+import com.element.font.FontCacheManager;
 import com.element.ui.label.StyleRange;
 import com.element.ui.label.StyledLabel;
 import com.element.util.UIUtil;

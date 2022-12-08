@@ -1,7 +1,5 @@
 package com.element.ui.tabs.hoverclosetab;
 
-import com.element.ui.notice.message.MessageFactory;
-
 import javax.swing.*;
 import java.awt.*;
 

@@ -7,10 +7,7 @@
 package com.element.plaf.office2003;
 
 import com.element.color.ColorUtil;
-import com.element.plaf.LookAndFeelFactory;
-import com.element.ui.icons.IconsFactory;
 
-import javax.swing.*;
 import javax.swing.plaf.ColorUIResource;
 import java.awt.*;
 

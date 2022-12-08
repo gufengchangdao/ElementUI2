@@ -83,19 +83,23 @@ abstract public class AbstractDemo implements Demo {
 		});
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-		Component demoPanel = demo.getDemoPanel();
-		JComponent pane = createOptionsPanel(frame, demo, demoPanel);
+		try {
+			Component demoPanel = demo.getDemoPanel();
+			JComponent pane = createOptionsPanel(frame, demo, demoPanel);
 
-		JPanel panel = new JPanel(new BorderLayout());
-		panel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
-		panel.add(demoPanel, BorderLayout.CENTER);
+			JPanel panel = new JPanel(new BorderLayout());
+			panel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+			panel.add(demoPanel, BorderLayout.CENTER);
 
-		frame.getContentPane().setLayout(new BorderLayout());
-		frame.getContentPane().add(panel, BorderLayout.CENTER);
-		if (pane != null) {
-			JScrollPane scrollPane = new JScrollPane(pane);
-			scrollPane.getVerticalScrollBar().setUnitIncrement(5);
-			frame.getContentPane().add(scrollPane, BorderLayout.LINE_START);
+			frame.getContentPane().setLayout(new BorderLayout());
+			frame.getContentPane().add(panel, BorderLayout.CENTER);
+			if (pane != null) {
+				JScrollPane scrollPane = new JScrollPane(pane);
+				scrollPane.getVerticalScrollBar().setUnitIncrement(5);
+				frame.getContentPane().add(scrollPane, BorderLayout.LINE_START);
+			}
+		} catch (Exception e) {
+			throw new RuntimeException(e);
 		}
 
 		// 使用快捷键 运行 GC 并打印可用内存

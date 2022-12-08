@@ -2,18 +2,14 @@ package com.element.ui.navigation.steps;
 
 import com.element.color.ColorUtil;
 import com.element.plaf.LookAndFeelFactory;
-import com.element.ui.menu.ReturnJMenuTest;
 import com.element.ui.svg.icon.fill.XCircleSvg;
 import com.element.util.SwingTestUtil;
-import com.element.util.UIUtil;
 import demo.AbstractDemo;
 import net.miginfocom.swing.MigLayout;
 
 import javax.swing.*;
 import java.awt.*;
 import java.util.Arrays;
-
-import static org.junit.Assert.*;
 
 public class StepsComponentTest extends AbstractDemo {
 

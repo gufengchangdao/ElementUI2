@@ -15,10 +15,10 @@ public class AutoCompletionComboBoxTest extends AbstractDemo {
 	@Override
 	public String getDescription() {
 		return """
-             对于String类型，AutoCompletionComboBox可以很好的运行，但是对于非String类型有两种解决方案：
-             1. 使用Converter提前将数据转为String类型，再对获取的String进行转换回来
-             2. 同时设置渲染器和Item选择的监听器，前者是为了下拉列表中数据的展示，后者是因为菜单选择会调用元素的toString方法，需要重新设\
-             置输入框的值""";
+				对于String类型，AutoCompletionComboBox可以很好的运行，但是对于非String类型有两种解决方案：
+				1. 使用Converter提前将数据转为String类型，再对获取的String进行转换回来
+				2. 同时设置渲染器和Item选择的监听器，前者是为了下拉列表中数据的展示，后者是因为菜单选择会调用元素的toString方法，需要重新设\
+				置输入框的值""";
 	}
 
 	@Override

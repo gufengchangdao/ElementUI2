@@ -5,7 +5,7 @@
  */
 package com.element.ui.dialog;
 
-import com.element.ui.font.FontUtil;
+import com.element.font.FontUtil;
 import com.element.ui.label.MultilineLabel;
 import com.element.util.UIUtil;
 

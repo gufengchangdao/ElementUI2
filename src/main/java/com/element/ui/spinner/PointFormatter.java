@@ -16,6 +16,7 @@ import java.text.ParseException;
  */
 public class PointFormatter extends DefaultFormatter {
 	private static JFormattedTextField.AbstractFormatter formatter;
+
 	public synchronized static JFormattedTextField.AbstractFormatter getInstance() {
 		if (formatter == null) {
 			formatter = new PointFormatter();

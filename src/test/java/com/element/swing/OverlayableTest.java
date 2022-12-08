@@ -1,22 +1,20 @@
 package com.element.swing;
 
+import com.element.color.ColorUtil;
 import com.element.plaf.LookAndFeelFactory;
-import com.element.swing.overlay.DefaultOverlayable;
-import com.element.swing.overlay.Overlayable;
-import com.element.swing.overlay.OverlayableIconsFactory;
-import com.element.swing.overlay.OverlayTextArea;
+import com.element.radiance.common.api.icon.SvgIcon;
+import com.element.swing.overlay.*;
+import com.element.ui.alert.AlertFactory;
 import com.element.ui.button.JideToggleButton;
-import com.element.swing.overlay.OverlayRadioButton;
-import com.element.swing.overlay.OverlayCheckBox;
-import com.element.swing.overlay.OverlayComboBox;
 import com.element.ui.dialog.ButtonPanel;
-import com.element.swing.overlay.OverlayTextField;
+import com.element.ui.icons.IconsFactory;
 import com.element.ui.label.StyledLabelBuilder;
 import com.element.ui.layout.JideBorderLayout;
 import com.element.ui.layout.JideBoxLayout;
-import com.element.ui.pane.JideSplitPane;
 import com.element.ui.notice.loading.InfiniteProgressPanel;
+import com.element.ui.pane.JideSplitPane;
 import com.element.ui.popup.JidePopup;
+import com.element.ui.svg.icon.fill.QuestionSvg;
 import com.element.util.OverlayableUtil;
 import com.element.util.SwingTestUtil;
 import com.element.util.WrapperUtil;
@@ -305,10 +303,10 @@ public class OverlayableTest extends AbstractDemo {
 	}
 
 	protected JPanel createMiscPanel() {
-		JLabel correctIcon = new JLabel(OverlayableIconsFactory.getImageIcon(OverlayableIconsFactory.CORRECT));
+		JLabel correctIcon = new JLabel(AlertFactory.getSuccessIcon(12, 12));
 		correctIcon.setToolTipText("Correct ...");
 		correctIcon.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-		final JLabel infoIcon = new JLabel(OverlayableIconsFactory.getImageIcon(OverlayableIconsFactory.INFO));
+		final JLabel infoIcon = new JLabel(AlertFactory.getInfoIcon(12, 12));
 		infoIcon.setToolTipText("Click for help ...");
 		infoIcon.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		infoIcon.addMouseListener(new MouseAdapter() {
@@ -323,10 +321,10 @@ public class OverlayableTest extends AbstractDemo {
 				popup.showPopup(new Insets(-5, 0, -5, 0), infoIcon);
 			}
 		});
-		JLabel questionIcon = new JLabel(OverlayableIconsFactory.getImageIcon(OverlayableIconsFactory.QUESTION));
+		JLabel questionIcon = new JLabel(IconsFactory.getSvgIcon(QuestionSvg.class, 12, 12, ColorUtil.DANGER));
 		questionIcon.setToolTipText("Question ...");
 		questionIcon.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-		JLabel attentionIcon = new JLabel(OverlayableIconsFactory.getImageIcon(OverlayableIconsFactory.ATTENTION));
+		JLabel attentionIcon = new JLabel(AlertFactory.getDangerIcon(12, 12));
 		attentionIcon.setToolTipText("Need attention ...");
 		attentionIcon.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 
@@ -378,7 +376,7 @@ public class OverlayableTest extends AbstractDemo {
 
 	protected JComponent createLocationPanel() {
 		ButtonGroup group = new ButtonGroup();
-		ImageIcon icon = OverlayableIconsFactory.getImageIcon(OverlayableIconsFactory.INFO);
+		SvgIcon icon = AlertFactory.getInfoIcon(12, 12);
 		JideToggleButton center = new JideToggleButton(icon);
 		center.addItemListener(e -> {
 			if (e.getStateChange() == ItemEvent.SELECTED) {

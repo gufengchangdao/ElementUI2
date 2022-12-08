@@ -1,6 +1,5 @@
 package com.element.ui.list;
 
-import com.element.converter.ConverterContext;
 import com.element.converter.ObjectConverterManager;
 import com.element.plaf.LookAndFeelFactory;
 import com.element.util.SwingTestUtil;

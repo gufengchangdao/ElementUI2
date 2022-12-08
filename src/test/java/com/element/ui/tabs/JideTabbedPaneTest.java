@@ -1,10 +1,12 @@
 package com.element.ui.tabs;
 
+import com.element.color.ColorUtil;
 import com.element.plaf.LookAndFeelFactory;
 import com.element.plaf.UIDefaultsLookup;
 import com.element.ui.dialog.JideOptionPane;
-import com.element.swing.JideIconsFactory;
+import com.element.ui.icons.IconsFactory;
 import com.element.ui.layout.JideBoxLayout;
+import com.element.ui.svg.icon.fill.SwordSvg;
 import demo.AbstractDemo;
 import demo.DemoData;
 
@@ -170,7 +172,7 @@ public class JideTabbedPaneTest extends AbstractDemo {
 		leading.setSelected(false);
 		leading.addItemListener(e -> {
 			if (leading.isSelected()) {
-				Component leadingComponent = new LabelUIResource(JideIconsFactory.getImageIcon(JideIconsFactory.JIDELOGO));
+				Component leadingComponent = new LabelUIResource(IconsFactory.getSvgIcon(SwordSvg.class, 50, 50, ColorUtil.PRIMARY));
 				_tabbedPane.setTabLeadingComponent(leadingComponent);
 			} else {
 				_tabbedPane.setTabLeadingComponent(null);
@@ -181,7 +183,7 @@ public class JideTabbedPaneTest extends AbstractDemo {
 		trailing.setSelected(false);
 		trailing.addItemListener(e -> {
 			if (trailing.isSelected()) {
-				Component trailingComponent = new LabelUIResource(JideIconsFactory.getImageIcon(JideIconsFactory.JIDELOGO));
+				Component trailingComponent = new LabelUIResource(IconsFactory.getSvgIcon(SwordSvg.class, 50, 50, ColorUtil.PRIMARY));
 				_tabbedPane.setTabTrailingComponent(trailingComponent);
 			} else {
 				_tabbedPane.setTabTrailingComponent(null);

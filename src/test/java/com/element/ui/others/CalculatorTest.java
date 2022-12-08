@@ -1,7 +1,5 @@
 package com.element.ui.others;
 
-import static org.junit.Assert.*;
-
 public class CalculatorTest {
 	public static void main(String[] args) {
 		Calculator calculator = new Calculator();

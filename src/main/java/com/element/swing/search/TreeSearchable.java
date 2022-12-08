@@ -5,8 +5,6 @@
  */
 package com.element.swing.search;
 
-import com.element.swing.search.Searchable;
-
 import javax.swing.*;
 import javax.swing.event.TreeModelEvent;
 import javax.swing.event.TreeModelListener;

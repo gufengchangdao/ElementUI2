@@ -182,7 +182,7 @@ public final class FontPolicies {
 	 * A FontPolicy that returns a fixed FontSet and that ignores the laf name
 	 * and UIDefaults table.
 	 */
-		private record FixedPolicy(FontSet fontSet) implements FontPolicy {
+	private record FixedPolicy(FontSet fontSet) implements FontPolicy {
 
 
 	}

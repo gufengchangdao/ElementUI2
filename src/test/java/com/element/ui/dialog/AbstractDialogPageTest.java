@@ -2,7 +2,7 @@ package com.element.ui.dialog;
 
 import com.element.color.ColorUtil;
 import com.element.plaf.LookAndFeelFactory;
-import com.element.ui.font.FontUtil;
+import com.element.font.FontUtil;
 import com.element.ui.icons.IconsFactory;
 import com.element.ui.svg.icon.fill.ArrowFatLeftSvg;
 import com.element.ui.svg.icon.fill.ArrowFatRightSvg;

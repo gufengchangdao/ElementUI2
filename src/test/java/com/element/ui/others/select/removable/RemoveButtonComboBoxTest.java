@@ -16,7 +16,7 @@ public class RemoveButtonComboBoxTest extends AbstractDemo {
 		JPanel p = new JPanel(new MigLayout("wrap 1"));
 
 		ComboBoxModel<String> m = new DefaultComboBoxModel<>(
-				new String[]{"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "bbb", "ccc"});
+				new String[]{"这是一段超级长的文本，特别特别长，长到让人不想看下去", "bbb", "ccc"});
 		JComboBox<String> comboBox = new RemoveButtonComboBox<>(m);
 		p.add(comboBox, "w :300:");
 
@@ -26,6 +26,7 @@ public class RemoveButtonComboBoxTest extends AbstractDemo {
 
 		return p;
 	}
+
 	public static void main(String[] args) {
 		SwingUtilities.invokeLater(() -> {
 			SwingTestUtil.loadSkin();

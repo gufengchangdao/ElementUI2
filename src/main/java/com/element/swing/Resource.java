@@ -9,7 +9,7 @@ import java.util.Locale;
 import java.util.ResourceBundle;
 
 public class Resource {
-	static final String BASENAME = Resource.class.getPackageName() +".swing";
+	static final String BASENAME = Resource.class.getPackageName() + ".swing";
 	public static final ResourceBundle RB = ResourceBundle.getBundle(BASENAME);
 
 	public static ResourceBundle getResourceBundle(Locale locale) {

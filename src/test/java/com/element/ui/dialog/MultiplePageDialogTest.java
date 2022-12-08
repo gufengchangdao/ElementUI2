@@ -1,7 +1,7 @@
 package com.element.ui.dialog;
 
 import com.element.plaf.LookAndFeelFactory;
-import com.element.ui.font.FontUtil;
+import com.element.font.FontUtil;
 import com.element.ui.svg.icon.fill.SwordSvg;
 import com.element.util.SwingTestUtil;
 import demo.AbstractDemo;

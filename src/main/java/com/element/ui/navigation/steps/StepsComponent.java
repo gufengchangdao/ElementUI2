@@ -291,7 +291,7 @@ public class StepsComponent extends BaseComponent {
 
 		StepInfo info;
 		// 已完成标签样式
-		if (currentStep != -1){
+		if (currentStep != -1) {
 			info = items.get(currentStep);
 			info.icon.setColorFilter(achievedColorFilter);
 			info.text.setForeground(achievedColor);

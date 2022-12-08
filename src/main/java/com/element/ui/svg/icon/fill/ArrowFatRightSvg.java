@@ -19,9 +19,9 @@ public class ArrowFatRightSvg extends AbstractSvgIcon {
 
 	private void _paint0(Graphics2D g, float origAlpha) {
 // 
-		g.setComposite(AlphaComposite.getInstance(3, origAlpha));
+		g.setComposite(AlphaComposite.getInstance(3, 1.0f * origAlpha));
 // _0
-		g.setComposite(AlphaComposite.getInstance(3, origAlpha));
+		g.setComposite(AlphaComposite.getInstance(3, 1.0f * origAlpha));
 // _0_0
 		if (generalPath == null) {
 			generalPath = new GeneralPath();

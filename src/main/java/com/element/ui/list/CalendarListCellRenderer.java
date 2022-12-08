@@ -35,7 +35,7 @@ public class CalendarListCellRenderer extends JLabel
 	}
 
 	private static Border getNoFocusBorder() {
-			return noFocusBorder;
+		return noFocusBorder;
 	}
 
 	public Dimension getPreferredSize() {

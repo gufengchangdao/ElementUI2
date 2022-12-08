@@ -8,7 +8,6 @@ package com.element.plaf.aqua;
 
 import com.element.plaf.basic.BasicJideTabbedPaneUI;
 import com.element.plaf.vsnet.VsnetJideTabbedPaneUI;
-import com.element.ui.tabs.JideTabbedPane;
 import com.element.ui.tabs.TabColorProvider;
 
 import javax.swing.*;
@@ -56,7 +55,8 @@ public class AquaJideTabbedPaneUI extends VsnetJideTabbedPaneUI {
 		if (tabRegion != null) {
 			Graphics2D g2d = (Graphics2D) g;
 			switch (tabPlacement) {
-				case SwingConstants.LEFT, SwingConstants.RIGHT -> AquaJideUtils.fillAquaGradientVertical(g2d, tabRegion, color);
+				case SwingConstants.LEFT, SwingConstants.RIGHT ->
+						AquaJideUtils.fillAquaGradientVertical(g2d, tabRegion, color);
 				default -> AquaJideUtils.fillAquaGradientHorizontal(g2d, tabRegion, color);
 			}
 

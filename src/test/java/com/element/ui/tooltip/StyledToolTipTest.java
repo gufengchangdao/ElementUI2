@@ -1,6 +1,5 @@
 package com.element.ui.tooltip;
 
-import com.element.color.ColorUtil;
 import com.element.plaf.LookAndFeelFactory;
 import com.element.util.SwingTestUtil;
 import demo.AbstractDemo;

@@ -4,7 +4,7 @@ import java.util.Locale;
 import java.util.ResourceBundle;
 
 public class Resource {
-	static final String BASENAME = Resource.class.getPackageName()+".converter";
+	static final String BASENAME = Resource.class.getPackageName() + ".converter";
 
 	static final ResourceBundle RB = ResourceBundle.getBundle(BASENAME);
 

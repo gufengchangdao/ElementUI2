@@ -2,6 +2,7 @@ package com.element.ui.others.upload;
 
 import com.element.color.ColorUtil;
 import com.element.ui.button.ButtonFactory;
+import org.jdesktop.swingx.JXPanel;
 import org.jdesktop.swingx.VerticalLayout;
 
 import javax.swing.*;
@@ -25,7 +26,7 @@ import java.util.Objects;
  * <p>
  * 注意，已选文件列表并没有去重，如果想要实现去重的功能，建议自定义JListModel
  */
-public class FileUploadPanel extends JPanel implements ActionListener, MouseMotionListener, ListSelectionListener {
+public class FileUploadPanel extends JXPanel implements ActionListener, MouseMotionListener, ListSelectionListener {
 	private JButton uploadButton;
 	private JFileChooser fc = new JFileChooser();
 	/** 提示文本 */

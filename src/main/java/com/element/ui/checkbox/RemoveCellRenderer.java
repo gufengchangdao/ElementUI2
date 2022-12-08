@@ -28,7 +28,7 @@ class RemoveCellRenderer<E> implements ListCellRenderer<E> {
 	/** 关闭按钮 */
 
 	private final JButton deleteButton = new JButton(
-			IconsFactory.getSvgIcon(XCircleSvg.class,14,14,ColorUtil.PLACEHOLDER_TEXT)) {
+			IconsFactory.getSvgIcon(XCircleSvg.class, 14, 14, ColorUtil.PLACEHOLDER_TEXT)) {
 		@Override
 		public Dimension getPreferredSize() {
 			return new Dimension(16, 16);

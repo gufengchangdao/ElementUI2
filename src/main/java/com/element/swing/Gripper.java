@@ -10,8 +10,6 @@ package com.element.swing;
 import com.element.plaf.GripperUI;
 import com.element.plaf.LookAndFeelFactory;
 import com.element.plaf.UIDefaultsLookup;
-import com.element.swing.Alignable;
-import com.element.swing.DraggableHandle;
 
 import javax.swing.*;
 import javax.swing.plaf.UIResource;

@@ -5,10 +5,6 @@
  */
 package com.element.swing.search;
 
-import com.element.swing.search.Searchable;
-import com.element.swing.search.SearchableEvent;
-import com.element.swing.search.SearchableProvider;
-
 import javax.swing.*;
 import javax.swing.event.ListDataEvent;
 import javax.swing.event.ListDataListener;
@@ -205,7 +201,7 @@ public class ComboBoxSearchable<E> extends Searchable implements ListDataListene
 
 	/**
 	 * 将 JCombobox 中的元素转换为字符串。返回值将是从list.getModel().getElementAt(i)返回的任何元素的toString())。
-	 *
+	 * <p>
 	 * 如果有需要可以重写该方法，并使用Converter来实现转换，例如
 	 * <pre>
 	 *     return ObjectConverterManager.toString(value);

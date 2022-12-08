@@ -7,7 +7,7 @@ package com.element.swing.base;
 
 import com.element.plaf.UIDefaultsLookup;
 import com.element.swing.IContour;
-import com.element.swing.JideCursors;
+import com.element.swing.MacOSCursors;
 import com.element.ui.pane.JideSplitPane;
 import com.element.ui.pane.JideSplitPaneDivider;
 
@@ -540,7 +540,7 @@ public class Contour extends JComponent implements IContour {
 
 		// show a stop cursor if the floating is not allowed
 		if (!isVisible() && _floating) {
-			getGlassPane().setCursor(JideCursors.getPredefinedCursor(JideCursors.DRAG_STOP_CURSOR));
+			getGlassPane().setCursor(MacOSCursors.NOT_ALLOWED_CURSOR.CURSOR);
 			return;
 		} else {
 			getGlassPane().setCursor(Cursor.getDefaultCursor());
@@ -556,21 +556,21 @@ public class Contour extends JComponent implements IContour {
 		}
 
 		if (isVisible() && (!_allowDocking || _floating)) {
-			getGlassPane().setCursor(JideCursors.getPredefinedCursor(JideCursors.FLOAT_CURSOR));
+			getGlassPane().setCursor(MacOSCursors.MOVE_CURSOR.CURSOR);
 		} else if (isVisible() && _tabDocking) {
-			getGlassPane().setCursor(JideCursors.getPredefinedCursor(JideCursors.TAB_CURSOR));
+			getGlassPane().setCursor(MacOSCursors.POINTER_CURSOR.CURSOR);
 		} else if (getAttachedComponent() instanceof JideSplitPaneDivider) {
 			if (((JideSplitPaneDivider) getAttachedComponent()).getJideSplitPane().getOrientation() == JideSplitPane.HORIZONTAL_SPLIT) {
-				getGlassPane().setCursor(JideCursors.getPredefinedCursor(JideCursors.HORIZONTAL_CURSOR));
+				getGlassPane().setCursor(MacOSCursors.LEFT_RIGHT_CURSOR.CURSOR);
 			} else {
-				getGlassPane().setCursor(JideCursors.getPredefinedCursor(JideCursors.VERTICAL_CURSOR));
+				getGlassPane().setCursor(MacOSCursors.UP_DOWN_CURSOR.CURSOR);
 			}
 		} else {
 			switch (_attachedSide) {
-				case 1 -> getGlassPane().setCursor(JideCursors.getPredefinedCursor(JideCursors.NORTH_CURSOR));
-				case 2 -> getGlassPane().setCursor(JideCursors.getPredefinedCursor(JideCursors.SOUTH_CURSOR));
-				case 4 -> getGlassPane().setCursor(JideCursors.getPredefinedCursor(JideCursors.EAST_CURSOR));
-				case 8 -> getGlassPane().setCursor(JideCursors.getPredefinedCursor(JideCursors.WEST_CURSOR));
+				case 1 -> getGlassPane().setCursor(MacOSCursors.NORTH_CURSOR.CURSOR);
+				case 2 -> getGlassPane().setCursor(MacOSCursors.SOUTH_CURSOR.CURSOR);
+				case 4 -> getGlassPane().setCursor(MacOSCursors.EAST_CURSOR.CURSOR);
+				case 8 -> getGlassPane().setCursor(MacOSCursors.WEST_CURSOR.CURSOR);
 				default -> getGlassPane().setCursor(Cursor.getDefaultCursor());
 			}
 		}

@@ -29,7 +29,7 @@ public class CascaderSelector extends JTextField {
 		if (data == null || data.size() == 0)
 			throw new IllegalArgumentException("data不能为null并且必须存在数据");
 
-		itemSelector = new ItemSelector(data, this, this,SwingConstants.BOTTOM , separator);
+		itemSelector = new ItemSelector(data, this, this, SwingConstants.BOTTOM, separator);
 
 		setEditable(false);
 

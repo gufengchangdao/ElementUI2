@@ -26,8 +26,8 @@ public class HoverCloseButtonTabbedPaneTest extends AbstractDemo {
 		icon.setColorFilter(color -> ColorUtil.PRIMARY);
 		tabbedPane.addTab("宝剑在手", new JSplitPane(), icon);
 
-		p.add(tabbedPane,"growx, growy");
-		p.setPreferredSize(new Dimension(300,200));
+		p.add(tabbedPane, "growx, growy");
+		p.setPreferredSize(new Dimension(300, 200));
 		return p;
 	}
 

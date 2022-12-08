@@ -40,35 +40,35 @@ public class StyledListCellRenderer<E> extends StyledLabel
 
 	@Override
 	public Component getListCellRendererComponent(JList<? extends E> list, E value, int index, boolean isSelected, boolean cellHasFocus) {
-			applyComponentOrientation(list.getComponentOrientation());
+		applyComponentOrientation(list.getComponentOrientation());
+		if (isSelected) {
+			setBackground(list.getSelectionBackground());
+			setForeground(list.getSelectionForeground());
+		} else {
+			setBackground(list.getBackground());
+			setForeground(list.getForeground());
+		}
+
+		setIgnoreColorSettings(isSelected);
+		customizeStyledLabel(list, value, index, isSelected, cellHasFocus);
+
+		setEnabled(list.isEnabled());
+		setFont(list.getFont());
+
+		Border border = null;
+		if (cellHasFocus) {
 			if (isSelected) {
-				setBackground(list.getSelectionBackground());
-				setForeground(list.getSelectionForeground());
-			} else {
-				setBackground(list.getBackground());
-				setForeground(list.getForeground());
+				border = UIDefaultsLookup.getBorder("List.focusSelectedCellHighlightBorder");
 			}
-
-			setIgnoreColorSettings(isSelected);
-			customizeStyledLabel(list, value, index, isSelected, cellHasFocus);
-
-			setEnabled(list.isEnabled());
-			setFont(list.getFont());
-
-			Border border = null;
-			if (cellHasFocus) {
-				if (isSelected) {
-					border = UIDefaultsLookup.getBorder("List.focusSelectedCellHighlightBorder");
-				}
-				if (border == null) {
-					border = UIDefaultsLookup.getBorder("List.focusCellHighlightBorder");
-				}
-			} else {
-				border = noFocusBorder;
+			if (border == null) {
+				border = UIDefaultsLookup.getBorder("List.focusCellHighlightBorder");
 			}
-			setBorder(border);
+		} else {
+			border = noFocusBorder;
+		}
+		setBorder(border);
 
-			return this;
+		return this;
 	}
 
 	/**

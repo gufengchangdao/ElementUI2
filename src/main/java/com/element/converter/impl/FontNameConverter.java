@@ -23,7 +23,6 @@ public class FontNameConverter extends ObjectConverter {
 	public static ConverterContext CONTEXT = new ConverterContext("FontName");
 
 
-
 	public String toString(Object object, ConverterContext context) {
 		if (object == null) {
 			return "";

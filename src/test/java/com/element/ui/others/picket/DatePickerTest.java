@@ -11,12 +11,12 @@ import java.awt.*;
 import java.util.Calendar;
 
 public class DatePickerTest extends AbstractDemo {
-
 	@Override
 	public Component getDemoPanel() {
-		JPanel p = new JPanel(new MigLayout("wrap 1"));
+		JPanel p = new JPanel(new FlowLayout());
 
-		DatePicker view = new DatePicker(10, "选择日期");
+		DatePicker view = new DatePicker( "选择日期");
+		view.setColumns(10);
 		JXMonthView monthView = view.getMonthView();
 		// 是否可遍历
 		monthView.setTraversable(true);

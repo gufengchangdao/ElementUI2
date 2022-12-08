@@ -9,7 +9,7 @@ package com.element.ui.pane;
 
 import com.element.plaf.UIDefaultsLookup;
 import com.element.plaf.basic.Painter;
-import com.element.swing.JideCursors;
+import com.element.swing.MacOSCursors;
 import com.element.ui.layout.JideBoxLayout;
 import com.element.util.UIUtil;
 
@@ -58,14 +58,12 @@ public class JideSplitPaneDivider extends JPanel
 	/**
 	 * Cursor used for HORIZONTAL_SPLIT split panes.
 	 */
-	static final Cursor HORIZONTAL_CURSOR =
-			JideCursors.getPredefinedCursor(JideCursors.HSPLIT_CURSOR);
+	static final Cursor HORIZONTAL_CURSOR = MacOSCursors.LEFT_RIGHT_CURSOR.CURSOR;
 
 	/**
 	 * Cursor used for VERTICAL_SPLIT split panes.
 	 */
-	static final Cursor VERTICAL_CURSOR =
-			JideCursors.getPredefinedCursor(JideCursors.VSPLIT_CURSOR);
+	static final Cursor VERTICAL_CURSOR = MacOSCursors.UP_DOWN_CURSOR.CURSOR;
 
 	/**
 	 * Default cursor.

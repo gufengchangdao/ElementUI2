@@ -9,7 +9,6 @@ import com.element.color.ColorUtil;
 import com.element.radiance.common.api.icon.SvgIcon;
 import com.element.ui.icons.IconsFactory;
 import com.element.ui.svg.icon.fill.*;
-import com.element.ui.svg.icon.regular.XCircleSvg;
 
 /**
  * A helper class to contain icons for demo of JIDE products. Those icons are copyrighted by JIDE Software, Inc.

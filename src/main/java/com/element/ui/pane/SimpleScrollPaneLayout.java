@@ -32,11 +32,14 @@ class SimpleScrollPaneLayout extends ScrollPaneLayout {
 
 	@Override
 	public void addLayoutComponent(String s, Component c) {
-		switch (s){
+		switch (s) {
 			case SimpleScrollPane.SCROLL_UP_BUTTON -> _scrollUp = (AbstractButton) addSingletonComponent(_scrollUp, c);
-			case SimpleScrollPane.SCROLL_DOWN_BUTTON -> _scrollDown = (AbstractButton) addSingletonComponent(_scrollDown, c);
-			case SimpleScrollPane.SCROLL_LEFT_BUTTON -> _scrollLeft = (AbstractButton) addSingletonComponent(_scrollLeft, c);
-			case SimpleScrollPane.SCROLL_RIGHT_BUTTON -> _scrollRight = (AbstractButton) addSingletonComponent(_scrollRight, c);
+			case SimpleScrollPane.SCROLL_DOWN_BUTTON ->
+					_scrollDown = (AbstractButton) addSingletonComponent(_scrollDown, c);
+			case SimpleScrollPane.SCROLL_LEFT_BUTTON ->
+					_scrollLeft = (AbstractButton) addSingletonComponent(_scrollLeft, c);
+			case SimpleScrollPane.SCROLL_RIGHT_BUTTON ->
+					_scrollRight = (AbstractButton) addSingletonComponent(_scrollRight, c);
 			default -> super.addLayoutComponent(s, c);
 		}
 	}

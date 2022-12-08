@@ -13,7 +13,6 @@ import javax.swing.*;
 import javax.swing.border.TitledBorder;
 import java.awt.*;
 import java.awt.event.ItemEvent;
-import java.awt.event.ItemListener;
 
 public class MarqueePaneTest extends AbstractDemo {
 	MarqueePane _horizonMarqueeLeft;

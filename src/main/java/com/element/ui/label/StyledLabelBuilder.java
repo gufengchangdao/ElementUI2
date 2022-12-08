@@ -209,7 +209,7 @@ public class StyledLabelBuilder {
 		return add(text);
 	}
 
-	public StyledLabelBuilder add(String text,String style) {
+	public StyledLabelBuilder add(String text, String style) {
 		StyleRange range = styles.get(style);
 		// not a stored style, thus it might be an annotation
 		if (range == null) {

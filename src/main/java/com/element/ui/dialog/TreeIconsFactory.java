@@ -15,7 +15,6 @@ import javax.swing.*;
  */
 public class TreeIconsFactory {
 	static class CellRenderer {
-		public static final String SELECTED_C16 = "icons/selected-c16.gif";
 		public static final String SELECTED_B16 = "icons/selected-b16.gif";
 		public static final String BLANK_16 = "icons/blank-16.gif";
 	}

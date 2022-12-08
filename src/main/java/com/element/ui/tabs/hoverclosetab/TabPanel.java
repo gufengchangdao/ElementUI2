@@ -1,11 +1,5 @@
 package com.element.ui.tabs.hoverclosetab;
 
-import com.element.color.ColorUtil;
-import com.element.ui.icons.IconsFactory;
-import com.element.ui.others.tag.TagFactory;
-import com.element.ui.svg.icon.fill.XCircleSvg;
-import com.element.ui.svg.icon.regular.XSvg;
-
 import javax.swing.*;
 import java.awt.*;
 

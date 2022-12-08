@@ -4,65 +4,97 @@
     <meta charset="UTF-8">
     <title>图标列表</title>
     <style>
-        body {font-family: "Trebuchet MS", Verdana, Arial, Helvetica, sans-serif;background: #E6EAE9;}
+        body {
+            font-family: "Trebuchet MS", Verdana, Arial, Helvetica, sans-serif;
+            background: #E6EAE9;
+        }
 
-        .mytable {margin: 10px;border-spacing: 0;border-collapse: collapse;}
+        .mytable {
+            margin: 10px;
+            border-spacing: 0;
+            border-collapse: collapse;
+        }
 
-        tr {background: #fff;color: #4f6b72;}
+        tr {
+            background: #fff;
+            color: #4f6b72;
+        }
 
-        th {font: bold 18px "Trebuchet MS", Verdana, Arial, Helvetica, sans-serif;color: #fff;
-            border-right: 1px solid #C1DAD7;border-bottom: 1px solid #C1DAD7;border-top: 1px solid #C1DAD7;
-            letter-spacing: 2px;text-align: left;padding: 6px 6px 6px 12px;background: #0098a2 no-repeat;}
+        th {
+            font: bold 18px "Trebuchet MS", Verdana, Arial, Helvetica, sans-serif;
+            color: #fff;
+            border-right: 1px solid #C1DAD7;
+            border-bottom: 1px solid #C1DAD7;
+            border-top: 1px solid #C1DAD7;
+            letter-spacing: 2px;
+            text-align: left;
+            padding: 6px 6px 6px 12px;
+            background: #0098a2 no-repeat;
+        }
 
-        td {border-right: 1px solid #C1DAD7;border-bottom: 1px solid #C1DAD7;font-size: 16px;padding: 6px 6px 6px 12px;}
+        td {
+            border-right: 1px solid #C1DAD7;
+            border-bottom: 1px solid #C1DAD7;
+            font-size: 16px;
+            padding: 6px 6px 6px 12px;
+        }
 
-        .tr1 {background-color: #269fa7;color: white;}
+        .tr1 {
+            background-color: #269fa7;
+            color: white;
+        }
 
-        .tr2 {background-color: white;}
+        .tr2 {
+            background-color: white;
+        }
     </style>
 </head>
 <body>
 <h1>图标定义在 com.element.ui.dialog.TreeIconsFactory</h1>
 <ol>
-<li>如果您无法查看此页面中的图像，请确保该文件位于正确的资源目录下</li>
-<li>要在代码中获取特定图标，请调用 <b>JideIconsFactory.getImageIcon(FULL_CONSTANT_NAME)</b>。将 FULL_CONSTANT_NAME 替换为下表中的实际完整常量名称</li>
+    <li>如果您无法查看此页面中的图像，请确保该文件位于正确的资源目录下</li>
+    <li>要在代码中获取特定图标，请调用 <b>JideIconsFactory.getImageIcon(FULL_CONSTANT_NAME)</b>。将 FULL_CONSTANT_NAME
+        替换为下表中的实际完整常量名称
+    </li>
 </ol>
 <p><b>TreeIconsFactory.CellRenderer</b></p>
 <table class="mytable">
-<tr>
-<th>Name</th>
-<th>Image</th>
-<th>File Name</th>
-<th>Full Constant Name</th>
-</tr>
-<tr>
-<td>SELECTED_C16</td>
-<td><img src="icons/selected-c16.gif"></td>
-<td>icons/selected-c16.gif</td>
-<td>TreeIconsFactory.CellRenderer.SELECTED_C16</td>
-</tr>
-<tr>
-<td>SELECTED_B16</td>
-<td><img src="icons/selected-b16.gif"></td>
-<td>icons/selected-b16.gif</td>
-<td>TreeIconsFactory.CellRenderer.SELECTED_B16</td>
-</tr>
-<tr>
-<td>BLANK_16</td>
-<td><img src="icons/blank-16.gif"></td>
-<td>icons/blank-16.gif</td>
-<td>TreeIconsFactory.CellRenderer.BLANK_16</td>
-</tr>
-</table><br>
+    <tr>
+        <th>Name</th>
+        <th>Image</th>
+        <th>File Name</th>
+        <th>Full Constant Name</th>
+    </tr>
+    <tr>
+        <td>SELECTED_C16</td>
+        <td><img src="icons/selected-c16.gif"></td>
+        <td>icons/selected-c16.gif</td>
+        <td>TreeIconsFactory.CellRenderer.SELECTED_C16</td>
+    </tr>
+    <tr>
+        <td>SELECTED_B16</td>
+        <td><img src="icons/selected-b16.gif"></td>
+        <td>icons/selected-b16.gif</td>
+        <td>TreeIconsFactory.CellRenderer.SELECTED_B16</td>
+    </tr>
+    <tr>
+        <td>BLANK_16</td>
+        <td><img src="icons/blank-16.gif"></td>
+        <td>icons/blank-16.gif</td>
+        <td>TreeIconsFactory.CellRenderer.BLANK_16</td>
+    </tr>
+</table>
+<br>
 <p><b>TreeIconsFactory</b></p>
 <table class="mytable">
-<tr>
-<th>Name</th>
-<th>Image</th>
-<th>File Name</th>
-<th>Full Constant Name</th>
-</tr>
-</table><br>
+    <tr>
+        <th>Name</th>
+        <th>Image</th>
+        <th>File Name</th>
+        <th>Full Constant Name</th>
+    </tr>
+</table>
+<br>
 <script>
     let aTr = document.getElementsByTagName("tr");
     for (let i = 1; i < aTr.length; i++) {

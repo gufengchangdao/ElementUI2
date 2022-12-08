@@ -192,7 +192,7 @@ public class IconBorder extends MatteBorder {
 					cg = g.create();
 					cg.setClip(0, insets.top, insets.left, height - insets.top);
 					starty = insets.top;
-					startx = (insets.left - tileIcon.getIconWidth())/2;
+					startx = (insets.left - tileIcon.getIconWidth()) / 2;
 					switch (getVerticalIconAlignment()) {
 						case SwingConstants.LEADING, SwingConstants.TOP -> {
 							xpos = startx;

@@ -343,6 +343,7 @@ abstract public class StandardDialog extends JDialog implements ButtonNames {
 	/**
 	 * 重写该类可以扩展对话框，例如返回DefaultStandardDialogPane对象并重写
 	 * {@link DefaultStandardDialogPane#layoutComponents(Component, Component, ButtonPanel)}可以改变对话框内容或改变布局
+	 *
 	 * @return
 	 */
 	protected StandardDialogPane createStandardDialogPane() {

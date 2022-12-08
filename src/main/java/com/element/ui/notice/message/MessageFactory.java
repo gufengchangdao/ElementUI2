@@ -2,10 +2,11 @@ package com.element.ui.notice.message;
 
 import com.element.animator.popup.PopupAnimatorGroup;
 import com.element.animator.popup.PopupAnimatorTask;
+import com.element.swing.template.X2Component;
 import com.element.ui.alert.AlertComponent;
 import com.element.ui.alert.AlertFactory;
-import com.element.swing.template.X2Component;
 
+import javax.swing.*;
 import java.awt.*;
 
 /**
@@ -56,8 +57,12 @@ public class MessageFactory {
 	public PopupAnimatorTask<AlertComponent> openMessage(AlertComponent alert,
 	                                                     int beginY,
 	                                                     boolean closeable, boolean isAutoClose) {
+		// 计算坐标不使用玻璃窗格，这里找到rootPane计算它的大小
+		Container rootPane = SwingUtilities.getAncestorOfClass(JRootPane.class, container);
+		if (rootPane == null) return null;
+
 		// 坐标属性
-		int x = (container.getPreferredSize().width - alert.getPreferredSize().width) / 2;
+		int x = (rootPane.getPreferredSize().width - alert.getPreferredSize().width) / 2;
 
 		PopupAnimatorTask<AlertComponent> task = group.createTask(alert, new Point(x, beginY), new Point(x, beginY + 100));
 		if (!isAutoClose) task.setDurationTime(0);

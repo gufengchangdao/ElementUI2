@@ -1,5 +1,7 @@
 package com.element.ui.label;
 
+import org.jdesktop.swingx.JXLabel;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.font.FontRenderContext;
@@ -10,10 +12,12 @@ import java.awt.geom.AffineTransform;
 import java.text.AttributedCharacterIterator;
 import java.text.AttributedString;
 
+// TODO 解决文本的锯齿问题
+
 /**
  * 首字符放大整数倍，其他文字浮动的label
  */
-public class DropCapLabel extends JLabel {
+public class DropCapLabel extends JXLabel {
 	private int fold = 5;
 
 	protected DropCapLabel(String text) {

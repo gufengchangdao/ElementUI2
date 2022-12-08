@@ -1,7 +1,7 @@
 package com.element.ui.button;
 
 import com.element.color.ColorUtil;
-import com.element.ui.font.FontUtil;
+import com.element.font.FontUtil;
 
 import javax.swing.*;
 import java.awt.*;

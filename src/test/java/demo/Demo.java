@@ -26,7 +26,7 @@ public interface Demo extends Serializable {
 	/**
 	 * 获取主演示面板。
 	 */
-	Component getDemoPanel();
+	Component getDemoPanel() throws Exception;
 
 	/**
 	 * 获取演示的源代码。

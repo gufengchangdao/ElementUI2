@@ -6,8 +6,6 @@
 package com.element.swing.resize;
 
 import com.element.plaf.UIDefaultsLookup;
-import com.element.swing.resize.Resizable;
-import com.element.swing.resize.ResizableSupport;
 
 import javax.swing.*;
 import java.awt.*;

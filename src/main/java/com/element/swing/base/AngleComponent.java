@@ -2,6 +2,7 @@ package com.element.swing.base;
 
 import com.element.swing.SwingPosition;
 import com.element.ui.border.AngleBorder;
+import org.intellij.lang.annotations.MagicConstant;
 
 import javax.swing.*;
 import javax.swing.border.Border;
@@ -21,7 +22,9 @@ public class AngleComponent extends BaseComponent implements SwingPosition {
 	 *                 {@link #EAST}，{@link #EAST_NORTH}，{@link #EAST_SOUTH}，
 	 *                 {@link #WEST}，{@link #WEST_NORTH}，{@link #WEST_SOUTH}
 	 */
-	public AngleComponent(JComponent c, int position) {
+	public AngleComponent(JComponent c,
+	                      @MagicConstant(intValues = {NORTH,NORTH_EAST,NORTH_WEST,SOUTH,SOUTH_EAST,
+			                      SOUTH_WEST,EAST,EAST_NORTH,EAST_SOUTH,WEST,WEST_NORTH,WEST_SOUTH}) int position) {
 		this.c = c;
 
 		setLayout(null);
@@ -37,7 +40,8 @@ public class AngleComponent extends BaseComponent implements SwingPosition {
 	 *                 {@link #EAST}，{@link #EAST_NORTH}，{@link #EAST_SOUTH}，
 	 *                 {@link #WEST}，{@link #WEST_NORTH}，{@link #WEST_SOUTH}
 	 */
-	public AngleComponent(JComponent c, int position, Color color) {
+	public AngleComponent(JComponent c,@MagicConstant(intValues = {NORTH,NORTH_EAST,NORTH_WEST,SOUTH,SOUTH_EAST,
+			SOUTH_WEST,EAST,EAST_NORTH,EAST_SOUTH,WEST,WEST_NORTH,WEST_SOUTH}) int position, Color color) {
 		this.c = c;
 
 		setLayout(null);
@@ -53,7 +57,8 @@ public class AngleComponent extends BaseComponent implements SwingPosition {
 	 *                 {@link #EAST}，{@link #EAST_NORTH}，{@link #EAST_SOUTH}，
 	 *                 {@link #WEST}，{@link #WEST_NORTH}，{@link #WEST_SOUTH}
 	 */
-	public AngleComponent(JComponent c, int position, Color color, int size, int angle) {
+	public AngleComponent(JComponent c,@MagicConstant(intValues = {NORTH,NORTH_EAST,NORTH_WEST,SOUTH,SOUTH_EAST,
+			SOUTH_WEST,EAST,EAST_NORTH,EAST_SOUTH,WEST,WEST_NORTH,WEST_SOUTH}) int position, Color color, int size, int angle) {
 		this(c, position, color, size, angle, new Point(0, 0));
 	}
 
@@ -63,7 +68,8 @@ public class AngleComponent extends BaseComponent implements SwingPosition {
 	 *                 {@link #EAST}，{@link #EAST_NORTH}，{@link #EAST_SOUTH}，
 	 *                 {@link #WEST}，{@link #WEST_NORTH}，{@link #WEST_SOUTH}
 	 */
-	public AngleComponent(JComponent c, int position, Color color, int size, int angle, Point offset) {
+	public AngleComponent(JComponent c,@MagicConstant(intValues = {NORTH,NORTH_EAST,NORTH_WEST,SOUTH,SOUTH_EAST,
+			SOUTH_WEST,EAST,EAST_NORTH,EAST_SOUTH,WEST,WEST_NORTH,WEST_SOUTH}) int position, Color color, int size, int angle, Point offset) {
 		this.c = c;
 
 		setLayout(null);

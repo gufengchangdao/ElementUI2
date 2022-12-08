@@ -8,9 +8,6 @@ import demo.AbstractDemo;
 import demo.DemoData;
 
 import javax.swing.*;
-import javax.swing.text.BadLocationException;
-import javax.swing.text.DefaultStyledDocument;
-import javax.swing.text.Document;
 import javax.swing.text.JTextComponent;
 import java.awt.*;
 import java.awt.event.*;
@@ -193,22 +190,22 @@ public class SearchableBarTest extends AbstractDemo {
 		searchable.setRepeats(true);
 		_textAreaSearchableBar = SearchableBar.install(searchable,
 				KeyStroke.getKeyStroke(KeyEvent.VK_F, KeyEvent.CTRL_DOWN_MASK), new SearchableBar.Installer() {
-			public void openSearchBar(SearchableBar searchableBar) {
-				String selectedText = textArea.getSelectedText();
-				if (selectedText != null && selectedText.length() > 0) {
-					searchableBar.setSearchingText(selectedText);
-				}
-				panel.add(searchableBar, BorderLayout.PAGE_END);
-				panel.invalidate();
-				panel.revalidate();
-			}
+					public void openSearchBar(SearchableBar searchableBar) {
+						String selectedText = textArea.getSelectedText();
+						if (selectedText != null && selectedText.length() > 0) {
+							searchableBar.setSearchingText(selectedText);
+						}
+						panel.add(searchableBar, BorderLayout.PAGE_END);
+						panel.invalidate();
+						panel.revalidate();
+					}
 
-			public void closeSearchBar(SearchableBar searchableBar) {
-				panel.remove(searchableBar);
-				panel.invalidate();
-				panel.revalidate();
-			}
-		});
+					public void closeSearchBar(SearchableBar searchableBar) {
+						panel.remove(searchableBar);
+						panel.invalidate();
+						panel.revalidate();
+					}
+				});
 		_textAreaSearchableBar.getInstaller().openSearchBar(_textAreaSearchableBar);
 		_textAreaSearchableBar.setShowMatchCount(true);
 		return panel;
@@ -225,18 +222,18 @@ public class SearchableBarTest extends AbstractDemo {
 		panel.add(new JScrollPane(table), BorderLayout.CENTER);
 		_tableSearchableBar = SearchableBar.install(searchable,
 				KeyStroke.getKeyStroke(KeyEvent.VK_F, KeyEvent.CTRL_DOWN_MASK), new SearchableBar.Installer() {
-			public void openSearchBar(SearchableBar searchableBar) {
-				panel.add(searchableBar, BorderLayout.AFTER_LAST_LINE);
-				panel.invalidate();
-				panel.revalidate();
-			}
+					public void openSearchBar(SearchableBar searchableBar) {
+						panel.add(searchableBar, BorderLayout.AFTER_LAST_LINE);
+						panel.invalidate();
+						panel.revalidate();
+					}
 
-			public void closeSearchBar(SearchableBar searchableBar) {
-				panel.remove(searchableBar);
-				panel.invalidate();
-				panel.revalidate();
-			}
-		});
+					public void closeSearchBar(SearchableBar searchableBar) {
+						panel.remove(searchableBar);
+						panel.invalidate();
+						panel.revalidate();
+					}
+				});
 		_tableSearchableBar.setName("TableSearchableBar");
 		_tableSearchableBar.setShowMatchCount(true);
 		return panel;

@@ -5,12 +5,7 @@
  */
 package com.element.util;
 
-import com.element.swing.search.Searchable;
-import com.element.swing.search.TextComponentSearchable;
-import com.element.swing.search.ComboBoxSearchable;
-import com.element.swing.search.ListSearchable;
-import com.element.swing.search.TableSearchable;
-import com.element.swing.search.TreeSearchable;
+import com.element.swing.search.*;
 
 import javax.swing.*;
 import javax.swing.text.JTextComponent;

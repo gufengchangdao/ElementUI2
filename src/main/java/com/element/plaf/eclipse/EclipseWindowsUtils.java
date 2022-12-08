@@ -6,24 +6,21 @@
 package com.element.plaf.eclipse;
 
 import com.element.plaf.ExtWindowsDesktopProperty;
-import com.element.plaf.LookAndFeelFactory;
 import com.element.plaf.UIDefaultsLookup;
 import com.element.plaf.WindowsDesktopProperty;
 import com.element.plaf.basic.Painter;
 import com.element.plaf.basic.ThemePainter;
-import com.element.plaf.vsnet.HeaderCellBorder;
-import com.element.ui.button.JideButton;
-import com.element.ui.font.FontUtil;
+import com.element.font.FontUtil;
 import com.element.ui.icons.IconsFactory;
-import com.element.swing.JideIconsFactory;
 import com.element.ui.icons.MenuCheckIcon;
+import com.element.ui.svg.icon.bold.CheckSvg;
+import com.element.ui.svg.icon.fill.RecordSvg;
 import com.element.ui.tabs.JideTabbedPane;
 
 import javax.swing.*;
 import javax.swing.border.Border;
 import javax.swing.plaf.BorderUIResource;
 import javax.swing.plaf.ColorUIResource;
-import javax.swing.plaf.DimensionUIResource;
 import javax.swing.plaf.InsetsUIResource;
 import javax.swing.plaf.basic.BasicBorders;
 import java.awt.*;
@@ -252,27 +249,6 @@ public class EclipseWindowsUtils extends EclipseLookAndFeelExtension {
 				"DOWN", "downPressed",
 				"released DOWN", "downReleased"
 		}),
-
-				"Cursor.hsplit", JideIconsFactory.getImageIcon(JideIconsFactory.Cursor.HSPLIT),
-				"Cursor.vsplit", JideIconsFactory.getImageIcon(JideIconsFactory.Cursor.VSPLIT),
-
-				"Cursor.north", JideIconsFactory.getImageIcon(JideIconsFactory.Cursor.NORTH),
-				"Cursor.south", JideIconsFactory.getImageIcon(JideIconsFactory.Cursor.SOUTH),
-				"Cursor.east", JideIconsFactory.getImageIcon(JideIconsFactory.Cursor.EAST),
-				"Cursor.west", JideIconsFactory.getImageIcon(JideIconsFactory.Cursor.WEST),
-				"Cursor.tab", JideIconsFactory.getImageIcon(JideIconsFactory.Cursor.TAB),
-				"Cursor.float", JideIconsFactory.getImageIcon(JideIconsFactory.Cursor.FLOAT),
-				"Cursor.vertical", JideIconsFactory.getImageIcon(JideIconsFactory.Cursor.VERTICAL),
-				"Cursor.horizontal", JideIconsFactory.getImageIcon(JideIconsFactory.Cursor.HORIZONTAL),
-				"Cursor.delete", JideIconsFactory.getImageIcon(JideIconsFactory.Cursor.DELETE),
-				"Cursor.drag", JideIconsFactory.getImageIcon(JideIconsFactory.Cursor.DROP),
-				"Cursor.dragStop", JideIconsFactory.getImageIcon(JideIconsFactory.Cursor.NODROP),
-				"Cursor.dragText", JideIconsFactory.getImageIcon(JideIconsFactory.Cursor.DROP_TEXT),
-				"Cursor.dragTextStop", JideIconsFactory.getImageIcon(JideIconsFactory.Cursor.NODROP_TEXT),
-				"Cursor.percentage", JideIconsFactory.getImageIcon(JideIconsFactory.Cursor.PERCENTAGE),
-				"Cursor.moveEast", JideIconsFactory.getImageIcon(JideIconsFactory.Cursor.MOVE_EAST),
-				"Cursor.moveWest", JideIconsFactory.getImageIcon(JideIconsFactory.Cursor.MOVE_WEST),
-
 				"HeaderBox.background", defaultBackgroundColor,
 
 				"Icon.floating", Boolean.FALSE,
@@ -315,7 +291,7 @@ public class EclipseWindowsUtils extends EclipseLookAndFeelExtension {
 					"PopupMenuSeparator.foreground", defaultHighlightColor,
 					"PopupMenuSeparator.background", defaultShadowColor,
 
-					"CheckBoxMenuItem.checkIcon", new MenuCheckIcon(JideIconsFactory.getImageIcon(JideIconsFactory.MENU_CHECKBOX_ECLIPSE)),
+					"CheckBoxMenuItem.checkIcon", new MenuCheckIcon(IconsFactory.getSvgIcon(CheckSvg.class, 20, 20)),
 					"CheckBoxMenuItem.selectionBackground", selectionBackgroundColor,
 					"CheckBoxMenuItem.selectionForeground", selectionTextColor,
 					"CheckBoxMenuItem.acceleratorSelectionForeground", selectionTextColor,
@@ -325,7 +301,7 @@ public class EclipseWindowsUtils extends EclipseLookAndFeelExtension {
 					"CheckBoxMenuItem.font", menuFont,
 					"CheckBoxMenuItem.acceleratorFont", menuFont,
 
-					"RadioButtonMenuItem.checkIcon", new MenuCheckIcon(JideIconsFactory.getImageIcon(JideIconsFactory.MENU_RADIOBUTTON_ECLIPSE)),
+					"RadioButtonMenuItem.checkIcon", new MenuCheckIcon(IconsFactory.getSvgIcon(RecordSvg.class, 20, 20)),
 					"RadioButtonMenuItem.selectionBackground", selectionBackgroundColor,
 					"RadioButtonMenuItem.selectionForeground", selectionTextColor,
 					"RadioButtonMenuItem.acceleratorSelectionForeground", selectionTextColor,
@@ -344,13 +320,13 @@ public class EclipseWindowsUtils extends EclipseLookAndFeelExtension {
 					"Menu.mouseSelectedBorder", new BorderUIResource(BorderFactory.createEmptyBorder()),
 					"Menu.margin", new InsetsUIResource(4, 6, 2, 6),
 					"Menu.textIconGap", 4,
-					"Menu.checkIcon", new MenuCheckIcon(JideIconsFactory.getImageIcon(JideIconsFactory.MENU_CHECKBOX_VSNET)),
+					"Menu.checkIcon", new MenuCheckIcon(IconsFactory.getSvgIcon(com.element.ui.svg.icon.regular.CheckSvg.class, 20, 20)),
 					"Menu.font", menuFont,
 					"Menu.acceleratorFont", menuFont,
 
 					"PopupMenu.border", menuBorder,
 
-					"MenuItem.checkIcon", new MenuCheckIcon(JideIconsFactory.getImageIcon(JideIconsFactory.MENU_CHECKBOX_VSNET)),
+					"MenuItem.checkIcon", new MenuCheckIcon(IconsFactory.getSvgIcon(com.element.ui.svg.icon.regular.CheckSvg.class, 20, 20)),
 					"MenuItem.selectionBackground", selectionBackgroundColor,
 					"MenuItem.selectionForeground", selectionTextColor,
 					"MenuItem.acceleratorSelectionForeground", selectionTextColor,

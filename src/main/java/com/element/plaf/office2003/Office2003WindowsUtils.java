@@ -4,23 +4,16 @@
 package com.element.plaf.office2003;
 
 import com.element.plaf.ExtWindowsDesktopProperty;
-import com.element.plaf.LookAndFeelFactory;
 import com.element.plaf.UIDefaultsLookup;
 import com.element.plaf.WindowsDesktopProperty;
 import com.element.plaf.basic.Painter;
 import com.element.plaf.basic.ThemePainter;
-import com.element.plaf.vsnet.HeaderCellBorder;
-import com.element.plaf.vsnet.ResizeFrameBorder;
 import com.element.plaf.vsnet.VsnetWindowsUtils;
-import com.element.plaf.xerto.SlidingFrameBorder;
-import com.element.plaf.xerto.StatusBarBorder;
-import com.element.ui.font.FontUtil;
+import com.element.font.FontUtil;
 import com.element.ui.tabs.JideTabbedPane;
-import com.element.util.SystemInfo;
 
 import javax.swing.*;
 import javax.swing.plaf.BorderUIResource;
-import javax.swing.plaf.ColorUIResource;
 import javax.swing.plaf.InsetsUIResource;
 import java.awt.*;
 

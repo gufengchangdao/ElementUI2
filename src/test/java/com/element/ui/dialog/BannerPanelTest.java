@@ -1,8 +1,10 @@
 package com.element.ui.dialog;
 
+import com.element.color.ColorUtil;
 import com.element.plaf.LookAndFeelFactory;
-import com.element.swing.JideIconsFactory;
+import com.element.ui.icons.IconsFactory;
 import com.element.ui.layout.JideBoxLayout;
+import com.element.ui.svg.icon.fill.SwordSvg;
 import com.element.util.SwingTestUtil;
 import com.element.util.WrapperUtil;
 import demo.AbstractDemo;
@@ -39,14 +41,14 @@ public class BannerPanelTest extends AbstractDemo {
 		BannerPanel headerPanel1 = new BannerPanel("This is a BannerPanel",
 				"BannerPanel is very useful to display a title, a description and an icon. It can be used in " +
 						"dialog to show some help information or display a product logo in a nice way.",
-				JideIconsFactory.getImageIcon(JideIconsFactory.JIDE32));
+				IconsFactory.getSvgIcon(SwordSvg.class, 50, 50, ColorUtil.PRIMARY));
 		headerPanel1.setBackground(Color.WHITE);
 		headerPanel1.setBorder(BorderFactory.createBevelBorder(BevelBorder.LOWERED));
 
 		BannerPanel headerPanel2 = new BannerPanel("This is a BannerPanel",
 				"BannerPanel is very useful to display a title, a description and an icon. It can be used in " +
 						"dialog to show some help information or display a product logo in a nice way.",
-				JideIconsFactory.getImageIcon(JideIconsFactory.JIDE32));
+				IconsFactory.getSvgIcon(SwordSvg.class, 50, 50, ColorUtil.PRIMARY));
 		headerPanel2.setBorder(BorderFactory.createBevelBorder(BevelBorder.LOWERED));
 		headerPanel2.setTitleIconLocation(SwingConstants.LEADING);
 		// this method will use JideSwingUtilities fast gradient paint to do the painting.
