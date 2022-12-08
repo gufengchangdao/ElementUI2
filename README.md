@@ -26,6 +26,28 @@
 - [jide-oss](https://github.com/jidesoft/jide-oss)
   JIDE的公开层，较为完善的框架，存在许多我不懂的地方，看懂项目、筛选有用代码、修复bug，还有代码优化花了我不少时间，算是把该项目由组件库升级为了一个小框架。
 
+## 开发指南
+**代码中使用ElementUI**
+
+一般你的应用启动类这样写：
+```java
+EventQueue.invokeLater(() -> {
+   // 检测swing组件更新的线程违规操作，仅开发时启用
+   RepaintManager.setCurrentManager(new ThreadCheckingRepaintManager());
+   // 创建计时源并启动
+   SwingTimerTimingSource ts = new SwingTimerTimingSource();
+   Animator.setDefaultTimingSource(ts);
+   ts.init();
+   //安装 LookAndFeel
+   // FlatLightLaf.setup();
+   // 注册jide组件和默认组件的UI，应该在安装 LookAndFeel 后执行
+   LookAndFeelFactory.installJideExtension();
+
+   //启动程序
+   // ...
+});
+```
+
 ## 截图预览
 
 [ElementUI组件](https://riw8lxejdn.feishu.cn/docx/Yoszdo08qooCAJxOKlQcS4hJnTg#XYMydSEyAogeOixOAzqcTV1ened)
