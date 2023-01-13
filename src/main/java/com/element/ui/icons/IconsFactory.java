@@ -5,6 +5,7 @@
  */
 package com.element.ui.icons;
 
+import com.element.radiance.common.api.BufferedImageTranscoder;
 import com.element.radiance.common.api.icon.AbstractSvgIcon;
 import com.element.radiance.common.api.icon.SvgIcon;
 
@@ -253,6 +254,24 @@ public class IconsFactory {
 		SvgIcon icon = getSvgIcon(c, width, height);
 		icon.setColorFilter(color -> iconColor);
 		return icon;
+	}
+
+	/**
+	 * Svg转换为BufferedImage
+	 *
+	 * @see BufferedImageTranscoder#loadImage(Reader, float, float)
+	 */
+	public static BufferedImage loadImage(Reader svgFile, float width, float height) {
+		return BufferedImageTranscoder.loadImage(svgFile, width, height);
+	}
+
+	/**
+	 * Svg转换为BufferedImage
+	 *
+	 * @see BufferedImageTranscoder#loadImage(InputStream, float, float)
+	 */
+	public static BufferedImage loadImage(InputStream svgFile, float width, float height) {
+		return BufferedImageTranscoder.loadImage(svgFile, width, height);
 	}
 
 	// ---------------------------------------------------------------------
