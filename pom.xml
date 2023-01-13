@@ -46,5 +46,21 @@
             <version>23.0.0</version>
             <scope>provided</scope>
         </dependency>
+
+        <!-- 本地依赖 -->
+        <dependency>
+            <groupId>org.jdesktop.swingx</groupId>
+            <artifactId>swingx</artifactId>
+            <version>1.0</version>
+            <scope>system</scope>
+            <systemPath>${project.basedir}/libs/swingx-master.jar</systemPath>
+        </dependency>
+        <dependency>
+            <groupId>org.jdesktop.animation</groupId>
+            <artifactId>animated-transitions-swing</artifactId>
+            <version>1.0</version>
+            <scope>system</scope>
+            <systemPath>${project.basedir}/libs/animated-transitions-swing.jar</systemPath>
+        </dependency>
     </dependencies>
 </project>

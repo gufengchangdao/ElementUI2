@@ -26,7 +26,7 @@ public class DateUtil {
 	private static final long DAY_IN_MS = 24 * 60 * 60 * 1000;
 
 	/**
-	 * 获取当前时间的字符串形式
+	 * 获取当前时间的字符串形式，格式为yyyy-MM-dd HH:mm:ss
 	 *
 	 * @return 当前时间的字符串形式
 	 */
@@ -34,6 +34,9 @@ public class DateUtil {
 		return new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date());
 	}
 
+	/**
+	 * 获取当前时间的字符串形式，格式为 MM月dd日
+	 */
 	public static String getDateNowStr() {
 		return new SimpleDateFormat("MM月dd日").format(new Date());
 	}
