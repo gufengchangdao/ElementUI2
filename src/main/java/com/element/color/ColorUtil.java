@@ -12,12 +12,14 @@ public class ColorUtil {
 
 	// 中性色
 	// 中性色用于文本、背景和边框颜色。通过运用不同的中性色，来表现层次结构。
-	// 文字
+	/** Primary Text */
 	public static final Color PRIMARY_TEXT = new Color(48, 49, 51);
 	/** FlatLaf默认背景色 */
 	// public static final Color BACKGROUND_COLOR = new Color(60, 63, 65);
 	public static final Color BACKGROUND = Color.WHITE;
+	/** Regular Text */
 	public static final Color COMMON_TEXT = new Color(96, 98, 102);
+	/** Secondary Text */
 	public static final Color SECONDARY_TEXT = new Color(144, 147, 153);
 	public static final Color PLACEHOLDER_TEXT = new Color(192, 196, 204);
 

@@ -2,7 +2,7 @@ package com.element.ui.dialog;
 
 import com.element.color.ColorUtil;
 import com.element.plaf.UIDefaultsLookup;
-import com.element.ui.button.ButtonResources;
+import com.element.ui.button.ButtonResource;
 import com.element.ui.icons.IconsFactory;
 import com.element.ui.label.MultilineLabel;
 import com.element.ui.svg.icon.fill.SwordSvg;
@@ -88,7 +88,7 @@ public class StandardDialogExample1 extends StandardDialog {
 				dispose();
 			}
 		});
-		final ResourceBundle resourceBundle = ButtonResources.getResourceBundle(Locale.getDefault());
+		final ResourceBundle resourceBundle = ButtonResource.getResourceBundle(Locale.getDefault());
 		helpButton.setAction(new AbstractAction(resourceBundle.getString("Button.help")) {
 			public void actionPerformed(ActionEvent e) {
 				// do something

@@ -10,7 +10,7 @@ import com.element.color.ColorUtil;
 import com.element.plaf.UIDefaultsLookup;
 import com.element.swing.base.BasePanel;
 import com.element.swing.nullc.NullPanel;
-import com.element.ui.button.ButtonResources;
+import com.element.ui.button.ButtonResource;
 import com.element.ui.dialog.ButtonNames;
 import com.element.ui.dialog.ButtonPanel;
 import com.element.ui.dialog.JideOptionPane;
@@ -345,7 +345,7 @@ public class BasicJideOptionPaneUI extends BasicOptionPaneUI {
 	}
 
 	private void toggleDetailsArea() {
-		final ResourceBundle resourceBundle = ButtonResources.getResourceBundle(optionPane.getLocale());
+		final ResourceBundle resourceBundle = ButtonResource.getResourceBundle(optionPane.getLocale());
 		if (_detailsArea.isVisible()) {
 			setDetailsVisible(false);
 			_detailsArea.setVisible(false);
@@ -417,7 +417,7 @@ public class BasicJideOptionPaneUI extends BasicOptionPaneUI {
 							(Icon) UIDefaultsLookup.get("OptionPane.cancelIcon"));
 				} else if (type == JideOptionPane.CLOSE_OPTION) {
 					defaultOptions = new ButtonFactory[1];
-					final ResourceBundle resourceBundle = ButtonResources.getResourceBundle(optionPane.getLocale());
+					final ResourceBundle resourceBundle = ButtonResource.getResourceBundle(optionPane.getLocale());
 					defaultOptions[0] = new ButtonFactory(
 							ButtonNames.CLOSE,
 							optionPane instanceof JideOptionPane ? ((JideOptionPane) optionPane).getResourceString("Button.close") : resourceBundle.getString("Button.close"),
@@ -444,7 +444,7 @@ public class BasicJideOptionPaneUI extends BasicOptionPaneUI {
 		if (showDetails) {
 			Object[] newOptions = new Object[options.length + 1];
 			System.arraycopy(options, 0, newOptions, 0, options.length);
-			final ResourceBundle resourceBundle = ButtonResources.getResourceBundle(optionPane.getLocale());
+			final ResourceBundle resourceBundle = ButtonResource.getResourceBundle(optionPane.getLocale());
 			if (isDetailsVisible()) {
 				newOptions[newOptions.length - 1] = new ButtonFactory(
 						ButtonNames.DETAILS,

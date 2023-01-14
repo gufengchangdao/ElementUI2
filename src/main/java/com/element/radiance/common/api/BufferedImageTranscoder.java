@@ -36,15 +36,17 @@ public class BufferedImageTranscoder extends ImageTranscoder {
 	 * Svg转换为BufferedImage
 	 *
 	 * @param svgFile Svg文件
-	 * @param width   宽度
-	 * @param height  高度
+	 * @param width   宽度，为null则为原始大小
+	 * @param height  高度，为null则为原始大小
 	 */
-	public static BufferedImage loadImage(Reader svgFile, float width, float height) {
+	public static BufferedImage loadImage(Reader svgFile, Float width, Float height) {
 		try {
 			BufferedImageTranscoder imageTranscoder = new BufferedImageTranscoder();
 
-			imageTranscoder.addTranscodingHint(PNGTranscoder.KEY_WIDTH, width);
-			imageTranscoder.addTranscodingHint(PNGTranscoder.KEY_HEIGHT, height);
+			if (width != null && height != null) {
+				imageTranscoder.addTranscodingHint(PNGTranscoder.KEY_WIDTH, width);
+				imageTranscoder.addTranscodingHint(PNGTranscoder.KEY_HEIGHT, height);
+			}
 
 			TranscoderInput input = new TranscoderInput(svgFile);
 			imageTranscoder.transcode(input, null);
@@ -59,15 +61,17 @@ public class BufferedImageTranscoder extends ImageTranscoder {
 	 * Svg转换为BufferedImage
 	 *
 	 * @param svgFile Svg文件
-	 * @param width   宽度
-	 * @param height  高度
+	 * @param width   宽度，为null则为原始大小
+	 * @param height  高度，为null则为原始大小
 	 */
-	public static BufferedImage loadImage(InputStream svgFile, float width, float height) {
+	public static BufferedImage loadImage(InputStream svgFile, Float width, Float height) {
 		try {
 			BufferedImageTranscoder imageTranscoder = new BufferedImageTranscoder();
 
-			imageTranscoder.addTranscodingHint(PNGTranscoder.KEY_WIDTH, width);
-			imageTranscoder.addTranscodingHint(PNGTranscoder.KEY_HEIGHT, height);
+			if (width != null && height != null) {
+				imageTranscoder.addTranscodingHint(PNGTranscoder.KEY_WIDTH, width);
+				imageTranscoder.addTranscodingHint(PNGTranscoder.KEY_HEIGHT, height);
+			}
 
 			TranscoderInput input = new TranscoderInput(svgFile);
 			imageTranscoder.transcode(input, null);

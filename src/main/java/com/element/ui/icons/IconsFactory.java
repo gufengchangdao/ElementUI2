@@ -259,18 +259,18 @@ public class IconsFactory {
 	/**
 	 * Svg转换为BufferedImage
 	 *
-	 * @see BufferedImageTranscoder#loadImage(Reader, float, float)
+	 * @see BufferedImageTranscoder#loadImage(Reader, Float, Float)
 	 */
-	public static BufferedImage loadImage(Reader svgFile, float width, float height) {
+	public static BufferedImage getSvgImage(Reader svgFile, Float width, Float height) {
 		return BufferedImageTranscoder.loadImage(svgFile, width, height);
 	}
 
 	/**
 	 * Svg转换为BufferedImage
 	 *
-	 * @see BufferedImageTranscoder#loadImage(InputStream, float, float)
+	 * @see BufferedImageTranscoder#loadImage(InputStream, Float, Float)
 	 */
-	public static BufferedImage loadImage(InputStream svgFile, float width, float height) {
+	public static BufferedImage getSvgImage(InputStream svgFile,  Float width, Float height) {
 		return BufferedImageTranscoder.loadImage(svgFile, width, height);
 	}
 

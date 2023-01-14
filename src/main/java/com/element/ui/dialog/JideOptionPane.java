@@ -7,7 +7,7 @@
 package com.element.ui.dialog;
 
 import com.element.plaf.basic.BasicJideOptionPaneUI;
-import com.element.ui.button.ButtonResources;
+import com.element.ui.button.ButtonResource;
 import com.element.util.CompareUtil;
 
 import javax.swing.*;
@@ -157,7 +157,7 @@ public class JideOptionPane extends JOptionPane {
 	 * @return the localized string.
 	 */
 	public String getResourceString(String key) {
-		return ButtonResources.getResourceBundle(getLocale()).getString(key);
+		return ButtonResource.getResourceBundle(getLocale()).getString(key);
 	}
 
 	/**

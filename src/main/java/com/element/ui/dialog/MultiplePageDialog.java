@@ -5,7 +5,7 @@
  */
 package com.element.ui.dialog;
 
-import com.element.ui.button.ButtonResources;
+import com.element.ui.button.ButtonResource;
 import com.element.ui.button.JideButton;
 import com.element.ui.pane.JideScrollPane;
 import com.element.util.LocaleUtil;
@@ -434,14 +434,14 @@ public class MultiplePageDialog extends StandardDialog {
 				dispose();
 			}
 		});
-		_applyButton.setAction(new AbstractAction(ButtonResources.getResourceBundle(Locale.getDefault()).getString("Button.apply")) {
+		_applyButton.setAction(new AbstractAction(ButtonResource.getResourceBundle(Locale.getDefault()).getString("Button.apply")) {
 			public void actionPerformed(ActionEvent e) {
 				if (getCurrentPage() != null) {
 					getCurrentPage().fireButtonEvent(ButtonEvent.DISABLE_BUTTON, APPLY);
 				}
 			}
 		});
-		_applyButton.setMnemonic(ButtonResources.getResourceBundle(Locale.getDefault()).getString("Button.apply.mnemonic").charAt(0));
+		_applyButton.setMnemonic(ButtonResource.getResourceBundle(Locale.getDefault()).getString("Button.apply.mnemonic").charAt(0));
 		_applyButton.setEnabled(false);
 
 		setDefaultCancelAction(_cancelButton.getAction());

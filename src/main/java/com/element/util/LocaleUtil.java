@@ -1,7 +1,7 @@
 package com.element.util;
 
 import com.element.plaf.UIDefaultsLookup;
-import com.element.ui.button.ButtonResources;
+import com.element.ui.button.ButtonResource;
 
 import java.util.Locale;
 
@@ -18,7 +18,7 @@ public class LocaleUtil {
 		if (text == null || text.length() == 0) {
 			text = UIDefaultsLookup.getString("ColorChooser.okText");
 			if (text == null || text.length() == 0) {
-				text = ButtonResources.getResourceBundle(locale).getString("Button.ok");
+				text = ButtonResource.getResourceBundle(locale).getString("Button.ok");
 			}
 		}
 		return text;
@@ -36,7 +36,7 @@ public class LocaleUtil {
 		if (text == null || text.length() == 0) {
 			text = UIDefaultsLookup.getString("ColorChooser.cancelText");
 			if (text == null || text.length() == 0) {
-				text = ButtonResources.getResourceBundle(locale).getString("Button.cancel");
+				text = ButtonResource.getResourceBundle(locale).getString("Button.cancel");
 			}
 		}
 		return text;
@@ -52,7 +52,7 @@ public class LocaleUtil {
 	public static String getYesString(Locale locale) {
 		String text = UIDefaultsLookup.getString("OptionPane.yesButtonText", locale);
 		if (text == null || text.length() == 0) {
-			text = ButtonResources.getResourceBundle(locale).getString("Button.yes");
+			text = ButtonResource.getResourceBundle(locale).getString("Button.yes");
 		}
 		return text;
 	}
@@ -67,7 +67,7 @@ public class LocaleUtil {
 	public static String getNoString(Locale locale) {
 		String text = UIDefaultsLookup.getString("OptionPane.noButtonText", locale);
 		if (text == null || text.length() == 0) {
-			text = ButtonResources.getResourceBundle(locale).getString("Button.no");
+			text = ButtonResource.getResourceBundle(locale).getString("Button.no");
 		}
 		return text;
 	}

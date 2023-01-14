@@ -1,7 +1,7 @@
 package com.element.ui.dialog;
 
 import com.element.plaf.UIDefaultsLookup;
-import com.element.ui.button.ButtonResources;
+import com.element.ui.button.ButtonResource;
 import com.element.ui.label.MultilineLabel;
 
 import javax.swing.*;
@@ -80,7 +80,7 @@ public class StandardDialogExample2 extends StandardDialog {
 				dispose();
 			}
 		});
-		final ResourceBundle resourceBundle = ButtonResources.getResourceBundle(Locale.getDefault());
+		final ResourceBundle resourceBundle = ButtonResource.getResourceBundle(Locale.getDefault());
 		helpButton.setAction(new AbstractAction(resourceBundle.getString("Button.help")) {
 			public void actionPerformed(ActionEvent e) {
 				// do something
