@@ -134,8 +134,8 @@ public class RoundButton extends JButton implements MouseListener {
 	public void setBackground(Color bg) {
 		bGColor = bg;
 		this.currentBGColor = bGColor;
-		brighterBGColor = currentBGColor.brighter();
-		darkerBGColor = currentBGColor.darker();
+		brighterBGColor = currentBGColor == null ? null : currentBGColor.brighter();
+		darkerBGColor = currentBGColor == null ? null : currentBGColor.darker();
 		repaint();
 	}
 

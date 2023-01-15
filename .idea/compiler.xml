@@ -12,7 +12,7 @@
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
-      <module name="ElementUI2" options="--add-exports java.desktop/sun.swing=ALL-UNNAMED --add-exports java.desktop/com.sun.java.swing.plaf.windows=ALL-UNNAMED --add-exports java.desktop/sun.awt.windows=ALL-UNNAMED" />
+      <module name="ElementUI2" options="" />
     </option>
   </component>
 </project>
