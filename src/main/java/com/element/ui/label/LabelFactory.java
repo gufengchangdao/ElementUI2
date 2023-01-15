@@ -19,7 +19,7 @@ public class LabelFactory {
 		if (font != null)
 			label.setFont(font);
 
-		label.setBorder(new RoundBorder(color, 6));
+		label.setBorder(new RoundBorder(label,color, 6));
 		// 内边距设置为 4
 		Dimension size = label.getPreferredSize();
 		size.width += 6;

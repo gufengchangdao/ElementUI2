@@ -28,6 +28,9 @@ import org.apache.batik.ext.awt.geom.Polygon2D;
 
 import javax.accessibility.Accessible;
 import javax.swing.*;
+import javax.swing.border.Border;
+import javax.swing.border.CompoundBorder;
+import javax.swing.border.EmptyBorder;
 import javax.swing.plaf.ComponentUI;
 import javax.swing.plaf.basic.ComboPopup;
 import javax.swing.plaf.synth.Region;
@@ -2409,5 +2412,32 @@ public class UIUtil implements SwingConstants {
 			}
 		}
 		return defaultViewportSize;
+	}
+
+	/**
+	 * 用空边框设置组件的内边距
+	 * <p>
+	 * 如果已经设置了空边框为内边距，该方法会替换旧的空边框。如果没有设置过，会创建组合边框，并且空边框作为内边框
+	 *
+	 * @param c      设置内边距的组件
+	 * @param insets 内边距的大小，也是内边框的大小
+	 */
+	public static void setInsetsByEmptyBorder(JComponent c, Insets insets) {
+		Border border = c.getBorder();
+		Border insetsBorder = BorderFactory.createEmptyBorder(insets.top, insets.left, insets.bottom, insets.right);
+		if (border == null) {
+			c.setBorder(insetsBorder);
+		} else {
+			// CompoundBorder子类太多，这里只认定CompoundBorder类
+			if (border.getClass() == CompoundBorder.class
+					&& ((CompoundBorder)border).getInsideBorder() instanceof EmptyBorder) {
+				// 只有内边框是空边框的时候才替换
+				Border outsideBorder = ((CompoundBorder)border).getOutsideBorder();
+				c.setBorder(BorderFactory.createCompoundBorder(outsideBorder, insetsBorder));
+			} else {
+				// 空边框表示内边距
+				c.setBorder(BorderFactory.createCompoundBorder(border, insetsBorder));
+			}
+		}
 	}
 }

@@ -537,4 +537,19 @@ public class StyleRange {
 	public float getFontShrinkRatio() {
 		return _fontShrinkRatio;
 	}
+
+	@Override
+	public String toString() {
+		return "StyleRange{" +
+				"fontStyle=" + _fontStyle +
+				", fontColor=" + _fontColor +
+				", backgroundColor=" + _backgroundColor +
+				", lineColor=" + _lineColor +
+				", lineStroke=" + _lineStroke +
+				", additionalStyle=" + _additionalStyle +
+				", start=" + _start +
+				", length=" + _length +
+				", fontShrinkRatio=" + _fontShrinkRatio +
+				'}';
+	}
 }

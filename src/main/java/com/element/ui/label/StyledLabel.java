@@ -392,4 +392,79 @@ public class StyledLabel extends JLabel {
 	public void setTruncated(boolean truncated) {
 		_truncated = truncated;
 	}
+
+	/**
+	 * 在指定位置插入文本，文本样式参照插入位置的样式
+	 * 该方法会修改样式列表以保证原文本样式不变
+	 *
+	 * @param position 新文本插入位置
+	 * @param text     文本内容
+	 */
+	public void insertText(int position, String text) {
+		String s = getText();
+		if (position < 0 || position > s.length()) return;
+
+		String leftText = s.substring(0, position);
+		String rightText = s.substring(position);
+
+		// 修改样式
+		for (StyleRange range : _styleRanges) {
+			// 样式范围后
+			if (range.getStart() > leftText.length() + text.length()) continue;
+			if (position <= range.getStart()) {
+				// 样式范围前
+				range.setStart(range.getStart() + text.length());
+			} else {
+				// 该样式范围内
+				range.setLength(range.getLength() + text.length());
+			}
+		}
+
+		setText(leftText + text + rightText);
+	}
+
+	/**
+	 * 删除指定区间内的文本
+	 * 该方法会修改样式列表以保证原文本样式不变
+	 *
+	 * @param start  开始位置
+	 * @param length 删除的文本长度
+	 */
+	public void delText(int start, int length) {
+		String s = getText();
+		if (start < 0 || start > s.length()) return;
+
+		String leftText = s.substring(0, start);
+		String rightText = s.substring(start + length);
+
+		// 修改样式
+		ArrayList<StyleRange> delRanges = new ArrayList<>();
+		for (StyleRange range : _styleRanges) {
+			// 在删除区间前面
+			if (range.getStart() + range.getLength() <= start) continue;
+			if (range.getStart() >= start + length) {
+				// 在删除区间后面
+				range.setStart(range.getStart() - length);
+			} else {
+				if (range.getStart() < start && range.getStart() + range.getLength() > start) {
+					// 左侧在区间左侧，右侧在区间内部
+					range.setLength(start - range.getStart());
+				} else if (start <= range.getStart() && start + length >= range.getStart() + range.getLength()) {
+					// 在区间内部
+					delRanges.add(range);
+				} else if (range.getStart() <= start && range.getStart() + range.getLength() >= length) {
+					// 包含删除区间
+					range.setLength(length);
+				} else {
+					// 左侧在区间内容，右侧在区间右侧
+					range.setLength(range.getStart() + range.getLength() - start - length);
+					range.setStart(start);
+
+				}
+			}
+		}
+		_styleRanges.removeAll(delRanges);
+
+		setText(leftText + rightText);
+	}
 }

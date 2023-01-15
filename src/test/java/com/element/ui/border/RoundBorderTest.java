@@ -20,7 +20,7 @@ public class RoundBorderTest extends AbstractDemo {
 		JPanel p = new JPanel(new MigLayout());
 		JXTextField field = new BaseInputField("请输入关键词");
 		field.setColumns(20);
-		field.setBorder(new RoundBorder(ColorUtil.BORDER_LEVEL1, 10, new Insets(5, 10, 5, 10)));
+		field.setBorder(new RoundBorder(field,ColorUtil.BORDER_LEVEL1, 10, new Insets(5, 10, 5, 10)));
 		JButton searchButton = new JButton(IconsFactory.getSvgIcon(MagnifyingGlassSvg.class, 16, 16, ColorUtil.PRIMARY));
 		searchButton.addActionListener(e -> System.out.println("搜素结果"));
 		searchButton.setBorderPainted(false);

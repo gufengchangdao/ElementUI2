@@ -23,8 +23,6 @@ import static java.lang.Math.abs;
  * </ul>
  */
 public class BaseComponent extends JComponent {
-	/** 内边距，如果没有调用 {@link #setInsets(Insets)} ，则调用父类的insets，否则就获取该对象 */
-	private Insets insets;
 	/** 圆角 */
 	private int radius = 0;
 	private float opacity = 1f;
@@ -52,19 +50,17 @@ public class BaseComponent extends JComponent {
 	// }
 
 	public BaseComponent() {
+		super();
 	}
 
 	public BaseComponent(int radius) {
+		super();
 		this.radius = radius;
 	}
 
-	public BaseComponent(Insets insets, int radius) {
-		this.insets = insets;
-		this.radius = radius;
-	}
 
-	public BaseComponent(Insets insets, int radius, BoxSize boxSize) {
-		this.insets = insets;
+	public BaseComponent(int radius, BoxSize boxSize) {
+		super();
 		this.radius = radius;
 		this.boxSize = boxSize;
 	}
@@ -76,6 +72,7 @@ public class BaseComponent extends JComponent {
 	 * @param opacity 不透明度
 	 */
 	public BaseComponent(JComponent c, float opacity) {
+		super();
 		this.opacity = opacity;
 		setLayout(new GridLayout(1, 1));
 		add(c);
@@ -150,16 +147,14 @@ public class BaseComponent extends JComponent {
 	}
 
 	/**
-	 * 获取内边距，如果没有调用 {@link #setInsets(Insets)} ，则调用父类的insets，否则就获取设置的内边距
+	 * 通过空边框的方式设置内边距
+	 * 需要注意的是，如果是直接设置新的边框，该边框会被替换掉，设置的内边距也会失效。
+	 * 可以先设置边框再调用该方法
+	 *
+	 * @param insets 新内边距值
 	 */
-	@Override
-	public Insets getInsets() {
-		if (insets == null) return super.getInsets();
-		return insets;
-	}
-
 	public void setInsets(Insets insets) {
-		this.insets = insets;
+		UIUtil.setInsetsByEmptyBorder(this,insets);
 	}
 
 	public int getRadius() {

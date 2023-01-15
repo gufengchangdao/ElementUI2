@@ -85,7 +85,7 @@ public class TransferList extends BaseComponent implements ActionListener {
 		// 设置延迟，拒绝频繁查询
 		if (searchField != null) {
 			searchField.setInstantSearchDelay(400);
-			searchField.setBorder(new RoundBorder(-1));
+			searchField.setBorder(new RoundBorder(searchField,-1));
 			searchField.setOpaque(true);
 			searchField.setBackground(Color.WHITE);
 		}

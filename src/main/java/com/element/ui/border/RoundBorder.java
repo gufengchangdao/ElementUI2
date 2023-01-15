@@ -2,11 +2,14 @@ package com.element.ui.border;
 
 import com.element.color.ColorUtil;
 
+import javax.swing.*;
 import javax.swing.border.AbstractBorder;
 import java.awt.*;
 
 /**
  * 圆角边框
+ * <p>
+ * 支持修改边框属性
  */
 public class RoundBorder extends AbstractBorder {
 	private Color color = ColorUtil.PRIMARY;
@@ -14,29 +17,36 @@ public class RoundBorder extends AbstractBorder {
 	private int arcSize;
 	/** 边框的内边距，注意这个不是组件的内边距 */
 	private Insets borderInset = new Insets(3, 7, 3, 7);
+	/** 设置边框的组件，修改属性后需要调用其重绘方法 */
+	private final JComponent c;
 
 	/**
 	 * @param color   边框颜色
 	 * @param arcSize 圆角大小，为-1时取最大值
 	 */
-	public RoundBorder(Color color, int arcSize) {
+	public RoundBorder(JComponent c, Color color, int arcSize) {
+		this.c = c;
 		this.color = color;
 		this.arcSize = arcSize;
 	}
 
-	public RoundBorder() {
+	public RoundBorder(JComponent c) {
+		this.c = c;
 	}
 
-	public RoundBorder(int arcSize) {
+	public RoundBorder(JComponent c, int arcSize) {
+		this.c = c;
 		this.arcSize = arcSize;
 	}
 
-	public RoundBorder(int arcSize, Insets borderInset) {
+	public RoundBorder(JComponent c, int arcSize, Insets borderInset) {
+		this.c = c;
 		this.arcSize = arcSize;
 		this.borderInset = borderInset;
 	}
 
-	public RoundBorder(Color color, int arcSize, Insets borderInset) {
+	public RoundBorder(JComponent c, Color color, int arcSize, Insets borderInset) {
+		this.c = c;
 		this.color = color;
 		this.arcSize = arcSize;
 		this.borderInset = borderInset;
@@ -76,9 +86,11 @@ public class RoundBorder extends AbstractBorder {
 
 	public void setColor(Color color) {
 		this.color = color;
+		c.repaint();
 	}
 
 	public void setArcSize(int arcSize) {
 		this.arcSize = arcSize;
+		c.repaint();
 	}
 }

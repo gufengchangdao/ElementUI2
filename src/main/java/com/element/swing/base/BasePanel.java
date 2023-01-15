@@ -25,6 +25,7 @@ public class BasePanel extends JXPanel {
 	protected boolean isVertical;
 
 	public BasePanel() {
+		super();
 	}
 
 	public BasePanel(boolean isDoubleBuffered) {

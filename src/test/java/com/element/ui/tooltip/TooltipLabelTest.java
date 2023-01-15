@@ -29,6 +29,7 @@ public class TooltipLabelTest extends AbstractDemo {
 	public static void main(String[] args) {
 		EventQueue.invokeLater(() -> {
 			SwingTestUtil.loadSkin();
+			SwingTestUtil.setDefaultTimingSource();
 			LookAndFeelFactory.installJideExtension();
 			showAsFrame(new TooltipLabelTest());
 		});
