@@ -23,8 +23,13 @@ public class IconButtonTest extends AbstractDemo {
 
 		SvgIcon icon = XCircleSvg.of(32, 32);
 		icon.setColorFilter(color -> ColorUtil.WARNING);
-		p.add(new IconButton(icon, color -> ColorUtil.PRIMARY));
-		p.add(new IconButton(CircleWavyCheckSvg.of(32, 32), color -> ColorUtil.PRIMARY));
+		IconButton b = new IconButton(icon, color -> ColorUtil.PRIMARY);
+		b.addActionListener(e -> System.out.println("按钮一按下了"));
+		p.add(b);
+
+		IconButton b2 = new IconButton(CircleWavyCheckSvg.of(32, 32), color -> ColorUtil.PRIMARY);
+		b2.addActionListener(e -> b.doClick());
+		p.add(b2);
 		p.add(new IconButton(CrosshairSvg.of(32, 32), color -> ColorUtil.PRIMARY));
 		p.add(new IconButton(QuestionSvg.of(32, 32), color -> ColorUtil.PRIMARY));
 		p.add(new IconButton(SwordSvg.of(32, 32), color -> ColorUtil.PRIMARY));

@@ -49,4 +49,8 @@ public class EmptyComponent extends Y3Component<JLabel, JLabel, JButton> {
 	public JLabel getDescription() {
 		return getCenterC();
 	}
+
+	public JButton getButton() {
+		return getBottomC();
+	}
 }

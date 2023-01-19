@@ -1,4 +1,4 @@
-package com.element.ui.others.picket;
+package com.element.ui.spinner;
 
 import com.element.color.ColorUtil;
 import com.element.radiance.common.api.icon.SvgIcon;

@@ -392,7 +392,7 @@ public class MultiplePageDialog extends StandardDialog {
 	protected JComponent setupContentPanel(JComponent indexPanel, JComponent pagesPanel) {
 		JPanel middlePanel = new JPanel(new BorderLayout(10, 10));
 		if (indexPanel != null) {
-			middlePanel.add(indexPanel, BorderLayout.BEFORE_LINE_BEGINS);
+			middlePanel.add(indexPanel, BorderLayout.LINE_START);
 		}
 		if (pagesPanel != null) {
 			middlePanel.add(pagesPanel, BorderLayout.CENTER);

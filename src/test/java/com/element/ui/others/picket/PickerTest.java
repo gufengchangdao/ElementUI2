@@ -1,6 +1,7 @@
 package com.element.ui.others.picket;
 
 import com.element.plaf.LookAndFeelFactory;
+import com.element.ui.spinner.CyclingSpinnerListModel;
 import com.element.util.SwingTestUtil;
 import demo.AbstractDemo;
 import net.miginfocom.swing.MigLayout;

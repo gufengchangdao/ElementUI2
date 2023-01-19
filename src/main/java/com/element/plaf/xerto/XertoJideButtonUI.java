@@ -6,14 +6,14 @@
 package com.element.plaf.xerto;
 
 import com.element.plaf.basic.BasicJideButtonUI;
-import com.sun.java.swing.plaf.windows.WindowsButtonUI;
 
 import javax.swing.*;
 import javax.swing.plaf.ComponentUI;
+import javax.swing.plaf.basic.BasicButtonUI;
 import java.awt.*;
 
 public class XertoJideButtonUI extends BasicJideButtonUI {
-	private static WindowsButtonUI _buttonUI = new WindowsButtonUI();
+	private static BasicButtonUI _buttonUI = new BasicButtonUI();
 
 	public static ComponentUI createUI(JComponent c) {
 		return new XertoJideButtonUI();

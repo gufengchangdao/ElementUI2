@@ -41,7 +41,6 @@ public class GroupableTableHeaderTest extends JPanel {
 				ColumnGroup other = new ColumnGroup("Others");
 				other.add(cm.getColumn(4));
 				other.add(cm.getColumn(5));
-
 				lang.add(other);
 
 				GroupableTableHeader header = new GroupableTableHeader(cm);

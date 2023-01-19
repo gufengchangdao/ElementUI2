@@ -60,7 +60,8 @@ public class AutoCompletionTest extends AbstractDemo {
 						"AutoCompletion combo box and text field", TitledBorder.LEADING, TitledBorder.ABOVE_TOP),
 				BorderFactory.createEmptyBorder(0, 0, 0, 0)));
 
-		JComboBox<String> autoCompletionComboBox = new AutoCompletionComboBox<>(_fontNames);
+		AutoCompletionComboBox<String> autoCompletionComboBox = new AutoCompletionComboBox<>(_fontNames);
+		autoCompletionComboBox.setStrict(true);
 		autoCompletionComboBox.setName("AutoCompletion JComboBox (Strict)");
 		autoCompletionComboBox.setToolTipText("AutoCompletion JComboBox (Strict)");
 		panel.add(new JLabel("AutoCompletion JComboBox (Strict)"));

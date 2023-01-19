@@ -4,7 +4,7 @@
 
 项目网址：[ElementUI2](https://github.com/gufengchangdao/ElementUI2)
 
-图标下载：[icon2](https://n77a3mjegs.feishu.cn/file/boxcnKDKsBsLaf3NMMBC1vdHUMe)
+图标下载：[icon2](https://n77a3mjegs.feishu.cn/file/boxcn6DBZiLZ0qFneZTEgHJ29mb)
 
 飞书文档：[ElementUI2](https://n77a3mjegs.feishu.cn/docx/C7bYdinwZoS8QVx7FfXcyvBLnIc)
 

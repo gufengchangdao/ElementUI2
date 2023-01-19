@@ -90,6 +90,15 @@ public abstract class AbstractDialogPage extends AbstractPage {
 	}
 
 	/**
+	 * 延迟加载有性能优势，但是需要注意组件的布局如果放在该方法中设置，就需要手动设置对话框大小，否则对话框无法第一时间拿到内容的首选大小，
+	 * 因此想要保持首选大小的话建议还是在构造器中对组件布局
+	 *
+	 * @see Laziness#lazyInitialize()
+	 */
+	@Override
+	public abstract void lazyInitialize();
+
+	/**
 	 * Adds a <code>ButtonListener</code> to the page.
 	 *
 	 * @param l the <code>ButtonListener</code> to be added

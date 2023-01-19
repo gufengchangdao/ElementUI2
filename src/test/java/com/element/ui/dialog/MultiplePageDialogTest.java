@@ -32,7 +32,7 @@ public class MultiplePageDialogTest extends AbstractDemo {
 		JButton b = new JButton("弹出");
 		b.addActionListener(e -> {
 			dialog.pack();
-			// 重新设置一下大小
+			// 由于布局在延迟方法中进行的，因此对话框无法拿到内容真正的首选大小，需要手动设置一下大小
 			Dimension size = dialog.getPreferredSize();
 			size.width += 300;
 			dialog.setSize(size);
@@ -65,6 +65,12 @@ public class MultiplePageDialogTest extends AbstractDemo {
 				area.setLineWrap(true);
 				Arrays.stream(DemoData.NAMES).reduce((s, s2) -> s + ", " + s2).ifPresent(area::setText);
 				add(new JScrollPane(area), "growx, h 200::");
+
+				JButton b = new JButton("使当前tab不可用");
+				b.addActionListener(e -> {
+					setPageEnabled(false);
+				});
+				add(b,BorderLayout.SOUTH);
 			}
 		}).toArray(AbstractDialogPage[]::new);
 	}

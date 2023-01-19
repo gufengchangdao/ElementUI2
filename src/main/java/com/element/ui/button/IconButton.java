@@ -3,9 +3,9 @@ package com.element.ui.button;
 import com.element.radiance.common.api.icon.SvgIcon;
 import com.element.swing.base.BaseComponent;
 
+import javax.swing.*;
 import java.awt.*;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
+import java.awt.event.*;
 
 /**
  * 带有三种状态的图标按钮，两个图标分别对应鼠标移出移进的状态
@@ -20,6 +20,7 @@ public class IconButton extends BaseComponent implements MouseListener {
 	private SvgIcon.ColorFilter endIconFilter;
 	/** 鼠标按下状态 */
 	private SvgIcon.ColorFilter filter;
+	private ActionListener l;
 
 	public IconButton(SvgIcon beginIcon, SvgIcon.ColorFilter filter) {
 		this.beginIcon = beginIcon;
@@ -61,6 +62,24 @@ public class IconButton extends BaseComponent implements MouseListener {
 		addMouseListener(this);
 	}
 
+	public void addActionListener(ActionListener l) {
+		this.l = l;
+	}
+
+	public void doClick() {
+		Dimension size = getSize();
+		mouseEntered(null);
+		mousePressed(null);
+		paintImmediately(new Rectangle(0, 0, size.width, size.height));
+		try {
+			Thread.sleep(68);
+		} catch (InterruptedException ignored) {
+		}
+		mouseReleased(null);
+		mouseClicked(null);
+		mouseExited(null);
+	}
+
 	@Override
 	protected void paintComponent(Graphics g) {
 		super.paintComponent(g);
@@ -93,6 +112,9 @@ public class IconButton extends BaseComponent implements MouseListener {
 
 	@Override
 	public void mouseClicked(MouseEvent e) {
+		new JButton().doClick();
+		if (l != null)
+			l.actionPerformed(new ActionEvent(this, 1, null, InputEvent.BUTTON1_DOWN_MASK));
 	}
 
 	@Override
@@ -147,5 +169,9 @@ public class IconButton extends BaseComponent implements MouseListener {
 	public void setFilter(SvgIcon.ColorFilter filter) {
 		endIconFilter = endIcon.getColorFilter();
 		this.filter = filter;
+	}
+
+	public ActionListener getActionListener() {
+		return l;
 	}
 }
