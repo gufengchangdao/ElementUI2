@@ -64,7 +64,7 @@ public class AbstractDialogPageTest extends AbstractDemo {
 					add(titleLabel);
 
 					JLabel descriptionLabel = new JLabel(getDescription());
-					descriptionLabel.setFont(FontUtil.DEFAULT_FONT);
+					descriptionLabel.setFont(descriptionLabel.getFont().deriveFont((float) FontUtil.NORMAL));
 					add(descriptionLabel);
 
 					JTextArea area = new JTextArea();

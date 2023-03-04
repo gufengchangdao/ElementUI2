@@ -4,9 +4,11 @@ import com.element.ui.others.pagination.model.PageListModel;
 import com.element.ui.others.pagination.renderer.PageListCellRenderer;
 
 import javax.swing.*;
+import javax.swing.event.ListSelectionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
+import java.beans.PropertyChangeListener;
 
 /**
  * 分页列表
@@ -17,6 +19,8 @@ import java.awt.event.MouseMotionListener;
  *     <li>渲染器设置选中、悬停单元格的背景色、字体色、是否绘制背景等</li>
  *     <li>模型设置数据总量、触发折叠的阈值、每页数据数量等</li>
  * </ul>
+ * <p>
+ * 注意：
  */
 public class PaginationList extends JList<Integer>
 		implements MouseListener, MouseMotionListener {
@@ -25,6 +29,12 @@ public class PaginationList extends JList<Integer>
 
 	public PaginationList(int count) {
 		super(new PageListModel(count));
+		init();
+	}
+
+	public PaginationList(PageListModel model) {
+		super(model);
+		this.model = model;
 		init();
 	}
 
@@ -49,10 +59,22 @@ public class PaginationList extends JList<Integer>
 		updateUI();
 	}
 
+	public static final String SELECTED_CHANGE_PROPERTY_NAME = "selectedChange";
+
 	@Override
 	public void mouseClicked(MouseEvent e) {
-		if (getSelectedIndex() != -1) {
-			int selectedIndex = model.setSelectedIndex(getSelectedIndex());
+		int selectedIndex = model.setSelectedIndex(getSelectedIndex());
+		setPage(selectedIndex + 1);
+	}
+
+	/**
+	 * 设置新page，起始值为 1
+	 */
+	public void setPage(int newPage) {
+		int selectedIndex = newPage - 1;
+		int oldSelectedIndex = cellRenderer.getSelectedIndex();
+		if (getSelectedIndex() != -1 && oldSelectedIndex != selectedIndex) {
+			firePropertyChange(SELECTED_CHANGE_PROPERTY_NAME, oldSelectedIndex, selectedIndex);
 			cellRenderer.setSelectedIndex(selectedIndex);
 			setSelectedIndex(selectedIndex);
 			updateUI();
@@ -89,6 +111,18 @@ public class PaginationList extends JList<Integer>
 		int w = getCellBounds(0, 0).width;
 		cellRenderer.setHoverIndex(e.getX() / w);
 		repaint();
+	}
+
+	/**
+	 * 每次点击都会重置模型的数据，会多次调用监听器方法，不建议使用，建议使用{@link #addListSelectionPropertyChangeListener(PropertyChangeListener)}
+	 */
+	@Override
+	public void addListSelectionListener(ListSelectionListener listener) {
+		super.addListSelectionListener(listener);
+	}
+
+	public void addListSelectionPropertyChangeListener(PropertyChangeListener listener) {
+		addPropertyChangeListener(SELECTED_CHANGE_PROPERTY_NAME, listener);
 	}
 
 	@Override

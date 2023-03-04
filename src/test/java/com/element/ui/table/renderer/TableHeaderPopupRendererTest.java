@@ -29,8 +29,7 @@ public class TableHeaderPopupRendererTest extends AbstractDemo {
 			@Override
 			public Component prepareEditor(TableCellEditor editor, int row, int column) {
 				Component c = super.prepareEditor(editor, row, column);
-				if (c instanceof JCheckBox) {
-					JCheckBox b = (JCheckBox) c;
+				if (c instanceof JCheckBox b) {
 					b.setBackground(getSelectionBackground());
 					b.setBorderPainted(true);
 				}

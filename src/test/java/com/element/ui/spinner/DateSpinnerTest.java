@@ -30,6 +30,9 @@ public class DateSpinnerTest extends AbstractDemo {
 		DateSpinner time = new DateSpinner("hh:mm:ssa", Calendar.getInstance().getTime());
 		panel.add(time);
 
+		DateSpinner datetime = new DateSpinner("yyyy/MM/dd HH:mm:ss", Calendar.getInstance().getTime());
+		panel.add(datetime);
+
 		return WrapperUtil.createTopPanel(panel);
 	}
 

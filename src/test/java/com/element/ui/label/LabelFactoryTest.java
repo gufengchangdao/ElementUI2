@@ -16,10 +16,11 @@ public class LabelFactoryTest extends AbstractDemo {
 	public Component getDemoPanel() throws Exception {
 		JPanel p = new JPanel(new MigLayout());
 
-		p.add(LabelFactory.createLabel("书籍未拆封", FontUtil.SMALL_FONT, ColorUtil.SUCCESS));
-		p.add(LabelFactory.createLabel("书籍未拆封", FontUtil.SMALL_FONT, ColorUtil.WARNING));
-		p.add(LabelFactory.createLabel("书籍未拆封", FontUtil.SMALL_FONT, ColorUtil.DANGER));
-		p.add(LabelFactory.createLabel("书籍未拆封", FontUtil.SMALL_FONT, ColorUtil.INFO), "wrap");
+		Font font = UIManager.getFont("Button.font").deriveFont((float) FontUtil.AUXILIARY_WORDS);
+		p.add(LabelFactory.createLabel("书籍未拆封", font, ColorUtil.SUCCESS));
+		p.add(LabelFactory.createLabel("书籍未拆封", font, ColorUtil.WARNING));
+		p.add(LabelFactory.createLabel("书籍未拆封", font, ColorUtil.DANGER));
+		p.add(LabelFactory.createLabel("书籍未拆封", font, ColorUtil.INFO), "wrap");
 
 		return p;
 	}

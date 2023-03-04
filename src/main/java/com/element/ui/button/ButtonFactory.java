@@ -13,12 +13,12 @@ import java.awt.event.MouseListener;
 public class ButtonFactory {
 	/** 默认按钮 */
 	public static JButton createDefaultButton(String text, Color backgroundColor) {
-		return createDefaultButton(text, FontUtil.DEFAULT_FONT, null, backgroundColor, Color.WHITE, null,
+		return createDefaultButton(text, null, null, backgroundColor, Color.WHITE, null,
 				0, 0, 6, false, null);
 	}
 
 	public static JButton createDefaultButton(String text, Color textColor, Color backgroundColor, Color borderColor) {
-		return createDefaultButton(text, FontUtil.DEFAULT_FONT, null, backgroundColor, textColor, borderColor,
+		return createDefaultButton(text,null, null, backgroundColor, textColor, borderColor,
 				0, 0, 6, false, null);
 	}
 
@@ -26,7 +26,7 @@ public class ButtonFactory {
 	public static JButton createPlainButton(String text, Color color) {
 		Color backgroundColor = ColorUtil.changeAlpha(color, .4f);
 		PlainButtonMouseListener listener = new PlainButtonMouseListener(color, backgroundColor);
-		JButton b = createDefaultButton(text, FontUtil.DEFAULT_FONT, null, backgroundColor, color, color,
+		JButton b = createDefaultButton(text,null, null, backgroundColor, color, color,
 				0, 0, 6, false, listener);
 		// 这里偷个懒,直接传入,就不靠e来获取了
 		listener.setButton(b);
@@ -35,7 +35,7 @@ public class ButtonFactory {
 
 	public static JButton createPlainButton(String text, Color textColor, Color backgroundColor, Color borderColor) {
 		PlainButtonMouseListener listener = new PlainButtonMouseListener(textColor, backgroundColor);
-		JButton b = createDefaultButton(text, FontUtil.DEFAULT_FONT, null, backgroundColor, textColor, borderColor,
+		JButton b = createDefaultButton(text,null, null, backgroundColor, textColor, borderColor,
 				0, 0, 6, false, listener);
 		// 这里偷个懒,直接传入,就不靠e来获取了
 		listener.setButton(b);
@@ -44,12 +44,12 @@ public class ButtonFactory {
 
 	/** 圆角按钮，左右为半圆 */
 	public static JButton createRoundButton(String text, Color backgroundColor) {
-		return createDefaultButton(text, FontUtil.DEFAULT_FONT, null, backgroundColor, Color.WHITE, null,
+		return createDefaultButton(text,null, null, backgroundColor, Color.WHITE, null,
 				0, 0, -1, false, null);
 	}
 
 	public static JButton createRoundButton(String text, Color textColor, Color backgroundColor, Color borderColor) {
-		return createDefaultButton(text, FontUtil.DEFAULT_FONT, null, backgroundColor, textColor, borderColor,
+		return createDefaultButton(text, null, null, backgroundColor, textColor, borderColor,
 				0, 0, -1, false, null);
 	}
 
@@ -91,7 +91,7 @@ public class ButtonFactory {
 		// 大小
 		if (width > 0 && height > 0) {
 			b.setPreferredSize(new Dimension(width, height));
-			if (font == null) b.setFont(FontUtil.DEFAULT_FONT.deriveFont(height * 0.6f));
+			if (font == null) b.setFont(b.getFont().deriveFont(height * 0.6f));
 		}
 
 		// 功能性
@@ -123,7 +123,7 @@ public class ButtonFactory {
 		button.setHorizontalAlignment(alignment);
 		button.setBackground(background);
 		button.setFocusPainted(false);
-		button.setFont(FontUtil.DEFAULT_FONT.deriveFont(12f));
+		button.setFont(button.getFont().deriveFont(12f));
 		return button;
 	}
 

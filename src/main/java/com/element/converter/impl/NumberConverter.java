@@ -68,6 +68,7 @@ public abstract class NumberConverter extends ObjectConverter {
 		return text.substring(1);
 	}
 
+	@Override
 	public String toString(Object object, ConverterContext context) {
 		// format on userObject has a higher priority.
 		try {

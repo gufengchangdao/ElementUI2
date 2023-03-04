@@ -6,6 +6,8 @@ import com.element.ui.others.pagination.renderer.PageListCellRenderer;
 import com.element.ui.svg.icon.regular.CaretLeftSvg;
 import com.element.ui.svg.icon.regular.CaretRightSvg;
 
+import javax.swing.event.ListSelectionListener;
+
 /**
  * 在分页组件基础上添加两侧图标
  *
@@ -20,23 +22,34 @@ public class IconPaginationList extends IconComponent<PaginationList> {
 		init();
 	}
 
+	public IconPaginationList(PageListModel model) {
+		this.list = new PaginationList(model);
+		setComponent(list);
+		init();
+	}
+
 	@Override
 	protected void init() throws RuntimeException {
 		super.init();
-
 		setLeftIcon(CaretLeftSvg.of(14, 14));
 		setRightIcon(CaretRightSvg.of(14, 14));
 		getLeftButton().addActionListener(e -> {
 			int i = getModel().lastPage();
-			getCellRenderer().setSelectedIndex(i);
-			list.setSelectedIndex(i);
-			list.updateUI();
+			if (i != getCellRenderer().getSelectedIndex()){
+				list.firePropertyChange(PaginationList.SELECTED_CHANGE_PROPERTY_NAME, list.getSelectedIndex(), i);
+				getCellRenderer().setSelectedIndex(i);
+				list.setSelectedIndex(i);
+				list.updateUI();
+			}
 		});
 		getRightButton().addActionListener(e -> {
 			int i = getModel().nextPage();
-			getCellRenderer().setSelectedIndex(i);
-			list.setSelectedIndex(i);
-			list.updateUI();
+			if (i != getCellRenderer().getSelectedIndex()) { //到头了就不变了
+				list.firePropertyChange(PaginationList.SELECTED_CHANGE_PROPERTY_NAME, list.getSelectedIndex(), i);
+				getCellRenderer().setSelectedIndex(i);
+				list.setSelectedIndex(i);
+				list.updateUI();
+			}
 		});
 	}
 

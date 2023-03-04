@@ -25,6 +25,8 @@
   对组件的开发提供了许多思路，让人恍然大悟，原来还可以这么写。并且每个包都是一个示例，不存在依赖关系，容易看懂。提供组件设计思路。
 - [jide-oss](https://github.com/jidesoft/jide-oss)
   JIDE的公开层，较为完善的框架，存在许多我不懂的地方，看懂项目、筛选有用代码、修复bug，还有代码优化花了我不少时间，算是把该项目由组件库升级为了一个小框架。
+- [Swing-Components](http://www.java2s.com/Code/Java/Swing-Components/CatalogSwing-Components.htm)
+  提供了许多组件的实现思路，在解决很多组件功能扩展的问题上提供了很大的帮助，Stack Overflow也经常引用上面的例子
 
 ## 开发指南
 **代码中使用ElementUI**

@@ -31,8 +31,6 @@ public class FontUtil {
 	 * 有抗锯齿和分数度量 FontRenderContext 对象，应用于自定义组件中文本绘制的定位
 	 */
 	public static final FontRenderContext FRC = new FontRenderContext(new AffineTransform(), true, true);
-	public static final Font SMALL_FONT = new Font(Font.SERIF, Font.PLAIN, AUXILIARY_WORDS);
-	public static final Font DEFAULT_FONT = new Font(Font.SERIF, Font.PLAIN, NORMAL);
 
 	/**
 	 * 替换全局字体名，但保留组件默认字体的类型和大小。

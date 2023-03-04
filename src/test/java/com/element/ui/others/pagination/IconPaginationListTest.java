@@ -14,6 +14,11 @@ public class IconPaginationListTest extends AbstractDemo {
 		JPanel p = new JPanel(new MigLayout("wrap 1"));
 
 		IconPaginationList list1 = new IconPaginationList(35);
+
+		list1.getList().addListSelectionPropertyChangeListener(evt -> {
+			System.out.println("重新请求数据");
+		});
+
 		// 绘制背景
 		list1.getList().getCellRenderer().setBackgroundPainted(true);
 		p.add(list1, "gapleft 30");

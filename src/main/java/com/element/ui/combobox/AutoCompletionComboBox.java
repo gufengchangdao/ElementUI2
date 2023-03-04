@@ -5,6 +5,7 @@
  */
 package com.element.ui.combobox;
 
+import com.element.converter.ObjectConverter;
 import com.element.converter.ObjectConverterManager;
 import com.element.swing.search.ComboBoxSearchable;
 
@@ -18,7 +19,8 @@ import java.util.Vector;
  * 由于自动完成必须听取关键用户类型，因此它必须是可编辑的。如果您想将用户限制在组合框模型中可用的列表中，您可以调用
  * {@link #setStrict(boolean)}并将其设置为 true。
  * <p>
- * 注意，对于非String的下拉列表需要做特殊处理，可以解开initComponents()中的注释
+ * 注意，对于非String的下拉列表需要做特殊处理，应该先注册类型转换器
+ * {@link ObjectConverterManager#registerConverter(Class, ObjectConverter)}，并且设置渲染器
  *
  * @param <E> 数据类型
  */
@@ -49,28 +51,6 @@ public class AutoCompletionComboBox<E> extends JComboBox<E> {
 		setEditable(true);
 		setSelectedIndex(-1);
 		_autoCompletion = createAutoCompletion();
-
-		// 对于非String类型的数据的处理，如果开发者需要AutoCompletionComboBox可以自己处理非String类型可以打开下面的注释
-		// if (!(getModel().getSelectedItem() instanceof String)) {
-		// 	// 初始化默认转换器，如果已经初始化了方法里不会再初始化的
-		// 	ObjectConverterManager.initDefaultConverter();
-		//
-		// 	// 设置render，修改显示的字符串
-		// 	ListCellRenderer<? super E> oldRender = getRenderer();
-		// 	setRenderer((list, value, index, isSelected, cellHasFocus) -> {
-		// 		Component c = oldRender.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
-		// 		if (c instanceof JLabel)
-		// 			((JLabel) c).setText(ObjectConverterManager.toString(value));
-		// 		return c;
-		// 	});
-		//
-		// 	// 设置Item监听器，监听Item的选择
-		// 	// 我不知道JComboBox是在调用什么方法更新输入框的值的，只能在这里设置监听器，当值更新时重新设置输入框的值了
-		// 	addItemListener(e -> {
-		// 		if (getEditor().getEditorComponent() instanceof JTextField f)
-		// 			EventQueue.invokeLater(() -> f.setText(ObjectConverterManager.toString(e.getItem())));
-		// 	});
-		// }
 	}
 
 	/**

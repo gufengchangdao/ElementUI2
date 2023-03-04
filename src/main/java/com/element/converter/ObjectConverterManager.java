@@ -42,7 +42,7 @@ public class ObjectConverterManager {
 	 * @param converter the converter to be registered
 	 * @param context   the converter context.
 	 */
-	public static void registerConverter(Class<?> clazz, ObjectConverter converter, ConverterContext context) {
+	public static <T> void registerConverter(Class<T> clazz, ObjectConverter<T> converter, ConverterContext context) {
 		if (clazz == null) {
 			throw new IllegalArgumentException("Parameter class cannot be null");
 		}
@@ -66,7 +66,7 @@ public class ObjectConverterManager {
 	 *                  both subclass and superclass, the one registered with the subclass will be in effect.
 	 * @param converter the converter to be registered
 	 */
-	public static void registerConverter(Class<?> clazz, ObjectConverter converter) {
+	public static <T> void registerConverter(Class<T> clazz, ObjectConverter<T> converter) {
 		registerConverter(clazz, converter, ConverterContext.DEFAULT_CONTEXT);
 	}
 
@@ -120,7 +120,7 @@ public class ObjectConverterManager {
 	 * @param context the converter context.
 	 * @return the registered converter.
 	 */
-	public static ObjectConverter getConverter(Class<?> clazz, ConverterContext context) {
+	public static<T> ObjectConverter<T> getConverter(Class<T> clazz, ConverterContext context) {
 		if (isAutoInit() && !_inited && !_initing) {
 			initDefaultConverter();
 		}
@@ -129,7 +129,7 @@ public class ObjectConverterManager {
 			context = ConverterContext.DEFAULT_CONTEXT;
 		}
 
-		ObjectConverter converter = _cache.getRegisteredObject(clazz, context);
+		ObjectConverter<T> converter = _cache.getRegisteredObject(clazz, context);
 		if (converter != null) {
 			return converter;
 		} else {
@@ -344,6 +344,7 @@ public class ObjectConverterManager {
 	 *     <li> registerConverter(String[].class, new StringArrayConverter());
 	 * </ul>
 	 */
+	@SuppressWarnings("unchecked")
 	public static void initDefaultConverter() {
 		if (_inited) {
 			return;

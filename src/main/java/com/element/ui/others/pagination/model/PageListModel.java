@@ -137,12 +137,12 @@ public class PageListModel extends DefaultListModel<Integer> {
 			addRangeElement(Math.min(getElementAt(selectedIndex), totalPage - leftMid));
 			if (flag) selectedIndex--;
 		}
-
 		return selectedIndex;
 	}
 
 	/** 是否在初始位置 */
 	public boolean isBegin() {
+		if (total <= 1) return true;
 		return getElementAt(1) == 2;
 	}
 

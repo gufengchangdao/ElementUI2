@@ -13,16 +13,14 @@ import java.io.File;
 /**
  * Converter which converts File to String and converts it back.
  */
-public class FileConverter extends ObjectConverter {
-	public String toString(Object object, ConverterContext context) {
-		if (!(object instanceof File)) {
-			return null;
-		} else {
-			return ((File) object).getAbsolutePath();
-		}
+public class FileConverter extends ObjectConverter<File> {
+	@Override
+	public String toString(File object, ConverterContext context) {
+		return object.getAbsolutePath();
 	}
 
-	public Object fromString(String string, ConverterContext context) {
+	@Override
+	public File fromString(String string, ConverterContext context) {
 		if (string == null || string.trim().length() == 0) {
 			return null;
 		}

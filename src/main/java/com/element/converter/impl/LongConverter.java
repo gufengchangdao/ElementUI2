@@ -23,7 +23,8 @@ public class LongConverter extends NumberConverter {
 		super(format);
 	}
 
-	public Object fromString(String string, ConverterContext context) {
+	@Override
+	public Number fromString(String string, ConverterContext context) {
 		Number number = parseNumber(string);
 		return number != null ? number.longValue() : null;
 	}

@@ -10,6 +10,7 @@ import java.util.Optional;
  */
 public class SliderInTableCellTest extends JPanel {
 	private SliderInTableCellTest() {
+
 		super(new BorderLayout());
 		String[] columnNames = {"Integer", "Integer", "Boolean"};
 		Object[][] data = {

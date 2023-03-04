@@ -16,13 +16,10 @@ import java.util.ResourceBundle;
 /**
  * Converter which converts Font to String and converts it back.
  */
-public class FontConverter extends ObjectConverter {
-	public String toString(Object object, ConverterContext context) {
-		if (object instanceof Font font) {
-			return font.getName() + ", " + getResourceString(font.getStyle()) + ", " + font.getSize();
-		} else {
-			return null;
-		}
+public class FontConverter extends ObjectConverter<Font> {
+	@Override
+	public String toString(Font font, ConverterContext context) {
+		return font.getName() + ", " + getResourceString(font.getStyle()) + ", " + font.getSize();
 	}
 
 	protected String getResourceString(int style) {
@@ -49,7 +46,8 @@ public class FontConverter extends ObjectConverter {
 		}
 	}
 
-	public Object fromString(String string, ConverterContext context) {
+	@Override
+	public Font fromString(String string, ConverterContext context) {
 		if (string == null || string.length() == 0) {
 			return null;
 		} else {

@@ -17,6 +17,11 @@ public class PaginationListTest extends AbstractDemo {
 		PaginationList list = new PaginationList(10);
 		// 绘制背景
 		list.getCellRenderer().setBackgroundPainted(true);
+		list.addListSelectionListener(e -> {
+			if (!e.getValueIsAdjusting()){
+				System.out.println(list.getSelectedIndex());
+			}
+		});
 
 		JButton button1 = new JButton("增加5个");
 		button1.addActionListener(e -> {
